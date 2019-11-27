@@ -1,0 +1,17 @@
+﻿using System;
+
+using Yuebon.Infrastructure.Repositories;
+using {IRepositoriesNamespace};
+using {ModelsNamespace};
+
+namespace {RepositoriesNamespace}
+{
+    public class {ModelTypeName}Repository : BaseRepository<{ModelTypeName}>, I{ModelTypeName}Repository
+    {
+		public {ModelTypeName}Repository()
+        {
+            this.tableName = "Sys_{ModelTypeName}";
+            this.primaryKey = "Id";
+        }
+    }
+}

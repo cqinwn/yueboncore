@@ -1,0 +1,37 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Yuebon.Commons.Models;
+using Yuebon.Commons.Mapping;
+using Yuebon.Security.Models;
+
+namespace Yuebon.Security.Dtos
+{
+    /// <summary>
+    ///  输入DTO：APP信息
+    /// </summary>
+    public class OperateTrajectorySumTypeOutputDto : IOutputDto
+    {
+
+        #region Property Members
+        /// <summary>
+        /// 统计数目
+        /// </summary>
+        public int TypeNums 
+        {
+            set;
+            get;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string ContentType
+        {
+            set;
+            get;
+        }
+
+        #endregion
+
+    }
+}

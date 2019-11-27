@@ -1,0 +1,13 @@
+D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.Security.Core\bin\Release\netcoreapp3.0\Yuebon.Security.Core.deps.json
+D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.Security.Core\bin\Release\netcoreapp3.0\Yuebon.Security.Core.dll
+D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.Security.Core\bin\Release\netcoreapp3.0\Yuebon.Security.Core.pdb
+D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.Security.Core\bin\Release\netcoreapp3.0\Yuebon.Commons.dll
+D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.Security.Core\bin\Release\netcoreapp3.0\Yuebon.Commons.pdb
+D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.Security.Core\obj\Release\netcoreapp3.0\Yuebon.Security.Core.csprojAssemblyReference.cache
+D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.Security.Core\obj\Release\netcoreapp3.0\Yuebon.Security.Core.AssemblyInfoInputs.cache
+D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.Security.Core\obj\Release\netcoreapp3.0\Yuebon.Security.Core.AssemblyInfo.cs
+D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.Security.Core\obj\Release\netcoreapp3.0\Yuebon.Security.Core.csproj.CopyComplete
+D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.Security.Core\obj\Release\netcoreapp3.0\Yuebon.Security.Core.dll
+D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.Security.Core\obj\Release\netcoreapp3.0\Yuebon.Security.Core.pdb
+D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.Security.Core\bin\Release\netcoreapp3.0\Yuebon.Security.Core.xml
+D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.Security.Core\bin\Release\netcoreapp3.0\Yuebon.Commons.xml

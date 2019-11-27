@@ -1,0 +1,786 @@
+﻿
+@{
+    ViewData["Title"] = "系统管理-系统设置";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.CurrentMenuP = "Security";
+    ViewBag.CurrentMenu = "SysSetting/Index";
+}
+@using Yuebon.WebApp.Commons;
+@model Yuebon.Security.Models.SysSetting;
+<div class="edit-page-wrapper">
+    <div class="row">
+        <div class="col-12">
+            <form class="form-horizontal" id="frmSubmit" method="post" enctype="multipart/form-data">
+                <div class="card">
+                    <div class="card-header d-flex p-0">
+                        <ul class="nav nav-pills p-2">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#basicInfo" data-toggle="tab">基本信息</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#functionInfo" data-toggle="tab">功能权限</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#smsInfo" data-toggle="tab">短信平台</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#sendEmailInfo" data-toggle="tab">邮件发送设置</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#fileServerInfo" data-toggle="tab">文件服务器</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#fileUploadInfo" data-toggle="tab">文件上传设置</a>
+                            </li>
+                        </ul>
+                    </div><!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="tab-content p-0">
+                            <!-- Morris chart - Sales -->
+                            <div class="chart tab-pane active" id="basicInfo" style="position: relative;">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="SoftName" class="col-form-label col-md-2">系统名称:</label>
+                                        <input type="text" class="form-control col-md-5" name="SoftName" id="SoftName" value="@Model.SoftName" placeholder="请输入系统名称">
+                                        &nbsp;&nbsp;<span class="help-block">*系统名称最多50个字符</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="SoftName" class="col-form-label col-md-2">系统简介:</label>
+                                        <input type="text" class="form-control col-md-5" name="SoftSummary" id="SoftSummary" value="@Model.SoftSummary" placeholder="请输入系统简介">
+                                        &nbsp;&nbsp;<span class="help-block">*系统简介最多100个字符</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="WebUrl" class="col-form-label col-md-2">访问域名:</label>
+                                        <input type="text" class="form-control col-md-5" name="WebUrl" id="WebUrl" value="@Model.WebUrl" placeholder="请输入访问域名，不含http://">
+                                        &nbsp;&nbsp;<span class="help-block">*域名授权请联系<a href="http://www.yuebon.com" target="_blank">越邦客服</a></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="SysLogo" class="col-form-label col-2">Logo:</label>
+                                        <div class="input-group col-5">
+                                            <input type="text" class="form-control upload-path" name="SysLogo" id="SysLogo" value="@Model.SysLogo">
+                                            <button type="button" id="j_upload_img_btn">选择图片</button>
+                                            <ul id="upload_img_wrap"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="ImgUrlPic" class="col-form-label col-2"></label>
+                                        <div class="input-group col-5">
+                                            <img src="@Model.SysLogo" alt="" id="ImgUrlPic" class="img-rounded" width="100" height="100" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="CompanyName" class="col-form-label col-2">公司名称:</label>
+                                        <input type="text" class="form-control col-5" name="CompanyName" id="CompanyName" value="@Model.CompanyName" placeholder="请输入公司名称">
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Address" class="col-form-label col-md-2">通讯地址:</label>
+                                        <input type="text" class="form-control col-md-5" name="Address" id="Address" value="@Model.Address" placeholder="请输入公司地址">
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Telphone" class="col-form-label col-2">电话:</label>
+                                        <input type="text" class="form-control col-5" name="Telphone" id="Telphone" value="@Model.Telphone" placeholder="请输入公司电话">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Email" class="col-form-label col-2">Email:</label>
+                                        <input type="text" class="form-control col-5" name="Email" id="Email" value="@Model.Email" placeholder="请输入Email">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="ICPCode" class="col-form-label col-2">ICP备案号:</label>
+                                        <input type="text" class="form-control col-5" name="ICPCode" id="ICPCode" value="@Model.ICPCode" placeholder="请输入ICP备案号">
+                                        &nbsp;&nbsp;<span class="help-block">请到工业和信息化部<a href="http://beian.miit.gov.cn" target="_blank">http://beian.miit.gov.cn</a>网站查询</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="PublicSecurityCode" class="col-form-label col-2">公安备案号:</label>
+                                        <input type="text" class="form-control col-5" name="PublicSecurityCode" id="PublicSecurityCode" value="@Model.PublicSecurityCode" placeholder="请输入公安备案号">
+                                        &nbsp;&nbsp;<span class="help-block">请到全国互联网安全管理服务平台<a href="http://www.beian.gov.cn" target="_blank">http://www.beian.gov.cn</a>网站备案查询</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="WebUrl" class="col-form-label col-md-2">分享标题:</label>
+                                        <input type="text" class="form-control col-md-5" name="ShareTitle" id="ShareTitle" value="@Model.ShareTitle" placeholder="请输入访问域名，不含http://">
+                                        &nbsp;&nbsp;<span class="help-block">*默认的分享标题，最长40个字。</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="ShareWeChatImage" class="col-form-label col-2">微信公众号分享图片:</label>
+                                        <div class="input-group col-5">
+                                            <input type="text" class="form-control upload-path" name="ShareWeChatImage" id="ShareWeChatImage" value="@Model.ShareWeChatImage">
+                                            <button type="button" id="j_upload_ShareWeChatImage_btn">选择图片</button>
+                                            <ul id="upload_ShareWeChatImage_wrap"></ul>
+                                        </div>&nbsp;&nbsp;<span class="help-block"> 二维码格式430px*430px，建议使用智能获取二维码。</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="shareWeChatImagePic" class="col-form-label col-2"></label>
+                                        <div class="input-group col-5">
+                                            <img src="@Model.ShareWeChatImage" alt="" id="shareWeChatImagePic" class="img-rounded" width="100" height="100" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="ShareWxAppletImage" class="col-form-label col-2">微信小程序分享图片:</label>
+                                        <div class="input-group col-5">
+                                            <input type="text" class="form-control upload-path" name="ShareWxAppletImage" id="ShareWxAppletImage" value="@Model.ShareWxAppletImage">
+                                            <button type="button" id="j_upload_ShareWxAppletImage_btn">选择图片</button>
+                                            <ul id="upload_ShareWxAppletImage_wrap"></ul>
+                                        </div>&nbsp;&nbsp;<span class="help-block"> 建议尺寸200px*200px。</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="shareWxAppletImagePic" class="col-form-label col-2"></label>
+                                        <div class="input-group col-5">
+                                            <img src="@Model.ShareWxAppletImage" alt="" id="shareWxAppletImagePic" class="img-rounded" width="100" height="100" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="ShareBackgroundImage" class="col-form-label col-2">微信推广者背景图片:</label>
+                                        <div class="input-group col-5">
+                                            <input type="text" class="form-control upload-path" name="ShareBackgroundImage" id="ShareBackgroundImage" value="@Model.ShareBackgroundImage">
+                                            <button type="button" id="j_upload_ShareBackgroundImage_btn">选择图片</button>
+                                            <ul id="upload_ShareBackgroundImage_wrap"></ul>
+                                        </div>&nbsp;&nbsp;<span class="help-block"> 尺寸720px*1280px。【PNG】【透明底】图片，否则将严重影响海报效果</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="shareBackgroundImagePic" class="col-form-label col-2"></label>
+                                        <div class="input-group col-5">
+                                            <img src="@Model.ShareBackgroundImage" alt="" id="shareBackgroundImagePic" class="img-rounded" width="100" height="100" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="chart tab-pane" id="functionInfo" style="position: relative; ">
+                            <div class="form-group">
+                                 <div class="row">
+                                     <label for="Staticstatus" class="col-form-label col-md-2">URL重写开关:</label>
+                                     <select class="form-control select2 col-md-2" style="width: 50%;" name="Staticstatus" id="Staticstatus">
+                                         <option value="0" @(Model.Staticstatus=="0"?"selected":"")>关闭</option>
+                                         <option value="1" @(Model.Staticstatus=="1"?"selected":"")>伪URL重写</option>
+                                         <option value="2" @(Model.Staticstatus=="2"?"selected":"")>生成静态</option>
+                                     </select>
+                                     &nbsp;&nbsp;<span class="help-block">*URL配置规则，点击这里查看说明</span>
+                                 </div>
+                             </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Staticextension" class="col-form-label col-2">静态URL后缀:</label>
+                                        <input type="text" class="form-control col-2" name="Staticextension" id="Staticextension" value="@Model.Staticextension">
+                                        &nbsp;&nbsp;<span class="help-block">*扩展名，不包括“.”，访问或生成时将会替换此值，如：aspx、html</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Memberstatus" class="col-form-label col-md-2">开启会员功能:</label>
+                                        <select class="form-control select2 col-md-1" style="width: 50%;" name="Memberstatus" id="Memberstatus">
+                                            <option value="0" @(Model.Memberstatus=="0"?"selected":"")>是</option>
+                                            <option value="1" @(Model.Memberstatus=="1"?"selected":"")>否</option>
+                                        </select>
+                                        &nbsp;&nbsp;<span class="help-block">*关闭后关联会员的内容将失效</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Webstatus" class="col-form-label col-md-2">是否开启网站:</label>
+                                        <select class="form-control select2 col-md-1" style="width: 50%;" name="Webstatus" id="Webstatus">
+                                            <option value="0"  @(Model.Webstatus=="0"?"selected":"")>是</option>
+                                            <option value="1" @(Model.Webstatus=="1"?"selected":"")>否</option>
+                                        </select>
+                                        &nbsp;&nbsp;<span class="help-block">*关闭后网站前台将不能访问</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Webclosereason" class="col-form-label col-md-2">网站关闭原因 :</label>
+                                        <textarea id="Webclosereason" name="Webclosereason" value="@Model.Webclosereason"></textarea>
+                                        &nbsp;&nbsp;<span class="help-block">*支持HTML</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Webcountcode" class="col-form-label col-md-2">网站统计代码 :</label>
+                                        <textarea id="Webcountcode" name="Webcountcode" value="@Model.Webcountcode"></textarea>
+                                        &nbsp;&nbsp;<span class="help-block">*支持HTML</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="chart tab-pane" id="smsInfo" style="position: relative; ">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Smsapiurl" class="col-form-label col-2">短信API地址 :</label>
+                                        <input type="text" class="form-control col-5" name="Smsapiurl" id="Smsapiurl" value="@Model.Smsapiurl" placeholder="*以“http://”开头">
+                                        &nbsp;&nbsp;<span class="help-block">*以“http://”开头</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Smsusername" class="col-form-label col-2">平台登录账户 :</label>
+                                        <input type="text" class="form-control col-3" name="Smsusername" id="Smsusername" value="@Model.Smsusername" placeholder="*短信账户注册的用户名">
+                                        &nbsp;&nbsp;<span class="help-block">*短信账户注册的用户名</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Smspassword" class="col-form-label col-2">平台通讯密钥 :</label>
+                                        <input type="password" class="form-control col-3" name="Smspassword" id="Smspassword" value="@Model.Smspassword" placeholder="*开通短信账户设置的通讯密钥">
+                                        &nbsp;&nbsp;<span class="help-block">*开通短信账户设置的通讯密钥</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-form-label col-md-2">短信平台说明 :</label>
+                                        <label class="col-form-label col-md-10" style="text-align:left;">
+                                            <span>请不要使用系统默认账户test，因为它是公用的测试账号；</span><br/>
+                                            <span>请在短信平台修改账户资料中绑定签名方可使用短信功能；</span><br />
+                                            <span>如果您尚未申请开通，<a href="https://cloud.tencent.com/product/sms" target="_blank">请点击这里注册</a>成功后填写您的用户名和通讯密钥均可正常使用。</span>
+                                        </label>                                    
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="chart tab-pane" id="sendEmailInfo" style="position: relative; ">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Emailsmtp" class="col-form-label col-2">SMTP服务器 :</label>
+                                        <input type="text" class="form-control col-5" name="Emailsmtp" id="Emailsmtp" value="@Model.Emailsmtp" placeholder="*发送邮件的SMTP服务器地址">
+                                        &nbsp;&nbsp;<span class="help-block">*发送邮件的SMTP服务器地址</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Emailssl" class="col-form-label col-md-2">SSL加密连接:</label>
+                                        <select class="form-control select2 col-md-1" style="width: 50%;" name="Emailssl" id="Emailssl">
+                                            <option value="0" @(Model.Emailssl=="0"?"selected":"")>是</option>
+                                            <option value="1" @(Model.Emailssl=="1"?"selected":"")>否</option>
+                                        </select>
+                                        &nbsp;&nbsp;<span class="help-block">*是否启用SSL加密连接</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Emailport" class="col-form-label col-2">SMTP端口 :</label>
+                                        <input type="text" class="form-control col-1" name="Emailport" id="Emailport" value="@Model.Emailport" placeholder="">
+                                        &nbsp;&nbsp;<span class="help-block">*SMTP服务器的端口，大部分服务商都支持25端口</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Emailfrom" class="col-form-label col-2">发件人地址 :</label>
+                                        <input type="text" class="form-control col-5" name="Emailfrom" id="Emailfrom" value="@Model.Emailfrom" placeholder="*发件人的邮箱地址">
+                                        &nbsp;&nbsp;<span class="help-block">*发件人的邮箱地址</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Emailusername" class="col-form-label col-2">邮箱账号 :</label>
+                                        <input type="text" class="form-control col-5" name="Emailusername" id="Emailusername" value="@Model.Emailusername" placeholder="">
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Emailpassword" class="col-form-label col-2">邮箱密码 :</label>
+                                        <input type="password" class="form-control col-5" name="Emailpassword" id="Emailpassword" value="@Model.Emailpassword" placeholder="">
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Emailnickname" class="col-form-label col-2">发件人昵称 :</label>
+                                        <input type="text" class="form-control col-5" name="Emailnickname" id="Emailnickname" value="@Model.Emailnickname" placeholder="*对方收到邮件时显示的昵称">
+                                        &nbsp;&nbsp;<span class="help-block">*对方收到邮件时显示的昵称</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="chart tab-pane" id="fileServerInfo" style="position: relative; ">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Fileserver" class="col-form-label col-md-2">文件服务器:</label>
+                                        <select class="form-control select2 col-md-2" style="width: 50%;" name="Fileserver" id="Fileserver">
+                                            <option value="localhost"  @(Model.Fileserver=="localhost"?"selected":"")>本地存储</option>
+                                            <option value="Aliyun" @(Model.Fileserver=="Aliyun"?"selected":"")>阿里云OSS</option>
+                                            <option value="Tengxun" @(Model.Fileserver=="Tengxun"?"selected":"")>腾讯云OSS</option>
+                                        </select>
+                                        &nbsp;&nbsp;<span class="help-block">*非本地存储请申请开通云存储完善设置</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Osssecretid" class="col-form-label col-2">阿里云KeyId :</label>
+                                        <input type="text" class="form-control col-5" name="Osssecretid" id="Osssecretid" value="@Model.Osssecretid" placeholder="*阿里云OSS对象存储的Access KeyId">
+                                        &nbsp;&nbsp;<span class="help-block">*阿里云OSS对象存储的Access KeyId</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Osssecretkey" class="col-form-label col-2">阿里云SecretKey :</label>
+                                        <input type="text" class="form-control col-5" name="Osssecretkey" id="Osssecretkey" value="@Model.Osssecretkey" placeholder="*阿里云OSS对象存储的Access KeySecret">
+                                        &nbsp;&nbsp;<span class="help-block">*阿里云OSS对象存储的Access KeySecret</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Ossbucket" class="col-form-label col-2">阿里云Bucket  :</label>
+                                        <input type="text" class="form-control col-5" name="Ossbucket" id="Ossbucket" value="@Model.Ossbucket" placeholder="*阿里云OSS对象存储的存储空间名称">
+                                        &nbsp;&nbsp;<span class="help-block">*阿里云OSS对象存储的存储空间名称</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Ossendpoint" class="col-form-label col-2">阿里云EndPoint :</label>
+                                        <input type="text" class="form-control col-5" name="Ossendpoint" id="Ossendpoint" value="@Model.Ossendpoint" placeholder="*阿里云OSS对象存储的区域外网(不含http://)">
+                                        &nbsp;&nbsp;<span class="help-block">*阿里云OSS对象存储的区域外网(不含http://)</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Ossdomain" class="col-form-label col-2">阿里云绑定域名 :</label>
+                                        <input type="text" class="form-control col-5" name="Ossdomain" id="Ossdomain" value="@Model.Ossdomain" placeholder="*阿里云OSS对象存储的自定义访问域名(不含http://)">
+                                        &nbsp;&nbsp;<span class="help-block">*阿里云OSS对象存储的自定义访问域名(不含http://)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="chart tab-pane" id="fileUploadInfo" style="position: relative; ">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Filepath" class="col-form-label col-2">文件上传目录 :</label>
+                                        <input type="text" class="form-control col-4" name="Filepath" id="Filepath" value="@Model.Filepath" placeholder="*文件保存的目录名，自动创建根目录下">
+                                        &nbsp;&nbsp;<span class="help-block">*文件保存的目录名，自动创建根目录下</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Filesave" class="col-form-label col-md-2">文件保存方式:</label>
+                                        <select class="form-control select2 col-md-3" style="width: 50%;" name="Filesave" id="Filesave">
+                                            <option value="1"  @(Model.Filesave=="1"?"selected":"")>按年月日每天一个目录</option>
+                                            <option value="2" @(Model.Filesave=="2"?"selected":"")>按年月日存入不同的目录</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Fileremote" class="col-form-label col-md-2">编辑器图片:</label>
+                                        <select class="form-control select2 col-md-2" style="width: 50%;" name="Fileremote" id="Fileremote">
+                                            <option value="0" @(Model.Fileremote=="0"?"selected":"")>关闭下载</option>
+                                            <option value="1" @(Model.Fileremote=="1"?"selected":"")>自动下载</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Fileextension" class="col-form-label col-2">文件上传类型 :</label>
+                                        <input type="text" class="form-control col-5" name="Fileextension" id="Fileextension" value="@Model.Fileextension" placeholder="*以英文的逗号分隔开，如：“zip,rar”">
+                                        &nbsp;&nbsp;<span class="help-block">*以英文的逗号分隔开，如：“zip,rar”</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Videoextension" class="col-form-label col-2">视频上传类型 :</label>
+                                        <input type="text" class="form-control col-5" name="Videoextension" id="Videoextension" value="@Model.Videoextension" placeholder="*以英文的逗号分隔开，如：“mp4,flv”">
+                                        &nbsp;&nbsp;<span class="help-block">*以英文的逗号分隔开，如：“mp4,flv”</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Attachsize" class="col-form-label col-2">附件上传大小 :</label>
+                                        <input type="text" class="form-control col-1" name="Attachsize" id="Attachsize" value="@Model.Attachsize" placeholder="">
+                                        &nbsp;<span class="help-block">KB</span>
+                                        &nbsp;&nbsp;&nbsp;<span class="help-block">*超过设定的文件大小不予上传，0不限制</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Videosize" class="col-form-label col-2">视频上传大小 :</label>
+                                        <input type="text" class="form-control col-1" name="Videosize" id="Videosize" value="@Model.Videosize" placeholder="">
+                                        &nbsp;<span class="help-block">KB</span>
+                                        &nbsp;&nbsp;&nbsp;<span class="help-block">*超过设定的文件大小不予上传，0不限制</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Imgsize" class="col-form-label col-2">图片上传大小 :</label>
+                                        <input type="text" class="form-control col-1" name="Imgsize" id="Imgsize" value="@Model.Imgsize" placeholder="">
+                                        &nbsp;<span class="help-block">KB</span>
+                                        &nbsp;&nbsp;&nbsp;<span class="help-block">*超过设定的文件大小不予上传，0不限制</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-form-label col-2">图片最大尺寸 :</label>
+                                        <input type="text" class="form-control col-1" name="Imgmaxheight" id="Imgmaxheight" value="@Model.Imgmaxheight" placeholder="">
+                                        &nbsp;&nbsp;&times;&nbsp;&nbsp;
+                                        <input type="text" class="form-control col-1" name="Imgmaxwidth" id="Imgmaxwidth" value="@Model.Imgmaxwidth" placeholder="">
+                                        &nbsp;<span class="help-block">PX</span>
+                                        &nbsp;&nbsp;&nbsp;<span class="help-block">*左边高度，右边宽度，超出自动裁剪，0为不受限制</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-form-label col-2">缩略图生成尺寸 :</label>
+                                        <input type="text" class="form-control col-1" name="Thumbnailheight" id="Thumbnailheight" value="@Model.Thumbnailheight" placeholder="">
+                                        &nbsp;&nbsp;&times;&nbsp;&nbsp;
+                                        <input type="text" class="form-control col-1" name="Thumbnailwidth" id="Thumbnailwidth" value="@Model.Thumbnailwidth" placeholder="">
+                                        &nbsp;<span class="help-block">PX</span>
+                                        &nbsp;&nbsp;&nbsp;<span class="help-block">*左边高度，右边宽度，0为不生成缩略图</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Thumbnailmode" class="col-form-label col-md-2">缩略图生成方式:</label>
+                                        <select class="form-control select2 col-md-1" style="width: 50%;" name="Thumbnailmode" id="Thumbnailmode">
+                                            <option value="Cut" @(Model.Thumbnailmode=="Cut"?"selected":"")>裁剪</option>
+                                            <option value="Pad" @(Model.Thumbnailmode=="Pad"?"selected":"")>补白</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Watermarktype" class="col-form-label col-md-2">图片水印类型:</label>
+                                        <select class="form-control select2 col-md-2" style="width: 50%;" name="Watermarktype" id="Watermarktype">
+                                            <option value="0" @(Model.Watermarktype=="0"?"selected":"")>关闭水印</option>
+                                            <option value="1" @(Model.Watermarktype=="1"?"selected":"")>文字水印</option>
+                                            <option value="2" @(Model.Watermarktype=="2"?"selected":"")>图片水印</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Watermarkposition" class="col-form-label col-md-2">图片水印位置:</label>
+                                        <select class="form-control select2 col-md-1" style="width: 50%;" name="Watermarkposition" id="Watermarkposition">
+                                            <option value="0" @(Model.Watermarkposition=="0"?"selected":"")>左上</option>
+                                            <option value="1" @(Model.Watermarkposition=="1"?"selected":"")>中上</option>
+                                            <option value="2" @(Model.Watermarkposition=="2"?"selected":"")>右上</option>
+                                            <option value="3" @(Model.Watermarkposition=="3"?"selected":"")>左中</option>
+                                            <option value="4" @(Model.Watermarkposition=="4"?"selected":"")>居中</option>
+                                            <option value="5" @(Model.Watermarkposition=="5"?"selected":"")>右中</option>
+                                            <option value="6" @(Model.Watermarkposition=="6"?"selected":"")>左下</option>
+                                            <option value="7" @(Model.Watermarkposition=="7"?"selected":"")>中下</option>
+                                            <option value="8" @(Model.Watermarkposition=="8"?"selected":"")>右下</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Watermarkimgquality" class="col-form-label col-2">图片生成质量 :</label>
+                                        <input type="text" class="form-control col-1" name="Watermarkimgquality" id="Watermarkimgquality" value="@Model.Watermarkimgquality" placeholder="">
+                                        &nbsp;&nbsp;<span class="help-block">*只适用于加水印的jpeg格式图片.取值范围 0-100, 0质量最低, 100质量最高, 默认80</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Watermarkpic" class="col-form-label col-2">图片水印文件 :</label>
+                                        <input type="text" class="form-control col-2" name="Watermarkpic" id="Watermarkpic" value="@Model.Watermarkpic" placeholder="">
+                                        &nbsp;&nbsp;<span class="help-block">*需存放在站点目录下，如图片不存在将使用文字水印</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Watermarktransparency" class="col-form-label col-2">水印透明度 :</label>
+                                        <input type="text" class="form-control col-1" name="Watermarktransparency" id="Watermarktransparency" value="@Model.Watermarktransparency" placeholder="">
+                                        &nbsp;&nbsp;<span class="help-block">*取值范围1--10 (10为不透明)</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Watermarktext" class="col-form-label col-2">水印文字 :</label>
+                                        <input type="text" class="form-control col-2" name="Watermarktext" id="Watermarktext" value="@Model.Watermarktext" placeholder="">
+                                        &nbsp;&nbsp;<span class="help-block">*文字水印的内容</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-form-label col-md-2">文字字体 :</label>
+                                        @*<input type="text" class="form-control col-1" name="Watermarkfont" id="Watermarkfont" value="@Model.Watermarkfont" placeholder="">*@
+                                        <select class="form-control select2" style="width: 120px;" name="Watermarkfont" id="Watermarkfont">
+                                            <option value="">字体格式</option>
+                                        </select>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="text" class="form-control col-1" name="Watermarkfontsize" id="Watermarkfontsize" value="@Model.Watermarkfontsize" placeholder="">
+                                        &nbsp;<span class="help-block">PX</span>
+                                        &nbsp;&nbsp;&nbsp;<span class="help-block">*文字水印的字体和大小</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary btnSave" id="btnSaveOK"><i class="fa fa-save"></i>保存</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<textarea id="uploadEditor" style="display: none;"></textarea>
+<script type="text/javascript" charset="utf-8" src="~/lib/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="~/lib/ueditor/ueditor.all.js"></script>
+<script type="text/javascript" charset="utf-8" src="~/lib/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+<style type="text/css">
+    #Webclosereason {
+        width:400px;
+        height:100px;
+    }
+    #Webcountcode {
+        width:400px;
+        height:100px;
+    }
+    label {
+        text-align:right;
+    }
+</style>
+
+<script type="text/javascript">
+    var optUploadCurr = 0;
+    // 实例化编辑器，这里注意配置项隐藏编辑器并禁用默认的基础功能。
+    var uploadEditor = UE.getEditor("uploadEditor", {
+        isShow: false,
+        focus: false,
+        enableAutoSave: false,
+        autoSyncData: false,
+        autoFloatEnabled: false,
+        wordCount: false,
+        sourceEditor: null,
+        scaleEnabled: true,
+        toolbars: [["insertimage", "attachment"]]
+    });
+
+    // 监听多图上传和上传附件组件的插入动作
+    uploadEditor.ready(function () {
+        uploadEditor.addListener("beforeInsertImage", _beforeInsertImage);
+    });
+    // 自定义按钮绑定触发多图上传和上传附件对话框事件
+    document.getElementById('j_upload_img_btn').onclick = function () {
+        var dialog = uploadEditor.getDialog("insertimage");
+        dialog.title = '多图上传';
+        dialog.render();
+        dialog.open();
+        optUploadCurr = 0;
+    };
+    // 多图上传动作
+    function _beforeInsertImage(t, result) {
+        var imageHtml = '';
+        if (optUploadCurr == 0) {
+            $("#SysLogo").val(result[0].src);
+            $("#ImgUrlPic").attr("src", result[0].src);
+        } else if (optUploadCurr == 1) {
+            $("#ShareWeChatImage").val(result[0].src);
+            $("#shareWeChatImagePic").attr("src", result[0].src);
+        }else if (optUploadCurr == 2) {
+            $("#ShareWxAppletImage").val(result[0].src);
+            $("#shareWxAppletImagePic").attr("src", result[0].src);
+        }else if (optUploadCurr == 3) {
+            $("#ShareBackgroundImage").val(result[0].src);
+            $("#shareBackgroundImagePic").attr("src", result[0].src);
+        }
+    };
+    
+    // 自定义按钮绑定触发多图上传和上传附件对话框事件
+    document.getElementById('j_upload_ShareWeChatImage_btn').onclick = function () {
+        var dialog = uploadEditor.getDialog("insertimage");
+        dialog.title = '多图上传';
+        dialog.render();
+        dialog.open();
+        optUploadCurr = 1;
+    };
+    // 自定义按钮绑定触发多图上传和上传附件对话框事件
+    document.getElementById('j_upload_ShareWxAppletImage_btn').onclick = function () {
+        var dialog = uploadEditor.getDialog("insertimage");
+        dialog.title = '多图上传';
+        dialog.render();
+        dialog.open();
+        optUploadCurr = 2;
+    };
+    // 自定义按钮绑定触发多图上传和上传附件对话框事件
+    document.getElementById('j_upload_ShareBackgroundImage_btn').onclick = function () {
+        var dialog = uploadEditor.getDialog("insertimage");
+        dialog.title = '多图上传';
+        dialog.render();
+        dialog.open();
+        optUploadCurr = 3;
+    };
+    //checkbox实现单选
+    $('inputp[type=checkbox]').click(function () {
+        $(this).attr('checked', 'checked').siblings().removeAttr('checked');
+    });
+</script>
+<!-- page script -->
+<script>
+    $(function () {
+        //iCheck for checkbox and radio inputs
+        $('input[type="checkbox"].flat-red').iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'iradio_minimal',
+        });
+        InitDictItem();
+        BindSaveEvent();
+    });
+    //初始化数据字典
+    function InitDictItem() {
+    }
+    //绑定保存按钮的事件
+    function BindSaveEvent() {
+        $("#btnSaveOK").click(function () {
+            $("#frmSubmit").validate({
+                rules: {
+                    SoftName: {
+                        required: true,
+                        minlength: 2
+                    },
+                },
+                messages: {
+                    SoftName: {
+                        required: "请输入系统名称",
+                        minlength: "系统名称至少2个字符"
+                    },
+                },
+                errorClass: 'help-block help-block-error',
+                focusInvalid: true,
+                //unhighlight: function (element, errorClass, validClass) { //验证通过
+                //    $(element).tooltip('destroy').removeClass(errorClass);
+                //},
+                highlight: function (element) {//验证未通过
+                    $(element).closest('.form-group').addClass('has-error');
+                },
+                success: function (label, element) {
+                    $(element).closest('.form-group').removeClass('has-error');
+                    //label.remove();
+                    $(element).attr("title", "").tooltip("hide");
+                    //alert(element);
+                },
+                errorPlacement: function (error, element) {
+                    //element.parent('div').append(error);
+                    if ($(element).next("div").hasClass("tooltip")) {
+                        $(element).attr("data-original-title", $(error).text()).tooltip("show");
+                    } else {
+                        $(element).attr("title", $(error).text()).tooltip("show");
+                    }
+                },
+                submitHandler: function (form) {
+                    var postData = {
+                        "SoftName": $("#SoftName").val(),
+                        "SoftSummary": $("#SoftSummary").val(),
+                        "WebUrl": $("#WebUrl").val(),
+                        "SysLogo": $("#SysLogo").val(),
+                        "CompanyName": $("#CompanyName").val(),
+                        "Address": $("#Address").val(),
+                        "Telphone": $("#Telphone").val(),
+                        "Email": $("#Email").val(),
+                        "ICPCode": $("#ICPCode").val(),
+                        "PublicSecurityCode": $("#PublicSecurityCode").val(),
+
+                        "Staticstatus": $("#Staticstatus").val(),
+                        "Staticextension": $("#Staticextension").val(),
+                        "Memberstatus": $("#Memberstatus").val(),
+                        "Webstatus": $("#Webstatus").val(),
+                        "Webclosereason": $("#Webclosereason").val(),
+                        "Webcountcode": $("#Webcountcode").val(),
+
+                        "Smsapiurl": $("#Smsapiurl").val(),
+                        "Smsusername": $("#Smsusername").val(),
+                        "Smspassword": $("#Smspassword").val(),
+
+                        "Emailsmtp": $("#Emailsmtp").val(),
+                        "Emailssl": $("#Emailssl").val(),
+                        "Emailport": $("#Emailport").val(),
+                        "Emailfrom": $("#Emailfrom").val(),
+                        "Emailusername": $("#Emailusername").val(),
+                        "Emailpassword": $("#Emailpassword").val(),
+                        "Smspassword": $("#Emailnickname").val(),
+
+                        "Fileserver": $("#Fileserver").val(),
+                        "Osssecretid": $("#Osssecretid").val(),
+                        "Osssecretkey": $("#Osssecretkey").val(),
+                        "Ossbucket": $("#Ossbucket").val(),
+                        "Ossendpoint": $("#Ossendpoint").val(),
+                        "Ossdomain": $("#Ossdomain").val(),
+
+                        "Filepath": $("#Filepath").val(),
+                        "Filesave": $("#Filesave").val(),
+                        "Fileremote": $("#Fileremote").val(),
+                        "Fileextension": $("#Fileextension").val(),
+                        "Videoextension": $("#Videoextension").val(),
+                        "Attachsize": $("#Attachsize").val(),
+                        "Videosize": $("#Videosize").val(),
+                        "Imgsize": $("#Imgsize").val(),
+                        "Imgmaxheight": $("#Imgmaxheight").val(),
+                        "Imgmaxwidth": $("#Imgmaxwidth").val(),
+                        "Thumbnailheight": $("#Thumbnailheight").val(),
+                        "Thumbnailwidth": $("#Thumbnailwidth").val(),
+                        "Thumbnailmode": $("#Thumbnailmode").val(),
+                        "Watermarktype": $("#Watermarktype").val(),
+                        "Watermarkposition": $("#Watermarkposition").val(),
+                        "Watermarkimgquality": $("#Watermarkimgquality").val(),
+                        "Watermarkpic": $("#Watermarkpic").val(),
+                        "Watermarktransparency": $("#Watermarktransparency").val(),
+                        "Watermarktext": $("#Watermarktext").val(),
+                        "Watermarkfont": $("#Watermarkfont").val(),
+                        "Watermarkfontsize": $("#Watermarkfontsize").val(),
+                        "ShareTitle": $("#ShareTitle").val(),
+                        "ShareWeChatImage": $("#ShareWeChatImage").val(),
+                        "ShareWxAppletImage": $("#ShareWxAppletImage").val(),
+                        "ShareBackgroundImage": $("#ShareBackgroundImage").val()
+                    };
+                    var reqUrl = "/Security/SysSetting/Save";
+                    $.ajax({
+                        url: reqUrl,
+                        data: postData,
+                        dataType: 'json',//服务器返回json格式数据
+                        type: 'post',//HTTP请求类型
+                        timeout: 100000,//超时时间设置为10秒；
+                        success: function (data) {
+                            //服务器返回响应，根据响应结果，分析是否登录成功；
+                            if (data.Success) {
+                                $("#frmSubmit")[0].reset();
+                                toastr.success("操作成功");
+                                setTimeout(function () {
+                                    window.location.href = "/Security/SysSetting/Index"
+                                }, 1500);
+                            } else {
+                                toastr.warning("操作失败：" + data.ErrMsg);
+                            }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            toastr.warning("操作失败：" + errorThrown);
+                        }
+                    });
+                }
+            });
+        });
+    }
+
+</script>

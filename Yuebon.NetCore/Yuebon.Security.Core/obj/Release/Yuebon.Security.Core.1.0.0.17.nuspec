@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Yuebon.Security.Core</id>
+    <version>1.0.0.17</version>
+    <authors>Yuebon</authors>
+    <owners>Yuebon</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>http://netcore.yuebon.com/</projectUrl>
+    <iconUrl>http://www.yuebon.com/upload/201804/01/201804011125140585.jpg</iconUrl>
+    <description>YuebonNetCore开发框架权限管理系统类库</description>
+    <copyright>上海越邦网络科技有限公司 版权所有</copyright>
+    <dependencies>
+      <group targetFramework=".NETCoreApp3.0">
+        <dependency id="Yuebon.Commons" version="1.0.0.12" exclude="Build,Analyzers" />
+        <dependency id="IdentityModel" version="4.0.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.Security.Core\bin\Release\netcoreapp3.0\Yuebon.Security.Core.dll" target="lib\netcoreapp3.0\Yuebon.Security.Core.dll" />
+  </files>
+</package>

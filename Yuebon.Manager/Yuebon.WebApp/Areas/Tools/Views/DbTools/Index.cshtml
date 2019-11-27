@@ -1,0 +1,149 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.CurrentMenuP = "Tools";
+    ViewBag.CurrentMenu = "DbTools";
+}
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-6">
+                <!-- general form elements -->
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">数据库连接加密或解密</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form role="form">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="DbAddress">数据库地址</label>
+                                <input type="text" class="form-control" id="DbAddress" placeholder="数据库地址">
+                            </div>
+                            <div class="form-group">
+                                <label for="DbName">数据库名称</label>
+                                <input type="text" class="form-control" id="DbName" placeholder="数据库名称">
+                            </div>
+                            <div class="form-group">
+                                <label for="DbUserName">访问用户名</label>
+                                <input type="text" class="form-control" id="DbUserName" placeholder="访问用户名">
+                            </div>
+                            <div class="form-group">
+                                <label for="DbPassword">访问密码</label>
+                                <input type="text" class="form-control" id="DbPassword" placeholder="数据库访问密码">
+                            </div>
+                            <div class="form-group">
+                                <label for="DbType">数据库类型</label>
+                                <select class="form-control select2 required" name="DbType" style="width: 100%" id="DbType">
+                                    <option value="">==请选择==</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            <button type="button" class="btn btn-primary" onclick="ConnStrEncrypt()">生成连接字符串</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.card -->
+            </div>
+            <!--/.col (left) -->
+            <!-- right column -->
+            <div class="col-md-6">
+                <!-- general form elements -->
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">加密或解密结果</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form role="form">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>数据库连接字符串</label>
+                                <textarea class="form-control" rows="3" id="ConnStr" placeholder=" Server={0};Database={1};User id={2}; password={3};MultipleActiveResultSets=True;"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>加密数据库连接字符串</label>
+                                <textarea class="form-control" rows="3" id="EncryptConnStr" placeholder=" ..."></textarea>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            <button type="button" class="btn btn-danger" onclick="ConnStrDecrypt()">解密连接字符串</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.card -->
+            </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        InitDictItem();
+    });
+    //初始化数据字典
+    function InitDictItem() {
+        BindDictItem("DbType", "数据库类型");
+    }
+    function ConnStrEncrypt() {
+        var postData = {
+            DbAddress: $("#DbAddress").val(),
+            DbName: $("#DbName").val(),
+            DbUserName: $("#DbUserName").val(),
+            DbPassword: $("#DbPassword").val(),
+            DbType: $("#DbType").val()
+        }
+
+        $.ajax({
+            url: '/Tools/DbTools/ConnStrEncrypt',
+            data: postData,
+            dataType: 'json',//服务器返回json格式数据
+            type: 'post',//HTTP请求类型
+            timeout: 10000,//超时时间设置为10秒；
+            success: function (data) {
+                if (data.Success) {
+                    $("#ConnStr").val(data.ResData.ConnStr);
+                    $("#EncryptConnStr").val(data.ResData.EncryptConnStr);
+                    $("#EncryptConnStr").focus();
+                }
+            },
+            error: function (data) {
+                //异常处理；
+                alert(data.ErrMsg);
+            }
+        });
+    }
+
+    function ConnStrDecrypt() {
+        if ($("#EncryptConnStr").val() == "") {
+            alert("加密连接字符串不能为空");
+            $("#EncryptConnStr").focus();
+            return false;
+        }
+        var postData = {
+            strConn: $("#EncryptConnStr").val()
+        }
+
+        $.ajax({
+            url: '/Tools/DbTools/ConnStrDecrypt',
+            data: postData,
+            dataType: 'json',//服务器返回json格式数据
+            type: 'post',//HTTP请求类型
+            timeout: 10000,//超时时间设置为10秒；
+            success: function (data) {
+                if (data.Success) {
+                    $("#ConnStr").val(data.ResData.ConnStr);
+                    $("#ConnStr").focus();
+                }
+            },
+            error: function (data) {
+                //异常处理；
+                alert(data.ErrMsg);
+            }
+        });
+    }
+</script>

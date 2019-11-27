@@ -1,0 +1,675 @@
+﻿@{
+    ViewData["Title"] = "角色管理-系统管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.CurrentMenuP = "Security";
+    ViewBag.CurrentMenu = "Role/List";
+}
+@using Yuebon.WebApp.Commons;
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div id="toolbar" class="btn-group">
+                    @if (@ViewBag.AuthorizeKey.CanInsert)
+                    {
+                        <button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal" onclick="ShowEditOrViewDialog()" data-whatever="新增">
+                            <i class="fas fa-plus" aria-hidden="true"></i>新增
+                        </button>
+                    }
+                    @if (@ViewBag.AuthorizeKey.CanUpdate)
+                    {
+                        <button id="btn_edit" type="button" class="btn btn-info" data-toggle="modal" onclick="ShowEditOrViewDialog('edit')" data-whatever="修改">
+                            <i class="fas fa-edit" aria-hidden="true"></i>修改
+                        </button>
+                    }
+                    @if (@ViewBag.AuthorizeKey.CanUpdateEnable)
+                    {
+                        <button type="button" class="btn btn-secondary" onclick="EnableByIds('0','/Security/Role')"><i class=" fa fa-stop-circle"></i>禁用</button>
+                        <button type="button" class="btn btn-success" onclick="EnableByIds('1','/Security/Role')"><i class=" fa fa-play-circle"></i>启用</button>
+                    }
+                    @if (@ViewBag.AuthorizeKey.CanDeleteSoft)
+                    {
+                        <button id="btn_delete" type="button" class="btn btn-warning" onclick="DeleteByIds('/Security/Role/DeleteSoftByIds')">
+                            <i class="fas fa-trash-alt" aria-hidden="true"></i>软删除
+                        </button>
+                    }
+                    @if (@ViewBag.AuthorizeKey.CanDelete)
+                    {
+                        <button id="btn_delete" type="button" class="btn btn-danger" onclick="DeleteByIds('/Security/Role/DeleteByIds')">
+                            <i class="fas fa-trash-alt" aria-hidden="true"></i>删除
+                        </button>
+                    }
+                    @if (@Html.HasFunction("Role/SetAuthorize"))
+                    {
+                        <button type="button" class="btn btn-info" onclick="SetAuthorize()"><i class="fas fa-user-tag"></i>设置权限</button>
+                    }
+                </div>
+                <table id="tbGrid"></table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+</div>
+
+<!-- 添加/编辑信息的弹出层 -->
+<div class="modal fade" id="addFormModal" tabindex="-1" role="dialog" aria-labelledby="addFormModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form class="form-horizontal" id="frmSubmit" method="post" novalidate="novalidate" enctype="multipart/form-data">
+
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title" id="addFormModalLabel">新增</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <label for="OrganizeId" class="col-form-label col-3 text-right">归属组织:</label>
+                            <div class="col-9">
+                                <select class="form-control select2" style="width:100%;" name="OrganizeId" id="OrganizeId">
+                                    <option value="">==请选择==</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <label for="FullName" class="col-form-label col-3 text-right">角色名称:</label>
+                            <input type="text" class="form-control col-9 required" name="FullName" id="FullName" placeholder="请输入角色名称">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <label for="EnCode" class="col-form-label col-3 text-right">角色编号:</label>
+                            <input type="text" class="form-control col-9" name="EnCode" id="EnCode" placeholder="请输入角色编号">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <label for="Type" class="col-form-label col-3 text-right">角色类型:</label>
+                            <div class="input-group col-9">
+                                <select class="form-control select2 " name="Type" id="Type">
+                                    <option value="">=请选择=</option>
+                                    <option value="1">系统角色</option>
+                                    <option value="2">业务角色</option>
+                                    <option value="3">其他角色</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <label for="SortCode" class="col-form-label col-3 text-right">排序:</label>
+                            <input type="text" class="form-control col-9" name="SortCode" id="SortCode" placeholder="请输入排序号">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <label for="recipient-name" class="col-form-label col-3  text-right">选项:</label>
+                            <div class="col-9">
+                                <label for="EnabledMark">
+                                    <input type="checkbox" class="flat-red" checked="checked" name="EnabledMark" id="EnabledMark">
+                                    有效
+                                </label>
+                                <label for="AllowEdit">
+                                    <input type="checkbox" class="flat-red" name="AllowEdit" id="AllowEdit">
+                                    允许编辑
+                                </label>
+                                <label for="AllowDelete">
+                                    <input type="checkbox" class="flat-red" name="AllowDelete" id="AllowDelete">
+                                    允许删除
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Description" class="col-form-label">备注:</label>
+                        <textarea class="form-control" id="Description" name="Description"></textarea>
+                    </div>
+                    <input type="hidden" id="Id" name="Id" value="" />
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btnSave" id="btnSaveOK"><i class="fa fa-save"></i>保存</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close"></i>关闭</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- 权限信息的弹出层 -->
+<div class="modal fade" id="roleAuthorizeFormModal" tabindex="-1" role="dialog" aria-labelledby="roleAuthorizeFormModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form class="form-horizontal" id="frmSubmit" method="post" novalidate="novalidate" enctype="multipart/form-data">
+
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title" id="roleAuthorizeFormModalLabel">设置权限</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body scrollbar-hover" data-spy="scroll" style="height:500px; overflow-y:scroll">
+                    <div class="card">
+                        <div class="card-header d-flex p-0">
+                            <ul class="nav nav-pills p-2">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#functionAuth" data-toggle="tab">功能权限</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#dataAuth" data-toggle="tab">数据权限</a>
+                                </li>
+                            </ul>
+                        </div><!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="tab-content p-0">
+                                <!-- Morris chart - Sales -->
+                                <div class="chart tab-pane active" id="functionAuth" style="position: relative;">
+                                    <div id="tree_function" class="treeview"></div>
+                                </div>
+                                <div class="chart tab-pane" id="dataAuth" style="position: relative; ">
+                                    <div id="tree_data" class="treeview"></div>
+                                </div>
+                            </div>
+                        </div><!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btnSave" id="btnSaveAuthorizeOK"><i class="fa fa-save"></i>保存</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close"></i>关闭</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="~/lib/bootstrap-treeview/css/bootstrap-treeview.css" />
+
+<script src="~/lib/bootstrap-treeview/js/bootstrap-treeview.js"></script>
+<!-- page script -->
+<script>
+    $(function () {
+        //iCheck for checkbox and radio inputs
+        $('input[type="checkbox"].flat-red').iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'iradio_minimal',
+        })
+        //1.初始化Table
+        var oTable = new TableInit();
+        oTable.Init();
+        InitDictItem();
+        BindSaveEvent();
+        BindSaveAuthorizeEvent();
+    });
+    var $table = $('#tbGrid');
+    var TableInit = function () {
+        var oTableInit = new Object();
+        var keywords = "";
+        //初始化Table
+        oTableInit.Init = function () {
+            $table.bootstrapTable({
+                url: '/Security/Role/FindWithPager',         //请求后台的URL（*）
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: true,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber: 1,                       //初始化加载第一页，默认第一页
+                pageSize: 25,                       //每页的记录行数（*）
+                pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+                search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                strictSearch: true,
+                showColumns: true,                  //是否显示所有的列
+                showRefresh: true,                  //是否显示刷新按钮
+                minimumCountColumns: 2,             //最少允许的列数
+                clickToSelect: true,                //是否启用点击选中行
+                //height: $(window).height(),                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                showToggle: true,                    //是否显示详细视图和列表视图的切换按钮
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                searchOnEnterKey: true,
+                searchText: keywords,
+                columns: [
+                    {
+                        checkbox: true
+                    }, {
+                        field: 'FullName',
+                        title: '角色名称',
+                        sortable: true,
+                        searchable: true,
+                    }, {
+                        field: 'EnCode',
+                        title: '角色编码',
+                        sortable: true,
+                        searchable: true,
+                    }, {
+                        field: 'Type',
+                        title: '角色类型',
+                        sortable: true,
+                        align: "center",
+                        formatter: function (value, row, index) {
+                            if (value == 1) {
+                                return "系统角色";
+                            } else if (value == 2) {
+                                return "业务角色";
+                            } else {
+                                return "其他角色";
+                            }
+                        }
+                    }, {
+                        field: 'OrganizeName',
+                        title: '归属机构',
+                        sortable: true
+                    }, {
+                        field: 'CreatorTime',
+                        title: '创建时间',
+                        sortable: true,
+                        align: "center",
+                        formatter: function (value, row, index) {
+                            return value.substring(0, 10);
+                        }
+                    },
+                    {
+                        field: 'EnabledMark',
+                        title: '状态',
+                        sortable: true,
+                        align: "center",
+                        formatter: function (value, row, index) {
+                            return value ? '<i class=\"fas fa-toggle-on\" style=\"color:#28a745\">启用</i>' : "<i class=\"fas fa-toggle-off\">禁用</i>"
+                        }
+                    }, 
+                    {
+                        field: 'DeleteMark',
+                        title: '删除',
+                        sortable: true,
+                        align: "center",
+                        formatter: function (value, row, index) {
+                            return value ? '<i class=\"fas fa-toggle-on\" style=\"color:#ff0000\">是</i>' : "<i class=\"fas fa-toggle-off\">否</i>";
+                        }
+                    }
+                ],
+                onSearch: function (text) {
+                    keywords = text;
+                    return true;
+                },
+            });
+        };
+
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                limit: params.limit,   //页面大小
+                offset: params.offset,  //页码
+                order: params.order,
+                sort: params.sort,
+                search: $("input[ name='search_text' ] ").val(), //定义传输的搜索参数
+            };
+            return temp;
+        };
+        return oTableInit;
+    };
+
+    //初始化数据字典
+    function InitDictItem() {
+        BindSelect2("OrganizeId", "/Security/Organize/FindTreeSelectJson");
+        
+    }
+    function SetAuthorize() {
+        //首先取出来用户选择的数据的ID
+        var rows = $table.bootstrapTable('getSelections');
+        //首先取出来值判断用户只能选择一个
+        if (rows.length == 0) {
+            toastr.warning("请选择一条记录");
+            return;
+        }
+        else if (rows.length > 1) {
+            toastr.warning("每次只能修改/查看一条记录，你已经选择了<font color='red'  size='6'>" + rows.length + "</font>条");
+            return;
+        }
+        $('#roleAuthorizeFormModal').modal('show');  //手动显示
+        //功能权限
+        var treeUrl = "/Security/RoleAuthorize/GetPermissionTree?roleId="+rows[0].Id;
+        $.ajax({
+            url: treeUrl,
+            data: "",
+            dataType: 'json',//服务器返回json格式数据
+            type: 'get',//HTTP请求类型
+            timeout: 100000,//超时时间设置为10秒；
+            success: function (data) {
+                $('#tree_function').treeview({
+                    data: data,
+                    levels: 5,
+                    multiSelect: false,
+                    showIcon: false,
+                    showCheckbox: true,
+                    showTags: false,
+                    onNodeChecked: function (event, node) { //选中节点 
+                        //alert(JSON.stringify(node));
+                        var selectNodes = getChildNodeIdArr(node); //获取所有子节点      
+                        if (selectNodes) { //子节点不为空，则选中所有子节点       
+                            $('#tree_function').treeview('checkNode', [selectNodes, { silent: true }]);
+                        }
+                        var parentNode = $("tree_function").treeview("getNode", node.parentId);
+                        setParentNodeCheck(node);
+                    },
+                    onNodeUnchecked: function (event, node) { //取消选中节点  
+                        // 取消父节点 子节点取消
+                        var selectNodes = setChildNodeUncheck(node); //获取未被选中的子节点 
+                        var childNodes = getChildNodeIdArr(node);    //获取所有子节点 
+                        if (selectNodes && selectNodes.length == 0) { //有子节点且未被选中的子节点数目为0，则取消选中所有子节点   
+                            console.log("反选");
+                            $('#tree_function').treeview('uncheckNode', [childNodes, { silent: true }]);
+                        }
+                        //// 取消节点 父节点取消
+                        //var parentNode = $("#tree_function").treeview("getNode", node.parentId);  //获取父节点
+                        //var selectNodes = getChildNodeIdArr(node);
+                        //setParentNodeCheck(node);
+                    }
+                });
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                toastr.warning("操作失败：" + errorThrown);
+            }
+        });
+        //数据权限
+        $.ajax({
+            url: "/Security/RoleData/GetPermissionTree?roleId=" + rows[0].Id,
+            data: "",
+            dataType: 'json',//服务器返回json格式数据
+            type: 'get',//HTTP请求类型
+            timeout: 100000,//超时时间设置为10秒；
+            success: function (data) {
+                $('#tree_data').treeview({
+                    data: data,
+                    levels: 5,
+                    multiSelect: false,
+                    showIcon: false,
+                    showCheckbox: true,
+                    showTags: false,
+                    onNodeChecked: function (event, node) { //选中节点 
+                        //alert(JSON.stringify(node));
+                        var selectNodes = getChildNodeIdArr(node); //获取所有子节点      
+                        if (selectNodes) { //子节点不为空，则选中所有子节点       
+                            $('#tree_data').treeview('checkNode', [selectNodes, { silent: true }]);
+                        }
+                        var parentNode = $("tree_data").treeview("getNode", node.parentId);
+                        setParentNodeCheck(node);
+                    },
+                    onNodeUnchecked: function (event, node) { //取消选中节点  
+                        // 取消父节点 子节点取消
+                        var selectNodes = setChildNodeUncheck(node); //获取未被选中的子节点 
+                        var childNodes = getChildNodeIdArr(node);    //获取所有子节点 
+                        if (selectNodes && selectNodes.length == 0) { //有子节点且未被选中的子节点数目为0，则取消选中所有子节点   
+                            console.log("反选");
+                            $('#tree_data').treeview('uncheckNode', [childNodes, { silent: true }]);
+                        }
+                        //// 取消节点 父节点取消
+                        //var parentNode = $("#tree_function").treeview("getNode", node.parentId);  //获取父节点
+                        //var selectNodes = getChildNodeIdArr(node);
+                        //setParentNodeCheck(node);
+                    }
+                });
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                toastr.warning("操作失败：" + errorThrown);
+            }
+        });
+    }
+    //保存设置权限事件
+    function BindSaveAuthorizeEvent() {
+        $("#btnSaveAuthorizeOK").click(function () {
+            var ID = $table.bootstrapTable('getSelections')[0].Id;  //获取到了用用户选择的ID
+            var functionValueList = $("#tree_function").treeview('getChecked');
+            var nodeids = "";
+            for (var i = 0; i < functionValueList.length; i++) {
+                nodeids += functionValueList[i].tags+",";
+            }
+            nodeids = nodeids.substring(0, nodeids.length - 1);
+            var dataValueList = $("#tree_data").treeview('getChecked');
+            var dataIds = "";
+            for (var i = 0; i < dataValueList.length; i++) {
+                dataIds += dataValueList[i].tags + ",";
+            }
+            dataIds = dataIds.substring(0, dataIds.length - 1);
+            var postData = {
+                nodeIds: nodeids,
+                dataIds:dataIds,
+                roleId: ID
+            }
+            $.ajax({
+                url: "/Security/RoleAuthorize/SaveRoleAuthorize",
+                data: postData,
+                dataType: 'json',//服务器返回json格式数据
+                type: 'post',//HTTP请求类型
+                timeout: 100000,//超时时间设置为10秒；
+                success: function (data) {
+                    //服务器返回响应，根据响应结果，分析是否登录成功；
+                    if (data.Success) {
+                        $('#roleAuthorizeFormModal').modal('hide');  //手动关闭
+                        toastr.success("权限设置成功");
+                        setTimeout(function () {
+                            $table.bootstrapTable('refresh');
+                        }, 2000);
+                    } else {
+                        toastr.warning("操作失败：" + data.ErrMsg);
+                    }
+                },
+                error: function (data) {
+                    toastr.warning("您未被授权使用该功能，请联系管理员进行处理。");
+                }
+            });
+        });
+        return false;
+    }
+    //新增、修改或查看明细信息（绑定显示数据）
+    function ShowEditOrViewDialog(view) {
+        if (view != null) {
+            //首先取出来用户选择的数据的ID
+            var rows = $table.bootstrapTable('getSelections');
+            //首先取出来值判断用户只能选择一个
+            if (rows.length == 0) {
+                toastr.warning("请选择一条记录");
+                return;
+            }
+            else if (rows.length > 1) {
+                toastr.warning("每次只能修改/查看一条记录，你已经选择了<font color='red'  size='6'>" + rows.length + "</font>条");
+                return;
+            }
+        }
+        if (view == null) {
+            //处理修改的信息
+            $('#addFormModal').modal('show');  //手动显示
+            $('#addFormModal').find('.modal-title').text("新增");
+            $("#Id").val("");
+        } else if (view == "edit") {
+            //处理修改的信息
+            $('#addFormModal').modal('show');  //手动显示
+            $('#addFormModal').find('.modal-title').text("编辑");
+            //绑定修改详细信息的方法
+            BindEditInfo();
+        }
+    }
+
+    //绑定编辑详细信息的方法
+    function BindEditInfo() {
+        //首先用户发送一个异步请求去后台实现方法
+        var ID = $table.bootstrapTable('getSelections')[0].Id;  //获取到了用用户选择的ID
+        $.getJSON("/Security/Role/GetById?r=" + Math.random() + "&id=" + ID, function (info) {
+            //赋值有几种方式：.datebox('setValue', info.Birthday);.combobox('setValue', info.Status);.val(info.Name);
+            $("#Id").val(info.ResData.Id);
+            $("#frmSubmit").formSerialize(info.ResData);
+        });
+    }
+    //绑定保存按钮的事件
+    function BindSaveEvent() {
+        $("#btnSaveOK").click(function () {
+            $("#frmSubmit").validate({
+                rules: {
+                    FullName: {
+                        required: true,
+                        minlength: 2
+                    },
+                    EnCode: {
+                        required: true,
+                        minlength: 2
+                    },
+                    OrganizeId: {
+                        required: true
+                    },
+                    Type: {
+                        required: true
+                    }
+                },
+                messages: {
+                    FullName: {
+                        required: "请输入角色名称",
+                        minlength: "角色名称至少2个字符"
+                    },
+                    EnCode: {
+                        required: "请输入角色编码",
+                        minlength: "角色编码至少2个字符"
+                    },
+                    OrganizeId: {
+                        required: "请选择归属组织"
+                    },
+                    Type: {
+                        required: "请选择角色类型"
+                    }
+                },
+                errorClass: 'help-block help-block-error',
+                focusInvalid: true,
+                //unhighlight: function (element, errorClass, validClass) { //验证通过
+                //    $(element).tooltip('destroy').removeClass(errorClass);
+                //},
+                highlight: function (element) {//验证未通过
+                    $(element).closest('.form-group').addClass('has-error');
+                },
+                success: function (label, element) {
+                    $(element).closest('.form-group').removeClass('has-error');
+                    $(element).attr("title", "").tooltip("hide");
+                },
+                errorPlacement: function (error, element) {
+                    if ($(element).next("div").hasClass("tooltip")) {
+                        $(element).attr("data-original-title", $(error).text()).tooltip("show");
+                    } else {
+                        $(element).attr("title", $(error).text()).tooltip("show");
+                    }
+                },
+                submitHandler: function (form) {
+                    var postData = {
+                        "Id": $("#Id").val(),
+                        "FullName": $("#FullName").val(),
+                        "EnCode": $("#EnCode").val(),
+                        "OrganizeId": $("#OrganizeId").val(),
+                        "Type": $("#Type").val(),
+                        "SortCode": $("#SortCode").val(),
+                        "AllowEdit": $("#AllowEdit").is(':checked'),
+                        "AllowDelete": $("#AllowDelete").is(':checked'),
+                        "EnabledMark": $("#EnabledMark").is(':checked'),
+                        "Description": $("#Description").val()
+                    };
+                    var keyValue = $("#Id").val();
+                    var reqUrl = "/Security/Role/Insert";
+                    if (keyValue != "" && keyValue != null && keyValue != "null") {
+                        reqUrl = "/Security/Role/Update?id=" + keyValue;
+                    }
+                    $.ajax({
+                        url: reqUrl,
+                        data: postData,
+                        dataType: 'json',//服务器返回json格式数据
+                        type: 'post',//HTTP请求类型
+                        timeout: 100000,//超时时间设置为10秒；
+                        success: function (data) {
+                            //服务器返回响应，根据响应结果，分析是否登录成功；
+                            if (data.Success) {
+                                $('#addFormModal').modal('hide');  //手动关闭
+                                toastr.success("操作成功");
+                                setTimeout(function () {
+                                    $table.bootstrapTable('refresh');
+                                    $("#frmSubmit")[0].reset();
+                                }, 2500);
+                            } else {
+                                toastr.warning("操作失败：" + data.ErrMsg);
+                            }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            //toastr.warning("操作失败：" + errorThrown);
+                            toastr.warning("您未被授权使用该功能，请联系管理员进行处理。");
+                        }
+                    });
+                }
+            });
+        });
+    }
+    // 选中父节点时，选中所有子节点
+    function getChildNodeIdArr(node) {
+        var ts = [];
+        if (node.nodes) {
+            for (x in node.nodes) {
+                ts.push(node.nodes[x].nodeId);
+                if (node.nodes[x].nodes) {
+                    var getNodeDieDai = getChildNodeIdArr(node.nodes[x]);
+                    for (j in getNodeDieDai) {
+                        ts.push(getNodeDieDai[j]);
+                    }
+                }
+            }
+        } else {
+            ts.push(node.nodeId);
+        }
+        return ts;
+    }
+    // 选中所有子节点时，选中父节点 取消子节点时取消父节点
+    function setParentNodeCheck(node) {
+        var parentNode = $("#tree_function").treeview("getNode", node.parentId);
+        if (parentNode.nodes) {
+            var checkedCount = 0;
+            for (x in parentNode.nodes) {
+                if (parentNode.nodes[x].state.checked) {
+                    checkedCount++;
+                }
+            }
+            //if (checkedCount >0) {
+            //    $("#tree_function").treeview("checkNode", parentNode.nodeId);
+            //    setParentNodeCheck(parentNode);
+            //}
+            if (checkedCount == parentNode.nodes.length) {  //如果子节点全部被选 父全选
+                $("#tree_function").treeview("checkNode", parentNode.nodeId);
+                setParentNodeCheck(parentNode);
+            } else {   //如果子节点未全部被选 父未全选
+                $('#tree_function').treeview('uncheckNode', parentNode.nodeId);
+                setParentNodeCheck(parentNode);
+            }
+        }
+    }
+    // 取消父节点时 取消所有子节点
+    function setChildNodeUncheck(node) {
+        if (node.nodes) {
+            var ts = [];    //当前节点子集中未被选中的集合 
+            for (x in node.nodes) {
+                if (!node.nodes[x].state.checked) {
+                    ts.push(node.nodes[x].nodeId);
+                }
+                if (node.nodes[x].nodes) {
+                    var getNodeDieDai = node.nodes[x];
+                    console.log(getNodeDieDai);
+                    for (j in getNodeDieDai) {
+                        if (!getNodeDieDai.state.checked) {
+                            ts.push(getNodeDieDai[j]);
+                        }
+                    }
+                }
+            }
+        }
+        return ts;
+    }
+
+
+</script>

@@ -1,0 +1,648 @@
+﻿@{
+    ViewData["Title"] = "所有会员-会员管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.CurrentMenuP = "Members";
+    ViewBag.CurrentMenu = "Members/List";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-default">
+            <div class="card-header">
+                <h3 class="card-title">查询条件</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+                </div>
+            </div>
+            <div class="card-body collapse show" id="searchCondition">
+                <div class="row">
+                    <div class="col-2">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">角色</span>
+                            </div>
+                            <select class="select2" style="width: 70%; height:38px;" name="RoleId2" id="RoleId2">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">用户信息</span>
+                            </div>
+                            <input type="text" name="txtNickName" id="txtNickName" class="form-control" placeholder="账号/昵称/姓名/手机号">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-clock"></i>注册时间</span>
+                            </div>
+                            <input type="text" class="form-control float-right" id="addTime">
+                            <input type="hidden" id="addstartTime">
+                            <input type="hidden" id="addendTime">
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <button type="button" class="btn btn-primary" id="btnSearch"><i class="fas fa-search"></i>查询</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div id="toolbar" class="btn-group">
+                    @if (@ViewBag.AuthorizeKey.CanInsert)
+                    {
+                        <button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal" onclick="ShowEditOrViewDialog()" data-whatever="新增">
+                            <i class="fas fa-plus" aria-hidden="true"></i>新增
+                        </button>
+                    }
+                    @if (@ViewBag.AuthorizeKey.CanUpdate)
+                    {
+                        <button id="btn_edit" type="button" class="btn btn-info" data-toggle="modal" onclick="ShowEditOrViewDialog('edit')" data-whatever="修改">
+                            <i class="fas fa-edit" aria-hidden="true"></i>修改
+                        </button>
+                    }
+                    @if (@ViewBag.AuthorizeKey.CanUpdateEnable)
+                    {
+                        <button type="button" class="btn btn-secondary" onclick="EnableByIds('0','/Security/Members')"><i class=" fa fa-stop-circle"></i>禁用</button>
+                        <button type="button" class="btn btn-success" onclick="EnableByIds('1','/Security/Members')"><i class=" fa fa-play-circle"></i>启用</button>
+                    }
+                    @if (@ViewBag.AuthorizeKey.CanDelete)
+                    {
+                        <button id="btn_delete" type="button" class="btn btn-danger" onclick="DeleteByIds('/Security/Members/DeleteByIds')">
+                            <i class="fas fa-trash-alt" aria-hidden="true"></i>删除
+                        </button>
+                    }
+                    @if (@ViewBag.AuthorizeKey.CanExtend)
+                    {
+                        <button type="button" class="btn btn-info" onclick="ResetPassword()"><i class="fas fa-retweet"></i>重置密码</button>
+                    }
+                </div>
+                <table id="tbGrid"></table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+</div>
+
+
+<div class="modal fade" id="addFormModal" tabindex="-1" role="dialog" aria-labelledby="addFormModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form class="form-horizontal" id="frmSubmit" method="post" enctype="multipart/form-data">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title" id="addFormModalLabel">新增</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label for="Account" class="col-form-label col-2">账号:</label>
+                                    <input type="text" class="form-control col-10" name="Account" id="Account" placeholder="请输入账号">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label for="RealName" class="col-form-label col-2">姓名:</label>
+                                    <input type="text" class="form-control col-10" name="RealName" id="RealName" placeholder="请输入姓名">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-form-label col-2">性别:</label>
+                                    <div class="input-group col-10">
+                                        <select class="form-control select2" style="width: 80%;" name="Gender" id="Gender">
+                                            <option value="">=请选择性别=</option>
+                                            <option value="true">男</option>
+                                            <option value="false">女</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label for="NickName" class="col-form-label col-2">昵称:</label>
+                                    <input type="text" class="form-control col-10" name="NickName" id="NickName" placeholder="昵称">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label for="OrganizeId" class="col-form-label col-2">公司:</label>
+                                    <select class="form-control select2" style="width: 80%;" name="OrganizeId" id="OrganizeId">
+                                        <option value="">==请选择所属公司==</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label for="DepartmentId" class="col-form-label col-2">部门:</label>
+                                    <select class="form-control select2" style="width: 80%;" name="DepartmentId" id="DepartmentId">
+                                        <option value="">==请选择部门==</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label for="MobilePhone" class="col-form-label col-2">手机:</label>
+                                    <input type="text" class="form-control col-10" name="MobilePhone" id="MobilePhone" placeholder="请输入手机">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label for="Birthday" class="col-form-label col-2">生日:</label>
+                                    <input type="text" class="form-control col-10" name="Birthday" id="Birthday" placeholder="请输入生日">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label for="Email" class="col-form-label col-2">Email:</label>
+                                    <input type="email" class="form-control col-10" name="Email" id="Email" placeholder="请输入Email">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label for="WeChat" class="col-form-label col-2">微信:</label>
+                                    <input type="text" class="form-control col-10" name="WeChat" id="WeChat" placeholder="请输入微信">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label for="DutyId" class="col-form-label col-2">岗位:</label>
+                                    <select class="form-control select2" style="width: 80%;" name="DutyId" id="DutyId">
+                                        <option value="">==请选择岗位==</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-form-label col-2">选项:</label>
+                                    <label for="IsAdministrator">
+                                        <input type="checkbox" class="flat-red" name="IsAdministrator" id="IsAdministrator">
+                                        系统管理员
+                                    </label>
+                                    <label for="EnabledMark">
+                                        <input type="checkbox" class="flat-red" checked="checked" name="EnabledMark" id="EnabledMark">
+                                        有效
+                                    </label>
+                                    <label for="DeleteMark">
+                                        <input type="checkbox" class="flat-red" name="DeleteMark" id="DeleteMark">
+                                        删除
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-1"><label for="RoleId" class="col-form-label">角色:</label></div>
+                            <div class="col-11">
+                                <select class="form-control select2" multiple="multiple" style="width: 100%;" name="RoleId" id="RoleId">
+                                    <option value="">==请选择角色==</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Description" class="col-form-label">描述:</label>
+                        <textarea class="form-control" id="Description" name="Description"></textarea>
+                    </div>
+                    <input type="hidden" id="Id" name="Id" value="" />
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btnSave" id="btnSaveOK"><i class="fa fa-save"></i>保存</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close"></i>关闭</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="~/lib/daterangepicker/daterangepicker.css" />
+<script src="~/lib/daterangepicker/moment.min.js"></script>
+<script src="~/lib/daterangepicker/daterangepicker.js"></script>
+<!-- page script -->
+<script>
+    $(function () {
+        //iCheck for checkbox and radio inputs
+        $('input[type="checkbox"].flat-red').iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'iradio_minimal',
+        })
+        //1.初始化Table
+        var oTable = new TableInit();
+        oTable.Init();
+        InitDictItem();
+        BindSaveEvent();
+        $('#addTime').daterangepicker({
+            timePicker: true,
+            timePickerIncrement: 30,
+            locale: {
+                format: 'YYYY/MM/DD hh:mm'
+            }
+        }, function (start, end, label) {
+            $('#addstartTime').val(start.format('YYYY-MM-DD hh:mm'));
+            $('#addendTime').val(end.format('YYYY-MM-DD hh:mm'));
+        });
+
+        $("#btnSearch").click(function () {
+            $('#tbGrid').bootstrapTable('refresh');
+        });
+    });
+    var $table = $('#tbGrid');
+    var TableInit = function () {
+        var oTableInit = new Object();
+        var keywords = "";
+        //初始化Table
+        oTableInit.Init = function () {
+            $table.bootstrapTable({
+                url: '/Security/Members/FindWithPager',         //请求后台的URL（*）
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: true,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber: 1,                       //初始化加载第一页，默认第一页
+                pageSize: 25,                       //每页的记录行数（*）
+                pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+                search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                strictSearch: true,
+                showColumns: true,                  //是否显示所有的列
+                showRefresh: true,                  //是否显示刷新按钮
+                minimumCountColumns: 2,             //最少允许的列数
+                clickToSelect: true,                //是否启用点击选中行
+                //height: $(window).height(),                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                showToggle: true,                    //是否显示详细视图和列表视图的切换按钮
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                columns: [
+                    {
+                        checkbox: true
+                    }, {
+                        field: 'Account',
+                        title: '账户',
+                        sortable: true,
+                    }, {
+                        field: 'RealName',
+                        title: '姓名',
+                        sortable: true
+                    }, {
+                        field: 'NickName',
+                        title: '昵称',
+                        sortable: true
+                    }, {
+                        field: 'Gender',
+                        title: '性别',
+                        sortable: true,
+                        searchable: true,
+                        formatter: function (value, row, index) {
+                            var typeStr = "";
+                            if (value == "1") {
+                                typeStr = "男";
+                            } else if (value == "2") {
+                                typeStr = "女";
+                            }
+                            return typeStr
+                        },
+                    }, {
+                        field: 'MobilePhone',
+                        title: '手机',
+                        sortable: true,
+                    }, {
+                        field: 'RoleName',
+                        title: '角色',
+                        sortable: true
+                    }, {
+                        field: 'OrganizeName',
+                        title: '所属组织',
+                        sortable: true,
+                    }, {
+                        field: 'DepartmentName',
+                        title: '部门',
+                        sortable: true,
+                    }, {
+                        field: 'DutyName',
+                        title: '岗位',
+                        sortable: true,
+                    },{
+                        field: 'CreatorTime',
+                        title: '注册时间',
+                        sortable: true,
+                        align: "center"
+                    }, {
+                        field: 'EnabledMark',
+                        title: '状态',
+                        sortable: true,
+                        align: "center",
+                        formatter: function (value, row, index) {
+                            return !value ? '<i class=\"fas fa-toggle-on\" style=\"color:#28a745\">启用</i>' : "<i class=\"fas fa-toggle-off\">禁用</i>"
+                        }
+                    }, {
+                        field: 'DeleteMark',
+                        title: '删除',
+                        sortable: true,
+                        align: "center",
+                        formatter: function (value, row, index) {
+                            return value ? '<i class=\"fas fa-toggle-on\" style=\"color:#f00\">是</i>' : "<i class=\"fas fa-toggle-off\">否</i>"
+                        }
+                    }
+                ]
+            });
+        };
+
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                limit: params.limit,   //页面大小
+                offset: params.offset,  //页码
+                order: params.order,
+                sort: params.sort,
+                roleId: $("#RoleId2").val(),
+                nickName: $("#txtNickName").val(),
+                addstartTime: $("#addstartTime").val(),
+                addendTime: $("#addendTime").val(), //定义传输的搜索参数
+            };
+            return temp;
+        };
+        return oTableInit;
+    };
+
+    //初始化数据字典
+    function InitDictItem() {
+        BindSelect2("OrganizeId", "/Security/Organize/FindTreeSelectJson");
+        BindSelect2("DepartmentId", "/Security/Organize/FindTreeSelectJson");
+        BindSelect2("RoleId", "/Security/Role/FindTreeSelectJson");
+        BindSelect2("RoleId2", "/Security/Role/FindTreeSelectJson");
+        BindSelect2("DutyId", "/Security/Duty/FindTreeSelectJson");
+
+    }
+    //新增、修改或查看明细信息（绑定显示数据）
+    function ShowEditOrViewDialog(view) {
+        if (view != null) {
+            //首先取出来用户选择的数据的ID
+            var rows = $table.bootstrapTable('getSelections');
+            //首先取出来值判断用户只能选择一个
+            if (rows.length == 0) {
+                toastr.warning("请选择一条记录");
+                return;
+            }
+            else if (rows.length > 1) {
+                toastr.warning("每次只能修改/查看一条记录，你已经选择了<font color='red'  size='6'>" + rows.length + "</font>条");
+                return;
+            }
+        }
+        if (view == null) {
+            //处理修改的信息
+            $('#addFormModal').modal('show');  //手动显示
+            $('#addFormModal').find('.modal-title').text("新增");
+            $("#Id").val("");
+        } else if (view == "edit") {
+            //处理修改的信息
+            $('#addFormModal').modal('show');  //手动显示
+            $('#addFormModal').find('.modal-title').text("编辑");
+            //绑定修改详细信息的方法
+            BindEditInfo();
+        }
+    }
+
+    //绑定编辑详细信息的方法
+    function BindEditInfo() {
+        //首先用户发送一个异步请求去后台实现方法
+        var ID = $table.bootstrapTable('getSelections')[0].Id;  //获取到了用用户选择的ID
+        $.getJSON("/Security/Members/GetById?r=" + Math.random() + "&id=" + ID, function (info) {
+            //赋值有几种方式：.datebox('setValue', info.Birthday);.combobox('setValue', info.Status);.val(info.Name);
+            $("#Id").val(info.ResData.Id);
+            $("#frmSubmit").formSerialize(info.ResData);
+            $("#RoleId").select2("val", info.ResData.RoleId.split(','));
+        });
+    }
+    //绑定保存按钮的事件
+    function BindSaveEvent() {
+        $("#btnSaveOK").click(function () {
+            $("#frmSubmit").validate({
+                rules: {
+                    NickName: {
+                        required: true,
+                        minlength: 2
+                    },
+                    RealName: {
+                        required: true,
+                        minlength: 2
+                    },
+                    OrganizeId: {
+                        required: true
+                    },
+                    DepartmentId: {
+                        required: true
+                    },
+                    RoleId: {
+                        required: true
+                    }, DutyId: {
+                        required: true
+                    }
+                },
+                messages: {
+                    Account: {
+                        required: "请输入昵称",
+                        minlength: "账户至少2个字符"
+                    },
+                    RealName: {
+                        required: "请输入真实姓名",
+                        minlength: "真实姓名至少2个字符"
+                    },
+                    OrganizeId: {
+                        required: "请选择归属公司"
+                    },
+                    DepartmentId: {
+                        required: "请选择所属部门"
+                    },
+                    RoleId: {
+                        required: "请选择所属角色"
+                    },
+                    DutyId: {
+                        required: "请选择岗位"
+                    }
+                },
+                errorClass: 'help-block help-block-error',
+                focusInvalid: true,
+                //unhighlight: function (element, errorClass, validClass) { //验证通过
+                //    $(element).tooltip('destroy').removeClass(errorClass);
+                //},
+                highlight: function (element) {//验证未通过
+                    $(element).closest('.form-group').addClass('has-error');
+                },
+                success: function (label, element) {
+                    $(element).closest('.form-group').removeClass('has-error');
+                    $(element).attr("title", "").tooltip("hide");
+                },
+                errorPlacement: function (error, element) {
+                    if ($(element).next("div").hasClass("tooltip")) {
+                        $(element).attr("data-original-title", $(error).text()).tooltip("show");
+                    } else {
+                        $(element).attr("title", $(error).text()).tooltip("show");
+                    }
+                },
+                submitHandler: function (form) {
+                    var roleobj = $("#RoleId").select2('data');
+                    var roleIds = "";
+                    $.each(roleobj, function (i, item) {
+                        roleIds += item.id + ",";
+                    });
+                    roleIds = roleIds.substring(0, roleIds.length - 1);
+                    var postData = {
+                        "Id": $("#Id").val(),
+                        "Account": $("#Account").val(),
+                        "RealName": $("#RealName").val(),
+                        "NickName": $("#NickName").val(),
+                        "Gender": $("#Gender").val(),
+                        "OrganizeId": $("#OrganizeId").val(),
+                        "DepartmentId": $("#DepartmentId").val(),
+                        "RoleId": roleIds,
+                        "DutyId": $("#DutyId").val(),
+                        "MobilePhone": $("#MobilePhone").val(),
+                        "Birthday": $("#Birthday").val(),
+                        "Email": $("#Email").val(),
+                        "WeChat": $("#WeChat").val(),
+                        "IsAdministrator": $("#IsAdministrator").is(':checked'),
+                        "EnabledMark": $("#EnabledMark").is(':checked'),
+                        "DeleteMark": $("#DeleteMark").is(':checked'),
+                        "Description": $("#Description").val()
+                    };
+                    var keyValue = $("#Id").val();
+                    var reqUrl = "/Security/Members/Add";
+                    if (keyValue != "" && keyValue != null && keyValue != "null") {
+                        reqUrl = "/Security/Members/Edit?id=" + keyValue;
+                    }
+                    $.ajax({
+                        url: reqUrl,
+                        data: postData,
+                        dataType: 'json',//服务器返回json格式数据
+                        type: 'post',//HTTP请求类型
+                        timeout: 100000,//超时时间设置为10秒；
+                        success: function (data) {
+                            //服务器返回响应，根据响应结果，分析是否登录成功；
+                            if (data.Success) {
+                                $('#addFormModal').modal('hide');  //手动关闭
+                                toastr.success("操作成功");
+                                setTimeout(function () {
+                                    $table.bootstrapTable('refresh');
+                                    $("#frmSubmit")[0].reset();
+                                }, 2500);
+                            } else {
+                                toastr.warning("操作失败：" + data.ErrMsg);
+                            }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            toastr.warning("操作失败：" + errorThrown);
+                        }
+                    });
+                }
+            });
+        });
+    }
+
+    function ResetPassword() {
+        //得到用户选择的数据的ID
+        var rows = $table.bootstrapTable('getSelections');
+        if (rows.length >= 1) {
+            //遍历出用户选择的数据的信息，这就是用户用户选择删除的用户ID的信息
+            var ids = "";   //1,2,3,4,5
+            for (var i = 0; i < rows.length; i++) {
+                ids += rows[i].Id + ",";
+            }
+            //最后去掉最后的那一个,
+            ids = ids.substring(0, ids.length - 1);
+            var postData = { userId: ids };
+            swal({
+                title: "操作提示",
+                text: "您确定对选定用户重置密码吗？",
+                icon: "warning",
+                closeOnClickOutside: false,
+                buttons: {
+                    cancel: {
+                        text: "取消",
+                        visible: true,
+                        closeModal: true,
+                    },
+                    confirm: {
+                        text: "是的",
+                        value: "ok",
+                        className: "swal-button-confirm"
+                    },
+                }
+            }).then(function (value) {
+                if (value == "ok") {
+                    $.ajax({
+                        url: "/Security/Members/ResetPassword",
+                        data: postData,
+                        dataType: 'json',//服务器返回json格式数据
+                        type: 'post',//HTTP请求类型
+                        timeout: 100000,//超时时间设置为10秒；
+                        success: function (data) {
+                            //服务器返回响应，根据响应结果，分析是否登录成功；
+                            if (data.Success) {
+                                swal("重置密码成功！", "新密码：" + data.ErrMsg, "success")
+                            } else {
+                                toastr.warning("操作失败：" + data.ErrMsg);
+                            }
+                        },
+                        error: function (data) {
+                            toastr.warning("重置密码异常,请重新试试");
+                        }
+                    });
+                }
+            });
+        } else {
+            toastr.warning("请选择你要重置密码的用户");
+        }
+    }
+</script>
+

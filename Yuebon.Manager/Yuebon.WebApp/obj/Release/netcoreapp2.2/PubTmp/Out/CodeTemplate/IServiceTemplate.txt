@@ -1,0 +1,10 @@
+﻿using System;
+using Yuebon.Infrastructure.IServices;
+using {ModelsNamespace};
+
+namespace {IServicsNamespace}
+{
+    public interface I{ModelTypeName}Service:IService<{ModelTypeName}>
+    {
+    }
+}

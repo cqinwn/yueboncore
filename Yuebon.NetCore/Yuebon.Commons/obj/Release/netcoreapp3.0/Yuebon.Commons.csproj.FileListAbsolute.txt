@@ -1,0 +1,11 @@
+D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.Commons\bin\Release\netcoreapp3.0\Yuebon.Commons.deps.json
+D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.Commons\bin\Release\netcoreapp3.0\Yuebon.Commons.dll
+D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.Commons\bin\Release\netcoreapp3.0\Yuebon.Commons.pdb
+D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.Commons\obj\Release\netcoreapp3.0\Yuebon.Commons.Properties.Resources.resources
+D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.Commons\obj\Release\netcoreapp3.0\Yuebon.Commons.csproj.GenerateResource.cache
+D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.Commons\obj\Release\netcoreapp3.0\Yuebon.Commons.AssemblyInfoInputs.cache
+D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.Commons\obj\Release\netcoreapp3.0\Yuebon.Commons.AssemblyInfo.cs
+D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.Commons\obj\Release\netcoreapp3.0\Yuebon.Commons.dll
+D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.Commons\obj\Release\netcoreapp3.0\Yuebon.Commons.pdb
+D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.Commons\bin\Release\netcoreapp3.0\Yuebon.Commons.xml
+D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.Commons\obj\Release\netcoreapp3.0\Yuebon.Commons.csprojAssemblyReference.cache

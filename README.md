@@ -1,7 +1,7 @@
 # YuebonNetCore
 
 #### 概述
-YuebonCore FW是基于.NetCore2.2开发的权限管理及快速开发框架，整合应用最新技术包括Asp.NetCore MVC、Dapper、AutoFac、WebAPI、Swagger、Json.Net、IdentityServer4等，核心模块包括：组织机构、角色用户、权限授权、多系统、多应用管理等。它的架构易于扩展，是中小企业的优选。
+YuebonCore FW是基于.NetCore3.0开发的权限管理及快速开发框架，整合应用最新技术包括Asp.NetCore MVC、Dapper、AutoFac、WebAPI、Swagger、Json.Net、IdentityServer4等，核心模块包括：组织机构、角色用户、权限授权、多系统、多应用管理等。它的架构易于扩展，是中小企业的优选。
 
 YuebonCore FW其核心设计目标是开发迅速、代码量少、学习简单、功能强大、轻量级、易扩展，让Web开发更快速、简单，解决70%重复工作。轻松开发，专注您的业务，从YuebonCore FW开始！
 
@@ -9,7 +9,7 @@ YuebonCore FW其核心设计目标是开发迅速、代码量少、学习简单�
 
 使用时请务必保留来源，请勿用于违反我国法律的web平台、如诈骗等非法平台网站。版权最终解释权归《YuebonCore团队》所有。
 
-YuebonCore是一套基于NetCore2.2.3+Dapper+Bootstrap开发出来的框架，源代码完全开源，可以帮助你解决C#.NET项目70%的重复工作，让开发人员远离加班！
+YuebonCore是一套基于NetCore3.0+Dapper+Bootstrap开发出来的框架，源代码完全开源，可以帮助你解决C#.NET项目70%的重复工作，让开发人员远离加班！
 
 使用 Apache License 2.0 协议，采用主流框架，容易上手，简单易学，学习成本低。可完全实现二次开发、基本满足80%项目需求。
 

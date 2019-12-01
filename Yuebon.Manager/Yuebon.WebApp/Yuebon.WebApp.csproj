@@ -880,7 +880,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
     <PackageReference Include="UEditorNetCore" Version="1.1.0" />
-    <PackageReference Include="Yuebon.AspNetCore" Version="1.1.3.3" />
+    <PackageReference Include="Yuebon.AspNetCore" Version="1.1.4.2" />
   </ItemGroup>
 
 

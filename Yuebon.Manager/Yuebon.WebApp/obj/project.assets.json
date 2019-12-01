@@ -4717,14 +4717,14 @@
           "lib/netcoreapp1.1/UEditorNetCore.dll": {}
         }
       },
-      "Yuebon.AspNetCore/1.1.3.3": {
+      "Yuebon.AspNetCore/1.1.4.2": {
         "type": "package",
         "dependencies": {
           "Microsoft.IdentityModel.Tokens": "5.5.0",
           "Newtonsoft.Json": "12.0.2",
           "Swashbuckle.AspNetCore.SwaggerGen": "5.0.0-rc2",
           "System.IdentityModel.Tokens.Jwt": "5.5.0",
-          "Yuebon.Security.Core": "1.1.3.24"
+          "Yuebon.Security.Core": "1.1.4.2"
         },
         "compile": {
           "lib/netcoreapp3.0/Yuebon.AspNetCore.dll": {}
@@ -4779,7 +4779,7 @@
           "lib/netcoreapp3.0/Yuebon.Commons.dll": {}
         }
       },
-      "Yuebon.Security.Core/1.1.3.24": {
+      "Yuebon.Security.Core/1.1.4.2": {
         "type": "package",
         "dependencies": {
           "IdentityModel": "4.0.0",
@@ -13499,10 +13499,10 @@
         "ueditornetcore.nuspec"
       ]
     },
-    "Yuebon.AspNetCore/1.1.3.3": {
-      "sha512": "Un9NtqfTMJ9LQUZ9MXR2eKqTsimWkwoSMfJrT/TxbefIP6ENi2jkO4khSfDPOZamzSOFp7+JxP2S3mNdR5k2og==",
+    "Yuebon.AspNetCore/1.1.4.2": {
+      "sha512": "aRvqjQXPtIT+AdpP5PSPLZG9WAHmQRZNwgDI719+gKz4+YXVxFX/0Q2tFlaB9GtZgCRvFbYyHZCCix3RVWzOaQ==",
       "type": "package",
-      "path": "yuebon.aspnetcore/1.1.3.3",
+      "path": "yuebon.aspnetcore/1.1.4.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -13510,7 +13510,7 @@
         "contentFiles/any/netcoreapp3.0/Properties/launchSettings.json",
         "lib/netcoreapp3.0/Yuebon.AspNetCore.dll",
         "lib/netcoreapp3.0/Yuebon.AspNetCore.xml",
-        "yuebon.aspnetcore.1.1.3.3.nupkg.sha512",
+        "yuebon.aspnetcore.1.1.4.2.nupkg.sha512",
         "yuebon.aspnetcore.nuspec"
       ]
     },
@@ -13527,16 +13527,16 @@
         "yuebon.commons.nuspec"
       ]
     },
-    "Yuebon.Security.Core/1.1.3.24": {
-      "sha512": "WPkKgpxELqYWx5JGFlZ+e2H2UJz9rvlPia5Kre3eo3qJhPXPrdiiwsUsSQ5wbMoqrY2TxeswPGWpjzZjdBOKrA==",
+    "Yuebon.Security.Core/1.1.4.2": {
+      "sha512": "2elSLloSVIK/aOh1ZvI1Tts1WqsfJdSOkna32D0z2bGaBt+Gh3933dIVTdcbMvfVPulG5DVYfKRK/Z9Nhglhqw==",
       "type": "package",
-      "path": "yuebon.security.core/1.1.3.24",
+      "path": "yuebon.security.core/1.1.4.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netcoreapp3.0/Yuebon.Security.Core.dll",
         "lib/netcoreapp3.0/Yuebon.Security.Core.xml",
-        "yuebon.security.core.1.1.3.24.nupkg.sha512",
+        "yuebon.security.core.1.1.4.2.nupkg.sha512",
         "yuebon.security.core.nuspec"
       ]
     },
@@ -13554,7 +13554,7 @@
       "Microsoft.Extensions.Logging.Debug >= 3.0.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.0.0",
       "UEditorNetCore >= 1.1.0",
-      "Yuebon.AspNetCore >= 1.1.3.3",
+      "Yuebon.AspNetCore >= 1.1.4.2",
       "Yuebon.CMS.Core >= 1.0.0"
     ]
   },
@@ -13627,7 +13627,7 @@
           },
           "Yuebon.AspNetCore": {
             "target": "Package",
-            "version": "[1.1.3.3, )"
+            "version": "[1.1.4.2, )"
           }
         },
         "imports": [

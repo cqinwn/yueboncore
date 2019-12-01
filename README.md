@@ -87,15 +87,22 @@ CSS框架：Bootstrap v4.3.1（UI方面根据需求自己升级改造吧）。
 
 日志管理：Log4net、登录日志、操作日志
 
-工具类：NPOI、Newtonsoft.Json、验证码、丰富公共类似
+工具类：NPOI、Newtonsoft.Json、验证码、丰富公共功能
 
 ###### 项目结构
 Yuebon.NetCore解决方案包含：
-Yuebon.Commons基础类库
-Yuebon.Security.Core权限管理类库
-Yuebon.AspNetCore前端公共基础框架，支持webapi和webmvc模式，同时支持插件式开发。
-Yuebon.Manager解决方案为管理后台
-Yuebon.Cms.Core是CMS基础类库，包含文章管理、广告管理等内容，以此做案例给大家开发参考。
+
+Yuebon.Commons基础类库；
+
+Yuebon.Security.Core权限管理类库；
+
+Yuebon.AspNetCore前端公共基础框架，支持webapi和webmvc模式，同时支持插件式开发；
+
+Yuebon.Manager解决方案为管理后台；
+
+Yuebon.Cms.Core是CMS基础类库，包含文章管理、广告管理等内容，以此做案例给大家开发参考
+
+DataBase是最新数据库备份文件，支持MS SQL Server 2012。
 
 #### 部分界面展示
 

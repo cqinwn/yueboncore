@@ -92,15 +92,15 @@ CSS框架：Bootstrap v4.3.1（UI方面根据需求自己升级改造吧）。
 #### 项目结构
 Yuebon.NetCore解决方案包含：
 
-Yuebon.Commons基础类库，包含基础框架和常用的工具和方法等；
+Yuebon.Commons[基础类库]：包框架的核心组件，包含一系列快速开发中经常用到的Utility辅助工具功能，框架各个组件的核心接口定义，部分核心功能的实现；
 
-Yuebon.Security.Core权限管理类库；
+Yuebon.Security.Core[权限管理类库]：以Security为基础实现以角色-功能、用户-功能的功能权限实现，以角色-数据，用户-数据的数据权限的封装
 
-Yuebon.AspNetCore前端公共基础框架，支持webapi和webmvc模式，同时支持插件式开发；
+Yuebon.AspNetCore[AspNetCore类库]，提供AspNetCore的服务端功能的封装，支持webapi和webmvc模式，同时支持插件式开发；
 
-Yuebon.Manager解决方案为管理后台；
+Yuebon.Manager[管理后台]：实现了权限管理和CMS部分管理后台；
 
-Yuebon.Cms.Core是CMS基础类库，包含文章管理、广告管理等内容，以此做案例给大家开发参考
+Yuebon.Cms.Core[CMS基础类库]，包含文章管理、广告管理等内容，以此做案例给大家开发参考
 
 DataBase是最新数据库备份文件，支持MS SQL Server 2012。
 
@@ -136,3 +136,12 @@ DataBase是最新数据库备份文件，支持MS SQL Server 2012。
 10、WebApi 集成Swagger
 ![输入图片说明](https://images.gitee.com/uploads/images/2018/0719/120718_772240d6_1017224.png "9 webapi.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2018/0719/120732_0776845c_1017224.png "9-1 webapi.png")
+
+#### 应用案例
+1、做个车吧(http://img.qichetester.com)
+
+2、展途汽车(http://www.zhantucar.com)
+
+3、视奇光学仓库发货系统
+
+4、金宝龙学校数据分析系统

@@ -30,9 +30,9 @@
     </contentFiles>
   </metadata>
   <files>
-    <file src="D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.AspNetCore\bin\Release\netcoreapp3.0\Yuebon.AspNetCore.dll" target="lib\netcoreapp3.0\Yuebon.AspNetCore.dll" />
-    <file src="D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.AspNetCore\bin\Release\netcoreapp3.0\Yuebon.AspNetCore.xml" target="lib\netcoreapp3.0\Yuebon.AspNetCore.xml" />
-    <file src="D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.AspNetCore\Properties\launchSettings.json" target="content\Properties\launchSettings.json" />
-    <file src="D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.AspNetCore\Properties\launchSettings.json" target="contentFiles\any\netcoreapp3.0\Properties\launchSettings.json" />
+    <file src="D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.AspNetCore\bin\Release\netcoreapp3.0\Yuebon.AspNetCore.dll" target="lib\netcoreapp3.0\Yuebon.AspNetCore.dll" />
+    <file src="D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.AspNetCore\bin\Release\netcoreapp3.0\Yuebon.AspNetCore.xml" target="lib\netcoreapp3.0\Yuebon.AspNetCore.xml" />
+    <file src="D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.AspNetCore\Properties\launchSettings.json" target="content\Properties\launchSettings.json" />
+    <file src="D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.AspNetCore\Properties\launchSettings.json" target="contentFiles\any\netcoreapp3.0\Properties\launchSettings.json" />
   </files>
 </package>

@@ -684,6 +684,16 @@
             获取到的凭证值
             </summary>
         </member>
+        <member name="P:Yuebon.AspNetCore.SSO.UserAuthSession.AccessToken">
+            <summary>
+            授权token码
+            </summary>
+        </member>
+        <member name="P:Yuebon.AspNetCore.SSO.UserAuthSession.AppKey">
+            <summary>
+            appkey
+            </summary>
+        </member>
         <member name="P:Yuebon.AspNetCore.SSO.UserAuthSession.UserId">
             <summary>
             用户ID
@@ -742,6 +752,11 @@
         <member name="P:Yuebon.AspNetCore.SSO.UserAuthSession.OtherOpenObj">
             <summary>
             其他对象
+            </summary>
+        </member>
+        <member name="P:Yuebon.AspNetCore.SSO.UserAuthSession.WxSessionId">
+            <summary>
+            微信登录SessionId
             </summary>
         </member>
         <member name="T:Yuebon.AspNetCore.UI.SearchModel">

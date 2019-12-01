@@ -18,7 +18,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.Security.Core\bin\Release\netcoreapp3.0\Yuebon.Security.Core.dll" target="lib\netcoreapp3.0\Yuebon.Security.Core.dll" />
-    <file src="D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.Security.Core\bin\Release\netcoreapp3.0\Yuebon.Security.Core.xml" target="lib\netcoreapp3.0\Yuebon.Security.Core.xml" />
+    <file src="D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.Security.Core\bin\Release\netcoreapp3.0\Yuebon.Security.Core.dll" target="lib\netcoreapp3.0\Yuebon.Security.Core.dll" />
+    <file src="D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.Security.Core\bin\Release\netcoreapp3.0\Yuebon.Security.Core.xml" target="lib\netcoreapp3.0\Yuebon.Security.Core.xml" />
   </files>
 </package>

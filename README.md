@@ -33,7 +33,7 @@ YuebonCore是一套基于NetCore3.0+Dapper+Bootstrap开发出来的框架，源�
 
 作者Q Q：381450948
 
-QQ交流群：549652099
+QQ交流群：90311523
 
 发布日期：2018年07月1日
 
@@ -89,10 +89,10 @@ CSS框架：Bootstrap v4.3.1（UI方面根据需求自己升级改造吧）。
 
 工具类：NPOI、Newtonsoft.Json、验证码、丰富公共功能
 
-###### 项目结构
+#### 项目结构
 Yuebon.NetCore解决方案包含：
 
-Yuebon.Commons基础类库；
+Yuebon.Commons基础类库，包含基础框架和常用的工具和方法等；
 
 Yuebon.Security.Core权限管理类库；
 

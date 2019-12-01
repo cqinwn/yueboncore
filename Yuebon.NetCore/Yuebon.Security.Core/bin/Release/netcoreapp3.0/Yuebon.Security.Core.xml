@@ -919,6 +919,116 @@
             显示内容
             </summary>		
         </member>
+        <member name="T:Yuebon.Security.Dtos.FilterIPInPutDto">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.FilterIPInPutDto.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.FilterIPInPutDto.Type">
+            <summary>
+            类型
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.FilterIPInPutDto.StartIP">
+            <summary>
+            开始IP
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.FilterIPInPutDto.EndIP">
+            <summary>
+            结束IP
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.FilterIPInPutDto.SortCode">
+            <summary>
+            排序码
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.FilterIPInPutDto.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.FilterIPInPutDto.EnabledMark">
+            <summary>
+            有效标志
+            </summary>
+        </member>
+        <member name="T:Yuebon.Security.Dtos.FilterIPOutPutDto">
+            <summary>
+            过滤IP
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.FilterIPOutPutDto.Type">
+            <summary>
+            类型
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.FilterIPOutPutDto.StartIP">
+            <summary>
+            开始IP
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.FilterIPOutPutDto.EndIP">
+            <summary>
+            结束IP
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.FilterIPOutPutDto.SortCode">
+            <summary>
+            排序码
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.FilterIPOutPutDto.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.FilterIPOutPutDto.DeleteMark">
+            <summary>
+            删除标志
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.FilterIPOutPutDto.EnabledMark">
+            <summary>
+            有效标志
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.FilterIPOutPutDto.CreatorTime">
+            <summary>
+            创建日期
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.FilterIPOutPutDto.CreatorUserId">
+            <summary>
+            创建用户主键
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.FilterIPOutPutDto.LastModifyTime">
+            <summary>
+            最后修改时间
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.FilterIPOutPutDto.LastModifyUserId">
+            <summary>
+            最后修改用户
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.FilterIPOutPutDto.DeleteTime">
+            <summary>
+            删除时间
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.FilterIPOutPutDto.DeleteUserId">
+            <summary>
+            删除用户
+            </summary>
+        </member>
         <member name="T:Yuebon.Security.Dtos.FunctionInputDto">
             <summary>
             输出Dto: Function功能信息
@@ -1380,6 +1490,171 @@
             </summary>
         </member>
         <member name="P:Yuebon.Security.Dtos.ItemsDetailOutputDto.DeleteUserId">
+            <summary>
+            删除用户
+            </summary>
+        </member>
+        <member name="T:Yuebon.Security.Dtos.LogInPutDto">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogInPutDto.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogInPutDto.Date">
+            <summary>
+            日期
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogInPutDto.Account">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogInPutDto.NickName">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogInPutDto.Type">
+            <summary>
+            类型
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogInPutDto.IPAddress">
+            <summary>
+            IP地址
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogInPutDto.IPAddressName">
+            <summary>
+            IP所在城市
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogInPutDto.ModuleId">
+            <summary>
+            系统模块Id
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogInPutDto.ModuleName">
+            <summary>
+            系统模块
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogInPutDto.Result">
+            <summary>
+            结果
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogInPutDto.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="T:Yuebon.Security.Dtos.LogOutPutDto">
+            <summary>
+            输出Dto:Log
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogOutPutDto.Id">
+            <summary>
+            日志主键
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogOutPutDto.Date">
+            <summary>
+            日期
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogOutPutDto.Account">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogOutPutDto.NickName">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogOutPutDto.OrganizeId">
+            <summary>
+            组织主键
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogOutPutDto.Type">
+            <summary>
+            类型
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogOutPutDto.IPAddress">
+            <summary>
+            IP地址
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogOutPutDto.IPAddressName">
+            <summary>
+            IP所在城市
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogOutPutDto.ModuleId">
+            <summary>
+            系统模块Id
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogOutPutDto.ModuleName">
+            <summary>
+            系统模块
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogOutPutDto.Result">
+            <summary>
+            结果
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogOutPutDto.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogOutPutDto.DeleteMark">
+            <summary>
+            删除标志
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogOutPutDto.EnabledMark">
+            <summary>
+            有效标志
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogOutPutDto.CreatorTime">
+            <summary>
+            创建日期
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogOutPutDto.CreatorUserId">
+            <summary>
+            创建用户主键
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogOutPutDto.LastModifyTime">
+            <summary>
+            最后修改时间
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogOutPutDto.LastModifyUserId">
+            <summary>
+            最后修改用户
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogOutPutDto.DeleteTime">
+            <summary>
+            删除时间
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.LogOutPutDto.DeleteUserId">
             <summary>
             删除用户
             </summary>
@@ -3337,6 +3612,11 @@
         <member name="P:Yuebon.Security.Dtos.UserInPutDto.ReferralUserId">
             <summary>
             上级推广员
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserInPutDto.UnionId">
+            <summary>
+            用户在微信开放平台的唯一标识符
             </summary>
         </member>
         <member name="P:Yuebon.Security.Dtos.UserInPutDto.ManagerId">
@@ -6539,6 +6819,11 @@
         <member name="P:Yuebon.Security.Models.User.ReferralUserId">
             <summary>
             上级推广员
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Models.User.UnionId">
+            <summary>
+            用户在微信开放平台的唯一标识符
             </summary>
         </member>
         <member name="P:Yuebon.Security.Models.User.SortCode">

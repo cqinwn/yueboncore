@@ -1,9 +1,5 @@
 ﻿using AutoMapper;
-using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using Yuebon.Commons.Mapping;
 using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Dtos
@@ -55,6 +51,10 @@ namespace Yuebon.Security.Dtos
             CreateMap<UserNameCardView, UserNameCardOutPutDto>();
             CreateMap<UserExtend, UserExtendOutPutDto>();
             CreateMap<UserFocus, UserFocusOutPutDto>();
+            CreateMap<Log, LogOutPutDto>();
+            CreateMap<LogInPutDto, Log>();
+            CreateMap<FilterIP, FilterIPOutPutDto>();
+            CreateMap<FilterIPInPutDto, FilterIP>();
         }
     }
 }

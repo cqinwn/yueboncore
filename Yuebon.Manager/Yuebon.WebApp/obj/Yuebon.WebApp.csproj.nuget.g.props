@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <RestoreSuccess Condition=" '$(RestoreSuccess)' == '' ">False</RestoreSuccess>
+    <RestoreSuccess Condition=" '$(RestoreSuccess)' == '' ">True</RestoreSuccess>
     <RestoreTool Condition=" '$(RestoreTool)' == '' ">NuGet</RestoreTool>
     <ProjectAssetsFile Condition=" '$(ProjectAssetsFile)' == '' ">$(MSBuildThisFileDirectory)project.assets.json</ProjectAssetsFile>
     <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">$(UserProfile)\.nuget\packages\</NuGetPackageRoot>
@@ -13,20 +13,20 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
   <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <Content Include="$(NuGetPackageRoot)yuebon.aspnetcore\1.1.4.2\contentFiles\any\netcoreapp3.0\Properties\launchSettings.json" Condition="Exists('$(NuGetPackageRoot)yuebon.aspnetcore\1.1.4.2\contentFiles\any\netcoreapp3.0\Properties\launchSettings.json')">
+    <Content Include="$(NuGetPackageRoot)yuebon.aspnetcore\1.2.0\contentFiles\any\netcoreapp3.1\Properties\launchSettings.json" Condition="Exists('$(NuGetPackageRoot)yuebon.aspnetcore\1.2.0\contentFiles\any\netcoreapp3.1\Properties\launchSettings.json')">
       <NuGetPackageId>Yuebon.AspNetCore</NuGetPackageId>
-      <NuGetPackageVersion>1.1.4.2</NuGetPackageVersion>
+      <NuGetPackageVersion>1.2.0</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
       <Private>False</Private>
       <Link>Properties\launchSettings.json</Link>
     </Content>
   </ItemGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore.design\3.0.0\build\netcoreapp2.0\Microsoft.EntityFrameworkCore.Design.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore.design\3.0.0\build\netcoreapp2.0\Microsoft.EntityFrameworkCore.Design.props')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore.design\3.1.0\build\netcoreapp2.0\Microsoft.EntityFrameworkCore.Design.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore.design\3.1.0\build\netcoreapp2.0\Microsoft.EntityFrameworkCore.Design.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <PkgMicrosoft_CodeAnalysis_Analyzers Condition=" '$(PkgMicrosoft_CodeAnalysis_Analyzers)' == '' ">C:\Users\Administrator\.nuget\packages\microsoft.codeanalysis.analyzers\2.9.3</PkgMicrosoft_CodeAnalysis_Analyzers>
+    <PkgMicrosoft_CodeAnalysis_Analyzers Condition=" '$(PkgMicrosoft_CodeAnalysis_Analyzers)' == '' ">C:\Users\Administrator\.nuget\packages\microsoft.codeanalysis.analyzers\2.9.4</PkgMicrosoft_CodeAnalysis_Analyzers>
     <PkgMicrosoft_AspNetCore_Razor_Design Condition=" '$(PkgMicrosoft_AspNetCore_Razor_Design)' == '' ">C:\Users\Administrator\.nuget\packages\microsoft.aspnetcore.razor.design\2.2.0</PkgMicrosoft_AspNetCore_Razor_Design>
-    <PkgMicrosoft_EntityFrameworkCore_Tools Condition=" '$(PkgMicrosoft_EntityFrameworkCore_Tools)' == '' ">C:\Users\Administrator\.nuget\packages\microsoft.entityframeworkcore.tools\3.0.0</PkgMicrosoft_EntityFrameworkCore_Tools>
+    <PkgMicrosoft_EntityFrameworkCore_Tools Condition=" '$(PkgMicrosoft_EntityFrameworkCore_Tools)' == '' ">C:\Users\Administrator\.nuget\packages\microsoft.entityframeworkcore.tools\3.1.0</PkgMicrosoft_EntityFrameworkCore_Tools>
   </PropertyGroup>
 </Project>

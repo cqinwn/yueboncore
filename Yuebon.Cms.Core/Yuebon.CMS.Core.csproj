@@ -3,10 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Yuebon.CMS</RootNamespace>
+    <Version>1.1.0</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Yuebon.Security.Core" Version="1.1.3.24" />
+    <PackageReference Include="Yuebon.Security.Core" Version="1.2.0" />
   </ItemGroup>
 
 </Project>

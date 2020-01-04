@@ -1,0 +1,8 @@
+D:\netcorespace\YueGroup\权限管理\Yuebon.Cms.Core\bin\Debug\netcoreapp3.1\Yuebon.CMS.Core.deps.json
+D:\netcorespace\YueGroup\权限管理\Yuebon.Cms.Core\bin\Debug\netcoreapp3.1\Yuebon.CMS.Core.dll
+D:\netcorespace\YueGroup\权限管理\Yuebon.Cms.Core\bin\Debug\netcoreapp3.1\Yuebon.CMS.Core.pdb
+D:\netcorespace\YueGroup\权限管理\Yuebon.Cms.Core\obj\Debug\netcoreapp3.1\Yuebon.CMS.Core.csprojAssemblyReference.cache
+D:\netcorespace\YueGroup\权限管理\Yuebon.Cms.Core\obj\Debug\netcoreapp3.1\Yuebon.CMS.Core.AssemblyInfoInputs.cache
+D:\netcorespace\YueGroup\权限管理\Yuebon.Cms.Core\obj\Debug\netcoreapp3.1\Yuebon.CMS.Core.AssemblyInfo.cs
+D:\netcorespace\YueGroup\权限管理\Yuebon.Cms.Core\obj\Debug\netcoreapp3.1\Yuebon.CMS.Core.dll
+D:\netcorespace\YueGroup\权限管理\Yuebon.Cms.Core\obj\Debug\netcoreapp3.1\Yuebon.CMS.Core.pdb

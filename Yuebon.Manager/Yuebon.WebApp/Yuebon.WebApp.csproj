@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <PreserveCompilationReferences>true</PreserveCompilationReferences>
     <RootNamespace>Yuebon.WebApp</RootNamespace>
     <AssemblyName>Yuebon.WebApp</AssemblyName>
@@ -871,16 +871,16 @@
 
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
     <PackageReference Include="UEditorNetCore" Version="1.1.0" />
-    <PackageReference Include="Yuebon.AspNetCore" Version="1.1.4.2" />
+    <PackageReference Include="Yuebon.AspNetCore" Version="1.2.0" />
   </ItemGroup>
 
 

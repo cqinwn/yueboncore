@@ -1,0 +1,11 @@
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.Commons\bin\Release\netcoreapp3.1\Yuebon.Commons.deps.json
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.Commons\bin\Release\netcoreapp3.1\Yuebon.Commons.dll
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.Commons\bin\Release\netcoreapp3.1\Yuebon.Commons.pdb
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.Commons\bin\Release\netcoreapp3.1\Yuebon.Commons.xml
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.Commons\obj\Release\netcoreapp3.1\Yuebon.Commons.csprojAssemblyReference.cache
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.Commons\obj\Release\netcoreapp3.1\Yuebon.Commons.Properties.Resources.resources
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.Commons\obj\Release\netcoreapp3.1\Yuebon.Commons.csproj.GenerateResource.cache
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.Commons\obj\Release\netcoreapp3.1\Yuebon.Commons.AssemblyInfoInputs.cache
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.Commons\obj\Release\netcoreapp3.1\Yuebon.Commons.AssemblyInfo.cs
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.Commons\obj\Release\netcoreapp3.1\Yuebon.Commons.dll
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.Commons\obj\Release\netcoreapp3.1\Yuebon.Commons.pdb

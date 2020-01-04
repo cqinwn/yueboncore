@@ -1,0 +1,16 @@
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.AspNetCore\bin\Release\netcoreapp3.1\Properties\launchSettings.json
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.AspNetCore\bin\Release\netcoreapp3.1\Yuebon.AspNetCore.deps.json
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.AspNetCore\bin\Release\netcoreapp3.1\Yuebon.AspNetCore.dll
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.AspNetCore\bin\Release\netcoreapp3.1\Yuebon.AspNetCore.pdb
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.AspNetCore\bin\Release\netcoreapp3.1\Yuebon.AspNetCore.xml
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.AspNetCore\bin\Release\netcoreapp3.1\Yuebon.Commons.dll
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.AspNetCore\bin\Release\netcoreapp3.1\Yuebon.Security.Core.dll
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.AspNetCore\obj\Release\netcoreapp3.1\Yuebon.AspNetCore.csprojAssemblyReference.cache
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.AspNetCore\obj\Release\netcoreapp3.1\staticwebassets\Yuebon.AspNetCore.StaticWebAssets.Manifest.cache
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.AspNetCore\obj\Release\netcoreapp3.1\staticwebassets\Yuebon.AspNetCore.StaticWebAssets.xml
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.AspNetCore\obj\Release\netcoreapp3.1\Yuebon.AspNetCore.AssemblyInfoInputs.cache
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.AspNetCore\obj\Release\netcoreapp3.1\Yuebon.AspNetCore.AssemblyInfo.cs
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.AspNetCore\obj\Release\netcoreapp3.1\Yuebon.AspNetCore.RazorTargetAssemblyInfo.cache
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.AspNetCore\obj\Release\netcoreapp3.1\Yuebon.AspNetCore.csproj.CopyComplete
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.AspNetCore\obj\Release\netcoreapp3.1\Yuebon.AspNetCore.dll
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.AspNetCore\obj\Release\netcoreapp3.1\Yuebon.AspNetCore.pdb

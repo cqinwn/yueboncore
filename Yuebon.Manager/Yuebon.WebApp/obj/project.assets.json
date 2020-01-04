@@ -4794,10 +4794,7 @@
       },
       "Yuebon.CMS.Core/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v3.0",
-        "dependencies": {
-          "Yuebon.Security.Core": "1.1.3.24"
-        },
+        "framework": "Unsupported,Version=v0.0",
         "compile": {
           "bin/placeholder/Yuebon.CMS.Core.dll": {}
         },
@@ -13651,5 +13648,16 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1201",
+      "level": "Error",
+      "message": "项目 Yuebon.CMS.Core 与 netcoreapp3.0 (.NETCoreApp,Version=v3.0) 不兼容。 项目 Yuebon.CMS.Core 支持: netcoreapp3.1 (.NETCoreApp,Version=v3.1)",
+      "libraryId": "Yuebon.CMS.Core",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.0"
+      ]
+    }
+  ]
 }

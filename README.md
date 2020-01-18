@@ -31,7 +31,7 @@ YuebonCore是一套基于NetCore3.0+Dapper+Bootstrap开发出来的框架，源�
 
 系统作者：YuebonCore团队
 
-作者Q Q：381450948
+作者Q Q：381450948（微信同号）
 
 QQ交流群：90311523
 

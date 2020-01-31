@@ -1,0 +1,396 @@
+[12:03:52.041] Yuebon.AspNetCore.Mvc.Filter.ExceptionHandlingAttribute T35 系统警告信息
+System.ArgumentOutOfRangeException: startIndex cannot be larger than length of string. (Parameter 'startIndex')
+   at System.String.Substring(Int32 startIndex, Int32 length)
+   at System.String.Substring(Int32 startIndex)
+   at Yuebon.AspNetCore.Controllers.ApiController.CheckToken() in D:\netcorespace\YueGroup\src\Yuebon.AspNetCore\Mvc\ApiController.cs:line 62
+   at Yuebon.WebApi.Areas.WeiXin.Controllers.WxOpenController.GetOpenId(String code) in D:\netcorespace\YueGroup\src\Yuebon.WebApi\Areas\WeiXin\Controllers\WxOpenController.cs:line 166
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[19:25:34.512] Yuebon.AspNetCore.Mvc.Filter.ExceptionHandlingAttribute T54 系统警告信息
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Yuebon.Commons.Helpers.HttpContextHelper.get_HttpContext() in D:\netcorespace\YueGroup\src\Yuebon.Commons\Helpers\HttpContextHelper.cs:line 19
+   at Yuebon.Commons.Helpers.SessionHelper.get_HttpHelper() in D:\netcorespace\YueGroup\src\Yuebon.Commons\Helpers\SessionHelper.cs:line 15
+   at Yuebon.Commons.Helpers.SessionHelper.GetString(String key) in D:\netcorespace\YueGroup\src\Yuebon.Commons\Helpers\SessionHelper.cs:line 44
+   at Yuebon.Commons.Core.Repositories.BaseRepository`2.OperationLogOfInsert(T obj, DbTransaction trans) in D:\netcorespace\YueGroup\src\Yuebon.Commons\Core\Repositories\BaseRepository.cs:line 1027
+   at Yuebon.Security.Repositories.UserRepository.Insert(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds, IDbTransaction trans) in D:\netcorespace\YueGroup\src\Yuebon.Security.Core\Repositories\UserRepository.cs:line 81
+   at Yuebon.Security.Services.UserService.Insert(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds, IDbTransaction trans) in D:\netcorespace\YueGroup\src\Yuebon.Security.Core\Services\UserService.cs:line 89
+   at Yuebon.Security.Application.UserApp.CreateUserByWxOpenId(UserInPutDto userInPut) in D:\netcorespace\YueGroup\src\Yuebon.Security.Core\Application\UserApp.cs:line 102
+   at Yuebon.WebApi.Areas.WeiXin.Controllers.WxOpenController.QuikLogin(WxUserInfo info) in D:\netcorespace\YueGroup\src\Yuebon.WebApi\Areas\WeiXin\Controllers\WxOpenController.cs:line 419
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[19:39:18.515] Yuebon.AspNetCore.Mvc.Filter.ExceptionHandlingAttribute T5 系统警告信息
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Yuebon.Commons.Helpers.HttpContextHelper.get_HttpContext() in D:\netcorespace\YueGroup\src\Yuebon.Commons\Helpers\HttpContextHelper.cs:line 19
+   at Yuebon.Commons.Helpers.SessionHelper.get_HttpHelper() in D:\netcorespace\YueGroup\src\Yuebon.Commons\Helpers\SessionHelper.cs:line 15
+   at Yuebon.Commons.Helpers.SessionHelper.GetString(String key) in D:\netcorespace\YueGroup\src\Yuebon.Commons\Helpers\SessionHelper.cs:line 44
+   at Yuebon.Commons.Core.Repositories.BaseRepository`2.OperationLogOfInsert(T obj, IDbTransaction trans) in D:\netcorespace\YueGroup\src\Yuebon.Commons\Core\Repositories\BaseRepository.cs:line 1027
+   at Yuebon.Security.Repositories.UserRepository.Insert(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds, IDbTransaction trans) in D:\netcorespace\YueGroup\src\Yuebon.Security.Core\Repositories\UserRepository.cs:line 84
+   at Yuebon.Security.Services.UserService.Insert(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds, IDbTransaction trans) in D:\netcorespace\YueGroup\src\Yuebon.Security.Core\Services\UserService.cs:line 89
+   at Yuebon.Security.Application.UserApp.CreateUserByWxOpenId(UserInPutDto userInPut) in D:\netcorespace\YueGroup\src\Yuebon.Security.Core\Application\UserApp.cs:line 102
+   at Yuebon.WebApi.Areas.WeiXin.Controllers.WxOpenController.QuikLogin(WxUserInfo info) in D:\netcorespace\YueGroup\src\Yuebon.WebApi\Areas\WeiXin\Controllers\WxOpenController.cs:line 419
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[19:40:14.102] Yuebon.AspNetCore.Mvc.Filter.ExceptionHandlingAttribute T36 系统警告信息
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Yuebon.Commons.Helpers.HttpContextHelper.get_HttpContext() in D:\netcorespace\YueGroup\src\Yuebon.Commons\Helpers\HttpContextHelper.cs:line 19
+   at Yuebon.Commons.Helpers.SessionHelper.get_HttpHelper() in D:\netcorespace\YueGroup\src\Yuebon.Commons\Helpers\SessionHelper.cs:line 15
+   at Yuebon.Commons.Helpers.SessionHelper.GetString(String key) in D:\netcorespace\YueGroup\src\Yuebon.Commons\Helpers\SessionHelper.cs:line 44
+   at Yuebon.Commons.Core.Repositories.BaseRepository`2.OperationLogOfInsert(T obj, IDbTransaction trans) in D:\netcorespace\YueGroup\src\Yuebon.Commons\Core\Repositories\BaseRepository.cs:line 1027
+   at Yuebon.Security.Repositories.UserRepository.Insert(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds, IDbTransaction trans) in D:\netcorespace\YueGroup\src\Yuebon.Security.Core\Repositories\UserRepository.cs:line 84
+   at Yuebon.Security.Services.UserService.Insert(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds, IDbTransaction trans) in D:\netcorespace\YueGroup\src\Yuebon.Security.Core\Services\UserService.cs:line 89
+   at Yuebon.Security.Application.UserApp.CreateUserByWxOpenId(UserInPutDto userInPut) in D:\netcorespace\YueGroup\src\Yuebon.Security.Core\Application\UserApp.cs:line 102
+   at Yuebon.WebApi.Areas.WeiXin.Controllers.WxOpenController.QuikLogin(WxUserInfo info) in D:\netcorespace\YueGroup\src\Yuebon.WebApi\Areas\WeiXin\Controllers\WxOpenController.cs:line 419
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[19:47:39.900] Yuebon.AspNetCore.Mvc.Filter.ExceptionHandlingAttribute T31 系统警告信息
+System.ArgumentNullException: String reference not set to an instance of a String. (Parameter 's')
+   at System.Text.Encoding.GetBytes(String s)
+   at Yuebon.Commons.Encrypt.MD5Util.GetMD5_32(String input) in D:\netcorespace\YueGroup\src\Yuebon.Commons\Encrypt\MD5Util.cs:line 32
+   at Yuebon.Security.Repositories.UserRepository.Insert(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds, IDbTransaction trans) in D:\netcorespace\YueGroup\src\Yuebon.Security.Core\Repositories\UserRepository.cs:line 88
+   at Yuebon.Security.Services.UserService.Insert(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds, IDbTransaction trans) in D:\netcorespace\YueGroup\src\Yuebon.Security.Core\Services\UserService.cs:line 89
+   at Yuebon.Security.Application.UserApp.CreateUserByWxOpenId(UserInPutDto userInPut) in D:\netcorespace\YueGroup\src\Yuebon.Security.Core\Application\UserApp.cs:line 102
+   at Yuebon.WebApi.Areas.WeiXin.Controllers.WxOpenController.QuikLogin(WxUserInfo info) in D:\netcorespace\YueGroup\src\Yuebon.WebApi\Areas\WeiXin\Controllers\WxOpenController.cs:line 419
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[19:58:46.195] Yuebon.AspNetCore.Mvc.Filter.ExceptionHandlingAttribute T5 系统警告信息
+System.Data.SqlClient.SqlException (0x80131904): 不能将值 NULL 插入列 'Id'，表 'YueBonGroup.dbo.Sys_User'；列不允许有 Null 值。INSERT 失败。
+语句已终止。
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite, String method)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior) in C:\projects\dapper\Dapper\SqlMapper.cs:line 1053
+   at Dapper.SqlMapper.QueryMultipleImpl(IDbConnection cnn, CommandDefinition& command) in C:\projects\dapper\Dapper\SqlMapper.cs:line 1022
+   at Dapper.SqlMapper.QueryMultiple(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) in C:\projects\dapper\Dapper\SqlMapper.cs:line 998
+   at SqlServerAdapter.Insert(IDbConnection connection, IDbTransaction transaction, Nullable`1 commandTimeout, String tableName, String columnList, String parameterList, IEnumerable`1 keyProperties, Object entityToInsert) in C:\projects\dapper\Dapper.Contrib\SqlMapperExtensions.cs:line 830
+   at Dapper.Contrib.Extensions.SqlMapperExtensions.Insert[T](IDbConnection connection, T entityToInsert, IDbTransaction transaction, Nullable`1 commandTimeout) in C:\projects\dapper\Dapper.Contrib\SqlMapperExtensions.cs:line 385
+   at Yuebon.Security.Repositories.UserRepository.Insert(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds, IDbTransaction trans) in D:\netcorespace\YueGroup\src\Yuebon.Security.Core\Repositories\UserRepository.cs:line 89
+   at Yuebon.Security.Services.UserService.Insert(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds, IDbTransaction trans) in D:\netcorespace\YueGroup\src\Yuebon.Security.Core\Services\UserService.cs:line 89
+   at Yuebon.Security.Application.UserApp.CreateUserByWxOpenId(UserInPutDto userInPut) in D:\netcorespace\YueGroup\src\Yuebon.Security.Core\Application\UserApp.cs:line 103
+   at Yuebon.WebApi.Areas.WeiXin.Controllers.WxOpenController.QuikLogin(WxUserInfo info) in D:\netcorespace\YueGroup\src\Yuebon.WebApi\Areas\WeiXin\Controllers\WxOpenController.cs:line 419
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+ClientConnectionId:934942ff-41e6-4cf4-9e56-d377ff45a216
+Error Number:515,State:2,Class:16
+[20:01:57.052] Yuebon.AspNetCore.Mvc.Filter.ExceptionHandlingAttribute T33 系统警告信息
+System.Data.SqlClient.SqlException (0x80131904): 不能将值 NULL 插入列 'Id'，表 'YueBonGroup.dbo.Sys_User'；列不允许有 Null 值。INSERT 失败。
+语句已终止。
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite, String method)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior) in C:\projects\dapper\Dapper\SqlMapper.cs:line 1053
+   at Dapper.SqlMapper.QueryMultipleImpl(IDbConnection cnn, CommandDefinition& command) in C:\projects\dapper\Dapper\SqlMapper.cs:line 1022
+   at Dapper.SqlMapper.QueryMultiple(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) in C:\projects\dapper\Dapper\SqlMapper.cs:line 998
+   at SqlServerAdapter.Insert(IDbConnection connection, IDbTransaction transaction, Nullable`1 commandTimeout, String tableName, String columnList, String parameterList, IEnumerable`1 keyProperties, Object entityToInsert) in C:\projects\dapper\Dapper.Contrib\SqlMapperExtensions.cs:line 830
+   at Dapper.Contrib.Extensions.SqlMapperExtensions.Insert[T](IDbConnection connection, T entityToInsert, IDbTransaction transaction, Nullable`1 commandTimeout) in C:\projects\dapper\Dapper.Contrib\SqlMapperExtensions.cs:line 385
+   at Yuebon.Security.Repositories.UserRepository.Insert(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds, IDbTransaction trans) in D:\netcorespace\YueGroup\src\Yuebon.Security.Core\Repositories\UserRepository.cs:line 89
+   at Yuebon.Security.Services.UserService.Insert(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds, IDbTransaction trans) in D:\netcorespace\YueGroup\src\Yuebon.Security.Core\Services\UserService.cs:line 89
+   at Yuebon.Security.Application.UserApp.CreateUserByWxOpenId(UserInPutDto userInPut) in D:\netcorespace\YueGroup\src\Yuebon.Security.Core\Application\UserApp.cs:line 103
+   at Yuebon.WebApi.Areas.WeiXin.Controllers.WxOpenController.QuikLogin(WxUserInfo info) in D:\netcorespace\YueGroup\src\Yuebon.WebApi\Areas\WeiXin\Controllers\WxOpenController.cs:line 419
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+ClientConnectionId:934942ff-41e6-4cf4-9e56-d377ff45a216
+Error Number:515,State:2,Class:16
+[21:08:19.070] Yuebon.AspNetCore.Mvc.Filter.ExceptionHandlingAttribute T44 系统警告信息
+System.Data.SqlClient.SqlException (0x80131904): 不能将值 NULL 插入列 'Id'，表 'YueBonGroup.dbo.Sys_User'；列不允许有 Null 值。INSERT 失败。
+语句已终止。
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite, String method)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior) in C:\projects\dapper\Dapper\SqlMapper.cs:line 1053
+   at Dapper.SqlMapper.QueryMultipleImpl(IDbConnection cnn, CommandDefinition& command) in C:\projects\dapper\Dapper\SqlMapper.cs:line 1022
+   at Dapper.SqlMapper.QueryMultiple(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) in C:\projects\dapper\Dapper\SqlMapper.cs:line 998
+   at SqlServerAdapter.Insert(IDbConnection connection, IDbTransaction transaction, Nullable`1 commandTimeout, String tableName, String columnList, String parameterList, IEnumerable`1 keyProperties, Object entityToInsert) in D:\netcorespace\YueGroup\src\Yuebon.Commons\Extensions\SqlMapperExtensions.cs:line 824
+   at Dapper.Contrib.Extensions.SqlMapperExtensions.Insert[T](IDbConnection connection, T entityToInsert, IDbTransaction transaction, Nullable`1 commandTimeout) in D:\netcorespace\YueGroup\src\Yuebon.Commons\Extensions\SqlMapperExtensions.cs:line 382
+   at Yuebon.Security.Repositories.UserRepository.Insert(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds, IDbTransaction trans) in D:\netcorespace\YueGroup\src\Yuebon.Security.Core\Repositories\UserRepository.cs:line 89
+   at Yuebon.Security.Services.UserService.Insert(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds, IDbTransaction trans) in D:\netcorespace\YueGroup\src\Yuebon.Security.Core\Services\UserService.cs:line 89
+   at Yuebon.Security.Application.UserApp.CreateUserByWxOpenId(UserInPutDto userInPut) in D:\netcorespace\YueGroup\src\Yuebon.Security.Core\Application\UserApp.cs:line 103
+   at Yuebon.WebApi.Areas.WeiXin.Controllers.WxOpenController.QuikLogin(WxUserInfo info) in D:\netcorespace\YueGroup\src\Yuebon.WebApi\Areas\WeiXin\Controllers\WxOpenController.cs:line 420
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+ClientConnectionId:e3da6d7a-6150-4891-8bb9-7a2989ac96c5
+Error Number:515,State:2,Class:16
+[21:14:42.354] Yuebon.AspNetCore.Mvc.Filter.ExceptionHandlingAttribute T42 系统警告信息
+System.Data.SqlClient.SqlException (0x80131904): 不能将值 NULL 插入列 'Id'，表 'YueBonGroup.dbo.Sys_User'；列不允许有 Null 值。INSERT 失败。
+语句已终止。
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite, String method)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior) in C:\projects\dapper\Dapper\SqlMapper.cs:line 1053
+   at Dapper.SqlMapper.QueryMultipleImpl(IDbConnection cnn, CommandDefinition& command) in C:\projects\dapper\Dapper\SqlMapper.cs:line 1022
+   at Dapper.SqlMapper.QueryMultiple(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) in C:\projects\dapper\Dapper\SqlMapper.cs:line 998
+   at SqlServerAdapter.Insert(IDbConnection connection, IDbTransaction transaction, Nullable`1 commandTimeout, String tableName, String columnList, String parameterList, IEnumerable`1 keyProperties, Object entityToInsert) in D:\netcorespace\YueGroup\src\Yuebon.Commons\Extensions\SqlMapperExtensions.cs:line 824
+   at Dapper.Contrib.Extensions.SqlMapperExtensions.Insert[T](IDbConnection connection, T entityToInsert, IDbTransaction transaction, Nullable`1 commandTimeout) in D:\netcorespace\YueGroup\src\Yuebon.Commons\Extensions\SqlMapperExtensions.cs:line 382
+   at Yuebon.Security.Repositories.UserRepository.Insert(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds, IDbTransaction trans) in D:\netcorespace\YueGroup\src\Yuebon.Security.Core\Repositories\UserRepository.cs:line 89
+   at Yuebon.Security.Services.UserService.Insert(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds, IDbTransaction trans) in D:\netcorespace\YueGroup\src\Yuebon.Security.Core\Services\UserService.cs:line 89
+   at Yuebon.Security.Application.UserApp.CreateUserByWxOpenId(UserInPutDto userInPut) in D:\netcorespace\YueGroup\src\Yuebon.Security.Core\Application\UserApp.cs:line 103
+   at Yuebon.WebApi.Areas.WeiXin.Controllers.WxOpenController.QuikLogin(WxUserInfo info) in D:\netcorespace\YueGroup\src\Yuebon.WebApi\Areas\WeiXin\Controllers\WxOpenController.cs:line 420
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+ClientConnectionId:e3da6d7a-6150-4891-8bb9-7a2989ac96c5
+Error Number:515,State:2,Class:16
+[21:47:41.590] Yuebon.AspNetCore.Mvc.Filter.ExceptionHandlingAttribute T4 系统警告信息
+AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+UserOutPutDto -> User
+Yuebon.Security.Dtos.UserOutPutDto -> Yuebon.Security.Models.User
+   at lambda_method(Closure , UserOutPutDto , User , ResolutionContext )
+   at lambda_method(Closure , Object , Object , ResolutionContext )
+   at Yuebon.Commons.Mapping.MapperExtensions.MapTo[TTarget](Object source) in D:\netcorespace\YueGroup\src\Yuebon.Commons\Mapping\MapperExtensions.cs:line 38
+   at Yuebon.WebApi.Areas.WeiXin.Controllers.WxOpenController.QuikLogin(WxUserInfo info) in D:\netcorespace\YueGroup\src\Yuebon.WebApi\Areas\WeiXin\Controllers\WxOpenController.cs:line 427
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[22:00:17.021] Yuebon.AspNetCore.Mvc.Filter.ExceptionHandlingAttribute T41 系统警告信息
+AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+UserOutPutDto -> User
+Yuebon.Security.Dtos.UserOutPutDto -> Yuebon.Security.Models.User
+   at lambda_method(Closure , UserOutPutDto , User , ResolutionContext )
+   at lambda_method(Closure , Object , Object , ResolutionContext )
+   at Yuebon.Commons.Mapping.MapperExtensions.MapTo[TTarget](Object source) in D:\netcorespace\YueGroup\src\Yuebon.Commons\Mapping\MapperExtensions.cs:line 38
+   at Yuebon.WebApi.Areas.WeiXin.Controllers.WxOpenController.QuikLogin(WxUserInfo info) in D:\netcorespace\YueGroup\src\Yuebon.WebApi\Areas\WeiXin\Controllers\WxOpenController.cs:line 427
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[22:03:38.195] Yuebon.AspNetCore.Mvc.Filter.ExceptionHandlingAttribute T46 系统警告信息
+AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+UserOutPutDto -> User
+Yuebon.Security.Dtos.UserOutPutDto -> Yuebon.Security.Models.User
+   at lambda_method(Closure , UserOutPutDto , User , ResolutionContext )
+   at lambda_method(Closure , Object , Object , ResolutionContext )
+   at Yuebon.Commons.Mapping.MapperExtensions.MapTo[TTarget](Object source) in D:\netcorespace\YueGroup\src\Yuebon.Commons\Mapping\MapperExtensions.cs:line 38
+   at Yuebon.WebApi.Areas.WeiXin.Controllers.WxOpenController.QuikLogin(WxUserInfo info) in D:\netcorespace\YueGroup\src\Yuebon.WebApi\Areas\WeiXin\Controllers\WxOpenController.cs:line 427
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[22:26:29.100] Yuebon.AspNetCore.Mvc.Filter.ExceptionHandlingAttribute T30 系统警告信息
+System.ArgumentOutOfRangeException: startIndex cannot be larger than length of string. (Parameter 'startIndex')
+   at System.String.Substring(Int32 startIndex, Int32 length)
+   at System.String.Substring(Int32 startIndex)
+   at Yuebon.AspNetCore.Controllers.ApiController.CheckToken() in D:\netcorespace\YueGroup\src\Yuebon.AspNetCore\Mvc\ApiController.cs:line 62
+   at Yuebon.WebApi.Areas.WeiXin.Controllers.WxOpenController.QuikLogin(WxUserInfo info) in D:\netcorespace\YueGroup\src\Yuebon.WebApi\Areas\WeiXin\Controllers\WxOpenController.cs:line 405
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[22:27:47.113] Yuebon.AspNetCore.Mvc.Filter.ExceptionHandlingAttribute T47 系统警告信息
+System.ArgumentOutOfRangeException: startIndex cannot be larger than length of string. (Parameter 'startIndex')
+   at System.String.Substring(Int32 startIndex, Int32 length)
+   at Yuebon.AspNetCore.Controllers.ApiController.CheckToken() in D:\netcorespace\YueGroup\src\Yuebon.AspNetCore\Mvc\ApiController.cs:line 62
+   at Yuebon.WebApi.Areas.WeiXin.Controllers.WxOpenController.GetOpenId(String code) in D:\netcorespace\YueGroup\src\Yuebon.WebApi\Areas\WeiXin\Controllers\WxOpenController.cs:line 167
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[23:23:44.551] Yuebon.AspNetCore.Mvc.Filter.ExceptionHandlingAttribute T40 系统警告信息
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Yuebon.Commons.Helpers.HttpContextHelper.get_HttpContext() in D:\netcorespace\YueGroup\src\Yuebon.Commons\Helpers\HttpContextHelper.cs:line 19
+   at Yuebon.Commons.Helpers.SessionHelper.get_HttpHelper() in D:\netcorespace\YueGroup\src\Yuebon.Commons\Helpers\SessionHelper.cs:line 15
+   at Yuebon.Commons.Helpers.SessionHelper.GetString(String key) in D:\netcorespace\YueGroup\src\Yuebon.Commons\Helpers\SessionHelper.cs:line 44
+   at Yuebon.Commons.Core.Repositories.BaseRepository`2.OperationLogOfUpdate(T obj, TKey id, IDbTransaction trans) in D:\netcorespace\YueGroup\src\Yuebon.Commons\Core\Repositories\BaseRepository.cs:line 1063
+   at Yuebon.Commons.Core.Repositories.BaseRepository`2.Update(T entity, TKey id, IDbTransaction trans) in D:\netcorespace\YueGroup\src\Yuebon.Commons\Core\Repositories\BaseRepository.cs:line 684
+   at Yuebon.Commons.Core.Services.BaseService`2.Update(T entity, Tkey id, IDbTransaction trans) in D:\netcorespace\YueGroup\src\Yuebon.Commons\Core\Services\BaseService.cs:line 273
+   at Yuebon.Security.Services.UserService.Yuebon.Commons.Core.IServices.IService<Yuebon.Security.Models.User,System.String>.Update(User entity, String id, IDbTransaction trans)
+   at Yuebon.Security.Application.UserApp.UpdateUserByOpenId(UserInPutDto userInPut) in D:\netcorespace\YueGroup\src\Yuebon.Security.Core\Application\UserApp.cs:line 129
+   at Yuebon.WebApi.Areas.WeiXin.Controllers.WxOpenController.QuikLogin(WxUserInfo info) in D:\netcorespace\YueGroup\src\Yuebon.WebApi\Areas\WeiXin\Controllers\WxOpenController.cs:line 428
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[23:56:47.301] Yuebon.AspNetCore.Mvc.Filter.ExceptionHandlingAttribute T8 系统警告信息
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Yuebon.Commons.Helpers.HttpContextHelper.get_HttpContext() in D:\netcorespace\YueGroup\src\Yuebon.Commons\Helpers\HttpContextHelper.cs:line 19
+   at Yuebon.Commons.Helpers.SessionHelper.get_HttpHelper() in D:\netcorespace\YueGroup\src\Yuebon.Commons\Helpers\SessionHelper.cs:line 15
+   at Yuebon.Commons.Helpers.SessionHelper.GetString(String key) in D:\netcorespace\YueGroup\src\Yuebon.Commons\Helpers\SessionHelper.cs:line 44
+   at Yuebon.Commons.Core.Repositories.BaseRepository`2.OperationLogOfUpdate(T obj, TKey id, IDbTransaction trans) in D:\netcorespace\YueGroup\src\Yuebon.Commons\Core\Repositories\BaseRepository.cs:line 1063
+   at Yuebon.Commons.Core.Repositories.BaseRepository`2.Update(T entity, TKey id, IDbTransaction trans) in D:\netcorespace\YueGroup\src\Yuebon.Commons\Core\Repositories\BaseRepository.cs:line 684
+   at Yuebon.Commons.Core.Services.BaseService`2.Update(T entity, Tkey id, IDbTransaction trans) in D:\netcorespace\YueGroup\src\Yuebon.Commons\Core\Services\BaseService.cs:line 273
+   at Yuebon.Security.Services.UserService.Yuebon.Commons.Core.IServices.IService<Yuebon.Security.Models.User,System.String>.Update(User entity, String id, IDbTransaction trans)
+   at Yuebon.Security.Application.UserApp.UpdateUserByOpenId(UserInPutDto userInPut) in D:\netcorespace\YueGroup\src\Yuebon.Security.Core\Application\UserApp.cs:line 129
+   at Yuebon.WebApi.Areas.WeiXin.Controllers.WxOpenController.QuikLogin(WxUserInfo info) in D:\netcorespace\YueGroup\src\Yuebon.WebApi\Areas\WeiXin\Controllers\WxOpenController.cs:line 428
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+[23:57:54.787] Yuebon.AspNetCore.Mvc.Filter.ExceptionHandlingAttribute T8 系统警告信息
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Yuebon.Commons.Helpers.HttpContextHelper.get_HttpContext() in D:\netcorespace\YueGroup\src\Yuebon.Commons\Helpers\HttpContextHelper.cs:line 19
+   at Yuebon.Commons.Helpers.SessionHelper.get_HttpHelper() in D:\netcorespace\YueGroup\src\Yuebon.Commons\Helpers\SessionHelper.cs:line 15
+   at Yuebon.Commons.Helpers.SessionHelper.GetString(String key) in D:\netcorespace\YueGroup\src\Yuebon.Commons\Helpers\SessionHelper.cs:line 44
+   at Yuebon.Commons.Core.Repositories.BaseRepository`2.OperationLogOfUpdate(T obj, TKey id, IDbTransaction trans) in D:\netcorespace\YueGroup\src\Yuebon.Commons\Core\Repositories\BaseRepository.cs:line 1063
+   at Yuebon.Commons.Core.Repositories.BaseRepository`2.Update(T entity, TKey id, IDbTransaction trans) in D:\netcorespace\YueGroup\src\Yuebon.Commons\Core\Repositories\BaseRepository.cs:line 684
+   at Yuebon.Commons.Core.Services.BaseService`2.Update(T entity, Tkey id, IDbTransaction trans) in D:\netcorespace\YueGroup\src\Yuebon.Commons\Core\Services\BaseService.cs:line 273
+   at Yuebon.Security.Services.UserService.Yuebon.Commons.Core.IServices.IService<Yuebon.Security.Models.User,System.String>.Update(User entity, String id, IDbTransaction trans)
+   at Yuebon.Security.Application.UserApp.UpdateUserByOpenId(UserInPutDto userInPut) in D:\netcorespace\YueGroup\src\Yuebon.Security.Core\Application\UserApp.cs:line 129
+   at Yuebon.WebApi.Areas.WeiXin.Controllers.WxOpenController.QuikLogin(WxUserInfo info) in D:\netcorespace\YueGroup\src\Yuebon.WebApi\Areas\WeiXin\Controllers\WxOpenController.cs:line 428
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)

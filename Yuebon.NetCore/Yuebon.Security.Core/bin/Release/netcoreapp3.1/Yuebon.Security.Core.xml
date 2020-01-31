@@ -448,6 +448,15 @@
             <param name="openflag"></param>
             <returns></returns>
         </member>
+        <member name="M:Yuebon.Security.Application.UserApp.GetUserAllListFocusByPage(System.String,System.String,System.String)">
+            <summary>
+            分页得到所有用户用于关注
+            </summary>
+            <param name="currentpage"></param>
+            <param name="pagesize"></param>
+            <param name="userid"></param>
+            <returns></returns>
+        </member>
         <member name="T:Yuebon.Security.Application.UserFocusApp">
             <summary>
             应用
@@ -3294,6 +3303,221 @@
             文件类型
             </summary>
         </member>
+        <member name="T:Yuebon.Security.Dtos.UserAllListFocusOutPutDto">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.Id">
+            <summary>
+            用户主键
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.Account">
+            <summary>
+            账户
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.RealName">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.NickName">
+            <summary>
+            呢称
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.HeadIcon">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.Gender">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.Birthday">
+            <summary>
+            生日
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.MobilePhone">
+            <summary>
+            手机
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.UserPassword">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.WeChat">
+            <summary>
+            微信
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.IsMember">
+            <summary>
+            是否会员
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.MemberGradeId">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.ReferralUserId">
+            <summary>
+            上级推广员
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.ManagerId">
+            <summary>
+            主管主键
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.SecurityLevel">
+            <summary>
+            安全级别
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.Signature">
+            <summary>
+            个性签名
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.OrganizeId">
+            <summary>
+            组织主键
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.OrganizeName">
+            <summary>
+            组织名称
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.DepartmentId">
+            <summary>
+            部门主键
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.DepartmentName">
+            <summary>
+            部门名称
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.RoleId">
+            <summary>
+            角色主键
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.RoleName">
+            <summary>
+            角色名称
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.DutyId">
+            <summary>
+            岗位主键
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.DutyName">
+            <summary>
+            岗位名称
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.IsAdministrator">
+            <summary>
+            是否管理员
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.SortCode">
+            <summary>
+            排序码
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.DeleteMark">
+            <summary>
+            删除标志
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.EnabledMark">
+            <summary>
+            有效标志
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.CreatorTime">
+            <summary>
+            创建日期
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.CreatorUserId">
+            <summary>
+            创建用户主键
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.LastModifyTime">
+            <summary>
+            最后修改时间
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.LastModifyUserId">
+            <summary>
+            最后修改用户
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.DeleteTime">
+            <summary>
+            删除时间
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.DeleteUserId">
+            <summary>
+            删除用户
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.IfFocus">
+            <summary>
+            我是否关注
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.TotalFocus">
+            <summary>
+            总关注人数
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.VipGrade">
+            <summary>
+            是否认证
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.IsAuthentication">
+            <summary>
+            是否认证
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.AuthenticationType">
+            <summary>
+            认证级别
+            </summary>
+        </member>
+        <member name="P:Yuebon.Security.Dtos.UserAllListFocusOutPutDto.RecordCount">
+            <summary>
+            记录总数
+            </summary>
+        </member>
         <member name="T:Yuebon.Security.Dtos.UserExtendOutPutDto">
             <summary>
             
@@ -4598,6 +4822,15 @@
             <param name="openflag"></param>
             <returns></returns>
         </member>
+        <member name="M:Yuebon.Security.IRepositories.IUserRepository.GetUserAllListFocusByPage(System.String,System.String,System.String)">
+            <summary>
+            所有用户信息用于关注
+            </summary>
+            <param name="currentpage"></param>
+            <param name="pagesize"></param>
+            <param name="userid"></param>
+            <returns></returns>
+        </member>
         <member name="T:Yuebon.Security.IServices.IAPPService">
             <summary>
             
@@ -4874,6 +5107,15 @@
             <param name="area"></param>
             <param name="address"></param>
             <param name="openflag"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.Security.IServices.IUserService.GetUserAllListFocusByPage(System.String,System.String,System.String)">
+            <summary>
+            所有用户信息用于关注
+            </summary>
+            <param name="currentpage"></param>
+            <param name="pagesize"></param>
+            <param name="userid"></param>
             <returns></returns>
         </member>
         <member name="T:Yuebon.Security.Models.APP">
@@ -7713,6 +7955,15 @@
             <param name="openflag"></param>
             <returns></returns>
         </member>
+        <member name="M:Yuebon.Security.Repositories.UserRepository.GetUserAllListFocusByPage(System.String,System.String,System.String)">
+            <summary>
+            分页得到所有用户用于关注
+            </summary>
+            <param name="currentpage"></param>
+            <param name="pagesize"></param>
+            <param name="userid"></param>
+            <returns></returns>
+        </member>
         <member name="M:Yuebon.Security.Services.APPService.GetAPP(System.String,System.String)">
             <summary>
             获取app对象
@@ -7999,6 +8250,15 @@
             <param name="area"></param>
             <param name="address"></param>
             <param name="openflag"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.Security.Services.UserService.GetUserAllListFocusByPage(System.String,System.String,System.String)">
+            <summary>
+            分页得到所有用户用于关注
+            </summary>
+            <param name="currentpage"></param>
+            <param name="pagesize"></param>
+            <param name="userid"></param>
             <returns></returns>
         </member>
     </members>

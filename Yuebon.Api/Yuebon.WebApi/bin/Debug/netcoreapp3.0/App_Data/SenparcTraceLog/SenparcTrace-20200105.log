@@ -1,0 +1,77 @@
+[[[自动注册扩展缓存完成]]]
+[2020/01/05 13:01:09.0918]
+[线程：1]
+注册总用时：157.74020000000002ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2020/01/05 13:01:16.3156]
+[线程：1]
+微信扩展缓存注册总用时：2451.5416ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[自动注册扩展缓存完成]]]
+[2020/01/05 13:07:59.1927]
+[线程：1]
+注册总用时：14.650400000000001ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2020/01/05 13:08:04.3233]
+[线程：1]
+微信扩展缓存注册总用时：858.8668ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[自动注册扩展缓存完成]]]
+[2020/01/05 13:18:41.6977]
+[线程：1]
+注册总用时：19.0347ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2020/01/05 13:18:42.1658]
+[线程：1]
+微信扩展缓存注册总用时：99.6953ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[接口调用]]]
+[2020/01/05 13:24:16.7107]
+[线程：38]
+	URL：https://api.weixin.qq.com/wxa/msg_sec_check?access_token=29_nhqLqfY4CEBgZYTpSdBvjYrFoHPTJsvaMKFWlT2KZvbwsx_KCzE3i0otjkZQ91yAL7y26l_nnX33l4-1PffgdCnOFiRkU2vPx4eFN95Bsmr3JMGzhvEMvViqCDFptGVWlTRNqbrxgE9wiuUkSTSbADAVWV
+	Post Data：
+{"content":"说得对扩扩扩扩扩"}
+
+[[[自动注册扩展缓存完成]]]
+[2020/01/05 13:54:40.7501]
+[线程：1]
+注册总用时：22.7952ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2020/01/05 13:54:41.4326]
+[线程：1]
+微信扩展缓存注册总用时：192.3535ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[自动注册扩展缓存完成]]]
+[2020/01/05 14:01:46.5600]
+[线程：1]
+注册总用时：21.7453ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2020/01/05 14:01:47.1270]
+[线程：1]
+微信扩展缓存注册总用时：110.9641ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+

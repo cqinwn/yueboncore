@@ -1,0 +1,17 @@
+[16:36:46.925] Yuebon.AspNetCore.Mvc.Filter.ExceptionHandlingAttribute T5 系统警告信息
+Yuebon.AspNetCore.Common.MyApiException: Exception of type 'Yuebon.AspNetCore.Common.MyApiException' was thrown.
+   at Yuebon.AspNetCore.Mvc.TokenProvider.ValidateToken(String token) in D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.AspNetCore\Mvc\TokenProvider.cs:line 120
+   at Yuebon.AspNetCore.Controllers.ApiController.CheckToken(String token) in D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.AspNetCore\Mvc\ApiController.cs:line 73
+   at Yuebon.WebApi.Areas.WeiXin.Controllers.WxOpenController.GetOpenId(String code) in D:\netcorespace\YueGroup\src\Yuebon.Api\Yuebon.WebApi\Areas\WeiXin\Controllers\WxOpenController.cs:line 186
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)

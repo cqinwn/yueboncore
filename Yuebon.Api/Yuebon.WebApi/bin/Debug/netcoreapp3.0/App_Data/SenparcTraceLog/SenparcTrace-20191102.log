@@ -1,0 +1,621 @@
+[[[自动注册扩展缓存完成]]]
+[2019/11/02 14:26:08.7955]
+[线程：1]
+注册总用时：13.727400000000001ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2019/11/02 14:26:09.1080]
+[线程：1]
+微信扩展缓存注册总用时：76.6980ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[自动注册扩展缓存完成]]]
+[2019/11/02 14:35:34.4598]
+[线程：1]
+注册总用时：9.2642ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2019/11/02 14:35:34.7277]
+[线程：1]
+微信扩展缓存注册总用时：65.7321ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[接口调用]]]
+[2019/11/02 14:38:39.8604]
+[线程：8]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_b02gR7LtY_YDLkJGeab18QJdpzeHbvLXlgyoAsDIYm9RHCDosznK9DxmbHtHanRChBJ7Hr5kor9NbfxYKyr48tgfww6ruRiNKiDJ5EV_vhVq3--w9LlgtKFBgh0CRc_AHVhKeVkLGay93HsCQPOiAGADCB
+	Post Data：
+{"touser":"o4Uv25QpVoGWzKVkSjGNqgMcwBSg","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/214:38最新动态"},"thing2":{"value":"9人看了16篇文章，浏览69次,2评论,19点赞,4下载"}}}
+
+[[[ErrorJsonResultException]]]
+[2019/11/02 14:38:40.1622]
+[线程：8]
+	ErrorJsonResultException
+	AccessTokenOrAppId：null
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_b02gR7LtY_YDLkJGeab18QJdpzeHbvLXlgyoAsDIYm9RHCDosznK9DxmbHtHanRChBJ7Hr5kor9NbfxYKyr48tgfww6ruRiNKiDJ5EV_vhVq3--w9LlgtKFBgh0CRc_AHVhKeVkLGay93HsCQPOiAGADCB
+	errcode：用户拒绝接受消息
+	errmsg：user refuse to accept the msg hint: [st07204124]
+
+[[[接口调用]]]
+[2019/11/02 14:39:07.5336]
+[线程：8]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_b02gR7LtY_YDLkJGeab18QJdpzeHbvLXlgyoAsDIYm9RHCDosznK9DxmbHtHanRChBJ7Hr5kor9NbfxYKyr48tgfww6ruRiNKiDJ5EV_vhVq3--w9LlgtKFBgh0CRc_AHVhKeVkLGay93HsCQPOiAGADCB
+	Post Data：
+{"touser":"o4Uv25ee41SIoIbaNP8CM4XQUBJ0","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/214:39最新动态"},"thing2":{"value":"8人看了5篇文章，浏览27次,3评论,70点赞"}}}
+
+[[[ErrorJsonResultException]]]
+[2019/11/02 14:39:07.6779]
+[线程：8]
+	ErrorJsonResultException
+	AccessTokenOrAppId：null
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_b02gR7LtY_YDLkJGeab18QJdpzeHbvLXlgyoAsDIYm9RHCDosznK9DxmbHtHanRChBJ7Hr5kor9NbfxYKyr48tgfww6ruRiNKiDJ5EV_vhVq3--w9LlgtKFBgh0CRc_AHVhKeVkLGay93HsCQPOiAGADCB
+	errcode：模板参数不准确
+	errmsg：argument invalid! hint: [zw16da07484105] data.thing2.value invalid
+
+[[[接口调用]]]
+[2019/11/02 14:39:09.4538]
+[线程：8]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_b02gR7LtY_YDLkJGeab18QJdpzeHbvLXlgyoAsDIYm9RHCDosznK9DxmbHtHanRChBJ7Hr5kor9NbfxYKyr48tgfww6ruRiNKiDJ5EV_vhVq3--w9LlgtKFBgh0CRc_AHVhKeVkLGay93HsCQPOiAGADCB
+	Post Data：
+{"touser":"o4Uv25YF-3f088d-Qw5E4hkIsxuU","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/214:39最新动态"},"thing2":{"value":"14人看了40篇文章，浏览134次,6评论,47点赞,1收藏,3下载"}}}
+
+[[[ErrorJsonResultException]]]
+[2019/11/02 14:39:09.5322]
+[线程：8]
+	ErrorJsonResultException
+	AccessTokenOrAppId：null
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_b02gR7LtY_YDLkJGeab18QJdpzeHbvLXlgyoAsDIYm9RHCDosznK9DxmbHtHanRChBJ7Hr5kor9NbfxYKyr48tgfww6ruRiNKiDJ5EV_vhVq3--w9LlgtKFBgh0CRc_AHVhKeVkLGay93HsCQPOiAGADCB
+	errcode：用户拒绝接受消息
+	errmsg：user refuse to accept the msg hint: [pHOynA07503113]
+
+[[[自动注册扩展缓存完成]]]
+[2019/11/02 14:44:08.4851]
+[线程：1]
+注册总用时：7.596100000000001ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2019/11/02 14:44:08.8158]
+[线程：1]
+微信扩展缓存注册总用时：78.8832ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[接口调用]]]
+[2019/11/02 14:44:44.2831]
+[线程：4]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_TKZ171uyuvwyewomJ3JrFtKVjYBgfx3cl5dmWIFti5h_Pjj9y3REyk3aKD61kKz_FItkC366Be5CSI5o-eqDgvqQv3_iCWspn1__53C20wApkH4Amo7fNCzGsSPeYJj9W-sQwx8pg6-bnKUJVJGgAAACQN
+	Post Data：
+{"touser":"o4Uv25QpVoGWzKVkSjGNqgMcwBSg","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/214:44最新动态"},"thing2":{"value":"9人看了16篇文章，浏览69次,2..."}}}
+
+[[[接口调用]]]
+[2019/11/02 14:44:46.9137]
+[线程：4]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_TKZ171uyuvwyewomJ3JrFtKVjYBgfx3cl5dmWIFti5h_Pjj9y3REyk3aKD61kKz_FItkC366Be5CSI5o-eqDgvqQv3_iCWspn1__53C20wApkH4Amo7fNCzGsSPeYJj9W-sQwx8pg6-bnKUJVJGgAAACQN
+	Post Data：
+{"touser":"o4Uv25ee41SIoIbaNP8CM4XQUBJ0","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/214:44最新动态"},"thing2":{"value":"8人看了5篇文章，浏览27次,3评..."}}}
+
+[[[接口调用]]]
+[2019/11/02 14:44:51.9054]
+[线程：4]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_TKZ171uyuvwyewomJ3JrFtKVjYBgfx3cl5dmWIFti5h_Pjj9y3REyk3aKD61kKz_FItkC366Be5CSI5o-eqDgvqQv3_iCWspn1__53C20wApkH4Amo7fNCzGsSPeYJj9W-sQwx8pg6-bnKUJVJGgAAACQN
+	Post Data：
+{"touser":"o4Uv25YF-3f088d-Qw5E4hkIsxuU","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/214:44最新动态"},"thing2":{"value":"14人看了40篇文章，浏览134次..."}}}
+
+[[[ErrorJsonResultException]]]
+[2019/11/02 14:44:51.9852]
+[线程：4]
+	ErrorJsonResultException
+	AccessTokenOrAppId：null
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_TKZ171uyuvwyewomJ3JrFtKVjYBgfx3cl5dmWIFti5h_Pjj9y3REyk3aKD61kKz_FItkC366Be5CSI5o-eqDgvqQv3_iCWspn1__53C20wApkH4Amo7fNCzGsSPeYJj9W-sQwx8pg6-bnKUJVJGgAAACQN
+	errcode：用户拒绝接受消息
+	errmsg：user refuse to accept the msg hint: [4d8MmA00923935]
+
+[[[自动注册扩展缓存完成]]]
+[2019/11/02 14:52:06.0451]
+[线程：1]
+注册总用时：10.844100000000001ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2019/11/02 14:52:06.3363]
+[线程：1]
+微信扩展缓存注册总用时：73.8517ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[接口调用]]]
+[2019/11/02 14:53:22.3887]
+[线程：19]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_VQOshhf-4OMygcW3VEyIs3cbSKQDwyLlQGulKQoHCDKm4BNUtBPD6UAaeuUdIfCvbB7Tn7l0pkX1HsiAjs4j3jluFzo4vauIvcHywzyeuByTDbg7aEBQY1a6lrQVCGbAAAYFJ
+	Post Data：
+{"touser":"o4Uv25QpVoGWzKVkSjGNqgMcwBSg","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/214:53最新动态"},"thing2":{"value":"9人看了16篇文章，浏览69次,2..."}}}
+
+[[[接口调用]]]
+[2019/11/02 14:53:53.8064]
+[线程：19]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_VQOshhf-4OMygcW3VEyIs3cbSKQDwyLlQGulKQoHCDKm4BNUtBPD6UAaeuUdIfCvbB7Tn7l0pkX1HsiAjs4j3jluFzo4vauIvcHywzyeuByTDbg7aEBQY1a6lrQVCGbAAAYFJ
+	Post Data：
+{"touser":"o4Uv25ee41SIoIbaNP8CM4XQUBJ0","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/214:53最新动态"},"thing2":{"value":"8人看了5篇文章，浏览27次,3评..."}}}
+
+[[[接口调用]]]
+[2019/11/02 14:54:16.0822]
+[线程：19]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_VQOshhf-4OMygcW3VEyIs3cbSKQDwyLlQGulKQoHCDKm4BNUtBPD6UAaeuUdIfCvbB7Tn7l0pkX1HsiAjs4j3jluFzo4vauIvcHywzyeuByTDbg7aEBQY1a6lrQVCGbAAAYFJ
+	Post Data：
+{"touser":"o4Uv25YF-3f088d-Qw5E4hkIsxuU","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/214:54最新动态"},"thing2":{"value":"14人看了40篇文章，浏览134次..."}}}
+
+[[[ErrorJsonResultException]]]
+[2019/11/02 14:54:17.5769]
+[线程：19]
+	ErrorJsonResultException
+	AccessTokenOrAppId：null
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_VQOshhf-4OMygcW3VEyIs3cbSKQDwyLlQGulKQoHCDKm4BNUtBPD6UAaeuUdIfCvbB7Tn7l0pkX1HsiAjs4j3jluFzo4vauIvcHywzyeuByTDbg7aEBQY1a6lrQVCGbAAAYFJ
+	errcode：用户拒绝接受消息
+	errmsg：user refuse to accept the msg hint: [F_7uSA0656shc1]
+
+[[[接口调用]]]
+[2019/11/02 14:54:24.7514]
+[线程：35]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_VQOshhf-4OMygcW3VEyIs3cbSKQDwyLlQGulKQoHCDKm4BNUtBPD6UAaeuUdIfCvbB7Tn7l0pkX1HsiAjs4j3jluFzo4vauIvcHywzyeuByTDbg7aEBQY1a6lrQVCGbAAAYFJ
+	Post Data：
+{"touser":"o4Uv25YF-3f088d-Qw5E4hkIsxuU","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/214:54最新动态"},"thing2":{"value":"14人看了40篇文章，浏览134次..."}}}
+
+[[[ErrorJsonResultException]]]
+[2019/11/02 14:54:25.9171]
+[线程：35]
+	ErrorJsonResultException
+	AccessTokenOrAppId：null
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_VQOshhf-4OMygcW3VEyIs3cbSKQDwyLlQGulKQoHCDKm4BNUtBPD6UAaeuUdIfCvbB7Tn7l0pkX1HsiAjs4j3jluFzo4vauIvcHywzyeuByTDbg7aEBQY1a6lrQVCGbAAAYFJ
+	errcode：用户拒绝接受消息
+	errmsg：user refuse to accept the msg hint: [jitWLA06654963]
+
+[[[接口调用]]]
+[2019/11/02 14:57:37.7538]
+[线程：34]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_VQOshhf-4OMygcW3VEyIs3cbSKQDwyLlQGulKQoHCDKm4BNUtBPD6UAaeuUdIfCvbB7Tn7l0pkX1HsiAjs4j3jluFzo4vauIvcHywzyeuByTDbg7aEBQY1a6lrQVCGbAAAYFJ
+	Post Data：
+{"touser":"o4Uv25YF-3f088d-Qw5E4hkIsxuU","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/214:57最新动态"},"thing2":{"value":"14人看了40篇文章，浏览134次..."}}}
+
+[[[自动注册扩展缓存完成]]]
+[2019/11/02 15:05:30.4785]
+[线程：1]
+注册总用时：9.775500000000001ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2019/11/02 15:05:30.7583]
+[线程：1]
+微信扩展缓存注册总用时：63.7187ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[接口调用]]]
+[2019/11/02 15:10:36.9083]
+[线程：19]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_a7HxNQBT4gp2BkcAylJMz6B11j_9UkUn_RrKGr5wvT9Sqkzo-AtsKCv3TzHk3cASkZHgiBxK7L2-F-MJ3bY3LE7i4438Z2aywpRhHKagaeDA6Sjuj1b5L58_oQULZGaAAAXLS
+	Post Data：
+{"touser":"o4Uv25WxCveS6QYtBK0xhYeWiZK0","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/215:10最新动态"},"thing2":{"value":"2人看了1篇文章，浏览5次,1评论..."}}}
+
+[[[接口调用]]]
+[2019/11/02 15:10:37.2516]
+[线程：19]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_a7HxNQBT4gp2BkcAylJMz6B11j_9UkUn_RrKGr5wvT9Sqkzo-AtsKCv3TzHk3cASkZHgiBxK7L2-F-MJ3bY3LE7i4438Z2aywpRhHKagaeDA6Sjuj1b5L58_oQULZGaAAAXLS
+	Post Data：
+{"touser":"o4Uv25YF-3f088d-Qw5E4hkIsxuU","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/215:10最新动态"},"thing2":{"value":"14人看了40篇文章，浏览134次..."}}}
+
+[[[ErrorJsonResultException]]]
+[2019/11/02 15:10:37.3516]
+[线程：19]
+	ErrorJsonResultException
+	AccessTokenOrAppId：null
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_a7HxNQBT4gp2BkcAylJMz6B11j_9UkUn_RrKGr5wvT9Sqkzo-AtsKCv3TzHk3cASkZHgiBxK7L2-F-MJ3bY3LE7i4438Z2aywpRhHKagaeDA6Sjuj1b5L58_oQULZGaAAAXLS
+	errcode：用户拒绝接受消息
+	errmsg：user refuse to accept the msg hint: [CDVaya06384924]
+
+[[[接口调用]]]
+[2019/11/02 15:12:22.9020]
+[线程：37]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_a7HxNQBT4gp2BkcAylJMz6B11j_9UkUn_RrKGr5wvT9Sqkzo-AtsKCv3TzHk3cASkZHgiBxK7L2-F-MJ3bY3LE7i4438Z2aywpRhHKagaeDA6Sjuj1b5L58_oQULZGaAAAXLS
+	Post Data：
+{"touser":"o4Uv25YF-3f088d-Qw5E4hkIsxuU","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/215:12最新动态"},"thing2":{"value":"14人看了40篇文章，浏览134次..."}}}
+
+[[[ErrorJsonResultException]]]
+[2019/11/02 15:12:23.0701]
+[线程：37]
+	ErrorJsonResultException
+	AccessTokenOrAppId：null
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_a7HxNQBT4gp2BkcAylJMz6B11j_9UkUn_RrKGr5wvT9Sqkzo-AtsKCv3TzHk3cASkZHgiBxK7L2-F-MJ3bY3LE7i4438Z2aywpRhHKagaeDA6Sjuj1b5L58_oQULZGaAAAXLS
+	errcode：用户拒绝接受消息
+	errmsg：user refuse to accept the msg hint: [UWVlZa07433950]
+
+[[[自动注册扩展缓存完成]]]
+[2019/11/02 15:29:16.5046]
+[线程：1]
+注册总用时：16.0804ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2019/11/02 15:29:16.8224]
+[线程：1]
+微信扩展缓存注册总用时：77.4824ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[接口调用]]]
+[2019/11/02 15:29:29.4425]
+[线程：4]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_B2ey8JABbNvcOEtC8mSyB-wADOTXbxqIC7Cd6XPJy4cNa1fDk1jb8iYS7SEeN_LybXS5orEmH3Jh73IjRMtUbkr5LTTd3avsnI1hUUF-GkvBy1kiw4-c4GxBPLELWAdAIATEI
+	Post Data：
+{"touser":"o4Uv25QpVoGWzKVkSjGNqgMcwBSg","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/215:29最新动态"},"thing2":{"value":"9人看了16篇文章，浏览70次,2..."}}}
+
+[[[接口调用]]]
+[2019/11/02 15:30:29.0713]
+[线程：4]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_B2ey8JABbNvcOEtC8mSyB-wADOTXbxqIC7Cd6XPJy4cNa1fDk1jb8iYS7SEeN_LybXS5orEmH3Jh73IjRMtUbkr5LTTd3avsnI1hUUF-GkvBy1kiw4-c4GxBPLELWAdAIATEI
+	Post Data：
+{"touser":"o4Uv25YF-3f088d-Qw5E4hkIsxuU","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/215:30最新动态"},"thing2":{"value":"14人看了40篇文章，浏览138次..."}}}
+
+[[[自动注册扩展缓存完成]]]
+[2019/11/02 16:01:57.2849]
+[线程：1]
+注册总用时：10.0328ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2019/11/02 16:01:57.5500]
+[线程：1]
+微信扩展缓存注册总用时：64.6061ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[自动注册扩展缓存完成]]]
+[2019/11/02 16:25:17.1318]
+[线程：1]
+注册总用时：37.3857ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2019/11/02 16:25:17.4562]
+[线程：1]
+微信扩展缓存注册总用时：66.0602ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[自动注册扩展缓存完成]]]
+[2019/11/02 16:54:21.3865]
+[线程：1]
+注册总用时：7.993ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2019/11/02 16:54:21.7366]
+[线程：1]
+微信扩展缓存注册总用时：112.5211ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[自动注册扩展缓存完成]]]
+[2019/11/02 17:07:09.0554]
+[线程：1]
+注册总用时：27.1366ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2019/11/02 17:07:09.6829]
+[线程：1]
+微信扩展缓存注册总用时：193.8227ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[自动注册扩展缓存完成]]]
+[2019/11/02 17:16:14.8627]
+[线程：1]
+注册总用时：18.4494ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2019/11/02 17:16:15.2693]
+[线程：1]
+微信扩展缓存注册总用时：117.3012ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[自动注册扩展缓存完成]]]
+[2019/11/02 17:20:03.7293]
+[线程：1]
+注册总用时：9.287ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2019/11/02 17:20:04.0899]
+[线程：1]
+微信扩展缓存注册总用时：104.5571ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[自动注册扩展缓存完成]]]
+[2019/11/02 17:21:57.1370]
+[线程：1]
+注册总用时：48.0047ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2019/11/02 17:21:57.6361]
+[线程：1]
+微信扩展缓存注册总用时：114.9193ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[自动注册扩展缓存完成]]]
+[2019/11/02 20:57:13.3512]
+[线程：1]
+注册总用时：8.2607ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2019/11/02 20:57:13.6425]
+[线程：1]
+微信扩展缓存注册总用时：70.5109ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[接口调用]]]
+[2019/11/02 20:57:26.1892]
+[线程：8]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_9xuqOn7n4WGS9Zr93JVApakoE99N-QoyGyNNyMey81YlDwEFr-lPqoQ9lo5NZQlq3FKxIeMFj9G4Xm1vwNLrq8S0UeKoKAKrhPyY5FVWupcKeQOPPImEhFO_oogAGOfAEAKQY
+	Post Data：
+{"touser":"o4Uv25ee41SIoIbaNP8CM4XQUBJ0","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/220:57最新动态"},"thing2":{"value":"1人看了1篇文章，浏览1次"}}}
+
+[[[ErrorJsonResultException]]]
+[2019/11/02 20:57:26.4001]
+[线程：8]
+	ErrorJsonResultException
+	AccessTokenOrAppId：null
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_9xuqOn7n4WGS9Zr93JVApakoE99N-QoyGyNNyMey81YlDwEFr-lPqoQ9lo5NZQlq3FKxIeMFj9G4Xm1vwNLrq8S0UeKoKAKrhPyY5FVWupcKeQOPPImEhFO_oogAGOfAEAKQY
+	errcode：用户拒绝接受消息
+	errmsg：user refuse to accept the msg hint: [4fNrBa04473950]
+
+[[[接口调用]]]
+[2019/11/02 20:57:32.9203]
+[线程：8]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_9xuqOn7n4WGS9Zr93JVApakoE99N-QoyGyNNyMey81YlDwEFr-lPqoQ9lo5NZQlq3FKxIeMFj9G4Xm1vwNLrq8S0UeKoKAKrhPyY5FVWupcKeQOPPImEhFO_oogAGOfAEAKQY
+	Post Data：
+{"touser":"o4Uv25YF-3f088d-Qw5E4hkIsxuU","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/220:57最新动态"},"thing2":{"value":"1人看了1篇文章，浏览1次"}}}
+
+[[[接口调用]]]
+[2019/11/02 21:01:26.7997]
+[线程：23]
+	URL：https://api.weixin.qq.com/sns/jscode2session?appid=wx3821f908eabc524d&secret=25aa4e5a28cb4954c7de7144445cdc55&js_code=071dJW8Y0z5JwV1E0P7Y0xQa9Y0dJW8K&grant_type=authorization_code
+	Result：
+{"session_key":"jhkmhAjQ12LY7f8JMoDSVQ==","openid":"o4Uv25WxCveS6QYtBK0xhYeWiZK0"}
+
+[[[接口调用]]]
+[2019/11/02 21:01:30.9501]
+[线程：4]
+	URL：https://api.weixin.qq.com/sns/jscode2session?appid=wx3821f908eabc524d&secret=25aa4e5a28cb4954c7de7144445cdc55&js_code=011cqC3k0NZDoo1vZq4k0IUF3k0cqC3W&grant_type=authorization_code
+	Result：
+{"session_key":"lFmJOM\/7QdUVE1bXjm7zoQ==","openid":"o4Uv25WxCveS6QYtBK0xhYeWiZK0"}
+
+[[[接口调用]]]
+[2019/11/02 21:02:22.1284]
+[线程：33]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_9xuqOn7n4WGS9Zr93JVApakoE99N-QoyGyNNyMey81YlDwEFr-lPqoQ9lo5NZQlq3FKxIeMFj9G4Xm1vwNLrq8S0UeKoKAKrhPyY5FVWupcKeQOPPImEhFO_oogAGOfAEAKQY
+	Post Data：
+{"touser":"o4Uv25ee41SIoIbaNP8CM4XQUBJ0","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/221:02最新动态"},"thing2":{"value":"1人看了1篇文章，浏览1次"}}}
+
+[[[ErrorJsonResultException]]]
+[2019/11/02 21:02:22.2986]
+[线程：33]
+	ErrorJsonResultException
+	AccessTokenOrAppId：null
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_9xuqOn7n4WGS9Zr93JVApakoE99N-QoyGyNNyMey81YlDwEFr-lPqoQ9lo5NZQlq3FKxIeMFj9G4Xm1vwNLrq8S0UeKoKAKrhPyY5FVWupcKeQOPPImEhFO_oogAGOfAEAKQY
+	errcode：用户拒绝接受消息
+	errmsg：user refuse to accept the msg hint: [FECEsA0743shc1]
+
+[[[接口调用]]]
+[2019/11/02 21:03:28.4532]
+[线程：33]
+	URL：https://api.weixin.qq.com/sns/jscode2session?appid=wx3821f908eabc524d&secret=25aa4e5a28cb4954c7de7144445cdc55&js_code=001zD4kC0xcBlh2UB5mC0Wf6kC0zD4kv&grant_type=authorization_code
+	Result：
+{"session_key":"lFmJOM\/7QdUVE1bXjm7zoQ==","openid":"o4Uv25WxCveS6QYtBK0xhYeWiZK0"}
+
+[[[接口调用]]]
+[2019/11/02 21:03:33.8527]
+[线程：20]
+	URL：https://api.weixin.qq.com/sns/jscode2session?appid=wx3821f908eabc524d&secret=25aa4e5a28cb4954c7de7144445cdc55&js_code=0712kiQ414IMnT1ouaP419EhQ412kiQb&grant_type=authorization_code
+	Result：
+{"session_key":"+7nMuoIvHsSp5vwxPLcK1g==","openid":"o4Uv25WxCveS6QYtBK0xhYeWiZK0"}
+
+[[[接口调用]]]
+[2019/11/02 21:07:22.1234]
+[线程：53]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_9xuqOn7n4WGS9Zr93JVApakoE99N-QoyGyNNyMey81YlDwEFr-lPqoQ9lo5NZQlq3FKxIeMFj9G4Xm1vwNLrq8S0UeKoKAKrhPyY5FVWupcKeQOPPImEhFO_oogAGOfAEAKQY
+	Post Data：
+{"touser":"o4Uv25ee41SIoIbaNP8CM4XQUBJ0","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/221:07最新动态"},"thing2":{"value":"1人看了1篇文章，浏览1次"}}}
+
+[[[ErrorJsonResultException]]]
+[2019/11/02 21:07:22.2374]
+[线程：53]
+	ErrorJsonResultException
+	AccessTokenOrAppId：null
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_9xuqOn7n4WGS9Zr93JVApakoE99N-QoyGyNNyMey81YlDwEFr-lPqoQ9lo5NZQlq3FKxIeMFj9G4Xm1vwNLrq8S0UeKoKAKrhPyY5FVWupcKeQOPPImEhFO_oogAGOfAEAKQY
+	errcode：获取access_token时AppSecret错误或者access_token无效
+	errmsg：invalid credential, access_token is invalid or not latest hint: [_h_Vda00438593!]
+
+[[[接口调用]]]
+[2019/11/02 21:07:24.3842]
+[线程：53]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_CPc5TyL6BVmsbXSwzpm0ZcNNQNgJWzMSeAvXG9qmoWFtKlJQ3Ljz4hTvemy7qP1_fYz5JBJNiddKqfejVQNZLeZx3tIEToFop764xlgLKLxmmy-QbmnekEUG6QxWQRlBjSvZcHCHE3d4ktwEHJEjAGAYAV
+	Post Data：
+{"touser":"o4Uv25ee41SIoIbaNP8CM4XQUBJ0","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/221:07最新动态"},"thing2":{"value":"1人看了1篇文章，浏览1次"}}}
+
+[[[ErrorJsonResultException]]]
+[2019/11/02 21:07:24.4758]
+[线程：53]
+	ErrorJsonResultException
+	AccessTokenOrAppId：null
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_CPc5TyL6BVmsbXSwzpm0ZcNNQNgJWzMSeAvXG9qmoWFtKlJQ3Ljz4hTvemy7qP1_fYz5JBJNiddKqfejVQNZLeZx3tIEToFop764xlgLKLxmmy-QbmnekEUG6QxWQRlBjSvZcHCHE3d4ktwEHJEjAGAYAV
+	errcode：用户拒绝接受消息
+	errmsg：user refuse to accept the msg hint: [LSBzxa00453929]
+
+[[[接口调用]]]
+[2019/11/02 21:12:22.0912]
+[线程：72]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_CPc5TyL6BVmsbXSwzpm0ZcNNQNgJWzMSeAvXG9qmoWFtKlJQ3Ljz4hTvemy7qP1_fYz5JBJNiddKqfejVQNZLeZx3tIEToFop764xlgLKLxmmy-QbmnekEUG6QxWQRlBjSvZcHCHE3d4ktwEHJEjAGAYAV
+	Post Data：
+{"touser":"o4Uv25ee41SIoIbaNP8CM4XQUBJ0","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/221:12最新动态"},"thing2":{"value":"1人看了1篇文章，浏览1次"}}}
+
+[[[ErrorJsonResultException]]]
+[2019/11/02 21:12:22.3867]
+[线程：72]
+	ErrorJsonResultException
+	AccessTokenOrAppId：null
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_CPc5TyL6BVmsbXSwzpm0ZcNNQNgJWzMSeAvXG9qmoWFtKlJQ3Ljz4hTvemy7qP1_fYz5JBJNiddKqfejVQNZLeZx3tIEToFop764xlgLKLxmmy-QbmnekEUG6QxWQRlBjSvZcHCHE3d4ktwEHJEjAGAYAV
+	errcode：用户拒绝接受消息
+	errmsg：user refuse to accept the msg hint: [03433934]
+
+[[[接口调用]]]
+[2019/11/02 21:17:22.1397]
+[线程：81]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_CPc5TyL6BVmsbXSwzpm0ZcNNQNgJWzMSeAvXG9qmoWFtKlJQ3Ljz4hTvemy7qP1_fYz5JBJNiddKqfejVQNZLeZx3tIEToFop764xlgLKLxmmy-QbmnekEUG6QxWQRlBjSvZcHCHE3d4ktwEHJEjAGAYAV
+	Post Data：
+{"touser":"o4Uv25ee41SIoIbaNP8CM4XQUBJ0","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/221:17最新动态"},"thing2":{"value":"1人看了1篇文章，浏览1次"}}}
+
+[[[ErrorJsonResultException]]]
+[2019/11/02 21:17:22.2770]
+[线程：81]
+	ErrorJsonResultException
+	AccessTokenOrAppId：null
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_CPc5TyL6BVmsbXSwzpm0ZcNNQNgJWzMSeAvXG9qmoWFtKlJQ3Ljz4hTvemy7qP1_fYz5JBJNiddKqfejVQNZLeZx3tIEToFop764xlgLKLxmmy-QbmnekEUG6QxWQRlBjSvZcHCHE3d4ktwEHJEjAGAYAV
+	errcode：用户拒绝接受消息
+	errmsg：user refuse to accept the msg hint: [VzPJXa0643shc2]
+
+[[[接口调用]]]
+[2019/11/02 21:22:22.1165]
+[线程：102]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_CPc5TyL6BVmsbXSwzpm0ZcNNQNgJWzMSeAvXG9qmoWFtKlJQ3Ljz4hTvemy7qP1_fYz5JBJNiddKqfejVQNZLeZx3tIEToFop764xlgLKLxmmy-QbmnekEUG6QxWQRlBjSvZcHCHE3d4ktwEHJEjAGAYAV
+	Post Data：
+{"touser":"o4Uv25ee41SIoIbaNP8CM4XQUBJ0","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/221:22最新动态"},"thing2":{"value":"1人看了1篇文章，浏览1次"}}}
+
+[[[ErrorJsonResultException]]]
+[2019/11/02 21:22:22.2839]
+[线程：102]
+	ErrorJsonResultException
+	AccessTokenOrAppId：null
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_CPc5TyL6BVmsbXSwzpm0ZcNNQNgJWzMSeAvXG9qmoWFtKlJQ3Ljz4hTvemy7qP1_fYz5JBJNiddKqfejVQNZLeZx3tIEToFop764xlgLKLxmmy-QbmnekEUG6QxWQRlBjSvZcHCHE3d4ktwEHJEjAGAYAV
+	errcode：用户拒绝接受消息
+	errmsg：user refuse to accept the msg hint: [FTsYVa09434963]
+
+[[[接口调用]]]
+[2019/11/02 21:27:22.2919]
+[线程：112]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_CPc5TyL6BVmsbXSwzpm0ZcNNQNgJWzMSeAvXG9qmoWFtKlJQ3Ljz4hTvemy7qP1_fYz5JBJNiddKqfejVQNZLeZx3tIEToFop764xlgLKLxmmy-QbmnekEUG6QxWQRlBjSvZcHCHE3d4ktwEHJEjAGAYAV
+	Post Data：
+{"touser":"o4Uv25ee41SIoIbaNP8CM4XQUBJ0","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/221:27最新动态"},"thing2":{"value":"1人看了1篇文章，浏览1次"}}}
+
+[[[ErrorJsonResultException]]]
+[2019/11/02 21:27:22.4742]
+[线程：112]
+	ErrorJsonResultException
+	AccessTokenOrAppId：null
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_CPc5TyL6BVmsbXSwzpm0ZcNNQNgJWzMSeAvXG9qmoWFtKlJQ3Ljz4hTvemy7qP1_fYz5JBJNiddKqfejVQNZLeZx3tIEToFop764xlgLKLxmmy-QbmnekEUG6QxWQRlBjSvZcHCHE3d4ktwEHJEjAGAYAV
+	errcode：用户拒绝接受消息
+	errmsg：user refuse to accept the msg hint: [M02433055]
+
+[[[接口调用]]]
+[2019/11/02 21:32:22.2515]
+[线程：119]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_CPc5TyL6BVmsbXSwzpm0ZcNNQNgJWzMSeAvXG9qmoWFtKlJQ3Ljz4hTvemy7qP1_fYz5JBJNiddKqfejVQNZLeZx3tIEToFop764xlgLKLxmmy-QbmnekEUG6QxWQRlBjSvZcHCHE3d4ktwEHJEjAGAYAV
+	Post Data：
+{"touser":"o4Uv25ee41SIoIbaNP8CM4XQUBJ0","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/221:32最新动态"},"thing2":{"value":"1人看了1篇文章，浏览1次"}}}
+
+[[[ErrorJsonResultException]]]
+[2019/11/02 21:32:22.5908]
+[线程：119]
+	ErrorJsonResultException
+	AccessTokenOrAppId：null
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_CPc5TyL6BVmsbXSwzpm0ZcNNQNgJWzMSeAvXG9qmoWFtKlJQ3Ljz4hTvemy7qP1_fYz5JBJNiddKqfejVQNZLeZx3tIEToFop764xlgLKLxmmy-QbmnekEUG6QxWQRlBjSvZcHCHE3d4ktwEHJEjAGAYAV
+	errcode：用户拒绝接受消息
+	errmsg：user refuse to accept the msg hint: [VGRvrA05434108]
+
+[[[接口调用]]]
+[2019/11/02 21:37:22.2253]
+[线程：112]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_CPc5TyL6BVmsbXSwzpm0ZcNNQNgJWzMSeAvXG9qmoWFtKlJQ3Ljz4hTvemy7qP1_fYz5JBJNiddKqfejVQNZLeZx3tIEToFop764xlgLKLxmmy-QbmnekEUG6QxWQRlBjSvZcHCHE3d4ktwEHJEjAGAYAV
+	Post Data：
+{"touser":"o4Uv25ee41SIoIbaNP8CM4XQUBJ0","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/221:37最新动态"},"thing2":{"value":"1人看了1篇文章，浏览1次"}}}
+
+[[[ErrorJsonResultException]]]
+[2019/11/02 21:37:22.4588]
+[线程：112]
+	ErrorJsonResultException
+	AccessTokenOrAppId：null
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_CPc5TyL6BVmsbXSwzpm0ZcNNQNgJWzMSeAvXG9qmoWFtKlJQ3Ljz4hTvemy7qP1_fYz5JBJNiddKqfejVQNZLeZx3tIEToFop764xlgLKLxmmy-QbmnekEUG6QxWQRlBjSvZcHCHE3d4ktwEHJEjAGAYAV
+	errcode：获取access_token时AppSecret错误或者access_token无效
+	errmsg：invalid credential, access_token is invalid or not latest hint: [SmGb908437128!]
+
+[[[接口调用]]]
+[2019/11/02 21:37:30.1433]
+[线程：112]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_yS0eZSYpHtJY8uBi60Wu8wLPorv2-fItqJ_buy5mg-3Uj80LTJPRUw-adD278Phu6CZDS1w84KtygfYNPvgcruYLOgFnwtZ7mvFEWiIml_vqQPlRiLDSPhk2GYNAzI9HLnE3J-6vOTzvY-JKRHUhAIAZPC
+	Post Data：
+{"touser":"o4Uv25ee41SIoIbaNP8CM4XQUBJ0","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/221:37最新动态"},"thing2":{"value":"1人看了1篇文章，浏览1次"}}}
+
+[[[ErrorJsonResultException]]]
+[2019/11/02 21:37:30.2487]
+[线程：112]
+	ErrorJsonResultException
+	AccessTokenOrAppId：null
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_yS0eZSYpHtJY8uBi60Wu8wLPorv2-fItqJ_buy5mg-3Uj80LTJPRUw-adD278Phu6CZDS1w84KtygfYNPvgcruYLOgFnwtZ7mvFEWiIml_vqQPlRiLDSPhk2GYNAzI9HLnE3J-6vOTzvY-JKRHUhAIAZPC
+	errcode：用户拒绝接受消息
+	errmsg：user refuse to accept the msg hint: [gsM1fa08512277]
+
+[[[接口调用]]]
+[2019/11/02 21:42:22.1523]
+[线程：90]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_yS0eZSYpHtJY8uBi60Wu8wLPorv2-fItqJ_buy5mg-3Uj80LTJPRUw-adD278Phu6CZDS1w84KtygfYNPvgcruYLOgFnwtZ7mvFEWiIml_vqQPlRiLDSPhk2GYNAzI9HLnE3J-6vOTzvY-JKRHUhAIAZPC
+	Post Data：
+{"touser":"o4Uv25ee41SIoIbaNP8CM4XQUBJ0","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/221:42最新动态"},"thing2":{"value":"1人看了1篇文章，浏览1次"}}}
+
+[[[ErrorJsonResultException]]]
+[2019/11/02 21:42:22.4170]
+[线程：90]
+	ErrorJsonResultException
+	AccessTokenOrAppId：null
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_yS0eZSYpHtJY8uBi60Wu8wLPorv2-fItqJ_buy5mg-3Uj80LTJPRUw-adD278Phu6CZDS1w84KtygfYNPvgcruYLOgFnwtZ7mvFEWiIml_vqQPlRiLDSPhk2GYNAzI9HLnE3J-6vOTzvY-JKRHUhAIAZPC
+	errcode：用户拒绝接受消息
+	errmsg：user refuse to accept the msg hint: [eoJyLA01434924]
+
+[[[接口调用]]]
+[2019/11/02 21:46:40.4453]
+[线程：74]
+	URL：https://api.weixin.qq.com/sns/jscode2session?appid=wx3821f908eabc524d&secret=25aa4e5a28cb4954c7de7144445cdc55&js_code=021WN8Pw07Mcbc1S93Qw0UB1Pw0WN8P8&grant_type=authorization_code
+	Result：
+{"session_key":"lF0NjN0nfMb07mrmXKFjqw==","openid":"o4Uv25WxCveS6QYtBK0xhYeWiZK0"}
+
+[[[接口调用]]]
+[2019/11/02 21:46:45.2628]
+[线程：68]
+	URL：https://api.weixin.qq.com/sns/jscode2session?appid=wx3821f908eabc524d&secret=25aa4e5a28cb4954c7de7144445cdc55&js_code=081lfhT724xbdL0sdJR72HXkT72lfhTP&grant_type=authorization_code
+	Result：
+{"session_key":"lF0NjN0nfMb07mrmXKFjqw==","openid":"o4Uv25WxCveS6QYtBK0xhYeWiZK0"}
+

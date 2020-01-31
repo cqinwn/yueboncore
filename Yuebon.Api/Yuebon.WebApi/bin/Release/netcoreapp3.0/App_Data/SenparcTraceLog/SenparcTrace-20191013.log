@@ -1,0 +1,168 @@
+[[[自动注册扩展缓存完成]]]
+[2019-10-13 12:40:48.1337]
+[线程：1]
+注册总用时：62.1907ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2019-10-13 12:40:49.5027]
+[线程：1]
+微信扩展缓存注册总用时：190.9333ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[自动注册扩展缓存完成]]]
+[2019-10-13 12:45:46.1448]
+[线程：1]
+注册总用时：42.307700000000004ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2019-10-13 12:45:47.8808]
+[线程：1]
+微信扩展缓存注册总用时：591.7987ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[自动注册扩展缓存完成]]]
+[2019-10-13 12:49:43.5243]
+[线程：1]
+注册总用时：48.169200000000004ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2019-10-13 12:49:43.8847]
+[线程：1]
+微信扩展缓存注册总用时：98.3955ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[接口调用]]]
+[2019-10-13 12:59:24.9331]
+[线程：45]
+	URL：https://api.weixin.qq.com/sns/jscode2session?appid=wx3821f908eabc524d&secret=25aa4e5a28cb4954c7de7144445cdc55&js_code=011pEML51SqsTR1CpUN51vGYL51pEML4&grant_type=authorization_code
+	Result：
+{"session_key":"RXMT4P4\/MzVj\/17NhzUoJA==","openid":"o4Uv25WxCveS6QYtBK0xhYeWiZK0"}
+
+[[[接口调用]]]
+[2019-10-13 13:01:10.3756]
+[线程：46]
+	URL：https://api.weixin.qq.com/sns/jscode2session?appid=wx3821f908eabc524d&secret=25aa4e5a28cb4954c7de7144445cdc55&js_code=021Y0mZk0z7lGs1alGZk0GrjZk0Y0mZk&grant_type=authorization_code
+	Result：
+{"session_key":"RXMT4P4\/MzVj\/17NhzUoJA==","openid":"o4Uv25WxCveS6QYtBK0xhYeWiZK0"}
+
+[[[接口调用]]]
+[2019-10-13 13:01:21.0496]
+[线程：45]
+	URL：https://api.weixin.qq.com/sns/jscode2session?appid=wx3821f908eabc524d&secret=25aa4e5a28cb4954c7de7144445cdc55&js_code=081pm6Hd174xez0y2OHd1HY6Hd1pm6HS&grant_type=authorization_code
+	Result：
+{"session_key":"RXMT4P4\/MzVj\/17NhzUoJA==","openid":"o4Uv25WxCveS6QYtBK0xhYeWiZK0"}
+
+[[[接口调用]]]
+[2019-10-13 13:01:32.1200]
+[线程：45]
+	URL：https://api.weixin.qq.com/sns/jscode2session?appid=wx3821f908eabc524d&secret=25aa4e5a28cb4954c7de7144445cdc55&js_code=0616AIhA1bBjIc0NfmkA1zF0iA16AIhC&grant_type=authorization_code
+	Result：
+{"session_key":"4HJ7pz7GPazYy+RAgmHmWA==","openid":"o4Uv25WxCveS6QYtBK0xhYeWiZK0"}
+
+[[[接口调用]]]
+[2019-10-13 13:01:39.6185]
+[线程：45]
+	URL：https://api.weixin.qq.com/sns/jscode2session?appid=wx3821f908eabc524d&secret=25aa4e5a28cb4954c7de7144445cdc55&js_code=081t1eu51ESlKS1bpAv51DT8u51t1eup&grant_type=authorization_code
+	Result：
+{"session_key":"4HJ7pz7GPazYy+RAgmHmWA==","openid":"o4Uv25WxCveS6QYtBK0xhYeWiZK0"}
+
+[[[接口调用]]]
+[2019-10-13 13:01:57.8928]
+[线程：45]
+	URL：https://api.weixin.qq.com/sns/jscode2session?appid=wx3821f908eabc524d&secret=25aa4e5a28cb4954c7de7144445cdc55&js_code=011IWFHk2DVTwD0hz4Hk2lCKHk2IWFHx&grant_type=authorization_code
+	Result：
+{"session_key":"4HJ7pz7GPazYy+RAgmHmWA==","openid":"o4Uv25WxCveS6QYtBK0xhYeWiZK0"}
+
+[[[接口调用]]]
+[2019-10-13 13:04:16.2406]
+[线程：63]
+	URL：https://api.weixin.qq.com/sns/jscode2session?appid=wx3821f908eabc524d&secret=25aa4e5a28cb4954c7de7144445cdc55&js_code=011ftxhR0w2eV62kmMfR0jDAhR0ftxhr&grant_type=authorization_code
+	Result：
+{"session_key":"bMxEeKCePo1wPbrn96oYww==","openid":"o4Uv25WxCveS6QYtBK0xhYeWiZK0"}
+
+[[[接口调用]]]
+[2019-10-13 13:04:35.4805]
+[线程：45]
+	URL：https://api.weixin.qq.com/sns/jscode2session?appid=wx3821f908eabc524d&secret=25aa4e5a28cb4954c7de7144445cdc55&js_code=061dzeJc0yFRiA16tVIc0x1oJc0dzeJs&grant_type=authorization_code
+	Result：
+{"session_key":"bMxEeKCePo1wPbrn96oYww==","openid":"o4Uv25WxCveS6QYtBK0xhYeWiZK0"}
+
+[[[接口调用]]]
+[2019-10-13 13:04:58.4413]
+[线程：63]
+	URL：https://api.weixin.qq.com/sns/jscode2session?appid=wx3821f908eabc524d&secret=25aa4e5a28cb4954c7de7144445cdc55&js_code=0113y8jI1g861000u9nI1UN3jI13y8jC&grant_type=authorization_code
+	Result：
+{"session_key":"bMxEeKCePo1wPbrn96oYww==","openid":"o4Uv25WxCveS6QYtBK0xhYeWiZK0"}
+
+[[[接口调用]]]
+[2019-10-13 13:05:12.4434]
+[线程：55]
+	URL：https://api.weixin.qq.com/sns/jscode2session?appid=wx3821f908eabc524d&secret=25aa4e5a28cb4954c7de7144445cdc55&js_code=071iEkR616GoaM1I5RQ61VTgR61iEkRM&grant_type=authorization_code
+	Result：
+{"session_key":"bMxEeKCePo1wPbrn96oYww==","openid":"o4Uv25WxCveS6QYtBK0xhYeWiZK0"}
+
+[[[接口调用]]]
+[2019-10-13 13:05:33.4438]
+[线程：44]
+	URL：https://api.weixin.qq.com/sns/jscode2session?appid=wx3821f908eabc524d&secret=25aa4e5a28cb4954c7de7144445cdc55&js_code=001n2cPe1pzZ6y0Q9fNe1G3fPe1n2cPD&grant_type=authorization_code
+	Result：
+{"session_key":"bMxEeKCePo1wPbrn96oYww==","openid":"o4Uv25WxCveS6QYtBK0xhYeWiZK0"}
+
+[[[接口调用]]]
+[2019-10-13 13:08:14.6660]
+[线程：45]
+	URL：https://api.weixin.qq.com/sns/jscode2session?appid=wx3821f908eabc524d&secret=25aa4e5a28cb4954c7de7144445cdc55&js_code=011kC1ih1WcgMr0rMRgh1uqXhh1kC1iZ&grant_type=authorization_code
+	Result：
+{"session_key":"IOpm3vfGeSr3JvL\/nXi64w==","openid":"o4Uv25WxCveS6QYtBK0xhYeWiZK0"}
+
+[[[自动注册扩展缓存完成]]]
+[2019-10-13 14:17:04.1296]
+[线程：1]
+注册总用时：32.7618ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2019-10-13 14:17:05.1611]
+[线程：1]
+微信扩展缓存注册总用时：230.5498ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[自动注册扩展缓存完成]]]
+[2019-10-13 14:40:27.6646]
+[线程：1]
+注册总用时：40.0626ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2019-10-13 14:40:29.8547]
+[线程：1]
+微信扩展缓存注册总用时：398.5949ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[微信扩展缓存注册完成]]]
+[2019-10-13 19:22:24.1341]
+[线程：1]
+微信扩展缓存注册总用时：31.116100000000003ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[自动注册扩展缓存完成]]]
+[2019-10-13 19:22:23.9180]
+[线程：1]
+注册总用时：21.6273ms
+自动扫描程序集：0个
+扩展缓存：
+

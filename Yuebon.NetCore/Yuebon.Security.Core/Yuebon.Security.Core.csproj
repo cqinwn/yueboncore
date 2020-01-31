@@ -11,14 +11,14 @@
     <Product>YuebonNetCore开发框架权限管理系统类库</Product>
     <Description>YuebonNetCore开发框架权限管理系统类库</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.2.0.0</Version>
-    <PackageReleaseNotes>升级到netcore3.1</PackageReleaseNotes>
+    <Version>1.2.1.1</Version>
+    <PackageReleaseNotes>优化用户管理模块</PackageReleaseNotes>
     <Authors>Yuebon</Authors>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageIconUrl>http://www.yuebon.com/upload/201804/01/201804011125140585.jpg</PackageIconUrl>
     <PackageProjectUrl>http://netcore.yuebon.com</PackageProjectUrl>
-    <AssemblyVersion>1.2.0.0</AssemblyVersion>
-    <FileVersion>1.2.0.0</FileVersion>
+    <AssemblyVersion>1.2.1.1</AssemblyVersion>
+    <FileVersion>1.2.1.1</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -40,7 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="IdentityModel" Version="4.0.0" />
+    <PackageReference Include="IdentityModel" Version="4.1.1" />
   </ItemGroup>
 
   <ItemGroup>

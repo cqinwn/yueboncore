@@ -1,0 +1,72 @@
+【17:07:51.866】  Yuebon.AspNetCore.Mvc.TokenProvider T76 
+Error
+System.ArgumentException: IDX12709: CanReadToken() returned false. JWT is not well formed: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+The token needs to be in JWS or JWE Compact Serialization Format. (JWS): 'EncodedHeader.EndcodedPayload.EncodedSignature'. (JWE): 'EncodedProtectedHeader.EncodedEncryptedKey.EncodedInitializationVector.EncodedCiphertext.EncodedAuthenticationTag'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ReadJwtToken(String token)
+   at Yuebon.AspNetCore.Mvc.TokenProvider.ValidateToken(String token) in D:\netcorespace\YueGroup\src\Yuebon.AspNetCore\Mvc\TokenProvider.cs:line 73
+【17:11:54.703】  Yuebon.AspNetCore.Mvc.TokenProvider T72 
+Error
+System.ArgumentException: IDX12709: CanReadToken() returned false. JWT is not well formed: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+The token needs to be in JWS or JWE Compact Serialization Format. (JWS): 'EncodedHeader.EndcodedPayload.EncodedSignature'. (JWE): 'EncodedProtectedHeader.EncodedEncryptedKey.EncodedInitializationVector.EncodedCiphertext.EncodedAuthenticationTag'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ReadJwtToken(String token)
+   at Yuebon.AspNetCore.Mvc.TokenProvider.ValidateToken(String token) in D:\netcorespace\YueGroup\src\Yuebon.AspNetCore\Mvc\TokenProvider.cs:line 73
+【17:12:37.959】  Yuebon.AspNetCore.Mvc.TokenProvider T76 
+Error
+System.ArgumentException: IDX12709: CanReadToken() returned false. JWT is not well formed: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+The token needs to be in JWS or JWE Compact Serialization Format. (JWS): 'EncodedHeader.EndcodedPayload.EncodedSignature'. (JWE): 'EncodedProtectedHeader.EncodedEncryptedKey.EncodedInitializationVector.EncodedCiphertext.EncodedAuthenticationTag'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ReadJwtToken(String token)
+   at Yuebon.AspNetCore.Mvc.TokenProvider.ValidateToken(String token) in D:\netcorespace\YueGroup\src\Yuebon.AspNetCore\Mvc\TokenProvider.cs:line 73
+【17:31:55.499】  Yuebon.AspNetCore.Mvc.TokenProvider T4 
+Error
+System.ArgumentException: IDX12709: CanReadToken() returned false. JWT is not well formed: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+The token needs to be in JWS or JWE Compact Serialization Format. (JWS): 'EncodedHeader.EndcodedPayload.EncodedSignature'. (JWE): 'EncodedProtectedHeader.EncodedEncryptedKey.EncodedInitializationVector.EncodedCiphertext.EncodedAuthenticationTag'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ReadJwtToken(String token)
+   at Yuebon.AspNetCore.Mvc.TokenProvider.ValidateToken(String token) in D:\netcorespace\YueGroup\src\Yuebon.AspNetCore\Mvc\TokenProvider.cs:line 73
+【17:34:55.897】  Yuebon.AspNetCore.Mvc.TokenProvider T4 
+Error
+System.ArgumentException: IDX12709: CanReadToken() returned false. JWT is not well formed: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+The token needs to be in JWS or JWE Compact Serialization Format. (JWS): 'EncodedHeader.EndcodedPayload.EncodedSignature'. (JWE): 'EncodedProtectedHeader.EncodedEncryptedKey.EncodedInitializationVector.EncodedCiphertext.EncodedAuthenticationTag'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ReadJwtToken(String token)
+   at Yuebon.AspNetCore.Mvc.TokenProvider.ValidateToken(String token) in D:\netcorespace\YueGroup\src\Yuebon.AspNetCore\Mvc\TokenProvider.cs:line 73
+【17:48:58.372】  Yuebon.AspNetCore.Mvc.TokenProvider T19 
+Error
+System.ArgumentException: IDX12709: CanReadToken() returned false. JWT is not well formed: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+The token needs to be in JWS or JWE Compact Serialization Format. (JWS): 'EncodedHeader.EndcodedPayload.EncodedSignature'. (JWE): 'EncodedProtectedHeader.EncodedEncryptedKey.EncodedInitializationVector.EncodedCiphertext.EncodedAuthenticationTag'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ReadJwtToken(String token)
+   at Yuebon.AspNetCore.Mvc.TokenProvider.ValidateToken(String token) in D:\netcorespace\YueGroup\src\Yuebon.AspNetCore\Mvc\TokenProvider.cs:line 73
+【17:49:14.310】  Yuebon.AspNetCore.Mvc.TokenProvider T28 
+Error
+System.ArgumentException: IDX12709: CanReadToken() returned false. JWT is not well formed: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+The token needs to be in JWS or JWE Compact Serialization Format. (JWS): 'EncodedHeader.EndcodedPayload.EncodedSignature'. (JWE): 'EncodedProtectedHeader.EncodedEncryptedKey.EncodedInitializationVector.EncodedCiphertext.EncodedAuthenticationTag'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ReadJwtToken(String token)
+   at Yuebon.AspNetCore.Mvc.TokenProvider.ValidateToken(String token) in D:\netcorespace\YueGroup\src\Yuebon.AspNetCore\Mvc\TokenProvider.cs:line 73
+【17:49:34.781】  Yuebon.AspNetCore.Mvc.TokenProvider T27 
+Error
+System.ArgumentException: IDX12709: CanReadToken() returned false. JWT is not well formed: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+The token needs to be in JWS or JWE Compact Serialization Format. (JWS): 'EncodedHeader.EndcodedPayload.EncodedSignature'. (JWE): 'EncodedProtectedHeader.EncodedEncryptedKey.EncodedInitializationVector.EncodedCiphertext.EncodedAuthenticationTag'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ReadJwtToken(String token)
+   at Yuebon.AspNetCore.Mvc.TokenProvider.ValidateToken(String token) in D:\netcorespace\YueGroup\src\Yuebon.AspNetCore\Mvc\TokenProvider.cs:line 73
+【17:50:14.337】  Yuebon.AspNetCore.Mvc.TokenProvider T21 
+Error
+System.ArgumentException: IDX12709: CanReadToken() returned false. JWT is not well formed: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+The token needs to be in JWS or JWE Compact Serialization Format. (JWS): 'EncodedHeader.EndcodedPayload.EncodedSignature'. (JWE): 'EncodedProtectedHeader.EncodedEncryptedKey.EncodedInitializationVector.EncodedCiphertext.EncodedAuthenticationTag'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ReadJwtToken(String token)
+   at Yuebon.AspNetCore.Mvc.TokenProvider.ValidateToken(String token) in D:\netcorespace\YueGroup\src\Yuebon.AspNetCore\Mvc\TokenProvider.cs:line 73
+【17:52:10.992】  Yuebon.AspNetCore.Mvc.TokenProvider T20 
+Error
+System.ArgumentException: IDX12709: CanReadToken() returned false. JWT is not well formed: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+The token needs to be in JWS or JWE Compact Serialization Format. (JWS): 'EncodedHeader.EndcodedPayload.EncodedSignature'. (JWE): 'EncodedProtectedHeader.EncodedEncryptedKey.EncodedInitializationVector.EncodedCiphertext.EncodedAuthenticationTag'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ReadJwtToken(String token)
+   at Yuebon.AspNetCore.Mvc.TokenProvider.ValidateToken(String token) in D:\netcorespace\YueGroup\src\Yuebon.AspNetCore\Mvc\TokenProvider.cs:line 73
+【17:55:44.382】  Yuebon.AspNetCore.Mvc.TokenProvider T41 
+Error
+System.ArgumentException: IDX12709: CanReadToken() returned false. JWT is not well formed: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+The token needs to be in JWS or JWE Compact Serialization Format. (JWS): 'EncodedHeader.EndcodedPayload.EncodedSignature'. (JWE): 'EncodedProtectedHeader.EncodedEncryptedKey.EncodedInitializationVector.EncodedCiphertext.EncodedAuthenticationTag'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ReadJwtToken(String token)
+   at Yuebon.AspNetCore.Mvc.TokenProvider.ValidateToken(String token) in D:\netcorespace\YueGroup\src\Yuebon.AspNetCore\Mvc\TokenProvider.cs:line 73
+【18:05:14.940】  Yuebon.AspNetCore.Mvc.TokenProvider T71 
+Error
+System.ArgumentException: IDX12709: CanReadToken() returned false. JWT is not well formed: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+The token needs to be in JWS or JWE Compact Serialization Format. (JWS): 'EncodedHeader.EndcodedPayload.EncodedSignature'. (JWE): 'EncodedProtectedHeader.EncodedEncryptedKey.EncodedInitializationVector.EncodedCiphertext.EncodedAuthenticationTag'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ReadJwtToken(String token)
+   at Yuebon.AspNetCore.Mvc.TokenProvider.ValidateToken(String token) in D:\netcorespace\YueGroup\src\Yuebon.AspNetCore\Mvc\TokenProvider.cs:line 73

@@ -1,0 +1,16 @@
+【10:58:02.205】  Yuebon.AspNetCore.Mvc.TokenProvider T40 
+Error
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Yuebon.AspNetCore.Mvc.TokenProvider.ValidateToken(String token) in D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.AspNetCore\Mvc\TokenProvider.cs:line 89
+【10:58:54.831】  Yuebon.AspNetCore.Mvc.TokenProvider T48 
+Error
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Yuebon.AspNetCore.Mvc.TokenProvider.ValidateToken(String token) in D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.AspNetCore\Mvc\TokenProvider.cs:line 89
+【10:59:13.944】  Yuebon.AspNetCore.Mvc.TokenProvider T40 
+Error
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Yuebon.AspNetCore.Mvc.TokenProvider.ValidateToken(String token) in D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.AspNetCore\Mvc\TokenProvider.cs:line 89
+【21:39:45.917】  Yuebon.AspNetCore.Mvc.TokenProvider T49 
+Error
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Yuebon.AspNetCore.Mvc.TokenProvider.ValidateToken(String token) in D:\netcorespace\YueGroup\src\Yuebon.NetCore\Yuebon.AspNetCore\Mvc\TokenProvider.cs:line 89

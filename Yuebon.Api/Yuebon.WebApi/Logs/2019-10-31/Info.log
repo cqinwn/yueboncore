@@ -1,0 +1,5340 @@
+[12:38:09] (Yuebon.AspNetCore.Controllers.TokenController) 方法名称：RefreshToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "name",
+      "Value": "cqinwn",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "id",
+      "Value": "2019090623222071422468",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "role",
+      "Value": "2019091721053342871332",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "password",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572431876",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572439076",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572431876",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0MzE4NzYsImV4cCI6MTU3MjQzOTA3NiwiaWF0IjoxNTcyNDMxODc2fQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "name": "cqinwn",
+    "id": "2019090623222071422468",
+    "role": "2019091721053342871332",
+    "sub": "password",
+    "nbf": 1572431876,
+    "exp": 1572439076,
+    "iat": 1572431876
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0MzE4NzYsImV4cCI6MTU3MjQzOTA3NiwiaWF0IjoxNTcyNDMxODc2fQ.mHxm_hDbBtc3eACuZMmx9FfMqIdrNf0uNuSMaZwp-Ec",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0MzE4NzYsImV4cCI6MTU3MjQzOTA3NiwiaWF0IjoxNTcyNDMxODc2fQ",
+  "RawSignature": "mHxm_hDbBtc3eACuZMmx9FfMqIdrNf0uNuSMaZwp-Ec",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "password",
+  "ValidFrom": "2019-10-30 10:37:56",
+  "ValidTo": "2019-10-30 12:37:56"
+}
+[12:38:54] (Yuebon.AspNetCore.Controllers.TokenController) 方法名称：RefreshToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "name",
+      "Value": "cqinwn",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "id",
+      "Value": "2019090623222071422468",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "role",
+      "Value": "2019091721053342871332",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "password",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572431876",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572439076",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572431876",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0MzE4NzYsImV4cCI6MTU3MjQzOTA3NiwiaWF0IjoxNTcyNDMxODc2fQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "name": "cqinwn",
+    "id": "2019090623222071422468",
+    "role": "2019091721053342871332",
+    "sub": "password",
+    "nbf": 1572431876,
+    "exp": 1572439076,
+    "iat": 1572431876
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0MzE4NzYsImV4cCI6MTU3MjQzOTA3NiwiaWF0IjoxNTcyNDMxODc2fQ.mHxm_hDbBtc3eACuZMmx9FfMqIdrNf0uNuSMaZwp-Ec",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0MzE4NzYsImV4cCI6MTU3MjQzOTA3NiwiaWF0IjoxNTcyNDMxODc2fQ",
+  "RawSignature": "mHxm_hDbBtc3eACuZMmx9FfMqIdrNf0uNuSMaZwp-Ec",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "password",
+  "ValidFrom": "2019-10-30 10:37:56",
+  "ValidTo": "2019-10-30 12:37:56"
+}
+[12:39:27] (Yuebon.AspNetCore.Controllers.TokenController) 方法名称：RefreshToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "name",
+      "Value": "cqinwn",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "id",
+      "Value": "2019090623222071422468",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "role",
+      "Value": "2019091721053342871332",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "password",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572431876",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572439076",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572431876",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0MzE4NzYsImV4cCI6MTU3MjQzOTA3NiwiaWF0IjoxNTcyNDMxODc2fQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "name": "cqinwn",
+    "id": "2019090623222071422468",
+    "role": "2019091721053342871332",
+    "sub": "password",
+    "nbf": 1572431876,
+    "exp": 1572439076,
+    "iat": 1572431876
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0MzE4NzYsImV4cCI6MTU3MjQzOTA3NiwiaWF0IjoxNTcyNDMxODc2fQ.mHxm_hDbBtc3eACuZMmx9FfMqIdrNf0uNuSMaZwp-Ec",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0MzE4NzYsImV4cCI6MTU3MjQzOTA3NiwiaWF0IjoxNTcyNDMxODc2fQ",
+  "RawSignature": "mHxm_hDbBtc3eACuZMmx9FfMqIdrNf0uNuSMaZwp-Ec",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "password",
+  "ValidFrom": "2019-10-30 10:37:56",
+  "ValidTo": "2019-10-30 12:37:56"
+}
+[12:41:35] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTY4NzIsImV4cCI6MTU3MjUwNDA3MiwiaWF0IjoxNTcyNDk2ODcyfQ.f9U6D4C64_iLf7RwylGS1QgxARdk4Mwe5Gy6IYN6XeY
+[12:41:35] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTY4NzIsImV4cCI6MTU3MjUwNDA3MiwiaWF0IjoxNTcyNDk2ODcyfQ.f9U6D4C64_iLf7RwylGS1QgxARdk4Mwe5Gy6IYN6XeY
+[12:41:35] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "client_credential",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572496872",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572504072",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572496872",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTY4NzIsImV4cCI6MTU3MjUwNDA3MiwiaWF0IjoxNTcyNDk2ODcyfQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "sub": "client_credential",
+    "nbf": 1572496872,
+    "exp": 1572504072,
+    "iat": 1572496872
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTY4NzIsImV4cCI6MTU3MjUwNDA3MiwiaWF0IjoxNTcyNDk2ODcyfQ.f9U6D4C64_iLf7RwylGS1QgxARdk4Mwe5Gy6IYN6XeY",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTY4NzIsImV4cCI6MTU3MjUwNDA3MiwiaWF0IjoxNTcyNDk2ODcyfQ",
+  "RawSignature": "f9U6D4C64_iLf7RwylGS1QgxARdk4Mwe5Gy6IYN6XeY",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "client_credential",
+  "ValidFrom": "2019-10-31 04:41:12",
+  "ValidTo": "2019-10-31 06:41:12"
+}
+[12:41:35] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "client_credential",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572496872",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572504072",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572496872",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTY4NzIsImV4cCI6MTU3MjUwNDA3MiwiaWF0IjoxNTcyNDk2ODcyfQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "sub": "client_credential",
+    "nbf": 1572496872,
+    "exp": 1572504072,
+    "iat": 1572496872
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTY4NzIsImV4cCI6MTU3MjUwNDA3MiwiaWF0IjoxNTcyNDk2ODcyfQ.f9U6D4C64_iLf7RwylGS1QgxARdk4Mwe5Gy6IYN6XeY",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTY4NzIsImV4cCI6MTU3MjUwNDA3MiwiaWF0IjoxNTcyNDk2ODcyfQ",
+  "RawSignature": "f9U6D4C64_iLf7RwylGS1QgxARdk4Mwe5Gy6IYN6XeY",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "client_credential",
+  "ValidFrom": "2019-10-31 04:41:12",
+  "ValidTo": "2019-10-31 06:41:12"
+}
+[12:50:14] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTczODgsImV4cCI6MTU3MjUwNDU4OCwiaWF0IjoxNTcyNDk3Mzg4fQ._NS8P0dmAuErCxDMNi1uX0eF28wsiFdW4g5cSj2NnHk
+[12:50:14] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTczODgsImV4cCI6MTU3MjUwNDU4OCwiaWF0IjoxNTcyNDk3Mzg4fQ._NS8P0dmAuErCxDMNi1uX0eF28wsiFdW4g5cSj2NnHk
+[12:50:14] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "client_credential",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572497388",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572504588",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572497388",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTczODgsImV4cCI6MTU3MjUwNDU4OCwiaWF0IjoxNTcyNDk3Mzg4fQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "sub": "client_credential",
+    "nbf": 1572497388,
+    "exp": 1572504588,
+    "iat": 1572497388
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTczODgsImV4cCI6MTU3MjUwNDU4OCwiaWF0IjoxNTcyNDk3Mzg4fQ._NS8P0dmAuErCxDMNi1uX0eF28wsiFdW4g5cSj2NnHk",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTczODgsImV4cCI6MTU3MjUwNDU4OCwiaWF0IjoxNTcyNDk3Mzg4fQ",
+  "RawSignature": "_NS8P0dmAuErCxDMNi1uX0eF28wsiFdW4g5cSj2NnHk",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "client_credential",
+  "ValidFrom": "2019-10-31 04:49:48",
+  "ValidTo": "2019-10-31 06:49:48"
+}
+[12:50:14] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "client_credential",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572497388",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572504588",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572497388",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTczODgsImV4cCI6MTU3MjUwNDU4OCwiaWF0IjoxNTcyNDk3Mzg4fQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "sub": "client_credential",
+    "nbf": 1572497388,
+    "exp": 1572504588,
+    "iat": 1572497388
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTczODgsImV4cCI6MTU3MjUwNDU4OCwiaWF0IjoxNTcyNDk3Mzg4fQ._NS8P0dmAuErCxDMNi1uX0eF28wsiFdW4g5cSj2NnHk",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTczODgsImV4cCI6MTU3MjUwNDU4OCwiaWF0IjoxNTcyNDk3Mzg4fQ",
+  "RawSignature": "_NS8P0dmAuErCxDMNi1uX0eF28wsiFdW4g5cSj2NnHk",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "client_credential",
+  "ValidFrom": "2019-10-31 04:49:48",
+  "ValidTo": "2019-10-31 06:49:48"
+}
+[12:50:25] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTc0MjUsImV4cCI6MTU3MjUwNDYyNSwiaWF0IjoxNTcyNDk3NDI1fQ.FcW_-3iQnuRS210n81AxCmnJQLpcOofgydgAhsAjl-I
+[12:50:25] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTc0MjUsImV4cCI6MTU3MjUwNDYyNSwiaWF0IjoxNTcyNDk3NDI1fQ.FcW_-3iQnuRS210n81AxCmnJQLpcOofgydgAhsAjl-I
+[12:50:25] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "name",
+      "Value": "cqinwn",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "id",
+      "Value": "2019090623222071422468",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "role",
+      "Value": "2019091721053342871332",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "password",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572497425",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572504625",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572497425",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTc0MjUsImV4cCI6MTU3MjUwNDYyNSwiaWF0IjoxNTcyNDk3NDI1fQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "name": "cqinwn",
+    "id": "2019090623222071422468",
+    "role": "2019091721053342871332",
+    "sub": "password",
+    "nbf": 1572497425,
+    "exp": 1572504625,
+    "iat": 1572497425
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTc0MjUsImV4cCI6MTU3MjUwNDYyNSwiaWF0IjoxNTcyNDk3NDI1fQ.FcW_-3iQnuRS210n81AxCmnJQLpcOofgydgAhsAjl-I",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTc0MjUsImV4cCI6MTU3MjUwNDYyNSwiaWF0IjoxNTcyNDk3NDI1fQ",
+  "RawSignature": "FcW_-3iQnuRS210n81AxCmnJQLpcOofgydgAhsAjl-I",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "password",
+  "ValidFrom": "2019-10-31 04:50:25",
+  "ValidTo": "2019-10-31 06:50:25"
+}
+[12:50:25] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "name",
+      "Value": "cqinwn",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "id",
+      "Value": "2019090623222071422468",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "role",
+      "Value": "2019091721053342871332",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "password",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572497425",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572504625",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572497425",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTc0MjUsImV4cCI6MTU3MjUwNDYyNSwiaWF0IjoxNTcyNDk3NDI1fQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "name": "cqinwn",
+    "id": "2019090623222071422468",
+    "role": "2019091721053342871332",
+    "sub": "password",
+    "nbf": 1572497425,
+    "exp": 1572504625,
+    "iat": 1572497425
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTc0MjUsImV4cCI6MTU3MjUwNDYyNSwiaWF0IjoxNTcyNDk3NDI1fQ.FcW_-3iQnuRS210n81AxCmnJQLpcOofgydgAhsAjl-I",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTc0MjUsImV4cCI6MTU3MjUwNDYyNSwiaWF0IjoxNTcyNDk3NDI1fQ",
+  "RawSignature": "FcW_-3iQnuRS210n81AxCmnJQLpcOofgydgAhsAjl-I",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "password",
+  "ValidFrom": "2019-10-31 04:50:25",
+  "ValidTo": "2019-10-31 06:50:25"
+}
+[12:52:29] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTc0MjUsImV4cCI6MTU3MjUwNDYyNSwiaWF0IjoxNTcyNDk3NDI1fQ.FcW_-3iQnuRS210n81AxCmnJQLpcOofgydgAhsAjl-I
+[12:52:29] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTc0MjUsImV4cCI6MTU3MjUwNDYyNSwiaWF0IjoxNTcyNDk3NDI1fQ.FcW_-3iQnuRS210n81AxCmnJQLpcOofgydgAhsAjl-I
+[12:52:29] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "name",
+      "Value": "cqinwn",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "id",
+      "Value": "2019090623222071422468",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "role",
+      "Value": "2019091721053342871332",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "password",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572497425",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572504625",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572497425",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTc0MjUsImV4cCI6MTU3MjUwNDYyNSwiaWF0IjoxNTcyNDk3NDI1fQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "name": "cqinwn",
+    "id": "2019090623222071422468",
+    "role": "2019091721053342871332",
+    "sub": "password",
+    "nbf": 1572497425,
+    "exp": 1572504625,
+    "iat": 1572497425
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTc0MjUsImV4cCI6MTU3MjUwNDYyNSwiaWF0IjoxNTcyNDk3NDI1fQ.FcW_-3iQnuRS210n81AxCmnJQLpcOofgydgAhsAjl-I",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTc0MjUsImV4cCI6MTU3MjUwNDYyNSwiaWF0IjoxNTcyNDk3NDI1fQ",
+  "RawSignature": "FcW_-3iQnuRS210n81AxCmnJQLpcOofgydgAhsAjl-I",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "password",
+  "ValidFrom": "2019-10-31 04:50:25",
+  "ValidTo": "2019-10-31 06:50:25"
+}
+[12:52:29] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "name",
+      "Value": "cqinwn",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "id",
+      "Value": "2019090623222071422468",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "role",
+      "Value": "2019091721053342871332",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "password",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572497425",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572504625",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572497425",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTc0MjUsImV4cCI6MTU3MjUwNDYyNSwiaWF0IjoxNTcyNDk3NDI1fQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "name": "cqinwn",
+    "id": "2019090623222071422468",
+    "role": "2019091721053342871332",
+    "sub": "password",
+    "nbf": 1572497425,
+    "exp": 1572504625,
+    "iat": 1572497425
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTc0MjUsImV4cCI6MTU3MjUwNDYyNSwiaWF0IjoxNTcyNDk3NDI1fQ.FcW_-3iQnuRS210n81AxCmnJQLpcOofgydgAhsAjl-I",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTc0MjUsImV4cCI6MTU3MjUwNDYyNSwiaWF0IjoxNTcyNDk3NDI1fQ",
+  "RawSignature": "FcW_-3iQnuRS210n81AxCmnJQLpcOofgydgAhsAjl-I",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "password",
+  "ValidFrom": "2019-10-31 04:50:25",
+  "ValidTo": "2019-10-31 06:50:25"
+}
+[13:02:44] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTgxNTUsImV4cCI6MTU3MjUwNTM1NSwiaWF0IjoxNTcyNDk4MTU1fQ.GgO1N9KejQL_-nl9mf4ebx4r2fulufBCNCawIDIoqW0
+[13:02:44] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTgxNTUsImV4cCI6MTU3MjUwNTM1NSwiaWF0IjoxNTcyNDk4MTU1fQ.GgO1N9KejQL_-nl9mf4ebx4r2fulufBCNCawIDIoqW0
+[13:02:44] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "client_credential",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572498155",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572505355",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572498155",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTgxNTUsImV4cCI6MTU3MjUwNTM1NSwiaWF0IjoxNTcyNDk4MTU1fQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "sub": "client_credential",
+    "nbf": 1572498155,
+    "exp": 1572505355,
+    "iat": 1572498155
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTgxNTUsImV4cCI6MTU3MjUwNTM1NSwiaWF0IjoxNTcyNDk4MTU1fQ.GgO1N9KejQL_-nl9mf4ebx4r2fulufBCNCawIDIoqW0",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTgxNTUsImV4cCI6MTU3MjUwNTM1NSwiaWF0IjoxNTcyNDk4MTU1fQ",
+  "RawSignature": "GgO1N9KejQL_-nl9mf4ebx4r2fulufBCNCawIDIoqW0",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "client_credential",
+  "ValidFrom": "2019-10-31 05:02:35",
+  "ValidTo": "2019-10-31 07:02:35"
+}
+[13:02:44] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "client_credential",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572498155",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572505355",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572498155",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTgxNTUsImV4cCI6MTU3MjUwNTM1NSwiaWF0IjoxNTcyNDk4MTU1fQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "sub": "client_credential",
+    "nbf": 1572498155,
+    "exp": 1572505355,
+    "iat": 1572498155
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTgxNTUsImV4cCI6MTU3MjUwNTM1NSwiaWF0IjoxNTcyNDk4MTU1fQ.GgO1N9KejQL_-nl9mf4ebx4r2fulufBCNCawIDIoqW0",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTgxNTUsImV4cCI6MTU3MjUwNTM1NSwiaWF0IjoxNTcyNDk4MTU1fQ",
+  "RawSignature": "GgO1N9KejQL_-nl9mf4ebx4r2fulufBCNCawIDIoqW0",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "client_credential",
+  "ValidFrom": "2019-10-31 05:02:35",
+  "ValidTo": "2019-10-31 07:02:35"
+}
+[13:02:53] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgxNzMsImV4cCI6MTU3MjUwNTM3MywiaWF0IjoxNTcyNDk4MTczfQ._HPjbIEmOzfMwAtt_vPgFuX4iJkJ6NfD0DeC8g78HBY
+[13:02:53] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgxNzMsImV4cCI6MTU3MjUwNTM3MywiaWF0IjoxNTcyNDk4MTczfQ._HPjbIEmOzfMwAtt_vPgFuX4iJkJ6NfD0DeC8g78HBY
+[13:02:53] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "name",
+      "Value": "cqinwn",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "id",
+      "Value": "2019090623222071422468",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "role",
+      "Value": "2019091721053342871332",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "password",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572498173",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572505373",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572498173",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgxNzMsImV4cCI6MTU3MjUwNTM3MywiaWF0IjoxNTcyNDk4MTczfQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "name": "cqinwn",
+    "id": "2019090623222071422468",
+    "role": "2019091721053342871332",
+    "sub": "password",
+    "nbf": 1572498173,
+    "exp": 1572505373,
+    "iat": 1572498173
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgxNzMsImV4cCI6MTU3MjUwNTM3MywiaWF0IjoxNTcyNDk4MTczfQ._HPjbIEmOzfMwAtt_vPgFuX4iJkJ6NfD0DeC8g78HBY",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgxNzMsImV4cCI6MTU3MjUwNTM3MywiaWF0IjoxNTcyNDk4MTczfQ",
+  "RawSignature": "_HPjbIEmOzfMwAtt_vPgFuX4iJkJ6NfD0DeC8g78HBY",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "password",
+  "ValidFrom": "2019-10-31 05:02:53",
+  "ValidTo": "2019-10-31 07:02:53"
+}
+[13:02:53] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "name",
+      "Value": "cqinwn",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "id",
+      "Value": "2019090623222071422468",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "role",
+      "Value": "2019091721053342871332",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "password",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572498173",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572505373",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572498173",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgxNzMsImV4cCI6MTU3MjUwNTM3MywiaWF0IjoxNTcyNDk4MTczfQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "name": "cqinwn",
+    "id": "2019090623222071422468",
+    "role": "2019091721053342871332",
+    "sub": "password",
+    "nbf": 1572498173,
+    "exp": 1572505373,
+    "iat": 1572498173
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgxNzMsImV4cCI6MTU3MjUwNTM3MywiaWF0IjoxNTcyNDk4MTczfQ._HPjbIEmOzfMwAtt_vPgFuX4iJkJ6NfD0DeC8g78HBY",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgxNzMsImV4cCI6MTU3MjUwNTM3MywiaWF0IjoxNTcyNDk4MTczfQ",
+  "RawSignature": "_HPjbIEmOzfMwAtt_vPgFuX4iJkJ6NfD0DeC8g78HBY",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "password",
+  "ValidFrom": "2019-10-31 05:02:53",
+  "ValidTo": "2019-10-31 07:02:53"
+}
+[13:04:14] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTgyNTEsImV4cCI6MTU3MjUwNTQ1MSwiaWF0IjoxNTcyNDk4MjUxfQ.ogI2f4zkIo9XsGhWUAWBy-_oAwHE3snF3occH6XYfZM
+[13:04:14] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTgyNTEsImV4cCI6MTU3MjUwNTQ1MSwiaWF0IjoxNTcyNDk4MjUxfQ.ogI2f4zkIo9XsGhWUAWBy-_oAwHE3snF3occH6XYfZM
+[13:04:15] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "client_credential",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572498251",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572505451",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572498251",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTgyNTEsImV4cCI6MTU3MjUwNTQ1MSwiaWF0IjoxNTcyNDk4MjUxfQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "sub": "client_credential",
+    "nbf": 1572498251,
+    "exp": 1572505451,
+    "iat": 1572498251
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTgyNTEsImV4cCI6MTU3MjUwNTQ1MSwiaWF0IjoxNTcyNDk4MjUxfQ.ogI2f4zkIo9XsGhWUAWBy-_oAwHE3snF3occH6XYfZM",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTgyNTEsImV4cCI6MTU3MjUwNTQ1MSwiaWF0IjoxNTcyNDk4MjUxfQ",
+  "RawSignature": "ogI2f4zkIo9XsGhWUAWBy-_oAwHE3snF3occH6XYfZM",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "client_credential",
+  "ValidFrom": "2019-10-31 05:04:11",
+  "ValidTo": "2019-10-31 07:04:11"
+}
+[13:04:15] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "client_credential",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572498251",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572505451",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572498251",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTgyNTEsImV4cCI6MTU3MjUwNTQ1MSwiaWF0IjoxNTcyNDk4MjUxfQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "sub": "client_credential",
+    "nbf": 1572498251,
+    "exp": 1572505451,
+    "iat": 1572498251
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTgyNTEsImV4cCI6MTU3MjUwNTQ1MSwiaWF0IjoxNTcyNDk4MjUxfQ.ogI2f4zkIo9XsGhWUAWBy-_oAwHE3snF3occH6XYfZM",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTgyNTEsImV4cCI6MTU3MjUwNTQ1MSwiaWF0IjoxNTcyNDk4MjUxfQ",
+  "RawSignature": "ogI2f4zkIo9XsGhWUAWBy-_oAwHE3snF3occH6XYfZM",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "client_credential",
+  "ValidFrom": "2019-10-31 05:04:11",
+  "ValidTo": "2019-10-31 07:04:11"
+}
+[13:04:26] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgyNjUsImV4cCI6MTU3MjUwNTQ2NSwiaWF0IjoxNTcyNDk4MjY1fQ.LVzSnjjbAVQHw0GnhpNH8yO0hg5LfDn14o90jNvh-Gk
+[13:04:26] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgyNjUsImV4cCI6MTU3MjUwNTQ2NSwiaWF0IjoxNTcyNDk4MjY1fQ.LVzSnjjbAVQHw0GnhpNH8yO0hg5LfDn14o90jNvh-Gk
+[13:04:26] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "name",
+      "Value": "cqinwn",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "id",
+      "Value": "2019090623222071422468",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "role",
+      "Value": "2019091721053342871332",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "password",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572498265",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572505465",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572498265",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgyNjUsImV4cCI6MTU3MjUwNTQ2NSwiaWF0IjoxNTcyNDk4MjY1fQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "name": "cqinwn",
+    "id": "2019090623222071422468",
+    "role": "2019091721053342871332",
+    "sub": "password",
+    "nbf": 1572498265,
+    "exp": 1572505465,
+    "iat": 1572498265
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgyNjUsImV4cCI6MTU3MjUwNTQ2NSwiaWF0IjoxNTcyNDk4MjY1fQ.LVzSnjjbAVQHw0GnhpNH8yO0hg5LfDn14o90jNvh-Gk",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgyNjUsImV4cCI6MTU3MjUwNTQ2NSwiaWF0IjoxNTcyNDk4MjY1fQ",
+  "RawSignature": "LVzSnjjbAVQHw0GnhpNH8yO0hg5LfDn14o90jNvh-Gk",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "password",
+  "ValidFrom": "2019-10-31 05:04:25",
+  "ValidTo": "2019-10-31 07:04:25"
+}
+[13:04:26] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "name",
+      "Value": "cqinwn",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "id",
+      "Value": "2019090623222071422468",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "role",
+      "Value": "2019091721053342871332",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "password",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572498265",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572505465",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572498265",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgyNjUsImV4cCI6MTU3MjUwNTQ2NSwiaWF0IjoxNTcyNDk4MjY1fQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "name": "cqinwn",
+    "id": "2019090623222071422468",
+    "role": "2019091721053342871332",
+    "sub": "password",
+    "nbf": 1572498265,
+    "exp": 1572505465,
+    "iat": 1572498265
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgyNjUsImV4cCI6MTU3MjUwNTQ2NSwiaWF0IjoxNTcyNDk4MjY1fQ.LVzSnjjbAVQHw0GnhpNH8yO0hg5LfDn14o90jNvh-Gk",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgyNjUsImV4cCI6MTU3MjUwNTQ2NSwiaWF0IjoxNTcyNDk4MjY1fQ",
+  "RawSignature": "LVzSnjjbAVQHw0GnhpNH8yO0hg5LfDn14o90jNvh-Gk",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "password",
+  "ValidFrom": "2019-10-31 05:04:25",
+  "ValidTo": "2019-10-31 07:04:25"
+}
+[13:11:26] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgyNjUsImV4cCI6MTU3MjUwNTQ2NSwiaWF0IjoxNTcyNDk4MjY1fQ.LVzSnjjbAVQHw0GnhpNH8yO0hg5LfDn14o90jNvh-Gk
+[13:11:26] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgyNjUsImV4cCI6MTU3MjUwNTQ2NSwiaWF0IjoxNTcyNDk4MjY1fQ.LVzSnjjbAVQHw0GnhpNH8yO0hg5LfDn14o90jNvh-Gk
+[13:11:26] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "name",
+      "Value": "cqinwn",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "id",
+      "Value": "2019090623222071422468",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "role",
+      "Value": "2019091721053342871332",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "password",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572498265",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572505465",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572498265",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgyNjUsImV4cCI6MTU3MjUwNTQ2NSwiaWF0IjoxNTcyNDk4MjY1fQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "name": "cqinwn",
+    "id": "2019090623222071422468",
+    "role": "2019091721053342871332",
+    "sub": "password",
+    "nbf": 1572498265,
+    "exp": 1572505465,
+    "iat": 1572498265
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgyNjUsImV4cCI6MTU3MjUwNTQ2NSwiaWF0IjoxNTcyNDk4MjY1fQ.LVzSnjjbAVQHw0GnhpNH8yO0hg5LfDn14o90jNvh-Gk",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgyNjUsImV4cCI6MTU3MjUwNTQ2NSwiaWF0IjoxNTcyNDk4MjY1fQ",
+  "RawSignature": "LVzSnjjbAVQHw0GnhpNH8yO0hg5LfDn14o90jNvh-Gk",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "password",
+  "ValidFrom": "2019-10-31 05:04:25",
+  "ValidTo": "2019-10-31 07:04:25"
+}
+[13:11:26] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "name",
+      "Value": "cqinwn",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "id",
+      "Value": "2019090623222071422468",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "role",
+      "Value": "2019091721053342871332",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "password",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572498265",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572505465",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572498265",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgyNjUsImV4cCI6MTU3MjUwNTQ2NSwiaWF0IjoxNTcyNDk4MjY1fQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "name": "cqinwn",
+    "id": "2019090623222071422468",
+    "role": "2019091721053342871332",
+    "sub": "password",
+    "nbf": 1572498265,
+    "exp": 1572505465,
+    "iat": 1572498265
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgyNjUsImV4cCI6MTU3MjUwNTQ2NSwiaWF0IjoxNTcyNDk4MjY1fQ.LVzSnjjbAVQHw0GnhpNH8yO0hg5LfDn14o90jNvh-Gk",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgyNjUsImV4cCI6MTU3MjUwNTQ2NSwiaWF0IjoxNTcyNDk4MjY1fQ",
+  "RawSignature": "LVzSnjjbAVQHw0GnhpNH8yO0hg5LfDn14o90jNvh-Gk",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "password",
+  "ValidFrom": "2019-10-31 05:04:25",
+  "ValidTo": "2019-10-31 07:04:25"
+}
+[13:11:27] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgyNjUsImV4cCI6MTU3MjUwNTQ2NSwiaWF0IjoxNTcyNDk4MjY1fQ.LVzSnjjbAVQHw0GnhpNH8yO0hg5LfDn14o90jNvh-Gk
+[13:11:27] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgyNjUsImV4cCI6MTU3MjUwNTQ2NSwiaWF0IjoxNTcyNDk4MjY1fQ.LVzSnjjbAVQHw0GnhpNH8yO0hg5LfDn14o90jNvh-Gk
+[13:11:27] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "name",
+      "Value": "cqinwn",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "id",
+      "Value": "2019090623222071422468",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "role",
+      "Value": "2019091721053342871332",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "password",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572498265",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572505465",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572498265",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgyNjUsImV4cCI6MTU3MjUwNTQ2NSwiaWF0IjoxNTcyNDk4MjY1fQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "name": "cqinwn",
+    "id": "2019090623222071422468",
+    "role": "2019091721053342871332",
+    "sub": "password",
+    "nbf": 1572498265,
+    "exp": 1572505465,
+    "iat": 1572498265
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgyNjUsImV4cCI6MTU3MjUwNTQ2NSwiaWF0IjoxNTcyNDk4MjY1fQ.LVzSnjjbAVQHw0GnhpNH8yO0hg5LfDn14o90jNvh-Gk",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgyNjUsImV4cCI6MTU3MjUwNTQ2NSwiaWF0IjoxNTcyNDk4MjY1fQ",
+  "RawSignature": "LVzSnjjbAVQHw0GnhpNH8yO0hg5LfDn14o90jNvh-Gk",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "password",
+  "ValidFrom": "2019-10-31 05:04:25",
+  "ValidTo": "2019-10-31 07:04:25"
+}
+[13:11:27] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "name",
+      "Value": "cqinwn",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "id",
+      "Value": "2019090623222071422468",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "role",
+      "Value": "2019091721053342871332",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "password",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572498265",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572505465",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572498265",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgyNjUsImV4cCI6MTU3MjUwNTQ2NSwiaWF0IjoxNTcyNDk4MjY1fQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "name": "cqinwn",
+    "id": "2019090623222071422468",
+    "role": "2019091721053342871332",
+    "sub": "password",
+    "nbf": 1572498265,
+    "exp": 1572505465,
+    "iat": 1572498265
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgyNjUsImV4cCI6MTU3MjUwNTQ2NSwiaWF0IjoxNTcyNDk4MjY1fQ.LVzSnjjbAVQHw0GnhpNH8yO0hg5LfDn14o90jNvh-Gk",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTgyNjUsImV4cCI6MTU3MjUwNTQ2NSwiaWF0IjoxNTcyNDk4MjY1fQ",
+  "RawSignature": "LVzSnjjbAVQHw0GnhpNH8yO0hg5LfDn14o90jNvh-Gk",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "password",
+  "ValidFrom": "2019-10-31 05:04:25",
+  "ValidTo": "2019-10-31 07:04:25"
+}
+[13:22:59] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTkzNjMsImV4cCI6MTU3MjUwNjU2MywiaWF0IjoxNTcyNDk5MzYzfQ.-u4W8vv0hGzyILn7Qjbt7YzlVEqQPKQ50MGg_F5NPgM
+[13:22:59] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTkzNjMsImV4cCI6MTU3MjUwNjU2MywiaWF0IjoxNTcyNDk5MzYzfQ.-u4W8vv0hGzyILn7Qjbt7YzlVEqQPKQ50MGg_F5NPgM
+[13:22:59] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "client_credential",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572499363",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572506563",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572499363",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTkzNjMsImV4cCI6MTU3MjUwNjU2MywiaWF0IjoxNTcyNDk5MzYzfQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "sub": "client_credential",
+    "nbf": 1572499363,
+    "exp": 1572506563,
+    "iat": 1572499363
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTkzNjMsImV4cCI6MTU3MjUwNjU2MywiaWF0IjoxNTcyNDk5MzYzfQ.-u4W8vv0hGzyILn7Qjbt7YzlVEqQPKQ50MGg_F5NPgM",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTkzNjMsImV4cCI6MTU3MjUwNjU2MywiaWF0IjoxNTcyNDk5MzYzfQ",
+  "RawSignature": "-u4W8vv0hGzyILn7Qjbt7YzlVEqQPKQ50MGg_F5NPgM",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "client_credential",
+  "ValidFrom": "2019-10-31 05:22:43",
+  "ValidTo": "2019-10-31 07:22:43"
+}
+[13:22:59] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "client_credential",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572499363",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572506563",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572499363",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTkzNjMsImV4cCI6MTU3MjUwNjU2MywiaWF0IjoxNTcyNDk5MzYzfQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "sub": "client_credential",
+    "nbf": 1572499363,
+    "exp": 1572506563,
+    "iat": 1572499363
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTkzNjMsImV4cCI6MTU3MjUwNjU2MywiaWF0IjoxNTcyNDk5MzYzfQ.-u4W8vv0hGzyILn7Qjbt7YzlVEqQPKQ50MGg_F5NPgM",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTkzNjMsImV4cCI6MTU3MjUwNjU2MywiaWF0IjoxNTcyNDk5MzYzfQ",
+  "RawSignature": "-u4W8vv0hGzyILn7Qjbt7YzlVEqQPKQ50MGg_F5NPgM",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "client_credential",
+  "ValidFrom": "2019-10-31 05:22:43",
+  "ValidTo": "2019-10-31 07:22:43"
+}
+[13:23:08] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTkzODgsImV4cCI6MTU3MjUwNjU4OCwiaWF0IjoxNTcyNDk5Mzg4fQ.Fl3Sn3TyxJszLweG6xeujgpuCos6yvORdRJcQh9UwVY
+[13:23:08] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTkzODgsImV4cCI6MTU3MjUwNjU4OCwiaWF0IjoxNTcyNDk5Mzg4fQ.Fl3Sn3TyxJszLweG6xeujgpuCos6yvORdRJcQh9UwVY
+[13:23:08] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "name",
+      "Value": "cqinwn",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "id",
+      "Value": "2019090623222071422468",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "role",
+      "Value": "2019091721053342871332",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "password",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572499388",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572506588",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572499388",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTkzODgsImV4cCI6MTU3MjUwNjU4OCwiaWF0IjoxNTcyNDk5Mzg4fQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "name": "cqinwn",
+    "id": "2019090623222071422468",
+    "role": "2019091721053342871332",
+    "sub": "password",
+    "nbf": 1572499388,
+    "exp": 1572506588,
+    "iat": 1572499388
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTkzODgsImV4cCI6MTU3MjUwNjU4OCwiaWF0IjoxNTcyNDk5Mzg4fQ.Fl3Sn3TyxJszLweG6xeujgpuCos6yvORdRJcQh9UwVY",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTkzODgsImV4cCI6MTU3MjUwNjU4OCwiaWF0IjoxNTcyNDk5Mzg4fQ",
+  "RawSignature": "Fl3Sn3TyxJszLweG6xeujgpuCos6yvORdRJcQh9UwVY",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "password",
+  "ValidFrom": "2019-10-31 05:23:08",
+  "ValidTo": "2019-10-31 07:23:08"
+}
+[13:23:08] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "name",
+      "Value": "cqinwn",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "id",
+      "Value": "2019090623222071422468",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "role",
+      "Value": "2019091721053342871332",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "password",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572499388",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572506588",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572499388",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTkzODgsImV4cCI6MTU3MjUwNjU4OCwiaWF0IjoxNTcyNDk5Mzg4fQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "name": "cqinwn",
+    "id": "2019090623222071422468",
+    "role": "2019091721053342871332",
+    "sub": "password",
+    "nbf": 1572499388,
+    "exp": 1572506588,
+    "iat": 1572499388
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTkzODgsImV4cCI6MTU3MjUwNjU4OCwiaWF0IjoxNTcyNDk5Mzg4fQ.Fl3Sn3TyxJszLweG6xeujgpuCos6yvORdRJcQh9UwVY",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTkzODgsImV4cCI6MTU3MjUwNjU4OCwiaWF0IjoxNTcyNDk5Mzg4fQ",
+  "RawSignature": "Fl3Sn3TyxJszLweG6xeujgpuCos6yvORdRJcQh9UwVY",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "password",
+  "ValidFrom": "2019-10-31 05:23:08",
+  "ValidTo": "2019-10-31 07:23:08"
+}
+[13:32:47] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTkzODgsImV4cCI6MTU3MjUwNjU4OCwiaWF0IjoxNTcyNDk5Mzg4fQ.Fl3Sn3TyxJszLweG6xeujgpuCos6yvORdRJcQh9UwVY
+[13:32:47] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTkzODgsImV4cCI6MTU3MjUwNjU4OCwiaWF0IjoxNTcyNDk5Mzg4fQ.Fl3Sn3TyxJszLweG6xeujgpuCos6yvORdRJcQh9UwVY
+[13:32:47] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "name",
+      "Value": "cqinwn",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "id",
+      "Value": "2019090623222071422468",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "role",
+      "Value": "2019091721053342871332",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "password",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572499388",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572506588",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572499388",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTkzODgsImV4cCI6MTU3MjUwNjU4OCwiaWF0IjoxNTcyNDk5Mzg4fQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "name": "cqinwn",
+    "id": "2019090623222071422468",
+    "role": "2019091721053342871332",
+    "sub": "password",
+    "nbf": 1572499388,
+    "exp": 1572506588,
+    "iat": 1572499388
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTkzODgsImV4cCI6MTU3MjUwNjU4OCwiaWF0IjoxNTcyNDk5Mzg4fQ.Fl3Sn3TyxJszLweG6xeujgpuCos6yvORdRJcQh9UwVY",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTkzODgsImV4cCI6MTU3MjUwNjU4OCwiaWF0IjoxNTcyNDk5Mzg4fQ",
+  "RawSignature": "Fl3Sn3TyxJszLweG6xeujgpuCos6yvORdRJcQh9UwVY",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "password",
+  "ValidFrom": "2019-10-31 05:23:08",
+  "ValidTo": "2019-10-31 07:23:08"
+}
+[13:32:47] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "name",
+      "Value": "cqinwn",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "id",
+      "Value": "2019090623222071422468",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "role",
+      "Value": "2019091721053342871332",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "password",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572499388",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572506588",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572499388",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTkzODgsImV4cCI6MTU3MjUwNjU4OCwiaWF0IjoxNTcyNDk5Mzg4fQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "name": "cqinwn",
+    "id": "2019090623222071422468",
+    "role": "2019091721053342871332",
+    "sub": "password",
+    "nbf": 1572499388,
+    "exp": 1572506588,
+    "iat": 1572499388
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTkzODgsImV4cCI6MTU3MjUwNjU4OCwiaWF0IjoxNTcyNDk5Mzg4fQ.Fl3Sn3TyxJszLweG6xeujgpuCos6yvORdRJcQh9UwVY",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI0OTkzODgsImV4cCI6MTU3MjUwNjU4OCwiaWF0IjoxNTcyNDk5Mzg4fQ",
+  "RawSignature": "Fl3Sn3TyxJszLweG6xeujgpuCos6yvORdRJcQh9UwVY",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "password",
+  "ValidFrom": "2019-10-31 05:23:08",
+  "ValidTo": "2019-10-31 07:23:08"
+}
+[13:40:16] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTk5NjgsImV4cCI6MTU3MjUwNzE2OCwiaWF0IjoxNTcyNDk5OTY4fQ.gb_6PVZTVj4IJdBWWycRijGmPSKnT63hrYoBYXh-HlI
+[13:40:16] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTk5NjgsImV4cCI6MTU3MjUwNzE2OCwiaWF0IjoxNTcyNDk5OTY4fQ.gb_6PVZTVj4IJdBWWycRijGmPSKnT63hrYoBYXh-HlI
+[13:40:16] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "client_credential",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572499968",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572507168",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572499968",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTk5NjgsImV4cCI6MTU3MjUwNzE2OCwiaWF0IjoxNTcyNDk5OTY4fQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "sub": "client_credential",
+    "nbf": 1572499968,
+    "exp": 1572507168,
+    "iat": 1572499968
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTk5NjgsImV4cCI6MTU3MjUwNzE2OCwiaWF0IjoxNTcyNDk5OTY4fQ.gb_6PVZTVj4IJdBWWycRijGmPSKnT63hrYoBYXh-HlI",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTk5NjgsImV4cCI6MTU3MjUwNzE2OCwiaWF0IjoxNTcyNDk5OTY4fQ",
+  "RawSignature": "gb_6PVZTVj4IJdBWWycRijGmPSKnT63hrYoBYXh-HlI",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "client_credential",
+  "ValidFrom": "2019-10-31 05:32:48",
+  "ValidTo": "2019-10-31 07:32:48"
+}
+[13:40:16] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "client_credential",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572499968",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572507168",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572499968",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTk5NjgsImV4cCI6MTU3MjUwNzE2OCwiaWF0IjoxNTcyNDk5OTY4fQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "sub": "client_credential",
+    "nbf": 1572499968,
+    "exp": 1572507168,
+    "iat": 1572499968
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTk5NjgsImV4cCI6MTU3MjUwNzE2OCwiaWF0IjoxNTcyNDk5OTY4fQ.gb_6PVZTVj4IJdBWWycRijGmPSKnT63hrYoBYXh-HlI",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI0OTk5NjgsImV4cCI6MTU3MjUwNzE2OCwiaWF0IjoxNTcyNDk5OTY4fQ",
+  "RawSignature": "gb_6PVZTVj4IJdBWWycRijGmPSKnT63hrYoBYXh-HlI",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "client_credential",
+  "ValidFrom": "2019-10-31 05:32:48",
+  "ValidTo": "2019-10-31 07:32:48"
+}
+[13:40:32] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MDA0MzIsImV4cCI6MTU3MjUwNzYzMiwiaWF0IjoxNTcyNTAwNDMyfQ.cuMqymxsxDtstZcjx9lPJ3eHcAKGMaSFvKSgd-v3Esw
+[13:40:32] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MDA0MzIsImV4cCI6MTU3MjUwNzYzMiwiaWF0IjoxNTcyNTAwNDMyfQ.cuMqymxsxDtstZcjx9lPJ3eHcAKGMaSFvKSgd-v3Esw
+[13:40:33] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "name",
+      "Value": "cqinwn",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "id",
+      "Value": "2019090623222071422468",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "role",
+      "Value": "2019091721053342871332",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "password",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572500432",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572507632",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572500432",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MDA0MzIsImV4cCI6MTU3MjUwNzYzMiwiaWF0IjoxNTcyNTAwNDMyfQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "name": "cqinwn",
+    "id": "2019090623222071422468",
+    "role": "2019091721053342871332",
+    "sub": "password",
+    "nbf": 1572500432,
+    "exp": 1572507632,
+    "iat": 1572500432
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MDA0MzIsImV4cCI6MTU3MjUwNzYzMiwiaWF0IjoxNTcyNTAwNDMyfQ.cuMqymxsxDtstZcjx9lPJ3eHcAKGMaSFvKSgd-v3Esw",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MDA0MzIsImV4cCI6MTU3MjUwNzYzMiwiaWF0IjoxNTcyNTAwNDMyfQ",
+  "RawSignature": "cuMqymxsxDtstZcjx9lPJ3eHcAKGMaSFvKSgd-v3Esw",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "password",
+  "ValidFrom": "2019-10-31 05:40:32",
+  "ValidTo": "2019-10-31 07:40:32"
+}
+[13:40:33] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "name",
+      "Value": "cqinwn",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "id",
+      "Value": "2019090623222071422468",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "role",
+      "Value": "2019091721053342871332",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "password",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572500432",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572507632",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572500432",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MDA0MzIsImV4cCI6MTU3MjUwNzYzMiwiaWF0IjoxNTcyNTAwNDMyfQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "name": "cqinwn",
+    "id": "2019090623222071422468",
+    "role": "2019091721053342871332",
+    "sub": "password",
+    "nbf": 1572500432,
+    "exp": 1572507632,
+    "iat": 1572500432
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MDA0MzIsImV4cCI6MTU3MjUwNzYzMiwiaWF0IjoxNTcyNTAwNDMyfQ.cuMqymxsxDtstZcjx9lPJ3eHcAKGMaSFvKSgd-v3Esw",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MDA0MzIsImV4cCI6MTU3MjUwNzYzMiwiaWF0IjoxNTcyNTAwNDMyfQ",
+  "RawSignature": "cuMqymxsxDtstZcjx9lPJ3eHcAKGMaSFvKSgd-v3Esw",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "password",
+  "ValidFrom": "2019-10-31 05:40:32",
+  "ValidTo": "2019-10-31 07:40:32"
+}
+[13:48:40] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI1MDA5MDQsImV4cCI6MTU3MjUwODEwNCwiaWF0IjoxNTcyNTAwOTA0fQ.3PSjliYmdO6qavoKvNG0Hnqs-yM-WHOaOGlP2osY7zg
+[13:48:40] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI1MDA5MDQsImV4cCI6MTU3MjUwODEwNCwiaWF0IjoxNTcyNTAwOTA0fQ.3PSjliYmdO6qavoKvNG0Hnqs-yM-WHOaOGlP2osY7zg
+[13:48:40] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "client_credential",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572500904",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572508104",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572500904",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI1MDA5MDQsImV4cCI6MTU3MjUwODEwNCwiaWF0IjoxNTcyNTAwOTA0fQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "sub": "client_credential",
+    "nbf": 1572500904,
+    "exp": 1572508104,
+    "iat": 1572500904
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI1MDA5MDQsImV4cCI6MTU3MjUwODEwNCwiaWF0IjoxNTcyNTAwOTA0fQ.3PSjliYmdO6qavoKvNG0Hnqs-yM-WHOaOGlP2osY7zg",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI1MDA5MDQsImV4cCI6MTU3MjUwODEwNCwiaWF0IjoxNTcyNTAwOTA0fQ",
+  "RawSignature": "3PSjliYmdO6qavoKvNG0Hnqs-yM-WHOaOGlP2osY7zg",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "client_credential",
+  "ValidFrom": "2019-10-31 05:48:24",
+  "ValidTo": "2019-10-31 07:48:24"
+}
+[13:48:40] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "client_credential",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572500904",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572508104",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572500904",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI1MDA5MDQsImV4cCI6MTU3MjUwODEwNCwiaWF0IjoxNTcyNTAwOTA0fQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "sub": "client_credential",
+    "nbf": 1572500904,
+    "exp": 1572508104,
+    "iat": 1572500904
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI1MDA5MDQsImV4cCI6MTU3MjUwODEwNCwiaWF0IjoxNTcyNTAwOTA0fQ.3PSjliYmdO6qavoKvNG0Hnqs-yM-WHOaOGlP2osY7zg",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI1MDA5MDQsImV4cCI6MTU3MjUwODEwNCwiaWF0IjoxNTcyNTAwOTA0fQ",
+  "RawSignature": "3PSjliYmdO6qavoKvNG0Hnqs-yM-WHOaOGlP2osY7zg",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "client_credential",
+  "ValidFrom": "2019-10-31 05:48:24",
+  "ValidTo": "2019-10-31 07:48:24"
+}
+[13:48:51] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MDA5MzEsImV4cCI6MTU3MjUwODEzMSwiaWF0IjoxNTcyNTAwOTMxfQ.X8tvUacZQ1JNzmdlk32JYrvijnrgqqQoIbMnYvF-MD0
+[13:48:51] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MDA5MzEsImV4cCI6MTU3MjUwODEzMSwiaWF0IjoxNTcyNTAwOTMxfQ.X8tvUacZQ1JNzmdlk32JYrvijnrgqqQoIbMnYvF-MD0
+[13:48:51] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "name",
+      "Value": "cqinwn",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "id",
+      "Value": "2019090623222071422468",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "role",
+      "Value": "2019091721053342871332",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "password",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572500931",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572508131",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572500931",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MDA5MzEsImV4cCI6MTU3MjUwODEzMSwiaWF0IjoxNTcyNTAwOTMxfQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "name": "cqinwn",
+    "id": "2019090623222071422468",
+    "role": "2019091721053342871332",
+    "sub": "password",
+    "nbf": 1572500931,
+    "exp": 1572508131,
+    "iat": 1572500931
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MDA5MzEsImV4cCI6MTU3MjUwODEzMSwiaWF0IjoxNTcyNTAwOTMxfQ.X8tvUacZQ1JNzmdlk32JYrvijnrgqqQoIbMnYvF-MD0",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MDA5MzEsImV4cCI6MTU3MjUwODEzMSwiaWF0IjoxNTcyNTAwOTMxfQ",
+  "RawSignature": "X8tvUacZQ1JNzmdlk32JYrvijnrgqqQoIbMnYvF-MD0",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "password",
+  "ValidFrom": "2019-10-31 05:48:51",
+  "ValidTo": "2019-10-31 07:48:51"
+}
+[13:48:51] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "name",
+      "Value": "cqinwn",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "id",
+      "Value": "2019090623222071422468",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "role",
+      "Value": "2019091721053342871332",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "password",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572500931",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572508131",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572500931",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MDA5MzEsImV4cCI6MTU3MjUwODEzMSwiaWF0IjoxNTcyNTAwOTMxfQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "name": "cqinwn",
+    "id": "2019090623222071422468",
+    "role": "2019091721053342871332",
+    "sub": "password",
+    "nbf": 1572500931,
+    "exp": 1572508131,
+    "iat": 1572500931
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MDA5MzEsImV4cCI6MTU3MjUwODEzMSwiaWF0IjoxNTcyNTAwOTMxfQ.X8tvUacZQ1JNzmdlk32JYrvijnrgqqQoIbMnYvF-MD0",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MDA5MzEsImV4cCI6MTU3MjUwODEzMSwiaWF0IjoxNTcyNTAwOTMxfQ",
+  "RawSignature": "X8tvUacZQ1JNzmdlk32JYrvijnrgqqQoIbMnYvF-MD0",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "password",
+  "ValidFrom": "2019-10-31 05:48:51",
+  "ValidTo": "2019-10-31 07:48:51"
+}
+[14:14:40] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MDA5MzEsImV4cCI6MTU3MjUwODEzMSwiaWF0IjoxNTcyNTAwOTMxfQ.X8tvUacZQ1JNzmdlk32JYrvijnrgqqQoIbMnYvF-MD0
+[14:14:40] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MDA5MzEsImV4cCI6MTU3MjUwODEzMSwiaWF0IjoxNTcyNTAwOTMxfQ.X8tvUacZQ1JNzmdlk32JYrvijnrgqqQoIbMnYvF-MD0
+[14:14:40] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "name",
+      "Value": "cqinwn",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "id",
+      "Value": "2019090623222071422468",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "role",
+      "Value": "2019091721053342871332",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "password",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572500931",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572508131",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572500931",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MDA5MzEsImV4cCI6MTU3MjUwODEzMSwiaWF0IjoxNTcyNTAwOTMxfQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "name": "cqinwn",
+    "id": "2019090623222071422468",
+    "role": "2019091721053342871332",
+    "sub": "password",
+    "nbf": 1572500931,
+    "exp": 1572508131,
+    "iat": 1572500931
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MDA5MzEsImV4cCI6MTU3MjUwODEzMSwiaWF0IjoxNTcyNTAwOTMxfQ.X8tvUacZQ1JNzmdlk32JYrvijnrgqqQoIbMnYvF-MD0",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MDA5MzEsImV4cCI6MTU3MjUwODEzMSwiaWF0IjoxNTcyNTAwOTMxfQ",
+  "RawSignature": "X8tvUacZQ1JNzmdlk32JYrvijnrgqqQoIbMnYvF-MD0",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "password",
+  "ValidFrom": "2019-10-31 05:48:51",
+  "ValidTo": "2019-10-31 07:48:51"
+}
+[14:14:40] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "name",
+      "Value": "cqinwn",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "id",
+      "Value": "2019090623222071422468",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "role",
+      "Value": "2019091721053342871332",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "password",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572500931",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572508131",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572500931",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MDA5MzEsImV4cCI6MTU3MjUwODEzMSwiaWF0IjoxNTcyNTAwOTMxfQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "name": "cqinwn",
+    "id": "2019090623222071422468",
+    "role": "2019091721053342871332",
+    "sub": "password",
+    "nbf": 1572500931,
+    "exp": 1572508131,
+    "iat": 1572500931
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MDA5MzEsImV4cCI6MTU3MjUwODEzMSwiaWF0IjoxNTcyNTAwOTMxfQ.X8tvUacZQ1JNzmdlk32JYrvijnrgqqQoIbMnYvF-MD0",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MDA5MzEsImV4cCI6MTU3MjUwODEzMSwiaWF0IjoxNTcyNTAwOTMxfQ",
+  "RawSignature": "X8tvUacZQ1JNzmdlk32JYrvijnrgqqQoIbMnYvF-MD0",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "password",
+  "ValidFrom": "2019-10-31 05:48:51",
+  "ValidTo": "2019-10-31 07:48:51"
+}
+[15:49:13] (Yuebon.AspNetCore.Controllers.TokenController) 方法名称：RefreshToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "name",
+      "Value": "cqinwn",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "id",
+      "Value": "2019090623222071422468",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "role",
+      "Value": "2019091721053342871332",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "password",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572500931",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572508131",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572500931",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MDA5MzEsImV4cCI6MTU3MjUwODEzMSwiaWF0IjoxNTcyNTAwOTMxfQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "name": "cqinwn",
+    "id": "2019090623222071422468",
+    "role": "2019091721053342871332",
+    "sub": "password",
+    "nbf": 1572500931,
+    "exp": 1572508131,
+    "iat": 1572500931
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MDA5MzEsImV4cCI6MTU3MjUwODEzMSwiaWF0IjoxNTcyNTAwOTMxfQ.X8tvUacZQ1JNzmdlk32JYrvijnrgqqQoIbMnYvF-MD0",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MDA5MzEsImV4cCI6MTU3MjUwODEzMSwiaWF0IjoxNTcyNTAwOTMxfQ",
+  "RawSignature": "X8tvUacZQ1JNzmdlk32JYrvijnrgqqQoIbMnYvF-MD0",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "password",
+  "ValidFrom": "2019-10-31 05:48:51",
+  "ValidTo": "2019-10-31 07:48:51"
+}
+[17:54:42] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI1MTU2NzIsImV4cCI6MTU3MjUyMjg3MiwiaWF0IjoxNTcyNTE1NjcyfQ.hj-MF7inl7OSuHGZ_rAW7-JSbxMeCvswOlTCUIZutO4
+[17:54:43] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI1MTU2NzIsImV4cCI6MTU3MjUyMjg3MiwiaWF0IjoxNTcyNTE1NjcyfQ.hj-MF7inl7OSuHGZ_rAW7-JSbxMeCvswOlTCUIZutO4
+[17:54:43] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "client_credential",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572515672",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572522872",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572515672",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI1MTU2NzIsImV4cCI6MTU3MjUyMjg3MiwiaWF0IjoxNTcyNTE1NjcyfQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "sub": "client_credential",
+    "nbf": 1572515672,
+    "exp": 1572522872,
+    "iat": 1572515672
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI1MTU2NzIsImV4cCI6MTU3MjUyMjg3MiwiaWF0IjoxNTcyNTE1NjcyfQ.hj-MF7inl7OSuHGZ_rAW7-JSbxMeCvswOlTCUIZutO4",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI1MTU2NzIsImV4cCI6MTU3MjUyMjg3MiwiaWF0IjoxNTcyNTE1NjcyfQ",
+  "RawSignature": "hj-MF7inl7OSuHGZ_rAW7-JSbxMeCvswOlTCUIZutO4",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "client_credential",
+  "ValidFrom": "2019-10-31 09:54:32",
+  "ValidTo": "2019-10-31 11:54:32"
+}
+[17:54:43] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "client_credential",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572515672",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572522872",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572515672",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI1MTU2NzIsImV4cCI6MTU3MjUyMjg3MiwiaWF0IjoxNTcyNTE1NjcyfQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "sub": "client_credential",
+    "nbf": 1572515672,
+    "exp": 1572522872,
+    "iat": 1572515672
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI1MTU2NzIsImV4cCI6MTU3MjUyMjg3MiwiaWF0IjoxNTcyNTE1NjcyfQ.hj-MF7inl7OSuHGZ_rAW7-JSbxMeCvswOlTCUIZutO4",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI1MTU2NzIsImV4cCI6MTU3MjUyMjg3MiwiaWF0IjoxNTcyNTE1NjcyfQ",
+  "RawSignature": "hj-MF7inl7OSuHGZ_rAW7-JSbxMeCvswOlTCUIZutO4",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "client_credential",
+  "ValidFrom": "2019-10-31 09:54:32",
+  "ValidTo": "2019-10-31 11:54:32"
+}
+[17:54:52] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI1MTU2ODAsImV4cCI6MTU3MjUyMjg4MCwiaWF0IjoxNTcyNTE1NjgwfQ.bhqBoQDmpyXxdl1rfX6T8Uenz3pRan5WrG-qRb8mtIw
+[17:54:52] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI1MTU2ODAsImV4cCI6MTU3MjUyMjg4MCwiaWF0IjoxNTcyNTE1NjgwfQ.bhqBoQDmpyXxdl1rfX6T8Uenz3pRan5WrG-qRb8mtIw
+[17:54:52] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "client_credential",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572515680",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572522880",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572515680",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI1MTU2ODAsImV4cCI6MTU3MjUyMjg4MCwiaWF0IjoxNTcyNTE1NjgwfQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "sub": "client_credential",
+    "nbf": 1572515680,
+    "exp": 1572522880,
+    "iat": 1572515680
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI1MTU2ODAsImV4cCI6MTU3MjUyMjg4MCwiaWF0IjoxNTcyNTE1NjgwfQ.bhqBoQDmpyXxdl1rfX6T8Uenz3pRan5WrG-qRb8mtIw",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI1MTU2ODAsImV4cCI6MTU3MjUyMjg4MCwiaWF0IjoxNTcyNTE1NjgwfQ",
+  "RawSignature": "bhqBoQDmpyXxdl1rfX6T8Uenz3pRan5WrG-qRb8mtIw",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "client_credential",
+  "ValidFrom": "2019-10-31 09:54:40",
+  "ValidTo": "2019-10-31 11:54:40"
+}
+[17:54:52] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "client_credential",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572515680",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572522880",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572515680",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI1MTU2ODAsImV4cCI6MTU3MjUyMjg4MCwiaWF0IjoxNTcyNTE1NjgwfQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "sub": "client_credential",
+    "nbf": 1572515680,
+    "exp": 1572522880,
+    "iat": 1572515680
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI1MTU2ODAsImV4cCI6MTU3MjUyMjg4MCwiaWF0IjoxNTcyNTE1NjgwfQ.bhqBoQDmpyXxdl1rfX6T8Uenz3pRan5WrG-qRb8mtIw",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwic3ViIjoiY2xpZW50X2NyZWRlbnRpYWwiLCJuYmYiOjE1NzI1MTU2ODAsImV4cCI6MTU3MjUyMjg4MCwiaWF0IjoxNTcyNTE1NjgwfQ",
+  "RawSignature": "bhqBoQDmpyXxdl1rfX6T8Uenz3pRan5WrG-qRb8mtIw",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "client_credential",
+  "ValidFrom": "2019-10-31 09:54:40",
+  "ValidTo": "2019-10-31 11:54:40"
+}
+[21:42:17] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MjkzMzcsImV4cCI6MTU3MjUzNjUzNywiaWF0IjoxNTcyNTI5MzM3fQ.yoJCvX2FlEag4G8xXb48iu0CukSxg6boeueGquvVh3M
+[21:42:17] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "name",
+      "Value": "cqinwn",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "id",
+      "Value": "2019090623222071422468",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "role",
+      "Value": "2019091721053342871332",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "password",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572529337",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572536537",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572529337",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MjkzMzcsImV4cCI6MTU3MjUzNjUzNywiaWF0IjoxNTcyNTI5MzM3fQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "name": "cqinwn",
+    "id": "2019090623222071422468",
+    "role": "2019091721053342871332",
+    "sub": "password",
+    "nbf": 1572529337,
+    "exp": 1572536537,
+    "iat": 1572529337
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MjkzMzcsImV4cCI6MTU3MjUzNjUzNywiaWF0IjoxNTcyNTI5MzM3fQ.yoJCvX2FlEag4G8xXb48iu0CukSxg6boeueGquvVh3M",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MjkzMzcsImV4cCI6MTU3MjUzNjUzNywiaWF0IjoxNTcyNTI5MzM3fQ",
+  "RawSignature": "yoJCvX2FlEag4G8xXb48iu0CukSxg6boeueGquvVh3M",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "password",
+  "ValidFrom": "2019-10-31 13:42:17",
+  "ValidTo": "2019-10-31 15:42:17"
+}
+[21:42:19] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MjkzMzcsImV4cCI6MTU3MjUzNjUzNywiaWF0IjoxNTcyNTI5MzM3fQ.yoJCvX2FlEag4G8xXb48iu0CukSxg6boeueGquvVh3M
+[21:42:19] (Yuebon.AspNetCore.Mvc.TokenProvider) 方法名称：ValidateToken
+日志内容：{
+  "Actor": null,
+  "Audiences": [
+    "wxapplet"
+  ],
+  "Claims": [
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "aud",
+      "Value": "wxapplet",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iss",
+      "Value": "YuebonTeach",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "name",
+      "Value": "cqinwn",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "id",
+      "Value": "2019090623222071422468",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "role",
+      "Value": "2019091721053342871332",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "sub",
+      "Value": "password",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "nbf",
+      "Value": "1572529337",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "exp",
+      "Value": "1572536537",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "Issuer": "YuebonTeach",
+      "OriginalIssuer": "YuebonTeach",
+      "Properties": {},
+      "Subject": null,
+      "Type": "iat",
+      "Value": "1572529337",
+      "ValueType": "http://www.w3.org/2001/XMLSchema#integer"
+    }
+  ],
+  "EncodedHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "EncodedPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MjkzMzcsImV4cCI6MTU3MjUzNjUzNywiaWF0IjoxNTcyNTI5MzM3fQ",
+  "Header": {
+    "alg": "HS256",
+    "typ": "JWT"
+  },
+  "Id": null,
+  "Issuer": "YuebonTeach",
+  "Payload": {
+    "aud": "wxapplet",
+    "iss": "YuebonTeach",
+    "name": "cqinwn",
+    "id": "2019090623222071422468",
+    "role": "2019091721053342871332",
+    "sub": "password",
+    "nbf": 1572529337,
+    "exp": 1572536537,
+    "iat": 1572529337
+  },
+  "InnerToken": null,
+  "RawAuthenticationTag": null,
+  "RawCiphertext": null,
+  "RawData": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MjkzMzcsImV4cCI6MTU3MjUzNjUzNywiaWF0IjoxNTcyNTI5MzM3fQ.yoJCvX2FlEag4G8xXb48iu0CukSxg6boeueGquvVh3M",
+  "RawEncryptedKey": null,
+  "RawInitializationVector": null,
+  "RawHeader": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "RawPayload": "eyJhdWQiOiJ3eGFwcGxldCIsImlzcyI6Ill1ZWJvblRlYWNoIiwibmFtZSI6ImNxaW53biIsImlkIjoiMjAxOTA5MDYyMzIyMjA3MTQyMjQ2OCIsInJvbGUiOiIyMDE5MDkxNzIxMDUzMzQyODcxMzMyIiwic3ViIjoicGFzc3dvcmQiLCJuYmYiOjE1NzI1MjkzMzcsImV4cCI6MTU3MjUzNjUzNywiaWF0IjoxNTcyNTI5MzM3fQ",
+  "RawSignature": "yoJCvX2FlEag4G8xXb48iu0CukSxg6boeueGquvVh3M",
+  "SecurityKey": null,
+  "SignatureAlgorithm": "HS256",
+  "SigningCredentials": null,
+  "EncryptingCredentials": null,
+  "SigningKey": null,
+  "Subject": "password",
+  "ValidFrom": "2019-10-31 13:42:17",
+  "ValidTo": "2019-10-31 15:42:17"
+}

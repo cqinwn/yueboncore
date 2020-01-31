@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using Yuebon.Commons.IServices;
@@ -97,5 +98,16 @@ namespace Yuebon.Security.IServices
         bool SaveNameCard(string userid, string headicon, string nickName, string name, string company, string position,
             string weburl, string mobile, string email, string wx, string wximg,
             string industry, string area, string address, int openflag);
+
+
+        /// <summary>
+        /// 所有用户信息用于关注
+        /// </summary>
+        /// <param name="currentpage"></param>
+        /// <param name="pagesize"></param>
+        /// <param name="userid"></param>
+        /// <returns></returns>
+        IEnumerable<UserAllListFocusOutPutDto> GetUserAllListFocusByPage(string currentpage,
+            string pagesize, string userid);
     }
 }

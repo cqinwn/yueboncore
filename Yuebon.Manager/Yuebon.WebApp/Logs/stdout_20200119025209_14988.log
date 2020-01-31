@@ -1,0 +1,94 @@
+info: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[0]
+      User profile is available. Using 'C:\Users\Administrator\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+Hosting environment: Development
+Content root path: D:\netcorespace\YueGroup\权限管理\Yuebon.Manager\Yuebon.WebApp
+Now listening on: http://localhost:44418/
+Now listening on: https://localhost:44389/
+Application started. Press Ctrl+C to shut down.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/  
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'Yuebon.WebApp.Controllers.LoginController.Index (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {action = "Index", controller = "Login", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Yuebon.WebApp.Controllers.LoginController (Yuebon.WebApp).
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing action method Yuebon.WebApp.Controllers.LoginController.Index (Yuebon.WebApp) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action method Yuebon.WebApp.Controllers.LoginController.Index (Yuebon.WebApp), returned result Microsoft.AspNetCore.Mvc.ViewResult in 392.3996ms.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[1]
+      Executing ViewResult, running view Index.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[4]
+      Executed ViewResult - view Index executed in 246.1577ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action Yuebon.WebApp.Controllers.LoginController.Index (Yuebon.WebApp) in 854.3526ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'Yuebon.WebApp.Controllers.LoginController.Index (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 1277.1323ms 200 text/html; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/Login/GetCheckUser?username=admin&password=admin888  
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'Yuebon.WebApp.Controllers.LoginController.GetCheckUser (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {action = "GetCheckUser", controller = "Login", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetCheckUser(System.String, System.String) on controller Yuebon.WebApp.Controllers.LoginController (Yuebon.WebApp).
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing action method Yuebon.WebApp.Controllers.LoginController.GetCheckUser (Yuebon.WebApp) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action method Yuebon.WebApp.Controllers.LoginController.GetCheckUser (Yuebon.WebApp), returned result Microsoft.AspNetCore.Mvc.ContentResult in 7757.807ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ContentResultExecutor[1]
+      Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action Yuebon.WebApp.Controllers.LoginController.GetCheckUser (Yuebon.WebApp) in 7843.4584ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'Yuebon.WebApp.Controllers.LoginController.GetCheckUser (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 7919.0752ms 200 text/plain; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/Home/Index  
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'Yuebon.WebApp.Controllers.HomeController.Index (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {action = "Index", controller = "Home", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Yuebon.WebApp.Controllers.HomeController (Yuebon.WebApp).
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing action method Yuebon.WebApp.Controllers.HomeController.Index (Yuebon.WebApp) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action method Yuebon.WebApp.Controllers.HomeController.Index (Yuebon.WebApp), returned result Microsoft.AspNetCore.Mvc.ViewResult in 37.8408ms.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[1]
+      Executing ViewResult, running view Index.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[4]
+      Executed ViewResult - view Index executed in 157.8521ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action Yuebon.WebApp.Controllers.HomeController.Index (Yuebon.WebApp) in 280.6688ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'Yuebon.WebApp.Controllers.HomeController.Index (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 326.6081ms 200 text/html; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/Security/Organize/Index  
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'Yuebon.WebApp.Areas.Security.Controllers.OrganizeController.Index (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {area = "Security", action = "Index", controller = "Organize"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Yuebon.WebApp.Areas.Security.Controllers.OrganizeController (Yuebon.WebApp).
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing action method Yuebon.WebApp.Areas.Security.Controllers.OrganizeController.Index (Yuebon.WebApp) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action method Yuebon.WebApp.Areas.Security.Controllers.OrganizeController.Index (Yuebon.WebApp), returned result Microsoft.AspNetCore.Mvc.ViewResult in 0.7742ms.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[1]
+      Executing ViewResult, running view Index.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[4]
+      Executed ViewResult - view Index executed in 54.5131ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action Yuebon.WebApp.Areas.Security.Controllers.OrganizeController.Index (Yuebon.WebApp) in 120.0728ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'Yuebon.WebApp.Areas.Security.Controllers.OrganizeController.Index (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 166.5541ms 200 text/html; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/Security/Organize/GetAll?order=asc application/json 
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/Security/Organize/FindTreeSelectJson  
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'Yuebon.WebApp.Areas.Security.Controllers.OrganizeController.GetAll (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'Yuebon.WebApp.Areas.Security.Controllers.OrganizeController.FindTreeSelectJson (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Mvc.

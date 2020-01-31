@@ -1,0 +1,156 @@
+[[[自动注册扩展缓存完成]]]
+[2019/11/17 12:57:09.7392]
+[线程：1]
+注册总用时：7.1988ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2019/11/17 12:57:10.0897]
+[线程：1]
+微信扩展缓存注册总用时：106.8357ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[自动注册扩展缓存完成]]]
+[2019/11/17 18:48:26.0591]
+[线程：1]
+注册总用时：11.0738ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2019/11/17 18:48:26.4739]
+[线程：1]
+微信扩展缓存注册总用时：115.0863ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[自动注册扩展缓存完成]]]
+[2019/11/17 19:42:49.9906]
+[线程：1]
+注册总用时：12.4221ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2019/11/17 19:42:50.3235]
+[线程：1]
+微信扩展缓存注册总用时：78.5902ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[接口调用]]]
+[2019/11/17 19:43:37.1654]
+[线程：7]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_iTLBMzHoSTO10WJsVYJm03XIJYDPACXbe-73cCLF0d2bZBM1oJY0mftwXn23DjZoMf2Sgyc7bdWf98eYskgyFhzlA1PPCrG8MzIWf417y3CNcpYeRkO6F7deBTCsXcGeY7al4MBy8gAsIM8HRSKbAFAVWO
+	Post Data：
+{"touser":"o4Uv25YF-3f088d-Qw5E4hkIsxuU","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/17 19:43 最新动态"},"thing2":{"value":"1人看了1篇文章，浏览1次"}}}
+
+[[[自动注册扩展缓存完成]]]
+[2019/11/17 19:44:52.0914]
+[线程：1]
+注册总用时：6.838500000000001ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2019/11/17 19:44:52.3526]
+[线程：1]
+微信扩展缓存注册总用时：65.6185ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[接口调用]]]
+[2019/11/17 19:45:24.4046]
+[线程：28]
+	URL：https://api.weixin.qq.com/sns/jscode2session?appid=wx3821f908eabc524d&secret=25aa4e5a28cb4954c7de7144445cdc55&js_code=061QgJCS0PpvF02M3pzS0LK3DS0QgJCZ&grant_type=authorization_code
+	Result：
+{"session_key":"GARGxcnXkLkdazGuQMLdBQ==","openid":"o4Uv25WxCveS6QYtBK0xhYeWiZK0"}
+
+[[[接口调用]]]
+[2019/11/17 19:45:29.0925]
+[线程：19]
+	URL：https://api.weixin.qq.com/sns/jscode2session?appid=wx3821f908eabc524d&secret=25aa4e5a28cb4954c7de7144445cdc55&js_code=0717cfJn1v4Nkp0j7JKn1rnWIn17cfJF&grant_type=authorization_code
+	Result：
+{"session_key":"gU40QpQyT17fXHo0tC3TIg==","openid":"o4Uv25WxCveS6QYtBK0xhYeWiZK0"}
+
+[[[接口调用]]]
+[2019/11/17 19:45:30.7437]
+[线程：4]
+	URL：https://api.weixin.qq.com/sns/jscode2session?appid=wx3821f908eabc524d&secret=25aa4e5a28cb4954c7de7144445cdc55&js_code=021FSN2h1neeBr0NqG2h19943h1FSN28&grant_type=authorization_code
+	Result：
+{"session_key":"gU40QpQyT17fXHo0tC3TIg==","openid":"o4Uv25WxCveS6QYtBK0xhYeWiZK0"}
+
+[[[接口调用]]]
+[2019/11/17 19:45:34.2434]
+[线程：30]
+	URL：https://api.weixin.qq.com/wxa/msg_sec_check?access_token=27_LqR35oOQZBf-69HlSPIzlqWLhOACVezbKD-5XUp_ZHv_PYh49YRnfUTljZGufYxOxGPzgYbxue0F8aMrfuq96MwBqgAT-jBQa-ZNdjFfQq709sNFUn2J86kk3jkVrQHMgoDaz1I2sSf-Q-bmITCaAAAYJS
+	Post Data：
+{"content":null}
+
+[[[ErrorJsonResultException]]]
+[2019/11/17 19:45:34.5151]
+[线程：30]
+	ErrorJsonResultException
+	AccessTokenOrAppId：null
+	URL：https://api.weixin.qq.com/wxa/msg_sec_check?access_token=27_LqR35oOQZBf-69HlSPIzlqWLhOACVezbKD-5XUp_ZHv_PYh49YRnfUTljZGufYxOxGPzgYbxue0F8aMrfuq96MwBqgAT-jBQa-ZNdjFfQq709sNFUn2J86kk3jkVrQHMgoDaz1I2sSf-Q-bmITCaAAAYJS
+	errcode：文本消息内容为空
+	errmsg：empty content hint: [HWm4_a01348622]
+
+[[[自动注册扩展缓存完成]]]
+[2019/11/17 19:48:19.5212]
+[线程：1]
+注册总用时：11.6376ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2019/11/17 19:48:19.8425]
+[线程：1]
+微信扩展缓存注册总用时：67.0834ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[接口调用]]]
+[2019/11/17 19:49:13.9978]
+[线程：31]
+	URL：https://api.weixin.qq.com/sns/jscode2session?appid=wx3821f908eabc524d&secret=25aa4e5a28cb4954c7de7144445cdc55&js_code=081kABF11eBxxR1wFUG110cjF11kABF1&grant_type=authorization_code
+	Result：
+{"session_key":"6PVT1ijzHyNgfrLuXs8T8w==","openid":"o4Uv25WxCveS6QYtBK0xhYeWiZK0"}
+
+[[[接口调用]]]
+[2019/11/17 19:49:24.0856]
+[线程：5]
+	URL：https://api.weixin.qq.com/sns/jscode2session?appid=wx3821f908eabc524d&secret=25aa4e5a28cb4954c7de7144445cdc55&js_code=0816oYvC1fRE3600BjvC1Y69wC16oYvr&grant_type=authorization_code
+	Result：
+{"session_key":"6PVT1ijzHyNgfrLuXs8T8w==","openid":"o4Uv25WxCveS6QYtBK0xhYeWiZK0"}
+
+[[[接口调用]]]
+[2019/11/17 19:49:25.6079]
+[线程：31]
+	URL：https://api.weixin.qq.com/sns/jscode2session?appid=wx3821f908eabc524d&secret=25aa4e5a28cb4954c7de7144445cdc55&js_code=001L6sOi0sBhIp1WFLOi0OFfOi0L6sO-&grant_type=authorization_code
+	Result：
+{"session_key":"6PVT1ijzHyNgfrLuXs8T8w==","openid":"o4Uv25WxCveS6QYtBK0xhYeWiZK0"}
+
+[[[接口调用]]]
+[2019/11/17 19:49:31.8755]
+[线程：34]
+	URL：https://api.weixin.qq.com/wxa/msg_sec_check?access_token=27_KS3GyKQsfEtM3nhXVIH9JREJf8zszdgaAvyqkHSrwdGQ1dxZpkWcpdJSwaT5-SbkiB0Nt3SBJCIh_NbyOfAEZQhJLxR_k6u43qz5EYs9v4f1kI44TsmVG-HB7PQVyRmnPUNsvBxCg1ZlPkIgQOKdAIATRN
+	Post Data：
+{"content":"2323"}
+
+[[[接口调用]]]
+[2019/11/17 19:49:46.2385]
+[线程：5]
+	URL：https://api.weixin.qq.com/sns/jscode2session?appid=wx3821f908eabc524d&secret=25aa4e5a28cb4954c7de7144445cdc55&js_code=001x5IFl00LLrr1ucPGl0jZQFl0x5IFd&grant_type=authorization_code
+	Result：
+{"session_key":"6PVT1ijzHyNgfrLuXs8T8w==","openid":"o4Uv25WxCveS6QYtBK0xhYeWiZK0"}
+
+[[[接口调用]]]
+[2019/11/17 19:49:58.9246]
+[线程：5]
+	URL：https://api.weixin.qq.com/wxa/msg_sec_check?access_token=27_KS3GyKQsfEtM3nhXVIH9JREJf8zszdgaAvyqkHSrwdGQ1dxZpkWcpdJSwaT5-SbkiB0Nt3SBJCIh_NbyOfAEZQhJLxR_k6u43qz5EYs9v4f1kI44TsmVG-HB7PQVyRmnPUNsvBxCg1ZlPkIgQOKdAIATRN
+	Post Data：
+{"content":"习近平"}
+

@@ -220,5 +220,19 @@ namespace Yuebon.Security.Application
             return service.SaveNameCard(userid, headicon, nickName, name, company, position, weburl,
                 mobile, email, wx, wximg, industry, area, address, openflag);
         }
+
+
+        /// <summary>
+        /// 分页得到所有用户用于关注
+        /// </summary>
+        /// <param name="currentpage"></param>
+        /// <param name="pagesize"></param>
+        /// <param name="userid"></param>
+        /// <returns></returns>
+        public IEnumerable<UserAllListFocusOutPutDto> GetUserAllListFocusByPage(string currentpage,
+            string pagesize, string userid)
+        {
+            return service.GetUserAllListFocusByPage(currentpage, pagesize, userid);
+        }
     }
 }

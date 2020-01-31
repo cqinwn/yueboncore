@@ -13,8 +13,8 @@
     <copyright>上海越邦网络科技有限公司 版权所有</copyright>
     <dependencies>
       <group targetFramework=".NETCoreApp3.1">
-        <dependency id="Yuebon.Commons" version="1.2.0" exclude="Build,Analyzers" />
-        <dependency id="IdentityModel" version="4.0.0" exclude="Build,Analyzers" />
+        <dependency id="Yuebon.Commons" version="1.2.1" exclude="Build,Analyzers" />
+        <dependency id="IdentityModel" version="4.1.1" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>

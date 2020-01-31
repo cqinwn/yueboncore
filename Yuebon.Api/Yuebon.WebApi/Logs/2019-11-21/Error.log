@@ -1,0 +1,54 @@
+【14:26:37.660】  Yuebon.Quartz.Job.MessageNotice.OperateTrajectoryQuartz T21 
+方法名称：SendTrajectoryNotice
+日志内容：消息推送,用户:
+{
+  "ErrCode": "-1",
+  "ErrMsg": null,
+  "Success": false,
+  "ResData": null
+}
+【14:28:06.810】  Yuebon.Quartz.Job.MessageNotice.OperateTrajectoryQuartz T23 
+方法名称：SendTrajectoryNotice
+日志内容：消息推送,用户:
+{
+  "ErrCode": "-1",
+  "ErrMsg": null,
+  "Success": false,
+  "ResData": null
+}
+【14:33:04.741】  Yuebon.Quartz.Job.MessageNotice.OperateTrajectoryQuartz T19 
+方法名称：SendTrajectoryNotice
+日志内容：消息推送,用户:
+{
+  "ErrCode": "-1",
+  "ErrMsg": null,
+  "Success": false,
+  "ResData": null
+}
+【14:38:04.844】  Yuebon.Quartz.Job.MessageNotice.OperateTrajectoryQuartz T19 
+方法名称：SendTrajectoryNotice
+日志内容：消息推送,用户:
+{
+  "ErrCode": "-1",
+  "ErrMsg": null,
+  "Success": false,
+  "ResData": null
+}
+【14:43:04.980】  Yuebon.Quartz.Job.MessageNotice.OperateTrajectoryQuartz T47 
+方法名称：SendTrajectoryNotice
+日志内容：消息推送,用户:
+{
+  "ErrCode": "-1",
+  "ErrMsg": null,
+  "Success": false,
+  "ResData": null
+}
+【14:46:59.103】  Yuebon.Quartz.Job.MessageNotice.OperateTrajectoryQuartz T18 
+方法名称：SendTrajectoryNotice
+日志内容：消息推送,用户:
+{
+  "ErrCode": "-1",
+  "ErrMsg": null,
+  "Success": false,
+  "ResData": null
+}

@@ -1,0 +1,44 @@
+[[[自动注册扩展缓存完成]]]
+[2019/11/12 12:43:18.3170]
+[线程：1]
+注册总用时：7.168ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2019/11/12 12:43:18.6526]
+[线程：1]
+微信扩展缓存注册总用时：91.7645ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[自动注册扩展缓存完成]]]
+[2019/11/12 20:31:20.4270]
+[线程：1]
+注册总用时：33.2882ms
+自动扫描程序集：0个
+扩展缓存：
+
+[[[微信扩展缓存注册完成]]]
+[2019/11/12 20:31:21.3802]
+[线程：1]
+微信扩展缓存注册总用时：391.0226ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[接口调用]]]
+[2019/11/12 20:31:53.6435]
+[线程：25]
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_lpExDMON7QJ7KI-0YAAG6amzb_Pm7XUArWzLdFRaOQg9bzbQCa0uLEimwaWTOFz4yoggX25s5oe0JBwTsMqNo_rMNuaee9nXD2-Bafj1ln5MpdrvH1zCrKIjv2MCHTeABAINZ
+	Post Data：
+{"touser":"o4Uv25WxCveS6QYtBK0xhYeWiZK0","template_id":"4N8HC4c7I3QrB4qnWawT1L_itLob2WtyOTvUiYQdHPk","page":"pages/ViewMe/list","data":{"thing1":{"value":"2019/11/12 20:31 最新动态"},"thing2":{"value":"1人看了1篇文章，浏览0次,1评论"}}}
+
+[[[ErrorJsonResultException]]]
+[2019/11/12 20:31:54.0051]
+[线程：25]
+	ErrorJsonResultException
+	AccessTokenOrAppId：null
+	URL：https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=27_lpExDMON7QJ7KI-0YAAG6amzb_Pm7XUArWzLdFRaOQg9bzbQCa0uLEimwaWTOFz4yoggX25s5oe0JBwTsMqNo_rMNuaee9nXD2-Bafj1ln5MpdrvH1zCrKIjv2MCHTeABAINZ
+	errcode：模板参数不准确
+	errmsg：argument invalid! hint: [4sD.wA09144126] data.thing1.value invalid
+

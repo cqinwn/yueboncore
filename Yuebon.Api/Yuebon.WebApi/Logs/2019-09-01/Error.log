@@ -1,0 +1,6 @@
+【17:46:46.035】  Yuebon.AspNetCore.Mvc.TokenProvider T4 
+Error
+System.ArgumentException: IDX12709: CanReadToken() returned false. JWT is not well formed: '[PII is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+The token needs to be in JWS or JWE Compact Serialization Format. (JWS): 'EncodedHeader.EndcodedPayload.EncodedSignature'. (JWE): 'EncodedProtectedHeader.EncodedEncryptedKey.EncodedInitializationVector.EncodedCiphertext.EncodedAuthenticationTag'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ReadJwtToken(String token)
+   at Yuebon.AspNetCore.Mvc.TokenProvider.ValidateToken(String token) in D:\netcorespace\YueGroup\src\Yuebon.AspNetCore\Mvc\TokenProvider.cs:line 72

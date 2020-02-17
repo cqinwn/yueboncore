@@ -4,6 +4,200 @@
         <name>Yuebon.AspNetCore</name>
     </assembly>
     <members>
+        <member name="T:Yuebon.AspNetCore.Common.AuthorizeKey">
+            <summary>
+            定义常用功能的控制ID，方便基类控制器对用户权限的控制
+            </summary>
+        </member>
+        <member name="P:Yuebon.AspNetCore.Common.AuthorizeKey.InsertKey">
+            <summary>
+            新增记录的功能控制ID
+            </summary>
+        </member>
+        <member name="P:Yuebon.AspNetCore.Common.AuthorizeKey.UpdateKey">
+            <summary>
+            更新记录的功能控制ID
+            </summary>
+        </member>
+        <member name="P:Yuebon.AspNetCore.Common.AuthorizeKey.UpdateEnableKey">
+            <summary>
+            启用/禁用记录的功能控制ID
+            </summary>
+        </member>
+        <member name="P:Yuebon.AspNetCore.Common.AuthorizeKey.UpdateIsEnableKey">
+            <summary>
+            禁用记录的功能控制ID
+            </summary>
+        </member>
+        <member name="P:Yuebon.AspNetCore.Common.AuthorizeKey.UpdateNoEnableKey">
+            <summary>
+            启用记录的功能控制ID
+            </summary>
+        </member>
+        <member name="P:Yuebon.AspNetCore.Common.AuthorizeKey.DeleteKey">
+            <summary>
+            删除记录的功能控制ID
+            </summary>
+        </member>
+        <member name="P:Yuebon.AspNetCore.Common.AuthorizeKey.DeleteSoftKey">
+            <summary>
+            软删除记录的功能控制ID
+            </summary>
+        </member>
+        <member name="P:Yuebon.AspNetCore.Common.AuthorizeKey.ListKey">
+            <summary>
+            查看列表的功能控制ID
+            </summary>
+        </member>
+        <member name="P:Yuebon.AspNetCore.Common.AuthorizeKey.ViewKey">
+            <summary>
+            查看明细的功能控制ID
+            </summary>
+        </member>
+        <member name="P:Yuebon.AspNetCore.Common.AuthorizeKey.ExportKey">
+            <summary>
+            导出记录的功能控制ID
+            </summary>
+        </member>
+        <member name="P:Yuebon.AspNetCore.Common.AuthorizeKey.ImportKey">
+            <summary>
+            导入记录的功能控制ID
+            </summary>
+        </member>
+        <member name="P:Yuebon.AspNetCore.Common.AuthorizeKey.ExtendKey">
+            <summary>
+            扩展的功能控制IDS
+            </summary>
+        </member>
+        <member name="P:Yuebon.AspNetCore.Common.AuthorizeKey.CanInsert">
+            <summary>
+            判断是否具有插入权限
+            </summary>
+        </member>
+        <member name="P:Yuebon.AspNetCore.Common.AuthorizeKey.CanUpdate">
+            <summary>
+            判断是否具有更新权限
+            </summary>
+        </member>
+        <member name="P:Yuebon.AspNetCore.Common.AuthorizeKey.CanUpdateEnable">
+            <summary>
+            判断是否具有启用/禁用权限
+            </summary>
+        </member>
+        <member name="P:Yuebon.AspNetCore.Common.AuthorizeKey.CanUpdateIsEnable">
+            <summary>
+            判断是否具有禁用权限
+            </summary>
+        </member>
+        <member name="P:Yuebon.AspNetCore.Common.AuthorizeKey.CanUpdateNoEnable">
+            <summary>
+            判断是否具有启用权限
+            </summary>
+        </member>
+        <member name="P:Yuebon.AspNetCore.Common.AuthorizeKey.CanDelete">
+            <summary>
+            判断是否具有删除权限
+            </summary>
+        </member>
+        <member name="P:Yuebon.AspNetCore.Common.AuthorizeKey.CanDeleteSoft">
+            <summary>
+            判断是否具有软删除权限
+            </summary>
+        </member>
+        <member name="P:Yuebon.AspNetCore.Common.AuthorizeKey.CanList">
+            <summary>
+            判断是否具有列表权限
+            </summary>
+        </member>
+        <member name="P:Yuebon.AspNetCore.Common.AuthorizeKey.CanView">
+            <summary>
+            判断是否具有查看权限
+            </summary>
+        </member>
+        <member name="P:Yuebon.AspNetCore.Common.AuthorizeKey.CanExport">
+            <summary>
+            判断是否具有导出权限
+            </summary>
+        </member>
+        <member name="P:Yuebon.AspNetCore.Common.AuthorizeKey.CanImport">
+            <summary>
+            判断是否具有导入权限
+            </summary>
+        </member>
+        <member name="P:Yuebon.AspNetCore.Common.AuthorizeKey.CanExtend">
+            <summary>
+            判断是否具有扩展功能权限
+            </summary>
+        </member>
+        <member name="M:Yuebon.AspNetCore.Common.AuthorizeKey.#ctor">
+            <summary>
+            默认构造函数
+            </summary>
+        </member>
+        <member name="M:Yuebon.AspNetCore.Common.AuthorizeKey.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            常用构造函数
+            </summary>
+        </member>
+        <member name="M:Yuebon.AspNetCore.Common.AuthorizeKey.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            常用构造函数
+            </summary>
+        </member>
+        <member name="T:Yuebon.AspNetCore.Common.MyApiException">
+            <summary>
+            自定义异常信息
+            </summary>
+        </member>
+        <member name="P:Yuebon.AspNetCore.Common.MyApiException.Msg">
+            <summary>
+            异常消息
+            </summary>
+        </member>
+        <member name="P:Yuebon.AspNetCore.Common.MyApiException.Success">
+            <summary>
+            成功状态
+            </summary>
+        </member>
+        <member name="P:Yuebon.AspNetCore.Common.MyApiException.ErrCode">
+            <summary>
+            提示代码
+            </summary>
+        </member>
+        <member name="M:Yuebon.AspNetCore.Common.MyApiException.#ctor(System.String)">
+            <summary>
+            异常
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Yuebon.AspNetCore.Common.MyApiException.#ctor(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="message"></param>
+            <param name="errcode"></param>
+        </member>
+        <member name="M:Yuebon.AspNetCore.Common.MyApiException.#ctor(System.String,System.Boolean,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="message"></param>
+            <param name="success"></param>
+            <param name="errcode"></param>
+        </member>
+        <member name="M:Yuebon.AspNetCore.Common.Permission.HasFunction(System.String)">
+            <summary>
+            判断当前用户是否拥有某功能点的权限
+            </summary>
+            <param name="functionCode">功能编码code</param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.AspNetCore.Common.Permission.IsAdmin">
+            <summary>
+            判断是否为系统管理员或超级管理员
+            </summary>
+            <returns>true:系统管理员或超级管理员,false:不是系统管理员或超级管理员</returns>
+        </member>
         <member name="T:Yuebon.AspNetCore.Models.ErrCode">
             <summary>
             错误代码描述
@@ -98,47 +292,6 @@
             <summary>
             查询数据不存在
             </summary>
-        </member>
-        <member name="T:Yuebon.AspNetCore.Common.MyApiException">
-            <summary>
-            自定义异常信息
-            </summary>
-        </member>
-        <member name="P:Yuebon.AspNetCore.Common.MyApiException.Msg">
-            <summary>
-            异常消息
-            </summary>
-        </member>
-        <member name="P:Yuebon.AspNetCore.Common.MyApiException.Success">
-            <summary>
-            成功状态
-            </summary>
-        </member>
-        <member name="P:Yuebon.AspNetCore.Common.MyApiException.ErrCode">
-            <summary>
-            提示代码
-            </summary>
-        </member>
-        <member name="M:Yuebon.AspNetCore.Common.MyApiException.#ctor(System.String)">
-            <summary>
-            异常
-            </summary>
-            <param name="message"></param>
-        </member>
-        <member name="M:Yuebon.AspNetCore.Common.MyApiException.#ctor(System.String,System.String)">
-            <summary>
-            
-            </summary>
-            <param name="message"></param>
-            <param name="errcode"></param>
-        </member>
-        <member name="M:Yuebon.AspNetCore.Common.MyApiException.#ctor(System.String,System.Boolean,System.String)">
-            <summary>
-            
-            </summary>
-            <param name="message"></param>
-            <param name="success"></param>
-            <param name="errcode"></param>
         </member>
         <member name="T:Yuebon.AspNetCore.Controllers.CheckController">
             <summary>
@@ -348,6 +501,35 @@
             <typeparam name="T">实体类型</typeparam>
             <typeparam name="TService">Service类型</typeparam>
         </member>
+        <member name="F:Yuebon.AspNetCore.Controllers.AreaApiController`2.AuthorizeKey">
+            <summary>
+            定义常用功能的控制ID，方便基类控制器对用户权限的控制
+            </summary>
+        </member>
+        <member name="M:Yuebon.AspNetCore.Controllers.AreaApiController`2.HasFunction(System.String)">
+            <summary>
+            判断当前用户是否拥有某功能点的权限
+            </summary>
+            <param name="functionCode">功能编码code</param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.AspNetCore.Controllers.AreaApiController`2.IsAdmin">
+            <summary>
+            判断是否为系统管理员或超级管理员
+            </summary>
+            <returns>true:系统管理员,false:不是系统管理员</returns>
+        </member>
+        <member name="M:Yuebon.AspNetCore.Controllers.AreaApiController`2.CheckAuthorized(System.String)">
+            <summary>
+            用于检查方法执行前的权限，如果未授权，返回MyDenyAccessException异常
+            </summary>
+            <param name="functionId"></param>
+        </member>
+        <member name="M:Yuebon.AspNetCore.Controllers.AreaApiController`2.ConvertAuthorizedInfo">
+            <summary>
+            对AuthorizeKey对象里面的操作权限进行赋值，用于页面判断
+            </summary>
+        </member>
         <member name="F:Yuebon.AspNetCore.Controllers.AreaApiController`2.iService">
             <summary>
             服务接口
@@ -472,6 +654,18 @@
             </summary>
             <param name="context"></param>
         </member>
+        <member name="T:Yuebon.AspNetCore.Mvc.Filter.GlobalHttpHeaderOperationFilter">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Yuebon.AspNetCore.Mvc.Filter.GlobalHttpHeaderOperationFilter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+            <summary>
+            
+            </summary>
+            <param name="operation"></param>
+            <param name="context"></param>
+        </member>
         <member name="T:Yuebon.AspNetCore.Mvc.Filter.RemoveVersionFromParameter">
             <summary>
             
@@ -580,6 +774,17 @@
             <param name="appid"></param>
             <returns></returns>
         </member>
+        <member name="T:Yuebon.AspNetCore.SSO.AuthHelper">
+            <summary>
+            SSO授权登录
+            </summary>
+        </member>
+        <member name="M:Yuebon.AspNetCore.SSO.AuthHelper.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            
+            </summary>
+            <param name="httpContextAccessor"></param>
+        </member>
         <member name="M:Yuebon.AspNetCore.SSO.AuthHelper.GetToken">
             <summary>
             根据URL中的Token参数或Cookie获取token
@@ -666,6 +871,21 @@
             <summary>
             系统编码
             </summary>
+        </member>
+        <member name="T:Yuebon.AspNetCore.SSO.SSOAuthHelper">
+            <summary>
+            SSO单点登录
+            </summary>
+        </member>
+        <member name="M:Yuebon.AspNetCore.SSO.SSOAuthHelper.#ctor(Yuebon.Security.IServices.ISystemTypeService,Yuebon.Security.IServices.IAPPService,Yuebon.Security.IServices.IUserService,Yuebon.Security.IServices.IUserLogOnService,Yuebon.Commons.Options.JwtOption)">
+            <summary>
+            
+            </summary>
+            <param name="_systemTypeService"></param>
+            <param name="_aPPService"></param>
+            <param name="_userService"></param>
+            <param name="_userLogOnService"></param>
+            <param name="_jwtModel"></param>
         </member>
         <member name="M:Yuebon.AspNetCore.SSO.SSOAuthHelper.Validate(Yuebon.AspNetCore.SSO.PassportLoginRequest)">
             <summary>

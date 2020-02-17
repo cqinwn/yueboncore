@@ -12,15 +12,17 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <IsPackable>true</IsPackable>
     <PackageLicenseExpression />
-    <Version>1.2.1.1</Version>
+    <Version>1.2.2</Version>
     <PackageReleaseNotes>兼容最新版Yuebon.Security.Core</PackageReleaseNotes>
     <RunAnalyzersDuringLiveAnalysis>true</RunAnalyzersDuringLiveAnalysis>
     <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
     <PackageIconUrl>http://www.yuebon.com/upload/201804/01/201804011125140585.jpg</PackageIconUrl>
-    <PackageProjectUrl>http://netcore.yuebon.com</PackageProjectUrl>
+    <PackageProjectUrl>https://gitee.com/yuebon/YuebonNetCore</PackageProjectUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <AssemblyName>Yuebon.AspNetCore</AssemblyName>
-    <AssemblyVersion>1.2.1.1</AssemblyVersion>
+    <AssemblyVersion>1.2.2.0</AssemblyVersion>
+    <FileVersion>1.2.2.0</FileVersion>
+    <RepositoryUrl>https://gitee.com/yuebon/YuebonNetCore</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

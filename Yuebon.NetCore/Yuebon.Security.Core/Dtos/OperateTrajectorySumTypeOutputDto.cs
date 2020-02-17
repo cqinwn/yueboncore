@@ -10,6 +10,7 @@ namespace Yuebon.Security.Dtos
     /// <summary>
     ///  输入DTO：APP信息
     /// </summary>
+    [Serializable]
     public class OperateTrajectorySumTypeOutputDto : IOutputDto
     {
 

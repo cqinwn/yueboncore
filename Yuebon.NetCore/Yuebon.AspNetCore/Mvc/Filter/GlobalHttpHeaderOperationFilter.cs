@@ -7,8 +7,16 @@ using System.Linq;
 
 namespace Yuebon.AspNetCore.Mvc.Filter
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class GlobalHttpHeaderOperationFilter : IOperationFilter
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="operation"></param>
+        /// <param name="context"></param>
         public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
             if (operation.Parameters == null) 

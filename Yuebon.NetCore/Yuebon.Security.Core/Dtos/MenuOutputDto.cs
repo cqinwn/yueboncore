@@ -5,9 +5,11 @@ using Yuebon.Commons.Models;
 
 namespace Yuebon.Security.Dtos
 {
+
     /// <summary>
-    /// 
+    /// 输出Dto:系统菜单
     /// </summary>
+    [Serializable]
     public class MenuOutputDto:IOutputDto
     {
 

@@ -5,9 +5,11 @@ using Yuebon.Commons.Models;
 
 namespace Yuebon.Security.Dtos
 {
+
     /// <summary>
-    /// 
+    /// 数据字典 数据输出对象
     /// </summary>
+    [Serializable]
     public class ItemsDetailOutputDto:IOutputDto
     {
 

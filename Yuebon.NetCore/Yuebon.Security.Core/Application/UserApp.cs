@@ -142,13 +142,23 @@ namespace Yuebon.Security.Application
             user.City = userInPut.City;
             user.Gender = userInPut.Gender;
             user.NickName = userInPut.NickName;
+            user.UnionId = userInPut.UnionId;
             return service.Update(user, user.Id);
         }
 
         /// <summary>
-        /// 
+        /// 更新用户
         /// </summary>
-        /// <param name="userid"></param>
+        /// <param name="user">用户信息</param>
+        /// <returns></returns>
+        public bool UpdateUser(User user)
+        {
+            return service.Update(user, user.Id);
+        }
+        /// <summary>
+        /// 根据用户ID获取头像
+        /// </summary>
+        /// <param name="userid">用户ID</param>
         /// <returns></returns>
         public string GetHeadIconById(string userid)
         {
@@ -168,7 +178,7 @@ namespace Yuebon.Security.Application
         /// <summary>
         /// 查询用户信息
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">用户Id</param>
         /// <returns></returns>
         public User GetUserById(string id)
         {
@@ -233,6 +243,15 @@ namespace Yuebon.Security.Application
             string pagesize, string userid)
         {
             return service.GetUserAllListFocusByPage(currentpage, pagesize, userid);
+        }
+        /// <summary>
+        /// 根据微信统一ID（UnionID）查询用户
+        /// </summary>
+        /// <param name="unionId">UnionID</param>
+        /// <returns></returns>
+        public User GetUserByUnionId(string unionId)
+        {
+            return service.GetUserByUnionId(unionId);
         }
     }
 }

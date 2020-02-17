@@ -8,6 +8,7 @@ namespace Yuebon.Security.Dtos
     /// <summary>
     /// 包括用户及用户可访问的机构/资源/模块/角色
     /// </summary>
+    [Serializable]
     public class UserWithAccessedCtrls
     {
 

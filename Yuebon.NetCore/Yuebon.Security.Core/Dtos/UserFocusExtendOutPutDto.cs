@@ -12,6 +12,7 @@ namespace Yuebon.Security.Dtos
     /// 
     /// </summary>
     [AutoMap(typeof(User))]
+    [Serializable]
     public class UserFocusExtendOutPutDto : IOutputDto
     {
 

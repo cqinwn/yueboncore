@@ -5894,6 +5894,11 @@
             把请求的URL相对路径组合成绝对路径
             </summary>
         </member>
+        <member name="T:Yuebon.Commons.Helpers.HttpRequestHelper">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:Yuebon.Commons.Helpers.HttpRequestHelper.HttpGet(System.String,System.Text.Encoding,System.Int32)">
             <summary>
             使用Get方法获取字符串结果（加入Cookie）

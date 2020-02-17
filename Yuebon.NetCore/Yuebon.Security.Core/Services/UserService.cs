@@ -134,6 +134,15 @@ namespace Yuebon.Security.Services
         }
 
         /// <summary>
+        /// 根据微信UnionId查询用户信息
+        /// </summary>
+        /// <param name="unionId">UnionId值</param>
+        /// <returns></returns>
+        public User GetUserByUnionId(string unionId)
+        {
+            return _userRepository.GetUserByUnionId(unionId);
+        }
+        /// <summary>
         /// 根据用户ID得到名片信息
         /// </summary>
         /// <param name="userid"></param>

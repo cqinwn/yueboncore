@@ -47,6 +47,13 @@ namespace Yuebon.Security.IRepositories
         /// <param name="openId">OpenId值</param>
         /// <returns></returns>
         User GetUserByOpenId(string openIdType, string openId);
+
+        /// <summary>
+        /// 根据微信UnionId查询用户信息
+        /// </summary>
+        /// <param name="unionId">UnionId值</param>
+        /// <returns></returns>
+        User GetUserByUnionId(string unionId);
         /// <summary>
         /// 根据userId查询用户信息
         /// </summary>

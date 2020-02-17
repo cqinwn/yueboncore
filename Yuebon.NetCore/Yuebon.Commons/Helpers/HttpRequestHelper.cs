@@ -7,6 +7,9 @@ using Newtonsoft.Json;
 
 namespace Yuebon.Commons.Helpers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class HttpRequestHelper
     {
 

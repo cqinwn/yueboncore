@@ -457,6 +457,13 @@
             <param name="userid"></param>
             <returns></returns>
         </member>
+        <member name="M:Yuebon.Security.Application.UserApp.GetUserByUnionId(System.String)">
+            <summary>
+            根据微信统一ID（UnionID）查询用户
+            </summary>
+            <param name="unionId">UnionID</param>
+            <returns></returns>
+        </member>
         <member name="T:Yuebon.Security.Application.UserFocusApp">
             <summary>
             应用
@@ -1175,7 +1182,7 @@
         </member>
         <member name="T:Yuebon.Security.Dtos.FunctionOutputDto">
             <summary>
-            输出Dto: Function功能信息
+            Function功能信息 数据输出对象
             </summary>
         </member>
         <member name="P:Yuebon.Security.Dtos.FunctionOutputDto.Id">
@@ -1405,7 +1412,7 @@
         </member>
         <member name="T:Yuebon.Security.Dtos.ItemsDetailOutputDto">
             <summary>
-            
+            数据字典 数据输出对象
             </summary>
         </member>
         <member name="P:Yuebon.Security.Dtos.ItemsDetailOutputDto.Id">
@@ -1800,7 +1807,7 @@
         </member>
         <member name="T:Yuebon.Security.Dtos.MenuOutputDto">
             <summary>
-            
+            输出Dto:系统菜单
             </summary>
         </member>
         <member name="P:Yuebon.Security.Dtos.MenuOutputDto.Id">
@@ -2000,7 +2007,7 @@
         </member>
         <member name="T:Yuebon.Security.Dtos.OperateTrajectoryDetailOutputDto">
             <summary>
-             输入DTO：APP信息
+             输入DTO：操作轨迹
             </summary>
         </member>
         <member name="P:Yuebon.Security.Dtos.OperateTrajectoryDetailOutputDto.Id">
@@ -2843,6 +2850,11 @@
             删除用户
             </summary>
         </member>
+        <member name="T:Yuebon.Security.Dtos.RoleOutputDto">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:Yuebon.Security.Dtos.RoleOutputDto.Id">
             <summary>
             角色主键
@@ -2948,6 +2960,11 @@
             /
             </summary>
         </member>
+        <member name="T:Yuebon.Security.Dtos.SystemTypeInputDto">
+            <summary>
+            系统类型 数据输入对象
+            </summary>
+        </member>
         <member name="P:Yuebon.Security.Dtos.SystemTypeInputDto.Id">
             <summary>
             系统主键
@@ -3026,6 +3043,11 @@
         <member name="P:Yuebon.Security.Dtos.SystemTypeInputDto.DeleteUserId">
             <summary>
             删除用户
+            </summary>
+        </member>
+        <member name="T:Yuebon.Security.Dtos.SystemTypeOutputDto">
+            <summary>
+            系统类型 数据输出对象
             </summary>
         </member>
         <member name="P:Yuebon.Security.Dtos.SystemTypeOutputDto.Id">
@@ -4778,6 +4800,13 @@
             <param name="openId">OpenId值</param>
             <returns></returns>
         </member>
+        <member name="M:Yuebon.Security.IRepositories.IUserRepository.GetUserByUnionId(System.String)">
+            <summary>
+            根据微信UnionId查询用户信息
+            </summary>
+            <param name="unionId">UnionId值</param>
+            <returns></returns>
+        </member>
         <member name="M:Yuebon.Security.IRepositories.IUserRepository.GetUserOpenIdByuserId(System.String,System.String)">
             <summary>
             根据userId查询用户信息
@@ -5018,6 +5047,11 @@
             <param name="userId"></param>
             <returns></returns>
         </member>
+        <member name="T:Yuebon.Security.IServices.IUserService">
+            <summary>
+            用户服务接口
+            </summary>
+        </member>
         <member name="M:Yuebon.Security.IServices.IUserService.Validate(System.String,System.String)">
             <summary>
             用户登陆验证。
@@ -5063,6 +5097,13 @@
             </summary>
             <param name="openIdType">第三方类型</param>
             <param name="openId">OpenId值</param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.Security.IServices.IUserService.GetUserByUnionId(System.String)">
+            <summary>
+            根据微信UnionId查询用户信息
+            </summary>
+            <param name="unionId">UnionId值</param>
             <returns></returns>
         </member>
         <member name="M:Yuebon.Security.IServices.IUserService.GetUserOpenIdByuserId(System.String,System.String)">
@@ -7903,6 +7944,13 @@
             <param name="userOpenIds"></param>
             <param name="trans"></param>
         </member>
+        <member name="M:Yuebon.Security.Repositories.UserRepository.GetUserByUnionId(System.String)">
+            <summary>
+            根据微信UnionId查询用户信息
+            </summary>
+            <param name="unionId">UnionId值</param>
+            <returns></returns>
+        </member>
         <member name="M:Yuebon.Security.Repositories.UserRepository.GetUserByOpenId(System.String,System.String)">
             <summary>
             根据第三方OpenId查询用户信息
@@ -8223,6 +8271,13 @@
             <param name="entity"></param>
             <param name="userLogOnEntity"></param>
             <param name="trans"></param>
+        </member>
+        <member name="M:Yuebon.Security.Services.UserService.GetUserByUnionId(System.String)">
+            <summary>
+            根据微信UnionId查询用户信息
+            </summary>
+            <param name="unionId">UnionId值</param>
+            <returns></returns>
         </member>
         <member name="M:Yuebon.Security.Services.UserService.GetUserNameCardInfo(System.String)">
             <summary>

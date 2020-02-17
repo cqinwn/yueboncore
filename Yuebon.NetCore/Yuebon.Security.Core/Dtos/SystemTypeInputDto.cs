@@ -7,7 +7,9 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Dtos
 {
-
+    /// <summary>
+    /// 系统类型 数据输入对象
+    /// </summary>
     public class SystemTypeInputDto:IInputDto<string>
     {
 

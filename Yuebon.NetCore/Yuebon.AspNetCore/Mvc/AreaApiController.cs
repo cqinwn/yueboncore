@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Models;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.IServices;
@@ -22,7 +23,76 @@ namespace Yuebon.AspNetCore.Controllers
 
         #region 属性变量
 
+        /// <summary>
+        /// 定义常用功能的控制ID，方便基类控制器对用户权限的控制
+        /// </summary>
+        protected AuthorizeKey AuthorizeKey;
         #endregion
+        
+
+        #region 权限控制内容
+        /// <summary>
+        /// 判断当前用户是否拥有某功能点的权限
+        /// </summary>
+        /// <param name="functionCode">功能编码code</param>
+        /// <returns></returns>
+        public virtual bool HasFunction(string functionCode)
+        {
+            return new Permission().HasFunction(functionCode);
+        }
+
+        /// <summary>
+        /// 判断是否为系统管理员或超级管理员
+        /// </summary>
+        /// <returns>true:系统管理员,false:不是系统管理员</returns>
+        public virtual bool IsAdmin()
+        {
+            return new Permission().IsAdmin();
+        }
+
+        /// <summary>
+        /// 用于检查方法执行前的权限，如果未授权，返回MyDenyAccessException异常
+        /// </summary>
+        /// <param name="functionId"></param>
+        public CommonResult  CheckAuthorized(string functionId)
+        {
+            CommonResult result = new CommonResult();
+            if (!HasFunction(functionId))
+            {
+                result.ErrCode = "40006";
+                result.ErrMsg= ErrCode.err40006;
+            }
+            else
+            {
+                result.Success = true;
+                result.ErrCode = "0";
+                result.ErrMsg = ErrCode.err0;
+
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 对AuthorizeKey对象里面的操作权限进行赋值，用于页面判断
+        /// </summary>
+        protected virtual void ConvertAuthorizedInfo()
+        {
+            //判断用户权限
+            AuthorizeKey.CanInsert = HasFunction(AuthorizeKey.InsertKey);
+            AuthorizeKey.CanUpdate = HasFunction(AuthorizeKey.UpdateKey);
+            AuthorizeKey.CanUpdateIsEnable = HasFunction(AuthorizeKey.UpdateIsEnableKey);
+            AuthorizeKey.CanUpdateNoEnable = HasFunction(AuthorizeKey.UpdateNoEnableKey);
+            AuthorizeKey.CanUpdateEnable = HasFunction(AuthorizeKey.UpdateEnableKey);
+            AuthorizeKey.CanDelete = HasFunction(AuthorizeKey.DeleteKey);
+            AuthorizeKey.CanDeleteSoft = HasFunction(AuthorizeKey.DeleteSoftKey);
+            AuthorizeKey.CanView = HasFunction(AuthorizeKey.ViewKey);
+            AuthorizeKey.CanList = HasFunction(AuthorizeKey.ListKey);
+            AuthorizeKey.CanExport = HasFunction(AuthorizeKey.ExportKey);
+            AuthorizeKey.CanImport = HasFunction(AuthorizeKey.ImportKey);
+            AuthorizeKey.CanExtend = HasFunction(AuthorizeKey.ExtendKey);
+        }
+        #endregion
+        
         /// <summary>
         /// 服务接口
         /// </summary>

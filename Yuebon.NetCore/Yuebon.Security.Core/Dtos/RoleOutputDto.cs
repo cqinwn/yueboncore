@@ -7,6 +7,10 @@ using Yuebon.Commons.Models;
 
 namespace Yuebon.Security.Dtos
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    [Serializable]
     public class RoleOutputDto:IOutputDto
     { 
 

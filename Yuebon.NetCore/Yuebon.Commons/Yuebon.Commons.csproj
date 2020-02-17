@@ -8,12 +8,13 @@
     <Description>YuebonNetCore开发框架基础库</Description>
     <Copyright>上海越邦网络科技有限公司 版权所有</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageProjectUrl>http://netcore.yuebon.com</PackageProjectUrl>
+    <PackageProjectUrl>https://gitee.com/yuebon/YuebonNetCore</PackageProjectUrl>
     <Version>1.2.1.0</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>升级到netcore3.1.1</PackageReleaseNotes>
     <AssemblyVersion>1.2.1.0</AssemblyVersion>
     <PackageIconUrl>http://www.yuebon.com/upload/201804/01/201804011125140585.jpg</PackageIconUrl>
+    <RepositoryUrl>https://gitee.com/yuebon/YuebonNetCore</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

@@ -117,6 +117,20 @@ namespace Yuebon.Security.Repositories
                 }
             }
         }
+
+        /// <summary>
+        /// 根据微信UnionId查询用户信息
+        /// </summary>
+        /// <param name="unionId">UnionId值</param>
+        /// <returns></returns>
+        public User GetUserByUnionId(string unionId)
+        {
+            using (IDbConnection conn = OpenSharedConnection())
+            {
+                string sql = string.Format("select * from dbo.Sys_User where UnionId = '{0}'", unionId);
+                return conn.QueryFirstOrDefault<User>(sql);
+            }
+        }
         /// <summary>
         /// 根据第三方OpenId查询用户信息
         /// </summary>

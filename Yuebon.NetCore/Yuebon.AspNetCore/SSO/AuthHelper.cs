@@ -13,11 +13,17 @@ using Yuebon.Security.Dtos;
 
 namespace Yuebon.AspNetCore.SSO
 {
+    /// <summary>
+    /// SSO授权登录
+    /// </summary>
     public class AuthHelper
     {
         private HttpHelper _helper;
         private IHttpContextAccessor _httpContextAccessor;
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="httpContextAccessor"></param>
         public AuthHelper(IHttpContextAccessor httpContextAccessor)
         {
             _helper = new HttpHelper(Configs.GetConfigurationValue("AppSetting", "SSOPassport"));

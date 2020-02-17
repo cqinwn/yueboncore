@@ -14,6 +14,9 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.AspNetCore.SSO
 {
+    /// <summary>
+    /// SSO单点登录
+    /// </summary>
     public class SSOAuthHelper
     {
         private ISystemTypeService systemTypeService;
@@ -22,6 +25,14 @@ namespace Yuebon.AspNetCore.SSO
         private IUserLogOnService userLogOnService;
         private readonly JwtOption jwtModel;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_systemTypeService"></param>
+        /// <param name="_aPPService"></param>
+        /// <param name="_userService"></param>
+        /// <param name="_userLogOnService"></param>
+        /// <param name="_jwtModel"></param>
         public SSOAuthHelper(ISystemTypeService _systemTypeService, IAPPService _aPPService, IUserService _userService, IUserLogOnService _userLogOnService, JwtOption _jwtModel)
         {
             systemTypeService = _systemTypeService;

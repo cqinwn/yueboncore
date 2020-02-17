@@ -8,11 +8,11 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Dtos
 {
-    
+
     /// <summary>
     /// 
     /// </summary>
-
+    [Serializable]
     [AutoMap(typeof(User))]
     public class UserNameCardOutPutDto : IOutputDto
     {

@@ -8,8 +8,9 @@ using Yuebon.Security.Models;
 namespace Yuebon.Security.Dtos
 {
     /// <summary>
-    ///  输入DTO：APP信息
+    ///  输入DTO：操作轨迹
     /// </summary>
+    [Serializable]
     public class OperateTrajectoryDetailOutputDto :IOutputDto
     {
 

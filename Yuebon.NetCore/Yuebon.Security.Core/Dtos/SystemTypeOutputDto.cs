@@ -7,7 +7,10 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Dtos
 {
-
+    /// <summary>
+    /// 系统类型 数据输出对象
+    /// </summary>
+    [Serializable]
     [AutoMap(typeof(SystemType))]
     public class SystemTypeOutputDto:IOutputDto
     {

@@ -8,3 +8,4 @@ D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.Commons\obj\Release\
 D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.Commons\obj\Release\netcoreapp3.1\Yuebon.Commons.AssemblyInfo.cs
 D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.Commons\obj\Release\netcoreapp3.1\Yuebon.Commons.dll
 D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.Commons\obj\Release\netcoreapp3.1\Yuebon.Commons.pdb
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.Commons\obj\Release\netcoreapp3.1\Yuebon.Commons.csprojAssemblyReference.cache

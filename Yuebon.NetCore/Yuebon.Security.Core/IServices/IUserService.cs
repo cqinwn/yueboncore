@@ -8,6 +8,9 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.IServices
 {
+    /// <summary>
+    /// 用户服务接口
+    /// </summary>
     public interface IUserService:IService<User, string>
     {
         /// <summary>
@@ -54,6 +57,13 @@ namespace Yuebon.Security.IServices
         /// <param name="openId">OpenId值</param>
         /// <returns></returns>
         User GetUserByOpenId(string openIdType, string openId);
+
+        /// <summary>
+        /// 根据微信UnionId查询用户信息
+        /// </summary>
+        /// <param name="unionId">UnionId值</param>
+        /// <returns></returns>
+        User GetUserByUnionId(string unionId);
         /// <summary>
         /// 根据userId查询用户信息
         /// </summary>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Models;
+using Yuebon.AspNetCore.Mvc;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.IServices;
 using Yuebon.Commons.Models;
@@ -28,7 +29,7 @@ namespace Yuebon.AspNetCore.Controllers
         /// </summary>
         protected AuthorizeKey AuthorizeKey;
         #endregion
-        
+
 
         #region 权限控制内容
         /// <summary>
@@ -36,7 +37,8 @@ namespace Yuebon.AspNetCore.Controllers
         /// </summary>
         /// <param name="functionCode">功能编码code</param>
         /// <returns></returns>
-        public virtual bool HasFunction(string functionCode)
+        [HiddenApi]
+        private  bool HasFunction(string functionCode)
         {
             return new Permission().HasFunction(functionCode);
         }
@@ -45,7 +47,8 @@ namespace Yuebon.AspNetCore.Controllers
         /// 判断是否为系统管理员或超级管理员
         /// </summary>
         /// <returns>true:系统管理员,false:不是系统管理员</returns>
-        public virtual bool IsAdmin()
+        [HiddenApi]
+        private  bool IsAdmin()
         {
             return new Permission().IsAdmin();
         }
@@ -54,6 +57,8 @@ namespace Yuebon.AspNetCore.Controllers
         /// 用于检查方法执行前的权限，如果未授权，返回MyDenyAccessException异常
         /// </summary>
         /// <param name="functionId"></param>
+        [HttpGet("CheckAuthorized")]
+        [HiddenApi]
         public CommonResult  CheckAuthorized(string functionId)
         {
             CommonResult result = new CommonResult();
@@ -75,7 +80,9 @@ namespace Yuebon.AspNetCore.Controllers
         /// <summary>
         /// 对AuthorizeKey对象里面的操作权限进行赋值，用于页面判断
         /// </summary>
-        protected virtual void ConvertAuthorizedInfo()
+        [HttpGet("FindWithPager")]
+        [HiddenApi]
+        private void ConvertAuthorizedInfo()
         {
             //判断用户权限
             AuthorizeKey.CanInsert = HasFunction(AuthorizeKey.InsertKey);

@@ -317,6 +317,16 @@
             <param name="id">主键</param>
             <returns></returns>
         </member>
+        <member name="M:Yuebon.Security.Application.UploadFileApp.FindWithPager(System.String,Yuebon.Commons.Pages.PagerInfo,System.String,System.Boolean)">
+            <summary>
+            根据条件查询数据库,并返回对象集合(用于分页数据显示)
+            </summary>
+            <param name="condition">查询的条件</param>
+            <param name="info">分页实体</param>
+            <param name="fieldToSort">排序字段</param>
+            <param name="desc">是否降序</param>
+            <returns>指定对象的集合</returns>
+        </member>
         <member name="M:Yuebon.Security.Application.UploadFileApp.Adds(Microsoft.AspNetCore.Http.IFormFileCollection,System.String,System.String)">
             <summary>
             批量上传文件
@@ -398,18 +408,25 @@
             <param name="userInPut"></param>
             <returns></returns>
         </member>
+        <member name="M:Yuebon.Security.Application.UserApp.UpdateUser(Yuebon.Security.Models.User)">
+            <summary>
+            更新用户
+            </summary>
+            <param name="user">用户信息</param>
+            <returns></returns>
+        </member>
         <member name="M:Yuebon.Security.Application.UserApp.GetHeadIconById(System.String)">
             <summary>
-            
+            根据用户ID获取头像
             </summary>
-            <param name="userid"></param>
+            <param name="userid">用户ID</param>
             <returns></returns>
         </member>
         <member name="M:Yuebon.Security.Application.UserApp.GetUserById(System.String)">
             <summary>
             查询用户信息
             </summary>
-            <param name="id"></param>
+            <param name="id">用户Id</param>
             <returns></returns>
         </member>
         <member name="M:Yuebon.Security.Application.UserApp.GetUserOpenIdById(System.String,System.String)">

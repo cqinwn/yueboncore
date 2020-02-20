@@ -1,0 +1,7 @@
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.UEditorNetCore\bin\Debug\netcoreapp3.1\Yuebon.UEditorNetCore.deps.json
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.UEditorNetCore\bin\Debug\netcoreapp3.1\Yuebon.UEditorNetCore.dll
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.UEditorNetCore\obj\Debug\netcoreapp3.1\Yuebon.UEditorNetCore.AssemblyInfoInputs.cache
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.UEditorNetCore\obj\Debug\netcoreapp3.1\Yuebon.UEditorNetCore.AssemblyInfo.cs
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.UEditorNetCore\bin\Debug\netcoreapp3.1\Yuebon.UEditorNetCore.pdb
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.UEditorNetCore\obj\Debug\netcoreapp3.1\Yuebon.UEditorNetCore.dll
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.UEditorNetCore\obj\Debug\netcoreapp3.1\Yuebon.UEditorNetCore.pdb

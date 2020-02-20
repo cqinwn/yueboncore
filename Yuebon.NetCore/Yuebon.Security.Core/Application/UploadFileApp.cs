@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Text;
 using Yuebon.Commons.Helpers;
@@ -11,6 +12,7 @@ using Yuebon.Commons.IoC;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Options;
+using Yuebon.Commons.Pages;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
@@ -59,7 +61,7 @@ namespace Yuebon.Security.Application
         /// <param name="oldBeLongAppId">更新前旧的应用Id</param>
         /// <param name="beLongApp">应用标识</param>
         /// <returns></returns>
-        public bool UpdateByBeLongAppId(string belongAppId,string oldBeLongAppId,string beLongApp=null)
+        public bool UpdateByBeLongAppId(string belongAppId, string oldBeLongAppId, string beLongApp = null)
         {
             return service.UpdateByBeLongAppId(belongAppId, oldBeLongAppId, beLongApp);
         }
@@ -70,7 +72,7 @@ namespace Yuebon.Security.Application
         /// <returns></returns>
         public long Insert(UploadFile info)
         {
-           return service.Insert(info);
+            return service.Insert(info);
         }
         /// <summary>
         /// 同步查询单个实体。
@@ -80,6 +82,18 @@ namespace Yuebon.Security.Application
         public UploadFile Get(string id)
         {
             return service.Get(id);
+        }
+        /// <summary>
+        /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
+        /// </summary>
+        /// <param name="condition">查询的条件</param>
+        /// <param name="info">分页实体</param>
+        /// <param name="fieldToSort">排序字段</param>
+        /// <param name="desc">是否降序</param>
+        /// <returns>指定对象的集合</returns>
+        public List<UploadFileOuputDto> FindWithPager(string condition, PagerInfo info, string fieldToSort, bool desc)
+        {
+            return service.FindWithPager(condition,info,fieldToSort, desc,null).MapTo<UploadFileOuputDto>();
         }
         /// <summary>
         /// 批量上传文件

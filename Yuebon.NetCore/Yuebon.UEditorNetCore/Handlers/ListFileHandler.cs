@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
+using Yuebon.Commons.Pages;
+using Yuebon.Security.Application;
+using Yuebon.Security.Dtos;
 
 namespace Yuebon.UEditorNetCore.Handlers
 {
@@ -22,7 +25,8 @@ namespace Yuebon.UEditorNetCore.Handlers
         private int Total;
         private ResultState State;
         private String PathToList;
-        private String[] FileList;
+        //private String[] FileList;
+        private List<UploadFileOuputDto> FileList;
         private String[] SearchExtensions;
 
         public ListFileManager(HttpContext context, string pathToList, string[] searchExtensions)
@@ -45,15 +49,21 @@ namespace Yuebon.UEditorNetCore.Handlers
                 WriteResult();
                 return;
             }
-            var buildingList = new List<String>();
+            List<UploadFileOuputDto> buildingList = new List<UploadFileOuputDto>();
             try
             {
-                var localPath = Path.Combine(Config.WebRootPath,PathToList);
-                buildingList.AddRange(Directory.GetFiles(localPath, "*", SearchOption.AllDirectories)
-                    .Where(x => SearchExtensions.Contains(Path.GetExtension(x).ToLower()))
-                    .Select(x => PathToList + x.Substring(localPath.Length).Replace("\\", "/")));
-                Total = buildingList.Count;
-                FileList = buildingList.OrderBy(x => x).Skip(Start).Take(Size).ToArray();
+                int pageIndex = 1;
+                pageIndex = Start/ Size + 1;
+                PagerInfo page = new PagerInfo();
+                page.PageSize = Size;
+                page.CurrenetPageIndex = pageIndex;
+                buildingList= new UploadFileApp().FindWithPager("", page, "CreatorTime",true);
+                var localPath = Path.Combine(Config.WebRootPath, PathToList);
+                //buildingList.AddRange(Directory.GetFiles(localPath, "*", SearchOption.AllDirectories)
+                //    .Where(x => SearchExtensions.Contains(Path.GetExtension(x).ToLower()))
+                //    .Select(x => PathToList + x.Substring(localPath.Length).Replace("\\", "/")));
+                Total = page.RecordCount;
+                FileList = buildingList;
             }
             catch (UnauthorizedAccessException)
             {
@@ -78,7 +88,7 @@ namespace Yuebon.UEditorNetCore.Handlers
             WriteJson(new
             {
                 state = GetStateString(),
-                list = FileList == null ? null : FileList.Select(x => new { url = x }),
+                list = FileList,
                 start = Start,
                 size = Size,
                 total = Total

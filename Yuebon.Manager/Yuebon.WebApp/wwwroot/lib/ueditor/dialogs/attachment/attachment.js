@@ -556,7 +556,9 @@
                 link = data.url;
                 list.push({
                     title: data.original || link.substr(link.lastIndexOf('/') + 1),
-                    url: prefix + link
+                    url: prefix + link,
+                    fileid: data.fileid
+
                 });
             }
             return list;
@@ -669,10 +671,10 @@
             var i, item, img, filetype, preview, icon, _this = this,
                 urlPrefix = editor.getOpt('fileManagerUrlPrefix');
             for (i = 0; i < list.length; i++) {
-                if(list[i] && list[i].url) {
+                if (list[i] && list[i].FilePath) {
                     item = document.createElement('li');
                     icon = document.createElement('span');
-                    filetype = list[i].url.substr(list[i].url.lastIndexOf('.') + 1);
+                    filetype = list[i].FilePath.substr(list[i].FilePath.lastIndexOf('.') + 1);
 
                     if ( "png|jpg|jpeg|gif|bmp".indexOf(filetype) != -1 ) {
                         preview = document.createElement('img');
@@ -682,11 +684,11 @@
                             };
                         })(preview));
                         preview.width = 113;
-                        preview.setAttribute('src', urlPrefix + list[i].url + (list[i].url.indexOf('?') == -1 ? '?noCache=':'&noCache=') + (+new Date()).toString(36) );
+                        preview.setAttribute('src', urlPrefix + list[i].FilePath + (list[i].FilePath.indexOf('?') == -1 ? '?noCache=':'&noCache=') + (+new Date()).toString(36) );
                     } else {
                         var ic = document.createElement('i'),
                             textSpan = document.createElement('span');
-                        textSpan.innerHTML = list[i].url.substr(list[i].url.lastIndexOf('/') + 1);
+                        textSpan.innerHTML = list[i].FileName;//.substr(list[i].url.lastIndexOf('/') + 1);
                         preview = document.createElement('div');
                         preview.appendChild(ic);
                         preview.appendChild(textSpan);
@@ -696,9 +698,11 @@
                         domUtils.addClass(ic, 'file-preview');
                     }
                     domUtils.addClass(icon, 'icon');
-                    item.setAttribute('data-url', urlPrefix + list[i].url);
-                    if (list[i].original) {
-                        item.setAttribute('data-title', list[i].original);
+                    item.setAttribute('data-url', urlPrefix + list[i].FilePath);
+                    if (list[i].FileName) {
+                        item.setAttribute('title', list[i].FileName);
+                        item.setAttribute('data-title', list[i].FileName);
+                        item.setAttribute('data-fileid', list[i].Id);
                     }
 
                     item.appendChild(preview);
@@ -740,9 +744,11 @@
                 if (domUtils.hasClass(lis[i], 'selected')) {
                     var url = lis[i].getAttribute('data-url');
                     var title = lis[i].getAttribute('data-title') || url.substr(url.lastIndexOf('/') + 1);
+                    var fileid = lis[i].getAttribute('data-fileid');
                     list.push({
                         title: title,
-                        url: url
+                        url: url,
+                        fileid: fileid
                     });
                 }
             }

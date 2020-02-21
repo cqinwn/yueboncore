@@ -11,6 +11,11 @@ namespace Yuebon.Security.Dtos
     [Serializable]
     public class UploadFileOuputDto : IOutputDto
     {
+
+        /// <summary>
+        /// Id
+        /// </summary>
+        public string Id { get; set; }
         /// <summary>
 	    /// 文件名称
 	    /// </summary>

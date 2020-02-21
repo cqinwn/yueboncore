@@ -15,11 +15,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyCopyrightAttribute("上海越邦网络科技有限公司 版权所有")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("YuebonNetCore开发框架权限管理系统类库")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("1.2.2.2")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.2.2.2")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("1.2.2.3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.2.2.3")]
 [assembly: System.Reflection.AssemblyProductAttribute("YuebonNetCore开发框架权限管理系统类库")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Yuebon.Security.Core")]
-[assembly: System.Reflection.AssemblyVersionAttribute("1.2.2.2")]
+[assembly: System.Reflection.AssemblyVersionAttribute("1.2.2.3")]
 
 // 由 MSBuild WriteCodeFragment 类生成。
 

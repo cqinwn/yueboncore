@@ -3227,6 +3227,11 @@
             输出Dto:UploadFile
             </summary>
         </member>
+        <member name="P:Yuebon.Security.Dtos.UploadFileOuputDto.Id">
+            <summary>
+            Id
+            </summary>
+        </member>
         <member name="P:Yuebon.Security.Dtos.UploadFileOuputDto.FileName">
             <summary>
             文件名称
@@ -6919,6 +6924,11 @@
         <member name="T:Yuebon.Security.Models.UploadFile">
             <summary>
             文件
+            </summary>
+        </member>
+        <member name="M:Yuebon.Security.Models.UploadFile.#ctor">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:Yuebon.Security.Models.UploadFile.FileName">

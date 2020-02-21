@@ -900,7 +900,7 @@
             var i, item, img, icon, _this = this,
                 urlPrefix = editor.getOpt('imageManagerUrlPrefix');
             for (i = 0; i < list.length; i++) {
-                if(list[i] && list[i].url) {
+                if (list[i] && list[i].FilePath) {
                     item = document.createElement('li');
                     img = document.createElement('img');
                     icon = document.createElement('span');
@@ -911,8 +911,8 @@
                         }
                     })(img));
                     img.width = 113;
-                    img.setAttribute('src', urlPrefix + list[i].url + (list[i].url.indexOf('?') == -1 ? '?noCache=':'&noCache=') + (+new Date()).toString(36) );
-                    img.setAttribute('_src', urlPrefix + list[i].url);
+                    img.setAttribute('src', urlPrefix + list[i].FilePath + (list[i].FilePath.indexOf('?') == -1 ? '?noCache=':'&noCache=') + (+new Date()).toString(36) );
+                    img.setAttribute('_src', urlPrefix + list[i].FilePath);
                     domUtils.addClass(icon, 'icon');
 
                     item.appendChild(img);

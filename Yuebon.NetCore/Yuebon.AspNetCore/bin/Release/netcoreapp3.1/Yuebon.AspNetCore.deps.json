@@ -22,14 +22,14 @@
   },
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "Yuebon.AspNetCore/1.2.2.7": {
+      "Yuebon.AspNetCore/1.2.2.8": {
         "dependencies": {
           "Microsoft.CodeAnalysis.FxCopAnalyzers": "2.9.8",
           "Microsoft.IdentityModel.Tokens": "5.6.0",
           "Newtonsoft.Json": "12.0.3",
           "Swashbuckle.AspNetCore.SwaggerGen": "5.0.0",
           "System.IdentityModel.Tokens.Jwt": "5.6.0",
-          "Yuebon.Security.Core": "1.2.2.2",
+          "Yuebon.Security.Core": "1.2.2.3",
           "Microsoft.AspNetCore.Antiforgery.Reference": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions.Reference": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "3.1.0.0",
@@ -2776,7 +2776,7 @@
           "Yuebon.Commons.dll": {}
         }
       },
-      "Yuebon.Security.Core/1.2.2.2": {
+      "Yuebon.Security.Core/1.2.2.3": {
         "dependencies": {
           "IdentityModel": "4.1.1",
           "Yuebon.Commons": "1.2.1"
@@ -4417,7 +4417,7 @@
     }
   },
   "libraries": {
-    "Yuebon.AspNetCore/1.2.2.7": {
+    "Yuebon.AspNetCore/1.2.2.8": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -6058,7 +6058,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Yuebon.Security.Core/1.2.2.2": {
+    "Yuebon.Security.Core/1.2.2.3": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -14,6 +14,9 @@ namespace Yuebon.Security.Models
     [Table("Sys_UploadFile")]
     public class UploadFile : BaseEntity<string>, ICreationAudited
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public UploadFile()
         {
             this.Id = GuidUtils.CreateNo();

@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "Yuebon.Security.Core/1.2.2.2": {
+      "Yuebon.Security.Core/1.2.2.3": {
         "dependencies": {
           "IdentityModel": "4.1.1",
           "Yuebon.Commons": "1.2.1"
@@ -2514,7 +2514,7 @@
     }
   },
   "libraries": {
-    "Yuebon.Security.Core/1.2.2.2": {
+    "Yuebon.Security.Core/1.2.2.3": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

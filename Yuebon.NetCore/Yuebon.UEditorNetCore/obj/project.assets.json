@@ -3775,7 +3775,7 @@
           "lib/netcoreapp3.1/Yuebon.Commons.dll": {}
         }
       },
-      "Yuebon.Security.Core/1.2.2.1": {
+      "Yuebon.Security.Core/1.2.2.3": {
         "type": "package",
         "dependencies": {
           "IdentityModel": "4.1.1",
@@ -11013,16 +11013,16 @@
         "yuebon.commons.nuspec"
       ]
     },
-    "Yuebon.Security.Core/1.2.2.1": {
-      "sha512": "5r4uAEjdOtzuZFCGJAYc86LKsODRWYwMzXe2aHOLASZ1RVe3SPys3V+9kWEGvy9EzVBzqGhHacx8bvv8OEoEQg==",
+    "Yuebon.Security.Core/1.2.2.3": {
+      "sha512": "+f97PvWiQ+06nFiZJogtlHsRpKPEosPxL4OH9VzwdRWFyGY5pkFgVvp9siAW58TArEDSNIEttWUc17gj01CSTw==",
       "type": "package",
-      "path": "yuebon.security.core/1.2.2.1",
+      "path": "yuebon.security.core/1.2.2.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netcoreapp3.1/Yuebon.Security.Core.dll",
         "lib/netcoreapp3.1/Yuebon.Security.Core.xml",
-        "yuebon.security.core.1.2.2.1.nupkg.sha512",
+        "yuebon.security.core.1.2.2.3.nupkg.sha512",
         "yuebon.security.core.nuspec"
       ]
     }
@@ -11034,7 +11034,7 @@
       "Microsoft.AspNetCore.Http >= 2.2.2",
       "Microsoft.Extensions.Hosting >= 3.1.1",
       "Newtonsoft.Json >= 12.0.3",
-      "Yuebon.Security.Core >= 1.2.2.1"
+      "Yuebon.Security.Core >= 1.2.2.3"
     ]
   },
   "packageFolders": {
@@ -11096,7 +11096,7 @@
           },
           "Yuebon.Security.Core": {
             "target": "Package",
-            "version": "[1.2.2.1, )"
+            "version": "[1.2.2.3, )"
           }
         },
         "imports": [

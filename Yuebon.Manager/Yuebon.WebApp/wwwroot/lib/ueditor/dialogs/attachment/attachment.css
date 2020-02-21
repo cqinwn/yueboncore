@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* dialog样式 */
 .wrapper {
     zoom: 1;
@@ -544,7 +544,7 @@
     padding: 0 3px;
     margin: 3px 0 0 0;
     font-size: 12px;
-    height: 13px;
+    height: 18px;
     color: #555555;
     text-align: center;
     width: 107px;

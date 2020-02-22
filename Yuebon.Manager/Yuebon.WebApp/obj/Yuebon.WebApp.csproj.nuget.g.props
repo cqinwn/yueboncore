@@ -13,9 +13,9 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
   <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <Content Include="$(NuGetPackageRoot)yuebon.aspnetcore\1.2.0\contentFiles\any\netcoreapp3.1\Properties\launchSettings.json" Condition="Exists('$(NuGetPackageRoot)yuebon.aspnetcore\1.2.0\contentFiles\any\netcoreapp3.1\Properties\launchSettings.json')">
+    <Content Include="$(NuGetPackageRoot)yuebon.aspnetcore\1.2.2.9\contentFiles\any\netcoreapp3.1\Properties\launchSettings.json" Condition="Exists('$(NuGetPackageRoot)yuebon.aspnetcore\1.2.2.9\contentFiles\any\netcoreapp3.1\Properties\launchSettings.json')">
       <NuGetPackageId>Yuebon.AspNetCore</NuGetPackageId>
-      <NuGetPackageVersion>1.2.0</NuGetPackageVersion>
+      <NuGetPackageVersion>1.2.2.9</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
       <Private>False</Private>
       <Link>Properties\launchSettings.json</Link>

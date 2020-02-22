@@ -1656,7 +1656,7 @@
 
                 $rendered.empty().append(formatted);
 
-                var title = selection.title || selection.text;
+                var title = selection.title.trim() || selection.text.trim();
 
                 if (title) {
                     $rendered.attr('title', title);
@@ -1764,9 +1764,9 @@
                     var $selection = this.selectionContainer();
                     var formatted = this.display(selection, $selection);
 
-                    $selection.append(formatted);
+                    $selection.append(formatted.trim());
 
-                    var title = selection.title || selection.text;
+                    var title = selection.title.trim() || selection.text.trim();
 
                     if (title) {
                         $selection.attr('title', title);

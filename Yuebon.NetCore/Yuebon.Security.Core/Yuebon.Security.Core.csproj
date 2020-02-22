@@ -21,6 +21,7 @@
     <FileVersion>1.2.2.3</FileVersion>
     <PackageLicenseExpression></PackageLicenseExpression>
     <RepositoryUrl>https://gitee.com/yuebon/YuebonNetCore</RepositoryUrl>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -47,6 +48,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Yuebon.Commons\Yuebon.Commons.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

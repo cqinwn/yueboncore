@@ -1,0 +1,102 @@
+info: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[0]
+      User profile is available. Using 'C:\Users\Administrator\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+Hosting environment: Development
+Content root path: D:\netcorespace\YueGroup\权限管理\Yuebon.Manager\Yuebon.WebApp
+Now listening on: http://localhost:44418/
+Now listening on: https://localhost:44389/
+Application started. Press Ctrl+C to shut down.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/  
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'Yuebon.WebApp.Controllers.LoginController.Index (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {action = "Index", controller = "Login", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Yuebon.WebApp.Controllers.LoginController (Yuebon.WebApp).
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing action method Yuebon.WebApp.Controllers.LoginController.Index (Yuebon.WebApp) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action method Yuebon.WebApp.Controllers.LoginController.Index (Yuebon.WebApp), returned result Microsoft.AspNetCore.Mvc.ViewResult in 550.2493ms.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[1]
+      Executing ViewResult, running view Index.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[4]
+      Executed ViewResult - view Index executed in 316.7544ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action Yuebon.WebApp.Controllers.LoginController.Index (Yuebon.WebApp) in 1297.0005ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'Yuebon.WebApp.Controllers.LoginController.Index (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/lib/font-awesome/css/font-awesome.min.css  
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/lib/bootstrap/css/bootstrap.css  
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 1791.3754ms 200 text/html; charset=utf-8
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/lib/font-awesome/css/font-awesome.min.css'. Physical path: 'D:\netcorespace\YueGroup\权限管理\Yuebon.Manager\Yuebon.WebApp\wwwroot\lib\font-awesome\css\font-awesome.min.css'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 160.5668ms 200 text/css
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/lib/bootstrap/css/bootstrap.css'. Physical path: 'D:\netcorespace\YueGroup\权限管理\Yuebon.Manager\Yuebon.WebApp\wwwroot\lib\bootstrap\css\bootstrap.css'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 205.1889ms 200 text/css
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/css/adminlte.min.css  
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/lib/iCheck/square/blue.css  
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/lib/iCheck/square/blue.css'. Physical path: 'D:\netcorespace\YueGroup\权限管理\Yuebon.Manager\Yuebon.WebApp\wwwroot\lib\iCheck\square\blue.css'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 191.4301ms 200 text/css
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/css/adminlte.min.css'. Physical path: 'D:\netcorespace\YueGroup\权限管理\Yuebon.Manager\Yuebon.WebApp\wwwroot\css\adminlte.min.css'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 396.5527ms 200 text/css
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/css/site.css  
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/lib/jquery/dist/jquery.js  
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/css/site.css'. Physical path: 'D:\netcorespace\YueGroup\权限管理\Yuebon.Manager\Yuebon.WebApp\wwwroot\css\site.css'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 61.9294ms 200 text/css
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/lib/bootstrap/js/bootstrap.js  
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/lib/jquery/dist/jquery.js'. Physical path: 'D:\netcorespace\YueGroup\权限管理\Yuebon.Manager\Yuebon.WebApp\wwwroot\lib\jquery\dist\jquery.js'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 287.8707ms 200 application/javascript
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/lib/bootstrap/js/bootstrap.js'. Physical path: 'D:\netcorespace\YueGroup\权限管理\Yuebon.Manager\Yuebon.WebApp\wwwroot\lib\bootstrap\js\bootstrap.js'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 220.922ms 200 application/javascript
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/js/adminlte.js  
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/lib/iCheck/icheck.min.js  
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/js/adminlte.js'. Physical path: 'D:\netcorespace\YueGroup\权限管理\Yuebon.Manager\Yuebon.WebApp\wwwroot\js\adminlte.js'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 158.5116ms 200 application/javascript
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/lib/iCheck/icheck.min.js'. Physical path: 'D:\netcorespace\YueGroup\权限管理\Yuebon.Manager\Yuebon.WebApp\wwwroot\lib\iCheck\icheck.min.js'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 166.1015ms 200 application/javascript
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/lib/jquery.cookie.js  
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/lib/jquery.cookie.js'. Physical path: 'D:\netcorespace\YueGroup\权限管理\Yuebon.Manager\Yuebon.WebApp\wwwroot\lib\jquery.cookie.js'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 33.4331ms 200 application/javascript
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/js/demo.js  
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/js/demo.js'. Physical path: 'D:\netcorespace\YueGroup\权限管理\Yuebon.Manager\Yuebon.WebApp\wwwroot\js\demo.js'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 145.3325ms 200 application/javascript
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/js/site.js  
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/js/site.js'. Physical path: 'D:\netcorespace\YueGroup\权限管理\Yuebon.Manager\Yuebon.WebApp\wwwroot\js\site.js'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 25.5371ms 200 application/javascript
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/img/convergedbg_v2.jpg  
+info:

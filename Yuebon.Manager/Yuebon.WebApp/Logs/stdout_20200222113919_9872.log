@@ -1,0 +1,490 @@
+info: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[0]
+      User profile is available. Using 'C:\Users\Administrator\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+Hosting environment: Development
+Content root path: D:\netcorespace\YueGroup\权限管理\Yuebon.Manager\Yuebon.WebApp
+Now listening on: http://localhost:44418/
+Now listening on: https://localhost:44389/
+Application started. Press Ctrl+C to shut down.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/  
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'Yuebon.WebApp.Controllers.LoginController.Index (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {action = "Index", controller = "Login", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Yuebon.WebApp.Controllers.LoginController (Yuebon.WebApp).
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing action method Yuebon.WebApp.Controllers.LoginController.Index (Yuebon.WebApp) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action method Yuebon.WebApp.Controllers.LoginController.Index (Yuebon.WebApp), returned result Microsoft.AspNetCore.Mvc.ViewResult in 556.6993ms.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[1]
+      Executing ViewResult, running view Index.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[4]
+      Executed ViewResult - view Index executed in 244.9121ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action Yuebon.WebApp.Controllers.LoginController.Index (Yuebon.WebApp) in 976.183ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'Yuebon.WebApp.Controllers.LoginController.Index (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 1505.86ms 200 text/html; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/favicon.ico  
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/favicon.ico'. Physical path: 'D:\netcorespace\YueGroup\权限管理\Yuebon.Manager\Yuebon.WebApp\wwwroot\favicon.ico'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 123.9216ms 200 image/x-icon
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/Login/GetCheckUser?username=admin&password=admin888  
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'Yuebon.WebApp.Controllers.LoginController.GetCheckUser (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {action = "GetCheckUser", controller = "Login", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetCheckUser(System.String, System.String) on controller Yuebon.WebApp.Controllers.LoginController (Yuebon.WebApp).
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing action method Yuebon.WebApp.Controllers.LoginController.GetCheckUser (Yuebon.WebApp) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action method Yuebon.WebApp.Controllers.LoginController.GetCheckUser (Yuebon.WebApp), returned result Microsoft.AspNetCore.Mvc.ContentResult in 2114.8436ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ContentResultExecutor[1]
+      Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action Yuebon.WebApp.Controllers.LoginController.GetCheckUser (Yuebon.WebApp) in 2179.1896ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'Yuebon.WebApp.Controllers.LoginController.GetCheckUser (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Session.DistributedSession[3]
+      Session started; Key:222921b6-3d01-2de6-18b9-094cbb3a4a15, Id:ee3ab5e6-4d4a-de1a-4a41-df613b26bda9
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/Login/GetCheckUser?username=admin&password=admin888  
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'Yuebon.WebApp.Controllers.LoginController.GetCheckUser (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 2248.6945ms 200 text/plain; charset=utf-8
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {action = "GetCheckUser", controller = "Login", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetCheckUser(System.String, System.String) on controller Yuebon.WebApp.Controllers.LoginController (Yuebon.WebApp).
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing action method Yuebon.WebApp.Controllers.LoginController.GetCheckUser (Yuebon.WebApp) - Validation state: Valid
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/Home/Index  
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'Yuebon.WebApp.Controllers.HomeController.Index (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {action = "Index", controller = "Home", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Yuebon.WebApp.Controllers.HomeController (Yuebon.WebApp).
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing action method Yuebon.WebApp.Controllers.HomeController.Index (Yuebon.WebApp) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action method Yuebon.WebApp.Controllers.LoginController.GetCheckUser (Yuebon.WebApp), returned result Microsoft.AspNetCore.Mvc.ContentResult in 632.5393ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ContentResultExecutor[1]
+      Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action Yuebon.WebApp.Controllers.LoginController.GetCheckUser (Yuebon.WebApp) in 686.8158ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'Yuebon.WebApp.Controllers.LoginController.GetCheckUser (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Session.DistributedSession[3]
+      Session started; Key:ce2407d2-985c-87ce-116e-9231837c5b36, Id:97e1cad4-d0cf-c163-ff7c-4b47578b1662
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 738.9169ms 200 text/plain; charset=utf-8
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action method Yuebon.WebApp.Controllers.HomeController.Index (Yuebon.WebApp), returned result Microsoft.AspNetCore.Mvc.ViewResult in 63.0358ms.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[1]
+      Executing ViewResult, running view Index.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[4]
+      Executed ViewResult - view Index executed in 448.8397ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action Yuebon.WebApp.Controllers.HomeController.Index (Yuebon.WebApp) in 585.1026ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'Yuebon.WebApp.Controllers.HomeController.Index (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 649.195ms 200 text/html; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/lib/select2/select2.min.js  
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/lib/select2/select2.min.js'. Physical path: 'D:\netcorespace\YueGroup\权限管理\Yuebon.Manager\Yuebon.WebApp\wwwroot\lib\select2\select2.min.js'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 100.7787ms 200 application/javascript
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/CMS/ArticleNews/Index  
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'Yuebon.WebApp.Areas.CMS.Controllers.ArticleNewsController.Index (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {area = "CMS", action = "Index", controller = "ArticleNews"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller Yuebon.WebApp.Areas.CMS.Controllers.ArticleNewsController (Yuebon.WebApp).
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing action method Yuebon.WebApp.Areas.CMS.Controllers.ArticleNewsController.Index (Yuebon.WebApp) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action method Yuebon.WebApp.Areas.CMS.Controllers.ArticleNewsController.Index (Yuebon.WebApp), returned result Microsoft.AspNetCore.Mvc.ViewResult in 0.988ms.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[1]
+      Executing ViewResult, running view Index.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[4]
+      Executed ViewResult - view Index executed in 113.5513ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action Yuebon.WebApp.Areas.CMS.Controllers.ArticleNewsController.Index (Yuebon.WebApp) in 206.2466ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'Yuebon.WebApp.Areas.CMS.Controllers.ArticleNewsController.Index (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 299.9145ms 200 text/html; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/CMS/ArticleNews/FindWithPager?limit=25&offset=0&order=desc&categoryId=&title=&nickName=&addstartTime=&addendTime=&_=1582371670755 application/json 
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/CMS/ArticleCategory/FindTreeSelectJson  
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'Yuebon.WebApp.Areas.CMS.Controllers.ArticleNewsController.FindWithPager (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'Yuebon.WebApp.Areas.CMS.Controllers.ArticleCategoryController.FindTreeSelectJson (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {area = "CMS", action = "FindTreeSelectJson", controller = "ArticleCategory"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult FindTreeSelectJson() on controller Yuebon.WebApp.Areas.CMS.Controllers.ArticleCategoryController (Yuebon.WebApp).
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {area = "CMS", action = "FindWithPager", controller = "ArticleNews"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult FindWithPager() on controller Yuebon.WebApp.Areas.CMS.Controllers.ArticleNewsController (Yuebon.WebApp).
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing action method Yuebon.WebApp.Areas.CMS.Controllers.ArticleNewsController.FindWithPager (Yuebon.WebApp) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing action method Yuebon.WebApp.Areas.CMS.Controllers.ArticleCategoryController.FindTreeSelectJson (Yuebon.WebApp) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action method Yuebon.WebApp.Areas.CMS.Controllers.ArticleCategoryController.FindTreeSelectJson (Yuebon.WebApp), returned result Microsoft.AspNetCore.Mvc.ContentResult in 265.9659ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ContentResultExecutor[1]
+      Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action Yuebon.WebApp.Areas.CMS.Controllers.ArticleCategoryController.FindTreeSelectJson (Yuebon.WebApp) in 417.4279ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'Yuebon.WebApp.Areas.CMS.Controllers.ArticleCategoryController.FindTreeSelectJson (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 490.5827ms 200 text/plain; charset=utf-8
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action method Yuebon.WebApp.Areas.CMS.Controllers.ArticleNewsController.FindWithPager (Yuebon.WebApp), returned result Microsoft.AspNetCore.Mvc.ContentResult in 634.659ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ContentResultExecutor[1]
+      Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action Yuebon.WebApp.Areas.CMS.Controllers.ArticleNewsController.FindWithPager (Yuebon.WebApp) in 762.6686ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'Yuebon.WebApp.Areas.CMS.Controllers.ArticleNewsController.FindWithPager (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 838.905ms 200 text/plain; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/CMS/ArticleNews/Edit  
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'Yuebon.WebApp.Areas.CMS.Controllers.ArticleNewsController.Edit (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {area = "CMS", action = "Edit", controller = "ArticleNews"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Edit(System.String) on controller Yuebon.WebApp.Areas.CMS.Controllers.ArticleNewsController (Yuebon.WebApp).
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing action method Yuebon.WebApp.Areas.CMS.Controllers.ArticleNewsController.Edit (Yuebon.WebApp) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action method Yuebon.WebApp.Areas.CMS.Controllers.ArticleNewsController.Edit (Yuebon.WebApp), returned result Microsoft.AspNetCore.Mvc.ViewResult in 0.4922ms.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[1]
+      Executing ViewResult, running view Edit.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[4]
+      Executed ViewResult - view Edit executed in 50.7756ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action Yuebon.WebApp.Areas.CMS.Controllers.ArticleNewsController.Edit (Yuebon.WebApp) in 103.9769ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'Yuebon.WebApp.Areas.CMS.Controllers.ArticleNewsController.Edit (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 150.5552ms 200 text/html; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/img/default-150x150.png  
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/img/default-150x150.png'. Physical path: 'D:\netcorespace\YueGroup\权限管理\Yuebon.Manager\Yuebon.WebApp\wwwroot\img\default-150x150.png'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 37.157ms 200 image/png
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/api/UEditor?action=config&&noCache=1582371673834  
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/api/UEditor?action=config&&noCache=1582371673836  
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/lib/iCheck/minimal/blue.png  
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {action = "Do", controller = "UEditor", area = ""}. Executing controller action with signature Void Do() on controller Yuebon.WebApp.Controllers.UEditorController (Yuebon.WebApp).
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {action = "Do", controller = "UEditor", area = ""}. Executing controller action with signature Void Do() on controller Yuebon.WebApp.Controllers.UEditorController (Yuebon.WebApp).
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing action method Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp) - Validation state: Valid
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/CMS/ArticleCategory/FindTreeSelectJson  
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing action method Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp) - Validation state: Valid
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'Yuebon.WebApp.Areas.CMS.Controllers.ArticleCategoryController.FindTreeSelectJson (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/lib/iCheck/minimal/blue.png'. Physical path: 'D:\netcorespace\YueGroup\权限管理\Yuebon.Manager\Yuebon.WebApp\wwwroot\lib\iCheck\minimal\blue.png'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {area = "CMS", action = "FindTreeSelectJson", controller = "ArticleCategory"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult FindTreeSelectJson() on controller Yuebon.WebApp.Areas.CMS.Controllers.ArticleCategoryController (Yuebon.WebApp).
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 370.0083ms 200 image/png
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing action method Yuebon.WebApp.Areas.CMS.Controllers.ArticleCategoryController.FindTreeSelectJson (Yuebon.WebApp) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action method Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp), returned result Microsoft.AspNetCore.Mvc.EmptyResult in 337.2798ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action method Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp), returned result Microsoft.AspNetCore.Mvc.EmptyResult in 341.9579ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp) in 506.6869ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp) in 522.5829ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 628.3214ms 200 text/plain
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 621.1438ms 200 text/plain
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action method Yuebon.WebApp.Areas.CMS.Controllers.ArticleCategoryController.FindTreeSelectJson (Yuebon.WebApp), returned result Microsoft.AspNetCore.Mvc.ContentResult in 188.64ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ContentResultExecutor[1]
+      Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action Yuebon.WebApp.Areas.CMS.Controllers.ArticleCategoryController.FindTreeSelectJson (Yuebon.WebApp) in 267.7963ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'Yuebon.WebApp.Areas.CMS.Controllers.ArticleCategoryController.FindTreeSelectJson (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 486.7099ms 200 text/plain; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/lib/ueditor/themes/default/images/loading.gif  
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/lib/ueditor/themes/default/images/spacer.gif  
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 POST https://localhost:44389/api/UEditor?action=uploadimage multipart/form-data; boundary=----WebKitFormBoundaryqXntTbMhpzWcZb82 34398
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/lib/ueditor/themes/default/images/loading.gif'. Physical path: 'D:\netcorespace\YueGroup\权限管理\Yuebon.Manager\Yuebon.WebApp\wwwroot\lib\ueditor\themes\default\images\loading.gif'
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/lib/ueditor/themes/default/images/spacer.gif'. Physical path: 'D:\netcorespace\YueGroup\权限管理\Yuebon.Manager\Yuebon.WebApp\wwwroot\lib\ueditor\themes\default\images\spacer.gif'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {action = "Do", controller = "UEditor", area = ""}. Executing controller action with signature Void Do() on controller Yuebon.WebApp.Controllers.UEditorController (Yuebon.WebApp).
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 192.6491ms 200 image/gif
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 256.6496ms 200 image/gif
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing action method Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action method Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp), returned result Microsoft.AspNetCore.Mvc.EmptyResult in 478.6801ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp) in 542.985ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 698.0416ms 200 text/plain
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/CMS/ArticleNews/upload/image/20200222/6371799729388752424522278.png  
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 18.6285ms 404 
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/CMS/ArticleNews/upload/image/20200222/6371799729388752424522278.png  
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 122.0408ms 404 
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/lib/ueditor/dialogs/image/image.html  
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/lib/ueditor/dialogs/image/image.html'. Physical path: 'D:\netcorespace\YueGroup\权限管理\Yuebon.Manager\Yuebon.WebApp\wwwroot\lib\ueditor\dialogs\image\image.html'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/lib/ueditor/dialogs/image/image.js  
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 254.6011ms 200 text/html
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/lib/ueditor/dialogs/image/image.css  
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/lib/ueditor/themes/default/dialogbase.css?cache=0.17380975530934273  
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/lib/ueditor/themes/default/dialogbase.css'. Physical path: 'D:\netcorespace\YueGroup\权限管理\Yuebon.Manager\Yuebon.WebApp\wwwroot\lib\ueditor\themes\default\dialogbase.css'
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/lib/ueditor/dialogs/image/image.js'. Physical path: 'D:\netcorespace\YueGroup\权限管理\Yuebon.Manager\Yuebon.WebApp\wwwroot\lib\ueditor\dialogs\image\image.js'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 82.6268ms 200 text/css
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 168.8478ms 200 application/javascript
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/lib/ueditor/dialogs/image/image.css'. Physical path: 'D:\netcorespace\YueGroup\权限管理\Yuebon.Manager\Yuebon.WebApp\wwwroot\lib\ueditor\dialogs\image\image.css'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 154.308ms 200 text/css
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/lib/ueditor/dialogs/image/images/alignicon.jpg  
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/lib/ueditor/dialogs/image/images/image.png  
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/lib/ueditor/dialogs/image/images/alignicon.jpg'. Physical path: 'D:\netcorespace\YueGroup\权限管理\Yuebon.Manager\Yuebon.WebApp\wwwroot\lib\ueditor\dialogs\image\images\alignicon.jpg'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 54.0613ms 200 image/jpeg
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/lib/ueditor/dialogs/image/images/image.png'. Physical path: 'D:\netcorespace\YueGroup\权限管理\Yuebon.Manager\Yuebon.WebApp\wwwroot\lib\ueditor\dialogs\image\images\image.png'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 54.5198ms 200 image/png
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/api/UEditor?action=listimage&start=0&size=20&noCache=1582371705371  
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {action = "Do", controller = "UEditor", area = ""}. Executing controller action with signature Void Do() on controller Yuebon.WebApp.Controllers.UEditorController (Yuebon.WebApp).
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing action method Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action method Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp), returned result Microsoft.AspNetCore.Mvc.EmptyResult in 43.1911ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp) in 94.2823ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 142.6697ms 200 text/plain
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/api/UEditor?action=listimage&start=0&size=20&noCache=1582371709317  
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {action = "Do", controller = "UEditor", area = ""}. Executing controller action with signature Void Do() on controller Yuebon.WebApp.Controllers.UEditorController (Yuebon.WebApp).
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing action method Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action method Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp), returned result Microsoft.AspNetCore.Mvc.EmptyResult in 10.591ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp) in 54.13ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 87.7694ms 200 text/plain
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/CMS/ArticleNews/Edit  
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'Yuebon.WebApp.Areas.CMS.Controllers.ArticleNewsController.Edit (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {area = "CMS", action = "Edit", controller = "ArticleNews"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Edit(System.String) on controller Yuebon.WebApp.Areas.CMS.Controllers.ArticleNewsController (Yuebon.WebApp).
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing action method Yuebon.WebApp.Areas.CMS.Controllers.ArticleNewsController.Edit (Yuebon.WebApp) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action method Yuebon.WebApp.Areas.CMS.Controllers.ArticleNewsController.Edit (Yuebon.WebApp), returned result Microsoft.AspNetCore.Mvc.ViewResult in 0.2967ms.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[1]
+      Executing ViewResult, running view Edit.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[4]
+      Executed ViewResult - view Edit executed in 102.3672ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action Yuebon.WebApp.Areas.CMS.Controllers.ArticleNewsController.Edit (Yuebon.WebApp) in 271.3061ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'Yuebon.WebApp.Areas.CMS.Controllers.ArticleNewsController.Edit (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 957.4308ms 200 text/html; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/api/UEditor?action=config&&noCache=1582371826419  
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/api/UEditor?action=config&&noCache=1582371826410  
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {action = "Do", controller = "UEditor", area = ""}. Executing controller action with signature Void Do() on controller Yuebon.WebApp.Controllers.UEditorController (Yuebon.WebApp).
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {action = "Do", controller = "UEditor", area = ""}. Executing controller action with signature Void Do() on controller Yuebon.WebApp.Controllers.UEditorController (Yuebon.WebApp).
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/CMS/ArticleCategory/FindTreeSelectJson  
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/favicon.ico  
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing action method Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing action method Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action method Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp), returned result Microsoft.AspNetCore.Mvc.EmptyResult in 8.896ms.
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/favicon.ico'. Physical path: 'D:\netcorespace\YueGroup\权限管理\Yuebon.Manager\Yuebon.WebApp\wwwroot\favicon.ico'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action method Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp), returned result Microsoft.AspNetCore.Mvc.EmptyResult in 79.9451ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp) in 484.3587ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 293.5249ms 200 image/x-icon
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp) in 266.9375ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 1366.7495ms 200 text/plain
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'Yuebon.WebApp.Areas.CMS.Controllers.ArticleCategoryController.FindTreeSelectJson (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 1331.5548ms 200 text/plain
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {area = "CMS", action = "FindTreeSelectJson", controller = "ArticleCategory"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult FindTreeSelectJson() on controller Yuebon.WebApp.Areas.CMS.Controllers.ArticleCategoryController (Yuebon.WebApp).
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing action method Yuebon.WebApp.Areas.CMS.Controllers.ArticleCategoryController.FindTreeSelectJson (Yuebon.WebApp) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action method Yuebon.WebApp.Areas.CMS.Controllers.ArticleCategoryController.FindTreeSelectJson (Yuebon.WebApp), returned result Microsoft.AspNetCore.Mvc.ContentResult in 236.5474ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ContentResultExecutor[1]
+      Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action Yuebon.WebApp.Areas.CMS.Controllers.ArticleCategoryController.FindTreeSelectJson (Yuebon.WebApp) in 365.5579ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'Yuebon.WebApp.Areas.CMS.Controllers.ArticleCategoryController.FindTreeSelectJson (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 6210.5139ms 200 text/plain; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/CMS/ArticleNews/Edit  
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'Yuebon.WebApp.Areas.CMS.Controllers.ArticleNewsController.Edit (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {area = "CMS", action = "Edit", controller = "ArticleNews"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Edit(System.String) on controller Yuebon.WebApp.Areas.CMS.Controllers.ArticleNewsController (Yuebon.WebApp).
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing action method Yuebon.WebApp.Areas.CMS.Controllers.ArticleNewsController.Edit (Yuebon.WebApp) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action method Yuebon.WebApp.Areas.CMS.Controllers.ArticleNewsController.Edit (Yuebon.WebApp), returned result Microsoft.AspNetCore.Mvc.ViewResult in 0.099ms.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[1]
+      Executing ViewResult, running view Edit.
+info: Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor[4]
+      Executed ViewResult - view Edit executed in 21145.6418ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action Yuebon.WebApp.Areas.CMS.Controllers.ArticleNewsController.Edit (Yuebon.WebApp) in 21290.0711ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'Yuebon.WebApp.Areas.CMS.Controllers.ArticleNewsController.Edit (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 21824.4803ms 200 text/html; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/api/UEditor?action=config&&noCache=1582371857668  
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/api/UEditor?action=config&&noCache=1582371857675  
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {action = "Do", controller = "UEditor", area = ""}. Executing controller action with signature Void Do() on controller Yuebon.WebApp.Controllers.UEditorController (Yuebon.WebApp).
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {action = "Do", controller = "UEditor", area = ""}. Executing controller action with signature Void Do() on controller Yuebon.WebApp.Controllers.UEditorController (Yuebon.WebApp).
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing action method Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing action method Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action method Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp), returned result Microsoft.AspNetCore.Mvc.EmptyResult in 6.9265ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action method Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp), returned result Microsoft.AspNetCore.Mvc.EmptyResult in 7.7355ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp) in 149.7675ms
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp) in 132.5499ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'Yuebon.WebApp.Controllers.UEditorController.Do (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 253.0481ms 200 text/plain
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 243.7187ms 200 text/plain
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/favicon.ico  
+info: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[2]
+      Sending file. Request path: '/favicon.ico'. Physical path: 'D:\netcorespace\YueGroup\权限管理\Yuebon.Manager\Yuebon.WebApp\wwwroot\favicon.ico'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 20.002ms 200 image/x-icon
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2.0 GET https://localhost:44389/CMS/ArticleCategory/FindTreeSelectJson  
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'Yuebon.WebApp.Areas.CMS.Controllers.ArticleCategoryController.FindTreeSelectJson (Yuebon.WebApp)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {area = "CMS", action = "FindTreeSelectJson", controller = "ArticleCategory"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult FindTreeSelectJson() on controller Yuebon.WebApp.Areas.CMS.Controllers.ArticleCategoryController (Yuebon.WebApp).
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Executing action method Yuebon.WebApp.Areas.CMS.Controllers.ArticleCategoryController.FindTreeSelectJson (Yuebon.WebApp) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action method Yuebon.WebApp.Areas.CMS.Controllers.ArticleCategoryController.FindTreeSelectJson (Yuebon.WebApp), returned result Microsoft.AspNetCore.Mvc.ContentResult in 165.1336ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ContentResultExecutor[1]
+      Executing ContentResult with HTTP Response ContentType of text/plain; charset=utf-8
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action Yuebon.WebApp.Areas.CMS.Controllers.ArticleCategoryController.FindTreeSelectJson (Yuebon.WebApp) in 303.5894ms
+info: Microsoft.AspNetCore.Routing.Endpoin

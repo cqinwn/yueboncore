@@ -2,6 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Company>上海越邦网络科技有限公司</Company>
+    <Product>Yuebon.UEditorNetCore百度编辑器UEditor图片、附件管理的类库</Product>
+    <Description>基于NetCore实现百度富文本编辑器UEditor的图片、附件上传和管理的类库，同时依赖Yuebon.Security.Core类库</Description>
+    <Copyright>上海越邦网络科技有限公司 版权所有</Copyright>
+    <PackageProjectUrl>https://gitee.com/yuebon/YuebonNetCore</PackageProjectUrl>
+    <RepositoryUrl>https://gitee.com/yuebon/YuebonNetCore</RepositoryUrl>
+    <Authors>Yuebon</Authors>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,6 +19,13 @@
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Yuebon.Security.Core" Version="1.2.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

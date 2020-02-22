@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Yuebon.UEditorNetCore</id>
+    <version>1.0.0</version>
+    <authors>Yuebon</authors>
+    <owners>Yuebon</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="file">LICENSE</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <projectUrl>https://gitee.com/yuebon/YuebonNetCore</projectUrl>
+    <description>基于NetCore实现百度富文本编辑器的图片、附件上传和管理的类库，同时依赖Yuebon.Security.Core类库</description>
+    <copyright>上海越邦网络科技有限公司 版权所有</copyright>
+    <repository url="https://gitee.com/yuebon/YuebonNetCore" />
+    <dependencies>
+      <group targetFramework=".NETCoreApp3.1">
+        <dependency id="Aliyun.OSS.SDK.NetCore" version="2.9.1" exclude="Build,Analyzers" />
+        <dependency id="FluentFTP" version="31.3.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.Http" version="2.2.2" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Hosting" version="3.1.1" exclude="Build,Analyzers" />
+        <dependency id="Newtonsoft.Json" version="12.0.3" exclude="Build,Analyzers" />
+        <dependency id="Yuebon.Security.Core" version="1.2.2.3" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.UEditorNetCore\bin\Release\netcoreapp3.1\Yuebon.UEditorNetCore.dll" target="lib\netcoreapp3.1\Yuebon.UEditorNetCore.dll" />
+    <file src="D:\netcorespace\YueGroup\权限管理\LICENSE" target="LICENSE" />
+  </files>
+</package>

@@ -22,6 +22,7 @@
     <AssemblyVersion>1.2.2.9</AssemblyVersion>
     <FileVersion>1.2.2.9</FileVersion>
     <RepositoryUrl>https://gitee.com/yuebon/YuebonNetCore</RepositoryUrl>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -51,6 +52,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Yuebon.Security.Core\Yuebon.Security.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

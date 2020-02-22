@@ -14,3 +14,7 @@ D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.AspNetCore\obj\Relea
 D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.AspNetCore\obj\Release\netcoreapp3.1\Yuebon.AspNetCore.csproj.CopyComplete
 D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.AspNetCore\obj\Release\netcoreapp3.1\Yuebon.AspNetCore.dll
 D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.AspNetCore\obj\Release\netcoreapp3.1\Yuebon.AspNetCore.pdb
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.AspNetCore\bin\Release\netcoreapp3.1\Yuebon.Security.Core.pdb
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.AspNetCore\bin\Release\netcoreapp3.1\Yuebon.Security.Core.xml
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.AspNetCore\bin\Release\netcoreapp3.1\Yuebon.Commons.pdb
+D:\netcorespace\YueGroup\权限管理\Yuebon.NetCore\Yuebon.AspNetCore\bin\Release\netcoreapp3.1\Yuebon.Commons.xml

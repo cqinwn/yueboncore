@@ -40,7 +40,7 @@
           "dependencies": {
             "Yuebon.Security.Core": {
               "target": "Package",
-              "version": "[1.2.0, )"
+              "version": "[1.2.2.3, )"
             }
           },
           "imports": [
@@ -102,7 +102,7 @@
           "dependencies": {
             "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
               "target": "Package",
-              "version": "[3.1.0, )"
+              "version": "[3.1.1, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
@@ -116,11 +116,11 @@
             },
             "Microsoft.Extensions.Logging.Debug": {
               "target": "Package",
-              "version": "[3.1.0, )"
+              "version": "[3.1.1, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[3.1.0, )"
+              "version": "[3.1.1, )"
             },
             "UEditorNetCore": {
               "target": "Package",
@@ -128,7 +128,7 @@
             },
             "Yuebon.AspNetCore": {
               "target": "Package",
-              "version": "[1.2.0, )"
+              "version": "[1.2.2.9, )"
             }
           },
           "imports": [

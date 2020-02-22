@@ -34,6 +34,7 @@ namespace Yuebon.AspNetCore.Controllers
         private string _dbThumbnail;   //数据库中的缩略图路径
         private string _belongApp;//所属应用
         private string _belongAppId;//所属应用ID 
+        private string _fileName;//文件名称
         private Type type = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType;
         
         /// <summary>
@@ -53,6 +54,7 @@ namespace Yuebon.AspNetCore.Controllers
                 FormFileCollection filelist = (FormFileCollection)formCollection.Files;
                 string belongApp = formCollection["belongApp"].ToString();
                 string belongAppId = formCollection["belongAppId"].ToString();
+                _fileName = formCollection["FileName"].ToString();
                 try
                 {
                     result.ResData = Add(filelist[0], belongApp, belongAppId);
@@ -174,7 +176,7 @@ namespace Yuebon.AspNetCore.Controllers
                     var fileName = string.Empty;
                     //if (file.Name.IndexOf('.') > 0)
                     //{
-                        fileName = Path.GetFileName(file.FileName);
+                        fileName = _fileName;
                     //}
                     //else
                     //{
@@ -192,7 +194,7 @@ namespace Yuebon.AspNetCore.Controllers
                         Thumbnail = _dbThumbnail,
                         FileName = fileName,
                         FileSize = file.Length,
-                        FileType = fileName.Substring(fileName.LastIndexOf(".") + 1),
+                        FileType = Path.GetExtension(fileName),
                         Extension = Path.GetExtension(fileName),
                         BelongApp = _belongApp,
                         BelongAppId = _belongAppId

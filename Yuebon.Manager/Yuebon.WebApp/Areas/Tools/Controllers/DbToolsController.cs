@@ -7,16 +7,28 @@ using Yuebon.WebApp.Areas.Tools.Models;
 using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Models;
+using Yuebon.WebApp.Controllers;
+using Yuebon.Security.Models;
+using Yuebon.Security.IServices;
 
 namespace Yuebon.WebApp.Areas.Tools.Controllers
 {
     [Area("Tools")]
     [Route("Tools/[controller]/[action]")]
-    public class DbToolsController : Controller
+    public class DbToolsController : BusinessController<Menu, IMenuService>
     {
-        public IActionResult Index()
+        public DbToolsController(IMenuService _iService) : base(_iService)
+        {
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override IActionResult Index()
         {
             ViewData["Title"] = "数据库连接加解密";
+            ViewData["Account"] = CurrentUser.Account;
+            ViewData["RealName"] = CurrentUser.RealName;
             return View();
         }
 

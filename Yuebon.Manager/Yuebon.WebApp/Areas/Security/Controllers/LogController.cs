@@ -8,6 +8,8 @@ using Yuebon.Commons.Models;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
 using Yuebon.Commons.Pages;
+using Yuebon.Security.Dtos;
+using Yuebon.Commons.Mapping;
 
 namespace Yuebon.WebApp.Areas.Security.Controllers
 {
@@ -46,7 +48,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
             }
 
             PagerInfo pagerInfo = GetPagerInfo();
-            List<Log> list = iService.FindWithPager(where, pagerInfo, orderFlied, order);
+            List<LogOutPutDto> list = iService.FindWithPager(where, pagerInfo, orderFlied, order).MapTo<LogOutPutDto>();
 
             //构造成Json的格式传递
             var result = new

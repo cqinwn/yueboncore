@@ -9,7 +9,7 @@
     <description>Package Description</description>
     <dependencies>
       <group targetFramework=".NETCoreApp3.1">
-        <dependency id="Yuebon.Security.Core" version="1.2.2.3" exclude="Build,Analyzers" />
+        <dependency id="Yuebon.Security.Core" version="1.2.2.4" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>

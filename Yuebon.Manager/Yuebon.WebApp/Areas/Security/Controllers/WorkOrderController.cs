@@ -117,7 +117,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
             }
 
             PagerInfo pagerInfo = GetPagerInfo();
-            List<WorkOrder> list = iService.FindWithPager(where, pagerInfo, orderFlied, order);
+            List<WorkOrderOutputDto> list = iService.FindWithPager(where, pagerInfo, orderFlied, order).MapTo<WorkOrderOutputDto>();
            // List<WorkOrderOutputDto> resultList = list.ToListOutput<WorkOrder,WorkOrderOutputDto>();
             //构造成Json的格式传递
             var result = new

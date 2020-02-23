@@ -1,12 +1,13 @@
 ﻿using Dapper.Contrib.Extensions;
 using System;
 using System.ComponentModel.DataAnnotations;
+using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Models;
 
 namespace Yuebon.Security.Models
 {
     /// <summary>
-    /// 行政区域表，数据实体对象
+    /// 操作轨迹详情，数据实体对象
     /// </summary>
     [Table("Sys_OperateTrajectoryDetail")]
     [Serializable]
@@ -17,7 +18,7 @@ namespace Yuebon.Security.Models
         /// </summary>
 	    public OperateTrajectoryDetail()
 		{
-            this.Id = System.Guid.NewGuid().ToString();
+            this.Id = GuidUtils.CreateNo();
 
         }
 

@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Yuebon.Security.Core" Version="1.2.2.3" />
+    <PackageReference Include="Yuebon.Security.Core" Version="1.2.2.4" />
   </ItemGroup>
 
 </Project>

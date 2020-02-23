@@ -8,66 +8,63 @@ namespace Yuebon.Security.Dtos
     /// <summary>
     /// WorkOrderInfo，DTO对象
     /// </summary>
-    [DataContract]
+    [Serializable]
     public class WorkOrderOutputDto:IOutputDto
     { 
         #region Property Members
         
-		[DataMember]
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual string Id { get; set; }
 
         /// <summary>
         /// 标题
         /// </summary>
-		[DataMember]
         public virtual string Title { get; set; }
 
         /// <summary>
         /// 分类
         /// </summary>
-		[DataMember]
         public virtual string Category { get; set; }
 
         /// <summary>
         /// 机密信息
         /// </summary>
-		[DataMember]
         public virtual string SecretContent { get; set; }
 
         /// <summary>
         /// 手机号
         /// </summary>
-		[DataMember]
         public virtual string Mobile { get; set; }
 
         /// <summary>
         /// 附件
         /// </summary>
-		[DataMember]
         public virtual string Attachment { get; set; }
 
         /// <summary>
         /// 状态
         /// </summary>
-		[DataMember]
         public virtual string Status { get; set; }
 
         /// <summary>
         /// 删除标记
         /// </summary>
-		[DataMember]
         public virtual bool? DeleteMark { get; set; }
 
         /// <summary>
         /// 描述
         /// </summary>
-		[DataMember]
         public virtual string Description { get; set; }
 
-		[DataMember]
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual DateTime? CreatorTime { get; set; }
-
-		[DataMember]
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual string CreatorUserId { get; set; }
 
         /// <summary>
@@ -78,18 +75,22 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 创建用户部门主键
         /// </summary>
-		[DataMember]
         public virtual string DeptId { get; set; }
-        [DataMember]
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual DateTime? LastModifyTime { get; set; }
-
-		[DataMember]
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual string LastModifyUserId { get; set; }
-
-		[DataMember]
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual DateTime? DeleteTime { get; set; }
-
-		[DataMember]
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual string DeleteUserId { get; set; }
 
 

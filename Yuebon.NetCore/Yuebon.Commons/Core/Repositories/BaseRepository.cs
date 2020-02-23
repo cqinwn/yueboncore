@@ -901,7 +901,7 @@ namespace Yuebon.Commons.Repositories
             }
         }
         /// <summary>
-        /// 
+        /// 删除数据
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="trans">事务对象</param>
@@ -914,7 +914,7 @@ namespace Yuebon.Commons.Repositories
             }
         }
         /// <summary>
-        /// 
+        /// 异步删除数据
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="trans">事务对象</param>
@@ -984,7 +984,7 @@ namespace Yuebon.Commons.Repositories
         /// <summary>
         /// 按主键批量删除
         /// </summary>
-        /// <param name="ids"></param>
+        /// <param name="ids">主键Id List集合</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual bool DeleteBatch(IList<dynamic> ids, IDbTransaction trans = null)
@@ -1047,7 +1047,7 @@ namespace Yuebon.Commons.Repositories
         }
 
         /// <summary>
-        /// 逻辑删除信息，将DeleteMark设置为1删除，0-恢复删除
+        /// 逻辑删除信息，bl为true时将DeleteMark设置为1删除，bl为flase时将DeleteMark设置为10-恢复删除
         /// </summary>
         /// <param name="bl">true为不删除，false删除</param>
         /// <param name="id">主键ID</param>
@@ -1081,7 +1081,7 @@ namespace Yuebon.Commons.Repositories
         }
 
         /// <summary>
-        /// 异步逻辑删除信息，将DeleteMark设置为1删除，0-恢复删除
+        /// 异步逻辑删除信息，bl为true时将DeleteMark设置为1删除，bl为flase时将DeleteMark设置为10-恢复删除
         /// </summary>
         /// <param name="bl">true为不删除，false删除</param>
         /// <param name="id">主键ID</param>

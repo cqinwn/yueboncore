@@ -10,15 +10,17 @@
     <RepositoryUrl>https://gitee.com/yuebon/YuebonNetCore</RepositoryUrl>
     <Authors>Yuebon</Authors>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Version>1.0.1</Version>
+    <PackageReleaseNotes>兼容Net core 3.1.2版</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Aliyun.OSS.SDK.NetCore" Version="2.9.1" />
-    <PackageReference Include="FluentFTP" Version="31.3.0" />
+    <PackageReference Include="FluentFTP" Version="31.3.1" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.2" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="Yuebon.Security.Core" Version="1.2.2.3" />
+    <PackageReference Include="Yuebon.Security.Core" Version="1.2.2.4" />
   </ItemGroup>
 
   <ItemGroup>

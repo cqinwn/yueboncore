@@ -11,11 +11,13 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("Yuebon.UEditorNetCore")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("上海越邦网络科技有限公司")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyCopyrightAttribute("上海越邦网络科技有限公司 版权所有")]
+[assembly: System.Reflection.AssemblyDescriptionAttribute("基于NetCore实现百度富文本编辑器UEditor的图片、附件上传和管理的类库，同时依赖Yuebon.Security.Core类库")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
-[assembly: System.Reflection.AssemblyProductAttribute("Yuebon.UEditorNetCore")]
+[assembly: System.Reflection.AssemblyProductAttribute("Yuebon.UEditorNetCore百度编辑器UEditor图片、附件管理的类库")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Yuebon.UEditorNetCore")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 

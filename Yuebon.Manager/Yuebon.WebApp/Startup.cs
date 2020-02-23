@@ -7,34 +7,28 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Runtime.Loader;
-using UEditorNetCore;
-using Yuebon.AspNetCore.Mvc;
-using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.AspNetCore.SSO;
 using Yuebon.Commons.Cache;
-using Yuebon.Commons.Module;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Filters;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IoC;
-using Yuebon.Commons.Linq;
 using Yuebon.Commons.Log;
+using Yuebon.Commons.Module;
 using Yuebon.Commons.Options;
+using Yuebon.UEditorNetCore;
 //using Yuebon.Quartz;
 
 namespace Yuebon.WebApp
@@ -64,16 +58,20 @@ namespace Yuebon.WebApp
             services.AddUEditorService();
             //AutoMapper
             //services.AddAutoMapper();
-            services.AddControllersWithViews().AddRazorRuntimeCompilation()
-                .AddNewtonsoftJson();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
             services.AddMvc(option =>
             {
                 option.Filters.Add(new GlobalExceptionFilter());
             }).AddNewtonsoftJson(options =>
             {
+
+                options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore; //忽略空值
+                options.SerializerSettings.Formatting = Formatting.Indented;
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+            }).SetCompatibilityVersion(CompatibilityVersion.Latest).AddRazorRuntimeCompilation();
             //Session 过期时长分钟
             var sessionOutTime = Configuration.GetValue<int>("AppSetting:SessionTimeOut", 30);
             //Session服务
@@ -140,10 +138,6 @@ namespace Yuebon.WebApp
         /// <returns></returns>
         private IServiceProvider InitIoC(IServiceCollection services)
         {
-             
-            //数据连接
-            //var connectionString = Configuration.GetConnectionString("MsSqlServer");
-
             var codeGenerateOption = new CodeGenerateOption
             {
                 ModelsNamespace = "Yuebon.CMS.Models",

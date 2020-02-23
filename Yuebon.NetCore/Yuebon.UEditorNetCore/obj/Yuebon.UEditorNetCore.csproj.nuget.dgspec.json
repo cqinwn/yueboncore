@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.UEditorNetCore\\Yuebon.UEditorNetCore.csproj": {
-      "version": "1.0.0",
+      "version": "1.0.1",
       "restore": {
         "projectUniqueName": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.UEditorNetCore\\Yuebon.UEditorNetCore.csproj",
         "projectName": "Yuebon.UEditorNetCore",
@@ -44,7 +44,7 @@
             },
             "FluentFTP": {
               "target": "Package",
-              "version": "[31.3.0, )"
+              "version": "[31.3.1, )"
             },
             "Microsoft.AspNetCore.Http": {
               "target": "Package",
@@ -52,7 +52,7 @@
             },
             "Microsoft.Extensions.Hosting": {
               "target": "Package",
-              "version": "[3.1.1, )"
+              "version": "[3.1.2, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -60,7 +60,7 @@
             },
             "Yuebon.Security.Core": {
               "target": "Package",
-              "version": "[1.2.2.3, )"
+              "version": "[1.2.2.4, )"
             }
           },
           "imports": [
@@ -78,7 +78,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

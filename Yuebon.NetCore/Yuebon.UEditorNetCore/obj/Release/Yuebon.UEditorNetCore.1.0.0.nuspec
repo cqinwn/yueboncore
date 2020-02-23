@@ -9,17 +9,17 @@
     <license type="file">LICENSE</license>
     <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
     <projectUrl>https://gitee.com/yuebon/YuebonNetCore</projectUrl>
-    <description>基于NetCore实现百度富文本编辑器的图片、附件上传和管理的类库，同时依赖Yuebon.Security.Core类库</description>
+    <description>基于NetCore实现百度富文本编辑器UEditor的图片、附件上传和管理的类库，同时依赖Yuebon.Security.Core类库</description>
     <copyright>上海越邦网络科技有限公司 版权所有</copyright>
     <repository url="https://gitee.com/yuebon/YuebonNetCore" />
     <dependencies>
       <group targetFramework=".NETCoreApp3.1">
         <dependency id="Aliyun.OSS.SDK.NetCore" version="2.9.1" exclude="Build,Analyzers" />
-        <dependency id="FluentFTP" version="31.3.0" exclude="Build,Analyzers" />
+        <dependency id="FluentFTP" version="31.3.1" exclude="Build,Analyzers" />
         <dependency id="Microsoft.AspNetCore.Http" version="2.2.2" exclude="Build,Analyzers" />
-        <dependency id="Microsoft.Extensions.Hosting" version="3.1.1" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Hosting" version="3.1.2" exclude="Build,Analyzers" />
         <dependency id="Newtonsoft.Json" version="12.0.3" exclude="Build,Analyzers" />
-        <dependency id="Yuebon.Security.Core" version="1.2.2.3" exclude="Build,Analyzers" />
+        <dependency id="Yuebon.Security.Core" version="1.2.2.4" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>

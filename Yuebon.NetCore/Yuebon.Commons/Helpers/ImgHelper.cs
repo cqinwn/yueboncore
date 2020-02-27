@@ -97,8 +97,7 @@ namespace Yuebon.Commons.Helpers
             }
             catch (Exception ex)
             {
-                Type type = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType;
-                Log4NetHelper.WriteError(type, ex.Message); 
+                Log4NetHelper.Error("获取网络图片错误", ex); 
                 return new Bitmap(100, 100);
             }
         }

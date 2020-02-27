@@ -26,9 +26,7 @@ namespace Yuebon.WebApp.Commons
             string requestHost = context.HttpContext.Request.Host.ToString();
             string requestPath = context.HttpContext.Request.Path.ToString();
             string queryString = context.HttpContext.Request.QueryString.ToString();
-            var type = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType;
-            Log4NetHelper.WriteWarn(type, context.Exception);
-           // _logger.LogWarning(new EventId(exception.HResult), exception, exception.Message);
+            Log4NetHelper.Error("全局异常", context.Exception);
             context.ExceptionHandled = true;
         }
     }

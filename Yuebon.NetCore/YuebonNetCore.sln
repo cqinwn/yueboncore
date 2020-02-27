@@ -15,6 +15,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.Security.Core", "Yue
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.UEditorNetCore", "Yuebon.UEditorNetCore\Yuebon.UEditorNetCore.csproj", "{78DB9C93-CF9D-41DD-B929-829289301A73}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.CMS.Core", "..\Yuebon.Cms.Core\Yuebon.CMS.Core.csproj", "{77F86AA1-D496-453F-860B-88D9C935C1AD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.WebApp", "..\Yuebon.Manager\Yuebon.WebApp\Yuebon.WebApp.csproj", "{1972B046-CCF8-4CC8-B00E-65E288D9F256}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +41,14 @@ Global
 		{78DB9C93-CF9D-41DD-B929-829289301A73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78DB9C93-CF9D-41DD-B929-829289301A73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78DB9C93-CF9D-41DD-B929-829289301A73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77F86AA1-D496-453F-860B-88D9C935C1AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77F86AA1-D496-453F-860B-88D9C935C1AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77F86AA1-D496-453F-860B-88D9C935C1AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77F86AA1-D496-453F-860B-88D9C935C1AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1972B046-CCF8-4CC8-B00E-65E288D9F256}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1972B046-CCF8-4CC8-B00E-65E288D9F256}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1972B046-CCF8-4CC8-B00E-65E288D9F256}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1972B046-CCF8-4CC8-B00E-65E288D9F256}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -45,6 +57,7 @@ Global
 		{98A21B60-6C42-4324-8E3D-7495957EA921} = {E0529D57-5219-4623-9B09-9DAEDD3C38A3}
 		{BD947260-EF8E-4C9D-AE58-0DA232ABB085} = {1B15ECAE-121A-42C5-88D8-E70E66869FCC}
 		{78DB9C93-CF9D-41DD-B929-829289301A73} = {1B15ECAE-121A-42C5-88D8-E70E66869FCC}
+		{1972B046-CCF8-4CC8-B00E-65E288D9F256} = {1B15ECAE-121A-42C5-88D8-E70E66869FCC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E96BCD9A-C6E5-4F84-ABB0-1203F62A4470}

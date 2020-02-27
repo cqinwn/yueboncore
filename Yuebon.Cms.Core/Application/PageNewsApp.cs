@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Yuebon.CMS.Dtos;
 using Yuebon.CMS.IServices;
 using Yuebon.CMS.Models;
 using Yuebon.Commons.IoC;
+using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Pages;
 
 namespace Yuebon.CMS.Application
@@ -22,6 +24,17 @@ namespace Yuebon.CMS.Application
             return pagenewsservice.Get(id);
         }
 
+        /// <summary>
+        /// 根据文章分类获取该分类下的所有可用且未逻辑删除文章
+        /// </summary>
+        /// <param name="categoryId">分类Id</param>
+        /// <returns></returns>
+        public List<PageNewsOutputDto> GetArticleNewsListBCategoryId(string categoryId)
+        {
+            string where = string.Format("CategoryId='{0}' and EnabledMark=1 and DeleteMark=0 order by SortCode asc", categoryId);
+            IEnumerable<PageNewsOutputDto> list = pagenewsservice.GetListWhere(where).MapTo<PageNewsOutputDto>();
+            return list.ToList();
+        }
 
         /// <summary>
         /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)

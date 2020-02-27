@@ -90,8 +90,7 @@ namespace Yuebon.WebApp.Areas.CMS.Controllers
             }
             catch (Exception ex)
             {
-                var type = MethodBase.GetCurrentMethod().DeclaringType;
-                Log4NetHelper.WriteError(type, ex);//错误记录
+                Log4NetHelper.Error("获取文章列表异常", ex);//错误记录
                 result.ErrMsg = ex.Message;
             }
             return ToJsonContent(result);

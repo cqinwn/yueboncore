@@ -120,7 +120,7 @@ namespace Yuebon.AspNetCore.Controllers
             {
                 JwtSecurityToken jwtToken = new JwtSecurityTokenHandler().ReadJwtToken(token);
                 #if DEBUG
-                Log4NetHelper.WriteInfo(type, jwtToken.ToJson());
+                Log4NetHelper.Debug(jwtToken.ToJson());
                 #endif
                 if (jwtToken != null)
                 {

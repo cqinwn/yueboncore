@@ -8,6 +8,7 @@
 *.sln.docstates
 bin/
 obj/
+logs/
 *.[pdb]
 **/bin/**
 **/obj/**

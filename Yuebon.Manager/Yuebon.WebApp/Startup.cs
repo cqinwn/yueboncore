@@ -35,6 +35,9 @@ namespace Yuebon.WebApp
 {
     public class Startup
     {
+        /// <summary>
+        /// log4net ²Ö´¢¿â
+        /// </summary>
         public static ILoggerRepository Logrepository { get; set; }
         public IConfiguration Configuration { get; }
         public Startup(IConfiguration configuration)

@@ -321,7 +321,7 @@ namespace Yuebon.WebApp.Areas.Shop.Controllers
             catch (Exception ex)
             {
                 var type = MethodBase.GetCurrentMethod().DeclaringType;
-                Log4NetHelper.WriteError(type, ex);//错误记录
+                Log4NetHelper.Error(type, "获取用户异常", ex);//错误记录
                 result.ErrMsg = ex.Message;
             }
             return ToJsonContent(result);

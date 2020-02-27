@@ -175,7 +175,7 @@ inner join sys_user tIn3 on tIn1.creatorUserid=tIn3.id
             var type = MethodBase.GetCurrentMethod().DeclaringType;
             if (HasInjectionData(condition))
             {
-                Log4NetHelper.WriteError(type, string.Format("检测出SQL注入的恶意数据, {0}", condition));
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", condition));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
             if (string.IsNullOrEmpty(condition))

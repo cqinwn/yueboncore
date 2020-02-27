@@ -214,8 +214,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
                         }
                         catch (Exception ex)
                         {
-                            var type = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType;
-                            Log4NetHelper.WriteError(type, ex);//错误记录
+                            Log4NetHelper.Error("更新功能异常", ex);//错误记录
 
                         }
                     }
@@ -256,8 +255,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
             }
             catch (Exception ex)
             {
-                var type = MethodBase.GetCurrentMethod().DeclaringType;
-                Log4NetHelper.WriteError(type, ex);//错误记录
+                Log4NetHelper.Error("获取功能异常", ex);//错误记录
                 result.ErrMsg = ex.Message;
             }
             return ToJsonContent(result);

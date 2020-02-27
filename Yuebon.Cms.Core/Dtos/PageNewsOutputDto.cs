@@ -5,6 +5,10 @@ using Yuebon.Commons.Models;
 
 namespace Yuebon.CMS.Dtos
 {
+    /// <summary>
+    /// 单页面管理输出Dto
+    /// </summary>
+    [Serializable]
     public class PageNewsOutputDto : IOutputDto
     {
         /// 默认构造函数（需要初始化属性的在此处理）
@@ -16,11 +20,11 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
         /// 主键
         /// </summary>
-        public virtual string Id { get; set; }
+        public  string Id { get; set; }
         /// <summary>
 		/// 标题
         /// </summary>	
-        public virtual string Title
+        public  string Title
         {
             get;
             set;
@@ -28,7 +32,7 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
 		/// 副标题
         /// </summary>	
-        public virtual string SubTitle
+        public  string SubTitle
         {
             get;
             set;
@@ -36,7 +40,7 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
 		/// 分类编号
         /// </summary>		
-        public virtual string CategoryId
+        public  string CategoryId
         {
             get;
             set;
@@ -44,7 +48,7 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
 		/// 分类名称
         /// </summary>		
-        public virtual string CategoryName
+        public  string CategoryName
         {
             get;
             set;
@@ -52,7 +56,7 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
         /// 外链
         /// </summary>		
-        public virtual string LinkUrl
+        public  string LinkUrl
         {
             get;
             set;
@@ -60,7 +64,7 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
         /// 主图URL
         /// </summary>		
-        public virtual string ImgUrl
+        public  string ImgUrl
         {
             get;
             set;
@@ -68,7 +72,7 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
         /// SEO标题
         /// </summary>		
-        public virtual string SeoTitle
+        public  string SeoTitle
         {
             get;
             set;
@@ -76,7 +80,7 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
         /// SEO关键词
         /// </summary>		
-        public virtual string SeoKeywords
+        public  string SeoKeywords
         {
             get;
             set;
@@ -84,7 +88,7 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
         /// SEO描述
         /// </summary>	
-        public virtual string SeoDescription
+        public  string SeoDescription
         {
             get;
             set;
@@ -92,7 +96,7 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
         /// 标签
         /// </summary>	
-        public virtual string Tags
+        public  string Tags
         {
             get;
             set;
@@ -100,7 +104,7 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
         /// 摘要
         /// </summary>		
-        public virtual string Zhaiyao
+        public  string Zhaiyao
         {
             get;
             set;
@@ -108,7 +112,7 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
         /// 详细内容
         /// </summary>		
-        public virtual string Description
+        public  string Description
         {
             get;
             set;
@@ -116,7 +120,7 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
         /// 排序
         /// </summary>		
-        public virtual int? SortCode
+        public  int? SortCode
         {
             get;
             set;
@@ -124,7 +128,7 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
         /// 是否开启评论
         /// </summary>		
-        public virtual bool IsMsg
+        public  bool IsMsg
         {
             get;
             set;
@@ -132,7 +136,7 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
         /// 是否置顶
         /// </summary>		
-        public virtual bool IsTop
+        public  bool IsTop
         {
             get;
             set;
@@ -140,7 +144,7 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
         /// 是否推荐
         /// </summary>		
-        public virtual bool IsRed
+        public  bool IsRed
         {
             get;
             set;
@@ -148,7 +152,7 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
         /// 是否热门
         /// </summary>		
-        public virtual bool IsHot
+        public  bool IsHot
         {
             get;
             set;
@@ -156,7 +160,7 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
         /// 是否是幻灯
         /// </summary>		
-        public virtual bool IsSlide
+        public  bool IsSlide
         {
             get;
             set;
@@ -164,7 +168,7 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
         /// 是否系统文章
         /// </summary>		
-        public virtual bool IsSys
+        public  bool IsSys
         {
             get;
             set;
@@ -172,7 +176,7 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
         /// 是否最新
         /// </summary>		
-        public virtual bool IsNew
+        public  bool IsNew
         {
             get;
             set;
@@ -180,7 +184,7 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
         /// 点击量
         /// </summary>		
-        public virtual int Click
+        public  int Click
         {
             get;
             set;
@@ -188,7 +192,7 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
         /// 喜欢数量
         /// </summary>		
-        public virtual int LikeCount
+        public  int LikeCount
         {
             get;
             set;
@@ -197,7 +201,7 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
         /// 有效标志
         /// </summary>		
-        public virtual bool EnabledMark
+        public  bool EnabledMark
         {
             get;
             set;
@@ -205,7 +209,7 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
         /// Source
         /// </summary>		
-        public virtual string Source
+        public  string Source
         {
             get;
             set;
@@ -213,7 +217,7 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
         /// 作者
         /// </summary>		
-        public virtual string Author
+        public  string Author
         {
             get;
             set;
@@ -221,46 +225,46 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
         /// 删除标志
         /// </summary>
-        public virtual bool? DeleteMark { get; set; }
+        public  bool? DeleteMark { get; set; }
 
 
         /// <summary>
         /// 创建日期
         /// </summary>
-        public virtual DateTime? CreatorTime { get; set; }
+        public  DateTime? CreatorTime { get; set; }
 
         /// <summary>
         /// 创建用户主键
         /// </summary>
-        public virtual string CreatorUserId { get; set; }
+        public  string CreatorUserId { get; set; }
 
         /// <summary>
         /// 创建用户组织主键
         /// </summary>
-        public virtual string CompanyId { get; set; }
+        public  string CompanyId { get; set; }
         /// <summary>
         /// 创建用户部门主键
         /// </summary>
-        public virtual string DeptId { get; set; }
+        public  string DeptId { get; set; }
         /// <summary>
         /// 最后修改时间
         /// </summary>
-        public virtual DateTime? LastModifyTime { get; set; }
+        public  DateTime? LastModifyTime { get; set; }
 
         /// <summary>
         /// 最后修改用户
         /// </summary>
-        public virtual string LastModifyUserId { get; set; }
+        public  string LastModifyUserId { get; set; }
 
         /// <summary>
         /// 删除时间
         /// </summary>
-        public virtual DateTime? DeleteTime { get; set; }
+        public  DateTime? DeleteTime { get; set; }
 
         /// <summary>
         /// 删除用户
         /// </summary>
-        public virtual string DeleteUserId { get; set; }
+        public  string DeleteUserId { get; set; }
         #endregion
     }
 }

@@ -1,10 +1,11 @@
 ﻿/*******************************************************************************
- * Copyright © 2017-2019 Yuebon.Framework 版权所有
+ * Copyright © 2017-2020 Yuebon.Framework 版权所有
  * Author: Yuebon
  * Description: Yuebon快速开发平台
  * Website：http://www.yuebon.com
 *********************************************************************************/
 using System;
+using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.IO;
 using log4net;
@@ -19,11 +20,15 @@ namespace Yuebon.Commons.Log
     /// *********************************使用说明**********************************
     /// 1.首先将配置文件(log4net.config或App.config)放置在程序运行目录
     /// 2.调用SetConfig方法，并传入配置文件的全路径
-    /// 3.调用WriteError、WriteInfo、WriteFatal、WriteDebug等方法
     /// </summary>
     public class Log4NetHelper
     {
+        /// <summary>
+        ///  log4net 仓储库
+        /// </summary>
         private static ILoggerRepository _repository;
+        private static readonly ConcurrentDictionary<string, ILog> Loggers = new ConcurrentDictionary<string, ILog>();
+       
 
         /// <summary>
         /// 读取配置文件，并使其生效。如果未找到配置文件，则抛出异常
@@ -41,139 +46,139 @@ namespace Yuebon.Commons.Log
             XmlConfigurator.ConfigureAndWatch(_repository, fileInfo);
         }
 
-        #region static void WriteError(Type t, Exception ex)
-
         /// <summary>
-        /// 输出错误日志到Log4Net
+        /// 获取记录器
         /// </summary>
-        /// <param name="t"></param>
-        /// <param name="ex"></param>
-        public static void WriteError(Type t, Exception ex)
+        /// <param name="source">soruce</param>
+        /// <returns></returns>
+        private static ILog GetLogger(string source)
         {
-            var log = LogManager.GetLogger(_repository.Name, t);
-            log.Error("Error", ex);
+            if (Loggers.ContainsKey(source))
+            {
+                return Loggers[source];
+            }
+            else
+            {
+                ILog logger = LogManager.GetLogger(_repository.Name, source);
+                Loggers.TryAdd(source, logger);
+                return logger;
+            }
         }
-
-        #endregion static void WriteError(Type t, Exception ex)
-
-        #region static void WriteError(Type t, string msg)
+        #region Log a message object
 
         /// <summary>
-        /// 输出错误日志到Log4Net
+        /// 调试信息日志
         /// </summary>
-        /// <param name="t"></param>
-        /// <param name="msg"></param>
-        public static void WriteError(Type t, string msg)
+        /// <param name="msg">日志信息</param>
+        public static void Debug(string msg)
         {
-            var log = LogManager.GetLogger(_repository.Name, t);
-            var stackTrace = new StackTrace();
-            var stackFrame = stackTrace.GetFrame(1);
-            var methodBase = stackFrame.GetMethod();
-            var message = "方法名称：" + methodBase.Name + "\r\n日志内容：" + msg;
-            log.Error(message);
+            ILog logger = GetLogger("Debug");
+            if (logger.IsDebugEnabled)
+            {
+                var stackTrace = new StackTrace();
+                var stackFrame = stackTrace.GetFrame(1);
+                var methodBase = stackFrame.GetMethod();
+                var message = "方法名称：" + methodBase.Name + "\r\n日志内容：" + msg;
+                logger.Info(message);
+            }
         }
-
-        #endregion static void WriteError(Type t, string msg)
-
         /// <summary>
-        /// 记录消息日志
+        /// 错误信息日志
         /// </summary>
-        /// <param name="t"></param>
-        /// <param name="msg"></param>
-        public static void WriteInfo(Type t, string msg)
+        /// <param name="msg">日志信息</param>
+        public static void Error(string msg)
         {
-            var log = LogManager.GetLogger(_repository.Name, t);
-            var stackTrace = new StackTrace();
-            var stackFrame = stackTrace.GetFrame(1);
-            var methodBase = stackFrame.GetMethod();
-            var message = "方法名称：" + methodBase.Name + "\r\n日志内容：" + msg;
-            log.Info(message);
+            ILog logger = GetLogger("Debug");
+            if (logger.IsErrorEnabled)
+            {
+                var stackTrace = new StackTrace();
+                var stackFrame = stackTrace.GetFrame(1);
+                var methodBase = stackFrame.GetMethod();
+                var message = "方法名称：" + methodBase.Name + "\r\n日志内容：" + msg;
+                logger.Info(message);
+            }
         }
-
         /// <summary>
-        /// 记录消息日志
+        /// 异常错误信息日志
         /// </summary>
-        /// <param name="t"></param>
-        /// <param name="exception"></param>
-        public static void WriteInfo(Type t, Exception exception)
+        /// <param name="throwMsg">异常抛出信息</param>
+        /// <param name="ex">异常信息</param>
+        public static void Error(string throwMsg, Exception ex)
         {
-            var log = LogManager.GetLogger(_repository.Name, t);
-            log.Info("系统消息", exception);
+            ILog logger = GetLogger("Error");
+            if (logger.IsErrorEnabled)
+            {
+
+                var message =
+                    $"抛出信息：{throwMsg} \r\n异常类型：{ex.GetType().Name} \r\n异常信息：{ex.Message} \r\n堆栈调用：\r\n{ex.StackTrace}";
+                logger.Error(message);
+            }
         }
-
         /// <summary>
-        /// 记录致命错误日志
+        /// 异常错误信息
         /// </summary>
-        /// <param name="t"></param>
-        /// <param name="msg"></param>
-        public static void WriteFatal(Type t, string msg)
-        {
-            var log = LogManager.GetLogger(_repository.Name, t);
-            var stackTrace = new StackTrace();
-            var stackFrame = stackTrace.GetFrame(1);
-            var methodBase = stackFrame.GetMethod();
-            var message = "方法名称：" + methodBase.Name + "\r\n日志内容：" + msg;
-            log.Fatal(message);
+        /// <param name="source">source</param>
+        /// <param name="throwMsg">异常抛出信息</param>
+        /// <param name="ex">异常信息</param>
+        public static void Error(Type source, object throwMsg, Exception ex) {
+            ILog logger = GetLogger("Error");
+            if (logger.IsErrorEnabled)
+            {
+                var message =
+                    $"抛出信息：{throwMsg} \r\n异常类型：{ex.GetType().Name} \r\n异常信息：{ex.Message} \r\n【堆栈调用】：\r\n{ex.StackTrace}";
+                logger.Error(message);
+            }
         }
-
         /// <summary>
-        /// 记录致命错误日志
+        /// 关键信息日志
         /// </summary>
-        /// <param name="t"></param>
-        /// <param name="exception"></param>
-        public static void WriteFatal(Type t, Exception exception)
+        /// <param name="msg">日志信息</param>
+        public static void Info(string msg)
         {
-            var log = LogManager.GetLogger(_repository.Name, t);
-            log.Fatal("系统致命错误", exception);
-        }
-
-        /// <summary>
-        /// 记录Debug日志
-        /// </summary>
-        /// <param name="t"></param>
-        /// <param name="msg"></param>
-        public static void WriteDebug(Type t, string msg)
-        {
-            var log = LogManager.GetLogger(_repository.Name, t);
-            var stackTrace = new StackTrace();
-            var stackFrame = stackTrace.GetFrame(1);
-            var methodBase = stackFrame.GetMethod();
-            var message = "方法名称：" + methodBase.Name + "\r\n日志内容：" + msg;
-            log.Debug(message);
-        }
-
-        /// <summary>
-        /// 记录Debug日志
-        /// </summary>
-        /// <param name="t"></param>
-        /// <param name="exception"></param>
-        public static void WriteDebug(Type t, Exception exception)
-        {
-            var log = LogManager.GetLogger(_repository.Name, t);
-            log.Debug("系统调试信息", exception);
+            ILog logger = GetLogger("Info");
+            if (logger.IsInfoEnabled)
+            {
+                var stackTrace = new StackTrace();
+                var stackFrame = stackTrace.GetFrame(1);
+                var methodBase = stackFrame.GetMethod();
+                var message = "方法名称：" + methodBase.Name + "\r\n日志内容：" + msg;
+                logger.Info(message);
+            }
         }
 
         /// <summary>
-        /// 记录警告信息
+        /// 警告信息日志
         /// </summary>
-        /// <param name="t"></param>
-        /// <param name="msg"></param>
-        public static void WriteWarn(Type t, string msg)
+        /// <param name="msg">日志信息</param>
+        public static void Warn(string msg)
         {
-            var log = LogManager.GetLogger(_repository.Name, t);
-            log.Warn(msg);
+            ILog logger = GetLogger("Warn");
+            if (logger.IsWarnEnabled)
+            {
+                var stackTrace = new StackTrace();
+                var stackFrame = stackTrace.GetFrame(1);
+                var methodBase = stackFrame.GetMethod();
+                var message = "方法名称：" + methodBase.Name + "\r\n日志内容：" + msg;
+                logger.Info(message);
+            }
         }
-
         /// <summary>
-        /// 记录警告信息
+        /// 失败信息日志
         /// </summary>
-        /// <param name="t"></param>
-        /// <param name="exception"></param>
-        public static void WriteWarn(Type t, Exception exception)
+        /// <param name="msg">日志信息</param>
+        public static void Fatal(string msg)
         {
-            var log = LogManager.GetLogger(_repository.Name, t);
-            log.Warn("系统警告信息", exception);
+            ILog logger = GetLogger("Fatal");
+            if (logger.IsFatalEnabled)
+            {
+                var stackTrace = new StackTrace();
+                var stackFrame = stackTrace.GetFrame(1);
+                var methodBase = stackFrame.GetMethod();
+                var message = "方法名称：" + methodBase.Name + "\r\n日志内容：" + msg;
+                logger.Info(message);
+            }
         }
+        #endregion
 
     }
 }

@@ -25,8 +25,7 @@ namespace Yuebon.AspNetCore.Mvc.Filter
             string requestPath = context.HttpContext.Request.Path.ToString();
             string queryString = context.HttpContext.Request.QueryString.ToString();
             var type = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType;
-            Log4NetHelper.WriteWarn(type, context.Exception);
-           // _logger.LogWarning(new EventId(exception.HResult), exception, exception.Message);
+            Log4NetHelper.Error(type, "全局捕获程序运行异常", context.Exception);
             context.ExceptionHandled = true;
         }
     }

@@ -3703,7 +3703,8 @@
         }
       },
       "Yuebon.Commons/1.2.1.1": {
-        "type": "package",
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
           "AutoMapper": "9.0.0",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "7.0.0",
@@ -3730,22 +3731,23 @@
           "log4net": "2.0.8"
         },
         "compile": {
-          "lib/netcoreapp3.1/Yuebon.Commons.dll": {}
+          "bin/placeholder/Yuebon.Commons.dll": {}
         },
         "runtime": {
-          "lib/netcoreapp3.1/Yuebon.Commons.dll": {}
+          "bin/placeholder/Yuebon.Commons.dll": {}
         }
       },
       "Yuebon.Security.Core/1.2.2.4": {
-        "type": "package",
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
           "Yuebon.Commons": "1.2.1.1"
         },
         "compile": {
-          "lib/netcoreapp3.1/Yuebon.Security.Core.dll": {}
+          "bin/placeholder/Yuebon.Security.Core.dll": {}
         },
         "runtime": {
-          "lib/netcoreapp3.1/Yuebon.Security.Core.dll": {}
+          "bin/placeholder/Yuebon.Security.Core.dll": {}
         }
       }
     }
@@ -10912,32 +10914,14 @@
       ]
     },
     "Yuebon.Commons/1.2.1.1": {
-      "sha512": "s9B2J3S7MuAMVwmBhJjr7HcPfyq06HuiYFdrn5rJ1ltiPE6eGAab3POWDlsFuOj/RAQVKq+zn+YXgVpAUU+MeQ==",
-      "type": "package",
-      "path": "yuebon.commons/1.2.1.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE",
-        "lib/netcoreapp3.1/Yuebon.Commons.dll",
-        "lib/netcoreapp3.1/Yuebon.Commons.xml",
-        "yuebon.commons.1.2.1.1.nupkg.sha512",
-        "yuebon.commons.nuspec"
-      ]
+      "type": "project",
+      "path": "../Yuebon.Commons/Yuebon.Commons.csproj",
+      "msbuildProject": "../Yuebon.Commons/Yuebon.Commons.csproj"
     },
     "Yuebon.Security.Core/1.2.2.4": {
-      "sha512": "Vg9iCyUpcBFW/DQvebdq9yXMe+AiJOmXfUkJ85HGIdsWHX/qe4/oC72GrSdouRQeLCAlJCxJu8So7InQBXgffA==",
-      "type": "package",
-      "path": "yuebon.security.core/1.2.2.4",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE",
-        "lib/netcoreapp3.1/Yuebon.Security.Core.dll",
-        "lib/netcoreapp3.1/Yuebon.Security.Core.xml",
-        "yuebon.security.core.1.2.2.4.nupkg.sha512",
-        "yuebon.security.core.nuspec"
-      ]
+      "type": "project",
+      "path": "../Yuebon.Security.Core/Yuebon.Security.Core.csproj",
+      "msbuildProject": "../Yuebon.Security.Core/Yuebon.Security.Core.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -10975,7 +10959,11 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj": {
+              "projectPath": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -11006,10 +10994,6 @@
           "Newtonsoft.Json": {
             "target": "Package",
             "version": "[12.0.3, )"
-          },
-          "Yuebon.Security.Core": {
-            "target": "Package",
-            "version": "[1.2.2.4, )"
           }
         },
         "imports": [

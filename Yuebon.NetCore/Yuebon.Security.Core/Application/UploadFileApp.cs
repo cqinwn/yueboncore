@@ -151,7 +151,7 @@ namespace Yuebon.Security.Application
             }
             else
             {
-                Log4NetHelper.WriteError(type, "文件过大");
+                Log4NetHelper.Error("文件过大");
                 throw new Exception("文件过大");
             }
         }
@@ -167,14 +167,14 @@ namespace Yuebon.Security.Application
             //判断文件是否为空
             if (string.IsNullOrEmpty(fileName))
             {
-                Log4NetHelper.WriteError(type, "文件名不能为空");
+                Log4NetHelper.Error("文件名不能为空");
                 throw new Exception("文件名不能为空");
             }
 
             //判断文件是否为空
             if (fileBuffers.Length < 1)
             {
-                Log4NetHelper.WriteError(type, "文件不能为空");
+                Log4NetHelper.Error("文件不能为空");
                 throw new Exception("文件不能为空");
             }
             var _tempfilepath = "/upload/" + _belongApp + "/" + folder + "/";

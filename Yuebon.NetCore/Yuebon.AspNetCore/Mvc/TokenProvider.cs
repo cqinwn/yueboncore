@@ -85,18 +85,16 @@ namespace Yuebon.AspNetCore.Mvc
                 try
                 {
                     #if DEBUG
-                    Log4NetHelper.WriteInfo(type, token);
-#endif
+                    Log4NetHelper.Debug(token);
+                    #endif
 
-                    Log4NetHelper.WriteInfo(type, token);
                     JwtSecurityToken jwtToken = new JwtSecurityTokenHandler().ReadJwtToken(token);
                     if (jwtToken!=null)
                     {
                         #if DEBUG
-                        Log4NetHelper.WriteInfo(type, jwtToken.ToJson());
-#endif
+                        Log4NetHelper.Debug(jwtToken.ToJson());
+                        #endif
 
-                        Log4NetHelper.WriteInfo(type, jwtToken.ToJson());
                         #region 检查令牌对象内容
                         DateTime now = DateTime.UtcNow;
                         DateTime refreshTime = jwtToken.ValidFrom;
@@ -126,7 +124,7 @@ namespace Yuebon.AspNetCore.Mvc
                 }
                 catch (Exception ex)
                 {
-                    Log4NetHelper.WriteError(type,ex);
+                    Log4NetHelper.Error(type, "验证token异常", ex);
                     throw new MyApiException(ErrCode.err40004, "40004");
                 }
             }

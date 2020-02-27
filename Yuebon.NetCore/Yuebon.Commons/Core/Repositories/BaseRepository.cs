@@ -45,21 +45,48 @@ namespace Yuebon.Commons.Repositories
         where TKey : IEquatable<TKey>
     {
         #region 构造函数及配置
-        public event OperationLogEventHandler OnOperationLog;//定义一个操作记录的事件处理
+        /// <summary>
+        /// 定义一个操作记录的事件处理
+        /// </summary>
+        public event OperationLogEventHandler OnOperationLog;
         private DbConnection dbConnection;
-        protected string defaultSqlConnectionString = "";//数据库连接配置
+        /// <summary>
+        /// 数据库连接配置
+        /// </summary>
+        protected string defaultSqlConnectionString = "";
 
         /// <summary>
         /// 数据库配置名称
         /// </summary>
         protected string dbConfigName = "MsSqlServer";
-        protected string tableName;//需要初始化的对象表名
-        protected string parameterPrefix = "@";//数据库参数化访问的占位符
-        protected string safeFieldFormat = "[{0}]";//防止和保留字、关键字同名的字段格式，如[value]
-        protected string primaryKey;//数据库的主键字段名
-        protected string sortField;//排序字段
-        protected bool isDescending = true;//是否为降序
-        protected string selectedFields = " * ";//选择的字段，默认为所有(*) 
+        /// <summary>
+        /// 需要初始化的对象表名
+        /// </summary>
+        protected string tableName;
+        /// <summary>
+        /// 数据库参数化访问的占位符
+        /// </summary>
+        protected string parameterPrefix = "@";
+        /// <summary>
+        /// 防止和保留字、关键字同名的字段格式，如[value]
+        /// </summary>
+        protected string safeFieldFormat = "[{0}]";
+        /// <summary>
+        /// 数据库的主键字段名
+        /// </summary>
+        protected string primaryKey;
+        /// <summary>
+        /// 排序字段
+        /// </summary>
+        protected string sortField;
+        /// <summary>
+        /// 是否为降序
+        /// </summary>
+        protected bool isDescending = true;
+        /// <summary>
+        /// 选择的字段，默认为所有(*) 
+        /// </summary>
+        protected string selectedFields = " * ";
 
         /// <summary>
         /// 数据库配置名称，默认为空。
@@ -153,23 +180,30 @@ namespace Yuebon.Commons.Repositories
         /// <summary>
         /// 设置数据库配置项名称
         /// </summary>
-        /// <param name="dbConfigName">数据库配置项名称</param>
+        /// <param name="_dbConfigName">数据库配置项名称</param>
         public virtual void SetDbConfigName(string _dbConfigName)
         {
             dbConfigName = _dbConfigName;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_dbConfigName">数据库连接配置名称</param>
         public BaseRepository(string _dbConfigName) : this()
         {
             SetDbConfigName(_dbConfigName);
         }
+        /// <summary>
+        /// 
+        /// </summary>
         public BaseRepository()
         {
         }
         /// <summary>
 		/// 指定表名以及主键,对基类进构造
 		/// </summary>
-		/// <param name="tableName">表名</param>
-		/// <param name="primaryKey">表主键</param>
+		/// <param name="_tableName">表名</param>
+		/// <param name="_primaryKey">表主键</param>
         public BaseRepository(string _tableName, string _primaryKey) : this()
         {
             this.tableName = _tableName;
@@ -190,7 +224,8 @@ namespace Yuebon.Commons.Repositories
 
 
         /// <summary>
-        /// 数据库连接
+        /// 数据库连接,根据数据库类型自动识别，类型区分用配置名称是否包含主要关键字
+        /// MSSQL、MYSQL、ORACLE、SQLITE、MEMORY、NPGSQL
         /// </summary>
         /// <returns></returns>
         public DbConnection OpenSharedConnection()
@@ -241,10 +276,10 @@ namespace Yuebon.Commons.Repositories
 
         #region 查询获得对象和列表
         /// <summary>
-        /// 
+        /// 根据id获取一个对象
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="trans"></param>
+        /// <param name="id">主键</param>
+        /// <param name="trans">事务</param>
         /// <returns></returns>
         public T Get(TKey id, IDbTransaction trans=null)
         {
@@ -254,10 +289,10 @@ namespace Yuebon.Commons.Repositories
             }
         }
         /// <summary>
-        /// 
+        /// 异步根据id获取一个对象
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="trans"></param>
+        /// <param name="id">主键</param>
+        /// <param name="trans">事务</param>
         /// <returns></returns>
         public async Task<T> GetAsync(TKey id, IDbTransaction trans=null)
         {
@@ -268,10 +303,10 @@ namespace Yuebon.Commons.Repositories
         }
 
         /// <summary>
-        /// 
+        /// 根据条件获取一个对象
         /// </summary>
-        /// <param name="where"></param>
-        /// <param name="trans"></param>
+        /// <param name="where">查询条件</param>
+        /// <param name="trans">事务</param>
         /// <returns></returns>
         public T GetWhere(string where, IDbTransaction trans =null)
         {
@@ -286,10 +321,10 @@ namespace Yuebon.Commons.Repositories
             }
         }
         /// <summary>
-        /// 
+        /// 根据条件异步获取一个对象
         /// </summary>
-        /// <param name="where"></param>
-        /// <param name="trans"></param>
+        /// <param name="where">查询条件</param>
+        /// <param name="trans">事务</param>
         /// <returns></returns>
         public async Task<T> GetWhereAsync(string where, IDbTransaction trans=null)
         {
@@ -310,7 +345,7 @@ namespace Yuebon.Commons.Repositories
         /// 查询表别名为s，条件要s.字段名
         /// </summary>
         /// <param name="id">主键Id</param>
-        /// <param name="trans"></param>
+        /// <param name="trans">事务</param>
         /// <returns></returns>
         public T GetByIdRelationUser(string id, IDbTransaction trans = null)
         {
@@ -325,9 +360,9 @@ namespace Yuebon.Commons.Repositories
             }
         }
         /// <summary>
-        /// 
+        /// 获取所有数据，谨慎使用
         /// </summary>
-        /// <param name="trans"></param>
+        /// <param name="trans">事务</param>
         /// <returns></returns>
         public IEnumerable<T> GetAll(IDbTransaction trans=null)
         {
@@ -337,7 +372,7 @@ namespace Yuebon.Commons.Repositories
             }
         }
         /// <summary>
-        /// 
+        /// 获取所有数据，谨慎使用
         /// </summary>
         /// <param name="trans"></param>
         /// <returns></returns>
@@ -351,7 +386,7 @@ namespace Yuebon.Commons.Repositories
 
 
         /// <summary>
-        /// 根据查询条件查询数据
+        /// 根据查询条件获取数据集合
         /// </summary>
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
@@ -370,7 +405,7 @@ namespace Yuebon.Commons.Repositories
         }
 
         /// <summary>
-        /// 根据查询条件异步查询数据
+        /// 根据查询条件获取数据集合
         /// </summary>
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
@@ -633,7 +668,7 @@ namespace Yuebon.Commons.Repositories
             var type = MethodBase.GetCurrentMethod().DeclaringType;
             if (HasInjectionData(condition))
             {
-                Log4NetHelper.WriteError(type, string.Format("检测出SQL注入的恶意数据, {0}", condition));
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", condition));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
             if (string.IsNullOrEmpty(condition))
@@ -668,10 +703,9 @@ namespace Yuebon.Commons.Repositories
         public virtual List<T> FindWithPagerSql(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
         {
             List<T> list = new List<T>();
-            var type = MethodBase.GetCurrentMethod().DeclaringType;
             if (HasInjectionData(condition))
             {
-                Log4NetHelper.WriteError(type, string.Format("检测出SQL注入的恶意数据, {0}", condition));
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", condition));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
             if (string.IsNullOrEmpty(condition))
@@ -711,7 +745,7 @@ namespace Yuebon.Commons.Repositories
             var type = MethodBase.GetCurrentMethod().DeclaringType;
             if (HasInjectionData(condition))
             {
-                Log4NetHelper.WriteError(type, string.Format("检测出SQL注入的恶意数据, {0}", condition));
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", condition));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
             if (string.IsNullOrEmpty(condition))

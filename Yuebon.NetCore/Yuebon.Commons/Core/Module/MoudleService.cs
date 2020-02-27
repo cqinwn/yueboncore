@@ -71,13 +71,11 @@ namespace Yuebon.Commons.Module
                     string dllNamespaceStr = finfo.Name.Substring(0, finfo.Name.IndexOf(".Core"));
                     IoCContainer.RegisterFrom(finfo.FullName);
                     IoCContainer.RegisterLoadFrom(finfo.FullName, dllNamespaceStr);
-                    var type = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType;
-                    Log4NetHelper.WriteInfo(type, "注入应用模块" + finfo.Name + "成功");
+                    Log4NetHelper.Info("注入应用模块" + finfo.Name + "成功");
                 }
                 catch (Exception ex)
                 {
-                    var type = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType;
-                    Log4NetHelper.WriteError(type, "注入应用模块" + finfo.Name + "失败\r\n" + ex.Message);
+                    Log4NetHelper.Error("注入应用模块" + finfo.Name + "失败\r\n" , ex);
                 }
             }
 

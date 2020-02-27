@@ -11,10 +11,13 @@ namespace Yuebon.Commons.Filters
     /// </summary>
     public class GlobalExceptionFilter : IExceptionFilter
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filterContext"></param>
         public void OnException(ExceptionContext filterContext)
         {
-            var type = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType;
-            Log4NetHelper.WriteWarn(type, filterContext.Exception);
+            Log4NetHelper.Error("全局过滤器异常",filterContext.Exception);
         }
     }
 }

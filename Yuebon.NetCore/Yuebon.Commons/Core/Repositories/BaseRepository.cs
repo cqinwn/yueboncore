@@ -36,7 +36,7 @@ namespace Yuebon.Commons.Repositories
     /// <returns></returns>
     public delegate bool OperationLogEventHandler(string userId, string tableName, string operationType, string note);
     /// <summary>
-    /// 基础仓储接口实现
+    /// 泛型仓储，实现泛型仓储接口
     /// </summary>
     /// <typeparam name="T">实体类型</typeparam>
     /// <typeparam name="TKey">实体主键类型</typeparam>
@@ -659,7 +659,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="condition">查询的条件</param>
         /// <param name="info">分页实体</param>
         /// <param name="fieldToSort">排序字段</param>
-        /// <param name="desc">是否降序</param>
+        /// <param name="desc">排序方式 true为desc，false为asc</param>
         /// <param name="trans">事务对象</param>
         /// <returns>指定对象的集合</returns>
         public virtual List<T> FindWithPager(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
@@ -677,15 +677,13 @@ namespace Yuebon.Commons.Repositories
             }
             using (DbConnection conn = OpenSharedConnection())
             {
-                StringBuilder sb = new StringBuilder();
-                int startRows = (info.CurrenetPageIndex - 1) * info.PageSize + 1;//起始记录
-                int endNum = info.CurrenetPageIndex * info.PageSize;//结束记录
-                string strOrder = string.Format(" {0} {1}", fieldToSort, desc ? "DESC" : "ASC");
-                sb.AppendFormat("SELECT count(*) as RecordCount FROM (select {0} FROM {1} where {2})  AS main_temp;", primaryKey, tableName, condition);
-                sb.AppendFormat("SELECT * FROM ( SELECT ROW_NUMBER() OVER (order by {0}) AS rows ,{1} FROM {2} where {3}) AS main_temp where rows BETWEEN {4} and {5}", strOrder, selectedFields, tableName, condition, startRows, endNum);
+                
+                PagerHelper pagerHelper = new PagerHelper(this.tableName,this.selectedFields,fieldToSort,info.PageSize,info.CurrenetPageIndex,desc,condition);
+      
+                string pageSql = pagerHelper.GetPagingSql(true, this.dbConfigName);
+                pageSql +=";"+ pagerHelper.GetPagingSql(false, this.dbConfigName);
 
-
-                var reader = conn.QueryMultiple(sb.ToString());
+                var reader = conn.QueryMultiple(pageSql);
                 info.RecordCount = reader.ReadFirst<int>();
                 list = reader.Read<T>().AsList();
                 return list;

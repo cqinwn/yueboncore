@@ -14,7 +14,7 @@ using Yuebon.Commons.Log;
 namespace Yuebon.Commons.Module
 {
     /// <summary>
-    /// 
+    /// 模块服务
     /// </summary>
     public class MoudleService
     {

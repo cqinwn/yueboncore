@@ -3478,7 +3478,7 @@
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
       },
-      "Yuebon.Commons/1.2.1.1": {
+      "Yuebon.Commons/1.2.2": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
@@ -3513,11 +3513,11 @@
           "bin/placeholder/Yuebon.Commons.dll": {}
         }
       },
-      "Yuebon.Security.Core/1.2.2.4": {
+      "Yuebon.Security.Core/1.2.2.5": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
-          "Yuebon.Commons": "1.2.1.1"
+          "Yuebon.Commons": "1.2.2"
         },
         "compile": {
           "bin/placeholder/Yuebon.Security.Core.dll": {}
@@ -10644,12 +10644,12 @@
         "system.xml.xpath.xmldocument.nuspec"
       ]
     },
-    "Yuebon.Commons/1.2.1.1": {
+    "Yuebon.Commons/1.2.2": {
       "type": "project",
       "path": "../Yuebon.Commons/Yuebon.Commons.csproj",
       "msbuildProject": "../Yuebon.Commons/Yuebon.Commons.csproj"
     },
-    "Yuebon.Security.Core/1.2.2.4": {
+    "Yuebon.Security.Core/1.2.2.5": {
       "type": "project",
       "path": "../Yuebon.Security.Core/Yuebon.Security.Core.csproj",
       "msbuildProject": "../Yuebon.Security.Core/Yuebon.Security.Core.csproj"
@@ -10665,14 +10665,14 @@
       "Newtonsoft.Json >= 12.0.3",
       "Swashbuckle.AspNetCore.SwaggerGen >= 5.0.0",
       "System.IdentityModel.Tokens.Jwt >= 5.6.0",
-      "Yuebon.Security.Core >= 1.2.2.4"
+      "Yuebon.Security.Core >= 1.2.2.5"
     ]
   },
   "packageFolders": {
     "C:\\Users\\Administrator\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "1.2.2.10",
+    "version": "1.2.2.11",
     "restore": {
       "projectUniqueName": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.AspNetCore\\Yuebon.AspNetCore.csproj",
       "projectName": "Yuebon.AspNetCore",

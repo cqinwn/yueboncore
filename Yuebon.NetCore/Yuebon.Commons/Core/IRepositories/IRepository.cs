@@ -9,7 +9,7 @@ using Yuebon.Commons.Repositories;
 namespace Yuebon.Commons.IRepositories
 {
     /// <summary>
-    /// 定义实体仓储模型的数据标准操作
+    /// 定义泛型接口,实体仓储模型的数据标准操作
     /// </summary>
     /// <typeparam name="T">实体类型</typeparam>
     /// <typeparam name="TKey">主键类型</typeparam>

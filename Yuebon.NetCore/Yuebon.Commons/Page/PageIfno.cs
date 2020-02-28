@@ -6,7 +6,10 @@ using System.Xml.Serialization;
 
 namespace Yuebon.Commons.Pages
 {
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="info"></param>
     public delegate void PageInfoChanged(PagerInfo info);
     /// <summary>
     /// 分页实体
@@ -16,13 +19,21 @@ namespace Yuebon.Commons.Pages
     public class PagerInfo
     {
         /// <summary>
-        /// 
+        /// 页面选择事件
         /// </summary>
         public event PageInfoChanged OnPageInfoChanged;
-
-        private int currenetPageIndex; //当前页码
-        private int pageSize;//每页显示的记录
-        private int recordCount;//记录总数
+        /// <summary>
+        /// 当前页码
+        /// </summary>
+        private int currenetPageIndex;
+        /// <summary>
+        /// 每页显示的记录
+        /// </summary>
+        private int pageSize;
+        /// <summary>
+        /// 记录总数
+        /// </summary>
+        private int recordCount;
 
         #region 属性变量
 

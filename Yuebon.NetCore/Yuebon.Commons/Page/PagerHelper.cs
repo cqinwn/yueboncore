@@ -120,10 +120,10 @@ namespace Yuebon.Commons.Pages
         /// <summary>
         /// 完整的构造函数,可以包含条件,返回记录字段等条件
         /// </summary>
-        /// <param name="tableName">自定义查询语句</param>
+        /// <param name="tableName">表名称，可以自定义查询语句</param>
         /// <param name="fieldsToReturn">需要返回的列</param>
         /// <param name="fieldNameToSort">排序字段名称</param>
-        /// <param name="pageSize">页尺寸</param>
+        /// <param name="pageSize">每页显示数量</param>
         /// <param name="pageIndex">当前的页码</param>
         /// <param name="isDescending">是否以降序排列</param>
         /// <param name="strwhere">检索条件</param>
@@ -346,10 +346,13 @@ namespace Yuebon.Commons.Pages
             return sql;
         }
 
+
         /// <summary>
         /// 获取对应数据库的分页语句(从配置文件读取数据库类型：ComponentDbType）
         /// </summary>
         /// <param name="isDoCount">如果isDoCount为True，返回总数统计Sql；否则返回分页语句Sql</param>
+        /// <param name="dbConfig">数据库连接配置</param>
+        /// <returns></returns>
         public string GetPagingSql(bool isDoCount,string dbConfig)
         {
             string dbConfigName = dbConfig.ToUpper();
@@ -400,5 +403,26 @@ namespace Yuebon.Commons.Pages
     /// <summary>
     /// 数据库类型
     /// </summary>
-    public enum DatabaseType { SqlServer, Oracle, Access, MySql, SQLite }
+    public enum DatabaseType {
+        /// <summary>
+        /// SqlServer数据库
+        /// </summary>
+        SqlServer,
+        /// <summary>
+        /// Oracle数据库
+        /// </summary>
+        Oracle,
+        /// <summary>
+        /// Access数据库
+        /// </summary>
+        Access,
+        /// <summary>
+        /// MySql数据库
+        /// </summary>
+        MySql,
+        /// <summary>
+        /// SQLite数据库
+        /// </summary>
+        SQLite
+    }
 }

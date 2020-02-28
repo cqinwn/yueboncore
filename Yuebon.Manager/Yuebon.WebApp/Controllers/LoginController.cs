@@ -195,8 +195,6 @@ namespace Yuebon.WebApp.Controllers
                         logEntity.Result = true;
                         logEntity.Description = "登录成功";
                         logService.Insert(logEntity);
-                        Log4NetHelper.Info("登录成功");
-                        Log4NetHelper.Debug("登录成功");
                     }
                     else
                     {
@@ -208,7 +206,6 @@ namespace Yuebon.WebApp.Controllers
                         logService.Insert(logEntity);
                         result.ErrCode = ErrCode.failCode;
                         result.ErrMsg = user.Item2;
-                        Log4NetHelper.Fatal(result.ErrMsg);
                     }
                 }
             }

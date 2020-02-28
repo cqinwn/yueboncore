@@ -30,7 +30,7 @@ namespace Yuebon.Commons.Pages
         /// </summary>
         public int SearchValue { get; set; }
 
-        /// <summary
+        /// <summary>
         /// 排序方式
         /// </summary>
         public int Order { get; set; }

@@ -141,15 +141,6 @@ namespace Yuebon.WebApp
         /// <returns></returns>
         private IServiceProvider InitIoC(IServiceCollection services)
         {
-            var codeGenerateOption = new CodeGenerateOption
-            {
-                ModelsNamespace = "Yuebon.CMS.Models",
-                IRepositoriesNamespace = "Yuebon.CMS.IRepositories",
-                RepositoriesNamespace = "Yuebon.CMS.Repositories",
-                IServicsNamespace = "Yuebon.CMS.IServices",
-                ServicesNamespace = "Yuebon.CMS.Services"
-            };
-
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMemoryCache();
 
@@ -188,7 +179,7 @@ namespace Yuebon.WebApp
             services.AddScoped(typeof(AuthHelper));
             IoCContainer.Register(cacheProvider);//注册缓存配置
             IoCContainer.Register(Configuration);//注册配置
-            IoCContainer.Register(codeGenerateOption);//注册代码生成器相关配置信息
+            //IoCContainer.Register(codeGenerateOption);//注册代码生成器相关配置信息
             IoCContainer.Register("Yuebon.Commons");
             IoCContainer.Register("Yuebon.AspNetCore");
             IoCContainer.Register("Yuebon.Security.Core");

@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Yuebon.Commons.Models;
 using Yuebon.Commons.Models;
 using Yuebon.Commons.Pages;
 
 namespace Yuebon.Commons.IServices
 {
     /// <summary>
-    /// 
+    /// 泛型应用服务接口
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="TKey"></typeparam>

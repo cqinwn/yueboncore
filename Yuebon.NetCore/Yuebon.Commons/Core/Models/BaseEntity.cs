@@ -11,7 +11,7 @@ using Yuebon.Commons.Helpers;
 namespace Yuebon.Commons.Models
 {
     /// <summary>
-    /// 框架实体类的基类
+    /// 定义领域对象框架实体类的基类
     /// </summary>
 
     [Serializable]
@@ -19,7 +19,7 @@ namespace Yuebon.Commons.Models
     public abstract class BaseEntity<TKey> : IBaseEntity<TKey> where TKey : IEquatable<TKey>
     {
         /// <summary>
-        /// 初始化一个<see cref="EntityBase{TKey}"/>类型的新实例
+        /// 
         /// </summary>
         protected BaseEntity()
         {

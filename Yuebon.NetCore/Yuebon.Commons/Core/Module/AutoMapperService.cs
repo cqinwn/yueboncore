@@ -9,8 +9,15 @@ using Yuebon.Commons.Mapping;
 
 namespace Yuebon.Commons.Module
 {
+    /// <summary>
+    /// AutoMapperService
+    /// </summary>
     public class AutoMapperService
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="provider"></param>
         public static void UsePack(IServiceProvider provider)
         {
             IMapper mapper = provider.GetService<IMapper>();

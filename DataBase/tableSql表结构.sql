@@ -1,4 +1,4 @@
-
+USE [YuebonFW]
 GO
 /****** Object:  Table [dbo].[CMS_Advert]    Script Date: 2020/3/2 13:29:15 ******/
 SET ANSI_NULLS ON

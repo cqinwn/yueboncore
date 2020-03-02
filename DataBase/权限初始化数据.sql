@@ -1,4 +1,4 @@
-USE [YuebonGroup]
+USE [YuebonFW]
 GO
 INSERT [dbo].[Sys_APP] ([Id], [AppId], [AppSecret], [EncodingAESKey], [RequestUrl], [Token], [IsOpenAEKey], [DeleteMark], [EnabledMark], [Description], [CreatorTime], [CreatorUserId], [CompanyId], [DeptId], [LastModifyTime], [LastModifyUserId], [DeleteTime], [DeleteUserId]) VALUES (N'201806291558018946', N'system', N'87135AB0160F706D8B47F06BDABA6FC6', N'A4F1DAA293D5A0655136A176A9C03666', N',192.168.1.110,localhost,192.168.1.110:809,192.168.1.107:809,192.168.1.88:809,192.168.31.246:809,192.168.1.110:810,192.168.1.110:811', N'0099', 1, 0, 1, N'', CAST(N'2018-06-29T15:58:05.543' AS DateTime), N'9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', NULL, NULL, CAST(N'2018-06-29T16:00:28.080' AS DateTime), N'9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', NULL, NULL)
 GO

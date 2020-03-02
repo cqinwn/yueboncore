@@ -161,3 +161,15 @@ DataBase是最新数据库备份文件，支持MS SQL Server 2012。
 
 未来还未实现saas架构，敬请期待！
 欢迎大家一起来参与进来，实现共建、共享！
+
+#### 如何用起来
+1、系统基于netcore 3.1.2 sdk开发，请务必安装sdk版本3.1.2 及以上；
+
+2、安装Redis并启动，下载地址：https://github.com/MicrosoftArchive/redis/releases；
+如果用redis缓存可以将UseRedis设置为false。
+
+3、创建数据YuebonFW，然后按顺序分别执行mssql表结构.sql、mssql权限初始化数据.sql;地区数据可以根据自己的实际情况执行mssql地区数据.sql；
+
+4、修改数据库连接MsSqlServer，根据自己的数据库服务填写。
+
+5、打开解决方案，启动项目Yuebon.WebApp即可。初始化用户名为admin，密码为admin888

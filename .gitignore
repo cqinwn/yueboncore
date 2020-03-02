@@ -9,6 +9,7 @@
 bin/
 obj/
 logs/
+upload/
 *.[pdb]
 **/bin/**
 **/obj/**

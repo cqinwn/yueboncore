@@ -71,12 +71,30 @@ namespace Yuebon.Security.Dtos
         /// 微信
         /// </summary>
         public virtual string WeChat { get; set; }
+
+        /// <summary>
+        /// 国家
+        /// </summary>
+        public virtual string Country { get; set; }
+
+        /// <summary>
+        /// 省份
+        /// </summary>
+        public virtual string Province { get; set; }
+        /// <summary>
+        /// 城市
+        /// </summary>
+        public virtual string City { get; set; }
+        /// <summary>
+        /// 县区
+        /// </summary>
+        public virtual string District { get; set; }
         /// <summary>
         /// 是否会员
         /// </summary>
         public virtual bool? IsMember { get; set; }
         /// <summary>
-        /// 头像
+        /// 会员等级
         /// </summary>
         public string MemberGradeId { get; set; }
 

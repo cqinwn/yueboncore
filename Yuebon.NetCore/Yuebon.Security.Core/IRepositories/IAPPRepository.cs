@@ -6,6 +6,9 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.IRepositories
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IAPPRepository:IRepository<APP,string>
     {
         /// <summary>
@@ -22,6 +25,10 @@ namespace Yuebon.Security.IRepositories
         /// <param name="appid">”¶”√ID</param>
         /// <returns></returns>
         APP GetAPP(string appid);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         IList<AppOutputDto> SelectApp();
     }
 }

@@ -13,6 +13,8 @@
   <ItemGroup>
     <Compile Remove="Areas\Car\**" />
     <Compile Remove="Logs\**" />
+    <Compile Remove="Views\MemberHome\**" />
+    <Compile Remove="Views\MemberLogin\**" />
     <Compile Remove="wwwroot\lib\bootstrap-table\extensions\angular\**" />
     <Compile Remove="wwwroot\lib\bootstrap-table\extensions\click-edit-row\**" />
     <Compile Remove="wwwroot\lib\bootstrap-table\extensions\filter\**" />
@@ -28,6 +30,8 @@
     <Compile Remove="wwwroot\lib\ueditor\net\**" />
     <Content Remove="Areas\Car\**" />
     <Content Remove="Logs\**" />
+    <Content Remove="Views\MemberHome\**" />
+    <Content Remove="Views\MemberLogin\**" />
     <Content Remove="wwwroot\lib\bootstrap-table\extensions\angular\**" />
     <Content Remove="wwwroot\lib\bootstrap-table\extensions\click-edit-row\**" />
     <Content Remove="wwwroot\lib\bootstrap-table\extensions\filter\**" />
@@ -43,6 +47,8 @@
     <Content Remove="wwwroot\lib\ueditor\net\**" />
     <EmbeddedResource Remove="Areas\Car\**" />
     <EmbeddedResource Remove="Logs\**" />
+    <EmbeddedResource Remove="Views\MemberHome\**" />
+    <EmbeddedResource Remove="Views\MemberLogin\**" />
     <EmbeddedResource Remove="wwwroot\lib\bootstrap-table\extensions\angular\**" />
     <EmbeddedResource Remove="wwwroot\lib\bootstrap-table\extensions\click-edit-row\**" />
     <EmbeddedResource Remove="wwwroot\lib\bootstrap-table\extensions\filter\**" />
@@ -58,6 +64,8 @@
     <EmbeddedResource Remove="wwwroot\lib\ueditor\net\**" />
     <None Remove="Areas\Car\**" />
     <None Remove="Logs\**" />
+    <None Remove="Views\MemberHome\**" />
+    <None Remove="Views\MemberLogin\**" />
     <None Remove="wwwroot\lib\bootstrap-table\extensions\angular\**" />
     <None Remove="wwwroot\lib\bootstrap-table\extensions\click-edit-row\**" />
     <None Remove="wwwroot\lib\bootstrap-table\extensions\filter\**" />

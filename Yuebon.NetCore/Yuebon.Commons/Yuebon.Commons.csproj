@@ -31,8 +31,23 @@
 
   <ItemGroup>
     <Compile Remove="AutoMapper\**" />
+    <Compile Remove="Dependency\**" />
+    <Compile Remove="Filter\**" />
+    <Compile Remove="Finders\**" />
+    <Compile Remove="Middlewares\**" />
+    <Compile Remove="Reflection\**" />
     <EmbeddedResource Remove="AutoMapper\**" />
+    <EmbeddedResource Remove="Dependency\**" />
+    <EmbeddedResource Remove="Filter\**" />
+    <EmbeddedResource Remove="Finders\**" />
+    <EmbeddedResource Remove="Middlewares\**" />
+    <EmbeddedResource Remove="Reflection\**" />
     <None Remove="AutoMapper\**" />
+    <None Remove="Dependency\**" />
+    <None Remove="Filter\**" />
+    <None Remove="Finders\**" />
+    <None Remove="Middlewares\**" />
+    <None Remove="Reflection\**" />
     <None Include="..\..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
@@ -40,24 +55,27 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Attributes\ComputedAttribute.cs" />
+    <Compile Remove="Attributes\ExplicitKeyAttribute.cs" />
+    <Compile Remove="Attributes\IgnoreAttrbute.cs" />
+    <Compile Remove="Attributes\KeyAttribute.cs" />
     <Compile Remove="Attributes\MemoryCacheAttribute.cs" />
     <Compile Remove="Attributes\RedisCacheAttribute.cs" />
     <Compile Remove="Core\Repositories\UnitOfWork.cs" />
-    <Compile Remove="Dependency\repository.CollectionExtensions.cs" />
     <Compile Remove="Extensions\AutoMapperExtension.cs" />
+    <Compile Remove="Extensions\EnumerableExtensions.cs" />
     <Compile Remove="Extensions\MiddlewareExtensions.cs" />
+    <Compile Remove="Mapping\AutoMapperModule.cs" />
     <Compile Remove="Mapping\IAutoMapperConfiguration.cs" />
     <Compile Remove="Mapping\IMapFromAttributeTypeFinder.cs" />
     <Compile Remove="Mapping\IMapper.cs" />
     <Compile Remove="Mapping\IMapToAttributeTypeFinder.cs" />
+    <Compile Remove="Mapping\IMapTuple.cs" />
     <Compile Remove="Mapping\MapFromAttribute.cs" />
     <Compile Remove="Mapping\MapFromAttributeTypeFinder.cs" />
     <Compile Remove="Mapping\MapToAttribute.cs" />
     <Compile Remove="Mapping\MapToAttributeTypeFinder.cs" />
     <Compile Remove="Mapping\MapTupleProfile.cs" />
-    <Compile Remove="Middlewares\MemoryCacheInterceptor.cs" />
-    <Compile Remove="Middlewares\RedisCacheInterceptor.cs" />
-    <Compile Remove="Reflection\TypeExtensions.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -101,10 +119,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Middlewares\" />
   </ItemGroup>
 
 </Project>

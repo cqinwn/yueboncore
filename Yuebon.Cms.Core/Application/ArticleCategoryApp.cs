@@ -34,6 +34,20 @@ namespace Yuebon.CMS.Application
         }
 
         /// <summary>
+        /// 根据父级Id查询所有的子分类
+        /// </summary>
+        /// <param name="pid">父级ID</param>
+        /// <returns></returns>
+        public List<ArticleCategoryOutputDto> GetCategoryListByParentId(string pid)
+        {
+            string strWhere = string.Empty;
+            if (!string.IsNullOrEmpty(pid))
+            {
+                strWhere = "ParentId='" + pid + "' order by SortCode asc";
+            }
+            return service.GetAllByIsNotDeleteAndEnabledMark(strWhere).MapTo<ArticleCategoryOutputDto>();
+        }
+        /// <summary>
         /// 得到文章分类列表
         /// </summary>
         /// <param name="id"></param>

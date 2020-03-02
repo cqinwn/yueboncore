@@ -62,7 +62,7 @@ function BindSelect2(ctrlName, url) {
         control.empty();//清空下拉框
         control.append("<option value=''>&nbsp;==请选择==</option>");
         $.each($.parseJSON(data), function (i, item) {
-            control.append("<option value='" + item.id + "'>&nbsp;" + item.text + "</option>");
+            control.append("<option value='" + item.id + "'>&nbsp;" + item.text+ "</option>");
         });
     });
 }

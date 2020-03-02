@@ -180,7 +180,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
             return ToJsonContent(result);
         }
         /// <summary>
-         /// 新增数据
+         /// 修改数据
          /// </summary>
          /// <param name="info"></param>
          /// <returns></returns>

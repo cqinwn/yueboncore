@@ -24,6 +24,7 @@ YuebonCore是一套基于NetCore3.1+Dapper+Bootstrap开发出来的框架，源�
 
 数据权限（精细化数据权限控制，控制到行级，列表级，表单字段级，实现不同人看不同数据，不同人对同一个页面操作不同字段
 提高开发效率及质量。常用类封装，日志、缓存、验证、字典、文件、邮件、,Excel。等等，目前兼容浏览器（IE8+、Chrome、Firefox、360浏览器等）
+
 适用范围：可以开发OA、ERP、BPM、CRM、WMS、TMS、MIS、BI、电商平台后台、物流管理系统、快递管理系统、教务管理系统等各类管理软件。
 
 在线体验地址：[http://netcore.ts.yuebon.com](http://netcore.ts.yuebon.com)（用户名：admin，密码：admin888）
@@ -103,7 +104,7 @@ Yuebon.Manager[管理后台]：实现了权限管理和CMS部分管理后台；
 
 Yuebon.Cms.Core[CMS基础类库]，包含文章管理、广告管理等内容，以此做案例给大家开发参考
 
-DataBase是最新数据库备份文件，支持MS SQL Server 2012。
+DataBase是最新数据库备份文件，目前仅支持MS SQL Server。
 
 #### 部分界面展示
 

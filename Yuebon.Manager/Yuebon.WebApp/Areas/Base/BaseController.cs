@@ -18,13 +18,6 @@ namespace Yuebon.WebApp.Controllers
         /// </summary>
         public UserLoginDto CurrentUser =new UserLoginDto();
 
-        ///// <summary>
-        ///// 
-        ///// 当前登录的会员用户属性
-        ///// </summary>
-        //public MembersDto CurrentMembers = new MembersDto();
-
-
         /// <summary>
         /// 把object对象转换为ContentResult
         /// </summary>

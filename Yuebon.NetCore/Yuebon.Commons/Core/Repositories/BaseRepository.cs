@@ -798,7 +798,7 @@ namespace Yuebon.Commons.Repositories
         {
             using (DbConnection conn = OpenSharedConnection())
             {
-                //OperationLogOfInsert(entity);
+                OperationLogOfInsert(entity);
                 return conn.Insert(entity,trans);
             }
         }
@@ -812,7 +812,7 @@ namespace Yuebon.Commons.Repositories
         {
             using (DbConnection conn = OpenSharedConnection())
             {
-                //OperationLogOfInsert(entity);
+                OperationLogOfInsert(entity);
                 return await conn.InsertAsync(entity, trans);
             }
         }
@@ -1288,7 +1288,17 @@ namespace Yuebon.Commons.Repositories
             if (OnOperationLog != null)
             {
                 string operationType = DbLogType.Create.ToString();
-                string userId =SessionHelper.GetString("CurrentUserId").ToString();
+                string userId = "";
+                string validateUserWay = Configs.GetConfigurationValue("AppSetting", "ValidateUserWay");
+                if (validateUserWay == "Session")
+                {
+                    userId = SessionHelper.GetString("CurrentUserId").ToString();
+                }
+                else
+                {
+
+                }
+                
 
                 Hashtable recordField = GetHashByEntity(obj);
                 Dictionary<string, string> dictColumnNameAlias = GetColumnNameAlias();
@@ -1324,7 +1334,16 @@ namespace Yuebon.Commons.Repositories
             if (OnOperationLog != null)
             {
                 string operationType = DbLogType.Update.ToString();
-                string userId = SessionHelper.GetString("CurrentUserId").ToString();
+                string userId = "";
+                string validateUserWay= Configs.GetConfigurationValue("AppSetting", "ValidateUserWay");
+                if (validateUserWay == "Session")
+                {
+                    userId = SessionHelper.GetString("CurrentUserId").ToString();
+                }
+                else
+                {
+
+                }
 
                 Hashtable recordField = GetHashByEntity(obj);
                 Dictionary<string, string> dictColumnNameAlias = GetColumnNameAlias();

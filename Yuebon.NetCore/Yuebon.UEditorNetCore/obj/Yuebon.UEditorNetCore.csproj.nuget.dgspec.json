@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj": {
-      "version": "1.2.2",
+      "version": "1.2.2.1",
       "restore": {
         "projectUniqueName": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj",
         "projectName": "Yuebon.Commons",
@@ -151,7 +151,7 @@
       }
     },
     "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj": {
-      "version": "1.2.2.5",
+      "version": "1.2.2.6",
       "restore": {
         "projectUniqueName": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj",
         "projectName": "Yuebon.Security.Core",
@@ -207,7 +207,7 @@
       }
     },
     "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.UEditorNetCore\\Yuebon.UEditorNetCore.csproj": {
-      "version": "1.0.2",
+      "version": "1.0.3",
       "restore": {
         "projectUniqueName": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.UEditorNetCore\\Yuebon.UEditorNetCore.csproj",
         "projectName": "Yuebon.UEditorNetCore",

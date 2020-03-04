@@ -9,14 +9,14 @@
     <Copyright>上海越邦网络科技有限公司 版权所有</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://gitee.com/yuebon/YuebonNetCore</PackageProjectUrl>
-    <Version>1.2.2</Version>
+    <Version>1.2.2.1</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>升级到netcore3.1.2</PackageReleaseNotes>
-    <AssemblyVersion>1.2.2.0</AssemblyVersion>
+    <PackageReleaseNotes>新增统计方法</PackageReleaseNotes>
+    <AssemblyVersion>1.2.2.1</AssemblyVersion>
     <PackageIconUrl>http://www.yuebon.com/upload/201804/01/201804011125140585.jpg</PackageIconUrl>
     <RepositoryUrl>https://gitee.com/yuebon/YuebonNetCore</RepositoryUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <FileVersion>1.2.2.0</FileVersion>
+    <FileVersion>1.2.2.1</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

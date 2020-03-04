@@ -557,6 +557,15 @@ namespace Yuebon.Commons.Services
         {
             return repository.FindWithPagerRelationUser(condition, info, fieldToSort, desc, trans);
         }
+        /// <summary>
+        /// 根据条件统计数据
+        /// </summary>
+        /// <param name="condition">查询条件</param>
+        /// <returns></returns>
+        public virtual int GetCountByWhere(string condition)
+        {
+            return repository.GetCountByWhere(condition);
+        }
         #region IDisposable Support
         private bool disposedValue = false; // 要检测冗余调用
         /// <summary>

@@ -200,5 +200,14 @@ namespace Yuebon.Security.Application
                 _dbFilePath = _tempfilepath + "/" + newName;
             }
         }
+
+        /// <summary>
+        /// 统计上传内容数
+        /// </summary>
+        /// <returns></returns>
+        public int GetCountTotal()
+        {
+            return service.GetCountByWhere("1=1");
+        }
     }
 }

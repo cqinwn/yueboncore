@@ -415,6 +415,12 @@ namespace Yuebon.Commons.IRepositories
         /// <param name="trans">事务</param>
         /// <returns></returns>
         List<object> FindWithPagerRelationUser(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null);
-       
+
+        /// <summary>
+        /// 根据条件统计数据
+        /// </summary>
+        /// <param name="condition">查询条件</param>
+        /// <returns></returns>
+        int GetCountByWhere(string condition);
      }
 }

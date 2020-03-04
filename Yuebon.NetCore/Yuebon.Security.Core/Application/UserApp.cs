@@ -253,5 +253,14 @@ namespace Yuebon.Security.Application
         {
             return service.GetUserByUnionId(unionId);
         }
+
+        /// <summary>
+        /// 统计用户数
+        /// </summary>
+        /// <returns></returns>
+        public int GetCountTotal()
+        {
+            return service.GetCountByWhere("1=1");
+        }
     }
 }

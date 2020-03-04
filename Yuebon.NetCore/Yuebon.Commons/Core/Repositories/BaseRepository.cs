@@ -23,6 +23,7 @@ using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Pages;
 using static Dapper.SqlMapper;
+using System.Linq;
 
 namespace Yuebon.Commons.Repositories
 {
@@ -766,7 +767,24 @@ namespace Yuebon.Commons.Repositories
                 return list;
             }
         }
-
+        
+        /// <summary>
+        /// 根据条件统计数据
+        /// </summary>
+        /// <param name="condition">查询条件</param>
+        /// <returns></returns>
+        public virtual int GetCountByWhere(string condition)
+        {
+            string sql = $"select count(*) from {tableName}  where ";
+            if (!string.IsNullOrWhiteSpace(condition))
+            {
+                sql = sql + condition;
+            }
+            using (DbConnection conn = OpenSharedConnection())
+            {
+                return conn.Query<int>(sql).FirstOrDefault();
+            }
+        }
         #endregion
         #region 新增、修改和删除
 

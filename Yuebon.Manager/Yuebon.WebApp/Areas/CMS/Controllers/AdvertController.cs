@@ -101,7 +101,7 @@ namespace Yuebon.WebApp.Areas.CMS.Controllers
             {
                 TreeSelectModel treeModel = new TreeSelectModel();
                 treeModel.id = item.Id;
-                treeModel.text = string.Format("{0}(宽{1}x高{2})", item.Title,item.ViewWidth,item.ViewHeight);
+                treeModel.text = string.Format("{0}(宽{1}pxX高{2}px)", item.Title,item.ViewWidth,item.ViewHeight);
                 treeModel.parentId = "";
                 treeList.Add(treeModel);
             }

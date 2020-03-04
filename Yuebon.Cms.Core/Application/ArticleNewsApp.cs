@@ -139,5 +139,13 @@ namespace Yuebon.CMS.Application
                 return "";
             }
         }
+        /// <summary>
+        /// 统计文章数
+        /// </summary>
+        /// <returns></returns>
+        public int GetCountTotal()
+        {
+            return service.GetCountByWhere("1=1");
+        }
     }
 }

@@ -18,15 +18,22 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp3.0"
+          "netcoreapp3.1"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp3.0": {
-            "projectReferences": {}
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.Messages\\Yuebon.Messages.Core\\Yuebon.Messages.Core.csproj": {
+                "projectPath": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.Messages\\Yuebon.Messages.Core\\Yuebon.Messages.Core.csproj"
+              },
+              "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.WeChat\\Yuebob.WeChat.Core\\Yuebon.WeChat.Core.csproj": {
+                "projectPath": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.WeChat\\Yuebob.WeChat.Core\\Yuebon.WeChat.Core.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -36,63 +43,39 @@
         }
       },
       "frameworks": {
-        "netcoreapp3.0": {
+        "netcoreapp3.1": {
           "dependencies": {
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
-              "version": "[3.0.0, )"
+              "version": "[3.1.2, )"
             },
             "Microsoft.AspNetCore.Authorization": {
               "target": "Package",
-              "version": "[3.0.0, )"
+              "version": "[3.1.2, )"
             },
             "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
               "target": "Package",
-              "version": "[3.0.0, )"
+              "version": "[3.1.2, )"
             },
             "Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer": {
               "target": "Package",
-              "version": "[4.0.0, )"
-            },
-            "Microsoft.CodeAnalysis.FxCopAnalyzers": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.9.4, )"
-            },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
-              "target": "Package",
-              "version": "[3.0.0, )"
-            },
-            "Microsoft.EntityFrameworkCore.Tools": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[3.0.0, )"
-            },
-            "Microsoft.Extensions.Logging.Debug": {
-              "target": "Package",
-              "version": "[3.0.0, )"
-            },
-            "Microsoft.Net.Http.Headers": {
-              "target": "Package",
-              "version": "[2.2.0, )"
+              "version": "[4.1.1, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[3.0.0, )"
+              "version": "[3.1.1, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[5.0.0-rc2, )"
+              "version": "[5.0.0, )"
             },
             "Swashbuckle.AspNetCore.Filters": {
               "target": "Package",
-              "version": "[5.0.0-rc8, )"
+              "version": "[5.0.2, )"
             },
             "Yuebon.AspNetCore": {
               "target": "Package",
-              "version": "[1.2.2.9, )"
+              "version": "[1.2.2.11, )"
             }
           },
           "imports": [
@@ -105,16 +88,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[3.0.1, 3.0.1]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[3.0.2, 3.0.2]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -123,7 +96,161 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.Messages\\Yuebon.Messages.Core\\Yuebon.Messages.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.Messages\\Yuebon.Messages.Core\\Yuebon.Messages.Core.csproj",
+        "projectName": "Yuebon.Messages.Core",
+        "projectPath": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.Messages\\Yuebon.Messages.Core\\Yuebon.Messages.Core.csproj",
+        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+        "outputPath": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.Messages\\Yuebon.Messages.Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.WeChat\\Yuebob.WeChat.Core\\Yuebon.WeChat.Core.csproj": {
+                "projectPath": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.WeChat\\Yuebob.WeChat.Core\\Yuebon.WeChat.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "Yuebon.Security.Core": {
+              "target": "Package",
+              "version": "[1.2.2.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.WeChat\\Yuebob.WeChat.Core\\Yuebon.WeChat.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.WeChat\\Yuebob.WeChat.Core\\Yuebon.WeChat.Core.csproj",
+        "projectName": "Yuebon.WeChat.Core",
+        "projectPath": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.WeChat\\Yuebob.WeChat.Core\\Yuebon.WeChat.Core.csproj",
+        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+        "outputPath": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.WeChat\\Yuebob.WeChat.Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "Senparc.WebSocket": {
+              "target": "Package",
+              "version": "[0.10.304, )"
+            },
+            "Senparc.Weixin.Cache.Redis": {
+              "target": "Package",
+              "version": "[2.8.304, )"
+            },
+            "Senparc.Weixin.MP": {
+              "target": "Package",
+              "version": "[16.10.304, )"
+            },
+            "Senparc.Weixin.MP.MVC": {
+              "target": "Package",
+              "version": "[7.5.304, )"
+            },
+            "Senparc.Weixin.Open": {
+              "target": "Package",
+              "version": "[4.7.304, )"
+            },
+            "Senparc.Weixin.TenPay": {
+              "target": "Package",
+              "version": "[1.5.304, )"
+            },
+            "Senparc.Weixin.WxOpen": {
+              "target": "Package",
+              "version": "[3.8.304.1, )"
+            },
+            "Yuebon.Commons": {
+              "target": "Package",
+              "version": "[1.2.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

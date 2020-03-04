@@ -37,7 +37,6 @@ using Yuebon.Commons.Linq;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Module;
 using Yuebon.Commons.Options;
-using Yuebon.Quartz;
 using Yuebon.WeChat.CommonService.MessageHandlers.WebSocket;
 
 namespace Yuebon.WebApi
@@ -176,12 +175,12 @@ namespace Yuebon.WebApi
                     endpoints.MapControllers();
                     endpoints.MapControllerRoute("default", "api/{controller=Home}/{action=Index}/{id?}");
                 });
-                app.UseSenparcWeixinCacheRedis();
+                //app.UseSenparcWeixinCacheRedis();
 
             }
 
             //定时任务调度
-            YuebonScheduler.Start().GetAwaiter().GetResult();
+           // YuebonScheduler.Start().GetAwaiter().GetResult();
         }
 
 

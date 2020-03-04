@@ -76,7 +76,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             }catch(Exception ex)
             {
                 var type = MethodBase.GetCurrentMethod().DeclaringType;
-                Log4NetHelper.WriteError(type, ex);
+                Log4NetHelper.Error(type,"", ex);
             }
             return ToJsonContent(result);
         }

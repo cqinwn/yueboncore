@@ -11,6 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05 Job定时处理", "05 Jo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.WebApi", "Yuebon.WebApi\Yuebon.WebApi.csproj", "{33635672-BBB2-450A-AA50-A50F4BB57EA8}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.WeChat.Core", "..\Yuebon.WeChat\Yuebob.WeChat.Core\Yuebon.WeChat.Core.csproj", "{FD1B3BAE-681C-47AD-944A-49C59EB5DA23}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.Messages.Core", "..\Yuebon.Messages\Yuebon.Messages.Core\Yuebon.Messages.Core.csproj", "{0EAC9D00-5277-4BE8-804D-83BFB8351DC4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{33635672-BBB2-450A-AA50-A50F4BB57EA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33635672-BBB2-450A-AA50-A50F4BB57EA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33635672-BBB2-450A-AA50-A50F4BB57EA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD1B3BAE-681C-47AD-944A-49C59EB5DA23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD1B3BAE-681C-47AD-944A-49C59EB5DA23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD1B3BAE-681C-47AD-944A-49C59EB5DA23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD1B3BAE-681C-47AD-944A-49C59EB5DA23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EAC9D00-5277-4BE8-804D-83BFB8351DC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EAC9D00-5277-4BE8-804D-83BFB8351DC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EAC9D00-5277-4BE8-804D-83BFB8351DC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EAC9D00-5277-4BE8-804D-83BFB8351DC4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

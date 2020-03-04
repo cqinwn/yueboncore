@@ -47,6 +47,7 @@ namespace Yuebon.WebApp.Controllers
             ViewData["Port"] = Request.HttpContext.Connection.LocalPort.ToString();
             ViewData["Title"] = sysSetting.SoftName;
             ViewData["Copyriht"] = string.Format("<strong>Copyright &copy; 2017-{0} <a href=\"http://www.yuebon.com\" target=\"_blank\">Yuebon Tech</a>.</strong> All rights reserved.", DateTime.Now.Year);
+
             return View(CurrentUser);
         }
 

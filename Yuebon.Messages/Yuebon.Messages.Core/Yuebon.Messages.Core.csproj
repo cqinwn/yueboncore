@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Yuebon.Security.Core" Version="1.2.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Yuebon.WeChat\Yuebob.WeChat.Core\Yuebon.WeChat.Core.csproj" />
+  </ItemGroup>
+
+</Project>

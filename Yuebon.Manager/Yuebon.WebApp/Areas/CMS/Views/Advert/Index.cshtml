@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "广告管理-广告位分类";
+    ViewData["Title"] = "广告管理-广告位管理";
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.CurrentMenuP = "Advert";
     ViewBag.CurrentMenu = "Advert/List";
@@ -94,6 +94,9 @@
                         title: '名称',
                         sortable: true,
                         searchable: true,
+                        formatter: function (value, row, index) {
+                            return value+"(宽"+row.ViewWidth+"px X高"+row.ViewHeight+"px)"
+                        },
                     }, {
                         field: 'Type',
                         title: '类型',

@@ -21,7 +21,10 @@ namespace Yuebon.Security.Dtos
         /// 日期
         /// </summary>
         public virtual DateTime? Date { get; set; }
-
+        /// <summary>
+        /// 组织主键
+        /// </summary>
+        public virtual string OrganizeId { get; set; }
         /// <summary>
         /// 用户名
         /// </summary>
@@ -66,6 +69,15 @@ namespace Yuebon.Security.Dtos
         /// 描述
         /// </summary>
         public virtual string Description { get; set; }
+        /// <summary>
+        /// 创建日期
+        /// </summary>
+        public virtual DateTime? CreatorTime { get; set; }
+
+        /// <summary>
+        /// 创建用户主键
+        /// </summary>
+        public virtual string CreatorUserId { get; set; }
 
     }
 }

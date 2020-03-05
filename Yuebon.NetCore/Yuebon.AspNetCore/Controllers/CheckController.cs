@@ -61,8 +61,8 @@ namespace Yuebon.AspNetCore.Controllers
         /// </summary>
         /// <param name="token"></param>
         /// <param name="requestid">备用参数.</param>
-        [HttpGet("GetUser")]
-        public CommonResult<UserWithAccessedCtrls> GetUser(string token, string requestid = "")
+        [HttpGet("GetUserWithAccessedCtrls")]
+        public CommonResult<UserWithAccessedCtrls> GetUserWithAccessedCtrls(string token, string requestid = "")
         {
             var result = new CommonResult<UserWithAccessedCtrls>();
             try

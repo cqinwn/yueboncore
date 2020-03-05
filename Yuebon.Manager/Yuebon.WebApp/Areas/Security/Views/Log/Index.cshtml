@@ -1,7 +1,7 @@
 ﻿@{
-    ViewData["Title"] = "系统日志-系统管理";
+    ViewData["Title"] = "登录日志-系统管理";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.CurrentMenuP = "Safety";
+    ViewBag.CurrentMenuP = "Log";
     ViewBag.CurrentMenu = "Log/List";
 }
 <div class="row">
@@ -70,50 +70,51 @@
                         checkbox: true
                     }, {
                         field: 'Date',
-                        title: '操作时间',
+                        title: '登录时间',
                         sortable: true,
                         searchable: true,
-                        width: 100,
+                        width: 200,
                         formatter: function (value, row, index) {
                             if (value != null)
                                 return value.substring(0, 20);
                         }
                     }, {
                         field: 'Account',
-                        title: '账号',
+                        title: '登录账号',
                         sortable: true,
                         searchable: true,
-                        width: 100,
+                        width: 80,
                     }, {
                         field: 'NickName',
                         title: '姓名',
                         sortable: true,
                         searchable: true,
-                        width: 100,
-                    }, {
-                        field: 'ModuleName',
-                        title: '操作模块',
-                        sortable: true,
-                        searchable: true,
-                        width: 100,
-                    }, {
-                        field: 'Type',
-                        title: '类型',
-                        sortable: true,
-                        searchable: true,
-                        width: 80,
-                    }, {
+                        width: 150,
+                    },{
                         field: 'IPAddress',
-                        title: 'IP地址',
+                        title: '登录地址',
                         sortable: true,
                         searchable: true,
-                        width: 120,
+                        width: 70,
                     }, {
                         field: 'IPAddressName',
-                        title: 'IP城市',
+                        title: '登录城市',
                         sortable: true,
                         searchable: true,
                         width: 150,
+                    }, {
+                        field: 'Result',
+                        title: '操作结果',
+                        sortable: true,
+                        searchable: true,
+                        width: 60,
+                        formatter: function (value, row, index) {
+                            var strhtml = "<span class=\"badge badge-success\">成功</span>";
+                            if (!value)
+                                strhtml = "<span class=\"badge badge-warning\">失败</span>";
+
+                            return strhtml;
+                        }
                     }, {
                         field: 'Description',
                         title: '日志内容',

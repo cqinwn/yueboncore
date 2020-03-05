@@ -28,7 +28,7 @@ namespace Yuebon.WebApp.Commons
         {
             UserLoginDto CurrentUser = SessionHelper.GetSession<UserLoginDto>("CurrentUser");
             //UserWithAccessedCtrls userWithAccessedCtrls = authHelper.GetCurrentUser();
-            //User CurrentUser = userWithAccessedCtrls.User;
+            //UserLoginDto CurrentUser = userWithAccessedCtrls.User;
             bool hasFunction = false;
             if (CurrentUser != null && CurrentUser.Account == "admin")
             {

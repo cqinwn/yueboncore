@@ -21,17 +21,12 @@ namespace Yuebon.Security.Models
         /// </summary>
 	    public Log()
 		{
-            this.Id = GuidUtils.GuId();
-
+            this.Id = GuidUtils.CreateNo();
  		}
 
         #region Property Members
 
-        /// <summary>
-        /// 日志主键
-        /// </summary>
-        //[ExplicitKey]
-        //public virtual string Id { get; set; }
+       
 
         /// <summary>
         /// 日期

@@ -30,12 +30,11 @@ namespace Yuebon.Commons.Repositories
     /// <summary>
     /// 定义一个记录操作日志的事件处理
     /// </summary>
-    /// <param name="userId">操作的用户ID</param>
     /// <param name="tableName">操作表名称</param>
     /// <param name="operationType">操作类型：增加、修改、删除、软删除</param>
     /// <param name="note">操作的详细记录信息</param>
     /// <returns></returns>
-    public delegate bool OperationLogEventHandler(string userId, string tableName, string operationType, string note);
+    public delegate bool OperationLogEventHandler(string tableName, string operationType, string note);
     /// <summary>
     /// 泛型仓储，实现泛型仓储接口
     /// </summary>
@@ -831,7 +830,7 @@ namespace Yuebon.Commons.Repositories
                     trans = conn.BeginTransaction();
                     foreach (T item in entities)
                     {
-                       // OperationLogOfInsert(item);
+                        OperationLogOfInsert(item);
                     }
                     long row = conn.Insert(entities, trans);
                     trans.Commit();
@@ -859,7 +858,7 @@ namespace Yuebon.Commons.Repositories
                 {
                     foreach (T item in entities)
                     {
-                       // OperationLogOfInsert(item);
+                       OperationLogOfInsert(item);
                     }
                     long row = await conn.InsertAsync(entities, trans);
                     trans.Commit();
@@ -883,7 +882,7 @@ namespace Yuebon.Commons.Repositories
         {
             using (DbConnection conn = OpenSharedConnection())
             {
-                //OperationLogOfUpdate(entity,id);
+                OperationLogOfUpdate(entity,id);
                 return conn.Update(entity,trans);
             }
         }
@@ -898,7 +897,7 @@ namespace Yuebon.Commons.Repositories
         {
             using (DbConnection conn = OpenSharedConnection())
             {
-                //OperationLogOfUpdate(entity, id);
+                OperationLogOfUpdate(entity, id);
                 return await conn.UpdateAsync(entity,trans);
             }
         }
@@ -1288,16 +1287,16 @@ namespace Yuebon.Commons.Repositories
             if (OnOperationLog != null)
             {
                 string operationType = DbLogType.Create.ToString();
-                string userId = "";
-                string validateUserWay = Configs.GetConfigurationValue("AppSetting", "ValidateUserWay");
-                if (validateUserWay == "Session")
-                {
-                    userId = SessionHelper.GetString("CurrentUserId").ToString();
-                }
-                else
-                {
+                //string userId = "";
+                //string validateUserWay = Configs.GetConfigurationValue("AppSetting", "ValidateUserWay");
+                //if (validateUserWay == "Session")
+                //{
+                //    userId = SessionHelper.GetString("CurrentUserId").ToString();
+                //}
+                //else
+                //{
 
-                }
+                //}
                 
 
                 Hashtable recordField = GetHashByEntity(obj);
@@ -1319,7 +1318,7 @@ namespace Yuebon.Commons.Repositories
                 sb.AppendLine();
                 string note = sb.ToString();
 
-                OnOperationLog(userId, this.tableName, operationType, note);
+                OnOperationLog(this.tableName, operationType, note);
             }
         }
 
@@ -1375,7 +1374,7 @@ namespace Yuebon.Commons.Repositories
                     sb.AppendLine();
                     string note = sb.ToString();
 
-                    OnOperationLog(userId, this.tableName, operationType, note);
+                    OnOperationLog(this.tableName, operationType, note);
                 }
             }
         }
@@ -1408,7 +1407,7 @@ namespace Yuebon.Commons.Repositories
                     }
                     string note = sb.ToString();
 
-                    OnOperationLog(userId, this.tableName, operationType, note);
+                    OnOperationLog(this.tableName, operationType, note);
                 }
             }
         }
@@ -1448,7 +1447,7 @@ namespace Yuebon.Commons.Repositories
                     string note = sb.ToString();
 
                     string userId = SessionHelper.GetString("CurrentUserId").ToString();
-                    OnOperationLog(userId, this.tableName, operationType, note);
+                    OnOperationLog(this.tableName, operationType, note);
                 }
             }
         }
@@ -1471,7 +1470,7 @@ namespace Yuebon.Commons.Repositories
                     sb.AppendLine("\r\n");
 
                     string note = sb.ToString();
-                    OnOperationLog(userId, this.tableName, operationType, note);
+                    OnOperationLog(this.tableName, operationType, note);
                 }
             }
         }

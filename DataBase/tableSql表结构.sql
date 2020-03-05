@@ -1,3 +1,18 @@
+USE [master]
+GO
+
+if exists (select * from sys.databases where name = 'YuebonFW')
+	drop database [YuebonFW]
+
+Create database [YuebonFW]
+GO
+
+ALTER DATABASE [YuebonFW] SET RECOVERY SIMPLE
+GO
+
+ALTER DATABASE [YuebonFW] SET AUTO_SHRINK ON 
+GO
+
 USE [YuebonFW]
 GO
 /****** Object:  Table [dbo].[CMS_Advert]    Script Date: 2020/3/2 13:29:15 ******/

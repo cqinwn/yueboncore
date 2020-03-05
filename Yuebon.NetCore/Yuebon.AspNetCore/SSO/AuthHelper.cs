@@ -94,7 +94,7 @@ namespace Yuebon.AspNetCore.SSO
         public UserWithAccessedCtrls GetCurrentUser(string remark = "")
         {
 
-            var requestUri = String.Format("/api/Check/GetUser?token={0}&requestid={1}", GetToken(), remark);
+            var requestUri = String.Format("/api/Check/GetUserWithAccessedCtrls?token={0}&requestid={1}", GetToken(), remark);
 
             try
             {

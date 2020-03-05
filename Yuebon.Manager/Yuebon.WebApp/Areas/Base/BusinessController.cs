@@ -16,9 +16,12 @@ using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Models;
 using Yuebon.Commons.Pages;
+using Yuebon.Security.Application;
 using Yuebon.Security.Dtos;
 using Yuebon.WebApp.Commons;
 using Yuebon.WebApp.Models;
+using Yuebon.Security.Dtos;
+using Yuebon.Commons.Net;
 
 namespace Yuebon.WebApp.Controllers
 {
@@ -50,7 +53,6 @@ namespace Yuebon.WebApp.Controllers
         public TService iService;
 
         private AuthHelper authHelper = IoCContainer.Resolve<AuthHelper>();
-
 
         #region 构造函数及常用
         /// <summary>
@@ -93,6 +95,21 @@ namespace Yuebon.WebApp.Controllers
             if (!HasFunction(functionId))
             {
                 string errorMessage = "您未被授权使用该功能，请重新登录试试或联系管理员进行处理。";
+                LogApp logApp = new LogApp();
+                LogInPutDto logEntity = new LogInPutDto();
+                RemoteIpParser remoteIpParser = new RemoteIpParser();
+
+                logEntity.ModuleName = Request.Path;
+                logEntity.Type = DbLogType.Visit.ToString();
+                logEntity.CreatorUserId = CurrentUser.UserId;
+                logEntity.Account = CurrentUser.Account;
+                logEntity.NickName = CurrentUser.RealName;
+                logEntity.OrganizeId = CurrentUser.OrganizeId;
+                logEntity.Date = logEntity.CreatorTime = DateTime.Now;
+                logEntity.IPAddress = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
+                logEntity.Result = false;
+                logEntity.Description = "您未被授权使用该功能";
+                logApp.Insert(logEntity);
                 throw new MyDenyAccessException(errorMessage);
             }
         }
@@ -166,9 +183,46 @@ namespace Yuebon.WebApp.Controllers
                 //model.WeChat = user.WeChat;
                 //result.ResData = model;
                 //CurrentUser = model;
+
+                LogApp logApp = new LogApp();
+                LogInPutDto logEntity = new LogInPutDto();
+                RemoteIpParser remoteIpParser = new RemoteIpParser();
+                //value.UserAgent = Request.Headers["User-Agent"];
+                //var agent = new UserAgent(value.UserAgent);
+                //value.Ip = HttpContext.Connection.RemoteIpAddress.ToIPv4String();
+                //value.Browser = $"{agent.Browser?.Name} {agent.Browser?.Version}";
+                //value.OS = $"{agent.OS?.Name} {agent.OS?.Version}";
+                //value.City = ipLocator.Locate(value.Ip);
+
+                logEntity.ModuleName = Request.Path;
+                logEntity.Type = DbLogType.Visit.ToString(); 
+                logEntity.CreatorUserId = CurrentUser.UserId;
+                logEntity.Account = CurrentUser.Account;
+                logEntity.NickName = CurrentUser.RealName;
+                logEntity.OrganizeId = CurrentUser.OrganizeId;
+                logEntity.Date =logEntity.CreatorTime= DateTime.Now;
+                logEntity.IPAddress = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
+                logEntity.Result = true;
+                logEntity.Description = "用户访问";
+                logApp.Insert(logEntity);
             }
             else
             {
+                LogApp logApp = new LogApp();
+                LogInPutDto logEntity = new LogInPutDto();
+                RemoteIpParser remoteIpParser = new RemoteIpParser();
+
+                logEntity.ModuleName = Request.Path;
+                logEntity.Type = DbLogType.Visit.ToString();
+                logEntity.CreatorUserId = CurrentUser.UserId;
+                logEntity.Account = CurrentUser.Account;
+                logEntity.NickName = CurrentUser.RealName;
+                logEntity.OrganizeId = CurrentUser.OrganizeId;
+                logEntity.Date = logEntity.CreatorTime = DateTime.Now;
+                logEntity.IPAddress = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
+                logEntity.Result = false;
+                logEntity.Description = "用户访问失败，登录超时或未登录";
+                logApp.Insert(logEntity);
                 filterContext.Result = new RedirectResult("/Login/Index");
                 return;
             }

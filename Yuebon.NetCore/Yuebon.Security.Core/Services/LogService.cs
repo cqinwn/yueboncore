@@ -16,28 +16,34 @@ namespace Yuebon.Security.Services
         private readonly ILogRepository _iLogRepository;
         private readonly IUserRepository _iuserRepository;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="repository"></param>
+        /// <param name="userRepository"></param>
         public LogService(ILogRepository repository, IUserRepository userRepository) : base(repository)
         {
             _iLogRepository = repository;
             _iuserRepository = userRepository;
         }
 
+
         /// <summary>
         /// 根据相关信息，写入用户的操作日志记录
         /// </summary>
-        /// <param name="userId">操作用户</param>
         /// <param name="tableName">操作表名称</param>
         /// <param name="operationType">操作类型</param>
         /// <param name="note">操作详细表述</param>
         /// <returns></returns>
-        public  bool OnOperationLog(string userId, string tableName, string operationType, string note)
+        public bool OnOperationLog(string tableName, string operationType, string note)
         {
             //虽然实现了这个事件，但是我们还需要判断该表是否在配置表里面，如果不在，则不记录操作日志。
             //OperationLogSettingInfo settingInfo = BLLFactory<OperationLogSetting>.Instance.FindByTableName(tableName, trans);
             //if (settingInfo != null)
             //{
-            //UserLoginDto CurrentUser = SessionHelper.GetSession<UserLoginDto>("CurrentUser");
-            //if (CurrentUser!=null) {
+            UserLoginDto CurrentUser = SessionHelper.GetSession<UserLoginDto>("CurrentUser");
+            if (CurrentUser != null)
+            {
                 bool insert = operationType == DbLogType.Create.ToString(); ;//&& settingInfo.InsertLog;
                 bool update = operationType == DbLogType.Update.ToString();// && settingInfo.UpdateLog;
                 bool delete = operationType == DbLogType.Delete.ToString();// && settingInfo.DeleteLog;
@@ -52,17 +58,18 @@ namespace Yuebon.Security.Services
                     info.Description = note;
                     info.Date = info.CreatorTime = DateTime.Now;
 
-                    if (!string.IsNullOrEmpty(userId))
+                    if (!string.IsNullOrEmpty(CurrentUser.UserId))
                     {
-                        User userInfo = _iuserRepository.Get(userId);
-                        if (userInfo != null)
-                        {
-                            info.CreatorUserId = userId;
-                            info.Account = userInfo.Account;
-                            info.NickName = userInfo.RealName;
-                            info.OrganizeId = userInfo.OrganizeId;
-                            //info.IPAddress = userInfo.CurrentLoginIP;
-                        }
+                        //User userInfo = _iuserRepository.Get(userId);
+                        //if (userInfo != null)
+                        //{
+                        info.CreatorUserId = CurrentUser.UserId;
+                        info.Account = CurrentUser.Account;
+                        info.NickName = CurrentUser.RealName;
+                        info.OrganizeId = CurrentUser.OrganizeId;
+                        info.IPAddress = CurrentUser.CurrentLoginIP;
+                        info.Result = true;
+                        //}
                     }
                     long lg = _iLogRepository.Insert(info);
                     if (lg > 0)
@@ -70,7 +77,7 @@ namespace Yuebon.Security.Services
                         return true;
                     }
                 }
-            //}
+            }
             return false;
         }
     }

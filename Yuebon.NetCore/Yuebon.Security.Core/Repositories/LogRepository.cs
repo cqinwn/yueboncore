@@ -10,15 +10,25 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Repositories
 {
+    /// <summary>
+    /// 日志仓储实现
+    /// </summary>
     public class LogRepository : BaseRepository<Log, string>, ILogRepository
     {
-
+        /// <summary>
+        /// 
+        /// </summary>
         public LogRepository()
         {
             this.tableName = "Sys_Log";
             this.primaryKey = "Id";
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="trans"></param>
+        /// <returns></returns>
         public override long Insert(Log entity, IDbTransaction trans = null)
         {
             using (IDbConnection conn = OpenSharedConnection())

@@ -192,6 +192,7 @@ namespace Yuebon.WebApp.Controllers
                         logEntity.NickName = user.Item1.RealName;
                         logEntity.Date = logEntity.CreatorTime = DateTime.Now;
                         logEntity.IPAddress= remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
+                        logEntity.IPAddressName = IpAddressUtil.GetCityByIp(logEntity.IPAddress);
                         logEntity.Result = true;
                         logEntity.Description = "登录成功";
                         logService.Insert(logEntity);
@@ -201,6 +202,7 @@ namespace Yuebon.WebApp.Controllers
                         logEntity.Account = username;
                         logEntity.Date = logEntity.CreatorTime = DateTime.Now;
                         logEntity.IPAddress = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
+                        logEntity.IPAddressName = IpAddressUtil.GetCityByIp(logEntity.IPAddress);
                         logEntity.Result = false;
                         logEntity.Description = "登录失败，"+ user.Item2;
                         logService.Insert(logEntity);

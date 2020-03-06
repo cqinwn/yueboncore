@@ -107,6 +107,7 @@ namespace Yuebon.WebApp.Controllers
                 logEntity.OrganizeId = CurrentUser.OrganizeId;
                 logEntity.Date = logEntity.CreatorTime = DateTime.Now;
                 logEntity.IPAddress = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
+                logEntity.IPAddressName = IpAddressUtil.GetCityByIp(logEntity.IPAddress);
                 logEntity.Result = false;
                 logEntity.Description = "您未被授权使用该功能";
                 logApp.Insert(logEntity);
@@ -202,6 +203,7 @@ namespace Yuebon.WebApp.Controllers
                 logEntity.OrganizeId = CurrentUser.OrganizeId;
                 logEntity.Date =logEntity.CreatorTime= DateTime.Now;
                 logEntity.IPAddress = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
+                logEntity.IPAddressName = IpAddressUtil.GetCityByIp(logEntity.IPAddress);
                 logEntity.Result = true;
                 logEntity.Description = "用户访问";
                 logApp.Insert(logEntity);
@@ -220,6 +222,7 @@ namespace Yuebon.WebApp.Controllers
                 logEntity.OrganizeId = CurrentUser.OrganizeId;
                 logEntity.Date = logEntity.CreatorTime = DateTime.Now;
                 logEntity.IPAddress = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
+                logEntity.IPAddressName = IpAddressUtil.GetCityByIp(logEntity.IPAddress);
                 logEntity.Result = false;
                 logEntity.Description = "用户访问失败，登录超时或未登录";
                 logApp.Insert(logEntity);

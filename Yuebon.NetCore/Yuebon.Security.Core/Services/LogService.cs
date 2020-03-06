@@ -8,6 +8,7 @@ using Yuebon.Security.Dtos;
 using Yuebon.Security.IRepositories;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
+using Yuebon.Commons.Net;
 
 namespace Yuebon.Security.Services
 {
@@ -52,7 +53,6 @@ namespace Yuebon.Security.Services
                 if (insert || update || delete || deletesoft || exception)
                 {
                     Log info = new Log();
-
                     info.ModuleName = tableName;
                     info.Type = operationType;
                     info.Description = note;
@@ -60,16 +60,13 @@ namespace Yuebon.Security.Services
 
                     if (!string.IsNullOrEmpty(CurrentUser.UserId))
                     {
-                        //User userInfo = _iuserRepository.Get(userId);
-                        //if (userInfo != null)
-                        //{
                         info.CreatorUserId = CurrentUser.UserId;
                         info.Account = CurrentUser.Account;
                         info.NickName = CurrentUser.RealName;
                         info.OrganizeId = CurrentUser.OrganizeId;
                         info.IPAddress = CurrentUser.CurrentLoginIP;
+                        info.IPAddressName = IpAddressUtil.GetCityByIp(CurrentUser.CurrentLoginIP);
                         info.Result = true;
-                        //}
                     }
                     long lg = _iLogRepository.Insert(info);
                     if (lg > 0)

@@ -14,6 +14,9 @@ namespace Yuebon.Commons.Extensions
     /// </summary>
     public static class DateTimeExtensions
     {
+        /// <summary>
+        /// 
+        /// </summary>
 		public static readonly DateTime BeginOfEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
         /// <summary>

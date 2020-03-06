@@ -61,7 +61,6 @@
     <Compile Remove="Attributes\KeyAttribute.cs" />
     <Compile Remove="Attributes\MemoryCacheAttribute.cs" />
     <Compile Remove="Attributes\RedisCacheAttribute.cs" />
-    <Compile Remove="Core\Repositories\UnitOfWork.cs" />
     <Compile Remove="Extensions\AutoMapperExtension.cs" />
     <Compile Remove="Extensions\EnumerableExtensions.cs" />
     <Compile Remove="Extensions\MiddlewareExtensions.cs" />

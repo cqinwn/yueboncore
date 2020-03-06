@@ -22,10 +22,41 @@ namespace Yuebon.Commons.Repositories
         /// 获取 事务是否已提交
         /// </summary>
         public bool HasCommitted { get; private set; }
+
+        public void BeginOrUseTransaction()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task BeginOrUseTransactionAsync(CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Commit()
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// 
         /// </summary>
         public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDbContext GetDbContext<TEntity, TKey>() where TEntity : IBaseEntity<TKey>
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDbContext GetDbContext(Type entityType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Rollback()
         {
             throw new NotImplementedException();
         }

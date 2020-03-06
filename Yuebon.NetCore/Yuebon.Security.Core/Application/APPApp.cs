@@ -1,4 +1,6 @@
-﻿using Yuebon.Commons.IoC;
+﻿using Yuebon.Commons.Core.Application;
+using Yuebon.Commons.Entity;
+using Yuebon.Commons.IoC;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
 using Yuebon.Security.Services;
@@ -8,9 +10,21 @@ namespace Yuebon.Security.Application
     /// <summary>
     /// 应用
     /// </summary>
-    public class APPApp
+    public class APPApp 
     {
         IAPPService aPPService = IoCContainer.Resolve<IAPPService>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_unitOfWork"></param>
+        /// <param name="_iService"></param>
+        //public APPApp(IUnitOfWork _unitOfWork, IAPPService _iService) : base(_unitOfWork, _iService)
+        //{
+        //    service = _iService;
+        //}
+
+
         /// <summary>
         /// 获取app对象,适用于授权查询
         /// </summary>
@@ -29,10 +43,6 @@ namespace Yuebon.Security.Application
         public APP GetAPP(string appid)
         {
             return aPPService.GetAPP(appid);
-        }
-        public APP Get(string id)
-        {
-            return aPPService.Get(id);
         }
     }
 }

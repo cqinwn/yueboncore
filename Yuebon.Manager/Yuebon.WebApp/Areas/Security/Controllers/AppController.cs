@@ -9,6 +9,7 @@ using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Models;
+using Yuebon.Security.Application;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
@@ -21,6 +22,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
     [Route("Security/[controller]/[action]")]
     public class AppController : BusinessController<APP, IAPPService>
     {
+        
         public AppController(IAPPService _iService) : base(_iService)
         {
             iService = _iService;

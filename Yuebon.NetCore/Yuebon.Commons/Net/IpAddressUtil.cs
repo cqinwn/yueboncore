@@ -93,7 +93,7 @@ namespace Yuebon.Commons.Net
             return IPAddress.Parse(ipAddress);
         }
         /// <summary>
-        /// 淘宝api
+        /// 根据腾讯地图接口查询IP所属地区
         /// </summary>
         /// <param name="strIP"></param>
         /// <returns></returns>
@@ -102,35 +102,26 @@ namespace Yuebon.Commons.Net
             try
             {
                 string url = "https://apis.map.qq.com/ws/location/v1/ip?ip="+ strIP+"&key=Y6VBZ-CFZ2D-Q6A4K-HOCK4-VA3MT-UCFK6";
-                //System.Net.WebRequest wReq = System.Net.WebRequest.Create(url);
-                //wReq.Timeout = 2000;
-                //System.Net.WebResponse wResp = wReq.GetResponse();
-                //System.IO.Stream respStream = wResp.GetResponseStream();
-                //using (System.IO.StreamReader reader = new System.IO.StreamReader(respStream))
-                //{
                 string jsonText = HttpRequestHelper.HttpGet(url);
-                    Log4NetHelper.Info(jsonText);
-                    JObject jo = JObject.Parse(jsonText);
-                    if (jo["status"].ToString() == "0")
+                JObject jo = JObject.Parse(jsonText);
+                if (jo["status"].ToString() == "0")
+                {
+                    var nation = jo["result"]["ad_info"]["nation"].ToString();
+                    var province = jo["result"]["ad_info"]["province"].ToString();
+                    var city = jo["result"]["ad_info"]["city"].ToString();
+                    var district = jo["result"]["ad_info"]["district"].ToString();
+                    var adcode = jo["result"]["ad_info"]["adcode"].ToString();
+                    if (string.IsNullOrEmpty(province) || string.IsNullOrEmpty(city))
                     {
-                        var nation = jo["result"]["ad_info"]["nation"].ToString();
-                        var province = jo["result"]["ad_info"]["province"].ToString();
-                        var city = jo["result"]["ad_info"]["city"].ToString();
-                        var district = jo["result"]["ad_info"]["district"].ToString();
-                        var adcode = jo["result"]["ad_info"]["adcode"].ToString();
-                        if (string.IsNullOrEmpty(province) || string.IsNullOrEmpty(city))
-                        {
-                            return "未知";
-
-                        }
-                        return nation + province + city + district;
-                    }
-                    else
-                    {
-                        Log4NetHelper.Info(jsonText);
                         return "未知";
+
                     }
-                //}
+                    return nation + province + city + district;
+                }
+                else
+                {
+                    return "未知";
+                }
             }
             catch(Exception ex)
             {

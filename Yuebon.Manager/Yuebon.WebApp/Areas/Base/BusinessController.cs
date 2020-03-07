@@ -97,9 +97,8 @@ namespace Yuebon.WebApp.Controllers
                 LogApp logApp = new LogApp();
                 LogInPutDto logEntity = new LogInPutDto();
                 RemoteIpParser remoteIpParser = new RemoteIpParser();
-
                 logEntity.ModuleName = Request.Path;
-                logEntity.Type = DbLogType.Visit.ToString();
+                logEntity.Type = DbLogType.Exception.ToString();
                 logEntity.CreatorUserId = CurrentUser.UserId;
                 logEntity.Account = CurrentUser.Account;
                 logEntity.NickName = CurrentUser.RealName;
@@ -184,9 +183,9 @@ namespace Yuebon.WebApp.Controllers
                 //result.ResData = model;
                 //CurrentUser = model;
 
-                LogApp logApp = new LogApp();
-                LogInPutDto logEntity = new LogInPutDto();
-                RemoteIpParser remoteIpParser = new RemoteIpParser();
+                //LogApp logApp = new LogApp();
+                //LogInPutDto logEntity = new LogInPutDto();
+                //RemoteIpParser remoteIpParser = new RemoteIpParser();
                 //value.UserAgent = Request.Headers["User-Agent"];
                 //var agent = new UserAgent(value.UserAgent);
                 //value.Ip = HttpContext.Connection.RemoteIpAddress.ToIPv4String();
@@ -194,18 +193,18 @@ namespace Yuebon.WebApp.Controllers
                 //value.OS = $"{agent.OS?.Name} {agent.OS?.Version}";
                 //value.City = ipLocator.Locate(value.Ip);
 
-                logEntity.ModuleName = Request.Path;
-                logEntity.Type = DbLogType.Visit.ToString(); 
-                logEntity.CreatorUserId = CurrentUser.UserId;
-                logEntity.Account = CurrentUser.Account;
-                logEntity.NickName = CurrentUser.RealName;
-                logEntity.OrganizeId = CurrentUser.OrganizeId;
-                logEntity.Date =logEntity.CreatorTime= DateTime.Now;
-                logEntity.IPAddress = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
-                logEntity.IPAddressName = IpAddressUtil.GetCityByIp(logEntity.IPAddress);
-                logEntity.Result = true;
-                logEntity.Description = "用户访问";
-                logApp.Insert(logEntity);
+                //logEntity.ModuleName = Request.Path;
+                //logEntity.Type = DbLogType.Visit.ToString(); 
+                //logEntity.CreatorUserId = CurrentUser.UserId;
+                //logEntity.Account = CurrentUser.Account;
+                //logEntity.NickName = CurrentUser.RealName;
+                //logEntity.OrganizeId = CurrentUser.OrganizeId;
+                //logEntity.Date =logEntity.CreatorTime= DateTime.Now;
+                //logEntity.IPAddress = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
+                //logEntity.IPAddressName = IpAddressUtil.GetCityByIp(logEntity.IPAddress);
+                //logEntity.Result = true;
+                //logEntity.Description = "用户访问";
+                //logApp.Insert(logEntity);
             }
             else
             {
@@ -214,7 +213,7 @@ namespace Yuebon.WebApp.Controllers
                 RemoteIpParser remoteIpParser = new RemoteIpParser();
 
                 logEntity.ModuleName = Request.Path;
-                logEntity.Type = DbLogType.Visit.ToString();
+                logEntity.Type = DbLogType.Exception.ToString();
                 logEntity.CreatorUserId = CurrentUser.UserId;
                 logEntity.Account = CurrentUser.Account;
                 logEntity.NickName = CurrentUser.RealName;

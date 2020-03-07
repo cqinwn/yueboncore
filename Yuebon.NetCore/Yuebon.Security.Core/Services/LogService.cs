@@ -57,17 +57,13 @@ namespace Yuebon.Security.Services
                     info.Type = operationType;
                     info.Description = note;
                     info.Date = info.CreatorTime = DateTime.Now;
-
-                    if (!string.IsNullOrEmpty(CurrentUser.UserId))
-                    {
-                        info.CreatorUserId = CurrentUser.UserId;
-                        info.Account = CurrentUser.Account;
-                        info.NickName = CurrentUser.RealName;
-                        info.OrganizeId = CurrentUser.OrganizeId;
-                        info.IPAddress = CurrentUser.CurrentLoginIP;
-                        info.IPAddressName = IpAddressUtil.GetCityByIp(CurrentUser.CurrentLoginIP);
-                        info.Result = true;
-                    }
+                    info.CreatorUserId = CurrentUser.UserId;
+                    info.Account = CurrentUser.Account;
+                    info.NickName = CurrentUser.RealName;
+                    info.OrganizeId = CurrentUser.OrganizeId;
+                    info.IPAddress = CurrentUser.CurrentLoginIP;
+                    info.IPAddressName = IpAddressUtil.GetCityByIp(CurrentUser.CurrentLoginIP);
+                    info.Result = true;
                     long lg = _iLogRepository.Insert(info);
                     if (lg > 0)
                     {

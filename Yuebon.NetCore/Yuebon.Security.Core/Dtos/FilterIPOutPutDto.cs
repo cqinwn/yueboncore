@@ -13,12 +13,14 @@ namespace Yuebon.Security.Dtos
 
         #region Property Members
 
-
+        /// <summary>
+        /// 
+        /// </summary>
         public  string Id { get; set; }
         /// <summary>
-        /// 类型
+        /// 策略类型
         /// </summary>
-        public  bool? Type { get; set; }
+        public  bool? PolicyType { get; set; }
 
         /// <summary>
         /// 开始IP

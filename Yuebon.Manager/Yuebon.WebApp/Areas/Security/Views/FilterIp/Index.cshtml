@@ -64,8 +64,8 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="row">
-                            <label for="Type" class="col-form-label col-3 text-right">控制策略:</label>
-                            <select class="form-control select2  col-9" name="Type" id="Type">
+                            <label for="PolicyType" class="col-form-label col-3 text-right">控制策略:</label>
+                            <select class="form-control select2  col-9" name="PolicyType" id="PolicyType">
                                 <option value="true">允许访问</option>
                                 <option value="false">拒绝访问</option>
                             </select>
@@ -165,7 +165,7 @@
                     {
                         checkbox: true
                     }, {
-                        field: 'Type',
+                        field: 'PolicyType',
                         title: '控制策略',
                         sortable: true,
                         formatter: function (value, row, index) {
@@ -184,10 +184,7 @@
                         field: 'CreatorTime',
                         title: '创建时间',
                         sortable: true,
-                        align: "center",
-                        formatter: function (value, row, index) {
-                            return value.substring(0, 10);
-                        }
+                        align: "center"
                     }, {
                         field: 'Description',
                         title: '备注',
@@ -323,7 +320,7 @@
                         "Id": $("#Id").val(),
                         "StartIP": $("#StartIP").val(),
                         "EndIP": $("#EndIP").val(),
-                        "Type": $("#Type").val(),
+                        "PolicyType": $("#PolicyType").val(),
                         "SortCode": $("#SortCode").val(),
                         "EnabledMark": $("#EnabledMark").is(':checked'),
                         "Description": $("#Description").val()

@@ -9,14 +9,17 @@ using Yuebon.Security.Repositories;
 
 namespace Yuebon.Security.Application
 {
+    /// <summary>
+    /// 角色权限
+    /// </summary>
     public class RoleAuthorizeApp
     {
         private IFunctionRepository service = new FunctionRepository();
         private ISystemTypeRepository serviceSystemType = new SystemTypeRepository();
-
         private IRoleAuthorizeRepository serviceRoleAuthorize = new RoleAuthorizeRepository();
         /// <summary>
         /// 系统功能树形treeview需要,角色分配权限时需要
+        /// treeViewModel.tags没有用于右侧显示，而用于项目类型标记
         /// </summary>
         /// <returns></returns>
         public List<TreeViewModel> FuntionTreeViewJson(string roleId)
@@ -42,7 +45,7 @@ namespace Yuebon.Security.Application
                 treeViewSateModel.@checked=authorizedata.Count(t => t.ItemId == item.Id) == 0 ? false : true;
                 treeViewSateModel.expanded = true;
                 treeViewModel.state = treeViewSateModel;
-                treeViewModel.tags = item.Id;
+                treeViewModel.tags = item.Id+":0";
                 list.Add(treeViewModel);
             }
 
@@ -67,7 +70,7 @@ namespace Yuebon.Security.Application
                 treeViewModel.text = entity.FullName;
                 treeViewModel.icon = string.IsNullOrEmpty(entity.Icon) ? "far fa-circle" : entity.Icon;
                 treeViewModel.nodes = ChildrenTreeViewList(data, authorizedata, entity.Id);
-                treeViewModel.tags = entity.Id;
+                treeViewModel.tags = entity.Id + ":1";
                 TreeViewSateModel treeViewSateModel = new TreeViewSateModel();
                 treeViewSateModel.@checked = authorizedata.Count(t => t.ItemId == entity.Id) == 0 ? false : true;
                 treeViewSateModel.expanded = true;
@@ -95,7 +98,7 @@ namespace Yuebon.Security.Application
                 treeViewModel.text = entity.FullName;
                 treeViewModel.icon = string.IsNullOrEmpty(entity.Icon) ? "far fa-circle" : entity.Icon;
                 treeViewModel.nodes = ChildrenTreeViewList(data, authorizedata, entity.Id);
-                treeViewModel.tags = entity.Id;
+                treeViewModel.tags = entity.Id + ":2";
                 TreeViewSateModel treeViewSateModel = new TreeViewSateModel();
                 treeViewSateModel.@checked = authorizedata.Count(t => t.ItemId == entity.Id) == 0 ? false : true;
                 treeViewSateModel.expanded = true;
@@ -103,6 +106,18 @@ namespace Yuebon.Security.Application
                 listChildren.Add(treeViewModel);
             }
             return listChildren;
+        }
+
+        /// <summary>
+        /// 根据角色和项目类型查询权限
+        /// </summary>
+        /// <param name="roleIds"></param>
+        /// <param name="itemType"></param>
+        /// <returns></returns>
+        public IEnumerable<RoleAuthorize> GetListRoleAuthorizeByRoleId(string roleIds,int itemType)
+        {
+            IEnumerable<RoleAuthorize> list =  serviceRoleAuthorize.GetListWhere(string.Format("ItemType={0} and ObjectId in ({1}) and ObjectType=1", itemType,roleIds));
+            return list;
         }
     }
 }

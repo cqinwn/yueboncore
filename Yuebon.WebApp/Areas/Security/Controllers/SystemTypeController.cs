@@ -10,6 +10,7 @@ using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Models;
 using Yuebon.Commons.Pages;
 using Yuebon.Commons.Tree;
+using Yuebon.Security.Application;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
@@ -132,6 +133,28 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
                 treeList.Add(treeModel);
             }
             return ToJsonContent(treeList.TreeSelectJson());
+        }
+
+        /// <summary>
+        /// 获取可以切换的登录的应用子系统
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult GetSystemList()
+        {
+            CommonResult result = new CommonResult();
+            string roleIDsStr = string.Format("'{0}'", CurrentUser.RoleId.Replace(",", "','"));
+            IEnumerable<RoleAuthorize> roleAuthorizes = new RoleAuthorizeApp().GetListRoleAuthorizeByRoleId(roleIDsStr,0);
+
+            string strWhere = " Id in (";
+            foreach (RoleAuthorize item in roleAuthorizes)
+            {
+                strWhere += "'" + item.ItemId+"',";
+            }
+            strWhere = strWhere.Substring(0,strWhere.Length-1)+ ")";
+            List<SystemTypeOutputDto> list = iService.GetAllByIsNotDeleteAndEnabledMark(strWhere).OrderBy(t => t.SortCode).ToList().MapTo<SystemTypeOutputDto>();
+            result.ResData = list;
+            result.Success = true;
+            return ToJsonContent(result);
         }
     }
 }

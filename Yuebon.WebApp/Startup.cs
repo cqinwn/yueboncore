@@ -177,10 +177,20 @@ namespace Yuebon.WebApp
                 });
                 services.AddSingleton<ICacheService, MemoryCacheService>();
             }
+            var jwtConfig = Configuration.GetSection("Jwt");
+            var jwtOption = new JwtOption
+            {
+                Issuer = jwtConfig["Issuer"],
+                Expiration = Convert.ToInt16(jwtConfig["Expiration"]),
+                Secret = jwtConfig["Secret"],
+                Audience = jwtConfig["Audience"],
+                refreshJwtTime = Convert.ToInt16(jwtConfig["refreshJwtTime"])
+            };
             services.AddScoped(typeof(SSOAuthHelper));
             services.AddScoped(typeof(AuthHelper));
             IoCContainer.Register(cacheProvider);//◊¢≤·ª∫¥Ê≈‰÷√
             IoCContainer.Register(Configuration);//◊¢≤·≈‰÷√
+            IoCContainer.Register(jwtOption);//◊¢≤·≈‰÷√
             //IoCContainer.Register(codeGenerateOption);//◊¢≤·¥˙¬Î…˙≥…∆˜œ‡πÿ≈‰÷√–≈œ¢
             IoCContainer.Register("Yuebon.Commons");
             IoCContainer.Register("Yuebon.AspNetCore");

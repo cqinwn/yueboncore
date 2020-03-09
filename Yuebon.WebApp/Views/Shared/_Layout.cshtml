@@ -74,6 +74,15 @@
                         <span class="hidden-xs" id="userNameShow">@ViewData["Account"]</span>
                         <i class="fas fa-caret-down"></i>
                     </a>
+                    <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" id="subSystem">
+                    </div>
+                </li>
+                <li class="nav-item dropdown user user-menu">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="far fa-user-circle"></i>
+                        <span class="hidden-xs" id="userNameShow">@ViewData["Account"]</span>
+                        <i class="fas fa-caret-down"></i>
+                    </a>
                     <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
                         <a href="/Security/Profile/Index" class="dropdown-item">
                             <i class="far fa-user mr-2"></i>个人信息
@@ -215,6 +224,7 @@
                 "timeOut": "2000", //展现时间
                 "extendedTimeOut": "1000",//加长展示时间
             };
+            getSubSystem();
             BindSaveSavePasswordEvent();
         })
         function logout() {
@@ -317,6 +327,33 @@
                     //服务器返回响应，根据响应结果，分析是否登录成功；
                     if (data.Success) {
                         toastr.success("清除缓存完成");
+                    } else {
+                        toastr.warning(data.ErrMsg);
+                    }
+                },
+                error: function (data) {
+                    toastr.warning("您未被授权使用该功能，请联系管理员进行处理。");
+                }
+            });
+        }
+
+        
+        //获取子系统
+        function getSubSystem() {
+            $.ajax({
+                url: "/Security/SystemType/GetSystemList",
+                data: "",
+                dataType: 'json',//服务器返回json格式数据
+                type: 'get',//HTTP请求类型
+                timeout: 100000,//超时时间设置为10秒；
+                success: function (data) {
+                    //服务器返回响应，根据响应结果，分析是否登录成功；
+                    if (data.Success) {
+                        var strHtml = "";
+                        for (var i = 0; i < data.ResData.length; i++) {
+                            strHtml += '<a href="' + data.ResData[i].Url + '" class="dropdown-item">' + data.ResData[i].FullName + ' </a>'   
+                        }
+                        $("#subSystem").append(strHtml);
                     } else {
                         toastr.warning(data.ErrMsg);
                     }

@@ -71,7 +71,7 @@ namespace Yuebon.Commons.Tree
         /// </summary>
         public List<TreeViewModel> nodes { get; set; }
         /// <summary>
-        /// 几点标签
+        /// 节点标签
         /// </summary>
         public string tags { get; set; }
         /// <summary>

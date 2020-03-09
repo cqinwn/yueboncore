@@ -43,6 +43,10 @@
                     {
                         <button type="button" class="btn btn-info" onclick="SetAuthorize()"><i class="fas fa-user-tag"></i>设置权限</button>
                     }
+                    @if (@Html.HasFunction("Role/SetSystemType"))
+                    {
+                        <button type="button" class="btn btn-info" onclick="SetAuthorize()"><i class="fas fa-user-tag"></i>分配子系统</button>
+                    }
                 </div>
                 <table id="tbGrid"></table>
             </div>
@@ -363,8 +367,7 @@
                         // 取消父节点 子节点取消
                         var selectNodes = setChildNodeUncheck(node); //获取未被选中的子节点 
                         var childNodes = getChildNodeIdArr(node);    //获取所有子节点 
-                        if (selectNodes && selectNodes.length == 0) { //有子节点且未被选中的子节点数目为0，则取消选中所有子节点   
-                            console.log("反选");
+                        if (selectNodes && selectNodes.length == 0) { //有子节点且未被选中的子节点数目为0，则取消选中所有子节点 
                             $('#tree_function').treeview('uncheckNode', [childNodes, { silent: true }]);
                         }
                         //// 取消节点 父节点取消

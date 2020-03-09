@@ -22,7 +22,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
         private IFunctionService functionService;
         private IRoleDataService roleDataService;
         private IOrganizeService organizeService;
-        public RoleAuthorizeController(IRoleAuthorizeService _iService, IMenuService _menuService, IFunctionService _functionService, IRoleDataService _roleDataService,IOrganizeService _organizeService) : base(_iService)
+        public RoleAuthorizeController(IRoleAuthorizeService _iService, IMenuService _menuService, IFunctionService _functionService, IRoleDataService _roleDataService, IOrganizeService _organizeService) : base(_iService)
         {
             iService = _iService;
             menuService = _menuService;
@@ -35,9 +35,9 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
         protected override void OnBeforeInsert(RoleAuthorize info)
         {
             //留给子类对参数对象进行修改
-          
+
             info.CreatorTime = DateTime.Now;
-            info.CreatorUserId =CurrentUser.UserId;
+            info.CreatorUserId = CurrentUser.UserId;
             if (info.SortCode == null)
             {
                 info.SortCode = 99;
@@ -52,13 +52,13 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
         /// <param name="roleId">角色</param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult SaveRoleAuthorize(string nodeIds,string dataIds,string roleId)
+        public IActionResult SaveRoleAuthorize(string nodeIds, string dataIds, string roleId)
         {
             CheckAuthorized("Role/SetAuthorize");
             CommonResult result = new CommonResult();
             try
             {
-                string where = string.Format("ObjectId='{0}'",roleId);
+                string where = string.Format("ObjectId='{0}'", roleId);
                 iService.DeleteBatchWhere(where);
                 where = string.Format("RoleId='{0}'", roleId);
                 roleDataService.DeleteBatchWhere(where);
@@ -69,11 +69,20 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
                     {
                         if (!string.IsNullOrEmpty(ids[i]))
                         {
+                            string[] id = ids[i].Split(':');
+
                             RoleAuthorize info = new RoleAuthorize();
                             info.ObjectId = roleId;
-                            info.ItemType = 1;
+                            if (id[1].ToString() == "0")
+                            {
+                                info.ItemType = 0;
+                            }
+                            else
+                            {
+                                info.ItemType = 1;
+                            }
                             info.ObjectType = 1;
-                            info.ItemId = ids[i].ToString();
+                            info.ItemId = id[0].ToString();
                             OnBeforeInsert(info);
                             iService.Insert(info);
                         }
@@ -115,7 +124,8 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
                     roleDataService.Insert(roleData);
                 }
                 result.Success = true;
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 result.ErrMsg = ex.Message;
             }
@@ -132,6 +142,5 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
             RoleAuthorizeApp roleAuthorizeApp = new RoleAuthorizeApp();
             return ToJsonContent(roleAuthorizeApp.FuntionTreeViewJson(roleId));
         }
-
     }
 }

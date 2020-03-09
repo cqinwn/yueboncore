@@ -35,6 +35,10 @@ namespace Yuebon.Security.Dtos
 
 
         /// <summary>
+        /// 链接
+        /// </summary>
+        public virtual string Url { get; set; }
+        /// <summary>
         /// 图标
         /// </summary>
         public virtual string Icon { get; set; }

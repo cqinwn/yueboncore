@@ -2,13 +2,16 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.SSO;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Helpers;
+using Yuebon.Commons.IoC;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Models;
 using Yuebon.Commons.Net;
+using Yuebon.Commons.Options;
 using Yuebon.Security.Application;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.IServices;
@@ -111,15 +114,24 @@ namespace Yuebon.WebApp.Controllers
                         model.CurrentLoginIP = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
                         result.ResData = model;
                         CurrentUser = model;
-
+                        JwtOption jwtModel = IoCContainer.Resolve<JwtOption>();
+                        TokenProvider tokenProvider = new TokenProvider(jwtModel);
+                        TokenResult tokenResult = tokenProvider.LoginToken(user.Item1, _appKey);
                         var currentSession = new UserAuthSession
                         {
-                            UserId = user.Item1.Id,
+                            UserId = model.UserId,
                             Account = model.Account,
                             Name = model.RealName,
-                            AccessToken = Guid.NewGuid().ToString().GetHashCode().ToString("x"),
-                            AppKey = "openauth",
-                            CreateTime = DateTime.Now
+                            NickName = model.NickName,
+                            AccessToken = tokenResult.AccessToken,
+                            AppKey = _appKey,
+                            CreateTime = DateTime.Now,
+                            HeadIcon = model.HeadIcon,
+                            Gender = model.Gender,
+                            ReferralUserId = model.ReferralUserId,
+                            MemberGradeId = model.MemberGradeId,
+                            Role = new RoleApp().GetRoleEnCode(model.RoleId),
+                            MobilePhone = model.MobilePhone
                             //,IpAddress = HttpContext.Current.Request.UserHostAddress
                         };
 
@@ -129,10 +141,13 @@ namespace Yuebon.WebApp.Controllers
                         //创建Session
                         YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
                         yuebonCacheHelper.Add(currentSession.AccessToken, currentSession);
+
+                        TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
+                        yuebonCacheHelper.Add("login_user_" + currentSession.UserId, currentSession, expiresSliding, true);
                         //记录Session
                         HttpContext.Session.SetString("CurrentUserId", user.Item1.Id.ToString());
                         HttpContext.Session.Set("CurrentUser", ByteConvertHelper.Object2Bytes(model));
-                        HttpContext.Response.Cookies.Append("Token", currentSession.AccessToken, new CookieOptions
+                        HttpContext.Response.Cookies.Append("yuebon_soft_token", currentSession.AccessToken, new CookieOptions
                         {
                             Expires = DateTime.Now.AddMinutes(30)
                         });

@@ -88,7 +88,7 @@
                 data: "",
                 dataType: 'json',//服务器返回json格式数据
                 type: 'get',//HTTP请求类型
-                timeout: 100000,//超时时间设置为10秒；
+                timeout: 50000,//超时时间设置为10秒；
                 success: function (data) {
                     //服务器返回响应，根据响应结果，分析是否登录成功；
                     if (!data.Success) {
@@ -98,8 +98,12 @@
                         //$.cookie("", userinfo.Account, { expires: 7 });
                         //$.cookie("yuebon_login_realname", userinfo.RealName, { expires: 7 });
                         $("#login_button").find('span').html("登录成功，正在跳转...");
+                        var redirect_uri = getQueryString("redirect_uri");
+                        if (redirect_uri==null) {
+                            redirect_uri = "/Home/Index";
+                        }
                         window.setTimeout(function () {
-                            window.location.href = "/Home/Index";
+                            window.location.href = redirect_uri;
                         }, 500);
                     }
                 },
@@ -107,6 +111,14 @@
                     $("#login-box-msg").html("登录异常，请重新试试");
                 }
             })
+        }
+        function getQueryString(name) {
+            var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) {
+                return unescape(r[2]);
+            }
+            return null;
         }
     </script>
 </body>

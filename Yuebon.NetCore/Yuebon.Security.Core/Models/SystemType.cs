@@ -8,6 +8,9 @@ using Yuebon.Commons.Models;
 
 namespace Yuebon.Security.Models
 {
+    /// <summary>
+    /// 子系统
+    /// </summary>
     [Table("Sys_SystemType")]
     [Serializable]
     public class SystemType : BaseEntity<string>, ICreationAudited, IModificationAudited, IDeleteAudited

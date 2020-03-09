@@ -26,9 +26,9 @@ namespace Yuebon.Security.Models
 
         #region Property Members
 
-        
+
         /// <summary>
-        /// 项目类型1-模块2-按钮3-列表
+        /// 项目类型0-子系统，1-模块，2-列表/菜单，3-按钮
         /// </summary>
         public virtual int? ItemType { get; set; }
 
@@ -38,12 +38,12 @@ namespace Yuebon.Security.Models
         public virtual string ItemId { get; set; }
 
         /// <summary>
-        /// 对象分类1-角色2-部门-3用户
+        /// 对象分类/类型1-角色，2-部门，3-用户
         /// </summary>
         public virtual int? ObjectType { get; set; }
 
         /// <summary>
-        /// 对象主键
+        /// 对象主键，对象分类/类型为角色时就是角色ID，部门就是部门ID，用户就是用户ID
         /// </summary>
         public virtual string ObjectId { get; set; }
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
-using Yuebon.Commons.Entity;
+using Yuebon.Commons.IRepositories;
 using Yuebon.Commons.IServices;
 using Yuebon.Commons.Models;
 using Yuebon.Commons.Pages;

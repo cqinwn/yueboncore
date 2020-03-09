@@ -84,7 +84,9 @@ namespace Yuebon.AspNetCore.Controllers
                 {
                     TokenProvider tokenProvider = new TokenProvider(_jwtModel);
                     TokenResult tokenResult = tokenProvider.GenerateToken(grant_type, appid, secret);
-                    return ToJsonContent(tokenResult);
+                    result.ResData = tokenResult;
+                    result.ErrCode = "0";
+                    return ToJsonContent(result);
                 }
             }
             return ToJsonContent(result);

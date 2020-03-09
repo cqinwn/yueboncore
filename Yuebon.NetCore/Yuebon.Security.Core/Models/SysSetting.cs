@@ -5,7 +5,9 @@ using System.Xml.Serialization;
 
 namespace Yuebon.Security.Models
 {
-
+    /// <summary>
+    /// 系统配置
+    /// </summary>
     [Serializable]
     public class SysSetting
     {

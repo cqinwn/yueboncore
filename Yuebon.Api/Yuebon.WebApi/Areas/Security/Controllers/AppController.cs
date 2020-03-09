@@ -43,7 +43,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             if (result.ErrCode == ErrCode.successCode)
             {
                 IList<AppOutputDto> list = iService.SelectApp();
-                APP info = new APPApp().Get(id);
+                APP info = new APPApp().GetAPP(id);
                 AppOutputDto appOutputDto = info.MapTo<AppOutputDto>();
                 if (info != null)
                 {

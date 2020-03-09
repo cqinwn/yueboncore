@@ -180,7 +180,7 @@ DataBase是最新数据库备份文件，目前仅支持MS SQL Server。
 1、系统基于netcore 3.1.2 sdk开发，请务必安装sdk版本3.1.2 及以上；
 
 2、安装Redis并启动，下载地址：https://github.com/MicrosoftArchive/redis/releases；
-如果用redis缓存可以将UseRedis设置为false。
+如果不用redis缓存可以将UseRedis设置为false。
 
 3、创建数据YuebonFW，然后按顺序分别执行mssql表结构.sql、mssql权限初始化数据.sql;地区数据可以根据自己的实际情况执行mssql地区数据.sql；
 
@@ -205,7 +205,7 @@ DataBase是最新数据库备份文件，目前仅支持MS SQL Server。
 #### 未来计划
 1、微信开放平台对接、小程序对接、公众号对接
 
-2、实现权限的数据控制
+2、实现权限的数据控制（已实现）
 
 3、实现图片可以自管理
 

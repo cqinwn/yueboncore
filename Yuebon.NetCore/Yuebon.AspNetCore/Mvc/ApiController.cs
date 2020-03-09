@@ -23,7 +23,7 @@ namespace Yuebon.AspNetCore.Controllers
     /// WebApi控制器基类
     /// </summary>
     [ApiController]
-    [EnableCors("cors")]
+    [EnableCors("yuebonCors")]
     public class ApiController : Controller
     {
         /// <summary>

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Yuebon.Commons.Models;
+using Yuebon.Commons.IRepositories;
 using Yuebon.Commons.Entity;
 
 namespace Yuebon.Commons.Repositories
@@ -57,6 +58,16 @@ namespace Yuebon.Commons.Repositories
         }
 
         public void Rollback()
+        {
+            throw new NotImplementedException();
+        }
+
+        IDbContext IUnitOfWork.GetDbContext<TEntity, TKey>()
+        {
+            throw new NotImplementedException();
+        }
+
+        IDbContext IUnitOfWork.GetDbContext(Type entityType)
         {
             throw new NotImplementedException();
         }

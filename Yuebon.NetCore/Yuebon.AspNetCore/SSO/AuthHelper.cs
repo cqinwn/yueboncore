@@ -144,34 +144,14 @@ namespace Yuebon.AspNetCore.SSO
         /// </summary>
         /// <param name="appKey">应用程序key.</param>
         /// <param name="appSecret">应用程序Secret.</param>
-        /// <param name="username">用户名</param>
+        /// <param name="account">用户名</param>
         /// <param name="pwd">密码</param>
         /// <returns>System.String.</returns>
         public LoginResult Login(string appKey,string appSecret, string account, string pwd)
         {
-            //var requestUri = "/connect/token";
             try
             {
-                //var value = _helper.Post(new
-                //{
-                //    SystemCode = appKey,
-                //    Account = username,
-                //    Password = pwd
-                //}, requestUri);
-                //var value = _helper.Post(new
-                //{
-                //    grant_type = "password",
-                //    client_secret = "secret",
-                //    client_id = "mvcauth.netcoremvc",
-                //    username = account,
-                //    password = pwd
-                //}, requestUri);
-
-
-                //var result2 = JsonHelper.ToJson(value);
-                //var result = JsonHelper.ToObject<TokenModel>(value);
-                //return result;
-                var requestUri = String.Format("/api/Check/Login?account={0}&password={1}&systemCode={2}", account,pwd, appKey);
+                var requestUri = string.Format("/api/Check/Login?account={0}&password={1}&systemCode={2}", account,pwd, appKey);
 
                 try
                 {

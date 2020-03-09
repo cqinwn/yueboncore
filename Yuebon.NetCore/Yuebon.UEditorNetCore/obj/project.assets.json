@@ -3702,7 +3702,7 @@
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
       },
-      "Yuebon.Commons/1.2.2.1": {
+      "Yuebon.Commons/1.2.2.2": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
@@ -3737,11 +3737,11 @@
           "bin/placeholder/Yuebon.Commons.dll": {}
         }
       },
-      "Yuebon.Security.Core/1.2.2.6": {
+      "Yuebon.Security.Core/1.2.2.7": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
-          "Yuebon.Commons": "1.2.2.1"
+          "Yuebon.Commons": "1.2.2.2"
         },
         "compile": {
           "bin/placeholder/Yuebon.Security.Core.dll": {}
@@ -10913,12 +10913,12 @@
         "system.xml.xpath.xmldocument.nuspec"
       ]
     },
-    "Yuebon.Commons/1.2.2.1": {
+    "Yuebon.Commons/1.2.2.2": {
       "type": "project",
       "path": "../Yuebon.Commons/Yuebon.Commons.csproj",
       "msbuildProject": "../Yuebon.Commons/Yuebon.Commons.csproj"
     },
-    "Yuebon.Security.Core/1.2.2.6": {
+    "Yuebon.Security.Core/1.2.2.7": {
       "type": "project",
       "path": "../Yuebon.Security.Core/Yuebon.Security.Core.csproj",
       "msbuildProject": "../Yuebon.Security.Core/Yuebon.Security.Core.csproj"
@@ -10931,14 +10931,14 @@
       "Microsoft.AspNetCore.Http >= 2.2.2",
       "Microsoft.Extensions.Hosting >= 3.1.2",
       "Newtonsoft.Json >= 12.0.3",
-      "Yuebon.Security.Core >= 1.2.2.6"
+      "Yuebon.Security.Core >= 1.2.2.7"
     ]
   },
   "packageFolders": {
     "C:\\Users\\Administrator\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "1.0.3",
+    "version": "1.0.3.1",
     "restore": {
       "projectUniqueName": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.UEditorNetCore\\Yuebon.UEditorNetCore.csproj",
       "projectName": "Yuebon.UEditorNetCore",

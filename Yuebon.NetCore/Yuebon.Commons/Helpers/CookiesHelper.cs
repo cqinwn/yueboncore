@@ -10,26 +10,49 @@ namespace Yuebon.Commons.Helpers
     /// </summary>
     public static class CookiesHelper
     {
+        /// <summary>
+        /// Cookie名称
+        /// </summary>
         public static string CookieName { get; set; } = "";
-        public static string LoginCookieName { get; set; } = "ll";
 
+        /// <summary>
+        /// 设置Cookie键
+        /// </summary>
+        /// <param name="cookieName">键</param>
+        /// <returns></returns>
         private static string CookieKey(string cookieName)
         {
             return cookieName + CookieName;
         }
-
+        /// <summary>
+        /// 删除Cookie
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="cookieName">Coookie名称</param>
         public static void DeleteCookie(HttpContext context, string cookieName)
         {
             string key = CookieKey(cookieName);
-
             context.Response.Cookies.Delete(key);
         }
-
+        /// <summary>
+        /// 写/保存Cookie
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="cookieName">Coookie名称</param>
+        /// <param name="value">Coookie值</param>
+        /// <param name="months">有效月数</param>
         public static void WriteCookie(HttpContext context, string cookieName, string value, int months)
         {
             WriteCookie(context, cookieName, value, months, 0);
         }
-
+        /// <summary>
+        /// 写/保存Cookie
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="cookieName">Coookie名称</param>
+        /// <param name="value">Coookie值</param>
+        /// <param name="months">有效月数</param>
+        /// <param name="days">有效天数</param>
         public static void WriteCookie(HttpContext context, string cookieName, string value, int months, int days)
         {
             string key = CookieKey(cookieName);
@@ -47,7 +70,12 @@ namespace Yuebon.Commons.Helpers
                     });
             }
         }
-
+        /// <summary>
+        /// 获取Cookie值
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="cookieName">Coookie名称</param>
+        /// <returns></returns>
         public static string ReadCookie(HttpContext context, string cookieName)
         {
             string key = CookieKey(cookieName);

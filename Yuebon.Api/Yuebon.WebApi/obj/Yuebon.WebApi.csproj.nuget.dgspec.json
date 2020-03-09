@@ -4,6 +4,95 @@
     "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.Api\\Yuebon.WebApi\\Yuebon.WebApi.csproj": {}
   },
   "projects": {
+    "D:\\netcorespace\\YueGroup\\权限管理\\Yuebob.WeChat.Core\\Yuebon.WeChat.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebob.WeChat.Core\\Yuebon.WeChat.Core.csproj",
+        "projectName": "Yuebon.WeChat.Core",
+        "projectPath": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebob.WeChat.Core\\Yuebon.WeChat.Core.csproj",
+        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+        "outputPath": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebob.WeChat.Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj": {
+                "projectPath": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "Senparc.WebSocket": {
+              "target": "Package",
+              "version": "[0.10.304, )"
+            },
+            "Senparc.Weixin.Cache.Redis": {
+              "target": "Package",
+              "version": "[2.8.304, )"
+            },
+            "Senparc.Weixin.MP": {
+              "target": "Package",
+              "version": "[16.10.304, )"
+            },
+            "Senparc.Weixin.MP.MVC": {
+              "target": "Package",
+              "version": "[7.5.304, )"
+            },
+            "Senparc.Weixin.Open": {
+              "target": "Package",
+              "version": "[4.7.304, )"
+            },
+            "Senparc.Weixin.TenPay": {
+              "target": "Package",
+              "version": "[1.5.304, )"
+            },
+            "Senparc.Weixin.WxOpen": {
+              "target": "Package",
+              "version": "[3.8.304.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.Api\\Yuebon.WebApi\\Yuebon.WebApi.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -27,11 +116,14 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
+              "D:\\netcorespace\\YueGroup\\权限管理\\Yuebob.WeChat.Core\\Yuebon.WeChat.Core.csproj": {
+                "projectPath": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebob.WeChat.Core\\Yuebon.WeChat.Core.csproj"
+              },
               "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.Messages\\Yuebon.Messages.Core\\Yuebon.Messages.Core.csproj": {
                 "projectPath": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.Messages\\Yuebon.Messages.Core\\Yuebon.Messages.Core.csproj"
               },
-              "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.WeChat\\Yuebob.WeChat.Core\\Yuebon.WeChat.Core.csproj": {
-                "projectPath": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.WeChat\\Yuebob.WeChat.Core\\Yuebon.WeChat.Core.csproj"
+              "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.AspNetCore\\Yuebon.AspNetCore.csproj": {
+                "projectPath": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.AspNetCore\\Yuebon.AspNetCore.csproj"
               }
             }
           }
@@ -72,10 +164,6 @@
             "Swashbuckle.AspNetCore.Filters": {
               "target": "Package",
               "version": "[5.0.2, )"
-            },
-            "Yuebon.AspNetCore": {
-              "target": "Package",
-              "version": "[1.2.2.11, )"
             }
           },
           "imports": [
@@ -123,8 +211,70 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.WeChat\\Yuebob.WeChat.Core\\Yuebon.WeChat.Core.csproj": {
-                "projectPath": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.WeChat\\Yuebob.WeChat.Core\\Yuebon.WeChat.Core.csproj"
+              "D:\\netcorespace\\YueGroup\\权限管理\\Yuebob.WeChat.Core\\Yuebon.WeChat.Core.csproj": {
+                "projectPath": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebob.WeChat.Core\\Yuebon.WeChat.Core.csproj"
+              },
+              "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj": {
+                "projectPath": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.AspNetCore\\Yuebon.AspNetCore.csproj": {
+      "version": "1.2.2.13",
+      "restore": {
+        "projectUniqueName": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.AspNetCore\\Yuebon.AspNetCore.csproj",
+        "projectName": "Yuebon.AspNetCore",
+        "projectPath": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.AspNetCore\\Yuebon.AspNetCore.csproj",
+        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+        "outputPath": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.AspNetCore\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj": {
+                "projectPath": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj"
               }
             }
           }
@@ -138,9 +288,39 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
-            "Yuebon.Security.Core": {
+            "IdentityModel": {
               "target": "Package",
-              "version": "[1.2.2.3, )"
+              "version": "[4.1.1, )"
+            },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.CodeAnalysis.FxCopAnalyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.8, )"
+            },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[5.6.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
+            },
+            "Swashbuckle.AspNetCore.SwaggerGen": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[5.6.0, )"
             }
           },
           "imports": [
@@ -165,14 +345,14 @@
         }
       }
     },
-    "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.WeChat\\Yuebob.WeChat.Core\\Yuebon.WeChat.Core.csproj": {
-      "version": "1.0.0",
+    "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj": {
+      "version": "1.2.2.2",
       "restore": {
-        "projectUniqueName": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.WeChat\\Yuebob.WeChat.Core\\Yuebon.WeChat.Core.csproj",
-        "projectName": "Yuebon.WeChat.Core",
-        "projectPath": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.WeChat\\Yuebob.WeChat.Core\\Yuebon.WeChat.Core.csproj",
+        "projectUniqueName": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj",
+        "projectName": "Yuebon.Commons",
+        "projectPath": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.WeChat\\Yuebob.WeChat.Core\\obj\\",
+        "outputPath": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -199,37 +379,97 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
-            "Senparc.WebSocket": {
+            "AutoMapper": {
               "target": "Package",
-              "version": "[0.10.304, )"
+              "version": "[9.0.0, )"
             },
-            "Senparc.Weixin.Cache.Redis": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
-              "version": "[2.8.304, )"
+              "version": "[7.0.0, )"
             },
-            "Senparc.Weixin.MP": {
+            "Autofac": {
               "target": "Package",
-              "version": "[16.10.304, )"
+              "version": "[5.1.2, )"
             },
-            "Senparc.Weixin.MP.MVC": {
+            "Autofac.Extensions.DependencyInjection": {
               "target": "Package",
-              "version": "[7.5.304, )"
+              "version": "[6.0.0, )"
             },
-            "Senparc.Weixin.Open": {
+            "Dapper": {
               "target": "Package",
-              "version": "[4.7.304, )"
+              "version": "[2.0.30, )"
             },
-            "Senparc.Weixin.TenPay": {
-              "target": "Package",
-              "version": "[1.5.304, )"
-            },
-            "Senparc.Weixin.WxOpen": {
-              "target": "Package",
-              "version": "[3.8.304.1, )"
-            },
-            "Yuebon.Commons": {
+            "DotNetCore.NPOI": {
               "target": "Package",
               "version": "[1.2.2, )"
+            },
+            "Microsoft.AspNetCore.Http.Abstractions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Mvc": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.Data.Sqlite": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.Extensions.Caching.Memory": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.Extensions.Caching.StackExchangeRedis": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.Extensions.DependencyModel": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.Extensions.Logging": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[8.0.19, )"
+            },
+            "NPinyin.Core": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
+            },
+            "Npgsql": {
+              "target": "Package",
+              "version": "[4.1.3.1, )"
+            },
+            "Oracle.ManagedDataAccess.Core": {
+              "target": "Package",
+              "version": "[2.19.60, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.1, )"
+            },
+            "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
+            "log4net": {
+              "target": "Package",
+              "version": "[2.0.8, )"
             }
           },
           "imports": [
@@ -243,9 +483,62 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj": {
+      "version": "1.2.2.7",
+      "restore": {
+        "projectUniqueName": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj",
+        "projectName": "Yuebon.Security.Core",
+        "projectPath": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj",
+        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+        "outputPath": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj": {
+                "projectPath": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

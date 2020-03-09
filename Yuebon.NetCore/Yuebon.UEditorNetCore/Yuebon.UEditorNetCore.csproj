@@ -10,7 +10,7 @@
     <RepositoryUrl>https://gitee.com/yuebon/YuebonNetCore</RepositoryUrl>
     <Authors>Yuebon</Authors>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Version>1.0.3</Version>
+    <Version>1.0.3.1</Version>
     <PackageReleaseNotes>兼容Net core 3.1.2版</PackageReleaseNotes>
   </PropertyGroup>
 

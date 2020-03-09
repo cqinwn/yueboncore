@@ -8,6 +8,9 @@ using Newtonsoft.Json;
 
 namespace Yuebon.Commons.Helpers
 {
+    /// <summary>
+    /// byte转换类
+    /// </summary>
     public class ByteConvertHelper
     {
         /// <summary>

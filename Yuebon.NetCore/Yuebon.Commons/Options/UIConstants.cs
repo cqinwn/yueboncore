@@ -7,7 +7,7 @@ namespace Yuebon.Commons
     /// <summary>
     /// 常用软件字符串
     /// </summary>
-    public class UIConstants
+    public static class UIConstants
     {
         /// <summary>
         /// 过期时间
@@ -40,7 +40,10 @@ namespace Yuebon.Commons
         /// 注册加密公钥
         /// </summary>
         public static string PublicKey = @"<RSAKeyValue><Modulus>mtDtu679/0quhftVyOc6/cBov/i534Dkh3AB8RwrpC9Vq2RIFB3uvjRUuaAEPR8vMcijQjVzqLZgMM7jFKclzbh21rWTM+YlOeraKz5FPCC7rSLnv6Tfbzia9VI/r5cfM8ogVMuUKCZeU+PTEmVviasCl8nPYyqOQchlf/MftMM=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
-
+        /// <summary>
+        /// 版权信息
+        /// </summary>
+        public static string CopyRight= string.Format("<strong>Copyright &copy; 2017-{0} <a href=\"http://www.yuebon.com\" target=\"_blank\">Yuebon Tech</a>.</strong>", DateTime.Now.Year);
         /// <summary>
         /// Web验证地址
         /// </summary>

@@ -5,11 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Yuebon.Security.Core" Version="1.2.2.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Yuebon.WeChat\Yuebob.WeChat.Core\Yuebon.WeChat.Core.csproj" />
+    <ProjectReference Include="..\..\Yuebob.WeChat.Core\Yuebon.WeChat.Core.csproj" />
+    <ProjectReference Include="..\..\Yuebon.NetCore\Yuebon.Security.Core\Yuebon.Security.Core.csproj" />
   </ItemGroup>
 
 </Project>

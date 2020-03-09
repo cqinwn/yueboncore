@@ -8,10 +8,14 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Yuebon.AspNetCore.Controllers;
 using Yuebon.AspNetCore.Models;
+using Yuebon.Commons;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Json;
+using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Models;
+using Yuebon.Security.Dtos;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
 
@@ -37,9 +41,11 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             if (result.ErrCode == ErrCode.successCode)
             {
                 SysSetting sysSetting = JsonConvert.DeserializeObject<SysSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
-                if (sysSetting != null)
+                SysSettingOutputDto sysSettingOutputDto = sysSetting.MapTo<SysSettingOutputDto>();
+                sysSettingOutputDto.CopyRight = UIConstants.CopyRight;
+                if (sysSettingOutputDto != null)
                 {
-                    result.ResData = sysSetting;
+                    result.ResData = sysSettingOutputDto;
                     result.Success = true;
                 }
                 else

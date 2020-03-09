@@ -1,10 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
+using System.Threading.Tasks;
 using Yuebon.AspNetCore.Controllers;
 using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.SSO;
+using Yuebon.Commons.Cache;
+using Yuebon.Commons.IoC;
+using Yuebon.Commons.Json;
 using Yuebon.Commons.Models;
+using Yuebon.Commons.Options;
 using Yuebon.Security.Application;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.IServices;
@@ -34,10 +40,10 @@ namespace Yuebon.AspNetCore.Controllers
         /// </summary>
         /// <param name="username">用户名</param>
         /// <param name="password">密码</param>
-        /// <param name="url">返回Url</param>
+        /// <param name="appId">AppId</param>
         /// <returns>返回用户User对象</returns>
         [HttpGet("GetCheckUser")]
-        public IActionResult GetCheckUser(string username, string password, string url)
+        public IActionResult GetCheckUser(string username, string password,string appId)
         {
             CommonResult result = new CommonResult();
             if (string.IsNullOrEmpty(username))
@@ -50,52 +56,76 @@ namespace Yuebon.AspNetCore.Controllers
             }
             else
             {
-                Tuple<User, string> user = this.userService.Validate(username, password);
-                if (user != null)
+                Tuple<User, string> userLogin = this.userService.Validate(username, password);
+                if (userLogin != null)
                 {
-                    if (user.Item1 != null)
+                    if (userLogin.Item1 != null)
                     {
                         result.Success = true;
 
-                        UserOutPutDto model = new UserOutPutDto();
-                        model.Account = user.Item1.Account;
-                        model.Birthday = user.Item1.Birthday;
-                        model.Email = user.Item1.Email;
-                        model.Gender = user.Item1.Gender;
-                        model.HeadIcon = user.Item1.HeadIcon;
-                        model.Id = user.Item1.Id;
-                        model.IsAdministrator = user.Item1.IsAdministrator;
-                        model.ManagerId = user.Item1.ManagerId;
-                        model.MobilePhone = user.Item1.MobilePhone;
-                        model.NickName = user.Item1.NickName;
-                        model.OrganizeId = user.Item1.OrganizeId;
-                        model.RealName = user.Item1.RealName;
-                        model.RoleId = user.Item1.RoleId;
-                        model.SecurityLevel = user.Item1.SecurityLevel;
-                        model.Signature = user.Item1.Signature;
-                        model.WeChat = user.Item1.WeChat;
-                        result.ResData = model;
-                        var currentSession = new UserAuthSession
+                        User user = userLogin.Item1;
+                        YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+                        var currentSession = JsonConvert.DeserializeObject<UserAuthSession>(yuebonCacheHelper.Get("login_user_" + user.Id).ToJson());
+                        if (currentSession == null || string.IsNullOrWhiteSpace(currentSession.AccessToken))
                         {
-                            UserId = user.Item1.Id,
-                            Account = user.Item1.Account,
-                            Name = user.Item1.RealName,
-                            NickName = user.Item1.NickName,
-                            CreateTime = DateTime.Now,
-                            HeadIcon = user.Item1.HeadIcon,
-                            Gender = user.Item1.Gender,
-                            ReferralUserId = user.Item1.ReferralUserId,
-                            MemberGradeId = user.Item1.MemberGradeId
-                        };
+                            JwtOption jwtModel = IoCContainer.Resolve<JwtOption>();
+                            TokenProvider tokenProvider = new TokenProvider(jwtModel);
+                            TokenResult tokenResult = tokenProvider.LoginToken(user, appId);
+                            currentSession = new UserAuthSession
+                            {
+                                UserId = user.Id,
+                                Account = user.Account,
+                                Name = user.RealName,
+                                NickName = user.NickName,
+                                AccessToken = tokenResult.AccessToken,
+                                AppKey = appId,
+                                CreateTime = DateTime.Now,
+                                HeadIcon = user.HeadIcon,
+                                Gender = user.Gender,
+                                ReferralUserId = user.ReferralUserId,
+                                MemberGradeId = user.MemberGradeId,
+                                Role = new RoleApp().GetRoleEnCode(user.RoleId),
+                                MobilePhone = user.MobilePhone
+
+                            };
+                            TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
+                            yuebonCacheHelper.Add("login_user_" + user.Id, currentSession, expiresSliding, true);
+                        }
                         CurrentUser = currentSession;
+                        result.ResData = currentSession;
+                        result.ErrCode = ErrCode.successCode;
+                        result.Success = true;
                     }
                     else
                     {
                         result.ErrCode = ErrCode.failCode;
-                        result.ErrMsg = user.Item2;
+                        result.ErrMsg = userLogin.Item2;
                     }
                 }
 
+            }
+            return ToJsonContent(result);
+        }
+
+
+        /// <summary>
+        /// 退出登录
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("Logout")]
+        public IActionResult Logout()
+        {
+            CommonResult result = new CommonResult();
+            result =  CheckToken();
+            if (result.ErrCode == ErrCode.successCode)
+            {
+                YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+                yuebonCacheHelper.Remove("login_user_" + CurrentUser.UserId);
+                yuebonCacheHelper.Remove("User_Function_" + CurrentUser.UserId);
+                yuebonCacheHelper.Remove("User_Menu_" + CurrentUser.UserId);
+                CurrentUser = null;
+                result.Success = true;
+                result.ErrMsg = "成功登出";
             }
             return ToJsonContent(result);
         }

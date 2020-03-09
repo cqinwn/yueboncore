@@ -27,6 +27,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Runtime.Loader;
+using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.AspNetCore.SSO;
@@ -118,7 +119,7 @@ namespace Yuebon.WebApi
             {
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver();
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0).AddRazorRuntimeCompilation();
+            }).SetCompatibilityVersion(CompatibilityVersion.Latest).AddRazorRuntimeCompilation();
 
             services.AddMvcCore()
                 .AddAuthorization().AddApiExplorer();
@@ -158,7 +159,7 @@ namespace Yuebon.WebApi
                     app.UseExceptionHandler("/Home/Error");
                     app.UseHsts();
                 }
-
+                app.UseMiddleware<CorsMiddleware>();
                 app.UseAuthentication();
                 app.UseRouting();
                 app.UseCors("yuebonCors");

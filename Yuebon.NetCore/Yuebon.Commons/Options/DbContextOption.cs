@@ -1,5 +1,8 @@
 ﻿namespace Yuebon.Commons.Options
 {
+    /// <summary>
+    /// 上线文配置
+    /// </summary>
     public class DbContextOption
     {
         /// <summary>

@@ -9,14 +9,14 @@
     <Copyright>上海越邦网络科技有限公司 版权所有</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://gitee.com/yuebon/YuebonNetCore</PackageProjectUrl>
-    <Version>1.2.2.1</Version>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>新增统计方法</PackageReleaseNotes>
-    <AssemblyVersion>1.2.2.1</AssemblyVersion>
+    <Version>1.2.2.2</Version>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <AssemblyVersion>1.2.2.2</AssemblyVersion>
     <PackageIconUrl>http://www.yuebon.com/upload/201804/01/201804011125140585.jpg</PackageIconUrl>
     <RepositoryUrl>https://gitee.com/yuebon/YuebonNetCore</RepositoryUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <FileVersion>1.2.2.1</FileVersion>
+    <FileVersion>1.2.2.2</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -61,9 +61,14 @@
     <Compile Remove="Attributes\KeyAttribute.cs" />
     <Compile Remove="Attributes\MemoryCacheAttribute.cs" />
     <Compile Remove="Attributes\RedisCacheAttribute.cs" />
+    <Compile Remove="Attributes\WriteAttribute.cs" />
     <Compile Remove="Extensions\AutoMapperExtension.cs" />
+    <Compile Remove="Extensions\ComparisonHelper.cs" />
     <Compile Remove="Extensions\EnumerableExtensions.cs" />
+    <Compile Remove="Extensions\GenericExtension.cs" />
+    <Compile Remove="Extensions\IoCContainerExtensions.cs" />
     <Compile Remove="Extensions\MiddlewareExtensions.cs" />
+    <Compile Remove="Helpers\CacheKey.cs" />
     <Compile Remove="Mapping\AutoMapperModule.cs" />
     <Compile Remove="Mapping\IAutoMapperConfiguration.cs" />
     <Compile Remove="Mapping\IMapFromAttributeTypeFinder.cs" />
@@ -75,6 +80,8 @@
     <Compile Remove="Mapping\MapToAttribute.cs" />
     <Compile Remove="Mapping\MapToAttributeTypeFinder.cs" />
     <Compile Remove="Mapping\MapTupleProfile.cs" />
+    <Compile Remove="Options\WeixinOption.cs" />
+    <Compile Remove="Page\JQueryDataTablePageInfo.cs" />
   </ItemGroup>
 
   <ItemGroup>

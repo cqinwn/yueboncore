@@ -1,0 +1,228 @@
+﻿
+@{
+    ViewData["Title"] = "广告管理-广告位管理-编辑广告位";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.CurrentMenuP = "Advert";
+    ViewBag.CurrentMenu = "Advert/List";
+}
+<div class="edit-page-wrapper">
+    <div class="row">
+        <div class="col-12">
+            <form class="form-horizontal" id="frmSubmit" method="post" enctype="multipart/form-data">
+                <div class="card">
+                    <div class="card-header d-flex p-0">
+                        <ul class="nav nav-pills p-2">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#basicInfo" data-toggle="tab">基本信息</a>
+                            </li>
+                        </ul>
+                    </div><!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="tab-content p-0">
+                            <!-- Morris chart - Sales -->
+                            <div class="chart tab-pane active" id="basicInfo" style="position: relative;">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Title" class="col-form-label col-md-1">广告位名称:</label>
+                                        <input type="text" class="form-control col-md-5" name="Title" id="Title" placeholder="请输入广告位名称">
+                                       
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Title" class="col-form-label col-md-1">广告位识别码:</label>
+                                        <input type="text" class="form-control col-md-5" name="EnCode" id="EnCode" placeholder="请输入广告位识别码">
+                                        <span style="color:red;">*定义的广告位识别码请不能随意修改</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Type" class="col-form-label col-md-1">广告类型:</label>
+                                        <select class="form-control select2" style="width: 50%;" name="Type" id="Type">
+                                            <option value="text">文字</option>
+                                            <option value="image">图片</option>
+                                            <option value="carousel">幻灯片</option>
+                                            <option value="gif">动画</option>
+                                            <option value="video">FLV视频</option>
+                                            <option value="code">代码</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="ViewWidth" class="col-form-label col-md-1">宽度:</label>
+                                        <input type="number" class="form-control col-md-5" name="ViewWidth" id="ViewWidth" placeholder="请输入宽度">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="ViewHeight" class="col-form-label col-md-1">高度:</label>
+                                        <input type="number" class="form-control col-md-5" name="ViewHeight" id="ViewHeight" placeholder="请输入高度">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="ViewNum" class="col-form-label col-md-1">广告数量:</label>
+                                        <input type="number" class="form-control col-md-5" name="ViewNum" id="ViewNum" placeholder="请输入广告数量">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-1"><label for="recipient-name" class="col-form-label">描述:</label></div>
+                                        <div class="col-11"> <textarea id="Description" name="Description"></textarea></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Target" class="col-form-label col-md-1">链接打开方式:</label>
+                                        <select class="form-control select2  col-5" name="Target" id="Target">
+                                            <option value="_blank">新页面</option>
+                                            <option value="_self">当前页面</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="hidden" id="Id" name="Id" value="@ViewData["Id"] " />
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary btnSave" id="btnSaveOK"><i class="fa fa-save"></i>保存</button>
+                                <button type="button" class="btn btn-danger" onclick="javascript:history.go(-1)"><i class="fa fa-close"></i>返回</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" charset="utf-8" src="~/lib/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="~/lib/ueditor/ueditor.all.js"></script>
+<script type="text/javascript" charset="utf-8" src="~/lib/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+<!-- page script -->
+<script>
+        var ue = UE.getEditor('Description', {
+            initialFrameHeight: 200
+        });
+    $(function () {
+        //iCheck for checkbox and radio inputs
+        $('input[type="checkbox"].flat-red').iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'iradio_minimal',
+        })
+        // $("#myEditorImage").InitUploader({ sendurl: "/api/UEditor", swf: "~/lib/webuploader/uploader.swf" });
+
+        InitDictItem();
+        BindEditInfo();
+        BindSaveEvent();
+    });
+    //初始化数据字典
+    function InitDictItem() {
+
+    }
+    //绑定编辑详细信息的方法
+    function BindEditInfo() {
+        var ID = $("#Id").val();
+        if (ID.trim() != "") {
+            //首先用户发送一个异步请求去后台实现方法
+            $.getJSON("/CMS/Advert/GetById?r=" + Math.random() + "&id=" + ID, function (info) {
+                //赋值有几种方式：.datebox('setValue', info.Birthday);.combobox('setValue', info.Status);.val(info.Name);
+                $("#Id").val(info.ResData.Id);
+                $("#frmSubmit").formSerialize(info.ResData);
+                ue.ready(function() { 
+                    ue.setContent(info.ResData.Description);
+                });
+            });
+        }
+    }
+    //绑定保存按钮的事件
+    function BindSaveEvent() {
+        $("#btnSaveOK").click(function () {
+            $("#frmSubmit").validate({
+                rules: {
+                    Title: {
+                        required: true,
+                        minlength: 2
+                    },
+                    ViewNum: {
+                        required: true,
+                        min:1
+                    }
+                },
+                messages: {
+                    Title: {
+                        required: "请输入广告位名称",
+                        minlength: "广告位名称至少2个字符"
+                    },
+                    ViewNum: {
+                        required: "广告数量必须大于0",
+                        min: "广告数量必须大于0"
+                    }
+                },
+                errorClass: 'help-block help-block-error',
+                focusInvalid: true,
+                //unhighlight: function (element, errorClass, validClass) { //验证通过
+                   // $(element).tooltip('destroy').removeClass(errorClass);
+                //},
+                highlight: function (element) {//验证未通过
+                    $(element).closest('.form-group').addClass('has-error');
+                },
+                success: function (label, element) {
+                    $(element).closest('.form-group').removeClass('has-error');
+                    //label.remove();
+                    $(element).attr("title", "").tooltip("hide");
+                    //alert(element);
+                },
+                errorPlacement: function (error, element) {
+                    //element.parent('div').append(error);
+                    if ($(element).next("div").hasClass("tooltip")) {
+                        $(element).attr("data-original-title", $(error).text()).tooltip("show");
+                    } else {
+                        $(element).attr("title", $(error).text()).tooltip("show");
+                    }
+                },
+                submitHandler: function (form) {
+                    var postData = {
+                        "Id": $("#Id").val(),
+                        "Title": $("#Title").val(),
+                        "EnCode": $("#EnCode").val(),
+                        "Type": $("#Type option:selected").val(),
+                        "Description": UE.getEditor('Description').getContent(),
+                        "ViewWidth": $("#ViewWidth").val(),
+                        "ViewHeight": $("#ViewHeight").val(),
+                        "ViewNum": $("#ViewNum").val(),
+                        "Target": $("#Target option:selected").val()
+                    };
+                    var keyValue = $("#Id").val().trim();
+                    var reqUrl = "/CMS/Advert/Insert";
+                    if (keyValue != "" && keyValue != null && keyValue != "null") {
+                        reqUrl = "/CMS/Advert/Update?id=" + keyValue;
+                    }
+                    $.ajax({
+                        url: reqUrl,
+                        data: postData,
+                        dataType: 'json',//服务器返回json格式数据
+                        type: 'post',//HTTP请求类型
+                        timeout: 100000,//超时时间设置为10秒；
+                        success: function (data) {
+                            //服务器返回响应，根据响应结果，分析是否登录成功；
+                            if (data.Success) {
+                                $("#frmSubmit")[0].reset();
+                                toastr.success("操作成功");
+                                setTimeout(function () {
+                                    window.location.href = "/CMS/Advert/Index"
+                                }, 1500);
+                            } else {
+                                toastr.warning("操作失败：" + data.ErrMsg);
+                            }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            toastr.warning("操作失败：" + errorThrown);
+                        }
+                    });
+                }
+            });
+        });
+    }
+
+</script>

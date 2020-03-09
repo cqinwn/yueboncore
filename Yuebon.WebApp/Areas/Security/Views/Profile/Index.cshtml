@@ -1,0 +1,334 @@
+﻿@{
+    ViewData["Title"] = "个人设置-用户管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Yuebon.WebApp.Commons;
+<div class="edit-page-wrapper">
+    <div class="row">
+        <div class="col-12">
+            <form class="form-horizontal" id="frmSubmit" method="post" enctype="multipart/form-data">
+                <div class="card">
+                    <div class="card-header d-flex p-0">
+                        <ul class="nav nav-pills p-2">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#basicInfo" data-toggle="tab">个人信息</a>
+                            </li>
+                        </ul>
+                    </div><!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="tab-content p-0">
+                            <!-- Morris chart - Sales -->
+                            <div class="chart tab-pane active" id="basicInfo" style="position: relative;">
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-1"><label for="RoleId" class="col-form-label">角色:</label></div>
+                                        <select class="form-control select2  col-md-5" multiple="multiple" readonly disabled name="RoleId" id="RoleId">
+                                            <option value="">==请选择角色==</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="HeadIcon" class="col-form-label col-md-1">头像:</label>
+                                        <div class="input-group col-5">
+                                            <input type="text" class="form-control upload-path" name="HeadIcon" id="HeadIcon">
+                                            <button type="button" id="j_upload_img_btn">选择图片</button>
+                                            <ul id="upload_img_wrap"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="ImgUrlPic" class="col-form-label  col-md-1"></label>
+                                        <div class="input-group col-5">
+                                            <img src="~/img/default-150x150.png" alt="" id="HeadIconPic" class="img-rounded" width="100" height="100" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Account" class="col-form-label col-md-1">账号:</label>
+                                        <input type="text" class="form-control  col-md-5" name="Account" id="Account" readonly disabled placeholder="请输入账号">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="RealName" class="col-form-label col-md-1">姓名:</label>
+                                        <input type="text" class="form-control  col-md-5" name="RealName" id="RealName" placeholder="请输入姓名">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-form-label col-md-1">性别:</label>
+                                        <select class="form-control  select2 col-md-5" name="Gender" id="Gender">
+                                            <option value="">=请选择性别=</option>
+                                            <option value="1">男</option>
+                                            <option value="0">女</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="NickName" class="col-form-label col-md-1">昵称:</label>
+                                        <input type="text" class="form-control  col-md-5" name="NickName" id="NickName" placeholder="昵称">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="OrganizeId" class="col-form-label col-md-1">公司:</label>
+                                        <select class="form-control select2  col-md-5" name="OrganizeId" id="OrganizeId">
+                                            <option value="">==请选择所属公司==</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="DepartmentId" class="col-form-label col-md-1">部门:</label>
+                                        <select class="form-control select2  col-md-5" name="DepartmentId" id="DepartmentId">
+                                            <option value="">==请选择部门==</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="DutyId" class="col-form-label col-md-1">岗位:</label>
+                                        <select class="form-control select2  col-md-5" name="DutyId" id="DutyId">
+                                            <option value="">==请选择岗位==</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="MobilePhone" class="col-form-label col-md-1">手机:</label>
+                                        <input type="text" class="form-control  col-md-5" name="MobilePhone" id="MobilePhone" placeholder="请输入手机">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Birthday" class="col-form-label col-md-1">生日:</label>
+                                        <input type="text" class="form-control  col-md-5" name="Birthday" id="Birthday" placeholder="请输入生日">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="Email" class="col-form-label col-md-1">Email:</label>
+                                        <input type="email" class="form-control  col-md-5" name="Email" id="Email" placeholder="请输入Email">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label for="WeChat" class="col-form-label col-md-1">微信:</label>
+                                        <input type="text" class="form-control  col-md-5" name="WeChat" id="WeChat" placeholder="请输入微信">
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-form-label col-md-1">选项:</label>
+                                        <label for="IsAdministrator">
+                                            <input type="checkbox" class="flat-red" readonly disabled name="IsAdministrator" id="IsAdministrator">
+                                            系统管理员
+                                        </label>
+                                        <label for="EnabledMark">
+                                            <input type="checkbox" class="flat-red" checked="checked" readonly disabled name="EnabledMark" id="EnabledMark">
+                                            有效
+                                        </label>
+                                        <label for="DeleteMark">
+                                            <input type="checkbox" class="flat-red" name="DeleteMark" readonly disabled id="DeleteMark">
+                                            删除
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" id="Id" name="Id" value="@ViewData["id"]" />
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary btnSave" id="btnSaveOK"><i class="fa fa-save"></i>保存</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<textarea id="uploadEditor" style="display: none;"></textarea>
+
+<script type="text/javascript" charset="utf-8" src="~/lib/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="~/lib/ueditor/ueditor.all.js"></script>
+<script type="text/javascript" charset="utf-8" src="~/lib/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript">
+    // 实例化编辑器，这里注意配置项隐藏编辑器并禁用默认的基础功能。
+    var uploadEditor = UE.getEditor("uploadEditor", {
+        isShow: false,
+        focus: false,
+        enableAutoSave: false,
+        autoSyncData: false,
+        autoFloatEnabled: false,
+        wordCount: false,
+        sourceEditor: null,
+        scaleEnabled: true,
+        toolbars: [["insertimage", "attachment"]]
+    });
+
+</script>
+<!-- page script -->
+<script>
+    $(function () {
+        //iCheck for checkbox and radio inputs
+        $('input[type="checkbox"].flat-red').iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'iradio_minimal',
+        })
+        InitDictItem();
+        // 监听多图上传和上传附件组件的插入动作
+        uploadEditor.ready(function () {
+            uploadEditor.addListener("beforeInsertImage", _beforeInsertImage);
+        });
+        // 自定义按钮绑定触发多图上传和上传附件对话框事件
+        document.getElementById('j_upload_img_btn').onclick = function () {
+            var dialog = uploadEditor.getDialog("insertimage");
+            dialog.title = '多图上传';
+            dialog.render();
+            dialog.open();
+        };
+        setTimeout(function () { BindEditInfo(); }, 1200);
+        BindSaveEvent();
+    });
+    // 多图上传动作
+    function _beforeInsertImage(t, result) {
+        var imageHtml = '';
+        $("#HeadIcon").val(result[0].src);
+        $("#HeadIconPic").attr("src", result[0].src);
+        //for (var i in result) {
+        //    imageHtml += '<li><img src="' + result[i].src + '" alt="' + result[i].alt + '" height="150"></li>';
+        //}
+        //document.getElementById('upload_img_wrap').innerHTML = imageHtml;
+    }
+    
+    //初始化数据字典
+    function InitDictItem() {
+        BindSelect2("OrganizeId", "/Security/Organize/FindTreeSelectJson");
+        BindSelect2("DepartmentId", "/Security/Organize/FindTreeSelectJson");
+        BindSelect2("RoleId", "/Security/Role/FindTreeSelectJson");
+        BindSelect2("DutyId", "/Security/Duty/FindTreeSelectJson");
+
+    }
+    //绑定编辑详细信息的方法
+    function BindEditInfo() {
+        var ID = $("#Id").val();
+        if (ID.trim() != "") {
+            //首先用户发送一个异步请求去后台实现方法
+            $.getJSON("/Security/Profile/GetById?r=" + Math.random() + "&id=" + ID, function (info) {
+                //赋值有几种方式：.datebox('setValue', info.Birthday);.combobox('setValue', info.Status);.val(info.Name);
+                $("#Id").val(info.ResData.Id);
+                $("#frmSubmit").formSerialize(info.ResData);
+                $("#HeadIconPic").attr("src", info.ResData.ImgUrl);
+                $("#RoleId").select2("val", info.ResData.RoleId.split(','));
+            });
+        }
+    }
+    //绑定保存按钮的事件
+    function BindSaveEvent() {
+        $("#btnSaveOK").click(function () {
+            $("#frmSubmit").validate({
+                rules: {
+                    RealName: {
+                        required: true,
+                        minlength: 2
+                    },
+                    OrganizeId: {
+                        required: true
+                    },
+                    DepartmentId: {
+                        required: true
+                    },
+                    DutyId: {
+                        required: true
+                    }
+                },
+                messages: {
+                    RealName: {
+                        required: "请输入真实姓名",
+                        minlength: "真实姓名至少2个字符"
+                    },
+                    OrganizeId: {
+                        required: "请选择归属公司"
+                    },
+                    DepartmentId: {
+                        required: "请选择所属部门"
+                    },
+                    DutyId: {
+                        required: "请选择岗位"
+                    }
+                },
+                errorClass: 'help-block help-block-error',
+                focusInvalid: true,
+                //unhighlight: function (element, errorClass, validClass) { //验证通过
+                //    $(element).tooltip('destroy').removeClass(errorClass);
+                //},
+                highlight: function (element) {//验证未通过
+                    $(element).closest('.form-group').addClass('has-error');
+                },
+                success: function (label, element) {
+                    $(element).closest('.form-group').removeClass('has-error');
+                    $(element).attr("title", "").tooltip("hide");
+                },
+                errorPlacement: function (error, element) {
+                    if ($(element).next("div").hasClass("tooltip")) {
+                        $(element).attr("data-original-title", $(error).text()).tooltip("show");
+                    } else {
+                        $(element).attr("title", $(error).text()).tooltip("show");
+                    }
+                },
+                submitHandler: function (form) {
+                    var postData = {
+                        "Id": $("#Id").val(),
+                        "Account": $("#Account").val(),
+                         "HeadIcon": $("#HeadIcon").val(),
+                        "RealName": $("#RealName").val(),
+                        "NickName": $("#NickName").val(),
+                        "Gender": $("#Gender").val(),
+                        "OrganizeId": $("#OrganizeId").val(),
+                        "DepartmentId": $("#DepartmentId").val(),
+                        "DutyId": $("#DutyId").val(),
+                        "MobilePhone": $("#MobilePhone").val(),
+                        "Birthday": $("#Birthday").val(),
+                        "Email": $("#Email").val(),
+                        "WeChat": $("#WeChat").val()
+                    };
+                    var keyValue = $("#Id").val();
+                    var reqUrl =  "/Security/Profile/Edit?id=" + keyValue;
+                    $.ajax({
+                        url: reqUrl,
+                        data: postData,
+                        dataType: 'json',//服务器返回json格式数据
+                        type: 'post',//HTTP请求类型
+                        timeout: 100000,//超时时间设置为10秒；
+                        success: function (data) {
+                            //服务器返回响应，根据响应结果，分析是否登录成功；
+                            if (data.Success) {
+                                $('#addFormModal').modal('hide');  //手动关闭
+                                toastr.success("操作成功");
+                                setTimeout(function () {
+                                    $table.bootstrapTable('refresh');
+                                    $("#frmSubmit")[0].reset();
+                                }, 2500);
+                            } else {
+                                toastr.warning("操作失败：" + data.ErrMsg);
+                            }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            toastr.warning("操作失败：" + errorThrown);
+                        }
+                    });
+                }
+            });
+        });
+    }
+
+</script>

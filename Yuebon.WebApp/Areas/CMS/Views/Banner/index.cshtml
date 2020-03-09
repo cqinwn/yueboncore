@@ -1,0 +1,202 @@
+﻿@{
+    ViewData["Title"] = "广告管理-广告列表";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.CurrentMenuP = "Advert";
+    ViewBag.CurrentMenu = "Banner/List";
+}
+@using Yuebon.WebApp.Commons;
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div id="toolbar" class="btn-group">
+                    @if (@ViewBag.AuthorizeKey.CanInsert)
+                    {
+                        <button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal" onclick="ShowEditOrViewDialog()" data-whatever="新增">
+                            <i class="fas fa-plus" aria-hidden="true"></i>新增
+                        </button>
+                    }
+                    @if (@ViewBag.AuthorizeKey.CanUpdate)
+                    {
+                        <button id="btn_edit" type="button" class="btn btn-info" data-toggle="modal" onclick="ShowEditOrViewDialog('edit')" data-whatever="修改">
+                            <i class="fas fa-edit" aria-hidden="true"></i>修改
+                        </button>
+                    }
+                    @if (@ViewBag.AuthorizeKey.CanUpdateEnable)
+                    {
+                        <button type="button" class="btn btn-secondary" onclick="EnableByIds('0','/CMS/Banner')"><i class=" fa fa-stop-circle"></i>禁用</button>
+                        <button type="button" class="btn btn-success" onclick="EnableByIds('1','/CMS/Banner')"><i class=" fa fa-play-circle"></i>启用</button>
+                    }
+                    @if (@ViewBag.AuthorizeKey.CanDeleteSoft)
+                    {
+                        <button id="btn_delete" type="button" class="btn btn-warning" onclick="DeleteByIds('/CMS/Banner/DeleteSoftByIds')">
+                            <i class="fas fa-trash-alt" aria-hidden="true"></i>软删除
+                        </button>
+                    }
+                    @if (@ViewBag.AuthorizeKey.CanDelete)
+                    {
+                        <button id="btn_delete" type="button" class="btn btn-danger" onclick="DeleteByIds('/CMS/Banner/DeleteByIds')">
+                            <i class="fas fa-trash-alt" aria-hidden="true"></i>删除
+                        </button>
+                    }
+
+                </div>
+                <table id="tbGrid"></table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+</div>
+
+<!-- page script -->
+<script>
+    $(function () {
+        //1.初始化Table
+        var oTable = new TableInit();
+        oTable.Init();
+        InitDictItem();
+    });
+
+    //加载数据表格
+    var $table = $('#tbGrid');
+    var TableInit = function () {
+        var oTableInit = new Object();
+        var keywords = "";
+        //初始化Table
+        oTableInit.Init = function () {
+            $table.bootstrapTable({
+                url: '/CMS/Banner/FindWithPager',         //请求后台的URL（*）
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: true,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber: 1,                       //初始化加载第一页，默认第一页
+                pageSize: 25,                       //每页的记录行数（*）
+                pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+                search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                strictSearch: true,
+                showColumns: true,                  //是否显示所有的列
+                showRefresh: true,                  //是否显示刷新按钮
+                minimumCountColumns: 2,             //最少允许的列数
+                clickToSelect: true,                //是否启用点击选中行
+                //height: $(window).height(),                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "Id",                     //每一行的唯一标识，一般为主键列
+                showToggle: true,                    //是否显示详细视图和列表视图的切换按钮
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                searchOnEnterKey: true,
+                searchText: keywords,
+                columns: [
+                    {
+                        checkbox: true
+                    },{
+                        field: 'Title',
+                        title: '广告名称',
+                        sortable: true,
+                        searchable: true,
+                    },{
+                        field: 'ADTitle',
+                        title: '广告位',
+                        sortable: true,
+                        searchable: true,
+                    },{
+                        field: 'StartTime',
+                        title: '开始时间',
+                        sortable: true,
+                        searchable: true,
+                    },{
+                        field: 'EndTime',
+                        title: '结束时间',
+                        sortable: true,
+                        searchable: true,
+                    },{
+                        field: 'SortCode',
+                        title: '排序',
+                        sortable: true,
+                        searchable: true,
+                    },{
+                        field: 'CreatorTime',
+                        title: '创建时间',
+                        sortable: true,
+                        searchable: true,
+                    },
+                    {
+                        field: 'EnabledMark',
+                        title: '状态',
+                        sortable: true,
+                        align: "center",
+                        formatter: function (value, row, index) {
+                            return value ? '<i class=\"fas fa-toggle-on\" style=\"color:#28a745\">启用</i>' : "<i class=\"fas fa-toggle-off\">禁用</i>"
+                        }
+                    },
+                    {
+                        field: 'DeleteMark',
+                        title: '删除',
+                        sortable: true,
+                        align: "center",
+                        formatter: function (value, row, index) {
+                            return value ? '<i class=\"fas fa-toggle-on\" style=\"color:#ff0000\">是</i>' : "<i class=\"fas fa-toggle-off\">否</i>";
+                        }
+                    }
+                ],
+                onSearch: function (text) {
+                    keywords = text;
+                    return true;
+                },
+            });
+        };
+
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                limit: params.limit,   //页面大小
+                offset: params.offset,  //页码
+                order: params.order,
+                sort: params.sort,
+                search: $("input[ name='search_text' ] ").val(), //定义传输的搜索参数
+            };
+            return temp;
+        };
+        return oTableInit;
+    };
+
+
+    //初始化数据字典
+    function InitDictItem() {
+
+    }
+    //新增、修改或查看明细信息（绑定显示数据）
+    function ShowEditOrViewDialog(view) {
+        if (view != null) {
+            //首先取出来用户选择的数据的ID
+            var rows = $table.bootstrapTable('getSelections');
+            //首先取出来值判断用户只能选择一个
+            if (rows.length == 0) {
+                toastr.warning("请选择一条记录");
+                return;
+            }
+            else if (rows.length > 1) {
+                toastr.warning("每次只能修改/查看一条记录，你已经选择了<font color='red'  size='6'>" + rows.length + "</font>条");
+                return;
+            }
+        }
+        if (view == null) {
+            //处理修改的信息
+            window.location.href ="/CMS/Banner/Edit"
+        } else if (view == "edit") {
+            //处理修改的信息
+            //$('#addFormModal').modal('show');  //手动显示
+            //$('#addFormModal').find('.modal-title').text("编辑");
+            ////绑定修改详细信息的方法
+            //BindEditInfo();
+            var ID = $table.bootstrapTable('getSelections')[0].Id;  //获取到了用用户选择的ID
+            window.location.href = "/CMS/Banner/Edit/?id=" + ID;
+        }
+    }
+</script>

@@ -1,0 +1,388 @@
+﻿@{
+    ViewData["Title"] = "系统类型-系统管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.CurrentMenuP = "Security";
+    ViewBag.CurrentMenu = "SystemType/List";
+}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div id="toolbar" class="btn-group">
+                    @if (@ViewBag.AuthorizeKey.CanInsert)
+                    {
+                        <button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal" onclick="ShowEditOrViewDialog()" data-whatever="新增">
+                            <i class="fas fa-plus" aria-hidden="true"></i>新增
+                        </button>
+                    }
+                    @if (@ViewBag.AuthorizeKey.CanUpdate)
+                    {
+                        <button id="btn_edit" type="button" class="btn btn-info" data-toggle="modal" onclick="ShowEditOrViewDialog('edit')" data-whatever="修改">
+                            <i class="fas fa-edit" aria-hidden="true"></i>修改
+                        </button>
+                    }
+                    @if (@ViewBag.AuthorizeKey.CanUpdateEnable)
+                    {
+                        <button type="button" class="btn btn-secondary" onclick="EnableByIds('0','/Security/SystemType')"><i class=" fa fa-stop-circle"></i>禁用</button>
+                        <button type="button" class="btn btn-success" onclick="EnableByIds('1','/Security/SystemType')"><i class=" fa fa-play-circle"></i>启用</button>
+                    }
+                    @if (@ViewBag.AuthorizeKey.CanDeleteSoft)
+                    {
+                        <button id="btn_delete" type="button" class="btn btn-warning" onclick="DeleteByIds('/Security/SystemType/DeleteSoftByIds')">
+                            <i class="fas fa-trash-alt" aria-hidden="true"></i>软删除
+                        </button>
+                    }
+                    @if (@ViewBag.AuthorizeKey.CanDelete)
+                    {
+                        <button id="btn_delete" type="button" class="btn btn-danger" onclick="DeleteByIds('/Security/SystemType/DeleteByIds')">
+                            <i class="fas fa-trash-alt" aria-hidden="true"></i>删除
+                        </button>
+                    }
+
+
+                </div>
+                <table id="tbGrid"></table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+</div>
+
+<!-- 添加/编辑信息的弹出层 -->
+<div class="modal fade" id="addFormModal" tabindex="-1" role="dialog" aria-labelledby="addFormModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form class="form-horizontal" id="frmSubmit" method="post" enctype="multipart/form-data">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title" id="addFormModalLabel">新增</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label for="FullName" class="col-form-label col-2">名称:</label>
+                                    <input type="text" class="form-control col-10" name="FullName" id="FullName" placeholder="请输入系统名称">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label for="EnCode" class="col-form-label col-2">编码:</label>
+                                    <input type="text" class="form-control col-10" name="EnCode" id="EnCode" placeholder="请输入系统编码">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label for="SortCode" class="col-form-label col-2">排序:</label>
+                                    <input type="text" class="form-control  col-10" name="SortCode" id="SortCode" placeholder="请输入排序号">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label for="EnCode" class="col-form-label col-2">选项:</label>
+                                    <div class="col-10">
+                                        <label for="EnabledMark">
+                                            <input type="checkbox" class="flat-red" checked="checked" name="EnabledMark" id="EnabledMark">
+                                            有效
+                                        </label>
+                                        <label for="AllowEdit">
+                                            <input type="checkbox" class="flat-red" name="AllowEdit" id="AllowEdit">
+                                            允许编辑
+                                        </label>
+                                        <label for="AllowDelete">
+                                            <input type="checkbox" class="flat-red" name="AllowDelete" id="AllowDelete">
+                                            允许删除
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <label for="Description" class="col-form-label  col-1">URL:</label>
+                            <input type="text" class="form-control  col-10" name="Url" id="Url" placeholder="请输入系统链接URL">
+                        </div>
+                    </div>
+                    <div class="form-group"> 
+                        <label for="Description" class="col-form-label">描述:</label>
+                        <textarea class="form-control" id="Description" name="Description"></textarea>
+                    </div>
+                    <input type="hidden" id="Id" name="Id" value="" />
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btnSave" id="btnSaveOK"><i class="fa fa-save"></i>保存</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close"></i>关闭</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- page script -->
+<script>
+    $(function () {
+        //iCheck for checkbox and radio inputs
+        $('input[type="checkbox"].flat-red').iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'iradio_minimal',
+        })
+        //1.初始化Table
+        var oTable = new TableInit();
+        oTable.Init();
+
+        InitDictItem();
+        BindSaveEvent();
+    });
+    //加载数据表格
+    var $table = $('#tbGrid');
+    var TableInit = function () {
+        var oTableInit = new Object();
+        var keywords = "";
+        //初始化Table
+        oTableInit.Init = function () {
+            $table.bootstrapTable({
+                url: '/Security/SystemType/FindWithPager',         //请求后台的URL（*）
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: true,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber: 1,                       //初始化加载第一页，默认第一页
+                pageSize: 25,                       //每页的记录行数（*）
+                pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+                search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                strictSearch: true,
+                showColumns: true,                  //是否显示所有的列
+                showRefresh: true,                  //是否显示刷新按钮
+                minimumCountColumns: 2,             //最少允许的列数
+                clickToSelect: true,                //是否启用点击选中行
+                //height: $(window).height(),                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                showToggle: true,                    //是否显示详细视图和列表视图的切换按钮
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                searchOnEnterKey: true,
+                searchText: keywords,
+                columns: [
+                    {
+                        checkbox: true
+                    }, {
+                        field: 'FullName',
+                        title: '系统名称',
+                        sortable: true,
+                        searchable: true,
+                    }, {
+                        field: 'EnCode',
+                        title: '系统编码',
+                        sortable: true,
+                        searchable: true,
+                    }, {
+                        field: 'SortCode',
+                        title: '排序',
+                        sortable: true,
+                        align: "center"
+                    },  {
+                        field: 'CreatorTime',
+                        title: '创建时间',
+                        sortable: true,
+                        align: "center",
+                        formatter: function (value, row, index) {
+                            return value.substring(0,10);
+                        }
+                    },
+                    {
+                        field: 'EnabledMark',
+                        title: '状态',
+                        sortable: true,
+                        align: "center",
+                        formatter: function (value, row, index) {
+                            return value ? '<i class=\"fas fa-toggle-on\" style=\"color:#28a745\">启用</i>' : "<i class=\"fas fa-toggle-off\">禁用</i>"
+                        }
+                    },{
+                        field: 'DeleteMark',
+                        title: '删除',
+                        sortable: true,
+                        align: "center",
+                        formatter: function (value, row, index) {
+                            return value ? '<i class=\"fas fa-toggle-on\" style=\"color:#f00\">是</i>' : "<i class=\"fas fa-toggle-off\">否</i>"
+                        }
+                    }
+                ],
+                onSearch: function (text) {
+                    keywords = text;
+                    return true;
+                },
+            });
+        };
+
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                limit: params.limit,   //页面大小
+                offset: params.offset,  //页码
+                order: params.order,
+                sort: params.sort,
+                search: $("input[ name='search_text' ] ").val(), //定义传输的搜索参数
+            };
+            return temp;
+        };
+        return oTableInit;
+    };
+
+    //初始化数据字典
+    function InitDictItem() {
+
+    }
+
+    //新增、修改或查看明细信息（绑定显示数据）
+    function ShowEditOrViewDialog(view) {
+        if (view != null) {
+            //首先取出来用户选择的数据的ID
+            var rows = $table.bootstrapTable('getSelections');
+            //首先取出来值判断用户只能选择一个
+            if (rows.length == 0) {
+                toastr.warning("请选择一条记录");
+                return;
+            }
+            else if (rows.length > 1) {
+                toastr.warning("每次只能修改/查看一条记录，你已经选择了<font color='red'  size='6'>" + rows.length + "</font>条");
+                return;
+            }
+        }
+        if (view == null) {
+            //处理修改的信息
+            $('#addFormModal').modal('show');  //手动显示
+            $('#addFormModal').find('.modal-title').text("新增");
+            $("#Id").val("");
+        } else if (view == "edit") {
+            //处理修改的信息
+            $('#addFormModal').modal('show');  //手动显示
+            $('#addFormModal').find('.modal-title').text("编辑");
+            //绑定修改详细信息的方法
+            BindEditInfo();
+        }
+    }
+
+    //绑定编辑详细信息的方法
+    function BindEditInfo() {
+        //首先用户发送一个异步请求去后台实现方法
+        var ID = $table.bootstrapTable('getSelections')[0].Id;  //获取到了用用户选择的ID
+        $.getJSON("/Security/SystemType/GetById?r=" + Math.random() + "&id=" + ID, function (info) {
+            //赋值有几种方式：.datebox('setValue', info.Birthday);.combobox('setValue', info.Status);.val(info.Name);
+            $("#Id").val(info.ResData.Id);
+            $("#frmSubmit").formSerialize(info.ResData);
+        });
+    }
+    //绑定保存按钮的事件
+    function BindSaveEvent() {
+        $("#btnSaveOK").click(function () {
+            $("#frmSubmit").validate({
+                rules: {
+                    FullName: {
+                        required: true,
+                        minlength: 2,
+                        maxlength: 50
+                    },
+                    EnCode: {
+                        required: true,
+                        minlength: 2,
+                        maxlength: 50
+                    }
+                },
+                messages: {
+                    FullName: {
+                        required: "请输入系统名称",
+                        minlength: "系统名称至少2个字符",
+                        maxlength: "系统名称最多50个字符"
+                    },
+                    EnCode: {
+                        required: "请输入系统编码",
+                        minlength: "系统编码至少2个字符",
+                        maxlength: "系统名称最多50个字符"
+                    }
+                },
+                errorClass: 'help-block help-block-error',
+                focusInvalid: true,
+                //unhighlight: function (element, errorClass, validClass) { //验证通过
+                //    $(element).tooltip('destroy').removeClass(errorClass);
+                //},
+                highlight: function (element) {//验证未通过
+                    $(element).closest('.form-group').addClass('has-error');
+                },
+                success: function (label, element) {
+                    $(element).closest('.form-group').removeClass('has-error');
+                    $(element).attr("title", "").tooltip("hide");
+                },
+                errorPlacement: function (error, element) {
+                    if ($(element).next("div").hasClass("tooltip")) {
+                        $(element).attr("data-original-title", $(error).text()).tooltip("show");
+                    } else {
+                        $(element).attr("title", $(error).text()).tooltip("show");
+                    }
+                },
+                submitHandler: function (form) {
+                    //var postData = $("#frmSubmit").serializeArray();
+                    //var postData = $("#frmSubmit").formSerialize();
+                    var postData = {
+                        "Id": $("#Id").val(),
+                        "FullName": $("#FullName").val(),
+                        "EnCode": $("#EnCode").val(),
+                        "SortCode": $("#SortCode").val(),
+                        "Url": $("#Url").val(),
+                        "EnabledMark": $("#EnabledMark").is(':checked'),
+                        "AllowEdit": $("#AllowEdit").is(':checked'),
+                        "AllowDelete": $("#AllowDelete").is(':checked'),
+                        "Description": $("#Description").val()
+                    };
+                    var keyValue = $("#Id").val();
+                    var reqUrl = "/Security/SystemType/Insert";
+                    if (keyValue != "" && keyValue != null && keyValue != "null") {
+                        reqUrl = "/Security/SystemType/Update?id=" + keyValue;
+                    }
+                    $.ajax({
+                        url: reqUrl,
+                        data: postData,
+                        dataType: 'json',//服务器返回json格式数据
+                        type: 'post',//HTTP请求类型
+                        timeout: 100000,//超时时间设置为10秒；
+                        success: function (data) {
+                            //服务器返回响应，根据响应结果，分析是否登录成功；
+                            if (data.Success) {
+                                toastr.success("操作成功");
+                                $("#frmSubmit")[0].reset();
+                                $('#addFormModal').modal('hide');  //手动关闭
+                                setTimeout(function () {
+                                    $table.bootstrapTable('refresh');
+                                }, 1500);
+                            } else {
+                                toastr.warning("操作失败：" + data.ErrMsg);
+                            }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            toastr.warning("操作失败：" + errorThrown);
+                        }
+                    });
+                }
+            });
+        });
+    }
+   
+</script>

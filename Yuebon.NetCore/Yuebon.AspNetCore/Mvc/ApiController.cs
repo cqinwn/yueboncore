@@ -1,19 +1,13 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.SSO;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Models;
-using Yuebon.Commons.Options;
 using Yuebon.Security.Application;
 using Yuebon.Security.Models;
 
@@ -128,5 +122,6 @@ namespace Yuebon.AspNetCore.Controllers
             var cookie = HttpContext.Request.Cookies["Token"];
             return cookie == null ? String.Empty : cookie;
         }
+
     }
 }

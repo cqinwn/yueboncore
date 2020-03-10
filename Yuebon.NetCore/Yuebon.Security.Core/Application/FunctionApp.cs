@@ -116,6 +116,33 @@ namespace Yuebon.Security.Application
         }
 
         /// <summary>
+        /// 根据用户角色IDs，获取对应的功能列表
+        /// </summary>
+        /// <param name="roleIds">用户角色ID</param>
+        /// <param name="systemId">系统类型ID/子系统ID</param>
+        /// <returns></returns>
+        public List<FunctionOutputDto> GetFunctionsByRole(string roleIds, string systemId)
+        {
+            string where = string.Format("");
+            List<FunctionOutputDto> functions = new List<FunctionOutputDto>();
+            YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+            if (yuebonCacheHelper.Exists("Role_Functions_" + roleIds))
+            {
+                functions = JsonConvert.DeserializeObject<List<FunctionOutputDto>>(yuebonCacheHelper.Get("Role_Functions_" + roleIds).ToJson());
+            }
+            else
+            {
+                string roleIDsStr = string.Format("'{0}'", roleIds.Replace(",", "','"));
+                if (roleIDsStr != "")
+                {
+                    functions = service.GetFunctions(roleIDsStr, systemId).ToList().MapTo<FunctionOutputDto>();
+                    //写入缓存
+                    yuebonCacheHelper.Add("Role_Functions_" + roleIds, functions);
+                }
+            }
+            return functions;
+        }
+        /// <summary>
         ///获取超级管理员操作所有功能，
         /// </summary>
         /// <param name="roleId">超级管理员角色ID</param>

@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Yuebon.Commons.Tree;
 using Yuebon.Security.Dtos;
 
 namespace Yuebon.AspNetCore.SSO
 {
+    /// <summary>
+    /// 登录成功返回用户信息
+    /// </summary>
     [Serializable]
     public class UserAuthSession
     {
@@ -77,6 +81,22 @@ namespace Yuebon.AspNetCore.SSO
         /// </summary>
         public string WxSessionId { get; set; }
 
+
+        /// <summary>
+        /// 当前访问的系统
+        /// </summary>
+        public string ActiveSystem { get; set; }
+
+        /// <summary>
+        /// 可以访问子系统
+        /// </summary>
+        public List<SystemTypeOutputDto> SubSystemList { get; set; }
+
+
+        /// <summary>
+        /// 可以访问菜单
+        /// </summary>
+        public List<VuexMenusTreeModel> MenusList { get; set; }
 
     }
 }

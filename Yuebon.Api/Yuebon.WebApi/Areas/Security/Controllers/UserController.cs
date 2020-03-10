@@ -9,6 +9,8 @@ using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.SSO;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.Encrypt;
+using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IoC;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
@@ -18,6 +20,7 @@ using Yuebon.Security.Application;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
+using Yuebon.Security.Services;
 
 namespace Yuebon.WebApi.Areas.Security.Controllers
 {
@@ -27,14 +30,77 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
     [Route("api/Security/[controller]")]
     public class UserController: AreaApiController<User, IUserService>
     {
+        private UserLogOnService userLogOnService;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="_iService"></param>
-        public UserController(IUserService _iService) : base(_iService)
+        /// <param name="_userLogOnService"></param>
+        public UserController(IUserService _iService, UserLogOnService _userLogOnService) : base(_iService)
         {
+            iService = _iService;
+            userLogOnService = _userLogOnService;
         }
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="oldPassword">原密码</param>
+        /// <param name="password">新密码</param>
+        /// <param name="password2">新密码</param>
+        /// <returns></returns>
+        [HttpPost("ModifyPassword")]
+        public IActionResult ModifyPassword(string oldPassword,string password, string password2)
+        {
+            CommonResult result = new CommonResult();
+            result = CheckToken();
+            if (result.ErrCode == ErrCode.successCode)
+            {
+                if (string.IsNullOrEmpty(password))
+                {
+                    result.ErrMsg = "新密码不能为空！";
+                }
+                else if (string.IsNullOrEmpty(password2))
+                {
+                    result.ErrMsg = "重复输入密码不能为空！";
+                }
+                else if (string.IsNullOrEmpty(oldPassword))
+                {
+                    result.ErrMsg = "请重新输入原密码！";
+                    
+                }
+                else if (password == password2)
+                {
+                    UserLogOn userLogOn =  userLogOnService.GetByUserId(CurrentUser.UserId);
+                    string inputPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(password).ToLower(), userLogOn.UserSecretkey).ToLower()).ToLower();
 
+                    if (inputPassword != userLogOn.UserPassword)
+                    {
+                        result.ErrMsg = "原密码错误，请重新输入。";
+                    }
+                    else
+                    {
+                        userLogOn.UserSecretkey = MD5Util.GetMD5_16(GuidUtils.NewGuidFormatN()).ToLower();
+                        userLogOn.UserPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(password).ToLower(), userLogOn.UserSecretkey).ToLower()).ToLower();
+                        bool bl = userLogOnService.Update(userLogOn, userLogOn.Id);
+                        if (bl)
+                        {
+                            result.ErrCode = ErrCode.successCode;
+                            result.Success = true;
+                        }
+                        else
+                        {
+                            result.ErrMsg = ErrCode.err43002;
+                            result.ErrCode = "43002";
+                        }
+                    }
+                }
+                else
+                {
+                    result.ErrMsg = "两次输入的密码不一样";
+                }
+            }
+            return ToJsonContent(result);
+        }
         /// <summary>
         /// 获取所有用户信息
         /// </summary>

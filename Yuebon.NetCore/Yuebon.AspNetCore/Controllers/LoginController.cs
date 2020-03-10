@@ -26,13 +26,16 @@ namespace Yuebon.AspNetCore.Controllers
     public class LoginController : ApiController
     {
         private IUserService userService;
+        private ISystemTypeService systemTypeService;
         /// <summary>
         /// 构造函数注入服务
         /// </summary>
         /// <param name="_iService"></param>
-        public LoginController(IUserService _iService)
+        /// <param name="_systemTypeService"></param>
+        public LoginController(IUserService _iService, ISystemTypeService _systemTypeService)
         {
             userService = _iService;
+            systemTypeService = _systemTypeService;
         }
 
         /// <summary>
@@ -41,9 +44,10 @@ namespace Yuebon.AspNetCore.Controllers
         /// <param name="username">用户名</param>
         /// <param name="password">密码</param>
         /// <param name="appId">AppId</param>
+        /// <param name="systemCode">systemCode</param>
         /// <returns>返回用户User对象</returns>
         [HttpGet("GetCheckUser")]
-        public IActionResult GetCheckUser(string username, string password,string appId)
+        public IActionResult GetCheckUser(string username, string password,string appId,string systemCode)
         {
             CommonResult result = new CommonResult();
             if (string.IsNullOrEmpty(username))
@@ -86,8 +90,10 @@ namespace Yuebon.AspNetCore.Controllers
                                 MemberGradeId = user.MemberGradeId,
                                 Role = new RoleApp().GetRoleEnCode(user.RoleId),
                                 MobilePhone = user.MobilePhone
-
                             };
+                            currentSession.SubSystemList = systemTypeService.GetSubSystemList(user.RoleId);
+                            currentSession.ActiveSystem = systemTypeService.GetByCode(systemCode).FullName;
+                            currentSession.MenusList = new MenuApp().GetMenuFuntionVuexMenusTreeJson(user.RoleId,systemCode);
                             TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
                             yuebonCacheHelper.Add("login_user_" + user.Id, currentSession, expiresSliding, true);
                         }

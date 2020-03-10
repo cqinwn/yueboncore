@@ -14,21 +14,24 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.AspNetCore.Common
 {
+    /// <summary>
+    /// 权限控制
+    /// </summary>
     public class Permission
     {
         private AuthHelper authHelper = IoCContainer.Resolve<AuthHelper>();
+
         /// <summary>
         /// 判断当前用户是否拥有某功能点的权限
         /// </summary>
         /// <param name="functionCode">功能编码code</param>
+        /// <param name="currentUser"></param>
         /// <returns></returns>
-        public bool HasFunction(string functionCode)
+        public bool HasFunction(string functionCode, UserAuthSession currentUser)
         {
-            UserLoginDto CurrentUser = SessionHelper.GetSession<UserLoginDto>("CurrentUser");
-            //UserWithAccessedCtrls userWithAccessedCtrls = authHelper.GetCurrentUser();
-            //User CurrentUser = userWithAccessedCtrls.User;
+            
             bool hasFunction = false;
-            if (CurrentUser != null && CurrentUser.Account == "admin")
+            if (currentUser != null && currentUser.Account == "admin")
             {
                 hasFunction = true;
             }
@@ -40,7 +43,7 @@ namespace Yuebon.AspNetCore.Common
                 }
                 else
                 {
-                    List<FunctionOutputDto> listFunction = JsonConvert.DeserializeObject<List<FunctionOutputDto>>(new YuebonCacheHelper().Get("User_Function_" + CurrentUser.UserId).ToJson());
+                    List<FunctionOutputDto> listFunction = JsonConvert.DeserializeObject<List<FunctionOutputDto>>(new YuebonCacheHelper().Get("User_Function_" + currentUser.UserId).ToJson());
                     if (listFunction != null && listFunction.Count(t => t.EnCode == functionCode) > 0)
                     {
                         hasFunction = true;
@@ -54,16 +57,15 @@ namespace Yuebon.AspNetCore.Common
         /// 判断是否为系统管理员或超级管理员
         /// </summary>
         /// <returns>true:系统管理员或超级管理员,false:不是系统管理员或超级管理员</returns>
-        public bool IsAdmin()
+        /// <param name="currentUser"></param>
+        /// <returns></returns>
+        public bool IsAdmin(UserAuthSession currentUser)
         {
             bool blnIsAdmin = false;
-            UserLoginDto CurrentUser = SessionHelper.GetSession<UserLoginDto>("CurrentUser");
-            //UserWithAccessedCtrls userWithAccessedCtrls = authHelper.GetCurrentUser();
-            //User CurrentUser = userWithAccessedCtrls.User;
-            if (CurrentUser != null)
+            if (currentUser != null)
             {
-                string[] roleIds = CurrentUser.RoleId.Split(",");
-                string where = string.Format("Id in('{0}')", CurrentUser.RoleId.Replace(",", "','"));
+                string[] roleIds = currentUser.Role.Split(",");
+                string where = string.Format("Id in('{0}')", currentUser.Role.Replace(",", "','"));
                 List<Role> listRole = new RoleApp().GetListWhere(where);
                 foreach (Role item in listRole)
                 {

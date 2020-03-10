@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc;
+using Yuebon.Commons.Cache;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.IServices;
 using Yuebon.Commons.Models;
@@ -28,6 +31,12 @@ namespace Yuebon.AspNetCore.Controllers
         /// 定义常用功能的控制ID，方便基类控制器对用户权限的控制
         /// </summary>
         protected AuthorizeKey AuthorizeKey;
+
+        /// <summary>
+        /// 服务接口
+        /// </summary>
+        public TService iService;
+
         #endregion
 
 
@@ -40,7 +49,7 @@ namespace Yuebon.AspNetCore.Controllers
         [HiddenApi]
         private  bool HasFunction(string functionCode)
         {
-            return new Permission().HasFunction(functionCode);
+            return new Permission().HasFunction(functionCode,CurrentUser);
         }
 
         /// <summary>
@@ -50,7 +59,7 @@ namespace Yuebon.AspNetCore.Controllers
         [HiddenApi]
         private  bool IsAdmin()
         {
-            return new Permission().IsAdmin();
+            return new Permission().IsAdmin(CurrentUser);
         }
 
         /// <summary>
@@ -80,7 +89,6 @@ namespace Yuebon.AspNetCore.Controllers
         /// <summary>
         /// 对AuthorizeKey对象里面的操作权限进行赋值，用于页面判断
         /// </summary>
-        [HttpGet("FindWithPager")]
         [HiddenApi]
         private void ConvertAuthorizedInfo()
         {
@@ -99,18 +107,41 @@ namespace Yuebon.AspNetCore.Controllers
             AuthorizeKey.CanExtend = HasFunction(AuthorizeKey.ExtendKey);
         }
         #endregion
-        
-        /// <summary>
-        /// 服务接口
-        /// </summary>
-        public TService iService;
 
+
+        #region 异常处理及记录
+        /// <summary>
+        /// 重新基类在Action执行之前的事情
+        /// </summary>
+        /// <param name="filterContext">重写方法的参数</param>
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            CommonResult result = new CommonResult();
+            result = CheckToken();
+            if (result.Success)
+            {
+                if (CurrentUser == null)
+                {
+                    filterContext.Result = new RedirectResult("/Login");
+                    return;
+                }
+            }
+            else
+            {
+
+            }
+            base.OnActionExecuting(filterContext);
+            //设置授权属性，然后赋值给ViewBag保存
+            ConvertAuthorizedInfo();
+            ViewBag.AuthorizeKey = AuthorizeKey;
+        }
+        #endregion
         #region 构造函数及常用
 
         /// <summary>
         /// 构造方法
         /// </summary>
-        /// <param name="iService"></param>
+        /// <param name="_iService"></param>
         public AreaApiController(TService _iService)
         {
             iService = _iService;
@@ -560,6 +591,39 @@ namespace Yuebon.AspNetCore.Controllers
         #region 辅助方法
 
 
+        /// <summary>
+        /// 清除缓存
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("ClearCache")]
+        public IActionResult ClearCache()
+        {
+            CommonResult result = new CommonResult();
+            result = CheckToken();
+            if (result.ErrCode == ErrCode.successCode)
+            {
+                try
+                {
+                    YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+                    if (IsAdmin())
+                    {
+                        yuebonCacheHelper.RemoveCacheAll();
+                        result.Success = true;
+                    }
+                    else
+                    {
+                        yuebonCacheHelper.Remove("login_user_" + CurrentUser.UserId);
+                        yuebonCacheHelper.Remove("User_Function_" + CurrentUser.UserId);
+                        yuebonCacheHelper.Remove("User_Menu_" + CurrentUser.UserId);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    result.ErrMsg = ex.Message;
+                }
+            }
+            return ToJsonContent(result);
+        }
         #endregion
 
     }

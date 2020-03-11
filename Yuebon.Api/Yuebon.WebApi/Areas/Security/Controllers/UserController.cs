@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
+using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Controllers;
 using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc;
@@ -162,7 +163,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 try
                 {
                     YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                    if (IsAdmin())
+                    if (new Permission().IsAdmin(CurrentUser))
                     {
                         yuebonCacheHelper.RemoveCacheAll();
                         result.Success = true;

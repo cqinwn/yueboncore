@@ -44,6 +44,8 @@ YuebonCore是一套基于NetCore3.1+Dapper+Bootstrap开发出来的框架，源�
 
 在线体验地址：[http://netcore.ts.yuebon.com](http://netcore.ts.yuebon.com)（用户名：admin，密码：admin888）
 
+WebApi接口地址：[http://netcoreapi.ts.yuebon.com](http://netcoreapi.ts.yuebon.com)
+
 #### 开发者信息
 
 系统名称：YuebonCore快速开发平台

@@ -590,40 +590,6 @@ namespace Yuebon.AspNetCore.Controllers
 
         #region 辅助方法
 
-
-        /// <summary>
-        /// 清除缓存
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("ClearCache")]
-        public IActionResult ClearCache()
-        {
-            CommonResult result = new CommonResult();
-            result = CheckToken();
-            if (result.ErrCode == ErrCode.successCode)
-            {
-                try
-                {
-                    YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                    if (IsAdmin())
-                    {
-                        yuebonCacheHelper.RemoveCacheAll();
-                        result.Success = true;
-                    }
-                    else
-                    {
-                        yuebonCacheHelper.Remove("login_user_" + CurrentUser.UserId);
-                        yuebonCacheHelper.Remove("User_Function_" + CurrentUser.UserId);
-                        yuebonCacheHelper.Remove("User_Menu_" + CurrentUser.UserId);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    result.ErrMsg = ex.Message;
-                }
-            }
-            return ToJsonContent(result);
-        }
         #endregion
 
     }

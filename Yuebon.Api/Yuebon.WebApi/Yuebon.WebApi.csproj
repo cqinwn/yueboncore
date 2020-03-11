@@ -16,12 +16,16 @@
   <ItemGroup>
     <Compile Remove="Apps\CMS\**" />
     <Compile Remove="Apps\Opportunities\**" />
+    <Compile Remove="Common\**" />
     <Content Remove="Apps\CMS\**" />
     <Content Remove="Apps\Opportunities\**" />
+    <Content Remove="Common\**" />
     <EmbeddedResource Remove="Apps\CMS\**" />
     <EmbeddedResource Remove="Apps\Opportunities\**" />
+    <EmbeddedResource Remove="Common\**" />
     <None Remove="Apps\CMS\**" />
     <None Remove="Apps\Opportunities\**" />
+    <None Remove="Common\**" />
   </ItemGroup>
 
 
@@ -34,11 +38,6 @@
     <Folder Include="Areas\Security\Data\" />
     <Folder Include="Areas\Security\Models\" />
     <Folder Include="Areas\Security\Views\" />
-    <Folder Include="Areas\SSO\Controllers\" />
-    <Folder Include="Areas\SSO\Data\" />
-    <Folder Include="Areas\SSO\Models\" />
-    <Folder Include="Areas\SSO\Views\" />
-    <Folder Include="Common\" />
     <Folder Include="Logs\" />
   </ItemGroup>
 

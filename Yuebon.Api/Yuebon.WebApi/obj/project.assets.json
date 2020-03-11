@@ -4559,7 +4559,7 @@
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
       },
-      "Yuebon.AspNetCore/1.2.2.13": {
+      "Yuebon.AspNetCore/1.2.2.14": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
@@ -4570,7 +4570,7 @@
           "Newtonsoft.Json": "12.0.3",
           "Swashbuckle.AspNetCore.SwaggerGen": "5.0.0",
           "System.IdentityModel.Tokens.Jwt": "5.6.0",
-          "Yuebon.Security.Core": "1.2.2.7"
+          "Yuebon.Security.Core": "1.2.2.8"
         },
         "compile": {
           "bin/placeholder/Yuebon.AspNetCore.dll": {}
@@ -4582,7 +4582,7 @@
           "Microsoft.AspNetCore.App"
         ]
       },
-      "Yuebon.Commons/1.2.2.2": {
+      "Yuebon.Commons/1.2.2.3": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
@@ -4617,11 +4617,11 @@
           "bin/placeholder/Yuebon.Commons.dll": {}
         }
       },
-      "Yuebon.Messages.Core/1.0.0": {
+      "Yuebon.Messages.Core/1.0.1": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
-          "Yuebon.Security.Core": "1.2.2.7",
+          "Yuebon.Security.Core": "1.2.2.8",
           "Yuebon.WeChat.Core": "1.0.0"
         },
         "compile": {
@@ -4634,11 +4634,11 @@
           "Microsoft.AspNetCore.App"
         ]
       },
-      "Yuebon.Security.Core/1.2.2.7": {
+      "Yuebon.Security.Core/1.2.2.8": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
-          "Yuebon.Commons": "1.2.2.2"
+          "Yuebon.Commons": "1.2.2.3"
         },
         "compile": {
           "bin/placeholder/Yuebon.Security.Core.dll": {}
@@ -4658,7 +4658,7 @@
           "Senparc.Weixin.Open": "4.7.304",
           "Senparc.Weixin.TenPay": "1.5.304",
           "Senparc.Weixin.WxOpen": "3.8.304.1",
-          "Yuebon.Commons": "1.2.2.2"
+          "Yuebon.Commons": "1.2.2.3"
         },
         "compile": {
           "bin/placeholder/Yuebon.WeChat.Core.dll": {}
@@ -12897,22 +12897,22 @@
         "system.xml.xpath.xmldocument.nuspec"
       ]
     },
-    "Yuebon.AspNetCore/1.2.2.13": {
+    "Yuebon.AspNetCore/1.2.2.14": {
       "type": "project",
       "path": "../../Yuebon.NetCore/Yuebon.AspNetCore/Yuebon.AspNetCore.csproj",
       "msbuildProject": "../../Yuebon.NetCore/Yuebon.AspNetCore/Yuebon.AspNetCore.csproj"
     },
-    "Yuebon.Commons/1.2.2.2": {
+    "Yuebon.Commons/1.2.2.3": {
       "type": "project",
       "path": "../../Yuebon.NetCore/Yuebon.Commons/Yuebon.Commons.csproj",
       "msbuildProject": "../../Yuebon.NetCore/Yuebon.Commons/Yuebon.Commons.csproj"
     },
-    "Yuebon.Messages.Core/1.0.0": {
+    "Yuebon.Messages.Core/1.0.1": {
       "type": "project",
       "path": "../../Yuebon.Messages/Yuebon.Messages.Core/Yuebon.Messages.Core.csproj",
       "msbuildProject": "../../Yuebon.Messages/Yuebon.Messages.Core/Yuebon.Messages.Core.csproj"
     },
-    "Yuebon.Security.Core/1.2.2.7": {
+    "Yuebon.Security.Core/1.2.2.8": {
       "type": "project",
       "path": "../../Yuebon.NetCore/Yuebon.Security.Core/Yuebon.Security.Core.csproj",
       "msbuildProject": "../../Yuebon.NetCore/Yuebon.Security.Core/Yuebon.Security.Core.csproj"
@@ -12932,8 +12932,8 @@
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.1",
       "Swashbuckle.AspNetCore >= 5.0.0",
       "Swashbuckle.AspNetCore.Filters >= 5.0.2",
-      "Yuebon.AspNetCore >= 1.2.2.13",
-      "Yuebon.Messages.Core >= 1.0.0",
+      "Yuebon.AspNetCore >= 1.2.2.14",
+      "Yuebon.Messages.Core >= 1.0.1",
       "Yuebon.WeChat.Core >= 1.0.0"
     ]
   },

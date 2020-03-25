@@ -19,31 +19,23 @@ namespace Yuebon.AspNetCore.Common
     /// </summary>
     public class Permission
     {
-        private AuthHelper authHelper = IoCContainer.Resolve<AuthHelper>();
-
         /// <summary>
         /// 判断当前用户是否拥有某功能点的权限
         /// </summary>
         /// <param name="functionCode">功能编码code</param>
-        /// <param name="currentUser"></param>
+        /// <param name="userId">用户id</param>
         /// <returns></returns>
-        public bool HasFunction(string functionCode, UserAuthSession currentUser)
-        {
-            
+        public bool HasFunction(string functionCode, string userId)
+        {            
             bool hasFunction = false;
-            if (currentUser != null && currentUser.Account == "admin")
-            {
-                hasFunction = true;
-            }
-            else
-            {
+            if (!string.IsNullOrEmpty(userId)) { 
                 if (string.IsNullOrEmpty(functionCode))
                 {
                     hasFunction = true;
                 }
                 else
                 {
-                    List<FunctionOutputDto> listFunction = JsonConvert.DeserializeObject<List<FunctionOutputDto>>(new YuebonCacheHelper().Get("User_Function_" + currentUser.UserId).ToJson());
+                    List<FunctionOutputDto> listFunction = JsonConvert.DeserializeObject<List<FunctionOutputDto>>(new YuebonCacheHelper().Get("User_Function_" + userId).ToJson());
                     if (listFunction != null && listFunction.Count(t => t.EnCode == functionCode) > 0)
                     {
                         hasFunction = true;

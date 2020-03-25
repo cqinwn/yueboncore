@@ -1,119 +1,129 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
-using Yuebon.Commons.Models;
 
 namespace Yuebon.Security.Dtos
 {
     /// <summary>
-    /// 输出Dto:Log
+    /// 输出对象模型
     /// </summary>
     [Serializable]
-    public class LogOutPutDto : IOutputDto
+    public class LogOutputDto
     {
-
-        #region Property Members
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        [MaxLength(50)]
+        public string Id { get; set; }
 
         /// <summary>
-        /// 日志主键
+        /// 设置或获取 
         /// </summary>
-        public  string Id { get; set; }
+        public DateTime? Date { get; set; }
 
         /// <summary>
-        /// 日期
+        /// 设置或获取 
         /// </summary>
-        public  DateTime? Date { get; set; }
+        [MaxLength(50)]
+        public string Account { get; set; }
 
         /// <summary>
-        /// 用户名
+        /// 设置或获取 
         /// </summary>
-        public  string Account { get; set; }
+        [MaxLength(50)]
+        public string NickName { get; set; }
 
         /// <summary>
-        /// 姓名
+        /// 设置或获取 
         /// </summary>
-        public  string NickName { get; set; }
+        [MaxLength(50)]
+        public string OrganizeId { get; set; }
 
         /// <summary>
-        /// 组织主键
+        /// 设置或获取 
         /// </summary>
-        public  string OrganizeId { get; set; }
-        /// <summary>
-        /// 类型
-        /// </summary>
-        public  string Type { get; set; }
+        [MaxLength(50)]
+        public string Type { get; set; }
 
         /// <summary>
-        /// IP地址
+        /// 设置或获取 
         /// </summary>
-        public  string IPAddress { get; set; }
+        [MaxLength(50)]
+        public string IPAddress { get; set; }
 
         /// <summary>
-        /// IP所在城市
+        /// 设置或获取 
         /// </summary>
-        public  string IPAddressName { get; set; }
+        [MaxLength(50)]
+        public string IPAddressName { get; set; }
 
         /// <summary>
-        /// 系统模块Id
+        /// 设置或获取 
         /// </summary>
-        public  string ModuleId { get; set; }
+        [MaxLength(50)]
+        public string ModuleId { get; set; }
 
         /// <summary>
-        /// 系统模块
+        /// 设置或获取 
         /// </summary>
-        public  string ModuleName { get; set; }
+        [MaxLength(50)]
+        public string ModuleName { get; set; }
 
         /// <summary>
-        /// 结果
+        /// 设置或获取 
         /// </summary>
-        public  bool? Result { get; set; }
+        public bool? Result { get; set; }
 
         /// <summary>
-        /// 描述
+        /// 设置或获取 
         /// </summary>
-        public  string Description { get; set; }
-
-
-        /// <summary>
-        /// 删除标志
-        /// </summary>
-        public  bool? DeleteMark { get; set; }
+        [MaxLength(2147483647)]
+        public string Description { get; set; }
 
         /// <summary>
-        /// 有效标志
+        /// 设置或获取 
         /// </summary>
-        public  bool EnabledMark { get; set; }
+        public bool? DeleteMark { get; set; }
 
         /// <summary>
-        /// 创建日期
+        /// 设置或获取 
         /// </summary>
-        public  DateTime? CreatorTime { get; set; }
+        public bool? EnabledMark { get; set; }
 
         /// <summary>
-        /// 创建用户主键
+        /// 设置或获取 
         /// </summary>
-        public  string CreatorUserId { get; set; }
+        public DateTime? CreatorTime { get; set; }
 
         /// <summary>
-        /// 最后修改时间
+        /// 设置或获取 
         /// </summary>
-        public  DateTime? LastModifyTime { get; set; }
+        [MaxLength(50)]
+        public string CreatorUserId { get; set; }
 
         /// <summary>
-        /// 最后修改用户
+        /// 设置或获取 
         /// </summary>
-        public  string LastModifyUserId { get; set; }
+        public DateTime? LastModifyTime { get; set; }
 
         /// <summary>
-        /// 删除时间
+        /// 设置或获取 
         /// </summary>
-        public  DateTime? DeleteTime { get; set; }
+        [MaxLength(50)]
+        public string LastModifyUserId { get; set; }
 
         /// <summary>
-        /// 删除用户
+        /// 设置或获取 
         /// </summary>
-        public  string DeleteUserId { get; set; }
-        #endregion
+        public DateTime? DeleteTime { get; set; }
+
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        [MaxLength(50)]
+        public string DeleteUserId { get; set; }
+
 
     }
 }

@@ -1,10 +1,11 @@
 using System;
 using Yuebon.Commons.IServices;
+using Yuebon.Security.Dtos;
 using Yuebon.Security.Models;
 
 namespace Yuebon.Security.IServices
 {
-    public interface IUserLogOnService:IService<UserLogOn, string>
+    public interface IUserLogOnService:IService<UserLogOn, UserLogOnOutputDto, string>
     {
 
         /// <summary>

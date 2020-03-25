@@ -19,7 +19,7 @@ namespace Yuebon.WebApp.Areas.CMS.Controllers
 {
     [Area("CMS")]
     [Route("CMS/[controller]/[action]")]
-    public class PageNewsController : BusinessController<PageNews, IPageNewsService>
+    public class PageNewsController : BusinessController<PageNews, PageNewsOutputDto, IPageNewsService,string>
     {
 
         public PageNewsController(IPageNewsService _iService) : base(_iService)

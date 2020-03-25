@@ -13,7 +13,7 @@ namespace Yuebon.Security.Services
     /// <summary>
     /// 
     /// </summary>
-    public class SystemTypeService : BaseService<SystemType, string>, ISystemTypeService
+    public class SystemTypeService : BaseService<SystemType, SystemTypeOutputDto, string>, ISystemTypeService
     {
         private readonly ISystemTypeRepository _repository;
         private readonly IRoleAuthorizeService roleAuthorizeService;
@@ -49,7 +49,16 @@ namespace Yuebon.Security.Services
         /// <returns></returns>
         public List<SystemTypeOutputDto> GetSubSystemList(string roleIds)
         {
-            string roleIDsStr = string.Format("'{0}'", roleIds.Replace(",", "','"));
+            string roleIDsStr = string.Empty;
+            if (roleIds.IndexOf(',')>0)
+            {
+                roleIDsStr=string.Format("'{0}'", roleIds.Replace(",", "','"));
+            }
+            else
+            {
+                roleIDsStr = string.Format("'{0}'", roleIds); 
+            }
+            
             IEnumerable<RoleAuthorize> roleAuthorizes = roleAuthorizeService.GetListRoleAuthorizeByRoleId(roleIDsStr, 0);
 
             string strWhere = " Id in (";

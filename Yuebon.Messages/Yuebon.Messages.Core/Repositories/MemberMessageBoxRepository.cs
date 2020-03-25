@@ -1,17 +1,19 @@
-﻿using Dapper;
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using Yuebon.Commons.Repositories;
-using Yuebon.Messages.Dtos;
 using Yuebon.Messages.IRepositories;
 using Yuebon.Messages.Models;
 
 namespace Yuebon.Messages.Repositories
 {
+    /// <summary>
+    /// 仓储接口的实现
+    /// </summary>
     public class MemberMessageBoxRepository : BaseRepository<MemberMessageBox, string>, IMemberMessageBoxRepository
     {
-        public MemberMessageBoxRepository()
+		public MemberMessageBoxRepository()
         {
             this.tableName = "Sys_MemberMessageBox";
             this.primaryKey = "Id";
@@ -22,9 +24,9 @@ namespace Yuebon.Messages.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public bool UpdateIsReadStatus(string id, int isread,string userid)
+        public bool UpdateIsReadStatus(string id, int isread, string userid)
         {
-            string strwhere = " Accepter='"+userid+"' ";
+            string strwhere = " Accepter='" + userid + "' ";
             if (!string.IsNullOrEmpty(id))
             {
                 strwhere += " and Id='" + id + "' ";
@@ -53,7 +55,7 @@ namespace Yuebon.Messages.Repositories
         public int GetTotalCounts(int isread, string userid)
         {
             string strwhere = " Accepter='" + userid + "' ";
-            if (isread!=2)
+            if (isread != 2)
             {
                 strwhere += " and IsRead=" + isread;
             }
@@ -66,10 +68,9 @@ namespace Yuebon.Messages.Repositories
 
             using (DbConnection conn = OpenSharedConnection())
             {
-                IEnumerable<MemberMessageBox> list =
-                    conn.Query<MemberMessageBox>(sql);
+                IEnumerable<MemberMessageBox> list = conn.Query<MemberMessageBox>(sql);
 
-                if(list!=null)
+                if (list != null)
                 {
                     return list.AsList().Count;
                 }

@@ -20,7 +20,7 @@ namespace Yuebon.WebApp.Areas.CMS.Controllers
 {
     [Area("CMS")]
     [Route("CMS/[controller]/[action]")]
-    public class BannerController : BusinessController<Banner,IBannerService>
+    public class BannerController : BusinessController<Banner, BannerOutputDto,IBannerService,string>
     {
         public BannerController(IBannerService _iService) : base(_iService)
         {

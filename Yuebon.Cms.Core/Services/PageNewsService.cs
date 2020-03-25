@@ -4,10 +4,11 @@ using Yuebon.CMS.IRepositories;
 using Yuebon.CMS.IServices;
 using Yuebon.CMS.Models;
 using Yuebon.Security.IServices;
+using Yuebon.CMS.Dtos;
 
 namespace Yuebon.CMS.Services
 {
-    public class PageNewsService : BaseService<PageNews, string>, IPageNewsService
+    public class PageNewsService : BaseService<PageNews, PageNewsOutputDto, string>, IPageNewsService
     {
 		private readonly IPageNewsRepository _repository;
         private readonly ILogService _logService;

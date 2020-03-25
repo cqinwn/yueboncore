@@ -11,12 +11,13 @@ using Yuebon.Commons.Models;
 using Yuebon.Commons.Helpers;
 using Yuebon.WebApp.Areas.Security.Models;
 using Yuebon.Security.Application;
+using Yuebon.Security.Dtos;
 
 namespace Yuebon.WebApp.Areas.Security.Controllers
 {
     [Area("Security")]
     [Route("Security/[controller]/[action]")]
-    public class RoleAuthorizeController : BusinessController<RoleAuthorize, IRoleAuthorizeService>
+    public class RoleAuthorizeController : BusinessController<RoleAuthorize, RoleAuthorizeOutputDto, IRoleAuthorizeService, string>
     {
         private IMenuService menuService;
         private IFunctionService functionService;

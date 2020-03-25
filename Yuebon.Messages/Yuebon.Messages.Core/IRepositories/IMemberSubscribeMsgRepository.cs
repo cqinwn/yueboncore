@@ -1,10 +1,14 @@
-﻿using Yuebon.Commons.IRepositories;
+using System;
+using Yuebon.Commons.IRepositories;
 using Yuebon.Messages.Dtos;
 using Yuebon.Messages.Models;
 
 namespace Yuebon.Messages.IRepositories
 {
-    public interface IMemberSubscribeMsgRepository : IRepository<MemberSubscribeMsg, string>
+    /// <summary>
+    /// 定义仓储接口
+    /// </summary>
+    public interface IMemberSubscribeMsgRepository:IRepository<MemberSubscribeMsg, string>
     {
 
         /// <summary>
@@ -13,7 +17,7 @@ namespace Yuebon.Messages.IRepositories
         /// <param name="messageType">消息类型</param>
         /// <param name="userId">用户Id</param>
         /// <returns></returns>
-        MemberMessageTemplatesOuputDto GetByMessageTypeWithUser(string messageType,string userId);
+        MemberMessageTemplatesOuputDto GetByMessageTypeWithUser(string messageType, string userId);
 
         /// <summary>
         /// 按用户、订阅类型和消息模板主键查询

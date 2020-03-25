@@ -21,7 +21,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
     /// </summary>
     [Area("Security")]
     [Route("Security/[controller]/[action]")]
-    public class ProfileController : BusinessController<User, IUserService>
+    public class ProfileController : BusinessController<User, UserOutputDto, IUserService, string>
     {
         public ProfileController(IUserService _iService) : base(_iService)
         {
@@ -51,7 +51,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
             CommonResult result = new CommonResult();
             try
             {
-                result.ResData = iService.Get(id).MapTo<UserOutPutDto>();
+                result.ResData = iService.Get(id).MapTo<UserOutputDto>();
                 result.Success = true;
             }
             catch (Exception ex)
@@ -70,7 +70,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
         /// <param name="info"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Edit(UserOutPutDto info, string id)
+        public IActionResult Edit(UserOutputDto info, string id)
         {
             //检查用户是否有权限，否则抛出MyDenyAccessException异常
             CheckAuthorized(AuthorizeKey.UpdateKey);

@@ -17,7 +17,7 @@ namespace Yuebon.WebApp.Areas.CMS.Controllers
 {
     [Area("CMS")]
     [Route("CMS/[controller]/[action]")]
-    public class ArticleCommentsController:BusinessController<ArticleComments, IArticleCommentsService>
+    public class ArticleCommentsController:BusinessController<ArticleComments, ArticleCommentsOutputDto, IArticleCommentsService,string>
     {
         public ArticleCommentsController(IArticleCommentsService _iService) : base(_iService)
         {

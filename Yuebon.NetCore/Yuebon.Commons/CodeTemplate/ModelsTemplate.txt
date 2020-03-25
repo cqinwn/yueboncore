@@ -1,0 +1,19 @@
+﻿using AutoMapper;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using Dapper.Contrib.Extensions;
+using Yuebon.Commons.Models;
+
+namespace {ModelsNamespace}
+{
+    /// <summary>
+    /// {TableNameDesc}，数据实体对象
+    /// </summary>
+    [Table("{TableName}")]
+    [Serializable]
+    public class {ModelTypeName}:BaseEntity<{KeyTypeName}>, ICreationAudited, IModificationAudited, IDeleteAudited
+    {
+{ModelContent}
+    }
+}

@@ -11,7 +11,7 @@ namespace Yuebon.Security.IServices
     /// <summary>
     /// 
     /// </summary>
-    public interface IUserFocusService : IService<UserFocus, string>
+    public interface IUserFocusService : IService<UserFocus, UserFocusOutputDto, string>
     {
         /// <summary>
         /// 

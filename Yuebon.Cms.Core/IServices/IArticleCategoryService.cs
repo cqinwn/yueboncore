@@ -6,7 +6,7 @@ using Yuebon.CMS.Dtos;
 
 namespace Yuebon.CMS.IServices
 {
-    public interface IArticleCategoryService : IService<ArticleCategory,string>
+    public interface IArticleCategoryService : IService<ArticleCategory, ArticleCategoryOutputDto,string>
     {
         /// <summary>
         /// 得到分类列表

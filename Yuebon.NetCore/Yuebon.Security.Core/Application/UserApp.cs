@@ -74,9 +74,9 @@ namespace Yuebon.Security.Application
         /// <param name="openIdType">第三方类型</param>
         /// <param name="openId">OpenId值</param>
         /// <returns></returns>
-        public UserOutPutDto GetUserOutDtoByOpenId(string openIdType, string openId)
+        public UserOutputDto GetUserOutDtoByOpenId(string openIdType, string openId)
         {
-            return service.GetUserByOpenId(openIdType, openId).MapTo<UserOutPutDto>();
+            return service.GetUserByOpenId(openIdType, openId).MapTo<UserOutputDto>();
         }
         /// <summary>
         /// 根据第三方OpenId查询用户信息
@@ -93,7 +93,7 @@ namespace Yuebon.Security.Application
         /// </summary>
         /// <param name="userInPut">第三方类型</param>
         /// <returns></returns>
-        public bool CreateUserByWxOpenId(UserInPutDto userInPut)
+        public bool CreateUserByWxOpenId(UserInputDto userInPut)
         {
 
             User user = userInPut.MapTo<User>();
@@ -133,7 +133,7 @@ namespace Yuebon.Security.Application
         /// </summary>
         /// <param name="userInPut"></param>
         /// <returns></returns>
-        public bool UpdateUserByOpenId(UserInPutDto userInPut)
+        public bool UpdateUserByOpenId(UserInputDto userInPut)
         {
             User user = GetUserByOpenId(userInPut.OpenIdType, userInPut.OpenId);
             user.HeadIcon = userInPut.HeadIcon;

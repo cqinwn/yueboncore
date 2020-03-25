@@ -1,116 +1,123 @@
-﻿using System;
+using AutoMapper;
+using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using System.Text;
 using Yuebon.Commons.Models;
-using Yuebon.Commons.Mapping;
 using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Dtos
 {
     /// <summary>
-    /// 
+    /// 输入对象模型
     /// </summary>
-    public class UserInPutDto: IInputDto<string>
+    [AutoMap(typeof(User))]
+    [Serializable]
+    public class UserInputDto: IInputDto<string>
     {
-
-        #region Property Members
-
         /// <summary>
-        /// 用户主键
+        /// 设置或获取 
         /// </summary>
-        [DataMember]
-        public virtual string Id { get; set; }
-
-        /// <summary>
-        /// 账户
+        public string Id { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        [DataMember]
-        public virtual string Account { get; set; }
-
-        /// <summary>
-        /// 姓名
+        public string Account { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        [DataMember]
-        public virtual string RealName { get; set; }
-
-        /// <summary>
-        /// 呢称
+        public string RealName { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        [DataMember]
-        public virtual string NickName { get; set; }
-
-        /// <summary>
-        /// 头像
+        public string NickName { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        [DataMember]
-        public virtual string HeadIcon { get; set; }
-
-        /// <summary>
-        /// 性别,1=男，0=未知，2=女
+        public string HeadIcon { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        [DataMember]
-        public virtual int? Gender { get; set; }
-
-        /// <summary>
-        /// 生日
+        public int? Gender { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        [DataMember]
-        public virtual DateTime? Birthday { get; set; }
-
-        /// <summary>
-        /// 手机
+        public DateTime? Birthday { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        [DataMember]
-        public virtual string MobilePhone { get; set; }
-
-        /// <summary>
-        /// 邮箱
+        public string MobilePhone { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        [DataMember]
-        public virtual string Email { get; set; }
-
-        /// <summary>
-        /// 微信
+        public string Email { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        [DataMember]
-        public virtual string WeChat { get; set; }
-
-        /// <summary>
-        /// 国家
+        public string WeChat { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        [DataMember]
-        public virtual string Country { get; set; }
-
-        /// <summary>
-        /// 省份
+        public string ManagerId { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        [DataMember]
-        public virtual string Province { get; set; }
-        /// <summary>
-        /// 城市
+        public int? SecurityLevel { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        [DataMember]
-        public virtual string City { get; set; }
-        /// <summary>
-        /// 地区
+        public string Signature { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        [DataMember]
-        public virtual string District { get; set; }
+        public string Country { get; set; }
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        public string Province { get; set; }
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        public string City { get; set; }
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        public string District { get; set; }
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        public string OrganizeId { get; set; }
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        public string DepartmentId { get; set; }
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        public string RoleId { get; set; }
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        public string DutyId { get; set; }
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        public bool? IsAdministrator { get; set; }
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        public bool? IsMember { get; set; }
         /// <summary>
         /// 语言
         /// </summary>
-        [DataMember]
         public virtual string language { get; set; }
         /// <summary>
         /// OpenId
         /// </summary>
-        [DataMember]
         public virtual string OpenId { get; set; }
         /// <summary>
         /// 第三方登录系统类型
         /// </summary>
-        public virtual string OpenIdType{ get; set; }
+        public virtual string OpenIdType { get; set; }
         /// <summary>
         /// 会员等级
         /// </summary>
@@ -125,68 +132,18 @@ namespace Yuebon.Security.Dtos
         /// 用户在微信开放平台的唯一标识符
         /// </summary>
         public string UnionId { get; set; }
-        
-        /// <summary>
-        /// 主管主键
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        [DataMember]
-        public virtual string ManagerId { get; set; }
-
-        /// <summary>
-        /// 安全级别
+        public int? SortCode { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        [DataMember]
-        public virtual int? SecurityLevel { get; set; }
-
-        /// <summary>
-        /// 个性签名
+        public bool? EnabledMark { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        [DataMember]
-        public virtual string Signature { get; set; }
-
-        /// <summary>
-        /// 组织主键
-        /// </summary>
-        [DataMember]
-        public virtual string OrganizeId { get; set; }
-
-        /// <summary>
-        /// 部门主键
-        /// </summary>
-        [DataMember]
-        public virtual string DepartmentId { get; set; }
-
-        /// <summary>
-        /// 角色主键
-        /// </summary>
-        [DataMember]
-        public virtual string RoleId { get; set; }
-
-        /// <summary>
-        /// 岗位主键
-        /// </summary>
-        [DataMember]
-        public virtual string DutyId { get; set; }
-
-        /// <summary>
-        /// 是否管理员
-        /// </summary>
-        [DataMember]
-        public virtual bool? IsAdministrator { get; set; }
-
-        /// <summary>
-        /// 排序码
-        /// </summary>
-        [DataMember]
-        public virtual int? SortCode { get; set; }
-
-        /// <summary>
-        /// 描述
-        /// </summary>
-        [DataMember]
-        public virtual string Description { get; set; }
-
-
-        #endregion
+        public string Description { get; set; }
+
     }
 }

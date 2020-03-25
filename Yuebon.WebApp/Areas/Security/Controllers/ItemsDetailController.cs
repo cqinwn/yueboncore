@@ -18,7 +18,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
 {
     [Area("Security")]
     [Route("Security/[controller]/[action]")]
-    public class ItemsDetailController : BusinessController<ItemsDetail, IItemsDetailService>
+    public class ItemsDetailController : BusinessController<ItemsDetail, ItemsDetailOutputDto, IItemsDetailService, string>
     {
         private IItemsService itemsService;
         public ItemsDetailController(IItemsDetailService _iService, IItemsService _itemsService) : base(_iService)

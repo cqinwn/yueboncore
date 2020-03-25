@@ -4,10 +4,11 @@ using Yuebon.CMS.IRepositories;
 using Yuebon.CMS.IServices;
 using Yuebon.CMS.Models;
 using Yuebon.Security.IServices;
+using Yuebon.CMS.Dtos;
 
 namespace Yuebon.CMS.Services
 {
-    public class ArticleFavoriteService : BaseService<ArticleFavorite, string>, IArticleFavoriteService
+    public class ArticleFavoriteService : BaseService<ArticleFavorite, ArticleFavoriteOutputDto, string>, IArticleFavoriteService
     {
 		private readonly IArticleFavoriteRepository _repository;
         private readonly ILogService _logService;

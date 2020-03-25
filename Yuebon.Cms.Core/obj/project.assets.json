@@ -3385,7 +3385,7 @@
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
       },
-      "Yuebon.Commons/1.2.2.2": {
+      "Yuebon.Commons/1.2.2.4": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
@@ -3420,11 +3420,11 @@
           "bin/placeholder/Yuebon.Commons.dll": {}
         }
       },
-      "Yuebon.Security.Core/1.2.2.7": {
+      "Yuebon.Security.Core/1.2.2.10": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
-          "Yuebon.Commons": "1.2.2.2"
+          "Yuebon.Commons": "1.2.2.4"
         },
         "compile": {
           "bin/placeholder/Yuebon.Security.Core.dll": {}
@@ -10155,12 +10155,12 @@
         "system.xml.xpath.xmldocument.nuspec"
       ]
     },
-    "Yuebon.Commons/1.2.2.2": {
+    "Yuebon.Commons/1.2.2.4": {
       "type": "project",
       "path": "../Yuebon.NetCore/Yuebon.Commons/Yuebon.Commons.csproj",
       "msbuildProject": "../Yuebon.NetCore/Yuebon.Commons/Yuebon.Commons.csproj"
     },
-    "Yuebon.Security.Core/1.2.2.7": {
+    "Yuebon.Security.Core/1.2.2.10": {
       "type": "project",
       "path": "../Yuebon.NetCore/Yuebon.Security.Core/Yuebon.Security.Core.csproj",
       "msbuildProject": "../Yuebon.NetCore/Yuebon.Security.Core/Yuebon.Security.Core.csproj"
@@ -10168,7 +10168,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "Yuebon.Security.Core >= 1.2.2.7"
+      "Yuebon.Security.Core >= 1.2.2.10"
     ]
   },
   "packageFolders": {
@@ -10226,7 +10226,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
       }
     }
   }

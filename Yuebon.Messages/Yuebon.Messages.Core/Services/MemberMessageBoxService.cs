@@ -1,44 +1,35 @@
-﻿using Yuebon.Commons.IRepositories;
-using Yuebon.Commons.Repositories;
+using System;
 using Yuebon.Commons.Services;
+using Yuebon.Security.IServices;
 using Yuebon.Messages.IRepositories;
 using Yuebon.Messages.IServices;
+using Yuebon.Messages.Dtos;
 using Yuebon.Messages.Models;
-using Yuebon.Security.IServices;
 
 namespace Yuebon.Messages.Services
 {
-    public class MemberMessageBoxService : BaseService<MemberMessageBox, string>, IMemberMessageBoxService
+    /// <summary>
+    /// 服务接口实现
+    /// </summary>
+    public class MemberMessageBoxService: BaseService<MemberMessageBox,MemberMessageBoxOutputDto, string>, IMemberMessageBoxService
     {
-
-        private readonly IMemberMessageBoxRepository _repository;
+		private readonly IMemberMessageBoxRepository _repository;
         private readonly ILogService _logService;
-        public MemberMessageBoxService(IMemberMessageBoxRepository iRepository, ILogService logService) : base(iRepository)
+        public MemberMessageBoxService(IMemberMessageBoxRepository repository,ILogService logService) : base(repository)
         {
-            _repository = iRepository;
-            _logService = logService;
+			_repository=repository;
+			_logService=logService;
             _repository.OnOperationLog += _logService.OnOperationLog;
         }
 
-        /// <summary>
-        /// 更新已读状态
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public bool UpdateIsReadStatus(string id, int isread,string userid)
-        {
-            return _repository.UpdateIsReadStatus(id, isread,userid);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="isread">2:全部，0：未读，1：已读</param>
-        /// <param name="userid"></param>
-        /// <returns></returns>
         public int GetTotalCounts(int isread, string userid)
         {
-            return _repository.GetTotalCounts(isread, userid);
+            return _repository.GetTotalCounts(isread,userid);
+        }
+
+        public bool UpdateIsReadStatus(string id, int isread, string userid)
+        {
+            return _repository.UpdateIsReadStatus(id, isread, userid);
         }
     }
 }

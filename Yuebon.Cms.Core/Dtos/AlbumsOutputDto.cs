@@ -6,7 +6,7 @@ using Yuebon.Commons.Models;
 
 namespace Yuebon.CMS.Dtos
 {
-    public class AlbumsOutput : IOutputDto
+    public class AlbumsOutputDto : IOutputDto
     {
         #region Property Albums
         /// <summary>

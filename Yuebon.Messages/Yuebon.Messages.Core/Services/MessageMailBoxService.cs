@@ -1,21 +1,25 @@
-﻿using Yuebon.Commons.Services;
+using System;
+using Yuebon.Commons.Services;
+using Yuebon.Security.IServices;
 using Yuebon.Messages.IRepositories;
 using Yuebon.Messages.IServices;
+using Yuebon.Messages.Dtos;
 using Yuebon.Messages.Models;
-using Yuebon.Security.IServices;
 
 namespace Yuebon.Messages.Services
 {
-    public class MessageMailBoxService : BaseService<MessageMailBox, string>, IMessageMailBoxService
+    /// <summary>
+    /// 服务接口实现
+    /// </summary>
+    public class MessageMailBoxService: BaseService<MessageMailBox,MessageMailBoxOutputDto, string>, IMessageMailBoxService
     {
-
-        private readonly IMessageMailBoxRepository _appRepository;
+		private readonly IMessageMailBoxRepository _repository;
         private readonly ILogService _logService;
-        public MessageMailBoxService(IMessageMailBoxRepository iRepository, ILogService logService) : base(iRepository)
+        public MessageMailBoxService(IMessageMailBoxRepository repository,ILogService logService) : base(repository)
         {
-            _appRepository = iRepository;
-            _logService = logService;
-            _appRepository.OnOperationLog += _logService.OnOperationLog;
+			_repository=repository;
+			_logService=logService;
+            _repository.OnOperationLog += _logService.OnOperationLog;
         }
     }
 }

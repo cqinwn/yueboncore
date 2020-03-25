@@ -1,120 +1,123 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
-using Yuebon.Commons.Models;
-using Yuebon.Commons.Mapping;
 using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Dtos
 {
     /// <summary>
-    /// 输出Dto:App
+    /// 输出对象模型
     /// </summary>
     [Serializable]
-    public class AppOutputDto : IOutputDto
+    public class AppOutputDto
     {
-
         /// <summary>
-        /// 
+        /// 设置或获取 
         /// </summary>
+        [MaxLength(50)]
         public string Id { get; set; }
 
         /// <summary>
-        /// 获取或设置 应用Id
+        /// 设置或获取 
         /// </summary>
-        public virtual string AppId { get; set; }
+        [MaxLength(50)]
+        public string AppId { get; set; }
 
         /// <summary>
-        /// 获取或设置 应用密钥
+        /// 设置或获取 
         /// </summary>
-        public virtual string AppSecret { get; set; }
+        [MaxLength(50)]
+        public string AppSecret { get; set; }
 
         /// <summary>
-        /// 获取或设置 消息加解密密钥
+        /// 设置或获取 
         /// </summary>
-        public virtual string EncodingAESKey { get; set; }
+        [MaxLength(256)]
+        public string EncodingAESKey { get; set; }
 
         /// <summary>
-        /// 获取或设置 服务器地址url
+        /// 设置或获取 
         /// </summary>
-        public virtual string RequestUrl { get; set; }
+        [MaxLength(256)]
+        public string RequestUrl { get; set; }
 
         /// <summary>
-        /// 获取或设置 Token令牌
+        /// 设置或获取 
         /// </summary>
-        public virtual string Token { get; set; }
-        /// <summary>
-        /// 获取或设置 是否开启消息加解密
-        /// </summary>
-        public virtual bool IsOpenAEKey { get; set; }
+        [MaxLength(256)]
+        public string Token { get; set; }
 
         /// <summary>
-        /// 获取或设置 描述
+        /// 设置或获取 
         /// </summary>
-        public virtual string Description { get; set; }
-        /// <summary>
-        /// 获取或设置 删除标志
-        /// </summary>
-        public virtual bool? DeleteMark { get; set; }
+        public bool? IsOpenAEKey { get; set; }
 
         /// <summary>
-        /// 有效标志
+        /// 设置或获取 
         /// </summary>
-        public virtual bool EnabledMark { get; set; }
+        public bool? DeleteMark { get; set; }
 
         /// <summary>
-        /// 获取或设置 创建日期
+        /// 设置或获取 
         /// </summary>
-        public virtual DateTime? CreatorTime { get; set; }
+        public bool? EnabledMark { get; set; }
 
         /// <summary>
-        ///获取或设置  创建用户主键
+        /// 设置或获取 
         /// </summary>
-        public virtual string CreatorUserId { get; set; }
+        [MaxLength(500)]
+        public string Description { get; set; }
 
         /// <summary>
-        /// 获取或设置 创建用户组织主键
+        /// 设置或获取 
         /// </summary>
-        public virtual string CompanyId { get; set; }
-        /// <summary>
-        /// 获取或设置 创建用户部门主键
-        /// </summary>
-        public virtual string DeptId { get; set; }
-        /// <summary>
-        /// 获取或设置 最后修改时间
-        /// </summary>
-        public virtual DateTime? LastModifyTime { get; set; }
+        public DateTime? CreatorTime { get; set; }
 
         /// <summary>
-        /// 最后修改用户
+        /// 设置或获取 
         /// </summary>
-        public virtual string LastModifyUserId { get; set; }
+        [MaxLength(50)]
+        public string CreatorUserId { get; set; }
 
         /// <summary>
-        /// 获取或设置 删除时间
+        /// 设置或获取 
         /// </summary>
-        public virtual DateTime? DeleteTime { get; set; }
+        [MaxLength(50)]
+        public string CompanyId { get; set; }
 
         /// <summary>
-        /// 获取或设置 删除用户
+        /// 设置或获取 
         /// </summary>
-        public virtual string DeleteUserId { get; set; }
+        [MaxLength(50)]
+        public string DeptId { get; set; }
 
         /// <summary>
-        /// 获取或设置 用户昵称
+        /// 设置或获取 
         /// </summary>
-        public virtual string NickName { get; set; }
+        public DateTime? LastModifyTime { get; set; }
+
         /// <summary>
-        /// 获取或设置 用户账号
+        /// 设置或获取 
         /// </summary>
-        public virtual string Account { get; set; }
+        [MaxLength(50)]
+        public string LastModifyUserId { get; set; }
+
         /// <summary>
-        /// 获取或设置 用户头像
+        /// 设置或获取 
         /// </summary>
-        public virtual string HeadIcon { get; set; }
+        public DateTime? DeleteTime { get; set; }
+
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        [MaxLength(50)]
+        public string DeleteUserId { get; set; }
         /// <summary>
         /// 
         /// </summary>
         public virtual User UserInfo { get; set; }
+
+
     }
 }

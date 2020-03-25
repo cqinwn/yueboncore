@@ -24,7 +24,7 @@ namespace Yuebon.Security.Repositories
         /// <returns></returns>
         public IEnumerable<Function> GetFunctions(string roleIds, string typeID)
         {
-            string sql = $"SELECT * FROM Sys_Function INNER JOIN Sys_RoleAuthorize On Sys_Function.Id = Sys_RoleAuthorize.ItemId WHERE ObjectId IN ("+roleIds+")";
+            string sql = $"SELECT b.* FROM Sys_Function as b INNER JOIN Sys_RoleAuthorize as a On b.Id = a.ItemId  WHERE ObjectId IN (" +roleIds+")";
             if (typeID.Length > 0)
             {
                 sql = sql + string.Format(" AND SystemTypeId='{0}' ", typeID);

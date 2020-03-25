@@ -4,10 +4,11 @@ using Yuebon.CMS.IRepositories;
 using Yuebon.CMS.IServices;
 using Yuebon.CMS.Models;
 using Yuebon.Security.IServices;
+using Yuebon.CMS.Dtos;
 
 namespace Yuebon.CMS.Services
 {
-    public class ArticleGoodService : BaseService<ArticleGood, string>, IArticleGoodService
+    public class ArticleGoodService : BaseService<ArticleGood, ArticleGoodOutputDto, string>, IArticleGoodService
     {
 		private readonly IArticleGoodRepository _repository;
         private readonly ILogService _logService;

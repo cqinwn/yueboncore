@@ -22,7 +22,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
 {
     [Area("Security")]
     [Route("Security/[controller]/[action]")]
-    public class WorkOrderController : BusinessController<WorkOrder, IWorkOrderService>
+    public class WorkOrderController : BusinessController<WorkOrder, WorkOrderOutputDto, IWorkOrderService, string>
     {
         public WorkOrderController(IWorkOrderService _iService) : base(_iService)
         {

@@ -4,10 +4,11 @@ using Yuebon.CMS.IRepositories;
 using Yuebon.CMS.IServices;
 using Yuebon.CMS.Models;
 using Yuebon.Security.IServices;
+using Yuebon.CMS.Dtos;
 
 namespace Yuebon.CMS.Services
 {
-    public class PageCategoryService : BaseService<PageCategory, string>, IPageCategoryService
+    public class PageCategoryService : BaseService<PageCategory, PageCategoryOutputDto, string>, IPageCategoryService
     {
 		private readonly IPageCategoryRepository _repository;
         private readonly ILogService _logService;

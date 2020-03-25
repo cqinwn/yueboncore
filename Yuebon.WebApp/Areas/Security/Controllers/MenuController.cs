@@ -22,7 +22,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
 {
     [Area("Security")]
     [Route("Security/[controller]/[action]")]
-    public class MenuController : BusinessController<Menu,IMenuService>
+    public class MenuController : BusinessController<Menu, MenuOutputDto, IMenuService, string>
     {
         private IUserService userService;
         private IRoleAuthorizeService roleAuthorizeService;

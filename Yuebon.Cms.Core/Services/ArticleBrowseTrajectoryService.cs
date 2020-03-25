@@ -4,10 +4,11 @@ using Yuebon.CMS.IRepositories;
 using Yuebon.CMS.IServices;
 using Yuebon.CMS.Models;
 using Yuebon.Security.IServices;
+using Yuebon.CMS.Dtos;
 
 namespace Yuebon.CMS.Services
 {
-    public class ArticleBrowseTrajectoryService : BaseService<ArticleBrowseTrajectory, string>, IArticleBrowseTrajectoryService
+    public class ArticleBrowseTrajectoryService : BaseService<ArticleBrowseTrajectory, ArticleBrowseTrajectoryOutputDto, string>, IArticleBrowseTrajectoryService
     {
 		private readonly IArticleBrowseTrajectoryRepository _repository;
         private readonly ILogService _logService;

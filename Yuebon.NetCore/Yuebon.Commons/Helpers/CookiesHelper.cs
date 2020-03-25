@@ -11,9 +11,13 @@ namespace Yuebon.Commons.Helpers
     public static class CookiesHelper
     {
         /// <summary>
+        /// 
+        /// </summary>
+        public static HttpContext HttpHelper => HttpContextHelper.HttpContext;
+        /// <summary>
         /// Cookie名称
         /// </summary>
-        public static string CookieName { get; set; } = "";
+        public static string CookieName { get; set; } = "yuebon_";
 
         /// <summary>
         /// 设置Cookie键
@@ -22,7 +26,7 @@ namespace Yuebon.Commons.Helpers
         /// <returns></returns>
         private static string CookieKey(string cookieName)
         {
-            return cookieName + CookieName;
+            return CookieName+ cookieName;
         }
         /// <summary>
         /// 删除Cookie
@@ -45,6 +49,17 @@ namespace Yuebon.Commons.Helpers
         {
             WriteCookie(context, cookieName, value, months, 0);
         }
+
+        /// <summary>
+        /// 写/保存Cookie
+        /// </summary>
+        /// <param name="cookieName">Coookie名称</param>
+        /// <param name="value">Coookie值</param>
+        /// <param name="months">有效月数</param>
+        public static void WriteCookie(string cookieName, string value, int months)
+        {
+            WriteCookie(HttpHelper, cookieName, value, months, 0);
+        }
         /// <summary>
         /// 写/保存Cookie
         /// </summary>
@@ -56,7 +71,6 @@ namespace Yuebon.Commons.Helpers
         public static void WriteCookie(HttpContext context, string cookieName, string value, int months, int days)
         {
             string key = CookieKey(cookieName);
-
             if (!context.Request.Cookies.ContainsKey(key))
             {
                 DateTime expires = DateTime.Today.AddDays(30 * months + days);
@@ -83,6 +97,25 @@ namespace Yuebon.Commons.Helpers
             try
             {
                 return System.Net.WebUtility.UrlDecode(context.Request.Cookies[key]);
+            }
+            catch
+            {
+                return "";
+            }
+        }
+
+        /// <summary>
+        /// 获取Cookie值
+        /// </summary>
+        /// <param name="cookieName">Coookie名称</param>
+        /// <returns></returns>
+        public static string ReadCookie(string cookieName)
+        {
+            string key = CookieKey(cookieName);
+
+            try
+            {
+                return System.Net.WebUtility.UrlDecode(HttpHelper.Request.Cookies[key]);
             }
             catch
             {

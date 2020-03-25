@@ -6,7 +6,7 @@ using Yuebon.CMS.Dtos;
 
 namespace Yuebon.CMS.IServices
 {
-    public interface IArticleNewsService : IService<ArticleNews,string>
+    public interface IArticleNewsService : IService<ArticleNews, ArticleNewsOutputDto,string>
     {
         /// <summary>
         /// 得到文章列表，id为空则加载全部

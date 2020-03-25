@@ -9,22 +9,26 @@ using Yuebon.Security.Models;
 using System.Data;
 using Yuebon.Security.Dtos;
 using System.Collections.Generic;
+using Yuebon.Commons.Helpers;
+using Yuebon.Commons.Mapping;
 
 namespace Yuebon.Security.Services
 {
     /// <summary>
     /// 
     /// </summary>
-    public class UserService : BaseService<User, string>, IUserService
+    public class UserService : BaseService<User, UserOutputDto, string>, IUserService
     {
         private readonly IUserRepository _userRepository;
         private readonly IUserLogOnRepository _userSigninRepository;
         private readonly ILogService _logService;
-        public UserService(IUserRepository repository, IUserLogOnRepository userLogOnRepository, ILogService logService) : base(repository)
+        private readonly IRoleService _roleService;
+        public UserService(IUserRepository repository, IUserLogOnRepository userLogOnRepository, ILogService logService, IRoleService roleService) : base(repository)
         {
             _userRepository = repository;
             _userSigninRepository = userLogOnRepository;
             _logService = logService;
+            _roleService = roleService;
             _userRepository.OnOperationLog += _logService.OnOperationLog;
         }
 
@@ -192,5 +196,65 @@ namespace Yuebon.Security.Services
         {
             return _userRepository.GetUserAllListFocusByPage(currentpage, pagesize, userid);
         }
+
+
+        /// <summary>
+        /// 微信注册普通会员用户
+        /// </summary>
+        /// <param name="userInPut">第三方类型</param>
+        /// <returns></returns>
+        public bool CreateUserByWxOpenId(UserInputDto userInPut)
+        {
+
+            User user = userInPut.MapTo<User>();
+            UserLogOn userLogOnEntity = new UserLogOn();
+            UserOpenIds userOpenIds = new UserOpenIds();
+
+            user.Id = user.CreatorUserId = GuidUtils.CreateNo();
+            user.Account = "Wx" + GuidUtils.CreateNo();
+            user.CreatorTime = userLogOnEntity.FirstVisitTime = DateTime.Now;
+            user.IsAdministrator = false;
+            user.EnabledMark = true;
+            user.Description = "第三方注册";
+            user.IsMember = true;
+            user.UnionId = userInPut.UnionId;
+            user.ReferralUserId = userInPut.ReferralUserId;
+            if (userInPut.NickName == "游客")
+            {
+                user.RoleId = _roleService.GetRole("guest").Id;
+            }
+            else
+            {
+                user.RoleId = _roleService.GetRole("usermember").Id;
+            }
+
+            userLogOnEntity.UserId = user.Id;
+
+            userLogOnEntity.UserPassword = GuidUtils.NewGuidFormatN() + new Random().Next(100000, 999999).ToString();
+            userLogOnEntity.Language = userInPut.language;
+
+            userOpenIds.OpenId = userInPut.OpenId;
+            userOpenIds.OpenIdType = userInPut.OpenIdType;
+            userOpenIds.UserId = user.Id;
+            return _userRepository.Insert(user, userLogOnEntity, userOpenIds);
+        }
+        /// <summary>
+        /// 更新用户
+        /// </summary>
+        /// <param name="userInPut"></param>
+        /// <returns></returns>
+        public bool UpdateUserByOpenId(UserInputDto userInPut)
+        {
+            User user = GetUserByOpenId(userInPut.OpenIdType, userInPut.OpenId);
+            user.HeadIcon = userInPut.HeadIcon;
+            user.Country = userInPut.Country;
+            user.Province = userInPut.Province;
+            user.City = userInPut.City;
+            user.Gender = userInPut.Gender;
+            user.NickName = userInPut.NickName;
+            user.UnionId = userInPut.UnionId;
+            return _userRepository.Update(user, user.Id);
+        }
+
     }
 }

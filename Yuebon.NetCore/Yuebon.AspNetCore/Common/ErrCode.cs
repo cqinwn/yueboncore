@@ -59,12 +59,25 @@ namespace Yuebon.AspNetCore.Models
         /// <summary>
         /// 您未被授权使用该功能，请重新登录试试或联系管理员进行处理
         /// </summary>
-        public static string err40006 = "您未被授权使用该功能，请重新登录试试或联系管理员进行处理";
+        public static string err40006 = "您未被授权使用该功能，请重新登录试试或联系系统管理员进行处理";
 
         /// <summary>
         /// 传递参数出现错误
         /// </summary>
         public static string err40007 = "传递参数出现错误";
+
+        /// <summary>
+        /// 用户未登录或超时
+        /// </summary>
+        public static string err40008 = "用户未登录或超时";
+        /// <summary>
+        /// 该系统未获得授权，请联系系统管理员
+        /// </summary>
+        public static string err40009 = "该系统未获得授权，请联系系统管理员";
+        /// <summary>
+        /// 程序异常
+        /// </summary>
+        public static string err40110 = "程序异常";
 
         /// <summary>
         /// 更新数据失败

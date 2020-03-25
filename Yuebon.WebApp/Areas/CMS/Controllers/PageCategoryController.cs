@@ -18,7 +18,7 @@ namespace Yuebon.WebApp.Areas.CMS.Controllers
 {
     [Area("CMS")]
     [Route("CMS/[controller]/[action]")]
-    public class PageCategoryController : BusinessController<PageCategory, IPageCategoryService>
+    public class PageCategoryController : BusinessController<PageCategory, PageCategoryOutputDto,IPageCategoryService,string>
     {
         public PageCategoryController(IPageCategoryService _iService) : base(_iService)
         {

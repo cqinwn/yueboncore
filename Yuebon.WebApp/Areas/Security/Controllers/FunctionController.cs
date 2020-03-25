@@ -21,7 +21,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
 {
     [Area("Security")]
     [Route("Security/[controller]/[action]")]
-    public class FunctionController : BusinessController<Function, IFunctionService>
+    public class FunctionController : BusinessController<Function, FunctionOutputDto, IFunctionService, string>
     {
         private IMenuService menuService;
         private ISystemTypeService systemTypeService;

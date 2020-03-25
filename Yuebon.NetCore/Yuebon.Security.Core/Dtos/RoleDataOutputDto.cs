@@ -1,60 +1,52 @@
-﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
-using Yuebon.Commons.Models;
-using Yuebon.Security.Models;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
 
 namespace Yuebon.Security.Dtos
 {
     /// <summary>
-    /// 角色的数据权限，DTO对象
+    /// 输出对象模型
     /// </summary>
-    [DataContract]
-    [AutoMap(typeof(RoleData))]
-    public class RoleDataOutputDto : IOutputDto
-    { 
-        #region Property Members
-        
-		[DataMember]
-        public virtual string Id { get; set; }
+    [Serializable]
+    public class RoleDataOutputDto
+    {
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        [MaxLength(50)]
+        public string Id { get; set; }
 
         /// <summary>
-        /// 角色ID
+        /// 设置或获取 
         /// </summary>
-		[DataMember]
-        public virtual int RoleId { get; set; }
-        /// <summary>
-        /// 角色名称
-        /// </summary>
-		[DataMember]
-        public virtual int RoleName { get; set; }
+        [MaxLength(50)]
+        public string RoleId { get; set; }
 
         /// <summary>
-        /// 所属公司
+        /// 设置或获取 
         /// </summary>
-		[DataMember]
-        public virtual string BelongCompanys { get; set; }
+        [MaxLength(1073741823)]
+        public string BelongCompanys { get; set; }
 
         /// <summary>
-        /// 所属部门
+        /// 设置或获取 
         /// </summary>
-		[DataMember]
-        public virtual string BelongDepts { get; set; }
+        [MaxLength(1073741823)]
+        public string BelongDepts { get; set; }
 
         /// <summary>
-        /// 排除部门
+        /// 设置或获取 
         /// </summary>
-		[DataMember]
-        public virtual string ExcludeDepts { get; set; }
+        [MaxLength(1073741823)]
+        public string ExcludeDepts { get; set; }
 
         /// <summary>
-        /// 备注
+        /// 设置或获取 
         /// </summary>
-		[DataMember]
-        public virtual string Note { get; set; }
+        [MaxLength(1073741823)]
+        public string Note { get; set; }
 
 
-        #endregion
     }
 }

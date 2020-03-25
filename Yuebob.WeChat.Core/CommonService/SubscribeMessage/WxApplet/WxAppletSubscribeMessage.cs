@@ -105,5 +105,27 @@ namespace Yuebon.WeChat.CommonService.SubscribeMessage.WxApplet
             return MessageApi.SendSubscribe(weixinAppId, toUser, templateId, data, page);
         }
 
+        /// <summary>
+        /// 校验一张图片是否含有违法违规内容
+        /// <para>https://developers.weixin.qq.com/miniprogram/dev/api/imgSecCheck.html</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="filePath">文件完整物理路径<para>格式支持PNG、JPEG、JPG、GIF，图片尺寸不超过 750px * 1334px</para></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        //[ApiBind(Senparc.NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.ImgSecCheck", true)]
+        //public async static Task<WxJsonResult> ImgSecCheck(string accessTokenOrAppId, string filePath, int timeOut = Config.TIME_OUT)
+        //{
+        //    return WxOpenApiHandlerWapper.TryCommonApi(async accessToken =>
+        //    {
+        //        string urlFormat = Config.ApiMpHost + "/wxa/img_sec_check?access_token={0}";
+        //        var url = urlFormat.FormatWith(accessToken);
+        //        var fileDic = new Dictionary<string, string>();
+        //        fileDic["media"] = filePath;
+        //        return await Senparc.CO2NET.HttpUtility.Post.PostFileGetJsonAsync<WxJsonResult>(url,fileDictionary: fileDic);
+
+        //    }, accessTokenOrAppId);
+        //}
+       
     }
 }

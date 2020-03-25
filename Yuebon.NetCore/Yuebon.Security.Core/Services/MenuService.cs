@@ -6,10 +6,11 @@ using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
 using AutoMapper;
 using System.Linq;
+using Yuebon.Security.Dtos;
 
 namespace Yuebon.Security.Services
 {
-    public class MenuService: BaseService<Menu, string>, IMenuService
+    public class MenuService: BaseService<Menu, MenuOutputDto, string>, IMenuService
     {
         private readonly IMenuRepository _MenuRepository;
         private readonly IUserRepository userRepository;

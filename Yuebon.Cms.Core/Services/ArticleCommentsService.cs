@@ -11,7 +11,7 @@ using System.Data;
 
 namespace Yuebon.CMS.Services
 {
-    public class ArticleCommentsService : BaseService<ArticleComments, string>, IArticleCommentsService
+    public class ArticleCommentsService : BaseService<ArticleComments, ArticleCommentsOutputDto, string>, IArticleCommentsService
     {
 		private readonly IArticleCommentsRepository _repository;
         private readonly ILogService _logService;

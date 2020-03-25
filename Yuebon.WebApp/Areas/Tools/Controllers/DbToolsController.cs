@@ -10,12 +10,13 @@ using Yuebon.Commons.Models;
 using Yuebon.WebApp.Controllers;
 using Yuebon.Security.Models;
 using Yuebon.Security.IServices;
+using Yuebon.Security.Dtos;
 
 namespace Yuebon.WebApp.Areas.Tools.Controllers
 {
     [Area("Tools")]
     [Route("Tools/[controller]/[action]")]
-    public class DbToolsController : BusinessController<Menu, IMenuService>
+    public class DbToolsController : BusinessController<Menu, MenuOutputDto, IMenuService,string>
     {
         public DbToolsController(IMenuService _iService) : base(_iService)
         {

@@ -8,7 +8,7 @@ using System.Data;
 
 namespace Yuebon.CMS.IServices
 {
-    public interface IArticleCommentsService : IService<ArticleComments, string>
+    public interface IArticleCommentsService : IService<ArticleComments, ArticleCommentsOutputDto, string>
     {
         /// <summary>
         /// 得到评论列表

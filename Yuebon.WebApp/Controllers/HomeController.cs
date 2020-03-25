@@ -4,18 +4,18 @@ using Newtonsoft.Json;
 using System;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
-using Yuebon.CMS.Application;
 using Yuebon.Commons;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Json;
 using Yuebon.Security.Application;
+using Yuebon.Security.Dtos;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
 
 namespace Yuebon.WebApp.Controllers
 {
-    public class HomeController : BusinessController<User,IUserService>
+    public class HomeController : BusinessController<User, UserOutputDto, IUserService,string>
     {
         public HomeController(IUserService _iService) : base(_iService)
         {
@@ -50,7 +50,7 @@ namespace Yuebon.WebApp.Controllers
             ViewData["Title"] = sysSetting.SoftName;
             ViewData["Copyriht"] = string.Format("<strong>Copyright &copy; 2017-{0} <a href=\"http://www.yuebon.com\" target=\"_blank\">Yuebon Tech</a>.</strong> All rights reserved.", DateTime.Now.Year);
             ViewData["TotalUser"] = new UserApp().GetCountTotal();
-            ViewData["TotalArticle"] = new ArticleNewsApp().GetCountTotal();
+            //ViewData["TotalArticle"] = new ArticleNewsApp().GetCountTotal();
             ViewData["TotalUploadFile"] = new UploadFileApp().GetCountTotal();
             return View(CurrentUser);
         }

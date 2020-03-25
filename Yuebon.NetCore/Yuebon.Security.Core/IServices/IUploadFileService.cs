@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using Yuebon.Commons.IServices;
+using Yuebon.Security.Dtos;
 using Yuebon.Security.Models;
 
 namespace Yuebon.Security.IServices
 {
-    public interface IUploadFileService : IService<UploadFile,string>
+    public interface IUploadFileService : IService<UploadFile, UploadFileOuputDto, string>
     {
         /// <summary>
         /// 根据应用Id和应用标识批量更新数据

@@ -23,7 +23,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
 {
     [Area("Security")]
     [Route("Security/[controller]/[action]")]
-    public class AreaController : BusinessController<Area, IAreaService>
+    public class AreaController : BusinessController<Area, AreaOutputDto, IAreaService,string>
     {
         public AreaController(IAreaService _iService) : base(_iService)
         {

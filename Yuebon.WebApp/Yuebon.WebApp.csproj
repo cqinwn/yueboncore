@@ -100,12 +100,6 @@
     <Content Update="appsettings.json">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Update="Areas\CMS\Views\ArticleComments\Index.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\CMS\Views\ArticleNews\Index.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
     <Content Update="Areas\Security\Views\Area\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
@@ -149,6 +143,7 @@
 
 
   <ItemGroup>
+    <Folder Include="Areas\CMS\Data\" />
     <Folder Include="Areas\CMS\Models\" />
     <Folder Include="Areas\Security\Data\" />
     <Folder Include="Areas\Tools\Data\" />
@@ -227,6 +222,10 @@
     <None Include="Areas\CMS\Views\Advert\Index.cshtml" />
     <None Include="Areas\CMS\Views\ArticleCategory\Edit.cshtml" />
     <None Include="Areas\CMS\Views\ArticleCategory\Index.cshtml" />
+    <None Include="Areas\CMS\Views\ArticleComments\Index.cshtml" />
+    <None Include="Areas\CMS\Views\ArticleNews\ArticleSetting.cshtml" />
+    <None Include="Areas\CMS\Views\ArticleNews\Edit.cshtml" />
+    <None Include="Areas\CMS\Views\ArticleNews\Index.cshtml" />
     <None Include="Areas\CMS\Views\Banner\Edit.cshtml" />
     <None Include="Areas\CMS\Views\Banner\index.cshtml" />
     <None Include="Areas\CMS\Views\PageCategory\Edit.cshtml" />
@@ -874,7 +873,7 @@
   </ItemGroup>
 
 
-  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="http://json.schemastore.org/backportrc" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 
 </Project>

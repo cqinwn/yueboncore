@@ -15,13 +15,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.WebSocket" Version="0.10.304" />
-    <PackageReference Include="Senparc.Weixin.Cache.Redis" Version="2.8.304" />
-    <PackageReference Include="Senparc.Weixin.MP" Version="16.10.304" />
-    <PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.5.304" />
-    <PackageReference Include="Senparc.Weixin.Open" Version="4.7.304" />
-    <PackageReference Include="Senparc.Weixin.TenPay" Version="1.5.304" />
-    <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.8.304.1" />
+    <PackageReference Include="Senparc.WebSocket" Version="0.10.400" />
+    <PackageReference Include="Senparc.Weixin.Cache.Memcached" Version="2.6.400" />
+    <PackageReference Include="Senparc.Weixin.Cache.Redis" Version="2.8.400" />
+    <PackageReference Include="Senparc.Weixin.MP" Version="16.10.400" />
+    <PackageReference Include="Senparc.Weixin.MP.MVC" Version="7.5.100-preview2" />
+    <PackageReference Include="Senparc.Weixin.Open" Version="4.7.400" />
+    <PackageReference Include="Senparc.Weixin.TenPay" Version="1.5.105" />
+    <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.8.400" />
   </ItemGroup>
 
   <ItemGroup>

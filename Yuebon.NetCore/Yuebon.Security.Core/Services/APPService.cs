@@ -8,7 +8,10 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Services
 {
-    public class APPService: BaseService<APP,string>, IAPPService
+    /// <summary>
+    /// 
+    /// </summary>
+    public class APPService: BaseService<APP,AppOutputDto,string>, IAPPService
     {
         private readonly IAPPRepository _appRepository;
         private readonly ILogService _logService;

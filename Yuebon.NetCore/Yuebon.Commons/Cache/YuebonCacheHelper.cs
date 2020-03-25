@@ -12,8 +12,17 @@ namespace Yuebon.Commons.Cache
     /// </summary>
     public class YuebonCacheHelper
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private static CacheProvider cacheProvider;
+        /// <summary>
+        /// 
+        /// </summary>
         private ICacheService cacheservice;
+        /// <summary>
+        /// 
+        /// </summary>
         public YuebonCacheHelper()
         {
 

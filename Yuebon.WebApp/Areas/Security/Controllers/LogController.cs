@@ -15,7 +15,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
 {
     [Area("Security")]
     [Route("Security/[controller]/[action]")]
-    public class LogController : BusinessController<Log, ILogService>
+    public class LogController : BusinessController<Log, LogOutputDto, ILogService, string>
     {
         private IOrganizeService organizeService;
         public LogController(ILogService _iService, IOrganizeService _organizeService) : base(_iService)
@@ -48,7 +48,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
             }
 
             PagerInfo pagerInfo = GetPagerInfo();
-            List<LogOutPutDto> list = iService.FindWithPager(where, pagerInfo, orderFlied, order).MapTo<LogOutPutDto>();
+            List<LogOutputDto> list = iService.FindWithPager(where, pagerInfo, orderFlied, order).MapTo<LogOutputDto>();
 
             //构造成Json的格式传递
             var result = new
@@ -79,7 +79,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
             }
 
             PagerInfo pagerInfo = GetPagerInfo();
-            List<LogOutPutDto> list = iService.FindWithPager(where, pagerInfo, orderFlied, order).MapTo<LogOutPutDto>();
+            List<LogOutputDto> list = iService.FindWithPager(where, pagerInfo, orderFlied, order).MapTo<LogOutputDto>();
 
             //构造成Json的格式传递
             var result = new
@@ -109,7 +109,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
             }
 
             PagerInfo pagerInfo = GetPagerInfo();
-            List<LogOutPutDto> list = iService.FindWithPager(where, pagerInfo, orderFlied, order).MapTo<LogOutPutDto>();
+            List<LogOutputDto> list = iService.FindWithPager(where, pagerInfo, orderFlied, order).MapTo<LogOutputDto>();
 
             //构造成Json的格式传递
             var result = new
@@ -140,7 +140,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
             }
 
             PagerInfo pagerInfo = GetPagerInfo();
-            List<LogOutPutDto> list = iService.FindWithPager(where, pagerInfo, orderFlied, order).MapTo<LogOutPutDto>();
+            List<LogOutputDto> list = iService.FindWithPager(where, pagerInfo, orderFlied, order).MapTo<LogOutputDto>();
 
             //构造成Json的格式传递
             var result = new

@@ -7,24 +7,26 @@ using Yuebon.Commons.IServices;
 using Yuebon.Commons.Models;
 using Yuebon.Commons.Pages;
 
-namespace Yuebon.Commons.Core.Application
+namespace Yuebon.Commons.Application
 {
 
     /// <summary>
     /// 业务层基类，UnitWork用于事务操作，Service用于普通的数据库操作
     /// </summary>
     /// <typeparam name="T">实体类型</typeparam>
+    /// <typeparam name="TDto">实体类型</typeparam>
     /// <typeparam name="TService">Service类型</typeparam>
     /// <typeparam name="Tkey">主键类型</typeparam>
-    public class BaseApp<T, TService,Tkey>
+    public class BaseApp<T, TDto, TService, Tkey>
        where T : class, IBaseEntity<Tkey>
-        where TService : IService<T, Tkey>
+       where TDto : class
+        where TService : IService<T, TDto, Tkey>
     {
         /// <summary>
         /// 用于普通的数据库操作
         /// </summary>
         /// <value>The service.</value>
-        protected IService<T, Tkey> service;
+        protected IService<T,TDto, Tkey> service;
 
         /// <summary>
         /// 用于事务操作
@@ -37,7 +39,7 @@ namespace Yuebon.Commons.Core.Application
         /// </summary>
         /// <param name="_unitWork"></param>
         /// <param name="_service"></param>
-        public BaseApp(IUnitOfWork _unitWork, IService<T, Tkey> _service)
+        public BaseApp(IUnitOfWork _unitWork, IService<T,TDto, Tkey> _service)
         {
             unitOfWork = _unitWork;
             service = _service;
@@ -49,7 +51,7 @@ namespace Yuebon.Commons.Core.Application
         /// </summary>
         /// <param name="id">主键Id</param>
         /// <returns></returns>
-        public T GetByIdRelationUser(string id)
+        public T GetByIdRelationUser(Tkey id)
         {
             return service.GetByIdRelationUser(id);
         }

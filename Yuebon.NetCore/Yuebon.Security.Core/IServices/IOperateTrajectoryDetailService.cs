@@ -7,12 +7,13 @@ using Yuebon.Security.Models;
 namespace Yuebon.Security.IServices
 {
     /// <summary>
-    /// 
+    /// å®šä¹‰æ“ä½œè½¨è¿¹æ˜ç»†è¡¨æœåŠ¡æ¥å£
     /// </summary>
-    public interface IOperateTrajectoryDetailService : IService<OperateTrajectoryDetail, string>
+    public interface IOperateTrajectoryDetailService:IService<OperateTrajectoryDetail,OperateTrajectoryDetailOutputDto, string>
     {
+
         /// <summary>
-        /// ·ÖÒ³µÃµ½ÁĞ±í
+        /// åˆ†é¡µå¾—åˆ°åˆ—è¡¨
         /// </summary>
         /// <param name="currentpage"></param>
         /// <param name="pagesize"></param>
@@ -23,13 +24,13 @@ namespace Yuebon.Security.IServices
             string pagesize, string userid);
 
         /// <summary>
-        /// µÃµ½×ÜÏûÏ¢Êı
+        /// å¾—åˆ°æ€»æ¶ˆæ¯æ•°
         /// </summary>
         /// <param name="userid"></param>
         /// <returns></returns>
         int GetTotalCounts(string userid);
         /// <summary>
-        /// µÃµ½É¸Ñ¡×ÜÌõÊı
+        /// å¾—åˆ°ç­›é€‰æ€»æ¡æ•°
         /// </summary>
         /// <param name="filter"></param>
         /// <param name="userid"></param>

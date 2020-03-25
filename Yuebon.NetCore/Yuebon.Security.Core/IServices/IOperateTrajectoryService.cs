@@ -7,12 +7,13 @@ using Yuebon.Security.Models;
 namespace Yuebon.Security.IServices
 {
     /// <summary>
-    /// 
+    /// 定义操作轨迹表服务接口
     /// </summary>
-    public interface IOperateTrajectoryService : IService<OperateTrajectory, string>
+    public interface IOperateTrajectoryService:IService<OperateTrajectory,OperateTrajectoryOutputDto, string>
     {
+
         /// <summary>
-        /// ��ҳ�õ��б�
+        /// 分页得到列表
         /// </summary>
         /// <param name="currentpage"></param>
         /// <param name="pagesize"></param>
@@ -23,7 +24,7 @@ namespace Yuebon.Security.IServices
         IEnumerable<OperateTrajectoryOutputDto> GetTrajectoryListByPage(string filter, string currentpage,
             string pagesize, string userid, string authorid);
         /// <summary>
-        /// �õ�����
+        /// 得到汇总
         /// </summary>
         /// <param name="userid"></param>
         /// <param name="authorid"></param>

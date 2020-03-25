@@ -1,102 +1,55 @@
-﻿using AutoMapper;
+using AutoMapper;
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
+using System.Text;
 using Yuebon.Commons.Models;
 using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Dtos
 {
     /// <summary>
-    /// WorkOrderInfo，DTO对象
+    /// 输入对象模型
     /// </summary>
-    [DataContract]
     [AutoMap(typeof(WorkOrder))]
-    public class WorkOrderInputDto:IInputDto<string>
-    { 
-        #region Property Members
-        
-		[DataMember]
-        public virtual string Id { get; set; }
-
+    [Serializable]
+    public class WorkOrderInputDto: IInputDto<string>
+    {
         /// <summary>
-        /// 标题
+        /// 设置或获取 
         /// </summary>
-		[DataMember]
-        public virtual string Title { get; set; }
-
-        /// <summary>
-        /// 分类
+        public string Id { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-		[DataMember]
-        public virtual string Category { get; set; }
-
-        /// <summary>
-        /// 机密信息
+        public string Title { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-		[DataMember]
-        public virtual string SecretContent { get; set; }
-
-        /// <summary>
-        /// 手机号
+        public string Category { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-		[DataMember]
-        public virtual string Mobile { get; set; }
-
-        /// <summary>
-        /// 附件
+        public string SecretContent { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-		[DataMember]
-        public virtual string Attachment { get; set; }
-
-        /// <summary>
-        /// 状态
+        public string Mobile { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-		[DataMember]
-        public virtual string Status { get; set; }
-
-        /// <summary>
-        /// 删除标记
+        public string Attachment { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-		[DataMember]
-        public virtual bool? DeleteMark { get; set; }
-
-        /// <summary>
-        /// 描述
+        public string Customer { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-		[DataMember]
-        public virtual string Description { get; set; }
-
-		[DataMember]
-        public virtual DateTime? CreatorTime { get; set; }
-
-		[DataMember]
-        public virtual string CreatorUserId { get; set; }
-
-        /// <summary>
-        /// 创建用户组织主键
+        public string Status { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-		[DataMember]
-        public virtual string CompanyId { get; set; }
-        /// <summary>
-        /// 创建用户部门主键
-        /// </summary>
-		[DataMember]
-        public virtual string DeptId { get; set; }
-        [DataMember]
-        public virtual DateTime? LastModifyTime { get; set; }
-
-		[DataMember]
-        public virtual string LastModifyUserId { get; set; }
-
-		[DataMember]
-        public virtual DateTime? DeleteTime { get; set; }
-
-		[DataMember]
-        public virtual string DeleteUserId { get; set; }
-
-
-        #endregion
-
+        public string Description { get; set; }
+
     }
 }

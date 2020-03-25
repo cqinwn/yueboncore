@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.Serialization;
 using System.Web;
 
 namespace Yuebon.AspNetCore.Common
@@ -71,7 +72,44 @@ namespace Yuebon.AspNetCore.Common
             this.Success = success;
             this.ErrCode = errcode;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        public MyApiException()
+        {
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
+        protected MyApiException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
 
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="innerException"></param>
+        public MyApiException(string message, Exception innerException) : base(message, innerException)
+        {
+            this.Msg = message;
+            throw innerException;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="errcode"></param>
+        /// <param name="innerException"></param>
+        public MyApiException(string message, string errcode, Exception innerException) : base(message, innerException)
+        {
+            this.Msg = message;
+            this.ErrCode = errcode;
+            throw innerException;
+        }
     }
 
 }

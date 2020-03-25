@@ -1,121 +1,102 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
-using Yuebon.Commons.Models;
-using Yuebon.Commons.Mapping;
-using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Dtos
 {
     /// <summary>
-    ///  输入DTO：APP信息
+    /// 操作轨迹表输出对象模型
     /// </summary>
     [Serializable]
-    public class OperateTrajectoryOutputDto : IOutputDto
+    public class OperateTrajectoryOutputDto
     {
-
-        #region Property Members
         /// <summary>
-        /// 主键
+        /// 设置或获取主键
         /// </summary>
-        public virtual string Id { get; set; }
-
-        /// <summary>
-        /// 内容id
+        [MaxLength(50)]
+        public string Id { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual string ContentId { get; set; }
-
-        /// <summary>
-        /// 内容主题
+        [MaxLength(50)]
+        public string ContentId { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual string ContentTitle { get; set; }
-
-        /// <summary>
-        /// 原作者
+        [MaxLength(400)]
+        public string ContentTitle { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual string AuthorUserId { get; set; }
-
-        /// <summary>
-        /// 内容分类
+        [MaxLength(50)]
+        public string AuthorUserId { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual string ContentType { get; set; }
-
-        /// <summary>
-        /// 是否点赞
+        [MaxLength(50)]
+        public string ContentType { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual bool IsGood { get; set; }
-
-        /// <summary>
-        /// 是否收藏
+        public bool? IsGood { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual bool IsFavorite { get; set; }
-
-        /// <summary>
-        /// 是否评星
+        public bool? IsFavorite { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual bool IsStar { get; set; }
-
-
-        /// <summary>
-        /// 总浏览时长
+        public bool? IsStar { get; set; }
+        /// <summary>
+        /// 设置或获取浏览总时长
         /// </summary>
-        public virtual int TotalDuration { get; set; }
-
-
-        /// <summary>
-        /// 总浏览次数
+        public int TotalDuration { get; set; }
+        /// <summary>
+        /// 设置或获取浏览总时长
         /// </summary>
-        public virtual int TotalBrowse { get; set; }
-
-        /// <summary>
-        /// 总下载次数
+        public int? TotalBrowse { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual int TotalDownload { get; set; }
-
-        /// <summary>
-        /// 总回复次数
+        public int? TotalMsg { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual int TotalMsg { get; set; }
-
-        /// <summary>
-        /// 是否XX扩展
+        public int? TotalDownload { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual bool IsExt1 { get; set; }
-
-        /// <summary>
-        /// 是否XX扩展
+        public bool? IsExt1 { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual bool IsExt2 { get; set; }
-
-        /// <summary>
-        /// 是否XX扩展
+        public bool? IsExt2 { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual bool IsExt3 { get; set; }
-
-        /// <summary>
-        /// 总XX次数
+        public bool? IsExt3 { get; set; }
+        /// <summary>
+        /// 设置或获取浏览总时长
         /// </summary>
-        public virtual int TotalExt1 { get; set; }
-
-        /// <summary>
-        /// 总XX次数
+        public int? TotalExt1 { get; set; }
+        /// <summary>
+        /// 设置或获取浏览总时长
         /// </summary>
-        public virtual int TotalExt2 { get; set; }
-
-        /// <summary>
-        /// 总XX次数
+        public int? TotalExt2 { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual int TotalExt3 { get; set; }
-
-        /// <summary>
-        /// 创建日期
+        public int? TotalExt3 { get; set; }
+        /// <summary>
+        /// 设置或获取访问进入时间，创建时间。
         /// </summary>
-        public virtual DateTime? CreatorTime { get; set; }
-
-        /// <summary>
-        /// 创建用户主键
+        public DateTime? CreatorTime { get; set; }
+        /// <summary>
+        /// 设置或获取访问人
         /// </summary>
-        public virtual string CreatorUserId { get; set; }
+        [MaxLength(50)]
+        public string CreatorUserId { get; set; }
 
 
         /// <summary>
@@ -190,8 +171,6 @@ namespace Yuebon.Security.Dtos
             set;
             get;
         }
-
-        #endregion
 
     }
 }

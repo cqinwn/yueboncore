@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Models;
+using Yuebon.Security.Dtos;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
 using Yuebon.WebApp.Controllers;
@@ -17,7 +18,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
 {
     [Area("Security")]
     [Route("Security/[controller]/[action]")]
-    public class SysSettingController : BusinessController<Menu, IMenuService>
+    public class SysSettingController : BusinessController<Menu, MenuOutputDto, IMenuService, string>
     {
 
         private readonly IWebHostEnvironment _hostingEnvironment;

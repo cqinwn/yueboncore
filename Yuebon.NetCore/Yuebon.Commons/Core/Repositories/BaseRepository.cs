@@ -310,6 +310,16 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public T GetWhere(string where, IDbTransaction trans =null)
         {
+            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            if (HasInjectionData(where))
+            {
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
+                throw new Exception("检测出SQL注入的恶意数据");
+            }
+            if (string.IsNullOrEmpty(where))
+            {
+                where = "1=1";
+            }
             string sql = $"select * from { tableName} ";
             if (!string.IsNullOrWhiteSpace(where))
             {
@@ -328,6 +338,16 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public async Task<T> GetWhereAsync(string where, IDbTransaction trans=null)
         {
+            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            if (HasInjectionData(where))
+            {
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
+                throw new Exception("检测出SQL注入的恶意数据");
+            }
+            if (string.IsNullOrEmpty(where))
+            {
+                where = "1=1";
+            }
             string sql = $"select * from { tableName} ";
             if (!string.IsNullOrWhiteSpace(where))
             {
@@ -347,10 +367,10 @@ namespace Yuebon.Commons.Repositories
         /// <param name="id">主键Id</param>
         /// <param name="trans">事务</param>
         /// <returns></returns>
-        public T GetByIdRelationUser(string id, IDbTransaction trans = null)
+        public T GetByIdRelationUser(TKey id, IDbTransaction trans = null)
         {
             string sql = $"select s.* ,u.RealName as RealName,u.NickName as NickName,u.HeadIcon as HeadIcon from { tableName} s left join sys_user u on s.CreatorUserId=u.Id";
-            if (!string.IsNullOrWhiteSpace(id))
+            if (!string.IsNullOrWhiteSpace(id.ToString()))
             {
                 sql += " where s.Id='"+ id + "'";
             }
@@ -393,6 +413,16 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public IEnumerable<T> GetListWhere(string where = null, IDbTransaction trans=null)
         {
+            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            if (HasInjectionData(where))
+            {
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
+                throw new Exception("检测出SQL注入的恶意数据");
+            }
+            if (string.IsNullOrEmpty(where))
+            {
+                where = "1=1";
+            }
             string sql = $"select * from { tableName} ";
             if (!string.IsNullOrWhiteSpace(where))
             {
@@ -412,6 +442,16 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<T>> GetListWhereAsync(string where = null, IDbTransaction trans=null)
         {
+            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            if (HasInjectionData(where))
+            {
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
+                throw new Exception("检测出SQL注入的恶意数据");
+            }
+            if (string.IsNullOrEmpty(where))
+            {
+                where = "1=1";
+            }
             string sql = $"select * from { tableName} ";
             if (!string.IsNullOrWhiteSpace(where))
             {
@@ -432,6 +472,16 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public IEnumerable<T> GetListTopWhere(int top,string where = null, IDbTransaction trans = null)
         {
+            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            if (HasInjectionData(where))
+            {
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
+                throw new Exception("检测出SQL注入的恶意数据");
+            }
+            if (string.IsNullOrEmpty(where))
+            {
+                where = "1=1";
+            }
             string sql = $"select top "+top+" * from "+ tableName;
             if (!string.IsNullOrWhiteSpace(where))
             {
@@ -443,6 +493,36 @@ namespace Yuebon.Commons.Repositories
             }
         }
 
+
+        /// <summary>
+        /// 根据查询条件查询前多少条数据
+        /// </summary>
+        /// <param name="top">多少条数据</param>
+        /// <param name="where">查询条件</param>
+        /// <param name="trans">事务对象</param>
+        /// <returns></returns>
+        public async Task<IEnumerable<T>> GetListTopWhereAsync(int top, string where = null, IDbTransaction trans = null)
+        {
+            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            if (HasInjectionData(where))
+            {
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
+                throw new Exception("检测出SQL注入的恶意数据");
+            }
+            if (string.IsNullOrEmpty(where))
+            {
+                where = "1=1";
+            }
+            string sql = $"select top " + top + " * from " + tableName;
+            if (!string.IsNullOrWhiteSpace(where))
+            {
+                sql += " where " + where;
+            }
+            using (DbConnection conn = OpenSharedConnection())
+            {
+                return await conn.QueryAsync<T>(sql, trans);
+            }
+        }
         /// <summary>
         /// 查询软删除的数据，如果查询条件为空，即查询所有软删除的数据
         /// </summary>
@@ -451,6 +531,16 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public IEnumerable<T> GetAllByIsDeleteMark(string where=null, IDbTransaction trans =null)
         {
+            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            if (HasInjectionData(where))
+            {
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
+                throw new Exception("检测出SQL注入的恶意数据");
+            }
+            if (string.IsNullOrEmpty(where))
+            {
+                where = "1=1";
+            }
             string sql = $"select * from { tableName} where DeleteMark=1 ";
             if (!string.IsNullOrWhiteSpace(where))
             {
@@ -470,6 +560,16 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public IEnumerable<T> GetAllByIsNotDeleteMark(string where = null, IDbTransaction trans=null)
         {
+            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            if (HasInjectionData(where))
+            {
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
+                throw new Exception("检测出SQL注入的恶意数据");
+            }
+            if (string.IsNullOrEmpty(where))
+            {
+                where = "1=1";
+            }
             string sql = $"select * from { tableName} where DeleteMark=0";
             if (!string.IsNullOrWhiteSpace(where))
             {
@@ -489,6 +589,16 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public IEnumerable<T> GetAllByIsEnabledMark(string where = null, IDbTransaction trans=null)
         {
+            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            if (HasInjectionData(where))
+            {
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
+                throw new Exception("检测出SQL注入的恶意数据");
+            }
+            if (string.IsNullOrEmpty(where))
+            {
+                where = "1=1";
+            }
             string sql = $"select * from {tableName} where EnabledMark=1";
             if (!string.IsNullOrWhiteSpace(where))
             {
@@ -508,6 +618,16 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public IEnumerable<T> GetAllByIsNotEnabledMark(string where = null, IDbTransaction trans=null)
         {
+            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            if (HasInjectionData(where))
+            {
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
+                throw new Exception("检测出SQL注入的恶意数据");
+            }
+            if (string.IsNullOrEmpty(where))
+            {
+                where = "1=1";
+            }
             string sql = $"select * from {tableName} where EnabledMark=0";
             if (!string.IsNullOrWhiteSpace(where))
             {
@@ -526,6 +646,16 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public IEnumerable<T> GetAllByIsNotDeleteAndEnabledMark(string where = null, IDbTransaction trans=null)
         {
+            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            if (HasInjectionData(where))
+            {
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
+                throw new Exception("检测出SQL注入的恶意数据");
+            }
+            if (string.IsNullOrEmpty(where))
+            {
+                where = "1=1";
+            }
             string sql = $"select * from {tableName} where DeleteMark=0 and EnabledMark=1";
             if (!string.IsNullOrWhiteSpace(where))
             {
@@ -545,6 +675,16 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<T>> GetAllByIsDeleteMarkAsync(string where = null, IDbTransaction trans=null)
         {
+            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            if (HasInjectionData(where))
+            {
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
+                throw new Exception("检测出SQL注入的恶意数据");
+            }
+            if (string.IsNullOrEmpty(where))
+            {
+                where = "1=1";
+            }
             string sql = $"select * from {tableName} where DeleteMark=1 ";
             if (!string.IsNullOrWhiteSpace(where))
             {
@@ -564,6 +704,16 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<T>> GetAllByIsNotDeleteMarkAsync(string where = null, IDbTransaction trans=null)
         {
+            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            if (HasInjectionData(where))
+            {
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
+                throw new Exception("检测出SQL注入的恶意数据");
+            }
+            if (string.IsNullOrEmpty(where))
+            {
+                where = "1=1";
+            }
             string sql = $"select * from {tableName} where DeleteMark=0";
             if (!string.IsNullOrWhiteSpace(where))
             {
@@ -583,6 +733,16 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<T>> GetAllByIsEnabledMarkAsync(string where = null, IDbTransaction trans=null)
         {
+            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            if (HasInjectionData(where))
+            {
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
+                throw new Exception("检测出SQL注入的恶意数据");
+            }
+            if (string.IsNullOrEmpty(where))
+            {
+                where = "1=1";
+            }
             string sql = $"select * from {tableName} where EnabledMark=1";
             if (!string.IsNullOrWhiteSpace(where))
             {
@@ -602,6 +762,16 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<T>> GetAllByIsNotEnabledMarkAsync(string where = null, IDbTransaction trans=null)
         {
+            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            if (HasInjectionData(where))
+            {
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
+                throw new Exception("检测出SQL注入的恶意数据");
+            }
+            if (string.IsNullOrEmpty(where))
+            {
+                where = "1=1";
+            }
             string sql = $"select * from {tableName} where EnabledMark=0";
             if (!string.IsNullOrWhiteSpace(where))
             {
@@ -620,6 +790,16 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<T>> GetAllByIsNotDeleteAndEnabledMarkAsync(string where = null, IDbTransaction trans=null)
         {
+            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            if (HasInjectionData(where))
+            {
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
+                throw new Exception("检测出SQL注入的恶意数据");
+            }
+            if (string.IsNullOrEmpty(where))
+            {
+                where = "1=1";
+            }
             string sql = $"select * from {tableName} where DeleteMark=0 and EnabledMark=1";
             if (!string.IsNullOrWhiteSpace(where))
             {
@@ -689,6 +869,69 @@ namespace Yuebon.Commons.Repositories
                 return list;
             }
         }
+
+        /// <summary>
+        /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
+        /// </summary>
+        /// <param name="condition">查询的条件</param>
+        /// <param name="info">分页实体</param>
+        /// <param name="fieldToSort">排序字段</param>
+        /// <param name="desc">排序方式 true为desc，false为asc</param>
+        /// <param name="trans">事务对象</param>
+        /// <returns>指定对象的集合</returns>
+        public async Task<List<T>> FindWithPagerAsync(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
+        {
+
+            List<T> list = new List<T>();
+            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            if (HasInjectionData(condition))
+            {
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", condition));
+                throw new Exception("检测出SQL注入的恶意数据");
+            }
+            if (string.IsNullOrEmpty(condition))
+            {
+                condition = "1=1";
+            }
+            using (DbConnection conn = OpenSharedConnection())
+            {
+
+                PagerHelper pagerHelper = new PagerHelper(this.tableName, this.selectedFields, fieldToSort, info.PageSize, info.CurrenetPageIndex, desc, condition);
+
+                string pageSql = pagerHelper.GetPagingSql(true, this.dbConfigName);
+                pageSql += ";" + pagerHelper.GetPagingSql(false, this.dbConfigName);
+
+                var reader = await conn.QueryMultipleAsync(pageSql);
+                info.RecordCount = reader.ReadFirst<int>();
+                list = reader.Read<T>().AsList();
+                return list;
+            }
+        }
+
+        /// <summary>
+        /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
+        /// </summary>
+        /// <param name="condition">查询的条件</param>
+        /// <param name="info">分页实体</param>
+        /// <param name="fieldToSort">排序字段</param>
+        /// <param name="trans">事务对象</param>
+        /// <returns>指定对象的集合</returns>
+        public async Task<List<T>> FindWithPagerAsync(string condition, PagerInfo info, string fieldToSort, IDbTransaction trans = null)
+        {
+            return await FindWithPagerAsync(condition, info, fieldToSort, this.isDescending, trans);
+        }
+
+        /// <summary>
+        /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
+        /// </summary>
+        /// <param name="condition">查询的条件</param>
+        /// <param name="info">分页实体</param>
+        /// <param name="trans">事务对象</param>
+        /// <returns>指定对象的集合</returns>
+        public async Task<List<T>> FindWithPagerAsync(string condition, PagerInfo info, IDbTransaction trans = null)
+        {
+            return await FindWithPagerAsync(condition, info, this.SortField, trans);
+        }
         /// <summary>
         /// 分页查询，自行封装sql语句
         /// </summary>
@@ -718,11 +961,46 @@ namespace Yuebon.Commons.Repositories
                 string strOrder = string.Format(" {0} {1}", fieldToSort, desc ? "DESC" : "ASC");
                 sb.AppendFormat("SELECT count(*) as RecordCount FROM (select {0} FROM {1} where {2})  AS main_temp;", primaryKey, tableName,condition);
                 sb.AppendFormat("SELECT * FROM ( SELECT ROW_NUMBER() OVER (order by {0}) AS rows ,{1} FROM {2} where {3}) AS main_temp where rows BETWEEN {4} and {5}", strOrder, selectedFields, tableName, condition,  startRows, endNum);
-
-               
                 var reader = conn.QueryMultiple(sb.ToString());
                 info.RecordCount = reader.ReadFirst<int>();
                 list= reader.Read<T>().AsList();
+                return list;
+            }
+        }
+
+        /// <summary>
+        /// 分页查询，自行封装sql语句
+        /// </summary>
+        /// <param name="condition">查询条件</param>
+        /// <param name="info">分页信息</param>
+        /// <param name="fieldToSort">排序字段</param>
+        /// <param name="desc">排序方式 true为desc，false为asc</param>
+        /// <param name="trans"></param>
+        /// <returns></returns>
+        public async Task<List<T>> FindWithPagerSqlAsync(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
+        {
+
+            List<T> list = new List<T>();
+            if (HasInjectionData(condition))
+            {
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", condition));
+                throw new Exception("检测出SQL注入的恶意数据");
+            }
+            if (string.IsNullOrEmpty(condition))
+            {
+                condition = "1=1";
+            }
+            using (DbConnection conn = OpenSharedConnection())
+            {
+                StringBuilder sb = new StringBuilder();
+                int startRows = (info.CurrenetPageIndex - 1) * info.PageSize + 1;//起始记录
+                int endNum = info.CurrenetPageIndex * info.PageSize;//结束记录
+                string strOrder = string.Format(" {0} {1}", fieldToSort, desc ? "DESC" : "ASC");
+                sb.AppendFormat("SELECT count(*) as RecordCount FROM (select {0} FROM {1} where {2})  AS main_temp;", primaryKey, tableName, condition);
+                sb.AppendFormat("SELECT * FROM ( SELECT ROW_NUMBER() OVER (order by {0}) AS rows ,{1} FROM {2} where {3}) AS main_temp where rows BETWEEN {4} and {5}", strOrder, selectedFields, tableName, condition, startRows, endNum);
+                var reader = await conn.QueryMultipleAsync(sb.ToString());
+                info.RecordCount = reader.ReadFirst<int>();
+                list = reader.Read<T>().AsList();
                 return list;
             }
         }
@@ -766,7 +1044,46 @@ namespace Yuebon.Commons.Repositories
                 return list;
             }
         }
-        
+
+        /// <summary>
+        /// 分页查询包含用户信息
+        /// 查询主表别名为t1,用户表别名为t2，在查询字段需要注意使用t1.xxx格式，xx表示主表字段
+        /// 用户信息主要有用户账号：Account、昵称：NickName、真实姓名：RealName、头像：HeadIcon、手机号：MobilePhone
+        /// 输出对象请在Dtos中进行自行封装，不能是使用实体Model类
+        /// </summary>
+        /// <param name="condition">查询条件字段需要加表别名</param>
+        /// <param name="info">分页信息</param>
+        /// <param name="fieldToSort">排序字段，也需要加表别名</param>
+        /// <param name="desc">排序方式</param>
+        /// <param name="trans">事务</param>
+        /// <returns></returns>
+        public async Task<List<object>> FindWithPagerRelationUserAsync(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
+        {
+
+            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            if (HasInjectionData(condition))
+            {
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", condition));
+                throw new Exception("检测出SQL注入的恶意数据");
+            }
+            if (string.IsNullOrEmpty(condition))
+            {
+                condition = "1=1";
+            }
+            using DbConnection conn = OpenSharedConnection();
+            StringBuilder sb = new StringBuilder();
+            int startRows = (info.CurrenetPageIndex - 1) * info.PageSize + 1;//起始记录
+            int endNum = info.CurrenetPageIndex * info.PageSize;//结束记录
+            string strOrder = string.Format(" {0} {1}", fieldToSort, desc ? "DESC" : "ASC");
+            sb.AppendFormat("SELECT count(*) as RecordCount FROM (select t1.{0} FROM {1} t1 inner join Sys_User t2 on t1.CreatorUserId = t2.Id where {2})  AS main_temp;", primaryKey, tableName, condition);
+            sb.AppendFormat("SELECT * FROM (SELECT ROW_NUMBER() OVER (order by  {0}) AS rows ,t1.{1},t2.Account as Account,t2.NickName as NickName,t2.RealName as RealName,t2.HeadIcon as HeadIcon ,t2.MobilePhone as MobilePhone  FROM {2} t1 inner join Sys_User t2 on t1.CreatorUserId = t2.Id " +
+                "where {3}) AS main_temp where rows BETWEEN {4} and {5}", strOrder, selectedFields, tableName, condition, startRows, endNum);
+
+            var reader = await conn.QueryMultipleAsync(sb.ToString());
+            info.RecordCount = reader.ReadFirst<int>();
+            List<object> list = reader.Read<object>().AsList();
+            return list;
+        }
         /// <summary>
         /// 根据条件统计数据
         /// </summary>
@@ -774,6 +1091,16 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual int GetCountByWhere(string condition)
         {
+            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            if (HasInjectionData(condition))
+            {
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", condition));
+                throw new Exception("检测出SQL注入的恶意数据");
+            }
+            if (string.IsNullOrEmpty(condition))
+            {
+                condition = "1=1";
+            }
             string sql = $"select count(*) from {tableName}  where ";
             if (!string.IsNullOrWhiteSpace(condition))
             {
@@ -781,7 +1108,36 @@ namespace Yuebon.Commons.Repositories
             }
             using (DbConnection conn = OpenSharedConnection())
             {
-                return conn.Query<int>(sql).FirstOrDefault();
+                return  conn.Query<int>(sql).FirstOrDefault();
+            }
+        }
+
+        /// <summary>
+        /// 根据条件统计数据
+        /// </summary>
+        /// <param name="condition">查询条件</param>
+        /// <returns></returns>
+        public async Task<int> GetCountByWhereAsync(string condition)
+        {
+            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            if (HasInjectionData(condition))
+            {
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", condition));
+                throw new Exception("检测出SQL注入的恶意数据");
+            }
+            if (string.IsNullOrEmpty(condition))
+            {
+                condition = "1=1";
+            }
+            string sql = $"select count(*) from {tableName}  where ";
+            if (!string.IsNullOrWhiteSpace(condition))
+            {
+                sql = sql + condition;
+            }
+            using (DbConnection conn = OpenSharedConnection())
+            {
+                IEnumerable<int> lit=  await conn.QueryAsync<int>(sql);
+                return lit.FirstOrDefault();
             }
         }
         #endregion
@@ -1056,12 +1412,47 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public bool DeleteBatchWhere(string where, IDbTransaction trans = null)
         {
+            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            if (HasInjectionData(where))
+            {
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
+                throw new Exception("检测出SQL注入的恶意数据");
+            }
+            if (string.IsNullOrEmpty(where))
+            {
+                where = "1=1";
+            }
             using (DbConnection conn = OpenSharedConnection())
             {
                 int row = conn.Execute($"delete from {tableName} where "+ where, trans);
                 return row > 0 ? true : false;
             }
         }
+        /// <summary>
+        /// 按条件批量删除
+        /// </summary>
+        /// <param name="where">条件</param>
+        /// <param name="trans">事务对象</param>
+        /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
+        public async Task<bool> DeleteBatchWhereAsync(string where, IDbTransaction trans = null)
+        {
+            using (DbConnection conn = OpenSharedConnection())
+            {
+                var type = MethodBase.GetCurrentMethod().DeclaringType;
+                if (HasInjectionData(where))
+                {
+                    Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
+                    throw new Exception("检测出SQL注入的恶意数据");
+                }
+                if (string.IsNullOrEmpty(where))
+                {
+                    where = "1=1";
+                }
+                int row =await conn.ExecuteAsync($"delete from {tableName} where " + where, trans);
+                return row > 0 ? true : false;
+            }
+        }
+
         /// <summary>
         /// 根据指定对象的ID和用户ID,从数据库中删除指定对象(用于记录人员的操作日志）
         /// </summary>
@@ -1130,7 +1521,7 @@ namespace Yuebon.Commons.Repositories
         }
 
         /// <summary>
-        /// 异步逻辑删除信息，bl为true时将DeleteMark设置为1删除，bl为flase时将DeleteMark设置为10-恢复删除
+        /// 异步逻辑删除信息，bl为true时将DeleteMark设置为1删除，bl为flase时将DeleteMark设置为0-恢复删除
         /// </summary>
         /// <param name="bl">true为不删除，false删除</param>
         /// <param name="id">主键ID</param>
@@ -1162,7 +1553,48 @@ namespace Yuebon.Commons.Repositories
             }
         }
 
+        /// <summary>
+        /// 异步批量软删除信息，将DeleteMark设置为1-删除，0-恢复删除
+        /// </summary>
+        /// <param name="bl">true为不删除，false删除</param> c
+        /// <param name="where">条件</param>
+        /// <param name="userId">操作用户</param>
+        /// <param name="trans">事务对象</param>
+        /// <returns></returns>
+        public async Task<bool> DeleteSoftBatchAsync(bool bl, string where, string userId = null, IDbTransaction trans = null)
+        {
 
+            using (DbConnection conn = OpenSharedConnection())
+            {
+                var type = MethodBase.GetCurrentMethod().DeclaringType;
+                if (HasInjectionData(where))
+                {
+                    Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
+                    throw new Exception("检测出SQL注入的恶意数据");
+                }
+                if (string.IsNullOrEmpty(where))
+                {
+                    where = "1=1";
+                }
+                string sql = $"update {tableName} set ";
+                if (bl)
+                {
+                    sql += "DeleteMark=0 ";
+                }
+                else
+                {
+                    sql += "DeleteMark=1 ";
+                }
+                if (!string.IsNullOrEmpty(userId))
+                {
+                    sql += ",DeleteUserId='" + userId + "'";
+                }
+                DateTime deleteTime = DateTime.Now;
+                sql += ",DeleteTime=@DeleteTime where "+ where;
+                int row = await conn.ExecuteAsync(sql, new { @DeleteTime = deleteTime }, trans);
+                return row > 0 ? true : false;
+            }
+        }
         /// <summary>
         /// 设置数据有效性，将EnabledMark设置为1-有效，0-为无效
         /// </summary>
@@ -1230,9 +1662,50 @@ namespace Yuebon.Commons.Repositories
             }
         }
 
-
         /// <summary>
-        /// 更新某一字段值
+        /// 异步按条件设置数据有效性，将EnabledMark设置为1:有效，0-为无效
+        /// </summary>
+        /// <param name="bl">true为有效，false无效</param>
+        /// <param name="where">条件</param>
+        /// <param name="userId">操作用户</param>
+        /// <param name="trans">事务对象</param>
+        /// <returns></returns>
+        public async Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, string userId = null, IDbTransaction trans = null)
+        {
+            using (DbConnection conn = OpenSharedConnection())
+            {
+                var type = MethodBase.GetCurrentMethod().DeclaringType;
+                if (HasInjectionData(where))
+                {
+                    Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
+                    throw new Exception("检测出SQL注入的恶意数据");
+                }
+                if (string.IsNullOrEmpty(where))
+                {
+                    where = "1=1";
+                }
+                //OperationLogOfSetEnable(id, userId, bl);
+                string sql = $"update {tableName} set ";
+                if (bl)
+                {
+                    sql += "EnabledMark=1 ";
+                }
+                else
+                {
+                    sql += "EnabledMark=0 ";
+                }
+                if (!string.IsNullOrEmpty(userId))
+                {
+                    sql += ",LastModifyUserId='" + userId + "'";
+                }
+                DateTime lastModifyTime = DateTime.Now;
+                sql += ",LastModifyTime=@lastModifyTime where "+where;
+                int row = await conn.ExecuteAsync(sql, new { @lastModifyTime = lastModifyTime }, trans);
+                return row > 0 ? true : false;
+            }
+        }
+        /// <summary>
+        /// 更新某一字段值,字段值字符类型
         /// </summary>
         /// <param name="strField">字段</param>
         /// <param name="fieldValue">字段值字符类型</param>
@@ -1254,7 +1727,28 @@ namespace Yuebon.Commons.Repositories
         }
 
         /// <summary>
-        /// 更新某一字段值
+        /// 更新某一字段值,字段值字符类型
+        /// </summary>
+        /// <param name="strField">字段</param>
+        /// <param name="fieldValue">字段值字符类型</param>
+        /// <param name="where">条件,为空更新所有内容</param>
+        /// <param name="trans">事务对象</param>
+        /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
+        public async Task<bool> UpdateTableFieldAsync(string strField, string fieldValue, string where, IDbTransaction trans = null)
+        {
+            using (DbConnection conn = OpenSharedConnection())
+            {
+                string sql = $"update {tableName} set " + strField + "='" + fieldValue + "'";
+                if (!string.IsNullOrEmpty(where))
+                {
+                    sql += " where " + where;
+                }
+                int row =await conn.ExecuteAsync(sql, trans);
+                return row > 0 ? true : false;
+            }
+        }
+        /// <summary>
+        /// 更新某一字段值，字段值为数字
         /// </summary>
         /// <param name="strField">字段</param>
         /// <param name="fieldValue">字段值数字</param>
@@ -1271,6 +1765,29 @@ namespace Yuebon.Commons.Repositories
                     sql += " where " + where;
                 }
                 int row = conn.Execute(sql, trans);
+                return row > 0 ? true : false;
+            }
+        }
+
+
+        /// <summary>
+        /// 更新某一字段值，字段值为数字
+        /// </summary>
+        /// <param name="strField">字段</param>
+        /// <param name="fieldValue">字段值数字</param>
+        /// <param name="where">条件,为空更新所有内容</param>
+        /// <param name="trans">事务对象</param>
+        /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
+        public async Task<bool> UpdateTableFieldAsync(string strField, int fieldValue, string where, IDbTransaction trans = null)
+        {
+            using (DbConnection conn = OpenSharedConnection())
+            {
+                string sql = $"update {tableName} set " + strField + "=" + fieldValue + "";
+                if (!string.IsNullOrEmpty(where))
+                {
+                    sql += " where " + where;
+                }
+                int row = await conn.ExecuteAsync(sql, trans);
                 return row > 0 ? true : false;
             }
         }
@@ -1334,16 +1851,6 @@ namespace Yuebon.Commons.Repositories
             {
                 string operationType = DbLogType.Update.ToString();
                 string userId = "";
-                string validateUserWay= Configs.GetConfigurationValue("AppSetting", "ValidateUserWay");
-                if (validateUserWay == "Session")
-                {
-                    userId = SessionHelper.GetString("CurrentUserId").ToString();
-                }
-                else
-                {
-
-                }
-
                 Hashtable recordField = GetHashByEntity(obj);
                 Dictionary<string, string> dictColumnNameAlias = GetColumnNameAlias();
 
@@ -1446,7 +1953,6 @@ namespace Yuebon.Commons.Repositories
                     sb.AppendLine();
                     string note = sb.ToString();
 
-                    string userId = SessionHelper.GetString("CurrentUserId").ToString();
                     OnOperationLog(this.tableName, operationType, note);
                 }
             }
@@ -1624,8 +2130,6 @@ namespace Yuebon.Commons.Repositories
             // TODO: 如果在以上内容中替代了终结器，则取消注释以下行。
             // GC.SuppressFinalize(this);
         }
-
-
 
         #endregion
     }

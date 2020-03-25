@@ -127,15 +127,20 @@ namespace Yuebon.Security.Models
         [XmlElement("Smsapiurl")]
         public string Smsapiurl { get; set; }
         /// <summary>
-        /// 平台登录账户
+        /// 平台登录账户或Appkey
         /// </summary>
         [XmlElement("Smsusername")]
         public string Smsusername { get; set; }
         /// <summary>
-        /// 平台通讯密钥
+        /// 平台通讯密钥或Appsecret
         /// </summary>
         [XmlElement("Smspassword")]
         public string Smspassword { get; set; }
+        /// <summary>
+        /// 短信签名
+        /// </summary>
+        [XmlElement("SmsSignName")]
+        public string SmsSignName { get; set; }
         #endregion
 
 

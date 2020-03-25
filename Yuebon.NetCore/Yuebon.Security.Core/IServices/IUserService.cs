@@ -11,7 +11,7 @@ namespace Yuebon.Security.IServices
     /// <summary>
     /// 用户服务接口
     /// </summary>
-    public interface IUserService:IService<User, string>
+    public interface IUserService:IService<User, UserOutputDto, string>
     {
         /// <summary>
         /// 用户登陆验证。
@@ -119,5 +119,19 @@ namespace Yuebon.Security.IServices
         /// <returns></returns>
         IEnumerable<UserAllListFocusOutPutDto> GetUserAllListFocusByPage(string currentpage,
             string pagesize, string userid);
+
+
+        /// <summary>
+        /// 微信注册普通会员用户
+        /// </summary>
+        /// <param name="userInPut">第三方类型</param>
+        /// <returns></returns>
+       bool CreateUserByWxOpenId(UserInputDto userInPut);
+        /// <summary>
+        /// 更新用户
+        /// </summary>
+        /// <param name="userInPut"></param>
+        /// <returns></returns>
+        bool UpdateUserByOpenId(UserInputDto userInPut);
     }
 }

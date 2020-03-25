@@ -18,7 +18,7 @@ namespace Yuebon.WebApp.Areas.CMS.Controllers
 {
     [Area("CMS")]
     [Route("CMS/[controller]/[action]")]
-    public class ArticleCategoryController : BusinessController<ArticleCategory, IArticleCategoryService>
+    public class ArticleCategoryController : BusinessController<ArticleCategory, ArticleCategoryOutputDto, IArticleCategoryService,string>
     {
         public ArticleCategoryController(IArticleCategoryService _iService) : base(_iService)
         {

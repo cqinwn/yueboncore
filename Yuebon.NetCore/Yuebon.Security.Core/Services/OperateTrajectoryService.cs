@@ -11,7 +11,7 @@ namespace Yuebon.Security.Services
     /// <summary>
     /// 
     /// </summary>
-    public class OperateTrajectoryService : BaseService<OperateTrajectory, string>, IOperateTrajectoryService
+    public class OperateTrajectoryService : BaseService<OperateTrajectory, OperateTrajectoryOutputDto, string>, IOperateTrajectoryService
     {
         private readonly IOperateTrajectoryRepository _repository;
         private readonly ILogService _logService;

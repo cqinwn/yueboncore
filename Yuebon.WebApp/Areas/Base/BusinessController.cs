@@ -29,9 +29,11 @@ namespace Yuebon.WebApp.Controllers
     /// </summary>
     /// <typeparam name="T">实体类型</typeparam>
     /// <typeparam name="TService">Service类型</typeparam>
-    public class BusinessController<T, TService> : Controller
-        where T : class,IBaseEntity<string>
-        where TService : IService<T, string>
+    public class BusinessController<T, TDto, TService, TKey> : Controller
+        where T : class, IBaseEntity<TKey>
+        where TService : IService<T, TDto, TKey>
+        where TDto : class
+        where TKey : IEquatable<TKey>
     {
         #region 属性变量
         /// <summary>
@@ -95,20 +97,20 @@ namespace Yuebon.WebApp.Controllers
             {
                 string errorMessage = "您未被授权使用该功能，请重新登录试试或联系管理员进行处理。";
                 LogApp logApp = new LogApp();
-                LogInPutDto logEntity = new LogInPutDto();
+                LogInputDto logEntity = new LogInputDto();
                 RemoteIpParser remoteIpParser = new RemoteIpParser();
-                logEntity.ModuleName = Request.Path;
-                logEntity.Type = DbLogType.Exception.ToString();
-                logEntity.CreatorUserId = CurrentUser.UserId;
-                logEntity.Account = CurrentUser.Account;
-                logEntity.NickName = CurrentUser.RealName;
-                logEntity.OrganizeId = CurrentUser.OrganizeId;
-                logEntity.Date = logEntity.CreatorTime = DateTime.Now;
-                logEntity.IPAddress = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
-                logEntity.IPAddressName = IpAddressUtil.GetCityByIp(logEntity.IPAddress);
-                logEntity.Result = false;
-                logEntity.Description = "您未被授权使用该功能";
-                logApp.Insert(logEntity);
+                //logEntity.ModuleName = Request.Path;
+                //logEntity.Type = DbLogType.Exception.ToString();
+                //logEntity.c = CurrentUser.UserId;
+                //logEntity.Account = CurrentUser.Account;
+                //logEntity.NickName = CurrentUser.RealName;
+                //logEntity.OrganizeId = CurrentUser.OrganizeId;
+                //logEntity.Date = logEntity.CreatorTime = DateTime.Now;
+                //logEntity.IPAddress = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
+                //logEntity.IPAddressName = IpAddressUtil.GetCityByIp(logEntity.IPAddress);
+                //logEntity.Result = false;
+                //logEntity.Description = "您未被授权使用该功能";
+                //logApp.Insert(logEntity);
                 throw new MyDenyAccessException(errorMessage);
             }
         }
@@ -209,7 +211,7 @@ namespace Yuebon.WebApp.Controllers
             else
             {
                 LogApp logApp = new LogApp();
-                LogInPutDto logEntity = new LogInPutDto();
+                LogInputDto logEntity = new LogInputDto();
                 RemoteIpParser remoteIpParser = new RemoteIpParser();
 
                 logEntity.ModuleName = Request.Path;
@@ -352,7 +354,7 @@ namespace Yuebon.WebApp.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpPost]
-        public virtual IActionResult Update(IFormCollection formValues, string id)
+        public virtual IActionResult Update(IFormCollection formValues, TKey id)
         {
             //检查用户是否有权限，否则抛出MyDenyAccessException异常
             CheckAuthorized(AuthorizeKey.UpdateKey);
@@ -447,7 +449,7 @@ namespace Yuebon.WebApp.Controllers
         /// <param name="id">主键Id</param>
         /// <param name="token">token令牌</param>
         [HttpDelete]
-        public virtual IActionResult Delete(string id, string token)
+        public virtual IActionResult Delete(TKey id, string token)
         {
             //检查用户是否有权限，否则抛出MyDenyAccessException异常
             CheckAuthorized(AuthorizeKey.DeleteKey);
@@ -473,7 +475,7 @@ namespace Yuebon.WebApp.Controllers
         /// <param name="id">主键Id</param>
         /// <param name="token">token令牌</param>
         [HttpDelete]
-        public virtual async Task<IActionResult> DeleteAsync(string id, string token)
+        public virtual async Task<IActionResult> DeleteAsync(TKey id, string token)
         {
             //检查用户是否有权限，否则抛出MyDenyAccessException异常
             CheckAuthorized(AuthorizeKey.DeleteKey);
@@ -498,33 +500,35 @@ namespace Yuebon.WebApp.Controllers
         /// </summary>
         /// <param name="ids">多个id组合，逗号分开（1,2,3,4,5）</param>
         /// <returns></returns>
-        public virtual IActionResult DeleteByIds(string ids)
+        public virtual IActionResult DeleteByIds(TKey ids)
         {
             //检查用户是否有权限，否则抛出MyDenyAccessException异常
             CheckAuthorized(AuthorizeKey.DeleteKey);
             CommonResult result = new CommonResult();
             try
             {
-                if (!string.IsNullOrEmpty(ids))
+                string where = string.Empty;
+                if (typeof(TKey) == typeof(string))
                 {
-                    List<string> idArray = ids.ToDelimitedList<string>(",");
-                    foreach (string strId in idArray)
+                    string newIds = ids.ToString();
+                    where = "id in ('" + newIds.Trim(',').Replace(",", "','") + "')";
+                }
+                else if (typeof(TKey) == typeof(int))
+                {
+                    where = "id in (" + ids + ")";
+                }
+                if (!string.IsNullOrEmpty(where))
+                {
+                    bool bl = iService.DeleteBatchWhere(where);
+                    if (bl)
                     {
-                        if (!string.IsNullOrEmpty(strId))
-                        {
-                            bool bl = iService.Delete(strId);
-                            if (bl)
-                            {
-                                result.ErrCode = ErrCode.successCode;
-                                result.ErrMsg = ErrCode.err0;
-                                result.Success = true;
-                            }
-                            else
-                            {
-                                result.ErrMsg = ErrCode.err43003;
-                                result.ErrCode = "43003";
-                            }
-                        }
+                        result.ErrCode = ErrCode.successCode;
+                        result.ErrMsg = ErrCode.err0;
+                    }
+                    else
+                    {
+                        result.ErrMsg = ErrCode.err43003;
+                        result.ErrCode = "43003";
                     }
                 }
             }
@@ -541,38 +545,40 @@ namespace Yuebon.WebApp.Controllers
         /// </summary>
         /// <param name="ids">多个id组合，逗号分开（1,2,3,4,5）</param>
         /// <returns></returns>
-        public virtual IActionResult DeleteSoftByIds(string ids, string bltag = "0")
+        public virtual async Task<IActionResult> DeleteSoftByIds(string ids, string bltag = "0")
         {
             //检查用户是否有权限，否则抛出MyDenyAccessException异常
             CheckAuthorized(AuthorizeKey.DeleteSoftKey);
             CommonResult result = new CommonResult();
             try
             {
-                if (!string.IsNullOrEmpty(ids))
+                string where = string.Empty;
+                if (typeof(TKey) == typeof(string))
                 {
-                    List<string> idArray = ids.ToDelimitedList<string>(",");
-                    foreach (string strId in idArray)
+                    string newIds = ids.ToString();
+                    where = "id in ('" + newIds.Trim(',').Replace(",", "','") + "')";
+                }
+                else if (typeof(TKey) == typeof(int))
+                {
+                    where = "id in (" + ids + ")";
+                }
+                if (!string.IsNullOrEmpty(where))
+                {
+                    bool bl = false;
+                    if (bltag == "1")
                     {
-                        if (!string.IsNullOrEmpty(strId))
-                        {
-                            bool bl = false;
-                            if (bltag == "1")
-                            {
-                                bl = true;
-                            }
-                            bool blresut = iService.DeleteSoft(bl, strId,CurrentUser.UserId);
-                            if (blresut)
-                            {
-                                result.ErrCode = ErrCode.successCode;
-                                result.ErrMsg = ErrCode.err0;
-                                result.Success = true;
-                            }
-                            else
-                            {
-                                result.ErrMsg = ErrCode.err43003;
-                                result.ErrCode = "43003";
-                            }
-                        }
+                        bl = true;
+                    }
+                    bool blResult = await iService.DeleteSoftBatchAsync(bl, where, CurrentUser.UserId);
+                    if (blResult)
+                    {
+                        result.ErrCode = ErrCode.successCode;
+                        result.ErrMsg = ErrCode.err0;
+                    }
+                    else
+                    {
+                        result.ErrMsg = ErrCode.err43002;
+                        result.ErrCode = "43002";
                     }
                 }
             }
@@ -592,7 +598,7 @@ namespace Yuebon.WebApp.Controllers
         /// <param name="token">token令牌</param>
         /// <param name="bltag">删除标识，默认为1：即设为删除,0：未删除</param>
         [HttpDelete("DeleteSoft")]
-        public virtual IActionResult DeleteSoft(string id, string bltag = "1")
+        public virtual IActionResult DeleteSoft(TKey id, string bltag = "1")
         {
             //检查用户是否有权限，否则抛出MyDenyAccessException异常
             CheckAuthorized(AuthorizeKey.DeleteSoftKey);
@@ -602,7 +608,7 @@ namespace Yuebon.WebApp.Controllers
             {
                 bl = true;
             }
-            bool blResult = iService.DeleteSoft(bl, id,CurrentUser.UserId);
+            bool blResult = iService.DeleteSoft(bl, id, CurrentUser.UserId);
             if (blResult)
             {
                 result.ErrCode = ErrCode.successCode;
@@ -623,7 +629,7 @@ namespace Yuebon.WebApp.Controllers
         /// <param name="token">token令牌</param>
         /// <param name="bltag">删除标识，默认为1：即设为删除,0：未删除</param>
         [HttpDelete("DeleteSoftAsync")]
-        public virtual async Task<IActionResult> DeleteSoftAsync(string id, string bltag = "1")
+        public virtual async Task<IActionResult> DeleteSoftAsync(TKey id, string bltag = "1")
         {
             //检查用户是否有权限，否则抛出MyDenyAccessException异常
             CheckAuthorized(AuthorizeKey.DeleteSoftKey);
@@ -654,7 +660,7 @@ namespace Yuebon.WebApp.Controllers
         /// <param name="token">token令牌</param>
         /// <param name="bltag">有效标识，默认为1：即设为无效,0：有效</param>
         [HttpPost("SetEnabledMark")]
-        public virtual IActionResult SetEnabledMark(string id, string token, string bltag = "1")
+        public virtual IActionResult SetEnabledMark(TKey id, string token, string bltag = "1")
         {
             //检查用户是否有权限，否则抛出MyDenyAccessException异常
             CheckAuthorized(AuthorizeKey.UpdateEnableKey);
@@ -685,7 +691,7 @@ namespace Yuebon.WebApp.Controllers
         /// <param name="token">token令牌</param>
         /// <param name="bltag">有效标识，默认为1：即设为无效,0：有效</param>
         [HttpPost("SetEnabledMarkAsync")]
-        public virtual async Task<IActionResult> SetEnabledMarkAsync(string id, string token, string bltag = "1")
+        public virtual async Task<IActionResult> SetEnabledMarkAsync(TKey id, string token, string bltag = "1")
         {
             //检查用户是否有权限，否则抛出MyDenyAccessException异常
             CheckAuthorized(AuthorizeKey.UpdateEnableKey);
@@ -715,38 +721,40 @@ namespace Yuebon.WebApp.Controllers
         /// <param name="ids">多个id组合，逗号分开（1,2,3,4,5）</param>
         /// <returns></returns>
         [HttpPost]
-        public virtual IActionResult SetEnabledMarkByIds(string ids, string bltag = "0")
+        public virtual async Task<IActionResult> SetEnabledMarkByIds(TKey ids, string bltag = "0")
         {
             //检查用户是否有权限，否则抛出MyDenyAccessException异常
             CheckAuthorized(AuthorizeKey.UpdateEnableKey);
             CommonResult result = new CommonResult();
             try
             {
-                if (!string.IsNullOrEmpty(ids))
+                bool bl = false;
+                if (bltag == "1")
                 {
-                    bool bl = false;
-                    if (bltag == "1")
+                    bl = true;
+                }
+                string where = string.Empty;
+                if (typeof(TKey) == typeof(string))
+                {
+                    string newIds = ids.ToString();
+                    where = "id in ('" + newIds.Trim(',').Replace(",", "','") + "')";
+                }
+                else if (typeof(TKey) == typeof(int))
+                {
+                    where = "id in (" + ids + ")";
+                }
+                if (!string.IsNullOrEmpty(where))
+                {
+                    bool blresut =await iService.SetEnabledMarkByWhereAsync(bl, where, CurrentUser.UserId).ConfigureAwait(false);
+                    if (blresut)
                     {
-                        bl = true;
+                        result.ErrCode = ErrCode.successCode;
+                        result.ErrMsg = ErrCode.err0;
                     }
-                    List<string> idArray = ids.ToDelimitedList<string>(",");
-                    foreach (string strId in idArray)
+                    else
                     {
-                        if (!string.IsNullOrEmpty(strId))
-                        {
-                            bool blresut = iService.SetEnabledMark(bl, strId,CurrentUser.UserId);
-                            if (blresut)
-                            {
-                                result.ErrCode = ErrCode.successCode;
-                                result.ErrMsg = ErrCode.err0;
-                                result.Success = true;
-                            }
-                            else
-                            {
-                                result.ErrMsg = ErrCode.err43002;
-                                result.ErrCode = "43002";
-                            }
-                        }
+                        result.ErrMsg = ErrCode.err43002;
+                        result.ErrCode = "43002";
                     }
                 }
             }
@@ -763,7 +771,7 @@ namespace Yuebon.WebApp.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public virtual IActionResult GetById(string id)
+        public virtual IActionResult GetById(TKey id)
         {
             //检查用户是否有权限，否则抛出MyDenyAccessException异常
             CheckAuthorized(AuthorizeKey.ViewKey);

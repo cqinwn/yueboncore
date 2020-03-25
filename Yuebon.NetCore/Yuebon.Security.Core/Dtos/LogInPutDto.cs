@@ -1,83 +1,104 @@
-﻿using System;
+using AutoMapper;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Yuebon.Commons.Models;
+using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Dtos
 {
     /// <summary>
-    /// 
+    /// 输入对象模型
     /// </summary>
+    [AutoMap(typeof(Log))]
     [Serializable]
-    public class LogInPutDto : IInputDto<string>
+    public class LogInputDto: IInputDto<string>
     {
-
         /// <summary>
-        /// 
+        /// 设置或获取 
         /// </summary>
         public string Id { get; set; }
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        public DateTime? Date { get; set; }
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        public string Account { get; set; }
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        public string NickName { get; set; }
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        public string OrganizeId { get; set; }
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        public string Type { get; set; }
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        public string IPAddress { get; set; }
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        public string IPAddressName { get; set; }
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        public string ModuleId { get; set; }
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        public string ModuleName { get; set; }
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        public bool? Result { get; set; }
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        public string Description { get; set; }
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        public bool? EnabledMark { get; set; }
 
         /// <summary>
-        /// 日期
+        /// 设置或获取 
         /// </summary>
-        public virtual DateTime? Date { get; set; }
-        /// <summary>
-        /// 组织主键
-        /// </summary>
-        public virtual string OrganizeId { get; set; }
-        /// <summary>
-        /// 用户名
-        /// </summary>
-        public virtual string Account { get; set; }
+        public DateTime? CreatorTime { get; set; }
 
         /// <summary>
-        /// 姓名
+        /// 设置或获取 
         /// </summary>
-        public virtual string NickName { get; set; }
+        [MaxLength(50)]
+        public string CreatorUserId { get; set; }
 
         /// <summary>
-        /// 类型
+        /// 设置或获取 
         /// </summary>
-        public virtual string Type { get; set; }
+        public DateTime? LastModifyTime { get; set; }
 
         /// <summary>
-        /// IP地址
+        /// 设置或获取 
         /// </summary>
-        public virtual string IPAddress { get; set; }
+        [MaxLength(50)]
+        public string LastModifyUserId { get; set; }
 
         /// <summary>
-        /// IP所在城市
+        /// 设置或获取 
         /// </summary>
-        public virtual string IPAddressName { get; set; }
+        public DateTime? DeleteTime { get; set; }
 
         /// <summary>
-        /// 系统模块Id
+        /// 设置或获取 
         /// </summary>
-        public virtual string ModuleId { get; set; }
-
-        /// <summary>
-        /// 系统模块
-        /// </summary>
-        public virtual string ModuleName { get; set; }
-
-        /// <summary>
-        /// 结果
-        /// </summary>
-        public virtual bool? Result { get; set; }
-
-        /// <summary>
-        /// 描述
-        /// </summary>
-        public virtual string Description { get; set; }
-        /// <summary>
-        /// 创建日期
-        /// </summary>
-        public virtual DateTime? CreatorTime { get; set; }
-
-        /// <summary>
-        /// 创建用户主键
-        /// </summary>
-        public virtual string CreatorUserId { get; set; }
-
+        [MaxLength(50)]
+        public string DeleteUserId { get; set; }
     }
 }

@@ -1,43 +1,35 @@
-﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
-using Yuebon.Commons.Models;
-using Yuebon.Commons.Mapping;
-using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Dtos
 {
     /// <summary>
-    /// 
+    /// 输出对象模型
     /// </summary>
     [Serializable]
-    [AutoMap(typeof(User))]
-    public class UserFocusOutPutDto : IOutputDto
+    public class UserFocusOutputDto
     {
-
-        #region Property Members
-
         /// <summary>
-        /// 用户主键
+        /// 设置或获取 
         /// </summary>
-        public virtual string Id { get; set; }
-
-        /// <summary>
-        /// 关注的用户ID
+        [MaxLength(50)]
+        public string Id { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual string FocusUserId { get; set; }
-
-        /// <summary>
-        /// 关注人
+        [MaxLength(50)]
+        public string FocusUserId { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual string CreatorUserId { get; set; }
-
-        /// <summary>
-        /// 关注时间
+        [MaxLength(50)]
+        public string CreatorUserId { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual DateTime? CreatorTime { get; set; }
-
-        #endregion
+        public DateTime CreatorTime { get; set; }
+
     }
 }

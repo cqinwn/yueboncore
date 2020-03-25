@@ -1,14 +1,17 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using Yuebon.AspNetCore.Mvc;
-using Yuebon.AspNetCore.SSO;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Models;
+using Yuebon.Commons.Pages;
 using Yuebon.Security.Application;
+using Yuebon.Security.Dtos;
 using Yuebon.Security.Models;
 
 namespace Yuebon.AspNetCore.Controllers
@@ -42,6 +45,32 @@ namespace Yuebon.AspNetCore.Controllers
         }
 
 
+        /// <summary>
+        /// 根据Request参数获取分页对象数据
+        /// </summary>
+        /// <returns></returns>
+        protected virtual PagerInfo GetPagerInfo()
+        {
+            int pageSize = Request.Query["length"].ToString() == null ? 1 : Request.Query["length"].ToString().ToInt();
+            int pageIndex = 1;
+            string currentPage = Request.Query["CurrentPage"].ToString();
+            if (string.IsNullOrWhiteSpace(currentPage))
+            {
+                string start = Request.Query["start"].ToString();
+                if (!string.IsNullOrWhiteSpace(start))
+                {
+                    pageIndex = (start.ToInt() / pageSize) + 1;
+                }
+            }
+            else
+            {
+                pageIndex = currentPage.ToInt();
+            }
+            PagerInfo pagerInfo = new PagerInfo();
+            pagerInfo.CurrenetPageIndex = pageIndex;
+            pagerInfo.PageSize = pageSize;
+            return pagerInfo;
+        }
         /// <summary>
         /// 验证token的合法性。如果不合法，返回MyApiException异常
         /// </summary>

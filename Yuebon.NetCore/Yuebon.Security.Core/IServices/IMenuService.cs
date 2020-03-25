@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using Yuebon.Commons.IServices;
+using Yuebon.Security.Dtos;
 using Yuebon.Security.Models;
 
 namespace Yuebon.Security.IServices
 {
-    public interface IMenuService:IService<Menu, string>
+    public interface IMenuService:IService<Menu, MenuOutputDto, string>
     {
 
         /// <summary>

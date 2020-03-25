@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,23 +8,24 @@ using System.Threading.Tasks;
 namespace Yuebon.AspNetCore.Mvc
 {
     /// <summary>
+    /// 功能权限属性配置
     /// 
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
-    public class YuebonAuthorizeAttribute: AuthorizeAttribute
+    public class YuebonAuthorizeAttribute: ActionFilterAttribute
     {
         /// <summary>
-        /// 权限
+        /// 功能权限
         /// </summary>
-        public string Permission { get; set; }
+        public string Function { get; set; }
 
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="permission"></param>
-        public YuebonAuthorizeAttribute(string permission)
+        /// <param name="function">功能点</param>
+        public YuebonAuthorizeAttribute(string function)
         {
-            Permission = permission;
+            Function = function;
         }
     }
 }

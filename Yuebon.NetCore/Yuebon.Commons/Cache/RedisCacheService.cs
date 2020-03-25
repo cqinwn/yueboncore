@@ -15,11 +15,24 @@ namespace Yuebon.Commons.Cache
     /// </summary>
     public class RedisCacheService : ICacheService
     {
+        /// <summary>
+        /// 
+        /// </summary>
         protected IDatabase _cache;
+        /// <summary>
+        /// 
+        /// </summary>
         private ConnectionMultiplexer _connection;
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly string _instance;
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="options"></param>
+        /// <param name="database"></param>
         public RedisCacheService(RedisCacheOptions options, int database = 0)
         {
             _connection = ConnectionMultiplexer.Connect(options.Configuration);

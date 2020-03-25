@@ -1,19 +1,15 @@
-﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
-using Yuebon.Commons.Models;
-using Yuebon.Commons.Mapping;
-using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Dtos
 {
     /// <summary>
-    /// 
+    /// 输出对象模型
     /// </summary>
     [Serializable]
-    [AutoMap(typeof(User))]
-    public class UserOutPutDto:IOutputDto
+    public class UserOutputDto
     {
 
         #region Property Members
@@ -212,6 +208,6 @@ namespace Yuebon.Security.Dtos
         /// 删除用户
         /// </summary>
         public virtual string DeleteUserId { get; set; }
-        #endregion
+        #endregion
     }
 }

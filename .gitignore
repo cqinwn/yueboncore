@@ -14,8 +14,8 @@ upload/
 **/bin/**
 **/obj/**
 .vs/*
-# User-specific files (MonoDevelop/Xamarin Studio)
-*.userprefs
+
+
 
 # Build results
 [Dd]ebug/
@@ -67,6 +67,24 @@ dlldata.c
 project.lock.json
 project.fragment.lock.json
 artifacts/
+
+# vue
+.DS_Store
+node_modules/
+dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+tests/**/coverage/
+# User-specific files (MonoDevelop/Xamarin Studio)
+*.userprefs
+
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
 
 *_i.c
 *_p.c

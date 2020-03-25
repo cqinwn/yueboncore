@@ -20,7 +20,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
 {
     [Area("Security")]
     [Route("Security/[controller]/[action]")]
-    public class SystemTypeController : BusinessController<SystemType, ISystemTypeService>
+    public class SystemTypeController : BusinessController<SystemType, SystemTypeOutputDto, ISystemTypeService, string>
     {
         public SystemTypeController(ISystemTypeService _iService) : base(_iService)
         {

@@ -24,7 +24,7 @@ namespace Yuebon.WebApp.Areas.CMS.Controllers
 {
     [Area("CMS")]
     [Route("CMS/[controller]/[action]")]
-    public class ArticleNewsController : BusinessController<ArticleNews, IArticleNewsService>
+    public class ArticleNewsController : BusinessController<ArticleNews, ArticleNewsOutputDto, IArticleNewsService,string>
     {
         private IArticleCategoryService articleCategoryService;
 

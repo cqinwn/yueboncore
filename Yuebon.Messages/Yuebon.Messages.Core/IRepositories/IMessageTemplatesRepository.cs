@@ -1,13 +1,16 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using Yuebon.Commons.IRepositories;
 using Yuebon.Messages.Dtos;
 using Yuebon.Messages.Models;
 
 namespace Yuebon.Messages.IRepositories
 {
-    public interface IMessageTemplatesRepository : IRepository<MessageTemplates, string>
+    /// <summary>
+    /// 定义仓储接口
+    /// </summary>
+    public interface IMessageTemplatesRepository:IRepository<MessageTemplates, string>
     {
-
 
         /// <summary>
         /// 根据用户查询微信小程序订阅消息模板列表，关联用户订阅表

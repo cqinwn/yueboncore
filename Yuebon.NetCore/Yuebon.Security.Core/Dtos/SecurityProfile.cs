@@ -15,7 +15,7 @@ namespace Yuebon.Security.Dtos
         public SecurityProfile()
         {
             CreateMap<APP, AppOutputDto>();
-            CreateMap<AppInputDto,APP>();
+            CreateMap<AppOutputDto, APP>();
             CreateMap<Area, AreaOutputDto>();
             CreateMap<Area, AreaPickerOutputDto>()
                 .ForMember(s=>s.label,s=>s.MapFrom(o=>o.FullName))
@@ -41,20 +41,20 @@ namespace Yuebon.Security.Dtos
             CreateMap<UploadFile, UploadFileOuputDto>();
             CreateMap<UploadFileInputDto, UploadFile>();
             CreateMap<UploadFile, UploadFileResultOuputDto>();
-            CreateMap<User, UserOutPutDto>().ReverseMap();
-            CreateMap<UserInPutDto, User>();
+            CreateMap<User, UserOutputDto>().ReverseMap();
+            CreateMap<UserInputDto, User>();
             CreateMap<User, UserLoginDto>()
                 .ForMember(e => e.UserId, s => s.MapFrom(o => o.Id));
             CreateMap<List<WorkOrder>, List<WorkOrderOutputDto>>();
             CreateMap<OperateTrajectory, OperateTrajectoryOutputDto>();
             CreateMap<OperateTrajectoryDetail, OperateTrajectoryDetailOutputDto>();
             CreateMap<UserNameCardView, UserNameCardOutPutDto>();
-            CreateMap<UserExtend, UserExtendOutPutDto>();
-            CreateMap<UserFocus, UserFocusOutPutDto>();
-            CreateMap<Log, LogOutPutDto>();
-            CreateMap<LogInPutDto, Log>();
-            CreateMap<FilterIP, FilterIPOutPutDto>();
-            CreateMap<FilterIPInPutDto, FilterIP>();
+            CreateMap<UserExtend, UserExtendOutputDto>();
+            CreateMap<UserFocus, UserFocusOutputDto>();
+            CreateMap<Log, LogOutputDto>();
+            CreateMap<LogInputDto, Log>();
+            CreateMap<FilterIP, FilterIPOutputDto>();
+            CreateMap<FilterIPInputDto, FilterIP>();
             CreateMap<SysSetting, SysSettingOutputDto>();
         }
     }

@@ -1,0 +1,19 @@
+﻿using AutoMapper;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using Yuebon.Commons.Models;
+using {ModelsNamespace};
+
+namespace {DtosNamespace}
+{
+    /// <summary>
+    /// {TableNameDesc}输入对象模型
+    /// </summary>
+    [AutoMap(typeof({ModelTypeName}))]
+    [Serializable]
+    public class {ModelTypeName}InputDto: IInputDto<{KeyTypeName}>
+    {
+{ModelContent}
+    }
+}

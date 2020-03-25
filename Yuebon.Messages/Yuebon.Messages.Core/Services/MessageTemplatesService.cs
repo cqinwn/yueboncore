@@ -1,26 +1,28 @@
-﻿using System.Collections.Generic;
-using Yuebon.Commons.IRepositories;
+using System;
 using Yuebon.Commons.Services;
-using Yuebon.Messages.Dtos;
+using Yuebon.Security.IServices;
 using Yuebon.Messages.IRepositories;
 using Yuebon.Messages.IServices;
+using Yuebon.Messages.Dtos;
 using Yuebon.Messages.Models;
-using Yuebon.Security.IServices;
+using System.Collections.Generic;
 
 namespace Yuebon.Messages.Services
 {
-    public class MessageTemplatesService : BaseService<MessageTemplates, string>, IMessageTemplatesService
+    /// <summary>
+    /// 服务接口实现
+    /// </summary>
+    public class MessageTemplatesService: BaseService<MessageTemplates,MessageTemplatesOutputDto, string>, IMessageTemplatesService
     {
-
-        private readonly IMessageTemplatesRepository _appRepository;
+		private readonly IMessageTemplatesRepository _repository;
         private readonly ILogService _logService;
-        public MessageTemplatesService(IMessageTemplatesRepository iRepository, ILogService logService) : base(iRepository)
+        public MessageTemplatesService(IMessageTemplatesRepository repository,ILogService logService) : base(repository)
         {
-
-            _appRepository = iRepository;
-            _logService = logService;
-            _appRepository.OnOperationLog += _logService.OnOperationLog;
+			_repository=repository;
+			_logService=logService;
+            _repository.OnOperationLog += _logService.OnOperationLog;
         }
+
         /// <summary>
         /// 根据消息类型查询消息模板
         /// </summary>
@@ -28,7 +30,7 @@ namespace Yuebon.Messages.Services
         /// <returns></returns>
         public MessageTemplates GetByMessageType(string messageType)
         {
-            return _appRepository.GetWhere("messageType='" + messageType + "'");
+            return _repository.GetWhere("messageType='" + messageType + "'");
         }
 
         /// <summary>
@@ -38,7 +40,7 @@ namespace Yuebon.Messages.Services
         /// <returns></returns>
         public List<MemberMessageTemplatesOuputDto> ListByUseInWxApplet(string userId)
         {
-            return _appRepository.ListByUseInWxApplet(userId);
+            return _repository.ListByUseInWxApplet(userId);
         }
     }
 }

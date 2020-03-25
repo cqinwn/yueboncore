@@ -35,7 +35,7 @@ namespace Yuebon.AspNetCore.UI
         /// <summary>
         /// 第几页
         /// </summary>
-        public int PageNo
+        public int CurrentPage
         {
             get; set;
         }

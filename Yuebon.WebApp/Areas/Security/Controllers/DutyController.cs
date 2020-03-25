@@ -20,7 +20,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
 {
     [Area("Security")]
     [Route("Security/[controller]/[action]")]
-    public class DutyController : BusinessController<Role, IRoleService>
+    public class DutyController : BusinessController<Role, RoleOutputDto, IRoleService, string>
     {
         private IOrganizeService organizeService;
         public DutyController(IRoleService _iService, IOrganizeService _organizeService) : base(_iService)

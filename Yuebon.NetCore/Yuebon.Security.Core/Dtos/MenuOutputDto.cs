@@ -1,144 +1,150 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
-using Yuebon.Commons.Models;
 
 namespace Yuebon.Security.Dtos
 {
-
     /// <summary>
-    /// 输出Dto:系统菜单
+    /// 输出对象模型
     /// </summary>
     [Serializable]
-    public class MenuOutputDto:IOutputDto
+    public class MenuOutputDto
     {
-
-        #region Property MenuDto
-
         /// <summary>
-        /// 模块主键
+        /// 设置或获取 
         /// </summary>
-        public virtual string Id { get; set; }
+        [MaxLength(50)]
+        public string Id { get; set; }
 
         /// <summary>
-        /// 所属系统主键
+        /// 设置或获取 
         /// </summary>
-        public virtual string SystemTypeId { get; set; }
-        /// <summary>
-        /// 所属系统名称
-        /// </summary>
-        public virtual string SystemTypeName { get; set; }
-        /// <summary>
-        /// 父级
-        /// </summary>
-        public virtual string ParentId { get; set; }
+        [MaxLength(50)]
+        public string SystemTypeId { get; set; }
+        public string SystemTypeName { get; set; }
 
         /// <summary>
-        /// 层次
+        /// 设置或获取 
         /// </summary>
-        public virtual int? Layers { get; set; }
+        [MaxLength(50)]
+        public string ParentId { get; set; }
 
         /// <summary>
-        /// 编码
+        /// 设置或获取 
         /// </summary>
-        public virtual string EnCode { get; set; }
+        public int? Layers { get; set; }
 
         /// <summary>
-        /// 名称
+        /// 设置或获取 
         /// </summary>
-        public virtual string FullName { get; set; }
+        [MaxLength(50)]
+        public string EnCode { get; set; }
 
         /// <summary>
-        /// 图标
+        /// 设置或获取 
         /// </summary>
-        public virtual string Icon { get; set; }
+        [MaxLength(50)]
+        public string FullName { get; set; }
 
         /// <summary>
-        /// 连接
+        /// 设置或获取 
         /// </summary>
-        public virtual string UrlAddress { get; set; }
+        [MaxLength(50)]
+        public string Icon { get; set; }
 
         /// <summary>
-        /// 目标
+        /// 设置或获取 
         /// </summary>
-        public virtual string Target { get; set; }
+        [MaxLength(500)]
+        public string UrlAddress { get; set; }
 
         /// <summary>
-        /// 菜单
+        /// 设置或获取 
         /// </summary>
-        public virtual bool? IsMenu { get; set; }
+        [MaxLength(50)]
+        public string Target { get; set; }
 
         /// <summary>
-        /// 展开
+        /// 设置或获取 
         /// </summary>
-        public virtual bool IsExpand { get; set; }
+        public bool? IsMenu { get; set; }
 
         /// <summary>
-        /// 公共
+        /// 设置或获取 
         /// </summary>
-        public virtual bool? IsPublic { get; set; }
+        public bool? IsExpand { get; set; }
 
         /// <summary>
-        /// 允许编辑
+        /// 设置或获取 
         /// </summary>
-        public virtual bool? AllowEdit { get; set; }
+        public bool? IsPublic { get; set; }
 
         /// <summary>
-        /// 允许删除
+        /// 设置或获取 
         /// </summary>
-        public virtual bool? AllowDelete { get; set; }
+        public bool? AllowEdit { get; set; }
 
         /// <summary>
-        /// 排序码
+        /// 设置或获取 
         /// </summary>
-        public virtual int? SortCode { get; set; }
+        public bool? AllowDelete { get; set; }
 
         /// <summary>
-        /// 描述
+        /// 设置或获取 
         /// </summary>
-        public virtual string Description { get; set; }
+        public int? SortCode { get; set; }
 
         /// <summary>
-        /// 删除标志
+        /// 设置或获取 
         /// </summary>
-        public virtual bool? DeleteMark { get; set; }
+        public bool? DeleteMark { get; set; }
 
         /// <summary>
-        /// 有效标志
+        /// 设置或获取 
         /// </summary>
-        public virtual bool EnabledMark { get; set; }
+        public bool? EnabledMark { get; set; }
 
         /// <summary>
-        /// 创建日期
+        /// 设置或获取 
         /// </summary>
-        public virtual DateTime? CreatorTime { get; set; }
+        [MaxLength(500)]
+        public string Description { get; set; }
 
         /// <summary>
-        /// 创建用户主键
+        /// 设置或获取 
         /// </summary>
-        public virtual string CreatorUserId { get; set; }
+        public DateTime? CreatorTime { get; set; }
 
         /// <summary>
-        /// 最后修改时间
+        /// 设置或获取 
         /// </summary>
-        public virtual DateTime? LastModifyTime { get; set; }
+        [MaxLength(50)]
+        public string CreatorUserId { get; set; }
 
         /// <summary>
-        /// 最后修改用户
+        /// 设置或获取 
         /// </summary>
-        public virtual string LastModifyUserId { get; set; }
+        public DateTime? LastModifyTime { get; set; }
 
         /// <summary>
-        /// 删除时间
+        /// 设置或获取 
         /// </summary>
-        public virtual DateTime? DeleteTime { get; set; }
+        [MaxLength(50)]
+        public string LastModifyUserId { get; set; }
 
         /// <summary>
-        /// 删除用户
+        /// 设置或获取 
         /// </summary>
-        public virtual string DeleteUserId { get; set; }
+        public DateTime? DeleteTime { get; set; }
 
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        [MaxLength(50)]
+        public string DeleteUserId { get; set; }
         public List<MenuOutputDto> SubMenu { get; set; }
-        #endregion
+
+
     }
 }

@@ -2,8 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Version>1.0.1</Version>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="aliyun-net-sdk-core" Version="1.5.3" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Yuebob.WeChat.Core\Yuebon.WeChat.Core.csproj" />

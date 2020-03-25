@@ -9,7 +9,7 @@ using Yuebon.CMS.Dtos;
 
 namespace Yuebon.CMS.Services
 {
-    public class ArticleNewsService : BaseService<ArticleNews, string>, IArticleNewsService
+    public class ArticleNewsService : BaseService<ArticleNews, ArticleNewsOutputDto, string>, IArticleNewsService
     {
         private readonly IArticleNewsRepository _repository;
         private readonly ILogService _logService;

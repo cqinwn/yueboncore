@@ -94,7 +94,7 @@ namespace Yuebon.WeChat.CommonService.CustomMessageHandler
             //比如MessageHandler<MessageContext>.GlobalGlobalMessageContext.ExpireMinutes = 3。
             GlobalMessageContext.ExpireMinutes = 3;
 
-            onlyAllowEcryptMessage = true;//是否只允许接收加密消息，默认为 false
+            //OnlyAllowEcryptMessage = true;//是否只允许接收加密消息，默认为 false
 
             if (!string.IsNullOrEmpty(postModel.AppId))
             {

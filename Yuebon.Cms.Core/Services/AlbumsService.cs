@@ -4,10 +4,11 @@ using Yuebon.CMS.IRepositories;
 using Yuebon.CMS.IServices;
 using Yuebon.CMS.Models;
 using Yuebon.Security.IServices;
+using Yuebon.CMS.Dtos;
 
 namespace Yuebon.CMS.Services
 {
-    public class AlbumsService : BaseService<Albums, string>, IAlbumsService
+    public class AlbumsService : BaseService<Albums, AlbumsOutputDto, string>, IAlbumsService
     {
 		private readonly IAlbumsRepository _repository;
         private readonly ILogService _logService;

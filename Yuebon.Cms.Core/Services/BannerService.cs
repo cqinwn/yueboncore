@@ -5,10 +5,11 @@ using Yuebon.CMS.IServices;
 using Yuebon.CMS.Models;
 using Yuebon.Security.IServices;
 using System.Collections.Generic;
+using Yuebon.CMS.Dtos;
 
 namespace Yuebon.CMS.Services
 {
-    public class BannerService: BaseService<Banner, string>, IBannerService
+    public class BannerService: BaseService<Banner, BannerOutputDto, string>, IBannerService
     {
 		private readonly IBannerRepository _repository;
         private readonly ILogService _logService;

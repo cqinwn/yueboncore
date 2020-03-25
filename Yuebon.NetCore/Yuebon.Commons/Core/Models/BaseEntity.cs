@@ -27,6 +27,10 @@ namespace Yuebon.Commons.Models
             {
                 Id = GuidUtils.CreateNo().CastTo<TKey>();
             }
+            if (typeof(TKey) == typeof(int))
+            {
+                
+            }
         }
 
         /// <summary>

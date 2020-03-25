@@ -1,9 +1,13 @@
-﻿using Yuebon.Commons.IRepositories;
+using System;
+using Yuebon.Commons.IRepositories;
 using Yuebon.Messages.Models;
 
 namespace Yuebon.Messages.IRepositories
 {
-    public interface IMessageMailBoxRepository : IRepository<MessageMailBox, string>
+    /// <summary>
+    /// 定义仓储接口
+    /// </summary>
+    public interface IMessageMailBoxRepository:IRepository<MessageMailBox, string>
     {
     }
 }

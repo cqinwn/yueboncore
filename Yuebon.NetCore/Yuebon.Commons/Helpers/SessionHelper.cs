@@ -12,6 +12,9 @@ namespace Yuebon.Commons.Helpers
     /// </summary>
     public static class SessionHelper
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public static HttpContext HttpHelper => HttpContextHelper.HttpContext;
         /// <summary>
         /// 设置 Session

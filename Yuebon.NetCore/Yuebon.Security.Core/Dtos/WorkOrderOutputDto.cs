@@ -1,100 +1,102 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
-using Yuebon.Commons.Models;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
 
 namespace Yuebon.Security.Dtos
 {
     /// <summary>
-    /// WorkOrderInfo，DTO对象
+    /// 输出对象模型
     /// </summary>
     [Serializable]
-    public class WorkOrderOutputDto:IOutputDto
-    { 
-        #region Property Members
-        
+    public class WorkOrderOutputDto
+    {
         /// <summary>
-        /// 
+        /// 设置或获取 
         /// </summary>
-        public virtual string Id { get; set; }
-
-        /// <summary>
-        /// 标题
+        [MaxLength(50)]
+        public string Id { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual string Title { get; set; }
-
-        /// <summary>
-        /// 分类
+        [MaxLength(50)]
+        public string Title { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual string Category { get; set; }
-
-        /// <summary>
-        /// 机密信息
+        [MaxLength(50)]
+        public string Category { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual string SecretContent { get; set; }
-
-        /// <summary>
-        /// 手机号
+        [MaxLength(256)]
+        public string SecretContent { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual string Mobile { get; set; }
-
-        /// <summary>
-        /// 附件
+        [MaxLength(256)]
+        public string Mobile { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual string Attachment { get; set; }
-
-        /// <summary>
-        /// 状态
+        [MaxLength(256)]
+        public string Attachment { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual string Status { get; set; }
-
-        /// <summary>
-        /// 删除标记
+        [MaxLength(256)]
+        public string Customer { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual bool? DeleteMark { get; set; }
-
-        /// <summary>
-        /// 描述
+        [MaxLength(1)]
+        public string Status { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual string Description { get; set; }
-
-        /// <summary>
-        /// 
+        public bool? DeleteMark { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual DateTime? CreatorTime { get; set; }
-        /// <summary>
-        /// 
+        [MaxLength(500)]
+        public string Description { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual string CreatorUserId { get; set; }
-
-        /// <summary>
-        /// 创建用户组织主键
+        public DateTime? CreatorTime { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-		[DataMember]
-        public virtual string CompanyId { get; set; }
-        /// <summary>
-        /// 创建用户部门主键
+        [MaxLength(50)]
+        public string CreatorUserId { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual string DeptId { get; set; }
-        /// <summary>
-        /// 
+        public DateTime? LastModifyTime { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual DateTime? LastModifyTime { get; set; }
-        /// <summary>
-        /// 
+        [MaxLength(50)]
+        public string LastModifyUserId { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual string LastModifyUserId { get; set; }
-        /// <summary>
-        /// 
+        public DateTime? DeleteTime { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual DateTime? DeleteTime { get; set; }
-        /// <summary>
-        /// 
+        [MaxLength(50)]
+        public string DeleteUserId { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual string DeleteUserId { get; set; }
-
-
-        #endregion
-
+        [MaxLength(50)]
+        public string CompanyId { get; set; }
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        [MaxLength(50)]
+        public string DeptId { get; set; }
+
     }
 }

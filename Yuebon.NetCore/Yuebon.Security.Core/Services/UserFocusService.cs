@@ -15,7 +15,7 @@ namespace Yuebon.Security.Services
     /// <summary>
     /// 
     /// </summary>
-    public class UserFocusService : BaseService<UserFocus, string>, IUserFocusService
+    public class UserFocusService : BaseService<UserFocus, UserFocusOutputDto, string>, IUserFocusService
     {
         private readonly IUserFocusRepository _userRepository;
         private readonly IUserLogOnRepository _userSigninRepository;

@@ -1,16 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc;
+using Yuebon.AspNetCore.Mvc.Filter;
+using Yuebon.AspNetCore.UI;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Extensions;
+using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IServices;
+using Yuebon.Commons.Json;
+using Yuebon.Commons.Log;
+using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Models;
 using Yuebon.Commons.Pages;
+using Yuebon.Security.Dtos;
 
 namespace Yuebon.AspNetCore.Controllers
 {
@@ -18,11 +26,15 @@ namespace Yuebon.AspNetCore.Controllers
     /// 基本控制器，增删改查
     /// </summary>
     /// <typeparam name="T">实体类型</typeparam>
+    /// <typeparam name="TDto">数据输出实体类型</typeparam>
     /// <typeparam name="TService">Service类型</typeparam>
+    /// <typeparam name="TKey">主键数据类型</typeparam>
     [ApiController]
-    public class AreaApiController<T, TService> : ApiController
-        where T : class, IBaseEntity<string>
-        where TService : IService<T, string>
+    public abstract class AreaApiController<T,TDto, TService, TKey> : ApiController
+        where T : class, IBaseEntity<TKey>
+        where TService : IService<T, TDto, TKey>
+        where TDto : class
+        where TKey : IEquatable<TKey>
     {
 
         #region 属性变量
@@ -30,7 +42,7 @@ namespace Yuebon.AspNetCore.Controllers
         /// <summary>
         /// 定义常用功能的控制ID，方便基类控制器对用户权限的控制
         /// </summary>
-        protected AuthorizeKey AuthorizeKey;
+        protected AuthorizeKey AuthorizeKey= new AuthorizeKey();
 
         /// <summary>
         /// 服务接口
@@ -40,100 +52,45 @@ namespace Yuebon.AspNetCore.Controllers
         #endregion
 
 
-        #region 权限控制内容
-        /// <summary>
-        /// 判断当前用户是否拥有某功能点的权限
-        /// </summary>
-        /// <param name="functionCode">功能编码code</param>
-        /// <returns></returns>
-        [HiddenApi]
-        private  bool HasFunction(string functionCode)
-        {
-            return new Permission().HasFunction(functionCode,CurrentUser);
-        }
-
-        /// <summary>
-        /// 判断是否为系统管理员或超级管理员
-        /// </summary>
-        /// <returns>true:系统管理员,false:不是系统管理员</returns>
-        [HiddenApi]
-        private  bool IsAdmin()
-        {
-            return new Permission().IsAdmin(CurrentUser);
-        }
-
-        /// <summary>
-        /// 用于检查方法执行前的权限，如果未授权，返回MyDenyAccessException异常
-        /// </summary>
-        /// <param name="functionId"></param>
-        [HttpGet("CheckAuthorized")]
-        [HiddenApi]
-        public CommonResult  CheckAuthorized(string functionId)
-        {
-            CommonResult result = new CommonResult();
-            if (!HasFunction(functionId))
-            {
-                result.ErrCode = "40006";
-                result.ErrMsg= ErrCode.err40006;
-            }
-            else
-            {
-                result.Success = true;
-                result.ErrCode = "0";
-                result.ErrMsg = ErrCode.err0;
-
-            }
-            return result;
-        }
-
-        /// <summary>
-        /// 对AuthorizeKey对象里面的操作权限进行赋值，用于页面判断
-        /// </summary>
-        [HiddenApi]
-        private void ConvertAuthorizedInfo()
-        {
-            //判断用户权限
-            AuthorizeKey.CanInsert = HasFunction(AuthorizeKey.InsertKey);
-            AuthorizeKey.CanUpdate = HasFunction(AuthorizeKey.UpdateKey);
-            AuthorizeKey.CanUpdateIsEnable = HasFunction(AuthorizeKey.UpdateIsEnableKey);
-            AuthorizeKey.CanUpdateNoEnable = HasFunction(AuthorizeKey.UpdateNoEnableKey);
-            AuthorizeKey.CanUpdateEnable = HasFunction(AuthorizeKey.UpdateEnableKey);
-            AuthorizeKey.CanDelete = HasFunction(AuthorizeKey.DeleteKey);
-            AuthorizeKey.CanDeleteSoft = HasFunction(AuthorizeKey.DeleteSoftKey);
-            AuthorizeKey.CanView = HasFunction(AuthorizeKey.ViewKey);
-            AuthorizeKey.CanList = HasFunction(AuthorizeKey.ListKey);
-            AuthorizeKey.CanExport = HasFunction(AuthorizeKey.ExportKey);
-            AuthorizeKey.CanImport = HasFunction(AuthorizeKey.ImportKey);
-            AuthorizeKey.CanExtend = HasFunction(AuthorizeKey.ExtendKey);
-        }
-        #endregion
-
-
-        #region 异常处理及记录
+        #region 
         /// <summary>
         /// 重新基类在Action执行之前的事情
         /// </summary>
         /// <param name="filterContext">重写方法的参数</param>
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            CommonResult result = new CommonResult();
-            result = CheckToken();
-            if (result.Success)
+            try
             {
-                if (CurrentUser == null)
+                string useridcookie = CookiesHelper.ReadCookie(filterContext.HttpContext, "loginuser");
+                string authHeader = HttpContext.Request.Headers["Authorization"];//Header中的token
+                CommonResult result = new CommonResult();
+                string token = string.Empty;
+                if (authHeader != null && authHeader.StartsWith("Bearer") && authHeader.Length > 10)
                 {
-                    filterContext.Result = new RedirectResult("/Login");
-                    return;
+                    token = authHeader.Substring("Bearer ".Length).Trim();
                 }
+                TokenProvider tokenProvider = new TokenProvider();
+                result = tokenProvider.ValidateToken(token);
+                if (result.ResData != null)
+                {
+                    YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+                    string userId = result.ResData.ToString();
+                    var user = JsonConvert.DeserializeObject<UserAuthSession>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
+                    if (user != null)
+                    {
+                        CurrentUser = user;
+                    }
+                }
+                    base.OnActionExecuting(filterContext);
+                ////设置授权属性，然后赋值给ViewBag保存
+                //ConvertAuthorizedInfo();
+                //ViewBag.AuthorizeKey = AuthorizeKey;
             }
-            else
+            catch (Exception ex)
             {
-
+                Log4NetHelper.Error("", ex);
+                throw new MyApiException("", "", ex);
             }
-            base.OnActionExecuting(filterContext);
-            //设置授权属性，然后赋值给ViewBag保存
-            ConvertAuthorizedInfo();
-            ViewBag.AuthorizeKey = AuthorizeKey;
         }
         #endregion
         #region 构造函数及常用
@@ -188,14 +145,12 @@ namespace Yuebon.AspNetCore.Controllers
         /// <param name="info"></param>
         /// <returns></returns>
         [HttpPost("Insert")]
+        [YuebonAuthorize("Add")]
         public virtual async Task<IActionResult> InsertAsync(T info)
         {
             CommonResult result = new CommonResult();
-            result = CheckToken();
-            if (result.ErrCode == ErrCode.successCode)
-            {
                 OnBeforeInsert(info);
-                long ln = await iService.InsertAsync(info);
+                long ln = await iService.InsertAsync(info).ConfigureAwait(true);
                 if (ln > 0)
                 {
                     result.ErrCode = ErrCode.successCode;
@@ -206,7 +161,6 @@ namespace Yuebon.AspNetCore.Controllers
                     result.ErrMsg = ErrCode.err43001;
                     result.ErrCode = "43001";
                 }
-            }
             return ToJsonContent(result);
         }
 
@@ -218,14 +172,12 @@ namespace Yuebon.AspNetCore.Controllers
         /// <param name="id">主键Id</param>
         /// <returns></returns>
         [HttpPost("Update")]
-        public virtual async Task<IActionResult> UpdateAsync(T info,string id)
+        [YuebonAuthorize("Edit")]
+        public virtual async Task<IActionResult> UpdateAsync(T info,TKey id)
         {
             CommonResult result = new CommonResult();
-            result = CheckToken();
-            if (result.ErrCode == ErrCode.successCode)
-            {
                 OnBeforeUpdate(info);
-                bool bl = await iService.UpdateAsync(info,id);
+                bool bl = await iService.UpdateAsync(info, id);
                 if (bl)
                 {
                     result.ErrCode = ErrCode.successCode;
@@ -236,7 +188,6 @@ namespace Yuebon.AspNetCore.Controllers
                     result.ErrMsg = ErrCode.err43002;
                     result.ErrCode = "43002";
                 }
-            }
             return ToJsonContent(result);
         }
 
@@ -245,15 +196,11 @@ namespace Yuebon.AspNetCore.Controllers
         /// </summary>
         /// <param name="id">主键Id</param>
         [HttpDelete("Delete")]
-        public virtual IActionResult Delete(string id)
+        [YuebonAuthorize("Delete")]
+        public virtual IActionResult Delete(TKey id)
         {
             CommonResult result = new CommonResult();
-
-            result = CheckToken();
-
-            if (result.ErrCode == ErrCode.successCode)
-            {
-                bool bl = iService.Delete(id);
+                bool bl =iService.Delete(id);
                 if (bl)
                 {
                     result.ErrCode = ErrCode.successCode;
@@ -264,7 +211,6 @@ namespace Yuebon.AspNetCore.Controllers
                     result.ErrMsg = ErrCode.err43003;
                     result.ErrCode = "43003";
                 }
-            }
             return ToJsonContent(result);
         }
 
@@ -273,14 +219,45 @@ namespace Yuebon.AspNetCore.Controllers
         /// </summary>
         /// <param name="id">主键Id</param>
         [HttpDelete("DeleteAsync")]
-        public virtual async Task<IActionResult> DeleteAsync(string id)
+        [YuebonAuthorize("Delete")]
+        public virtual async Task<IActionResult> DeleteAsync(TKey id)
         {
             CommonResult result = new CommonResult();
-            
-            result = CheckToken();
-            if (result.ErrCode == ErrCode.successCode)
+                bool bl = await iService.DeleteAsync(id).ConfigureAwait(false);
+                if (bl)
+                {
+                    result.ErrCode = ErrCode.successCode;
+                    result.ErrMsg = ErrCode.err0;
+                }
+                else
+                {
+                    result.ErrMsg = ErrCode.err43003;
+                    result.ErrCode = "43003";
+                }
+            return ToJsonContent(result);
+        }
+        /// <summary>
+        /// 异步批量物理删除
+        /// </summary>
+        /// <param name="ids">主键Id</param>
+        [YuebonAuthorize("Delete")]
+        [HttpDelete("DeleteBatchAsync")]
+        public virtual async Task<IActionResult> DeleteBatchAsync(TKey ids)
+        {
+            CommonResult result = new CommonResult();
+            string where = string.Empty;
+            if (typeof(TKey) == typeof(string))
             {
-                bool bl = await iService.DeleteAsync(id);
+                string newIds = ids.ToString();
+                where = "id in ('" + newIds.Trim(',').Replace(",", "','") + "')";
+            }
+            else if (typeof(TKey) == typeof(int))
+            {
+                where = "id in ("+ids+")";
+            }
+            if (!string.IsNullOrEmpty(where))
+            {
+                bool bl = await iService.DeleteBatchWhereAsync(where).ConfigureAwait(false);
                 if (bl)
                 {
                     result.ErrCode = ErrCode.successCode;
@@ -300,13 +277,11 @@ namespace Yuebon.AspNetCore.Controllers
         /// </summary>
         /// <param name="id">主键Id</param>
         /// <param name="bltag">删除标识，默认为1：即设为删除,0：未删除</param>
-        [HttpGet("DeleteSoft")]
-        public virtual IActionResult DeleteSoft(string id,string bltag="1")
+        [HttpPost("DeleteSoft")]
+        [YuebonAuthorize("DeleteSoft")]
+        public virtual IActionResult DeleteSoft(TKey id,string bltag="1")
         {
-            CommonResult result = new CommonResult();           
-            result = CheckToken();
-            if (result.ErrCode == ErrCode.successCode)
-            {
+            CommonResult result = new CommonResult();  
                 bool bl = false;
                 if (bltag == "0")
                 {
@@ -323,7 +298,6 @@ namespace Yuebon.AspNetCore.Controllers
                     result.ErrMsg = ErrCode.err43002;
                     result.ErrCode = "43002";
                 }
-            }
             return ToJsonContent(result);
         }
 
@@ -333,12 +307,10 @@ namespace Yuebon.AspNetCore.Controllers
         /// <param name="id">主键Id</param>
         /// <param name="bltag">删除标识，默认为1：即设为删除,0：未删除</param>
         [HttpPost("DeleteSoftAsync")]
-        public virtual async Task<IActionResult> DeleteSoftAsync(string id,string bltag="1")
+        [YuebonAuthorize("DeleteSoft")]
+        public virtual async Task<IActionResult> DeleteSoftAsync(TKey id,string bltag="1")
         {
             CommonResult result = new CommonResult();
-            result = CheckToken();
-            if (result.ErrCode == ErrCode.successCode)
-            {
                 bool bl = false;
                 if (bltag == "0")
                 {
@@ -355,30 +327,39 @@ namespace Yuebon.AspNetCore.Controllers
                     result.ErrMsg = ErrCode.err43002;
                     result.ErrCode = "43002";
                 }
-            }
             return ToJsonContent(result);
         }
 
 
         /// <summary>
-        /// 设为数据有效性
+        /// 异步批量软删除信息
         /// </summary>
-        /// <param name="id">主键Id</param>
-        /// <param name="bltag">有效标识，默认为1：即设为无效,0：有效</param>
-        [HttpPost("SetEnabledMark")]
-        public virtual IActionResult SetEnabledMark(string id, string bltag="1")
+        /// <param name="ids">主键Id</param>
+        /// <param name="bltag">删除标识，默认为1：即设为删除,0：未删除</param>
+        [HttpPost("DeleteSoftBatchAsync")]
+        [YuebonAuthorize("DeleteSoft")]
+        public virtual async Task<IActionResult> DeleteSoftBatchAsync(TKey ids, string bltag = "1")
         {
             CommonResult result = new CommonResult();
-            result = CheckToken();
-            if (result.ErrCode == ErrCode.successCode)
+            string where = string.Empty;
+            if (typeof(TKey) == typeof(string))
+            {
+                string newIds = ids.ToString();
+                where = "id in ('" + newIds.Trim(',').Replace(",", "','") + "')";
+            }
+            else if (typeof(TKey) == typeof(int))
+            {
+                where = "id in (" + ids + ")";
+            }
+            if (!string.IsNullOrEmpty(where))
             {
                 bool bl = false;
-                if (bltag == "0")
+                if (bltag == "1")
                 {
                     bl = true;
                 }
-                bool blresut = iService.SetEnabledMark(bl, id, CurrentUser.UserId);
-                if (blresut)
+                bool blResult = await iService.DeleteSoftBatchAsync(bl, where, CurrentUser.UserId);
+                if (blResult)
                 {
                     result.ErrCode = ErrCode.successCode;
                     result.ErrMsg = ErrCode.err0;
@@ -388,6 +369,35 @@ namespace Yuebon.AspNetCore.Controllers
                     result.ErrMsg = ErrCode.err43002;
                     result.ErrCode = "43002";
                 }
+            }
+            return ToJsonContent(result);
+        }
+
+        /// <summary>
+        /// 设为数据有效性
+        /// </summary>
+        /// <param name="id">主键Id</param>
+        /// <param name="bltag">有效标识，默认为1：即设为无效,0：有效</param>
+        [HttpPost("SetEnabledMark")]
+        [YuebonAuthorize("Enable")]
+        public virtual IActionResult SetEnabledMark(TKey id, string bltag="1")
+        {
+            CommonResult result = new CommonResult();
+            bool bl = false;
+            if (bltag == "1")
+            {
+                bl = true;
+            }
+            bool blresut = iService.SetEnabledMark(bl, id, CurrentUser.UserId);
+            if (blresut)
+            {
+                result.ErrCode = ErrCode.successCode;
+                result.ErrMsg = ErrCode.err0;
+            }
+            else
+            {
+                result.ErrMsg = ErrCode.err43002;
+                result.ErrCode = "43002";
             }
             return ToJsonContent(result);
         }
@@ -398,19 +408,58 @@ namespace Yuebon.AspNetCore.Controllers
         /// <param name="id">主键Id</param>
         /// <param name="bltag">有效标识，默认为1：即设为无效,0：有效</param>
         [HttpPost("SetEnabledMarkAsync")]
-        public virtual async Task<IActionResult> SetEnabledMarkAsync(string id, string bltag = "1")
+        [YuebonAuthorize("Enable")]
+        public virtual async Task<IActionResult> SetEnabledMarkAsync(TKey id, string bltag = "1")
         {
             CommonResult result = new CommonResult();
-
-            result = CheckToken();
-            if (result.ErrCode == ErrCode.successCode)
+            bool bl = false;
+            if (bltag == "1")
             {
-                bool bl = false;
-                if (bltag == "0")
-                {
-                    bl = true;
-                }
-                bool blresut = await iService.SetEnabledMarkAsync(bl, id, CurrentUser.UserId);
+                bl = true;
+            }
+            bool blresut = await iService.SetEnabledMarkAsync(bl, id, CurrentUser.UserId);
+            if (blresut)
+            {
+                result.ErrCode = ErrCode.successCode;
+                result.ErrMsg = ErrCode.err0;
+            }
+            else
+            {
+                result.ErrMsg = ErrCode.err43002;
+                result.ErrCode = "43002";
+            }
+            return ToJsonContent(result);
+        }
+
+
+        /// <summary>
+        /// 异步批量设为数据有效性
+        /// </summary>
+        /// <param name="ids">主键Id集合</param>
+        /// <param name="bltag">有效标识，默认为1：即设为无效,0：有效</param>
+        [HttpPost("SetEnabledMarktBatchAsync")]
+        [YuebonAuthorize("Enable")]
+        public virtual async Task<IActionResult> SetEnabledMarktBatchAsync(TKey ids, string bltag = "1")
+        {
+            CommonResult result = new CommonResult();
+            bool bl = false;
+            if (bltag == "1")
+            {
+                bl = true;
+            }
+            string where = string.Empty;
+            if (typeof(TKey) == typeof(string))
+            {
+                string newIds = ids.ToString();
+                where = "id in ('" + newIds.Trim(',').Replace(",", "','") + "')";
+            }
+            else if (typeof(TKey) == typeof(int))
+            {
+                where = "id in (" + ids + ")";
+            }
+            if (!string.IsNullOrEmpty(where))
+            {
+                bool blresut = await iService.SetEnabledMarkByWhereAsync(bl, where, CurrentUser.UserId);
                 if (blresut)
                 {
                     result.ErrCode = ErrCode.successCode;
@@ -424,23 +473,23 @@ namespace Yuebon.AspNetCore.Controllers
             }
             return ToJsonContent(result);
         }
+
         /// <summary>
         /// 根据主键Id获取一个对象信息
         /// </summary>
         /// <param name="id">主键Id</param>
         /// <returns></returns>
         [HttpGet("GetById")]
-        public virtual IActionResult GetById(string id)
+        [YuebonAuthorize("")]
+        [NoPermissionRequired]
+        public virtual async Task<IActionResult> GetById(TKey id)
         {
             CommonResult result = new CommonResult();
-
-            result = CheckToken();
-            if (result.ErrCode == ErrCode.successCode)
-            {
-                T info = iService.Get(id);
+                TDto info =await iService.GetOutDtoAsync(id);
                
                 if (info != null)
                 {
+                    result.ErrCode = ErrCode.successCode;
                     result.ResData = info;
                 }
                 else
@@ -448,7 +497,6 @@ namespace Yuebon.AspNetCore.Controllers
                     result.ErrMsg = ErrCode.err50001;
                     result.ErrCode = "50001";
                 }
-            }
             return ToJsonContent(result);
         }
         #endregion
@@ -460,12 +508,10 @@ namespace Yuebon.AspNetCore.Controllers
         /// <param name="info">info</param>
         /// <returns>指定对象的集合</returns>
         [HttpGet("FindWithPager")]
+        [YuebonAuthorize("List")]
         public virtual IActionResult FindWithPager(T info)
         {
             CommonResult result = new CommonResult();
-            result = CheckToken();
-            if (result.ErrCode == ErrCode.successCode)
-            {
                 string keywords = Request.Query["search"].ToString() == null ? "" : Request.Query["search"].ToString();
                 string orderByDir = Request.Query["order"].ToString() == null ? "" : Request.Query["order"].ToString();
                 string orderFlied = string.IsNullOrEmpty(Request.Query["sort"].ToString()) ? "Id" : Request.Query["sort"].ToString();
@@ -474,6 +520,7 @@ namespace Yuebon.AspNetCore.Controllers
                 string where = GetPagerCondition();
                 PagerInfo pagerInfo =GetPagerInfo();
                 List<T> list = iService.FindWithPager(where, pagerInfo, orderFlied, order);
+                result.ErrCode = ErrCode.successCode;
                 //构造成Json的格式传递
                 result.ResData = new
                 {
@@ -481,29 +528,42 @@ namespace Yuebon.AspNetCore.Controllers
                     recordsFiltered = pagerInfo.RecordCount,
                     data = list
                 };
-            }
             return ToJsonContent(result);
         }
 
 
 
         /// <summary>
-        /// 根据Request参数获取分页对象数据
+        /// 异步分页查询
         /// </summary>
+        /// <param name="search"></param>
         /// <returns></returns>
-        protected virtual PagerInfo GetPagerInfo()
+        [HttpGet("FindWithPagerAsync")]
+        [YuebonAuthorize("List")]
+        public virtual async Task<IActionResult> FindWithPagerAsync([FromQuery]SearchModel search)
         {
-            string start = Request.Query["start"].ToString();
-            int pageSize = Request.Query["length"].ToString() == null ? 1 : Request.Query["length"].ToString().ToInt();
-            int pageIndex = 1;
-            if (!string.IsNullOrWhiteSpace(start))
+            CommonResult result = new CommonResult();
+            string orderByDir = string.IsNullOrEmpty(Request.Query["Order"].ToString()) ? "" : Request.Query["Order"].ToString();
+            string orderFlied = string.IsNullOrEmpty(Request.Query["Sort"].ToString()) ? "Id" : Request.Query["Sort"].ToString();
+            bool order = orderByDir == "asc" ? false : true;
+            string where = GetPagerCondition();
+            if (!string.IsNullOrEmpty(search.Keywords))
             {
-                pageIndex = (start.ToInt() / pageSize) + 1;
-            }
-            PagerInfo pagerInfo = new PagerInfo();
-            pagerInfo.CurrenetPageIndex = pageIndex;
-            pagerInfo.PageSize = pageSize;
-            return pagerInfo;
+                where += " and Title like '%" + search.Keywords + "%'";
+            };
+            PagerInfo pagerInfo = GetPagerInfo();
+            List<T> list = await iService.FindWithPagerAsync(where, pagerInfo, orderFlied, order);
+            List<TDto> resultList = list.MapTo<TDto>();
+            PageResult<TDto> pageResult = new PageResult<TDto>
+            {
+                CurrentPage = pagerInfo.CurrenetPageIndex,
+                Items = resultList,
+                ItemsPerPage = pagerInfo.PageSize,
+                TotalItems = pagerInfo.RecordCount
+            };
+            result.ResData = pageResult;
+            result.ErrCode = ErrCode.successCode;
+            return ToJsonContent(result);
         }
 
         /// <summary>

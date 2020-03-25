@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -51,6 +52,7 @@ namespace Yuebon.AspNetCore.Controllers
         /// <param name="secret">应用密钥AppSecret</param>
         /// <returns></returns>
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Get(string grant_type, string appid, string secret)
         {
             CommonResult result = new CommonResult();
@@ -99,6 +101,7 @@ namespace Yuebon.AspNetCore.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("CheckToken")]
+        [AllowAnonymous]
         public IActionResult CheckToken(string token)
         {
             CommonResult result = new CommonResult();
@@ -114,6 +117,7 @@ namespace Yuebon.AspNetCore.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("RefreshToken")]
+        [AllowAnonymous]
         public IActionResult RefreshToken(string token)
         {
             CommonResult result = new CommonResult();
@@ -147,7 +151,9 @@ namespace Yuebon.AspNetCore.Controllers
                             else
                             {
                                 TokenResult tokenResult = tokenProvider.GenerateToken(GrantType.ClientCredentials, app.AppId, app.AppSecret);
-                                return ToJsonContent(tokenResult);
+                                result.ResData = tokenResult;
+                                result.ErrCode = "0";
+                                result.Success = true;
                             }
                         }
                     }
@@ -157,7 +163,9 @@ namespace Yuebon.AspNetCore.Controllers
                         UserApp userApp = new UserApp();
                         User user = userApp.GetByUserName(claimlist[2].Value);
                         TokenResult tokenResult = tokenProvider.LoginToken(user, claimlist[0].Value);
-                        return ToJsonContent(tokenResult);
+                        result.ResData = tokenResult;
+                        result.ErrCode = "0";
+                        result.Success = true;
                     }
                 }
                 else

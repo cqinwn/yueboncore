@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using Yuebon.Commons.Services;
+using Yuebon.Security.Dtos;
 using Yuebon.Security.IRepositories;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Services
 {
-    public class UploadFileService : BaseService<UploadFile, string>, IUploadFileService
+    public class UploadFileService : BaseService<UploadFile, UploadFileOuputDto, string>, IUploadFileService
     {
         private readonly IUploadFileRepository _uploadFileRepository;
         private readonly ILogService _logService;

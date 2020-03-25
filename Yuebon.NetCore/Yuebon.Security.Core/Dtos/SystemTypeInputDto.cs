@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,94 +8,48 @@ using Yuebon.Security.Models;
 namespace Yuebon.Security.Dtos
 {
     /// <summary>
-    /// 系统类型 数据输入对象
+    /// 输入对象模型
     /// </summary>
-    public class SystemTypeInputDto:IInputDto<string>
+    [AutoMap(typeof(SystemType))]
+    [Serializable]
+    public class SystemTypeInputDto: IInputDto<string>
     {
-
-
-        #region Property Members
-
         /// <summary>
-        /// 系统主键
+        /// 设置或获取 
         /// </summary>
-        public virtual string Id { get; set; }
-
-        /// <summary>
-        /// 系统名称
+        public string Id { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual string FullName { get; set; }
-
-        /// <summary>
-        /// 编码
+        public string EnCode { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual string EnCode { get; set; }
-
-
-        /// <summary>
-        /// 图标
+        public string FullName { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual string Icon { get; set; }
-
-        /// <summary>
-        /// 允许编辑
+        public string Url { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual bool? AllowEdit { get; set; }
-
-        /// <summary>
-        /// 允许删除
+        public bool? AllowEdit { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual bool? AllowDelete { get; set; }
-
-        /// <summary>
-        /// 排序码
+        public bool? AllowDelete { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual int? SortCode { get; set; }
-
-        /// <summary>
-        /// 描述
+        public int? SortCode { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual string Description { get; set; }
-
-        /// <summary>
-        /// 删除标志
+        public bool? EnabledMark { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual bool? DeleteMark { get; set; }
-
-        /// <summary>
-        /// 有效标志
-        /// </summary>
-        public virtual bool EnabledMark { get; set; }
-
-        /// <summary>
-        /// 创建日期
-        /// </summary>
-        public virtual DateTime? CreatorTime { get; set; }
-
-        /// <summary>
-        /// 创建用户主键
-        /// </summary>
-        public virtual string CreatorUserId { get; set; }
-
-        /// <summary>
-        /// 最后修改时间
-        /// </summary>
-        public virtual DateTime? LastModifyTime { get; set; }
-
-        /// <summary>
-        /// 最后修改用户
-        /// </summary>
-        public virtual string LastModifyUserId { get; set; }
-
-        /// <summary>
-        /// 删除时间
-        /// </summary>
-        public virtual DateTime? DeleteTime { get; set; }
-
-        /// <summary>
-        /// 删除用户
-        /// </summary>
-        public virtual string DeleteUserId { get; set; }
-        #endregion
+        public string Description { get; set; }
+
     }
 }

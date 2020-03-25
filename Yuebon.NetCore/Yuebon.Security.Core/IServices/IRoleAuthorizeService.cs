@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Yuebon.Commons.IServices;
+using Yuebon.Security.Dtos;
 using Yuebon.Security.Models;
 
 namespace Yuebon.Security.IServices
@@ -8,7 +9,7 @@ namespace Yuebon.Security.IServices
     /// <summary>
     /// 
     /// </summary>
-    public interface IRoleAuthorizeService:IService<RoleAuthorize, string>
+    public interface IRoleAuthorizeService:IService<RoleAuthorize, RoleAuthorizeOutputDto, string>
     {
         /// <summary>
         /// 根据角色和项目类型查询权限

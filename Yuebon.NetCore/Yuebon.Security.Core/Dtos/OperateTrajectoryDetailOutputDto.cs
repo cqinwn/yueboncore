@@ -1,77 +1,69 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
-using Yuebon.Commons.Models;
-using Yuebon.Commons.Mapping;
-using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Dtos
 {
     /// <summary>
-    ///  输入DTO：操作轨迹
+    /// 商操作轨迹明细表输出对象模型
     /// </summary>
     [Serializable]
-    public class OperateTrajectoryDetailOutputDto :IOutputDto
+    public class OperateTrajectoryDetailOutputDto
     {
-
-        #region Property Members
         /// <summary>
-        /// 主键
+        /// 设置或获取主键
         /// </summary>
-        public virtual string Id { get; set; }
-
-        /// <summary>
-        /// 内容id
+        [MaxLength(50)]
+        public string Id { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual string ContentId { get; set; }
-
-        /// <summary>
-        /// 内容主题
+        [MaxLength(50)]
+        public string ContentId { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual string ContentTitle { get; set; }
-
-        /// <summary>
-        /// 原作者
+        [MaxLength(400)]
+        public string ContentTitle { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual string AuthorUserId { get; set; }
-
-        /// <summary>
-        /// 内容分类
+        [MaxLength(50)]
+        public string AuthorUserId { get; set; }
+        /// <summary>
+        /// 设置或获取内容类型：商机-opp,文章：art；文库：doc
         /// </summary>
-        public virtual string ContentType { get; set; }
-
-        /// <summary>
-        /// 离开时间
+        [MaxLength(50)]
+        public string ContentType { get; set; }
+        /// <summary>
+        /// 设置或获取离开时间
         /// </summary>
-        public virtual DateTime? LeaveTime { get; set; }
-
-
-        /// <summary>
-        /// 浏览时长
+        public DateTime? LeaveTime { get; set; }
+        /// <summary>
+        /// 设置或获取访问时长，精确到秒
         /// </summary>
-        public virtual int Duration { get; set; }
-
-        /// <summary>
-        /// 创建时间
+        public int Duration { get; set; }
+        /// <summary>
+        /// 设置或获取访问进入时间，创建时间。
         /// </summary>
-        public virtual DateTime? CreatorTime { get; set; }
-
-        /// <summary>
-        /// 创建用户主键
+        public DateTime? CreatorTime { get; set; }
+        /// <summary>
+        /// 设置或获取访问人
         /// </summary>
-        public virtual string CreatorUserId { get; set; }
-
-        /// <summary>
-        /// 操作类型
+        [MaxLength(50)]
+        public string CreatorUserId { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual string OperateType { get; set; }
-
-
-        /// <summary>
-        /// 是否发送
+        [MaxLength(50)]
+        public string OperateType { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual bool IsSendMsg { get; set; }
-        #endregion
+        public bool IsSendMSg { get; set; }
+
+
 
         /// <summary>
         /// 姓名

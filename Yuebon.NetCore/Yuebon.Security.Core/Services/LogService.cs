@@ -9,23 +9,32 @@ using Yuebon.Security.IRepositories;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
 using Yuebon.Commons.Net;
+using Yuebon.Commons.Encrypt;
+using Yuebon.Commons.Cache;
+using Newtonsoft.Json;
+using Yuebon.Commons.Json;
 
 namespace Yuebon.Security.Services
 {
-    public class LogService: BaseService<Log, string>, ILogService
+    /// <summary>
+    /// 
+    /// </summary>
+    public class LogService: BaseService<Log, LogOutputDto, string>, ILogService
     {
         private readonly ILogRepository _iLogRepository;
         private readonly IUserRepository _iuserRepository;
 
+        private IHttpContextAccessor _httpContextAccessor;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="repository"></param>
         /// <param name="userRepository"></param>
-        public LogService(ILogRepository repository, IUserRepository userRepository) : base(repository)
+        public LogService(ILogRepository repository, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor) : base(repository)
         {
             _iLogRepository = repository;
             _iuserRepository = userRepository;
+            _httpContextAccessor = httpContextAccessor;
         }
 
 
@@ -42,7 +51,14 @@ namespace Yuebon.Security.Services
             //OperationLogSettingInfo settingInfo = BLLFactory<OperationLogSetting>.Instance.FindByTableName(tableName, trans);
             //if (settingInfo != null)
             //{
-            UserLoginDto CurrentUser = SessionHelper.GetSession<UserLoginDto>("CurrentUser");
+
+            UserAuthSession CurrentUser = new UserAuthSession();//SessionHelper.GetSession<UserAuthSession>("CurrentUser");
+            //if (CurrentUser == null)
+            //{
+                //string userId= DEncrypt.Decrypt(CookiesHelper.ReadCookie(_httpContextAccessor.HttpContext,"loginuser"),"qingwen");
+                //YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+                //UserAuthSession CurrentUser  = JsonConvert.DeserializeObject<UserAuthSession>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
+            //}
             if (CurrentUser != null)
             {
                 bool insert = operationType == DbLogType.Create.ToString(); ;//&& settingInfo.InsertLog;

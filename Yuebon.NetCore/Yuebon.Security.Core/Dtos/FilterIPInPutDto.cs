@@ -1,49 +1,47 @@
-﻿using System;
+using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Yuebon.Commons.Models;
+using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Dtos
 {
     /// <summary>
-    /// 
+    /// 输入对象模型
     /// </summary>
-
+    [AutoMap(typeof(FilterIP))]
     [Serializable]
-    public class FilterIPInPutDto : IInputDto<string>
+    public class FilterIPInputDto: IInputDto<string>
     {
         /// <summary>
-        /// 
+        /// 设置或获取 
         /// </summary>
         public string Id { get; set; }
-        /// <summary>
-        /// 类型
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual bool? PolicyType { get; set; }
-
-        /// <summary>
-        /// 开始IP
+        public bool? Type { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual string StartIP { get; set; }
-
-        /// <summary>
-        /// 结束IP
+        public string StartIP { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual string EndIP { get; set; }
-
-        /// <summary>
-        /// 排序码
+        public string EndIP { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual int? SortCode { get; set; }
-
-
-        /// <summary>
-        /// 描述
+        public int? SortCode { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual string Description { get; set; }
-        /// <summary>
-        /// 有效标志
+        public bool? EnabledMark { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual bool EnabledMark { get; set; }
+        public string Description { get; set; }
+
     }
 }

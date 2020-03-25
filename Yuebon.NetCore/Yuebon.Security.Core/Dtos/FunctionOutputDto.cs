@@ -1,18 +1,16 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
-using Yuebon.Commons.Models;
 
 namespace Yuebon.Security.Dtos
 {
-
     /// <summary>
-    /// Function功能信息 数据输出对象
+    /// 输出对象模型
     /// </summary>
     [Serializable]
-    public class FunctionOutputDto: IOutputDto
+    public class FunctionOutputDto
     {
-
         #region Property Members
 
         /// <summary>
@@ -144,7 +142,6 @@ namespace Yuebon.Security.Dtos
         /// 删除用户
         /// </summary>
         public virtual string DeleteUserId { get; set; }
-        #endregion
-
+        #endregion
     }
 }

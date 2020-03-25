@@ -18,7 +18,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
 {
     [Area("Security")]
     [Route("Security/[controller]/[action]")]
-    public class RoleDataController : BusinessController<RoleData, IRoleDataService>
+    public class RoleDataController : BusinessController<RoleData, RoleDataOutputDto, IRoleDataService, string>
     {
         public RoleDataController(IRoleDataService _iService) : base(_iService)
         {

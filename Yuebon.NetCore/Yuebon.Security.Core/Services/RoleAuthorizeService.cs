@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Yuebon.Commons.Services;
+using Yuebon.Security.Dtos;
 using Yuebon.Security.IRepositories;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
@@ -10,7 +11,7 @@ namespace Yuebon.Security.Services
     /// <summary>
     /// 
     /// </summary>
-    public class RoleAuthorizeService: BaseService<RoleAuthorize, string>, IRoleAuthorizeService
+    public class RoleAuthorizeService: BaseService<RoleAuthorize, RoleAuthorizeOutputDto, string>, IRoleAuthorizeService
     {
         private readonly IRoleAuthorizeRepository _repository;
         private readonly ILogService _logService;
@@ -38,5 +39,6 @@ namespace Yuebon.Security.Services
             IEnumerable<RoleAuthorize> list = _repository.GetListWhere(string.Format("ItemType={0} and ObjectId in ({1}) and ObjectType=1", itemType, roleIds));
             return list;
         }
+
     }
 }

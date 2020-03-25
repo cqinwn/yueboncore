@@ -1,73 +1,71 @@
-﻿using System;
+using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Yuebon.Commons.Models;
+using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Dtos
 {
-    public class UploadFileInputDto : IInputDto<string>
+    /// <summary>
+    /// 输入对象模型
+    /// </summary>
+    [AutoMap(typeof(UploadFile))]
+    [Serializable]
+    public class UploadFileInputDto: IInputDto<string>
     {
         /// <summary>
-        /// 获取或设置 应用编号
+        /// 设置或获取 
         /// </summary>
         public string Id { get; set; }
-        /// <summary>
-	    /// 文件名称
-	    /// </summary>
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
         public string FileName { get; set; }
-        /// <summary>
-	    /// 文件路径
-	    /// </summary>
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
         public string FilePath { get; set; }
-        /// <summary>
-	    /// 描述
-	    /// </summary>
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
         public string Description { get; set; }
-        /// <summary>
-	    /// 文件类型
-	    /// </summary>
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
         public string FileType { get; set; }
-        /// <summary>
-	    /// 文件大小
-	    /// </summary>
-        public long FileSize { get; set; }
-        /// <summary>
-	    /// 扩展名称
-	    /// </summary>
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        public int? FileSize { get; set; }
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
         public string Extension { get; set; }
-
-        /// <summary>
-        /// 排序
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        public bool EnabledMark { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
         public int SortCode { get; set; }
-        /// <summary>
-        /// 删除标志
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual bool? DeleteMark { get; set; }
-
-        /// <summary>
-        /// 有效标志
+        public string CreateUserName { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public virtual bool EnabledMark { get; set; }
-        /// <summary>
-        /// 创建用户主键
-        /// </summary>
-        public virtual string CreatorUserId { get; set; }
-        /// <summary>
-	    /// 上传时间
-	    /// </summary>
-        public DateTime? CreatorTime { get; set; }
-        /// <summary>
-	    /// 缩略图
-	    /// </summary>
         public string Thumbnail { get; set; }
-        /// <summary>
-	    /// 所属应用
-	    /// </summary>
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
         public string BelongApp { get; set; }
-        /// <summary>
-	    /// 所属应用ID
-	    /// </summary>
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
         public string BelongAppId { get; set; }
+
     }
 }

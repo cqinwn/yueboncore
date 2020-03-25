@@ -24,7 +24,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
 {
     [Area("Security")]
     [Route("Security/[controller]/[action]")]
-    public class UserController : BusinessController<User, IUserService>
+    public class UserController : BusinessController<User, UserOutputDto, IUserService, string>
     {
         private IOrganizeService organizeService;
         private IRoleService roleService;
@@ -107,9 +107,9 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
                 where += string.Format(" and CreatorTime<='{0}'", addendTime.ToDateTime());
             }
             PagerInfo pagerInfo = GetPagerInfo();
-            List<UserOutPutDto> list = iService.FindWithPager(where, pagerInfo, orderFlied, order).MapTo<UserOutPutDto>();
-            List<UserOutPutDto> listResult = new List<UserOutPutDto>();
-            foreach (UserOutPutDto item in list)
+            List<UserOutputDto> list = iService.FindWithPager(where, pagerInfo, orderFlied, order).MapTo<UserOutputDto>();
+            List<UserOutputDto> listResult = new List<UserOutputDto>();
+            foreach (UserOutputDto item in list)
             {
                 if (!string.IsNullOrEmpty(item.OrganizeId))
                 {
@@ -144,7 +144,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
         /// <param name="info"></param>
         /// <returns></returns>
         [HttpPost]
-        public  IActionResult Add(UserOutPutDto info)
+        public  IActionResult Add(UserOutputDto info)
         {
             //检查用户是否有权限，否则抛出MyDenyAccessException异常
             CheckAuthorized(AuthorizeKey.InsertKey);
@@ -185,7 +185,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
          /// <param name="info"></param>
          /// <returns></returns>
         [HttpPost]
-        public IActionResult Edit(UserOutPutDto info, string id)
+        public IActionResult Edit(UserOutputDto info, string id)
         {
             //检查用户是否有权限，否则抛出MyDenyAccessException异常
             CheckAuthorized(AuthorizeKey.UpdateKey);
@@ -309,7 +309,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
             CommonResult result = new CommonResult();
             try
             {
-                result.ResData = iService.Get(id).MapTo<UserOutPutDto>();
+                result.ResData = iService.Get(id).MapTo<UserOutputDto>();
                 result.Success = true;
             }
             catch (Exception ex)

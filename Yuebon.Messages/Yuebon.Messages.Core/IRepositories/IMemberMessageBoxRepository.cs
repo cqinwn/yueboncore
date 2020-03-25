@@ -1,18 +1,21 @@
-﻿using System.Collections.Generic;
+using System;
 using Yuebon.Commons.IRepositories;
-using Yuebon.Messages.Dtos;
 using Yuebon.Messages.Models;
 
 namespace Yuebon.Messages.IRepositories
 {
-    public interface IMemberMessageBoxRepository : IRepository<MemberMessageBox, string>
+    /// <summary>
+    /// 定义仓储接口
+    /// </summary>
+    public interface IMemberMessageBoxRepository:IRepository<MemberMessageBox, string>
     {
+
         /// <summary>
         /// 更新已读状态
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        bool UpdateIsReadStatus(string id,int isread,string userid);
+        bool UpdateIsReadStatus(string id, int isread, string userid);
         /// <summary>
         /// 
         /// </summary>

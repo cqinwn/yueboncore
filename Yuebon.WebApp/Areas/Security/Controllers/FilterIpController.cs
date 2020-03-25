@@ -16,7 +16,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
 {
     [Area("Security")]
     [Route("Security/[controller]/[action]")]
-    public class FilterIpController : BusinessController<FilterIP, IFilterIPService>
+    public class FilterIpController : BusinessController<FilterIP, FilterIPOutputDto, IFilterIPService, string>
     {
         public FilterIpController(IFilterIPService _iService) : base(_iService)
         {
@@ -77,7 +77,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
             }
 
             PagerInfo pagerInfo = GetPagerInfo();
-            List<FilterIPOutPutDto> list = iService.FindWithPager(where, pagerInfo, orderFlied, order).MapTo<FilterIPOutPutDto>();
+            List<FilterIPOutputDto> list = iService.FindWithPager(where, pagerInfo, orderFlied, order).MapTo<FilterIPOutputDto>();
            
             //构造成Json的格式传递
             var result = new

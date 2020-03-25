@@ -1,10 +1,11 @@
 using System;
 using Yuebon.Commons.IServices;
 using Yuebon.CMS.Models;
+using Yuebon.CMS.Dtos;
 
 namespace Yuebon.CMS.IServices
 {
-    public interface IPageCategoryService : IService<PageCategory,string>
+    public interface IPageCategoryService : IService<PageCategory, PageCategoryOutputDto,string>
     {
     }
 }

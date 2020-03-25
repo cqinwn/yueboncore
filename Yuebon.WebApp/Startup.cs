@@ -191,11 +191,10 @@ namespace Yuebon.WebApp
             IoCContainer.Register(cacheProvider);//×¢²á»º´æÅäÖÃ
             IoCContainer.Register(Configuration);//×¢²áÅäÖÃ
             IoCContainer.Register(jwtOption);//×¢²áÅäÖÃ
-            //IoCContainer.Register(codeGenerateOption);//×¢²á´úÂëÉú³ÉÆ÷Ïà¹ØÅäÖÃĞÅÏ¢
             IoCContainer.Register("Yuebon.Commons");
             IoCContainer.Register("Yuebon.AspNetCore");
             IoCContainer.Register("Yuebon.Security.Core");
-            IoCContainer.Register("Yuebon.CMS.Core");
+           IoCContainer.Register("Yuebon.CMS.Core");
             IoCContainer.RegisterNew("Yuebon.Security.Core", "Yuebon.Security");
             IoCContainer.RegisterNew("Yuebon.CMS.Core", "Yuebon.CMS");
 

@@ -15,8 +15,14 @@ namespace Yuebon.Commons.Cache
     /// </summary>
     public class MemoryCacheService : ICacheService
     {
+        /// <summary>
+        /// 
+        /// </summary>
         protected IMemoryCache _cache;
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cache"></param>
         public MemoryCacheService(IMemoryCache cache)
         {
             _cache = cache;

@@ -21,7 +21,7 @@ namespace Yuebon.Security.Application
         /// 新增日志
         /// </summary>
         /// <param name="info"></param>
-        public void Insert(LogInPutDto info)
+        public void Insert(LogInputDto info)
         {
             Log logInfo = new Log();
             logInfo=info.MapTo<Log>();

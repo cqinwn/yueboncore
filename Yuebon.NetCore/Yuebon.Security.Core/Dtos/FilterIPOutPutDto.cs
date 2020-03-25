@@ -1,88 +1,79 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Yuebon.Security.Dtos
 {
     /// <summary>
-    /// 过滤IP
+    /// 输出对象模型
     /// </summary>
     [Serializable]
-    public class FilterIPOutPutDto
+    public class FilterIPOutputDto
     {
-
-        #region Property Members
-
         /// <summary>
-        /// 
+        /// 设置或获取 
         /// </summary>
-        public  string Id { get; set; }
-        /// <summary>
-        /// 策略类型
+        [MaxLength(50)]
+        public string Id { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public  bool? PolicyType { get; set; }
-
-        /// <summary>
-        /// 开始IP
+        public bool? Type { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public  string StartIP { get; set; }
-
-        /// <summary>
-        /// 结束IP
+        [MaxLength(50)]
+        public string StartIP { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public  string EndIP { get; set; }
-
-        /// <summary>
-        /// 排序码
+        [MaxLength(50)]
+        public string EndIP { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public  int? SortCode { get; set; }
-
-
-        /// <summary>
-        /// 描述
+        public int? SortCode { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public  string Description { get; set; }
-        /// <summary>
-        /// 删除标志
+        public bool? DeleteMark { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public  bool? DeleteMark { get; set; }
-
-        /// <summary>
-        /// 有效标志
+        public bool? EnabledMark { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public  bool EnabledMark { get; set; }
-
-        /// <summary>
-        /// 创建日期
+        [MaxLength(500)]
+        public string Description { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public  DateTime? CreatorTime { get; set; }
-
-        /// <summary>
-        /// 创建用户主键
+        public DateTime? CreatorTime { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public  string CreatorUserId { get; set; }
-
-        /// <summary>
-        /// 最后修改时间
+        [MaxLength(50)]
+        public string CreatorUserId { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public  DateTime? LastModifyTime { get; set; }
-
-        /// <summary>
-        /// 最后修改用户
+        public DateTime? LastModifyTime { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public  string LastModifyUserId { get; set; }
-
-        /// <summary>
-        /// 删除时间
+        [MaxLength(50)]
+        public string LastModifyUserId { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public  DateTime? DeleteTime { get; set; }
-
-        /// <summary>
-        /// 删除用户
+        public DateTime? DeleteTime { get; set; }
+        /// <summary>
+        /// 设置或获取 
         /// </summary>
-        public  string DeleteUserId { get; set; }
-
-
-        #endregion
+        [MaxLength(500)]
+        public string DeleteUserId { get; set; }
+
     }
 }

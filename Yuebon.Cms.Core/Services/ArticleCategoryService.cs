@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace Yuebon.CMS.Services
 {
-    public class ArticleCategoryService : BaseService<ArticleCategory, string>, IArticleCategoryService
+    public class ArticleCategoryService : BaseService<ArticleCategory, ArticleCategoryOutputDto, string>, IArticleCategoryService
     {
         private readonly IArticleCategoryRepository _repository;
         private readonly ILogService _logService;

@@ -6,11 +6,14 @@ using {ModelsNamespace};
 
 namespace {RepositoriesNamespace}
 {
-    public class {ModelTypeName}Repository : BaseRepository<{ModelTypeName}>, I{ModelTypeName}Repository
+    /// <summary>
+    /// {TableNameDesc}仓储接口的实现
+    /// </summary>
+    public class {ModelTypeName}Repository : BaseRepository<{ModelTypeName}, {KeyTypeName}>, I{ModelTypeName}Repository
     {
 		public {ModelTypeName}Repository()
         {
-            this.tableName = "Sys_{ModelTypeName}";
+            this.tableName = "{TableName}";
             this.primaryKey = "Id";
         }
     }

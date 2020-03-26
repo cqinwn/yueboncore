@@ -48,7 +48,7 @@ namespace Yuebon.Commons.CodeGenerator
             _option.RepositoriesNamespace = baseNamespace + ".Repositories";
             _option.IServicsNamespace = baseNamespace + ".IServices";
             _option.ServicesNamespace = baseNamespace + ".Services";
-            _option.ApiControllerNamespace = baseNamespace + ".Api";
+            _option.ApiControllerNamespace = baseNamespace + "Api";
             _option.ReplaceTableNameStr = replaceTableNameStr;
             _option.TableList = tableList;
             _option.BaseNamespace = baseNamespace;

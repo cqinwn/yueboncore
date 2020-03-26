@@ -88,41 +88,39 @@ namespace Yuebon.AspNetCore.Controllers
 
                             User user = userLogin.Item1;
                             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                            var currentSession = JsonConvert.DeserializeObject<UserAuthSession>(yuebonCacheHelper.Get("login_user_" + user.Id).ToJson());
-                            if (currentSession == null || string.IsNullOrWhiteSpace(currentSession.AccessToken))
+                           
+                            JwtOption jwtModel = IoCContainer.Resolve<JwtOption>();
+                            TokenProvider tokenProvider = new TokenProvider(jwtModel);
+                            TokenResult tokenResult = tokenProvider.LoginToken(user, appId);
+                            UserAuthSession currentSession = new UserAuthSession
                             {
-                                JwtOption jwtModel = IoCContainer.Resolve<JwtOption>();
-                                TokenProvider tokenProvider = new TokenProvider(jwtModel);
-                                TokenResult tokenResult = tokenProvider.LoginToken(user, appId);
-                                currentSession = new UserAuthSession
-                                {
-                                    UserId = user.Id,
-                                    Account = user.Account,
-                                    Name = user.RealName,
-                                    NickName = user.NickName,
-                                    AccessToken = tokenResult.AccessToken,
-                                    AppKey = appId,
-                                    CreateTime = DateTime.Now,
-                                    HeadIcon = user.HeadIcon,
-                                    Gender = user.Gender,
-                                    ReferralUserId = user.ReferralUserId,
-                                    MemberGradeId = user.MemberGradeId,
-                                    Role = new RoleApp().GetRoleEnCode(user.RoleId),
-                                    MobilePhone = user.MobilePhone
-                                };
-                                currentSession.SubSystemList = systemTypeService.GetSubSystemList(user.RoleId);
-                                currentSession.ActiveSystem = systemType.FullName;
-                                currentSession.MenusList = new MenuApp().GetMenuFuntionVuexMenusTreeJson(user.RoleId, systemCode);
+                                UserId = user.Id,
+                                Account = user.Account,
+                                Name = user.RealName,
+                                NickName = user.NickName,
+                                AccessToken = tokenResult.AccessToken,
+                                AppKey = appId,
+                                CreateTime = DateTime.Now,
+                                HeadIcon = user.HeadIcon,
+                                Gender = user.Gender,
+                                ReferralUserId = user.ReferralUserId,
+                                MemberGradeId = user.MemberGradeId,
+                                Role = new RoleApp().GetRoleEnCode(user.RoleId),
+                                MobilePhone = user.MobilePhone
+                            };
+                            currentSession.SubSystemList = systemTypeService.GetSubSystemList(user.RoleId);
+                            currentSession.ActiveSystem = systemType.FullName;
+                            currentSession.MenusList = new MenuApp().GetMenuFuntionJson(user.RoleId, systemCode);
 
-                                //取得用户可使用的授权功能信息，并存储在缓存中
-                                FunctionApp functionApp = new FunctionApp();
-                                List<FunctionOutputDto> listFunction = functionApp.GetFunctionsByUser(user.Id, systemType.Id);
-                                yuebonCacheHelper.Add("User_Function_" + user.Id, listFunction);
-                                currentSession.Modules = listFunction;
-                                TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
-                                yuebonCacheHelper.Add("login_user_" + user.Id, currentSession, expiresSliding, true);
+                            //取得用户可使用的授权功能信息，并存储在缓存中
+                            FunctionApp functionApp = new FunctionApp();
+                            List<FunctionOutputDto> listFunction = functionApp.GetFunctionsByUser(user.Id, systemType.Id);
+                            yuebonCacheHelper.Add("User_Function_" + user.Id, listFunction);
+                            currentSession.Modules = listFunction;
+                            TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
+                            yuebonCacheHelper.Add("login_user_" + user.Id, currentSession, expiresSliding, true);
                                 //CookiesHelper.WriteCookie(HttpContext,"loginuser", DEncrypt.Encrypt(user.Id, "qingwen"), 1);
-                            }
+                           
                             CurrentUser = currentSession;
                             result.ResData = currentSession;
                             result.ErrCode = ErrCode.successCode;

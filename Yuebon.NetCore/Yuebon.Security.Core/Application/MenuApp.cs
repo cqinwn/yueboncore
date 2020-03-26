@@ -6,6 +6,7 @@ using Yuebon.Commons.Extend;
 using Yuebon.Commons.IoC;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
+using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Tree;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.IRepositories;
@@ -99,7 +100,43 @@ namespace Yuebon.Security.Application
             }
             return list.ToJson().ToString();
         }
+        /// <summary>
+        /// 根据用户角色获取菜单树VuexMenusTree模式
+        /// </summary>
+        /// <param name="roleIds">角色ID</param>
+        /// <param name="systemCode">系统类型代码子系统代码</param>
+        /// <returns></returns>
+        public List<MenuOutputDto> GetMenuFuntionJson(string roleIds, string systemCode)
+        {
+            List<MenuOutputDto> list = new List<MenuOutputDto>();
+            try
+            {
+                SystemType systemType = systemservice.GetByCode(systemCode);
+                List<Menu> listMenu = GetMenusByRole(roleIds, systemType.Id).OrderBy(t => t.SortCode).ToList();
+                //var ChildNodeList = listMenu.FindAll(t => t.ParentId == "");
+                //foreach (Menu menu in ChildNodeList)
+                //{
+                //    VuexMenusTreeModel vueTreeModel = new VuexMenusTreeModel();
+                //    vueTreeModel.path = menu.UrlAddress;
+                //    vueTreeModel.component = "Layout";
+                //    vueTreeModel.name = menu.EnCode;
+                //    vueTreeModel.redirect = menu.UrlAddress;
+                //    Meta meta = new Meta();
+                //    meta.title = menu.FullName;
+                //    meta.icon = menu.Icon == null ? "" : menu.Icon;
+                //    vueTreeModel.meta = meta;
 
+                //    vueTreeModel.children = VuexMenusTreeJson(listMenu, menu.Id);
+                //    list.Add(vueTreeModel);
+                //}
+                list =listMenu.MapTo<MenuOutputDto>();
+            }
+            catch (Exception ex)
+            {
+                Log4NetHelper.Error("根据用户角色和子系统代码获取菜单异常", ex);
+            }
+            return list;
+        }
         /// <summary>
         /// 根据用户角色获取菜单树VuexMenusTree模式
         /// </summary>
@@ -123,7 +160,7 @@ namespace Yuebon.Security.Application
                     vueTreeModel.redirect = menu.UrlAddress;
                     Meta meta = new Meta();
                     meta.title = menu.FullName;
-                    meta.icon = menu.Icon;
+                    meta.icon = menu.Icon == null ? "" : menu.Icon;
                     vueTreeModel.meta = meta;
 
                     vueTreeModel.children = VuexMenusTreeJson(listMenu, menu.Id);
@@ -151,12 +188,12 @@ namespace Yuebon.Security.Application
             {
                 VuexMenusTreeModel vueTreeModel = new VuexMenusTreeModel();
                 vueTreeModel.path = entity.UrlAddress;
-                vueTreeModel.component = entity.UrlAddress;
+                vueTreeModel.component = "Layout";
                 vueTreeModel.name = entity.EnCode;
                 vueTreeModel.redirect = entity.UrlAddress;
                 Meta meta = new Meta();
                 meta.title = entity.FullName;
-                meta.icon = entity.Icon;
+                meta.icon = entity.Icon==null?"": entity.Icon;
                 vueTreeModel.meta = meta;
 
                 vueTreeModel.children = VuexMenusTreeJson(data, entity.Id);

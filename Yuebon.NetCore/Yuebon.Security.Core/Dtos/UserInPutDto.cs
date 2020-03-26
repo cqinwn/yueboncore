@@ -18,91 +18,113 @@ namespace Yuebon.Security.Dtos
         /// 设置或获取 
         /// </summary>
         public string Id { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string Account { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string RealName { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string NickName { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string HeadIcon { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public int? Gender { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public DateTime? Birthday { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string MobilePhone { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string Email { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string WeChat { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string ManagerId { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public int? SecurityLevel { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string Signature { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string Country { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string Province { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string City { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string District { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string OrganizeId { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string DepartmentId { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string RoleId { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string DutyId { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public bool? IsAdministrator { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public bool? IsMember { get; set; }
@@ -132,18 +154,22 @@ namespace Yuebon.Security.Dtos
         /// 用户在微信开放平台的唯一标识符
         /// </summary>
         public string UnionId { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public int? SortCode { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public bool? EnabledMark { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string Description { get; set; }
-
+
+
     }
 }

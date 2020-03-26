@@ -106,7 +106,7 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 可以访问菜单
         /// </summary>
-        public List<VuexMenusTreeModel> MenusList { get; set; }
+        public List<MenuOutputDto> MenusList { get; set; }
         public List<FunctionOutputDto> Modules { get; set; }
     }
 }

@@ -73,9 +73,10 @@ namespace Yuebon.AspNetCore.Mvc
                         return;
                     }
                     //需要登录和验证功能权限
-                    string userId = result.ResData.ToString();
-                    if (!string.IsNullOrEmpty(userId))
+                   
+                    if (result.ResData!=null)
                     {
+                        string userId = result.ResData.ToString();
                         var authorizeAttributes = controllerActionDescriptor.MethodInfo.GetCustomAttributes(typeof(YuebonAuthorizeAttribute), true).OfType<YuebonAuthorizeAttribute>();
                         if (authorizeAttributes.First() != null)
                         {

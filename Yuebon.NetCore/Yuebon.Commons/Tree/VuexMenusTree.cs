@@ -17,7 +17,7 @@ namespace Yuebon.Commons.Tree
         /// <summary>
         /// 命名视图组件
         /// </summary>
-        public string component { get; set; }
+        public string component{ get; set; }
         /// <summary>
         /// 重定向地址，在面包屑中点击会重定向去的地址
         /// </summary>

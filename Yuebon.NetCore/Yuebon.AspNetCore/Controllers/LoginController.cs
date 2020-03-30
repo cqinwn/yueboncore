@@ -157,8 +157,8 @@ namespace Yuebon.AspNetCore.Controllers
                 yuebonCacheHelper.Remove("User_Menu_" + CurrentUser.UserId);
                 CurrentUser = null;
                 result.Success = true;
-                result.ErrCode = ErrCode.failCode;
-                result.ErrMsg = "成功登出";
+                result.ErrCode = ErrCode.successCode;
+                result.ErrMsg = "成功退出";
             }
             return ToJsonContent(result);
         }

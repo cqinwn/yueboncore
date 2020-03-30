@@ -645,6 +645,25 @@ namespace Yuebon.AspNetCore.Controllers
             //}
             return where;
         }
+
+
+        /// <summary>
+        /// 获取所有可用的
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetAllEnable")]
+        [YuebonAuthorize("List")]
+        public virtual async Task<IActionResult> GetAllEnable()
+        {
+            CommonResult result = new CommonResult();
+            IEnumerable<T> list = await iService.GetAllByIsNotDeleteAndEnabledMarkAsync();
+            List<TDto> resultList = list.MapTo<TDto>();
+            result.ResData = resultList;
+            result.ErrCode = ErrCode.successCode;
+            result.ErrMsg = ErrCode.err0;
+
+            return ToJsonContent(result);
+        }
         #endregion
 
 

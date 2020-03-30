@@ -136,7 +136,7 @@ namespace Dapper.Contrib.Extensions
         /// <param name="commandTimeout">Number of seconds before command execution timeout</param>
         /// <param name="sqlAdapter">The specific ISqlAdapter to use, auto-detected based on connection if null</param>
         /// <returns>Identity of inserted entity</returns>
-        public static Task<int> InsertAsync<T>(this IDbConnection connection, T entityToInsert, IDbTransaction transaction = null,
+        public static async Task<int> InsertAsync<T>(this IDbConnection connection, T entityToInsert, IDbTransaction transaction = null,
             int? commandTimeout = null, ISqlAdapter sqlAdapter = null) where T : class
         {
             var type = typeof(T);
@@ -186,15 +186,34 @@ namespace Dapper.Contrib.Extensions
                     sbParameterList.Append(", ");
             }
 
+            //if (!isList)    //single entity
+            //{
+            //    return sqlAdapter.InsertAsync(connection, transaction, commandTimeout, name, sbColumnList.ToString(),
+            //        sbParameterList.ToString(), keyProperties, entityToInsert);
+            //}
+
+            ////insert list of entities
+            //var cmd = $"INSERT INTO {name} ({sbColumnList}) values ({sbParameterList})";
+           // return connection.ExecuteAsync(cmd, entityToInsert, transaction, commandTimeout);
+
+
+            int returnVal=0;
+            var wasClosed = connection.State == ConnectionState.Closed;
+            if (wasClosed) connection.Open();
+
             if (!isList)    //single entity
             {
-                return sqlAdapter.InsertAsync(connection, transaction, commandTimeout, name, sbColumnList.ToString(),
+                returnVal =await sqlAdapter.InsertAsync(connection, transaction, commandTimeout, name, sbColumnList.ToString(),
                     sbParameterList.ToString(), keyProperties, entityToInsert);
             }
-
-            //insert list of entities
-            var cmd = $"INSERT INTO {name} ({sbColumnList}) values ({sbParameterList})";
-            return connection.ExecuteAsync(cmd, entityToInsert, transaction, commandTimeout);
+            else
+            {
+                //insert list of entities
+                var cmd = $"insert into {name} ({sbColumnList}) values ({sbParameterList})";
+                returnVal =await  connection.ExecuteAsync(cmd, entityToInsert, transaction, commandTimeout);
+            }
+            if (wasClosed) connection.Close();
+            return returnVal;
         }
 
         /// <summary>

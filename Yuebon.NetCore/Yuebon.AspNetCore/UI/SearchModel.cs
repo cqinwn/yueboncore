@@ -19,6 +19,13 @@ namespace Yuebon.AspNetCore.UI
             get; set;
         }
         /// <summary>
+        /// 编码/代码
+        /// </summary>
+        public string EnCode
+        {
+            get; set;
+        }
+        /// <summary>
         /// 排序方式 默认asc 
         /// </summary>
         public string Order

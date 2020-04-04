@@ -1392,7 +1392,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="ids">主键Id List集合</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual bool DeleteBatch(IList<dynamic> ids, IDbTransaction trans = null)
+        public  virtual bool DeleteBatch(IList<dynamic> ids, IDbTransaction trans = null)
         {
             using (DbConnection conn = OpenSharedConnection())
             {
@@ -1410,7 +1410,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public bool DeleteBatchWhere(string where, IDbTransaction trans = null)
+        public virtual bool DeleteBatchWhere(string where, IDbTransaction trans = null)
         {
             var type = MethodBase.GetCurrentMethod().DeclaringType;
             if (HasInjectionData(where))
@@ -1434,7 +1434,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public async Task<bool> DeleteBatchWhereAsync(string where, IDbTransaction trans = null)
+        public virtual  async Task<bool> DeleteBatchWhereAsync(string where, IDbTransaction trans = null)
         {
             using (DbConnection conn = OpenSharedConnection())
             {
@@ -2071,7 +2071,7 @@ namespace Yuebon.Commons.Repositories
                 "declare\\s",
                 "asc\\(",
                 "mid\\(",
-                "char\\(",
+                //"char\\(",
                 "net user",
                 "xp_cmdshell",
                 "/add\\s",

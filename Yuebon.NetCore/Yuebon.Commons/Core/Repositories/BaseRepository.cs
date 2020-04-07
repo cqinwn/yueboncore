@@ -281,7 +281,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="id">主键</param>
         /// <param name="trans">事务</param>
         /// <returns></returns>
-        public T Get(TKey id, IDbTransaction trans=null)
+        public virtual T Get(TKey id, IDbTransaction trans=null)
         {
             using (DbConnection conn = OpenSharedConnection())
             {
@@ -294,7 +294,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="id">主键</param>
         /// <param name="trans">事务</param>
         /// <returns></returns>
-        public async Task<T> GetAsync(TKey id, IDbTransaction trans=null)
+        public virtual async Task<T> GetAsync(TKey id, IDbTransaction trans=null)
         {
             using (DbConnection conn = OpenSharedConnection())
             {
@@ -308,7 +308,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务</param>
         /// <returns></returns>
-        public T GetWhere(string where, IDbTransaction trans =null)
+        public virtual T GetWhere(string where, IDbTransaction trans =null)
         {
             var type = MethodBase.GetCurrentMethod().DeclaringType;
             if (HasInjectionData(where))
@@ -336,7 +336,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务</param>
         /// <returns></returns>
-        public async Task<T> GetWhereAsync(string where, IDbTransaction trans=null)
+        public virtual async Task<T> GetWhereAsync(string where, IDbTransaction trans=null)
         {
             var type = MethodBase.GetCurrentMethod().DeclaringType;
             if (HasInjectionData(where))
@@ -367,7 +367,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="id">主键Id</param>
         /// <param name="trans">事务</param>
         /// <returns></returns>
-        public T GetByIdRelationUser(TKey id, IDbTransaction trans = null)
+        public virtual T GetByIdRelationUser(TKey id, IDbTransaction trans = null)
         {
             string sql = $"select s.* ,u.RealName as RealName,u.NickName as NickName,u.HeadIcon as HeadIcon from { tableName} s left join sys_user u on s.CreatorUserId=u.Id";
             if (!string.IsNullOrWhiteSpace(id.ToString()))
@@ -384,7 +384,7 @@ namespace Yuebon.Commons.Repositories
         /// </summary>
         /// <param name="trans">事务</param>
         /// <returns></returns>
-        public IEnumerable<T> GetAll(IDbTransaction trans=null)
+        public virtual IEnumerable<T> GetAll(IDbTransaction trans=null)
         {
             using (DbConnection conn = OpenSharedConnection())
             {
@@ -396,7 +396,7 @@ namespace Yuebon.Commons.Repositories
         /// </summary>
         /// <param name="trans"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<T>> GetAllAsync( IDbTransaction trans=null)
+        public virtual async Task<IEnumerable<T>> GetAllAsync( IDbTransaction trans=null)
         {
             using (DbConnection conn = OpenSharedConnection())
             {
@@ -411,7 +411,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public IEnumerable<T> GetListWhere(string where = null, IDbTransaction trans=null)
+        public virtual IEnumerable<T> GetListWhere(string where = null, IDbTransaction trans=null)
         {
             var type = MethodBase.GetCurrentMethod().DeclaringType;
             if (HasInjectionData(where))
@@ -423,7 +423,7 @@ namespace Yuebon.Commons.Repositories
             {
                 where = "1=1";
             }
-            string sql = $"select * from { tableName} ";
+            string sql = $"select {selectedFields} from { tableName} ";
             if (!string.IsNullOrWhiteSpace(where))
             {
                 sql += " where " + where;
@@ -440,7 +440,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public async Task<IEnumerable<T>> GetListWhereAsync(string where = null, IDbTransaction trans=null)
+        public virtual async Task<IEnumerable<T>> GetListWhereAsync(string where = null, IDbTransaction trans=null)
         {
             var type = MethodBase.GetCurrentMethod().DeclaringType;
             if (HasInjectionData(where))
@@ -452,7 +452,7 @@ namespace Yuebon.Commons.Repositories
             {
                 where = "1=1";
             }
-            string sql = $"select * from { tableName} ";
+            string sql = $"select {selectedFields}  from { tableName} ";
             if (!string.IsNullOrWhiteSpace(where))
             {
                 sql += " where " + where;
@@ -470,7 +470,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public IEnumerable<T> GetListTopWhere(int top,string where = null, IDbTransaction trans = null)
+        public virtual IEnumerable<T> GetListTopWhere(int top,string where = null, IDbTransaction trans = null)
         {
             var type = MethodBase.GetCurrentMethod().DeclaringType;
             if (HasInjectionData(where))
@@ -482,7 +482,7 @@ namespace Yuebon.Commons.Repositories
             {
                 where = "1=1";
             }
-            string sql = $"select top "+top+" * from "+ tableName;
+            string sql = $"select top {top} {selectedFields} from " + tableName;
             if (!string.IsNullOrWhiteSpace(where))
             {
                 sql += " where " + where;
@@ -501,7 +501,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public async Task<IEnumerable<T>> GetListTopWhereAsync(int top, string where = null, IDbTransaction trans = null)
+        public virtual async Task<IEnumerable<T>> GetListTopWhereAsync(int top, string where = null, IDbTransaction trans = null)
         {
             var type = MethodBase.GetCurrentMethod().DeclaringType;
             if (HasInjectionData(where))
@@ -513,7 +513,7 @@ namespace Yuebon.Commons.Repositories
             {
                 where = "1=1";
             }
-            string sql = $"select top " + top + " * from " + tableName;
+            string sql = $"select top {top} {selectedFields}  from " + tableName;
             if (!string.IsNullOrWhiteSpace(where))
             {
                 sql += " where " + where;
@@ -529,7 +529,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public IEnumerable<T> GetAllByIsDeleteMark(string where=null, IDbTransaction trans =null)
+        public virtual IEnumerable<T> GetAllByIsDeleteMark(string where=null, IDbTransaction trans =null)
         {
             var type = MethodBase.GetCurrentMethod().DeclaringType;
             if (HasInjectionData(where))
@@ -541,7 +541,7 @@ namespace Yuebon.Commons.Repositories
             {
                 where = "1=1";
             }
-            string sql = $"select * from { tableName} where DeleteMark=1 ";
+            string sql = $"select {selectedFields}  from { tableName} where DeleteMark=1 ";
             if (!string.IsNullOrWhiteSpace(where))
             {
                 sql += sql + " and "+where;
@@ -558,7 +558,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public IEnumerable<T> GetAllByIsNotDeleteMark(string where = null, IDbTransaction trans=null)
+        public virtual IEnumerable<T> GetAllByIsNotDeleteMark(string where = null, IDbTransaction trans=null)
         {
             var type = MethodBase.GetCurrentMethod().DeclaringType;
             if (HasInjectionData(where))
@@ -570,7 +570,7 @@ namespace Yuebon.Commons.Repositories
             {
                 where = "1=1";
             }
-            string sql = $"select * from { tableName} where DeleteMark=0";
+            string sql = $"select {selectedFields} from { tableName} where DeleteMark=0";
             if (!string.IsNullOrWhiteSpace(where))
             {
                 sql += sql + " and " + where;
@@ -587,7 +587,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public IEnumerable<T> GetAllByIsEnabledMark(string where = null, IDbTransaction trans=null)
+        public virtual IEnumerable<T> GetAllByIsEnabledMark(string where = null, IDbTransaction trans=null)
         {
             var type = MethodBase.GetCurrentMethod().DeclaringType;
             if (HasInjectionData(where))
@@ -599,7 +599,7 @@ namespace Yuebon.Commons.Repositories
             {
                 where = "1=1";
             }
-            string sql = $"select * from {tableName} where EnabledMark=1";
+            string sql = $"select {selectedFields} from {tableName} where EnabledMark=1";
             if (!string.IsNullOrWhiteSpace(where))
             {
                 sql += sql + " and " + where;
@@ -616,7 +616,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public IEnumerable<T> GetAllByIsNotEnabledMark(string where = null, IDbTransaction trans=null)
+        public virtual IEnumerable<T> GetAllByIsNotEnabledMark(string where = null, IDbTransaction trans=null)
         {
             var type = MethodBase.GetCurrentMethod().DeclaringType;
             if (HasInjectionData(where))
@@ -628,7 +628,7 @@ namespace Yuebon.Commons.Repositories
             {
                 where = "1=1";
             }
-            string sql = $"select * from {tableName} where EnabledMark=0";
+            string sql = $"select {selectedFields} from {tableName} where EnabledMark=0";
             if (!string.IsNullOrWhiteSpace(where))
             {
                 sql += sql + " and " + where;
@@ -644,7 +644,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public IEnumerable<T> GetAllByIsNotDeleteAndEnabledMark(string where = null, IDbTransaction trans=null)
+        public virtual IEnumerable<T> GetAllByIsNotDeleteAndEnabledMark(string where = null, IDbTransaction trans=null)
         {
             var type = MethodBase.GetCurrentMethod().DeclaringType;
             if (HasInjectionData(where))
@@ -656,7 +656,7 @@ namespace Yuebon.Commons.Repositories
             {
                 where = "1=1";
             }
-            string sql = $"select * from {tableName} where DeleteMark=0 and EnabledMark=1";
+            string sql = $"select {selectedFields} from {tableName} where DeleteMark=0 and EnabledMark=1";
             if (!string.IsNullOrWhiteSpace(where))
             {
                 sql = sql + " and " + where;
@@ -673,7 +673,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public async Task<IEnumerable<T>> GetAllByIsDeleteMarkAsync(string where = null, IDbTransaction trans=null)
+        public virtual async Task<IEnumerable<T>> GetAllByIsDeleteMarkAsync(string where = null, IDbTransaction trans=null)
         {
             var type = MethodBase.GetCurrentMethod().DeclaringType;
             if (HasInjectionData(where))
@@ -685,7 +685,7 @@ namespace Yuebon.Commons.Repositories
             {
                 where = "1=1";
             }
-            string sql = $"select * from {tableName} where DeleteMark=1 ";
+            string sql = $"select {selectedFields} from {tableName} where DeleteMark=1 ";
             if (!string.IsNullOrWhiteSpace(where))
             {
                 sql = sql + " and " + where;
@@ -702,7 +702,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public async Task<IEnumerable<T>> GetAllByIsNotDeleteMarkAsync(string where = null, IDbTransaction trans=null)
+        public virtual async Task<IEnumerable<T>> GetAllByIsNotDeleteMarkAsync(string where = null, IDbTransaction trans=null)
         {
             var type = MethodBase.GetCurrentMethod().DeclaringType;
             if (HasInjectionData(where))
@@ -714,7 +714,7 @@ namespace Yuebon.Commons.Repositories
             {
                 where = "1=1";
             }
-            string sql = $"select * from {tableName} where DeleteMark=0";
+            string sql = $"select {selectedFields} from {tableName} where DeleteMark=0";
             if (!string.IsNullOrWhiteSpace(where))
             {
                 sql = sql + " and " + where;
@@ -731,7 +731,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public async Task<IEnumerable<T>> GetAllByIsEnabledMarkAsync(string where = null, IDbTransaction trans=null)
+        public virtual async Task<IEnumerable<T>> GetAllByIsEnabledMarkAsync(string where = null, IDbTransaction trans=null)
         {
             var type = MethodBase.GetCurrentMethod().DeclaringType;
             if (HasInjectionData(where))
@@ -743,7 +743,7 @@ namespace Yuebon.Commons.Repositories
             {
                 where = "1=1";
             }
-            string sql = $"select * from {tableName} where EnabledMark=1";
+            string sql = $"select {selectedFields} from {tableName} where EnabledMark=1";
             if (!string.IsNullOrWhiteSpace(where))
             {
                 sql = sql + " and " + where;
@@ -760,7 +760,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public async Task<IEnumerable<T>> GetAllByIsNotEnabledMarkAsync(string where = null, IDbTransaction trans=null)
+        public virtual async Task<IEnumerable<T>> GetAllByIsNotEnabledMarkAsync(string where = null, IDbTransaction trans=null)
         {
             var type = MethodBase.GetCurrentMethod().DeclaringType;
             if (HasInjectionData(where))
@@ -772,7 +772,7 @@ namespace Yuebon.Commons.Repositories
             {
                 where = "1=1";
             }
-            string sql = $"select * from {tableName} where EnabledMark=0";
+            string sql = $"select {selectedFields} from {tableName} where EnabledMark=0";
             if (!string.IsNullOrWhiteSpace(where))
             {
                 sql = sql + " and " + where;
@@ -788,7 +788,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public async Task<IEnumerable<T>> GetAllByIsNotDeleteAndEnabledMarkAsync(string where = null, IDbTransaction trans=null)
+        public virtual async Task<IEnumerable<T>> GetAllByIsNotDeleteAndEnabledMarkAsync(string where = null, IDbTransaction trans=null)
         {
             var type = MethodBase.GetCurrentMethod().DeclaringType;
             if (HasInjectionData(where))
@@ -800,7 +800,7 @@ namespace Yuebon.Commons.Repositories
             {
                 where = "1=1";
             }
-            string sql = $"select * from {tableName} where DeleteMark=0 and EnabledMark=1";
+            string sql = $"select {selectedFields} from {tableName} where DeleteMark=0 and EnabledMark=1";
             if (!string.IsNullOrWhiteSpace(where))
             {
                 sql = sql + " and " + where;
@@ -879,7 +879,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="desc">排序方式 true为desc，false为asc</param>
         /// <param name="trans">事务对象</param>
         /// <returns>指定对象的集合</returns>
-        public async Task<List<T>> FindWithPagerAsync(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
+        public virtual async Task<List<T>> FindWithPagerAsync(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
         {
 
             List<T> list = new List<T>();
@@ -916,7 +916,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="fieldToSort">排序字段</param>
         /// <param name="trans">事务对象</param>
         /// <returns>指定对象的集合</returns>
-        public async Task<List<T>> FindWithPagerAsync(string condition, PagerInfo info, string fieldToSort, IDbTransaction trans = null)
+        public virtual async Task<List<T>> FindWithPagerAsync(string condition, PagerInfo info, string fieldToSort, IDbTransaction trans = null)
         {
             return await FindWithPagerAsync(condition, info, fieldToSort, this.isDescending, trans);
         }
@@ -928,7 +928,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="info">分页实体</param>
         /// <param name="trans">事务对象</param>
         /// <returns>指定对象的集合</returns>
-        public async Task<List<T>> FindWithPagerAsync(string condition, PagerInfo info, IDbTransaction trans = null)
+        public virtual async Task<List<T>> FindWithPagerAsync(string condition, PagerInfo info, IDbTransaction trans = null)
         {
             return await FindWithPagerAsync(condition, info, this.SortField, trans);
         }
@@ -977,7 +977,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="desc">排序方式 true为desc，false为asc</param>
         /// <param name="trans"></param>
         /// <returns></returns>
-        public async Task<List<T>> FindWithPagerSqlAsync(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
+        public virtual async Task<List<T>> FindWithPagerSqlAsync(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
         {
 
             List<T> list = new List<T>();
@@ -1057,7 +1057,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="desc">排序方式</param>
         /// <param name="trans">事务</param>
         /// <returns></returns>
-        public async Task<List<object>> FindWithPagerRelationUserAsync(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
+        public virtual async Task<List<object>> FindWithPagerRelationUserAsync(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
         {
 
             var type = MethodBase.GetCurrentMethod().DeclaringType;
@@ -1117,7 +1117,7 @@ namespace Yuebon.Commons.Repositories
         /// </summary>
         /// <param name="condition">查询条件</param>
         /// <returns></returns>
-        public async Task<int> GetCountByWhereAsync(string condition)
+        public virtual async Task<int> GetCountByWhereAsync(string condition)
         {
             var type = MethodBase.GetCurrentMethod().DeclaringType;
             if (HasInjectionData(condition))
@@ -1494,7 +1494,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public bool DeleteSoft(bool bl, TKey id, string userId = null, IDbTransaction trans=null)
+        public virtual bool DeleteSoft(bool bl, TKey id, string userId = null, IDbTransaction trans=null)
         {
             using (DbConnection conn =OpenSharedConnection())
             {
@@ -1528,7 +1528,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public async Task<bool> DeleteSoftAsync(bool bl, TKey id,string userId=null, IDbTransaction trans=null)
+        public virtual async Task<bool> DeleteSoftAsync(bool bl, TKey id,string userId=null, IDbTransaction trans=null)
         {
             using (DbConnection conn =OpenSharedConnection())
             {
@@ -1561,7 +1561,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public async Task<bool> DeleteSoftBatchAsync(bool bl, string where, string userId = null, IDbTransaction trans = null)
+        public virtual async Task<bool> DeleteSoftBatchAsync(bool bl, string where, string userId = null, IDbTransaction trans = null)
         {
 
             using (DbConnection conn = OpenSharedConnection())
@@ -1603,7 +1603,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public bool SetEnabledMark(bool bl, TKey id, string userId = null, IDbTransaction trans=null)
+        public virtual bool SetEnabledMark(bool bl, TKey id, string userId = null, IDbTransaction trans=null)
         {
             using (DbConnection conn =OpenSharedConnection())
             {
@@ -1636,7 +1636,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public async Task<bool> SetEnabledMarkAsync(bool bl, TKey id, string userId = null, IDbTransaction trans = null)
+        public virtual async Task<bool> SetEnabledMarkAsync(bool bl, TKey id, string userId = null, IDbTransaction trans = null)
         {
             using (DbConnection conn =OpenSharedConnection())
             {
@@ -1670,7 +1670,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public async Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, string userId = null, IDbTransaction trans = null)
+        public virtual async Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, string userId = null, IDbTransaction trans = null)
         {
             using (DbConnection conn = OpenSharedConnection())
             {
@@ -1712,7 +1712,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">条件,为空更新所有内容</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public bool UpdateTableField(string strField, string fieldValue, string where, IDbTransaction trans = null)
+        public virtual bool UpdateTableField(string strField, string fieldValue, string where, IDbTransaction trans = null)
         {
             using (DbConnection conn = OpenSharedConnection())
             {
@@ -1734,7 +1734,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">条件,为空更新所有内容</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public async Task<bool> UpdateTableFieldAsync(string strField, string fieldValue, string where, IDbTransaction trans = null)
+        public virtual async Task<bool> UpdateTableFieldAsync(string strField, string fieldValue, string where, IDbTransaction trans = null)
         {
             using (DbConnection conn = OpenSharedConnection())
             {
@@ -1755,7 +1755,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">条件,为空更新所有内容</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public bool UpdateTableField(string strField, int fieldValue, string where, IDbTransaction trans = null)
+        public virtual bool UpdateTableField(string strField, int fieldValue, string where, IDbTransaction trans = null)
         {
             using (DbConnection conn = OpenSharedConnection())
             {
@@ -1778,7 +1778,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">条件,为空更新所有内容</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public async Task<bool> UpdateTableFieldAsync(string strField, int fieldValue, string where, IDbTransaction trans = null)
+        public virtual async Task<bool> UpdateTableFieldAsync(string strField, int fieldValue, string where, IDbTransaction trans = null)
         {
             using (DbConnection conn = OpenSharedConnection())
             {
@@ -1789,6 +1789,26 @@ namespace Yuebon.Commons.Repositories
                 }
                 int row = await conn.ExecuteAsync(sql, trans);
                 return row > 0 ? true : false;
+            }
+        }
+        /// <summary>
+        /// 根据条件查询获取某个字段的最大值
+        /// </summary>
+        /// <param name="strField">字段</param>
+        /// <param name="where">条件</param>
+        /// <param name="trans">事务</param>
+        /// <returns>返回字段的最大值</returns>
+        public virtual async Task<int> GetMaxValueByFieldAsync(string strField, string where, IDbTransaction trans = null)
+        {
+            using (DbConnection conn = OpenSharedConnection())
+            {
+                string sql = $"select MAX({strField}) as maxVaule from {tableName} ";
+                if (!string.IsNullOrEmpty(where))
+                {
+                    sql += " where " + where;
+                }
+                IEnumerable<int> lit = await conn.QueryAsync<int>(sql);
+                return lit.FirstOrDefault();
             }
         }
         #endregion

@@ -16,7 +16,7 @@ namespace Yuebon.AspNetCore.Common
         /// <summary>
         /// 初始化
         /// </summary>
-        public static void Initial()
+        public  static void Initial()
         {
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
             SysSetting sysSetting = XmlConverter.Deserialize<SysSetting>("xmlconfig/sys.config");

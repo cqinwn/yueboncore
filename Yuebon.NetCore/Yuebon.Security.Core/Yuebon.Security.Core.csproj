@@ -11,14 +11,14 @@
     <Product>YuebonNetCore开发框架权限管理系统类库</Product>
     <Description>YuebonNetCore开发框架权限管理系统类库</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.3.0</Version>
+    <Version>1.3.1.2</Version>
     <PackageReleaseNotes></PackageReleaseNotes>
     <Authors>Yuebon</Authors>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageIconUrl>http://www.yuebon.com/upload/201804/01/201804011125140585.jpg</PackageIconUrl>
     <PackageProjectUrl>https://gitee.com/yuebon/YuebonNetCore</PackageProjectUrl>
-    <AssemblyVersion>1.3.0.0</AssemblyVersion>
-    <FileVersion>1.3.0.0</FileVersion>
+    <AssemblyVersion>1.3.1.1</AssemblyVersion>
+    <FileVersion>1.3.1.1</FileVersion>
     <PackageLicenseExpression></PackageLicenseExpression>
     <RepositoryUrl>https://gitee.com/yuebon/YuebonNetCore</RepositoryUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -55,6 +55,10 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Yuebon.Commons\Yuebon.Commons.csproj" />
   </ItemGroup>
 
 </Project>

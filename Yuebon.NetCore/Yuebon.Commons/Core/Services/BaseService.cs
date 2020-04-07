@@ -41,7 +41,7 @@ namespace Yuebon.Commons.Services
         /// <param name="id">主键Id</param>
         /// <param name="trans"></param>
         /// <returns></returns>
-        public T GetByIdRelationUser(TKey id, IDbTransaction trans = null)
+        public virtual T GetByIdRelationUser(TKey id, IDbTransaction trans = null)
         {
             return repository.GetByIdRelationUser(id, trans);
         }
@@ -51,7 +51,7 @@ namespace Yuebon.Commons.Services
         /// <param name="entity">实体</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public bool Delete(T entity,IDbTransaction trans=null)
+        public virtual bool Delete(T entity,IDbTransaction trans=null)
         {
           return repository.Delete(entity, trans);
         }
@@ -61,7 +61,7 @@ namespace Yuebon.Commons.Services
         /// <param name="id">主键</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public bool Delete(TKey id, IDbTransaction trans = null)
+        public virtual bool Delete(TKey id, IDbTransaction trans = null)
         {
             return repository.Delete(id,trans);
         }
@@ -72,7 +72,7 @@ namespace Yuebon.Commons.Services
         /// <param name="id">主键</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public Task<bool> DeleteAsync(TKey id, IDbTransaction trans = null)
+        public virtual Task<bool> DeleteAsync(TKey id, IDbTransaction trans = null)
         {
             return repository.DeleteAsync(id, trans);
         }
@@ -82,7 +82,7 @@ namespace Yuebon.Commons.Services
         /// </summary>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public bool DeleteAll(IDbTransaction trans = null)
+        public virtual bool DeleteAll(IDbTransaction trans = null)
         {
             return repository.DeleteAll(trans);
         }
@@ -92,7 +92,7 @@ namespace Yuebon.Commons.Services
         /// </summary>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public Task<bool> DeleteAllAsync(IDbTransaction trans = null)
+        public virtual Task<bool> DeleteAllAsync(IDbTransaction trans = null)
         {
             return repository.DeleteAllAsync(trans);
         }
@@ -103,7 +103,7 @@ namespace Yuebon.Commons.Services
         /// <param name="entity">实体</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public Task<bool> DeleteAsync(T entity, IDbTransaction trans = null)
+        public virtual Task<bool> DeleteAsync(T entity, IDbTransaction trans = null)
         {
             return repository.DeleteAsync(entity, trans);
         }
@@ -114,7 +114,7 @@ namespace Yuebon.Commons.Services
         /// <param name="ids"></param>
         /// <param name="trans"></param>
         /// <returns></returns>
-        public bool DeleteBatch(IList<dynamic> ids, IDbTransaction trans = null)
+        public virtual bool DeleteBatch(IList<dynamic> ids, IDbTransaction trans = null)
         {
             return repository.DeleteBatch(ids, trans);
         }
@@ -126,7 +126,7 @@ namespace Yuebon.Commons.Services
         /// <param name="where">条件</param>
         /// <param name="trans"></param>
         /// <returns></returns>
-        public bool DeleteBatchWhere(string where, IDbTransaction trans = null)
+        public virtual bool DeleteBatchWhere(string where, IDbTransaction trans = null)
         {
             return repository.DeleteBatchWhere(where, trans);
         }
@@ -137,7 +137,7 @@ namespace Yuebon.Commons.Services
         /// <param name="where">条件</param>
         /// <param name="trans"></param>
         /// <returns></returns>
-        public async Task<bool> DeleteBatchWhereAsync(string where, IDbTransaction trans = null)
+        public virtual async Task<bool> DeleteBatchWhereAsync(string where, IDbTransaction trans = null)
         {
             return await repository.DeleteBatchWhereAsync(where, trans);
         }
@@ -149,7 +149,7 @@ namespace Yuebon.Commons.Services
         /// <param name="userId">操作用户</param>
         /// <param name="trans"></param>
         /// <returns></returns>
-        public bool DeleteSoft(bool bl, TKey id,string userId, IDbTransaction trans = null)
+        public virtual bool DeleteSoft(bool bl, TKey id,string userId, IDbTransaction trans = null)
         {
             return repository.DeleteSoft(bl,id,userId, trans);
         }
@@ -162,7 +162,7 @@ namespace Yuebon.Commons.Services
         /// <param name="userId">操作用户</param>
         /// <param name="trans"></param>
         /// <returns></returns>
-        public async Task<bool> DeleteSoftAsync(bool bl, TKey id, string userId, IDbTransaction trans = null)
+        public virtual async Task<bool> DeleteSoftAsync(bool bl, TKey id, string userId, IDbTransaction trans = null)
         {
             return await repository.DeleteSoftAsync(bl,id,userId, trans);
         }
@@ -174,7 +174,7 @@ namespace Yuebon.Commons.Services
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public async Task<bool> DeleteSoftBatchAsync(bool bl, string where, string userId = null, IDbTransaction trans = null)
+        public virtual async Task<bool> DeleteSoftBatchAsync(bool bl, string where, string userId = null, IDbTransaction trans = null)
         {
             return await repository.DeleteSoftBatchAsync(bl, where, userId, trans);
         }
@@ -184,7 +184,7 @@ namespace Yuebon.Commons.Services
         /// <param name="id">主键</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public T Get(TKey id, IDbTransaction trans = null)
+        public virtual T Get(TKey id, IDbTransaction trans = null)
         {
             return repository.Get(id, trans);
         }
@@ -195,7 +195,7 @@ namespace Yuebon.Commons.Services
         /// <param name="id">主键</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public TDto GetOutDto(TKey id, IDbTransaction trans = null)
+        public virtual TDto GetOutDto(TKey id, IDbTransaction trans = null)
         {
             return repository.Get(id, trans).MapTo<TDto>();
         }
@@ -206,7 +206,7 @@ namespace Yuebon.Commons.Services
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public T GetWhere(string where, IDbTransaction trans = null)
+        public virtual T GetWhere(string where, IDbTransaction trans = null)
         {
             return repository.GetWhere(where, trans);
         }
@@ -216,7 +216,7 @@ namespace Yuebon.Commons.Services
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public TDto GetOutDtoWhere(string where, IDbTransaction trans = null)
+        public virtual TDto GetOutDtoWhere(string where, IDbTransaction trans = null)
         {
             return repository.GetWhere(where, trans).MapTo<TDto>();
         }
@@ -227,7 +227,7 @@ namespace Yuebon.Commons.Services
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public async Task<T> GetWhereAsync(string where, IDbTransaction trans = null)
+        public virtual async Task<T> GetWhereAsync(string where, IDbTransaction trans = null)
         {
             return await repository.GetWhereAsync(where, trans);
         }
@@ -238,7 +238,7 @@ namespace Yuebon.Commons.Services
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public async Task<TDto> GetOutDtoWhereAsync(string where, IDbTransaction trans = null)
+        public virtual async Task<TDto> GetOutDtoWhereAsync(string where, IDbTransaction trans = null)
         {
             T info = await repository.GetWhereAsync(where, trans);
             return info.MapTo<TDto>();
@@ -250,7 +250,7 @@ namespace Yuebon.Commons.Services
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public IEnumerable<T> GetListTopWhere(int top, string where = null, IDbTransaction trans = null)
+        public virtual IEnumerable<T> GetListTopWhere(int top, string where = null, IDbTransaction trans = null)
         {
             return repository.GetListTopWhere(top, where);
         }
@@ -262,7 +262,7 @@ namespace Yuebon.Commons.Services
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public async Task<IEnumerable<T>> GetListTopWhereAsync(int top, string where = null, IDbTransaction trans = null)
+        public virtual async Task<IEnumerable<T>> GetListTopWhereAsync(int top, string where = null, IDbTransaction trans = null)
         {
             return await repository.GetListTopWhereAsync(top, where);
         }
@@ -271,7 +271,7 @@ namespace Yuebon.Commons.Services
         /// </summary>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public IEnumerable<T> GetAll(IDbTransaction trans = null)
+        public virtual IEnumerable<T> GetAll(IDbTransaction trans = null)
         {
             return repository.GetAll(trans);
         }
@@ -281,7 +281,7 @@ namespace Yuebon.Commons.Services
         /// </summary>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public Task<IEnumerable<T>> GetAllAsync(IDbTransaction trans = null)
+        public virtual Task<IEnumerable<T>> GetAllAsync(IDbTransaction trans = null)
         {
             return  repository.GetAllAsync(trans);
         }
@@ -292,7 +292,7 @@ namespace Yuebon.Commons.Services
         /// <param name="id">主键</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public async Task<T> GetAsync(TKey id, IDbTransaction trans = null)
+        public virtual async Task<T> GetAsync(TKey id, IDbTransaction trans = null)
         {
             return await repository.GetAsync(id, trans);
         }
@@ -302,7 +302,7 @@ namespace Yuebon.Commons.Services
         /// <param name="id">主键</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public async Task<TDto> GetOutDtoAsync(TKey id, IDbTransaction trans = null)
+        public virtual async Task<TDto> GetOutDtoAsync(TKey id, IDbTransaction trans = null)
         {
             T info=await repository.GetAsync(id, trans);
             return info.MapTo<TDto>();
@@ -314,7 +314,7 @@ namespace Yuebon.Commons.Services
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
 
-        public IEnumerable<T> GetListWhere(string where = null, IDbTransaction trans = null)
+        public virtual IEnumerable<T> GetListWhere(string where = null, IDbTransaction trans = null)
         {
             return repository.GetListWhere(where, trans);
         }
@@ -324,7 +324,7 @@ namespace Yuebon.Commons.Services
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public async Task<IEnumerable<T>> GetListWhereAsync(string where = null, IDbTransaction trans = null)
+        public virtual async Task<IEnumerable<T>> GetListWhereAsync(string where = null, IDbTransaction trans = null)
         {
             return await repository.GetListWhereAsync(where, trans);
         }
@@ -334,7 +334,7 @@ namespace Yuebon.Commons.Services
         /// <param name="entity">实体</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public long Insert(T entity, IDbTransaction trans = null)
+        public virtual long Insert(T entity, IDbTransaction trans = null)
         {
             return repository.Insert(entity, trans);
         }
@@ -345,7 +345,7 @@ namespace Yuebon.Commons.Services
         /// <param name="entity">实体</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public Task<long> InsertAsync(T entity, IDbTransaction trans = null)
+        public virtual Task<long> InsertAsync(T entity, IDbTransaction trans = null)
         {
             return repository.InsertAsync(entity, trans);
         }
@@ -355,7 +355,7 @@ namespace Yuebon.Commons.Services
         /// <param name="entities">实体集合</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public long Insert(List<T> entities, IDbTransaction trans = null)
+        public virtual long Insert(List<T> entities, IDbTransaction trans = null)
         {
             return repository.Insert(entities, trans);
         }
@@ -365,7 +365,7 @@ namespace Yuebon.Commons.Services
         /// <param name="entities">实体集合</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public Task<long> InsertAsync(List<T> entities, IDbTransaction trans = null)
+        public virtual Task<long> InsertAsync(List<T> entities, IDbTransaction trans = null)
         {
             return repository.InsertAsync(entities, trans);
         }
@@ -377,7 +377,7 @@ namespace Yuebon.Commons.Services
         /// <param name="id">主键ID</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public bool Update(T entity, TKey id, IDbTransaction trans = null)
+        public virtual bool Update(T entity, TKey id, IDbTransaction trans = null)
         {
             return repository.Update(entity,id,trans);
         }
@@ -388,7 +388,7 @@ namespace Yuebon.Commons.Services
         /// <param name="entities">实体集合</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public bool Update(List<T> entities, IDbTransaction trans = null)
+        public virtual bool Update(List<T> entities, IDbTransaction trans = null)
         {
             return repository.Update(entities, trans);
         }
@@ -400,7 +400,7 @@ namespace Yuebon.Commons.Services
         /// <param name="id">主键ID</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public Task<bool> UpdateAsync(T entity, TKey id, IDbTransaction trans = null)
+        public virtual Task<bool> UpdateAsync(T entity, TKey id, IDbTransaction trans = null)
         {
             return repository.UpdateAsync(entity,id, trans);
         }
@@ -411,7 +411,7 @@ namespace Yuebon.Commons.Services
         /// <param name="entities">实体集合</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public Task<bool> UpdateAsync(List<T> entities, IDbTransaction trans = null)
+        public virtual Task<bool> UpdateAsync(List<T> entities, IDbTransaction trans = null)
         {
             return repository.UpdateAsync(entities, trans);
         }
@@ -424,7 +424,7 @@ namespace Yuebon.Commons.Services
         /// <param name="where">条件,为空更新所有内容</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public bool UpdateTableField(string strField, string fieldValue, string where, IDbTransaction trans = null)
+        public virtual bool UpdateTableField(string strField, string fieldValue, string where, IDbTransaction trans = null)
         {
 
             return repository.UpdateTableField(strField, fieldValue, where, trans);
@@ -437,7 +437,7 @@ namespace Yuebon.Commons.Services
         /// <param name="where">条件,为空更新所有内容</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public async Task<bool> UpdateTableFieldAsync(string strField, string fieldValue, string where, IDbTransaction trans = null)
+        public virtual async Task<bool> UpdateTableFieldAsync(string strField, string fieldValue, string where, IDbTransaction trans = null)
         {
             return await repository.UpdateTableFieldAsync(strField, fieldValue, where, trans);
         }
@@ -449,7 +449,7 @@ namespace Yuebon.Commons.Services
         /// <param name="where">条件,为空更新所有内容</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public bool UpdateTableField(string strField, int fieldValue, string where, IDbTransaction trans = null)
+        public virtual bool UpdateTableField(string strField, int fieldValue, string where, IDbTransaction trans = null)
         {
             return repository.UpdateTableField(strField, fieldValue, where, trans);
         }
@@ -462,7 +462,7 @@ namespace Yuebon.Commons.Services
         /// <param name="where">条件,为空更新所有内容</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public async Task<bool> UpdateTableFieldAsync(string strField, int fieldValue, string where, IDbTransaction trans = null)
+        public virtual async Task<bool> UpdateTableFieldAsync(string strField, int fieldValue, string where, IDbTransaction trans = null)
         {
             return await repository.UpdateTableFieldAsync(strField, fieldValue, where, trans);
         }
@@ -472,7 +472,7 @@ namespace Yuebon.Commons.Services
         /// <param name="where">查询条件</param>
         /// <param name="trans"></param>
         /// <returns></returns>
-        public IEnumerable<T> GetAllByIsDeleteMark(string where = null, IDbTransaction trans = null)
+        public virtual IEnumerable<T> GetAllByIsDeleteMark(string where = null, IDbTransaction trans = null)
         {
             return repository.GetAllByIsDeleteMark(where, trans);
         }
@@ -483,7 +483,7 @@ namespace Yuebon.Commons.Services
         /// <param name="where">查询条件</param>
         /// <param name="trans"></param>
         /// <returns></returns>
-        public IEnumerable<T> GetAllByIsNotDeleteMark(string where = null, IDbTransaction trans = null)
+        public virtual IEnumerable<T> GetAllByIsNotDeleteMark(string where = null, IDbTransaction trans = null)
         {
             return repository.GetAllByIsNotDeleteMark(where, trans);
         }
@@ -494,7 +494,7 @@ namespace Yuebon.Commons.Services
         /// <param name="where">查询条件</param>
         /// <param name="trans"></param>
         /// <returns></returns>
-        public IEnumerable<T> GetAllByIsEnabledMark(string where = null, IDbTransaction trans = null)
+        public virtual IEnumerable<T> GetAllByIsEnabledMark(string where = null, IDbTransaction trans = null)
         {
             return repository.GetAllByIsEnabledMark(where, trans);
         }
@@ -505,7 +505,7 @@ namespace Yuebon.Commons.Services
         /// <param name="where">查询条件</param>
         /// <param name="trans"></param>
         /// <returns></returns>
-        public IEnumerable<T> GetAllByIsNotEnabledMark(string where = null, IDbTransaction trans = null)
+        public virtual IEnumerable<T> GetAllByIsNotEnabledMark(string where = null, IDbTransaction trans = null)
         {
             return repository.GetAllByIsNotEnabledMark(where, trans);
         }
@@ -515,7 +515,7 @@ namespace Yuebon.Commons.Services
         /// <param name="where">查询条件</param>
         /// <param name="trans"></param>
         /// <returns></returns>
-        public IEnumerable<T> GetAllByIsNotDeleteAndEnabledMark(string where = null, IDbTransaction trans = null)
+        public virtual IEnumerable<T> GetAllByIsNotDeleteAndEnabledMark(string where = null, IDbTransaction trans = null)
         {
             return repository.GetAllByIsNotDeleteAndEnabledMark(where, trans);
         }
@@ -526,7 +526,7 @@ namespace Yuebon.Commons.Services
         /// <param name="where">查询条件</param>
         /// <param name="trans"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<T>> GetAllByIsDeleteMarkAsync(string where = null, IDbTransaction trans = null)
+        public virtual async Task<IEnumerable<T>> GetAllByIsDeleteMarkAsync(string where = null, IDbTransaction trans = null)
         {
             return await repository.GetAllByIsDeleteMarkAsync(where, trans);
         }
@@ -537,7 +537,7 @@ namespace Yuebon.Commons.Services
         /// <param name="where">查询条件</param>
         /// <param name="trans"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<T>> GetAllByIsNotDeleteMarkAsync(string where = null, IDbTransaction trans = null)
+        public virtual async Task<IEnumerable<T>> GetAllByIsNotDeleteMarkAsync(string where = null, IDbTransaction trans = null)
         {
             return await repository.GetAllByIsNotDeleteMarkAsync(where, trans);
         }
@@ -548,7 +548,7 @@ namespace Yuebon.Commons.Services
         /// <param name="where">查询条件</param>
         /// <param name="trans"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<T>> GetAllByIsEnabledMarkAsync(string where = null, IDbTransaction trans = null)
+        public virtual async Task<IEnumerable<T>> GetAllByIsEnabledMarkAsync(string where = null, IDbTransaction trans = null)
         {
             return await repository.GetAllByIsEnabledMarkAsync(where, trans);
         }
@@ -559,7 +559,7 @@ namespace Yuebon.Commons.Services
         /// <param name="where">查询条件</param>
         /// <param name="trans"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<T>> GetAllByIsNotEnabledMarkAsync(string where = null, IDbTransaction trans = null)
+        public virtual async Task<IEnumerable<T>> GetAllByIsNotEnabledMarkAsync(string where = null, IDbTransaction trans = null)
         {
             return await repository.GetAllByIsNotEnabledMarkAsync(where, trans);
         }
@@ -570,7 +570,7 @@ namespace Yuebon.Commons.Services
         /// <param name="where">查询条件</param>
         /// <param name="trans"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<T>> GetAllByIsNotDeleteAndEnabledMarkAsync(string where = null, IDbTransaction trans = null)
+        public virtual async Task<IEnumerable<T>> GetAllByIsNotDeleteAndEnabledMarkAsync(string where = null, IDbTransaction trans = null)
         {
             return await repository.GetAllByIsNotDeleteAndEnabledMarkAsync(where, trans);
         }
@@ -584,7 +584,7 @@ namespace Yuebon.Commons.Services
         /// <param name="userId">操作用户</param>
         /// <param name="trans"></param>
         /// <returns></returns>
-        public bool SetEnabledMark(bool bl, TKey id,string userId=null, IDbTransaction trans = null)
+        public virtual bool SetEnabledMark(bool bl, TKey id,string userId=null, IDbTransaction trans = null)
         {
             return repository.SetEnabledMark(bl, id, userId, trans);
         }
@@ -597,7 +597,7 @@ namespace Yuebon.Commons.Services
         /// <param name="userId">操作用户</param>
         /// <param name="trans"></param>
         /// <returns></returns>
-        public async Task<bool> SetEnabledMarkAsync(bool bl, TKey id, string userId = null, IDbTransaction trans = null)
+        public virtual async Task<bool> SetEnabledMarkAsync(bool bl, TKey id, string userId = null, IDbTransaction trans = null)
         {
             return await repository.SetEnabledMarkAsync(bl, id,userId, trans);
         }
@@ -611,7 +611,7 @@ namespace Yuebon.Commons.Services
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public async Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, string userId = null, IDbTransaction trans = null)
+        public virtual async Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, string userId = null, IDbTransaction trans = null)
         {
             return await this.repository.SetEnabledMarkByWhereAsync(bl, where, userId, trans);
         }
@@ -679,7 +679,7 @@ namespace Yuebon.Commons.Services
         /// <param name="desc">排序方式</param>
         /// <param name="trans">事务对象</param>
         /// <returns>指定对象的集合</returns>
-        public async Task<List<T>> FindWithPagerAsync(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
+        public virtual async Task<List<T>> FindWithPagerAsync(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
         {
             return await repository.FindWithPagerAsync(condition, info, fieldToSort, desc, trans);
         }
@@ -693,7 +693,7 @@ namespace Yuebon.Commons.Services
         /// <param name="fieldToSort">排序字段</param>
         /// <param name="trans">事务对象</param>
         /// <returns>指定对象的集合</returns>
-        public async Task<List<T>> FindWithPagerAsync(string condition, PagerInfo info, string fieldToSort, IDbTransaction trans = null)
+        public virtual async Task<List<T>> FindWithPagerAsync(string condition, PagerInfo info, string fieldToSort, IDbTransaction trans = null)
         {
             return await repository.FindWithPagerAsync(condition, info, fieldToSort,trans);
         }
@@ -706,7 +706,7 @@ namespace Yuebon.Commons.Services
         /// <param name="info">分页实体</param>
         /// <param name="trans">事务对象</param>
         /// <returns>指定对象的集合</returns>
-        public async Task<List<T>> FindWithPagerAsync(string condition, PagerInfo info, IDbTransaction trans = null)
+        public virtual async Task<List<T>> FindWithPagerAsync(string condition, PagerInfo info, IDbTransaction trans = null)
         {
             return await repository.FindWithPagerAsync(condition, info, trans);
         }
@@ -720,7 +720,7 @@ namespace Yuebon.Commons.Services
         /// <param name="desc">排序方式 true为desc，false为asc</param>
         /// <param name="trans"></param>
         /// <returns></returns>
-        public async Task<List<T>> FindWithPagerSqlAsync(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
+        public virtual async Task<List<T>> FindWithPagerSqlAsync(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
         {
             return await repository.FindWithPagerAsync(condition, info,fieldToSort,desc, trans);
         }
@@ -737,7 +737,7 @@ namespace Yuebon.Commons.Services
         /// <param name="desc">排序方式</param>
         /// <param name="trans">事务</param>
         /// <returns></returns>
-        public async Task<List<object>> FindWithPagerRelationUserAsync(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
+        public virtual async Task<List<object>> FindWithPagerRelationUserAsync(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
         {
             return await repository.FindWithPagerRelationUserAsync(condition, info, fieldToSort, desc, trans);
         }
@@ -773,9 +773,21 @@ namespace Yuebon.Commons.Services
         /// </summary>
         /// <param name="condition">查询条件</param>
         /// <returns></returns>
-        public async Task<int> GetCountByWhereAsync(string condition)
+        public virtual async Task<int> GetCountByWhereAsync(string condition)
         {
             return await repository.GetCountByWhereAsync(condition);
+        }
+
+        /// <summary>
+        /// 根据条件查询获取某个字段的最大值
+        /// </summary>
+        /// <param name="strField">字段</param>
+        /// <param name="where">条件</param>
+        /// <param name="trans">事务</param>
+        /// <returns>返回字段的最大值</returns>
+        public virtual async Task<int> GetMaxValueByFieldAsync(string strField, string where, IDbTransaction trans = null)
+        {
+            return await repository.GetMaxValueByFieldAsync(strField,where);
         }
         #region IDisposable Support
         private bool disposedValue = false; // 要检测冗余调用

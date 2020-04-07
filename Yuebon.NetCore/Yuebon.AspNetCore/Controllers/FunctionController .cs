@@ -45,17 +45,25 @@ namespace Yuebon.AspNetCore.Controllers
             CommonResult result = new CommonResult();
             try
             {
-                YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                List<FunctionOutputDto> functions = new List<FunctionOutputDto>();
-                functions = JsonConvert.DeserializeObject<List<FunctionOutputDto>>(yuebonCacheHelper.Get("User_Function_" + CurrentUser.UserId).ToJson());
-                FunctionOutputDto functionOutputDto = functions.Find(s => s.EnCode == enCode);
-                List<FunctionOutputDto> nowFunList = new List<FunctionOutputDto>();
-                if (functionOutputDto != null)
+                if (CurrentUser != null)
                 {
-                   nowFunList = functions.FindAll(s => s.ParentId == functionOutputDto.Id);
+                    YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+                    List<FunctionOutputDto> functions = new List<FunctionOutputDto>();
+                    functions = JsonConvert.DeserializeObject<List<FunctionOutputDto>>(yuebonCacheHelper.Get("User_Function_" + CurrentUser.UserId).ToJson());
+                    FunctionOutputDto functionOutputDto = functions.Find(s => s.EnCode == enCode);
+                    List<FunctionOutputDto> nowFunList = new List<FunctionOutputDto>();
+                    if (functionOutputDto != null)
+                    {
+                        nowFunList = functions.FindAll(s => s.ParentId == functionOutputDto.Id);
+                    }
+                    result.ErrCode = ErrCode.successCode;
+                    result.ResData = nowFunList;
                 }
-                result.ErrCode = ErrCode.successCode;
-                result.ResData = nowFunList;
+                else
+                {
+                    result.ErrCode = "40008";
+                    result.ErrMsg = ErrCode.err40008;
+                }
             }
             catch (Exception ex)
             {

@@ -537,5 +537,14 @@ namespace Yuebon.Commons.IRepositories
         /// <param name="condition">查询条件</param>
         /// <returns></returns>
         Task<int> GetCountByWhereAsync(string condition);
+
+        /// <summary>
+        /// 根据条件查询获取某个字段的最大值
+        /// </summary>
+        /// <param name="strField">字段</param>
+        /// <param name="where">条件</param>
+        /// <param name="trans">事务</param>
+        /// <returns>返回字段的最大值</returns>
+        Task<int> GetMaxValueByFieldAsync(string strField, string where, IDbTransaction trans = null);
      }
 }

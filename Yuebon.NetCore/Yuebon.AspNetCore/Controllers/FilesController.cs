@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.IO;
 using Yuebon.AspNetCore.Controllers;
 using Yuebon.AspNetCore.Models;
+using Yuebon.AspNetCore.Mvc;
+using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
@@ -35,8 +37,7 @@ namespace Yuebon.AspNetCore.Controllers
         private string _belongApp;//所属应用
         private string _belongAppId;//所属应用ID 
         private string _fileName;//文件名称
-        private Type type = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType;
-        
+
         /// <summary>
         ///  单文件上传接口
         /// </summary>
@@ -47,14 +48,11 @@ namespace Yuebon.AspNetCore.Controllers
         public IActionResult Upload([FromForm] IFormCollection formCollection)
         {
             CommonResult result = new CommonResult();
-            string token = formCollection["Token"].ToString();
-            result = CheckToken(token);
-            if (result.Success)
-            {
+           
                 FormFileCollection filelist = (FormFileCollection)formCollection.Files;
                 string belongApp = formCollection["belongApp"].ToString();
                 string belongAppId = formCollection["belongAppId"].ToString();
-                _fileName = formCollection["FileName"].ToString();
+                _fileName = filelist[0].FileName;
                 try
                 {
                     result.ResData = Add(filelist[0], belongApp, belongAppId);
@@ -66,7 +64,6 @@ namespace Yuebon.AspNetCore.Controllers
                     result.ErrCode = "500";
                     result.ErrMsg = ex.Message;
                 }
-            }
             return ToJsonContent(result);
         }
         /// <summary>
@@ -237,7 +234,16 @@ namespace Yuebon.AspNetCore.Controllers
             SysSetting sysSetting = JsonConvert.DeserializeObject<SysSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
             string folder = DateTime.Now.ToString("yyyyMMdd");
             _filePath = sysSetting.LocalPath;
-            var _tempfilepath = sysSetting.Filepath+"/" + CurrentUser.UserId + "/" + _belongApp ;
+            var _tempfilepath = sysSetting.Filepath;
+
+            if (!string.IsNullOrEmpty(_belongApp))
+            {
+                _tempfilepath += "/"+_belongApp;
+            }
+            if (!string.IsNullOrEmpty(_belongAppId))
+            {
+                _tempfilepath += "/" + _belongAppId;
+            }
             if (sysSetting.Filesave == "1")
             {
                 _tempfilepath = _tempfilepath + "/" + folder + "/";

@@ -244,12 +244,12 @@ namespace Yuebon.Commons.Helpers
            
             #region 文件属性
             DocumentSummaryInformation dsi = PropertySetFactory.CreateDocumentSummaryInformation();
-            dsi.Company = "517best.com";
+            dsi.Company = "yuebon.com";
             workbook.DocumentSummaryInformation = dsi;
             SummaryInformation si = PropertySetFactory.CreateSummaryInformation();
-            si.Author = "517best.com";
-            si.ApplicationName = "517best.com";
-            si.LastAuthor = "517best.com";
+            si.Author = "yuebon.com";
+            si.ApplicationName = "yuebon.com";
+            si.LastAuthor = "yuebon.com";
             si.Comments = "";
             si.Title = "";
             si.Subject = "";

@@ -26,21 +26,21 @@ namespace Yuebon.AspNetCore.Controllers
     [ApiController]
     public class TokenController : ControllerBase
     {
-        private IAPPService iAPPService;
+        private IAPPService _iAPPService;
         private readonly JwtOption _jwtModel;
         #if DEBUG
         private Type type = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType;
-        #endif
+#endif
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="_iAPPService"></param>
+        /// <param name="iAPPService"></param>
         /// <param name="jwtModel"></param>
-        public TokenController(IAPPService _iAPPService, JwtOption jwtModel)
+        public TokenController(IAPPService iAPPService, JwtOption jwtModel)
         {
-            if (_iAPPService == null)
-                throw new ArgumentNullException(nameof(_iAPPService));
-            iAPPService = _iAPPService;
+            if (iAPPService == null)
+                throw new ArgumentNullException(nameof(iAPPService));
+            _iAPPService = iAPPService;
             _jwtModel = jwtModel;
         }
 
@@ -69,7 +69,7 @@ namespace Yuebon.AspNetCore.Controllers
                 return ToJsonContent(result);
             }
             string strHost = Request.Host.ToString();
-            APP app = iAPPService.GetAPP(appid, secret);
+            APP app = _iAPPService.GetAPP(appid, secret);
             if (app == null)
             {
                 result.ErrCode = "40001";
@@ -135,7 +135,7 @@ namespace Yuebon.AspNetCore.Controllers
                         TokenResult tresult = new TokenResult();
                         var claimlist = jwtToken?.Payload.Claims as List<Claim>;
                         string strHost = Request.Host.ToString();
-                        APP app = iAPPService.GetAPP(claimlist[0].Value);
+                        APP app = _iAPPService.GetAPP(claimlist[0].Value);
                         if (app == null)
                         {
                             result.ErrCode = "40001";

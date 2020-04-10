@@ -1,24 +1,15 @@
 ﻿
-using Senparc.Weixin.WxOpen.AdvancedAPIs;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Senparc.Weixin;
-using Senparc.Weixin.Entities.TemplateMessage;
 using Senparc.Weixin.Entities;
-using System.Threading.Tasks;
-using Senparc.Weixin.WxOpen;
-using Senparc.Weixin.CommonAPIs;
+using Senparc.Weixin.Entities.TemplateMessage;
+using Senparc.Weixin.WxOpen.AdvancedAPIs;
 using Yuebon.Commons.IoC;
-using Senparc.NeuChar;
-using Senparc.CO2NET.Extensions;
 
 namespace Yuebon.WeChat.CommonService.SubscribeMessage.WxApplet
 {
     /// <summary>
     /// 小程序订阅消息
     /// </summary>
-   public class WxAppletSubscribeMessage
+    public class WxAppletSubscribeMessage
     {
         private static SenparcWeixinSetting senparcWeixinSetting = IoCContainer.Resolve<SenparcWeixinSetting>();
         private static readonly string weixinAppId = senparcWeixinSetting.WxOpenAppId;

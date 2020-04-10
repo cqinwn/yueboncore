@@ -51,7 +51,7 @@ namespace Yuebon.AspNetCore.Common
         /// <returns>true:系统管理员或超级管理员,false:不是系统管理员或超级管理员</returns>
         /// <param name="currentUser"></param>
         /// <returns></returns>
-        public bool IsAdmin(UserAuthSession currentUser)
+        public static bool IsAdmin(UserAuthSession currentUser)
         {
             bool blnIsAdmin = false;
             if (currentUser != null)

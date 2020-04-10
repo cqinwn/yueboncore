@@ -44,7 +44,7 @@ namespace Yuebon.AspNetCore.Mvc
             string authHeader = context.HttpContext.Request.Headers["Authorization"];//Header中的token
             if (string.IsNullOrEmpty(authHeader))
             {
-                context.Result = new JsonResult(new CommonResult(ErrCode.err40004, "40000"));
+                context.Result = new JsonResult(new CommonResult(ErrCode.err40004, "40004"));
                 return;
             }
             else

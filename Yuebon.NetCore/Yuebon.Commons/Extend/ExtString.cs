@@ -108,23 +108,39 @@ namespace Yuebon.Commons.Extend
             return htmlstring;
         }
 
-
+        /// <summary>
+        /// 转换为字节流
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static byte[] ToByte(this string value)
         {
             return System.Text.Encoding.UTF8.GetBytes(value);
         }
 
-
+        /// <summary>
+        /// 转换为HtmlDecode
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static string HtmlDecode(this string value)
         {
             return System.Net.WebUtility.HtmlDecode(value);
         }
-
+        /// <summary>
+        /// 转换为HtmlEncode
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static string HtmlEncode(this string value)
         {
             return System.Net.WebUtility.HtmlEncode(value);
         }
-
+        /// <summary>
+        /// 转换为UrlEncode
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static string UrlEncode(this string value)
         {
             StringBuilder sb = new StringBuilder();
@@ -136,7 +152,11 @@ namespace Yuebon.Commons.Extend
             return (sb.ToString());
         }
 
-
+        /// <summary>
+        /// 转换为ToUnicode
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static string ToUnicode(this string value)
         {
             if (string.IsNullOrEmpty(value)) return value;
@@ -147,19 +167,38 @@ namespace Yuebon.Commons.Extend
             }
             return builder.ToString();
         }
-
+        /// <summary>
+        /// email正则验证
+        /// </summary>
         private static readonly Regex emailExpression = new Regex(@"^([0-9a-zA-Z]+[-._+&])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$", RegexOptions.Singleline | RegexOptions.CultureInvariant | RegexOptions.Compiled);
+        /// <summary>
+        /// url正则验证
+        /// </summary>
         private static readonly Regex webUrlExpression = new Regex(@"(http|https)://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?", RegexOptions.Singleline | RegexOptions.CultureInvariant | RegexOptions.Compiled);
+        /// <summary>
+        /// 
+        /// </summary>
         private static readonly Regex stripHTMLExpression = new Regex("<\\S[^><]*>", RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Multiline | RegexOptions.CultureInvariant | RegexOptions.Compiled);
 
-
+        /// <summary>
+        /// 格式化
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public static string FormatWith(this string instance, params object[] args)
         {
             return string.Format(instance, args);
         }
 
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="instance"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
         public static T ToEnum<T>(this string instance, T defaultValue) where T : struct, IComparable, IFormattable
         {
             T convertedValue = defaultValue;
@@ -171,7 +210,13 @@ namespace Yuebon.Commons.Extend
 
             return convertedValue;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="instance"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
         public static T ToEnum<T>(this int instance, T defaultValue) where T : struct, IComparable, IFormattable
         {
             T convertedValue;
@@ -183,85 +228,141 @@ namespace Yuebon.Commons.Extend
 
             return convertedValue;
         }
-
+        /// <summary>
+        /// 删除html内容
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <returns></returns>
         public static string StripHtml(this string instance)
         {
             return stripHTMLExpression.Replace(instance, string.Empty);
         }
-
+        /// <summary>
+        /// 是否是email地址
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <returns></returns>
         public static bool IsEmail(this string instance)
         {
             return !string.IsNullOrWhiteSpace(instance) && emailExpression.IsMatch(instance);
         }
-
+        /// <summary>
+        /// 是否是url
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <returns></returns>
         public static bool IsWebUrl(this string instance)
         {
             return !string.IsNullOrWhiteSpace(instance) && webUrlExpression.IsMatch(instance);
         }
 
-
+        /// <summary>
+        /// 转换为bool
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <returns></returns>
         public static bool AsBool(this string instance)
         {
             bool result = false;
             bool.TryParse(instance, out result);
             return result;
         }
-
+        /// <summary>
+        /// 转换为日期时间型
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <returns></returns>
         public static DateTime AsDateTime(this string instance)
         {
             DateTime result = DateTime.MinValue;
             DateTime.TryParse(instance, out result);
             return result;
         }
-
+        /// <summary>
+        /// 转换为Decima
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <returns></returns>
         public static Decimal AsDecimal(this string instance)
         {
             var result = (decimal)0.0;
             Decimal.TryParse(instance, out result);
             return result;
         }
-
+        /// <summary>
+        /// 转换为整型
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <returns></returns>
         public static int AsInt(this string instance)
         {
             var result = (int)0;
             int.TryParse(instance, out result);
             return result;
         }
-
+        /// <summary>
+        /// 是否是Int整型
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <returns></returns>
         public static bool IsInt(this string instance)
         {
             int result;
             return int.TryParse(instance, out result);
         }
-
+        /// <summary>
+        /// 是否是DateTime日期时间型
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <returns></returns>
         public static bool IsDateTime(this string instance)
         {
             DateTime result;
             return DateTime.TryParse(instance, out result);
         }
-
+        /// <summary>
+        /// 是否是Float浮点型
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <returns></returns>
         public static bool IsFloat(this string instance)
         {
             float result;
             return float.TryParse(instance, out result);
         }
-
+        /// <summary>
+        /// 是否为空或空白
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <returns></returns>
         public static bool IsNullOrWhiteSpace(this string instance)
         {
             return string.IsNullOrWhiteSpace(instance);
         }
-
+        /// <summary>
+        /// 是否为不空或空白
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <returns></returns>
         public static bool IsNotNullAndWhiteSpace(this string instance)
         {
             return !string.IsNullOrWhiteSpace(instance);
         }
 
-
+        /// <summary>
+        /// 是否为空
+        /// </summary>
+        /// <param name="theString"></param>
+        /// <returns></returns>
         public static bool IsNullOrEmpty(this string theString)
         {
             return string.IsNullOrEmpty(theString);
         }
-
+        /// <summary>
+        /// 字符串第一个字符大写
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <returns></returns>
         public static string FirstCharToLowerCase(this string instance)
         {
             if (instance.IsNotNullAndWhiteSpace() && instance.Length > 2 && char.IsUpper(instance[0]))
@@ -274,10 +375,21 @@ namespace Yuebon.Commons.Extend
             }
             return instance;
         }
+        /// <summary>
+        /// 文件路径
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static string ToFilePath(this string path)
         {
             return string.Join(Path.DirectorySeparatorChar.ToString(), path.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static string CombinePath(this string p,string path)
         {
             return p + Path.DirectorySeparatorChar + path;

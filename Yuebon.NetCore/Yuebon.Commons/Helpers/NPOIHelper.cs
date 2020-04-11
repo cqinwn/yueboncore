@@ -5,6 +5,7 @@ using System.Text;
 using NPOI.HPSF;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 
 namespace Yuebon.Commons.Helpers
 {
@@ -548,5 +549,29 @@ namespace Yuebon.Commons.Helpers
                 rowIndex++;
             }
         }
-  }
+
+        /// <summary>
+        /// 按指定长度创建列并带入样式
+        /// </summary>
+        /// <param name="hssfrow"></param>
+        /// <param name="len"></param>
+        /// <returns></returns>
+        private bool CreateCellsWithLength(XSSFRow hssfrow, int len, XSSFCellStyle cellstyle)
+        {
+            try
+            {
+                for (int i = 0; i < len; i++)
+                {
+                    hssfrow.CreateCell(i);
+                    hssfrow.Cells[i].CellStyle = cellstyle;
+                }
+                return true;
+            }
+            catch (Exception ce)
+            {
+                throw new Exception("CreateCellsWithLength:" + ce.Message);
+            }
+        }
+
+    }
 }

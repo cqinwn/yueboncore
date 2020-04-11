@@ -108,7 +108,7 @@
       }
     },
     "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj": {
-      "version": "1.3.1.2",
+      "version": "1.3.1.3",
       "restore": {
         "projectUniqueName": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj",
         "projectName": "Yuebon.Commons",
@@ -164,6 +164,10 @@
             "DotNetCore.NPOI": {
               "target": "Package",
               "version": "[1.2.2, )"
+            },
+            "HtmlAgilityPack": {
+              "target": "Package",
+              "version": "[1.11.23, )"
             },
             "Microsoft.AspNetCore.Http.Abstractions": {
               "target": "Package",
@@ -223,7 +227,11 @@
             },
             "QRCoder": {
               "target": "Package",
-              "version": "[1.3.7, )"
+              "version": "[1.3.9, )"
+            },
+            "SgmlReader.NetCore": {
+              "target": "Package",
+              "version": "[1.0.0, )"
             },
             "System.Data.SqlClient": {
               "target": "Package",

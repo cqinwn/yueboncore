@@ -556,7 +556,7 @@ namespace Yuebon.Commons.Helpers
         /// <param name="hssfrow"></param>
         /// <param name="len"></param>
         /// <returns></returns>
-        private bool CreateCellsWithLength(XSSFRow hssfrow, int len, XSSFCellStyle cellstyle)
+        public static bool CreateCellsWithLength(XSSFRow hssfrow, int len, XSSFCellStyle cellstyle)
         {
             try
             {

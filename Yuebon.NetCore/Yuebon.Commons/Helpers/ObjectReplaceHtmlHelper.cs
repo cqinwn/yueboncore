@@ -22,7 +22,7 @@ namespace Yuebon.Commons.Helpers
         /// <param name="strReplace">要替换的原字符串</param>
         /// <param name="prefix">变量前缀</param>
         /// <returns></returns>
-        public string ObjectReplaceString(object objInfo, string strReplace, string prefix = "")
+        public static string ObjectReplaceString(object objInfo, string strReplace, string prefix = "")
         {
             string result = string.Empty;
             string nowReplace = strReplace;

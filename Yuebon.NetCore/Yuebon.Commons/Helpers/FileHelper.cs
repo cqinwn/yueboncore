@@ -21,7 +21,7 @@ namespace Yuebon.Commons.Helpers
         /// <param name="password">密码</param>
         /// <param name="comment">注释</param>
         /// <param name="filetype">文件类型</param>
-        private void ZipFiles(string topDirectoryName, string zipedFileName, int compresssionLevel, string password, string comment, string filetype)
+        public static void ZipFiles(string topDirectoryName, string zipedFileName, int compresssionLevel, string password, string comment, string filetype)
         {
             using (ZipOutputStream zos = new ZipOutputStream(File.Open(zipedFileName, FileMode.OpenOrCreate)))
             {

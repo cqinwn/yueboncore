@@ -37,6 +37,9 @@ export function getSysSetting() {
     baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
   })
 }
+/**
+ * 获取所有子系统
+ */
 export function getSubSystemList() {
   return http({
     url: 'Security/SystemType/GetSubSystemList',

@@ -1,121 +1,171 @@
 <template>
   <div class="app-container">
-    <div class="filter-container">
-      <el-card>
-        <el-form ref="searchform" :inline="true" :model="searchform" class="demo-form-inline" size="small">
-
-          <el-form-item label="仓库名称：">
-            <el-input v-model="searchform.name" clearable placeholder="仓库名称" />
-          </el-form-item>
-          <el-form-item label="仓库编码：">
-            <el-input v-model="searchform.code" clearable placeholder="仓库代码" />
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="handleSearch()">查询</el-button>
-          </el-form-item>
-        </el-form>
-      </el-card>
-    </div>
     <el-card>
-      <div class="list-btn-container">
-        <el-button-group>
-          <slot v-for="itemf in loadBtnFunc">
-            <el-button v-if="itemf.FullName==='新增'" type="primary" icon="el-icon-plus" size="small" @click="ShowEditOrViewDialog()">新增</el-button>
-            <el-button v-if="itemf.FullName==='修改'" type="primary" icon="el-icon-edit" class="el-button-modify" size="small" @click="ShowEditOrViewDialog('edit')">修改</el-button>
-            <el-button v-if="itemf.FullName=='禁用'" type="info" icon="el-icon-video-pause" size="small" @click="setEnable('0')">禁用</el-button>
-            <el-button v-if="itemf.FullName=='启用'" type="success" icon="el-icon-video-play" size="small" @click="setEnable('1')">启用</el-button>
-            <el-button v-if="itemf.FullName==='软删除'" type="warning" icon="el-icon-delete" size="small" @click="deleteSoft('0')">软删除</el-button>
-            <el-button v-if="itemf.FullName==='删除'" type="danger" icon="el-icon-delete" size="small" @click="deletePhysics()">删除</el-button>
-          </slot>
-          <el-button type="default" icon="el-icon-refresh" size="small" @click="loadTableData()">刷新</el-button>
-        </el-button-group>
-      </div>
-      <el-table
-        ref="gridtable"
-        v-loading="tableloading"
-        :data="tableData"
-        border
-        stripe
-        highlight-current-row
-        style="width: 100%"
-        :default-sort="{prop: 'SortCode', order: 'descending'}"
-        @select="handleSelectChange"
-        @select-all="handleSelectAllChange"
-        @sort-change="handleSortChange"
-      >
-        <el-table-column
-          type="selection"
-          width="30"
-        />
-        <el-table-column
-          prop="EnCode"
-          label="仓库编码"
-          sortable="custom"
-          width="180"
-        />
-        <el-table-column
-          prop="Title"
-          label="仓库名称"
-          sortable="custom"
-          width="180"
-        />
-        <el-table-column
-          prop="SortCode"
-          label="排序"
-          sortable="custom"
-          width="90"
-          align="center"
-        />
-        <el-table-column
-          label="是否启用"
-          sortable="custom"
-          width="120"
-          prop="EnabledMark"
-          align="center"
-        >
-          <template slot-scope="scope">
-            <el-tag
-              :type="scope.row.EnabledMark === true ? 'success' : 'info'"
-              disable-transitions
-            >{{ scope.row.EnabledMark===true?'启用':'禁用' }}</el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column
-          label="是否删除"
-          sortable="custom"
-          width="120"
-          prop="DeleteMark"
-          align="center"
-        >
-          <template slot-scope="scope">
-            <el-tag
-              :type="scope.row.DeleteMark === true ? 'danger' : 'success'"
-              disable-transitions
-            >{{ scope.row.DeleteMark===true?'已删除':'否' }}</el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column
-          prop="LastModifyTime"
-          label="更新时间"
-          sortable
-        >
-          <template slot-scope="scope">
-            {{ scope.row.LastModifyTime !== null?scope.row.LastModifyTime:scope.row.CreatorTime }}
-          </template>
-        </el-table-column>
-      </el-table>
-      <div class="pagination-container">
-        <el-pagination
-          background
-          :current-page="pagination.currentPage"
-          :page-sizes="[5,10,20,50,100, 200, 300, 400]"
-          :page-size="pagination.pagesize"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="pagination.pageTotal"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-        />
-      </div>
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <div class="grid-content bg-purple">
+            <div class="grid-content bg-purple">
+              <div class="list-btn-container">
+                <el-form ref="searchmenuform" :inline="true" :model="searchform" class="demo-form-inline" size="small">
+                  <el-form-item>
+                    <el-button type="default" icon="el-icon-refresh" size="small" @click="loadTableData()">刷新</el-button>
+                    <slot v-for="itemf in loadBtnFunc">
+                      <el-button v-if="itemf.FullName==='新增'" type="primary" icon="el-icon-plus" size="small" @click="ShowEditOrViewDialog()">新增</el-button>
+                      <el-button v-if="itemf.FullName==='修改'" type="primary" icon="el-icon-edit" class="el-button-modify" size="small" @click="ShowEditOrViewDialog('edit')">修改</el-button>
+                      <el-button v-if="itemf.FullName=='禁用'" type="info" icon="el-icon-video-pause" size="small" @click="setEnable('0')">禁用</el-button>
+                      <el-button v-if="itemf.FullName=='启用'" type="success" icon="el-icon-video-play" size="small" @click="setEnable('1')">启用</el-button>
+                      <el-button v-if="itemf.FullName==='删除'" type="danger" icon="el-icon-delete" size="small" @click="deletePhysics()">删除</el-button>
+                    </slot>
+                  </el-form-item>
+                  <el-form-item label="系统名称：">
+                    <el-select v-model="searchmenuform.systemTypeId" clearable placeholder="请选择">
+                      <el-option
+                        v-for="item in selectSystemType"
+                        :key="item.Id"
+                        :label="item.FullName"
+                        :value="item.Id"
+                      />
+                    </el-select>
+                  </el-form-item>
+                  <el-form-item>
+                    <el-button type="primary" @click="handleSearch()">查询</el-button>
+                  </el-form-item>
+                </el-form>
+              </div>
+              <el-table
+                :data="tableDataMenus"
+                style="width: 100%;margin-bottom: 20px;"
+                row-key="Id"
+                border
+                default-expand-all
+                :tree-props="{children: 'Children'}"
+                @row-click="handleClickMenuChange"
+              >
+                <el-table-column
+                  prop="FullName"
+                  label="菜单名称"
+                  width="220"
+                />
+                <el-table-column
+                  prop="EnCode"
+                  label="功能编码"
+                  width="220"
+                />
+                <el-table-column
+                  prop="UrlAddress"
+                  label="访问地址"
+                />
+                <el-table-column
+                  label="是否启用"
+                  sortable="custom"
+                  width="120"
+                  prop="EnabledMark"
+                  align="center"
+                >
+                  <template slot-scope="scope">
+                    <el-tag
+                      :type="scope.row.EnabledMark === true ? 'success' : 'info'"
+                      disable-transitions
+                    >{{ scope.row.EnabledMark===true?'启用':'禁用' }}</el-tag>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </div>
+          </div>
+        </el-col>
+        <el-col :span="12">
+          <div class="grid-content bg-purple">
+            <div class="list-btn-container">
+              <el-form ref="searchform" :inline="true" :model="searchform" class="demo-form-inline" size="small">
+                <el-form-item>
+                  <el-button type="default" icon="el-icon-refresh" size="small" @click="loadFunctionTableData()">刷新</el-button>
+                  <slot v-for="itemf in loadBtnFunc">
+                    <el-button v-if="itemf.FullName==='新增'" type="primary" icon="el-icon-plus" size="small" @click="ShowEditOrViewDialog()">新增</el-button>
+                    <el-button v-if="itemf.FullName==='修改'" type="primary" icon="el-icon-edit" class="el-button-modify" size="small" @click="ShowEditOrViewDialog('edit')">修改</el-button>
+                    <el-button v-if="itemf.FullName=='禁用'" type="info" icon="el-icon-video-pause" size="small" @click="setEnable('0')">禁用</el-button>
+                    <el-button v-if="itemf.FullName=='启用'" type="success" icon="el-icon-video-play" size="small" @click="setEnable('1')">启用</el-button>
+                    <el-button v-if="itemf.FullName==='删除'" type="danger" icon="el-icon-delete" size="small" @click="deletePhysics()">删除</el-button>
+                  </slot>
+                </el-form-item>
+                <el-form-item label="功能名称：">
+                  <el-input v-model="searchform.keywords" clearable placeholder="功能名称或编码" />
+                </el-form-item>
+                <el-form-item>
+                  <el-button type="primary" @click="handleSearchFunction()">查询</el-button>
+                </el-form-item>
+              </el-form>
+            </div>
+          </div>
+
+          <el-table
+            ref="gridtable"
+            v-loading="tableloading"
+            :data="tableData"
+            border
+            stripe
+            highlight-current-row
+            style="width: 100%"
+            :default-sort="{prop: 'SortCode', order: 'descending'}"
+            @select="handleSelectChange"
+            @select-all="handleSelectAllChange"
+            @sort-change="handleSortChange"
+          >
+            <el-table-column
+              type="selection"
+              width="30"
+            />
+            <el-table-column
+              prop="FullName"
+              label="功能名称"
+              sortable="custom"
+              width="180"
+            />
+            <el-table-column
+              prop="EnCode"
+              label="功能编码"
+              sortable="custom"
+            />
+            <el-table-column
+              prop="SortCode"
+              label="排序"
+              sortable="custom"
+              width="100"
+            />
+            <el-table-column
+              prop="Icon"
+              label="图标"
+              sortable="custom"
+              width="120"
+            />
+            <el-table-column
+              label="是否启用"
+              sortable="custom"
+              width="120"
+              prop="EnabledMark"
+              align="center"
+            >
+              <template slot-scope="scope">
+                <el-tag
+                  :type="scope.row.EnabledMark === true ? 'success' : 'info'"
+                  disable-transitions
+                >{{ scope.row.EnabledMark===true?'启用':'禁用' }}</el-tag>
+              </template>
+            </el-table-column>
+          </el-table>
+          <div class="pagination-container">
+            <el-pagination
+              background
+              :current-page="pagination.currentPage"
+              :page-sizes="[5,10,20,50,100, 200, 300, 400]"
+              :page-size="pagination.pagesize"
+              layout="total, sizes, prev, pager, next, jumper"
+              :total="pagination.pageTotal"
+              @size-change="handleSizeChange"
+              @current-change="handleCurrentChange"
+            />
+          </div>
+        </el-col>
+      </el-row>
     </el-card>
     <el-dialog ref="dialogEditForm" :title="editFormTitle+'仓库'" :visible.sync="dialogEditFormVisible" width="30%">
       <el-form ref="editFrom" :model="editFrom" :rules="rules">
@@ -145,17 +195,22 @@
 </template>
 
 <script>
-
-import { getMenuListWithPager, getMenuDetail, saveMenu, setMenuEnable, deleteSoftMenu, deleteMenu } from '@/api/purviewservice'
+import { getSubSystemList } from '@/api/basebasic'
+import { getAllMenuTreeTable, getMenuDetail, saveMenu, setMenuEnable, deleteSoftMenu, deleteMenu,
+  getFunctionListWithPager
+} from '@/api/menu/menufunction'
 
 export default {
   data() {
     return {
       searchform: {
-        categoryId: '',
-        name: '',
+        keywords: '',
         code: ''
       },
+      searchmenuform: {
+        systemTypeId: ''
+      },
+      selectSystemType: [],
       loadBtnFunc: [],
       tableData: [],
       tableloading: true,
@@ -189,13 +244,15 @@ export default {
       },
       formLabelWidth: '80px',
       currentId: '', // 当前操作对象的ID值，主要用于修改
-      currentSelected: []
+      currentSelected: [],
+      tableDataMenus: []
     }
   },
   created() {
     this.pagination.currentPage = 1
     this.InitDictItem()
     this.loadTableData()
+    this.loadFunctionTableData()
     this.loadBtnFunc = JSON.parse(localStorage.getItem('yueboncurrentfuns'))
   },
   methods: {
@@ -203,25 +260,19 @@ export default {
      * 初始化数据
      */
     InitDictItem() {
-
+      getSubSystemList().then(res => {
+        this.selectSystemType = res.ResData
+      })
     },
     /**
-     * 加载页面table数据
+     * 加载页面左侧菜单table数据
      */
     loadTableData: function() {
-      this.tableloading = true
-      var seachdata = {
-        'CurrentPage': this.pagination.currentPage,
-        'length': this.pagination.pagesize,
-        'Title': this.searchform.name,
-        'EnCode': this.searchform.code,
-        'Order': this.sortableData.order,
-        'Sort': this.sortableData.sort
+      var data = {
+        systemTypeId: this.searchmenuform.systemTypeId
       }
-      getMenuListWithPager(seachdata).then(res => {
-        this.tableData = res.ResData.Items
-        this.pagination.pageTotal = res.ResData.TotalItems
-        this.tableloading = false
+      getAllMenuTreeTable(data).then(res => {
+        this.tableDataMenus = res.ResData
       })
     },
     /**
@@ -230,6 +281,10 @@ export default {
     handleSearch: function() {
       this.pagination.currentPage = 1
       this.loadTableData()
+    },
+    handleSearchFunction: function() {
+      this.pagination.currentPage = 1
+      this.loadFunctionTableData()
     },
     /**
      * 新增、修改或查看明细信息（绑定显示数据）     *
@@ -395,7 +450,12 @@ export default {
       } else {
         this.sortableData.order = 'desc'
       }
-      this.loadTableData()
+      this.loadFunctionTableData()
+    },
+    //
+    handleClickMenuChange: function(row, column, event) {
+      this.searchform.code = row.EnCode
+      this.loadFunctionTableData()
     },
     /**
      * 当用户手动勾选checkbox数据行事件
@@ -415,15 +475,36 @@ export default {
     handleSizeChange(val) {
       this.pagination.pagesize = val
       this.pagination.currentPage = 1
-      this.loadTableData()
+      this.loadFunctionTableData()
     },
     /**
      * 选择当页面
      */
     handleCurrentChange(val) {
       this.pagination.currentPage = val
-      this.loadTableData()
+      this.loadFunctionTableData()
+    },
+
+    /**
+     * 加载页面table数据
+     */
+    loadFunctionTableData: function() {
+      this.tableloading = true
+      var seachdata = {
+        'CurrentPage': this.pagination.currentPage,
+        'length': this.pagination.pagesize,
+        'Keywords': this.searchform.keywords,
+        'EnCode': this.searchform.code,
+        'Order': this.sortableData.order,
+        'Sort': this.sortableData.sort
+      }
+      getFunctionListWithPager(seachdata).then(res => {
+        this.tableData = res.ResData.Items
+        this.pagination.pageTotal = res.ResData.TotalItems
+        this.tableloading = false
+      })
     }
+
   }
 }
 </script>

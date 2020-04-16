@@ -12,10 +12,7 @@ using Yuebon.Commons.Pages;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.Models;
 using Yuebon.Security.IServices;
-using Yuebon.Commons.Cache;
-using Newtonsoft.Json;
-using Yuebon.Commons.Json;
-using Yuebon.AspNetCore.Mvc.Filter;
+using Yuebon.AspNetCore.Mvc;
 
 namespace Yuebon.WebApi.Areas.Security.Controllers
 {
@@ -24,28 +21,28 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
     /// </summary>
     [ApiController]
     [Route("api/Security/[controller]")]
-    public class SystemTypeController : AreaApiController<SystemType, SystemTypeOutputDto, ISystemTypeService,string>
+    public class MenuController : AreaApiController<Menu, MenuOutputDto, IMenuService, string>
     {
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="_iService"></param>
-        public SystemTypeController(ISystemTypeService _iService) : base(_iService)
+        public MenuController(IMenuService _iService) : base(_iService)
         {
             iService = _iService;
-            AuthorizeKey.ListKey = "SystemType/List";
-            AuthorizeKey.InsertKey = "SystemType/Add";
-            AuthorizeKey.UpdateKey = "SystemType/Edit";
-            AuthorizeKey.UpdateEnableKey = "SystemType/Enable";
-            AuthorizeKey.DeleteKey = "SystemType/Delete";
-            AuthorizeKey.DeleteSoftKey = "SystemType/DeleteSoft";
-            AuthorizeKey.ViewKey = "SystemType/View";
+            AuthorizeKey.ListKey = "Menu/List";
+            AuthorizeKey.InsertKey = "Menu/Add";
+            AuthorizeKey.UpdateKey = "Menu/Edit";
+            AuthorizeKey.UpdateEnableKey = "Menu/Enable";
+            AuthorizeKey.DeleteKey = "Menu/Delete";
+            AuthorizeKey.DeleteSoftKey = "Menu/DeleteSoft";
+            AuthorizeKey.ViewKey = "Menu/View";
         }
         /// <summary>
         /// 新增前处理数据
         /// </summary>
         /// <param name="info"></param>
-        protected override void OnBeforeInsert(SystemType info)
+        protected override void OnBeforeInsert(Menu info)
         {
             info.Id = GuidUtils.CreateNo();
             info.CreatorTime = DateTime.Now;
@@ -62,7 +59,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        protected override void OnBeforeUpdate(SystemType info)
+        protected override void OnBeforeUpdate(Menu info)
         {
             info.LastModifyUserId = CurrentUser.UserId;
             info.LastModifyTime = DateTime.Now;
@@ -73,43 +70,36 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        protected override void OnBeforeSoftDelete(SystemType info)
+        protected override void OnBeforeSoftDelete(Menu info)
         {
             info.DeleteMark = true;
             info.DeleteTime = DateTime.Now;
             info.DeleteUserId = CurrentUser.UserId;
         }
 
+
         /// <summary>
-        /// 获取系统基本信息
+        /// 获取功能菜单适用于Vue 树形列表
         /// </summary>
+        /// <param name="systemTypeId">子系统Id</param>
         /// <returns></returns>
-        [HttpGet("GetInfo")]
-        [NoPermissionRequired]
-        public IActionResult GetInfo()
+        [HttpGet("GetAllMenuTreeTable")]
+        [YuebonAuthorize("List")]
+        public async Task<IActionResult> GetAllMenuTreeTable(string systemTypeId)
         {
             CommonResult result = new CommonResult();
-            YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                SysSetting sysSetting = JsonConvert.DeserializeObject<SysSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
-                if (sysSetting != null)
-                {
-                    result.ResData = sysSetting;
-                    result.Success = true;
-                }
-                else
-                {
-                    sysSetting = XmlConverter.Deserialize<SysSetting>("xmlconfig/sys.config");
-                    if (sysSetting != null)
-                    {
-                        result.ResData = sysSetting;
-                        result.Success = true;
-                    }
-                    else
-                    {
-                        result.ErrMsg = ErrCode.err60001;
-                        result.ErrCode = "60001";
-                    }
-                }
+            try
+            {
+                    List<MenuTreeTableOutputDto> list = await iService.GetAllMenuTreeTable(systemTypeId);
+                result.Success = true;
+                result.ErrCode = ErrCode.successCode;
+                result.ResData = list;
+            }catch(Exception ex)
+            {
+                Log4NetHelper.Error("获取菜单异常", ex);
+                result.ErrMsg = ErrCode.err40110;
+                result.ErrCode = "40110";
+            }
             return ToJsonContent(result);
         }
     }

@@ -29,6 +29,7 @@ namespace Yuebon.Security.Dtos
             CreateMap<ItemsDetail, ItemsDetailOutputDto>();
             CreateMap<ItemsDetailInputDto, ItemsDetail>();
             CreateMap<Menu, MenuOutputDto>();
+            CreateMap<Menu, MenuTreeTableOutputDto>();
             CreateMap<MenuInputDto, Menu>();
             CreateMap<Organize, OrganizeOutputDto>();
             CreateMap<OrganizeInputDto, Organize>();

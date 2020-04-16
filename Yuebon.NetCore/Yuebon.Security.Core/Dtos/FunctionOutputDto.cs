@@ -142,6 +142,7 @@ namespace Yuebon.Security.Dtos
         /// 删除用户
         /// </summary>
         public virtual string DeleteUserId { get; set; }
-        #endregion
+        #endregion
+
     }
 }

@@ -26,6 +26,9 @@ const mutations = {
     state.name = name
     localStorage.setItem('username', name)
   },
+  SET_TEMPNAME: (state, name) => {
+    localStorage.setItem('usernametemp', name)
+  },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
     localStorage.setItem('useravatar', avatar)
@@ -49,11 +52,11 @@ const actions = {
     console.log('000:' + JSON.stringify(userInfo))
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password, appId: 'system', systemCode: 'YuebonWcs' }).then(response => {
+      login({ username: username.trim(), password: password, appId: 'system', systemCode: 'openauth' }).then(response => {
         const data = response.ResData
         commit('SET_TOKEN', data.AccessToken)
         setToken(data.AccessToken)
-        commit('SET_NAME', data.Account)
+        commit('SET_TEMPNAME', data.Account)
         commit('SET_AVATAR', data.HeadIcon)
         commit('SET_SUBSYSTEM', data.SubSystemList)
         commit('SET_ACTIVESYSTEMNAME', data.ActiveSystem)
@@ -66,6 +69,12 @@ const actions = {
       })
     })
   },
+  getInfo({ commit }) {
+    return new Promise((resolve, reject) => {
+      var account = localStorage.getItem('usernametemp')
+      commit('SET_NAME', account)
+    })
+  },
   // user logout
   logout({ commit, state }) {
     return new Promise((resolve, reject) => {
@@ -75,6 +84,7 @@ const actions = {
         localStorage.removeItem('useravatar')
         localStorage.removeItem('usersubSystem')
         localStorage.removeItem('activeSystemName')
+        Cookies.remove('yuebon_loginuser')
         resetRouter()
         commit('RESET_STATE')
         resolve()
@@ -84,6 +94,7 @@ const actions = {
         localStorage.removeItem('useravatar')
         localStorage.removeItem('usersubSystem')
         localStorage.removeItem('activeSystemName')
+        Cookies.remove('yuebon_loginuser')
         resetRouter()
         commit('RESET_STATE')
         reject(error)

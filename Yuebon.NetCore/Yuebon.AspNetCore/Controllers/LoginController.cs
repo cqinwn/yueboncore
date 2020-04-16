@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -31,17 +32,17 @@ namespace Yuebon.AspNetCore.Controllers
     [Route("api/[controller]")]
     public class LoginController : ApiController
     {
-        private IUserService userService;
-        private ISystemTypeService systemTypeService;
+        private IUserService _userService;
+        private ISystemTypeService _systemTypeService;
         /// <summary>
         /// 构造函数注入服务
         /// </summary>
-        /// <param name="_iService"></param>
-        /// <param name="_systemTypeService"></param>
-        public LoginController(IUserService _iService, ISystemTypeService _systemTypeService)
+        /// <param name="iService"></param>
+        /// <param name="systemTypeService"></param>
+        public LoginController(IUserService iService, ISystemTypeService systemTypeService)
         {
-            userService = _iService;
-            systemTypeService = _systemTypeService;
+            _userService = iService;
+            _systemTypeService = systemTypeService;
         }
 
         /// <summary>
@@ -53,6 +54,7 @@ namespace Yuebon.AspNetCore.Controllers
         /// <param name="systemCode">systemCode</param>
         /// <returns>返回用户User对象</returns>
         [HttpGet("GetCheckUser")]
+        [AllowAnonymous]
         [NoPermissionRequired]
         public IActionResult GetCheckUser(string username, string password,string appId,string systemCode)
         {
@@ -73,13 +75,13 @@ namespace Yuebon.AspNetCore.Controllers
             }
             else
             {
-                SystemType systemType = systemTypeService.GetByCode(systemCode);
+                SystemType systemType = _systemTypeService.GetByCode(systemCode);
                 if (systemType == null)
                 {
                     result.ErrMsg = ErrCode.err40009;
                 }
                 else { 
-                    Tuple<User, string> userLogin = this.userService.Validate(username, password);
+                    Tuple<User, string> userLogin = this._userService.Validate(username, password);
                     if (userLogin != null)
                     {
                         if (userLogin.Item1 != null)
@@ -108,7 +110,7 @@ namespace Yuebon.AspNetCore.Controllers
                                 Role = new RoleApp().GetRoleEnCode(user.RoleId),
                                 MobilePhone = user.MobilePhone
                             };
-                            currentSession.SubSystemList = systemTypeService.GetSubSystemList(user.RoleId);
+                            currentSession.SubSystemList =_systemTypeService.GetSubSystemList(user.RoleId);
                             currentSession.ActiveSystem = systemType.FullName;
                             currentSession.MenusList = new MenuApp().GetMenuFuntionJson(user.RoleId, systemCode);
 

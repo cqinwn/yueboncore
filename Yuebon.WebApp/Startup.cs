@@ -166,6 +166,9 @@ namespace Yuebon.WebApp
                     Configuration = cacheProvider.ConnectionString,
                     InstanceName = cacheProvider.InstanceName
                 }, 0));
+
+                //Senparc.CO2NET.Cache.Redis.Register.SetConfigurationOption(cacheProvider.ConnectionString);
+                //Senparc.CO2NET.Cache.Redis.Register.UseKeyValueRedisNow();//键值对缓存策略（推荐）
             }
             else
             {

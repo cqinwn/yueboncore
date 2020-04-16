@@ -3,21 +3,12 @@
     <div class="filter-container">
       <el-card>
         <el-form ref="searchform" :inline="true" :model="searchform" class="demo-form-inline" size="small">
-          <el-form-item label="上级分类" :label-width="formLabelWidth" prop="parentId">
-            <el-select v-model="searchform.categoryId" clearable placeholder="请选">
-              <el-option
-                v-for="item in selectCategories"
-                :key="item.Id"
-                :label="item.Title"
-                :value="item.Id"
-              />
-            </el-select>
+
+          <el-form-item label="仓库名称：">
+            <el-input v-model="searchform.name" clearable placeholder="仓库名称" />
           </el-form-item>
-          <el-form-item label="分类名称：">
-            <el-input v-model="searchform.name" clearable placeholder="分类名称" />
-          </el-form-item>
-          <el-form-item label="分类编码：">
-            <el-input v-model="searchform.code" clearable placeholder="分类代码" />
+          <el-form-item label="仓库编码：">
+            <el-input v-model="searchform.code" clearable placeholder="仓库代码" />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="handleSearch()">查询</el-button>
@@ -58,13 +49,13 @@
         />
         <el-table-column
           prop="EnCode"
-          label="分类编码"
+          label="仓库编码"
           sortable="custom"
           width="180"
         />
         <el-table-column
           prop="Title"
-          label="分类名称"
+          label="仓库名称"
           sortable="custom"
           width="180"
         />
@@ -126,23 +117,14 @@
         />
       </div>
     </el-card>
-    <el-dialog ref="dialogEditForm" :title="editFormTitle+'商品分类'" :visible.sync="dialogEditFormVisible" width="30%">
+    <el-dialog ref="dialogEditForm" :title="editFormTitle+'仓库'" :visible.sync="dialogEditFormVisible" width="30%">
       <el-form ref="editFrom" :model="editFrom" :rules="rules">
-        <el-form-item label="上级分类" :label-width="formLabelWidth" prop="parentId">
-          <el-select v-model="editFrom.parentId" clearable placeholder="请选分类">
-            <el-option
-              v-for="item in selectCategories"
-              :key="item.Id"
-              :label="item.Title"
-              :value="item.Id"
-            />
-          </el-select>
+
+        <el-form-item label="仓库编码" :label-width="formLabelWidth" prop="code">
+          <el-input v-model="editFrom.code" placeholder="请输入仓库编码" autocomplete="off" clearable />
         </el-form-item>
-        <el-form-item label="分类编码" :label-width="formLabelWidth" prop="code">
-          <el-input v-model="editFrom.code" placeholder="请输入分类编码" autocomplete="off" clearable />
-        </el-form-item>
-        <el-form-item label="分类名称" :label-width="formLabelWidth" prop="name">
-          <el-input v-model="editFrom.name" placeholder="请输入分类名称" autocomplete="off" clearable />
+        <el-form-item label="仓库名称" :label-width="formLabelWidth" prop="name">
+          <el-input v-model="editFrom.name" placeholder="请输入仓库名称" autocomplete="off" clearable />
         </el-form-item>
         <el-form-item label="排序" :label-width="formLabelWidth" prop="sortcode">
           <el-input v-model.number="editFrom.sortcode" placeholder="请输入排序,默认为99" autocomplete="off" clearable />
@@ -164,7 +146,7 @@
 
 <script>
 
-import { getCategoriesAlldEnabledMark, getListWithPager, getCategoriesDetail, saveCategories, setCategoriesEnable, deleteSoftCategories, deleteCategories } from '@/api/goods'
+import { getWarehouseListWithPager, getWarehouseDetail, saveWarehouse, setWarehouseEnable, deleteSoftWarehouse, deleteWarehouse } from '@/api/wms/warehouse'
 
 export default {
   data() {
@@ -174,7 +156,6 @@ export default {
         name: '',
         code: ''
       },
-      selectCategories: [],
       loadBtnFunc: [],
       tableData: [],
       tableloading: true,
@@ -198,11 +179,11 @@ export default {
       },
       rules: {
         name: [
-          { required: true, message: '请输入分类名称', trigger: 'blur' },
+          { required: true, message: '请输入仓库名称', trigger: 'blur' },
           { min: 2, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur' }
         ],
         code: [
-          { required: true, message: '请输入分类编码', trigger: 'blur' },
+          { required: true, message: '请输入仓库编码', trigger: 'blur' },
           { min: 2, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur' }
         ]
       },
@@ -222,9 +203,7 @@ export default {
      * 初始化数据
      */
     InitDictItem() {
-      getCategoriesAlldEnabledMark().then(res => {
-        this.selectCategories = res.ResData
-      })
+
     },
     /**
      * 加载页面table数据
@@ -236,11 +215,10 @@ export default {
         'length': this.pagination.pagesize,
         'Title': this.searchform.name,
         'EnCode': this.searchform.code,
-        'ParentId': this.searchform.categoryId,
         'Order': this.sortableData.order,
         'Sort': this.sortableData.sort
       }
-      getListWithPager(seachdata).then(res => {
+      getWarehouseListWithPager(seachdata).then(res => {
         this.tableData = res.ResData.Items
         this.pagination.pageTotal = res.ResData.TotalItems
         this.tableloading = false
@@ -274,7 +252,7 @@ export default {
       }
     },
     bindEditInfo: function() {
-      getCategoriesDetail(this.currentId).then(res => {
+      getWarehouseDetail(this.currentId).then(res => {
         this.editFrom.name = res.ResData.Title
         this.editFrom.code = res.ResData.EnCode
         this.editFrom.enable = res.ResData.EnabledMark + ''
@@ -291,12 +269,11 @@ export default {
           const data = {
             'Title': this.editFrom.name,
             'EnCode': this.editFrom.code,
-            'ParentId': this.editFrom.parentId,
             'EnabledMark': this.editFrom.enable,
             'SortCode': this.editFrom.sortcode,
             'Id': this.currentId
           }
-          saveCategories(data).then(res => {
+          saveWarehouse(data).then(res => {
             if (res.Success) {
               this.$message({
                 message: '恭喜你，操作成功',
@@ -332,7 +309,7 @@ export default {
           ids: currentIds,
           bltag: val
         }
-        setCategoriesEnable(data).then(res => {
+        setWarehouseEnable(data).then(res => {
           if (res.Success) {
             this.$message({
               message: '恭喜你，操作成功',
@@ -362,7 +339,7 @@ export default {
           ids: currentIds,
           bltag: val
         }
-        deleteSoftCategories(data).then(res => {
+        deleteSoftWarehouse(data).then(res => {
           if (res.Success) {
             this.$message({
               message: '恭喜你，操作成功',
@@ -391,7 +368,7 @@ export default {
         const data = {
           ids: currentIds
         }
-        deleteCategories(data).then(res => {
+        deleteWarehouse(data).then(res => {
           if (res.Success) {
             this.$message({
               message: '恭喜你，操作成功',

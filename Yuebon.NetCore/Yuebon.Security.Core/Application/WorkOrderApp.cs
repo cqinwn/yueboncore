@@ -15,11 +15,11 @@ namespace Yuebon.Security.Application
             bool res = false;
             if (!string.IsNullOrEmpty(ids))
             {
-                List<string> idArray = ids.ToDelimitedList<string>(",");
-                foreach (string strId in idArray)
-                {
-                    res= service.UpdateTableField("Status", "1", "Id='" + strId + "'");
-                }
+                //List<string> idArray = ids.ToDelimitedList<string>(",");
+                //foreach (string strId in idArray)
+                //{
+                //    res= service.UpdateTableField("Status", "1", "Id='" + strId + "'");
+                //}
             }
             return res;
         }

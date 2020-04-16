@@ -56,7 +56,7 @@ WebApi接口地址：[http://netcoreapi.ts.yuebon.com](http://netcoreapi.ts.yueb
 
 系统作者：YuebonCore团队
 
-作者QQ：381450948（微信同号）
+作者微信：381450948(请备注：core)
 
 发布日期：2018年07月1日
 

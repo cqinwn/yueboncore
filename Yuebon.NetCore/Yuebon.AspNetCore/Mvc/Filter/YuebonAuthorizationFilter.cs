@@ -77,6 +77,7 @@ namespace Yuebon.AspNetCore.Mvc
                     if (result.ResData!=null)
                     {
                         string userId = result.ResData.ToString();
+                        
                         var authorizeAttributes = controllerActionDescriptor.MethodInfo.GetCustomAttributes(typeof(YuebonAuthorizeAttribute), true).OfType<YuebonAuthorizeAttribute>();
                         if (authorizeAttributes.First() != null)
                         {

@@ -36,17 +36,10 @@ export const constantRoutes = [
     component: () => import('@/views/login/index'),
     hidden: true
   },
-
-  {
-    path: '/404',
-    component: () => import('@/views/404'),
-    hidden: true
-  },
-
   {
     path: '/',
-    component: Layout,
     redirect: '/dashboard',
+    component: Layout,
     children: [{
       path: 'dashboard',
       name: 'Dashboard',
@@ -55,27 +48,21 @@ export const constantRoutes = [
     }]
   },
   {
-    path: '/goods',
+    path: '/user',
     component: Layout,
-    redirect: '/goods/index',
-    meta: { title: '基础资料', icon: 'icon-goods' },
+    redirect: '/user/index',
+    meta: { title: '系统管理', icon: 'icon-goods' },
     children: [{
-      path: '/goods/index',
-      name: 'goodslist',
-      component: () => import('@/views/goods/index'),
-      meta: { title: '商品管理', icon: 'icon-list', funcode: 'Goods/List' }
+      path: '/user/index',
+      name: 'userindex',
+      component: () => import('@/views/user/index'),
+      meta: { title: '用户管理', icon: 'icon-code', funcode: 'User/List' }
     },
     {
-      path: '/goods/category',
-      name: 'goodscategory',
-      component: () => import('@/views/goods/category'),
-      meta: { title: '商品分类', icon: 'icon-list1', funcode: 'GoodsCategories/List' }
-    },
-    {
-      path: '/goods/warehouse',
-      name: 'Warehouse',
-      component: () => import('@/views/goods/warehouse'),
-      meta: { title: '仓库管理', icon: 'icon-list1' }
+      path: '/menus/index',
+      name: 'menusindex',
+      component: () => import('@/views/menus/index'),
+      meta: { title: '菜单管理', icon: 'icon-databaseserverst', funcode: 'Menu/List' }
     }
     ]
   },
@@ -97,13 +84,14 @@ export const constantRoutes = [
       meta: { title: '数据库加解密', icon: 'icon-databaseserverst' }
     }
     ]
-  },
+  }
   // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  // { path: '*', redirect: '/404', hidden: true }
 ]
 
 const createRouter = () => new Router({
-  // mode: 'history', // require service support
+  base: '/',
+  mode: 'hash', // require service support
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })
@@ -115,5 +103,4 @@ export function resetRouter() {
   const newRouter = createRouter()
   router.matcher = newRouter.matcher // reset router
 }
-
 export default router

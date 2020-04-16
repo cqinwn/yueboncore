@@ -3,17 +3,19 @@
     <transition name="sidebarLogoFade">
       <router-link v-if="collapse" key="collapse" class="sidebar-logo-link" to="/">
         <img src="~@/assets/images/AdminLogo.png" class="sidebar-logo">
-        <h1 class="sidebar-title">{{ title }} </h1>
+        <h1 class="sidebar-title">{{ activeSystemName+ title }} </h1>
       </router-link>
       <router-link v-else key="expand" class="sidebar-logo-link" to="/">
         <img src="~@/assets/images/AdminLogo.png" class="sidebar-logo">
-        <h1 class="sidebar-title">{{ title }} </h1>
+        <h1 class="sidebar-title">{{ activeSystemName+ title }} </h1>
       </router-link>
     </transition>
   </div>
 </template>
 
 <script>
+
+import { mapGetters } from 'vuex'
 export default {
   name: 'SidebarLogo',
   props: {
@@ -24,9 +26,14 @@ export default {
   },
   data() {
     return {
-      title: '控制中心',
+      title: '管理中心',
       logo: ''
     }
+  },
+  computed: {
+    ...mapGetters([
+      'activeSystemName'
+    ])
   }
 }
 </script>

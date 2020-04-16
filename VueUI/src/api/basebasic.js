@@ -1,6 +1,10 @@
 import http from '@/utils/request'
 import defaultSettings from '@/settings'
 
+/**
+ * 获取token
+ * @param {} query
+ */
 export function getToken(query) {
   var data = {
     'grant_type': 'client_credential',
@@ -14,6 +18,10 @@ export function getToken(query) {
     baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
   })
 }
+/**
+ *刷新token
+ * @param {*} data
+ */
 export function refreshToken(data) {
   return http({
     url: 'Token/RefreshToken',
@@ -98,8 +106,9 @@ export function codeGenerator(data) {
   })
 }
 /**
-   * 数据库解密
-   */
+ *
+* 数据库解密
+*/
 export function dbtoolsConnStrDecrypt(data) {
   return http({
     url: 'DbTools/ConnStrDecrypt',

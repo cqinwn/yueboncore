@@ -12,7 +12,7 @@ namespace Yuebon.Commons.Helpers
         /// <summary>
         /// 版本号
         /// </summary>
-        public const string Version = "2.2.3";
+        public const string Version = "3.0";
         /// <summary>
         /// 软件厂商
         /// </summary>

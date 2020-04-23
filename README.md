@@ -50,14 +50,14 @@ WebApi接口地址：[http://netcoreapi.ts.yuebon.com](http://netcoreapi.ts.yueb
 
 前端目前采用Vue独立前端和asp.net core MVC模式，使用的技术栈有些区别，后期将侧重于Vue端的优化运维。
 
-######  前端技术 
+#####  前端技术 
 1、asp.net MVC版详见：[asp.netcore MVC前端技术栈](https://gitee.com/yuebon/YuebonNetCore/wikis/asp.netcore%20MVC%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E6%A0%88?sort_id=2142838)
 
-2、Vue版前端技术栈 ：Vue+elementUI+Vue Router+aoxis+Vuex
+2、Vue版前端技术栈 ：Vue+elementUI+Vue Router+aoxis+Vuex，前端采用vscode工具开发
 
-###### 后端技术
+##### 后端技术
 
-核心框架：asp.net mvc + Web API + Dapper + autofac + AutoMapper+swagger
+核心框架：.NetCore3.1 + Web API + Dapper + autofac + AutoMapper+swagger
 
 定时计划任务：Quartz.Net组件
 
@@ -134,9 +134,29 @@ DataBase是最新数据库备份文件，目前仅支持MS SQL Server。
 
 4、修改数据库连接MsSqlServer，根据自己的数据库服务填写。
 
-5、打开解决方案，启动项目Yuebon.WebApp即可。初始化用户名为admin，密码为admin888
+5、打开解决方案，如果使用aspnet core mvc版本启动项目Yuebon.WebApp即可。初始化用户名为admin，密码为admin888
 
-6、如果使用有任何疑问，可以联系作者QQ：381450948（微信同号）
+6、使用vue版请按如下操作：
+
+1）打开解决方案，启动Yuebon.Webapi项目
+
+2）进入项目目录vueUI
+
+cd vueUI
+
+3）安装依赖
+
+npm install
+
+4）# 本地开发 启动项目
+
+npm run dev
+
+
+注意：启动后需要修接口访问地址，在vueUI -> src目录下settings.js的文件中修改
+
+
+7、如果使用有任何疑问，可以联系作者QQ：381450948（微信同号）
 
 
 ### 部分应用案例

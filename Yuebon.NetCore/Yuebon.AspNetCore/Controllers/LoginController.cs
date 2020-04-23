@@ -137,7 +137,7 @@ namespace Yuebon.AspNetCore.Controllers
                             logEntity.NickName = CurrentUser.RealName;
                             logEntity.Date = logEntity.CreatorTime = DateTime.Now;
                             logEntity.IPAddress = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
-                            logEntity.IPAddressName = IpAddressUtil.GetCityByIp(logEntity.IPAddress);
+                            //logEntity.IPAddressName = IpAddressUtil.GetCityByIp(logEntity.IPAddress);
                             logEntity.Result = true;
                             logEntity.ModuleName = "登录";
                             logEntity.Description = "登录成功";
@@ -152,7 +152,7 @@ namespace Yuebon.AspNetCore.Controllers
                             logEntity.Account = username;
                             logEntity.Date = logEntity.CreatorTime = DateTime.Now;
                             logEntity.IPAddress = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
-                            logEntity.IPAddressName = IpAddressUtil.GetCityByIp(logEntity.IPAddress);
+                            //logEntity.IPAddressName = IpAddressUtil.GetCityByIp(logEntity.IPAddress);
                             logEntity.Result = false;
                             logEntity.ModuleName = "登录";
                             logEntity.Type = "Login";

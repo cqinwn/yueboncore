@@ -56,7 +56,7 @@ WebApi接口地址：[http://netcoreapi.ts.yuebon.com](http://netcoreapi.ts.yueb
 
 系统作者：YuebonCore团队
 
-作者微信：381450948(请备注：core)
+作者QQ：381450948(微信同号)
 
 发布日期：2018年07月1日
 
@@ -66,9 +66,16 @@ WebApi接口地址：[http://netcoreapi.ts.yuebon.com](http://netcoreapi.ts.yueb
 
 欢迎你加入我们一起共商、共建、共享技术成果！开源让我们进步，开源让我们开阔视野！
 
+交流QQ群：
+
+![QQ群](https://images.gitee.com/uploads/images/2020/0417/183047_30037ea3_1017224.jpeg "微信图片_20200417183028.jpg")
+
 #### 技术介绍
 
-######  前端技术
+前端目前采用Vue独立前端和传统的netMVC模式，使用的技术栈有些区别，后期将侧重于Vue端的优化运维。
+
+
+######  asp.net MVC 前端技术
 
 JS框架：jquery-v3.3.1、Bootstrap.js、JQuery UI
 
@@ -95,6 +102,8 @@ CSS框架：Bootstrap v4.3.1（UI方面根据需求自己升级改造吧）。
 图表插件：echarts
 
 日期控件： My97DatePicker
+
+
 
 ###### 后端技术
 

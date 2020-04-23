@@ -21,12 +21,14 @@ namespace Yuebon.Security.Services
         private readonly ISystemTypeRepository systemTypeRepository;
         private readonly IRoleAuthorizeRepository roleAuthorizeRepository;
         private readonly ILogService _logService;
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="repository"></param>
         /// <param name="_userRepository"></param>
         /// <param name="_roleAuthorizeRepository"></param>
+        /// <param name="_systemTypeRepository"></param>
         /// <param name="logService"></param>
         public MenuService(IMenuRepository repository,IUserRepository _userRepository, IRoleAuthorizeRepository _roleAuthorizeRepository, ISystemTypeRepository _systemTypeRepository, ILogService logService) : base(repository)
         {
@@ -81,30 +83,44 @@ namespace Yuebon.Security.Services
         public async Task<List<MenuTreeTableOutputDto>> GetAllMenuTreeTable(string systemTypeId)
         {
             string where = "1=1";
+            List<MenuTreeTableOutputDto> reslist = new List<MenuTreeTableOutputDto>();
             if (!string.IsNullOrEmpty(systemTypeId))
             {
-                where = " Id='" + systemTypeId + "'";
-            }
-            IEnumerable<SystemType> listSystemType = await systemTypeRepository.GetListWhereAsync(where);
-            List<MenuTreeTableOutputDto> reslist = new List<MenuTreeTableOutputDto>();
-            foreach (SystemType systemType in listSystemType)
-            {
-                MenuTreeTableOutputDto menuTreeTableOutputDto = new MenuTreeTableOutputDto();
-                menuTreeTableOutputDto.Id = systemType.Id;
-                menuTreeTableOutputDto.FullName = systemType.FullName;
-                menuTreeTableOutputDto.EnCode = systemType.EnCode;
-                menuTreeTableOutputDto.UrlAddress = systemType.Url;
-                menuTreeTableOutputDto.EnabledMark = systemType.EnabledMark;
-
-                menuTreeTableOutputDto.SystemTag = true;
-
-                IEnumerable<Menu> elist = await _MenuRepository.GetListWhereAsync("SystemTypeId='" + systemType.Id + "'");
-                if (elist.Count() > 0)
+                IEnumerable<Menu> elist = await _MenuRepository.GetListWhereAsync("SystemTypeId='" + systemTypeId + "'");
+                List<Menu> list = elist.OrderBy(t => t.SortCode).ToList();
+                List<Menu> oneMenuList = list.FindAll(t => t.ParentId == "");
+                foreach (Menu item in oneMenuList)
                 {
-                    List<Menu> list = elist.OrderBy(t => t.SortCode).ToList();
-                    menuTreeTableOutputDto.Children = GetSubMenus(list, "").ToList<MenuTreeTableOutputDto>();
+                    MenuTreeTableOutputDto menuTreeTableOutputDto = new MenuTreeTableOutputDto();
+                    menuTreeTableOutputDto = item.MapTo<MenuTreeTableOutputDto>();
+                    menuTreeTableOutputDto.Children = GetSubMenus(list, item.Id).ToList<MenuTreeTableOutputDto>();
+                    reslist.Add(menuTreeTableOutputDto);
                 }
-                reslist.Add(menuTreeTableOutputDto);
+
+            }
+            else
+            {
+                IEnumerable<SystemType> listSystemType = await systemTypeRepository.GetListWhereAsync(where);
+
+                foreach (SystemType systemType in listSystemType)
+                {
+                    MenuTreeTableOutputDto menuTreeTableOutputDto = new MenuTreeTableOutputDto();
+                    menuTreeTableOutputDto.Id = systemType.Id;
+                    menuTreeTableOutputDto.FullName = systemType.FullName;
+                    menuTreeTableOutputDto.EnCode = systemType.EnCode;
+                    menuTreeTableOutputDto.UrlAddress = systemType.Url;
+                    menuTreeTableOutputDto.EnabledMark = systemType.EnabledMark;
+
+                    menuTreeTableOutputDto.SystemTag = true;
+
+                    IEnumerable<Menu> elist = await _MenuRepository.GetListWhereAsync("SystemTypeId='" + systemType.Id + "'");
+                    if (elist.Count() > 0)
+                    {
+                        List<Menu> list = elist.OrderBy(t => t.SortCode).ToList();
+                        menuTreeTableOutputDto.Children = GetSubMenus(list, "").ToList<MenuTreeTableOutputDto>();
+                    }
+                    reslist.Add(menuTreeTableOutputDto);
+                }
             }
             return reslist;
         }

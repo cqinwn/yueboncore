@@ -18,7 +18,12 @@ namespace Yuebon.Commons
     /// </summary>
     public sealed class Cryptography
     {
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tmpStr"></param>
+        /// <param name="encodingAESKey"></param>
+        /// <returns></returns>
         public static string AES_encrypt(string tmpStr, string encodingAESKey)
         {
             string str = tmpStr + GetMD5_32(encodingAESKey);

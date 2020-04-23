@@ -40,7 +40,7 @@ router.beforeEach(async(to, from, next) => {
             localStorage.setItem('yueboncurrentfuns', JSON.stringify(res.ResData))
           })
         }
-        // updateRoutes()
+        updateRoutes()
         next()
         // next({ path: to.path })
       } else {
@@ -48,26 +48,26 @@ router.beforeEach(async(to, from, next) => {
           // get user info
           store.dispatch('user/getInfo')
           if (!getRouter) {
-            // menuList = store.getters.menus
-            // const menuRouters = [] // 定义一个空数组，这个是用来装真正路由数据的
-            // // 先取出根节点，没有父id的就是根节点
-            // menuList.forEach((m, i) => {
-            //   if (m.ParentId === '') {
-            //     const module = {
-            //       path: m.UrlAddress,
-            //       name: m.EnCode,
-            //       component: Layout,
-            //       redirect: m.UrlAddress + '/index',
-            //       meta: { id: m.Id, title: m.FullName, icon: m.Icon, funcode: m.EnCode }
-            //     }
-            //     menuRouters.push(module)
-            //   }
-            // })
-            // convertTree(menuRouters) // 用递归填充
-            // router.addRoutes(menuRouters) // 2.动态添加路由
-            // store.getters.addRoutes = menuRouters // 3.将路由数据传递给全局变量，做侧边栏菜单渲染工作
-            // // 不加这个判断，路由会陷入死循环
-            // getRouter = true
+            menuList = store.getters.menus
+            const menuRouters = [] // 定义一个空数组，这个是用来装真正路由数据的
+            // 先取出根节点，没有父id的就是根节点
+            menuList.forEach((m, i) => {
+              if (m.ParentId === '') {
+                const module = {
+                  path: m.UrlAddress,
+                  name: m.EnCode,
+                  component: Layout,
+                  redirect: m.UrlAddress + '/index',
+                  meta: { id: m.Id, title: m.FullName, icon: m.Icon, funcode: m.EnCode }
+                }
+                menuRouters.push(module)
+              }
+            })
+            convertTree(menuRouters) // 用递归填充
+            router.addRoutes(menuRouters) // 2.动态添加路由
+            store.getters.addRoutes = menuRouters // 3.将路由数据传递给全局变量，做侧边栏菜单渲染工作
+            // 不加这个判断，路由会陷入死循环
+            getRouter = true
             next({
               ...to,
               replace: true

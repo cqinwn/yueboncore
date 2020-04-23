@@ -50,7 +50,6 @@ namespace Yuebon.Commons.Encrypt
         /// </summary>
         /// <param name="original">原始文字</param>
         /// <param name="key">密钥</param>
-        /// <param name="encoding">字符编码方案</param>
         /// <returns>密文</returns>
         public static string Encrypt(string original, string key)
         {

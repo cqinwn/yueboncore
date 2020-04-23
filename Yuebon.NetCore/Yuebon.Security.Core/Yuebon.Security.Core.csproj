@@ -36,14 +36,9 @@
 
   <ItemGroup>
     <Compile Remove="Dtos\AutoMapperConfiguration.cs" />
-    <Compile Remove="Dtos\RoleAuthorizeInputDto.cs" />
-    <Compile Remove="Dtos\UploadFileOutputDto.cs" />
-    <Compile Remove="Dtos\UserExtendInputDto.cs" />
     <Compile Remove="Dtos\UserFocusInputDto.cs" />
     <Compile Remove="Dtos\UserFollowInputDto.cs" />
     <Compile Remove="Dtos\UserFollowOutputDto.cs" />
-    <Compile Remove="Dtos\UserOpenIdsInputDto.cs" />
-    <Compile Remove="Dtos\UserOpenIdsOutputDto.cs" />
   </ItemGroup>
 
   <ItemGroup>

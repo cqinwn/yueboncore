@@ -12,16 +12,18 @@ namespace Yuebon.Security.Dtos
     /// </summary>
     [AutoMap(typeof(UserOpenIds))]
     [Serializable]
-    public class UserOpenIdsInputDto: IInputDto<string>
+    public class UserOpenIdsInputDto
     {
         /// <summary>
         /// 设置或获取 
         /// </summary>
         public string OpenIdType { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string OpenId { get; set; }
-
+
+
     }
 }

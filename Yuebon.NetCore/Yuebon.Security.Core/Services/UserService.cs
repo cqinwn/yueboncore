@@ -11,6 +11,7 @@ using Yuebon.Security.Dtos;
 using System.Collections.Generic;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Mapping;
+using System.Threading.Tasks;
 
 namespace Yuebon.Security.Services
 {
@@ -95,6 +96,17 @@ namespace Yuebon.Security.Services
         {
             return _userRepository.Insert(entity, userLogOnEntity, trans);
         }
+
+        /// <summary>
+        /// 注册用户
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="userLogOnEntity"></param>
+        /// <param name="trans"></param>
+        public async Task<bool> InsertAsync(User entity, UserLogOn userLogOnEntity, IDbTransaction trans = null)
+        {
+            return await _userRepository.InsertAsync(entity, userLogOnEntity, trans);
+        }
         /// <summary>
         /// 注册用户,第三方平台
         /// </summary>
@@ -151,10 +163,10 @@ namespace Yuebon.Security.Services
         /// </summary>
         /// <param name="userid"></param>
         /// <returns></returns>
-        public UserNameCardOutPutDto GetUserNameCardInfo(string userid)
-        {
-            return _userRepository.GetUserNameCardInfo(userid);
-        }
+        //public UserNameCardOutPutDto GetUserNameCardInfo(string userid)
+        //{
+        //    return _userRepository.GetUserNameCardInfo(userid);
+        //}
 
         /// <summary>
         /// 保存名片
@@ -175,13 +187,13 @@ namespace Yuebon.Security.Services
         /// <param name="address"></param>
         /// <param name="openflag"></param>
         /// <returns></returns>
-        public bool SaveNameCard(string userid, string headicon, string nickName, string name, string company, string position,
-            string weburl, string mobile, string email, string wx, string wximg,
-            string industry, string area, string address, int openflag)
-        {
-            return _userRepository.SaveNameCard(userid, headicon, nickName, name, company, position, weburl,
-                mobile, email, wx, wximg, industry, area, address, openflag);
-        }
+        //public bool SaveNameCard(string userid, string headicon, string nickName, string name, string company, string position,
+        //    string weburl, string mobile, string email, string wx, string wximg,
+        //    string industry, string area, string address, int openflag)
+        //{
+        //    return _userRepository.SaveNameCard(userid, headicon, nickName, name, company, position, weburl,
+        //        mobile, email, wx, wximg, industry, area, address, openflag);
+        //}
 
 
         /// <summary>

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Threading.Tasks;
 using Yuebon.Commons.IRepositories;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.Models;
@@ -33,6 +34,13 @@ namespace Yuebon.Security.IRepositories
         /// <param name="userLogOnEntity"></param>
         /// <param name="trans"></param>
         bool Insert(User entity, UserLogOn userLogOnEntity, IDbTransaction trans = null);
+        /// <summary>
+        /// 注册用户
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="userLogOnEntity"></param>
+        /// <param name="trans"></param>
+        Task<bool> InsertAsync(User entity, UserLogOn userLogOnEntity, IDbTransaction trans = null);
         /// <summary>
         /// 注册用户,第三方平台
         /// </summary>
@@ -74,7 +82,7 @@ namespace Yuebon.Security.IRepositories
         /// </summary>
         /// <param name="userid"></param>
         /// <returns></returns>
-        UserNameCardOutPutDto GetUserNameCardInfo(string userid);
+        //UserNameCardOutPutDto GetUserNameCardInfo(string userid);
 
         /// <summary>
         /// 保存名片
@@ -95,9 +103,9 @@ namespace Yuebon.Security.IRepositories
         /// <param name="address"></param>
         /// <param name="openflag"></param>
         /// <returns></returns>
-        bool SaveNameCard(string userid,string headicon, string nickName, string name, string company, string position,
-            string weburl, string mobile, string email, string wx, string wximg,
-            string industry, string area, string address, int openflag);
+        ////bool SaveNameCard(string userid,string headicon, string nickName, string name, string company, string position,
+        //    string weburl, string mobile, string email, string wx, string wximg,
+        //    string industry, string area, string address, int openflag);
 
 
         /// <summary>

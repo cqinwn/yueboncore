@@ -25,5 +25,14 @@ namespace Yuebon.Security.IServices
         /// <param name="enCode">菜单功能编码</param>
         /// <returns></returns>
         Task<IEnumerable<FunctionOutputDto>> GetListByParentEnCode(string enCode);
+
+
+        /// <summary>
+        /// 获取功能适用于Vue 树形列表
+        /// </summary>
+        /// <param name="systemTypeId">子系统Id</param>
+        /// <returns></returns>
+        Task<List<FunctionTreeTableOutputDto>> GetAllFunctionTreeTable(string systemTypeId);
+
     }
 }

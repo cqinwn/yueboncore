@@ -8,7 +8,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.IServices
 {
-    public interface IUploadFileService : IService<UploadFile, UploadFileOuputDto, string>
+    public interface IUploadFileService : IService<UploadFile, UploadFileOutputDto, string>
     {
         /// <summary>
         /// 根据应用Id和应用标识批量更新数据

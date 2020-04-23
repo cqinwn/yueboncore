@@ -12,8 +12,17 @@ using System.Threading.Tasks;
 
 namespace Yuebon.Commons.Encrypt
 {
+   /// <summary>
+   /// 
+   /// </summary>
     public class EncryptHelper
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public static string ComputeHash(string source, string key)
         {
             if (source == null)
@@ -57,13 +66,23 @@ namespace Yuebon.Commons.Encrypt
             }
             return Convert.ToBase64String(inArray, 0, inArray.Length);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public static string EncryptStr(string source, string key)
         {
             key = key.PadLeft(8, 'x');
             return EncodeHelper.DesEncrypt(source, key);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public static string UnEncryptStr(string source, string key)
         {
             key = key.PadLeft(8, 'x');

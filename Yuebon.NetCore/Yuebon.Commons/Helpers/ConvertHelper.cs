@@ -617,11 +617,24 @@ namespace Yuebon.Commons.Helpers
 
         #endregion
 
-        #region = ChangeType =  
+        #region = ChangeType =
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="conversionType"></param>
+        /// <returns></returns>
         public static object ChangeType(object obj, Type conversionType)
         {
             return ChangeType(obj, conversionType, Thread.CurrentThread.CurrentCulture);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="conversionType"></param>
+        /// <param name="provider"></param>
+        /// <returns></returns>
         public static object ChangeType(object obj, Type conversionType, IFormatProvider provider)
         {
             #region Nullable  

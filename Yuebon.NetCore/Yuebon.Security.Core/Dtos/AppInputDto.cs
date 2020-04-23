@@ -18,38 +18,47 @@ namespace Yuebon.Security.Dtos
         /// 设置或获取 
         /// </summary>
         public string Id { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string AppId { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string AppSecret { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string EncodingAESKey { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string RequestUrl { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string Token { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
-        public bool? IsOpenAEKey { get; set; }
-        /// <summary>
+        public bool IsOpenAEKey { get; set; }
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
-        public bool? EnabledMark { get; set; }
-        /// <summary>
+        public bool EnabledMark { get; set; }
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string Description { get; set; }
-
+
+
     }
 }

@@ -47,6 +47,6 @@ namespace Yuebon.Security.Dtos
         /// </summary>
         [MaxLength(50)]
         public string CreatorUserId { get; set; }
-
+        public List<RoleAuthorizeOutputDto> Children { get; set; }
     }
 }

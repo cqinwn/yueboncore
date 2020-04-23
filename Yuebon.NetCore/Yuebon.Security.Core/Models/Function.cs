@@ -61,26 +61,6 @@ namespace Yuebon.Security.Models
         public virtual string Icon { get; set; }
 
         /// <summary>
-        /// 位置
-        /// </summary>
-        public virtual int? Location { get; set; }
-
-        /// <summary>
-        /// 事件
-        /// </summary>
-        public virtual string JsEvent { get; set; }
-
-        /// <summary>
-        /// 连接
-        /// </summary>
-        public virtual string UrlAddress { get; set; }
-
-        /// <summary>
-        /// 分开线
-        /// </summary>
-        public virtual bool? Split { get; set; }
-
-        /// <summary>
         /// 公共
         /// </summary>
         public virtual bool? IsPublic { get; set; }

@@ -12,6 +12,8 @@ using Yuebon.Commons.Pages;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.Models;
 using Yuebon.Security.IServices;
+using Yuebon.AspNetCore.Mvc;
+using Yuebon.AspNetCore.UI;
 
 namespace Yuebon.WebApi.Areas.Security.Controllers
 {
@@ -20,7 +22,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
     /// </summary>
     [ApiController]
     [Route("api/Security/[controller]")]
-    public class FilterIPController : AreaApiController<FilterIP, FilterIPOutputDto, IFilterIPService, string>
+    public class FilterIPController : AreaApiController<FilterIP, FilterIPOutputDto, FilterIPInputDto, IFilterIPService, string>
     {
         /// <summary>
         /// 构造函数
@@ -74,6 +76,77 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.DeleteMark = true;
             info.DeleteTime = DateTime.Now;
             info.DeleteUserId = CurrentUser.UserId;
+        }
+
+
+        /// 异步更新数据
+        /// </summary>
+        /// <param name="tinfo"></param>
+        /// <param name="id">主键Id</param>
+        /// <returns></returns>
+        [HttpPost("Update")]
+        [YuebonAuthorize("Edit")]
+        public override async Task<IActionResult> UpdateAsync(FilterIPInputDto tinfo, string id)
+        {
+            CommonResult result = new CommonResult();
+
+            FilterIP info = iService.Get(id);
+            info.FilterType = tinfo.FilterType;
+            info.EndIP = tinfo.EndIP;
+            info.StartIP = tinfo.StartIP;
+            info.SortCode = tinfo.SortCode;
+            info.EnabledMark = tinfo.EnabledMark;
+            info.Description = tinfo.Description;
+
+            OnBeforeUpdate(info);
+            bool bl = await iService.UpdateAsync(info, id).ConfigureAwait(true);
+            if (bl)
+            {
+                result.ErrCode = ErrCode.successCode;
+                result.ErrMsg = ErrCode.err0;
+            }
+            else
+            {
+                result.ErrMsg = ErrCode.err43002;
+                result.ErrCode = "43002";
+            }
+            return ToJsonContent(result);
+        }
+
+        /// <summary>
+        /// 异步分页查询
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        [HttpGet("FindWithPagerAsync")]
+        [YuebonAuthorize("List")]
+        public override async Task<IActionResult> FindWithPagerAsync([FromQuery]SearchModel search)
+        {
+            CommonResult result = new CommonResult();
+            string orderByDir = string.IsNullOrEmpty(Request.Query["Order"].ToString()) ? "" : Request.Query["Order"].ToString();
+            string orderFlied = string.IsNullOrEmpty(Request.Query["Sort"].ToString()) ? "Id" : Request.Query["Sort"].ToString();
+            bool order = orderByDir == "asc" ? false : true;
+            string where = GetPagerCondition();
+
+            if (!string.IsNullOrEmpty(search.Keywords))
+            {
+                where += string.Format(" and (StartIP like '%{0}%' or EndIP like '%{0}%')", search.Keywords);
+            }
+
+            PagerInfo pagerInfo = GetPagerInfo();
+            List<FilterIP> list = await iService.FindWithPagerAsync(where, pagerInfo, orderFlied, order);
+            List<FilterIPOutputDto> resultList = list.MapTo<FilterIPOutputDto>();
+
+            PageResult<FilterIPOutputDto> pageResult = new PageResult<FilterIPOutputDto>
+            {
+                CurrentPage = pagerInfo.CurrenetPageIndex,
+                Items = resultList,
+                ItemsPerPage = pagerInfo.PageSize,
+                TotalItems = pagerInfo.RecordCount
+            };
+            result.ResData = pageResult;
+            result.ErrCode = ErrCode.successCode;
+            return ToJsonContent(result);
         }
     }
 }

@@ -91,9 +91,9 @@ namespace Yuebon.Security.Application
         /// <param name="fieldToSort">排序字段</param>
         /// <param name="desc">是否降序</param>
         /// <returns>指定对象的集合</returns>
-        public List<UploadFileOuputDto> FindWithPager(string condition, PagerInfo info, string fieldToSort, bool desc)
+        public List<UploadFileOutputDto> FindWithPager(string condition, PagerInfo info, string fieldToSort, bool desc)
         {
-            return service.FindWithPager(condition,info,fieldToSort, desc,null).MapTo<UploadFileOuputDto>();
+            return service.FindWithPager(condition,info,fieldToSort, desc,null).MapTo<UploadFileOutputDto>();
         }
         /// <summary>
         /// 批量上传文件

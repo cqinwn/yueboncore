@@ -52,26 +52,6 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 设置或获取 
         /// </summary>
-        public int? Location { get; set; }
-
-        /// <summary>
-        /// 设置或获取 
-        /// </summary>
-        public string JsEvent { get; set; }
-
-        /// <summary>
-        /// 设置或获取 
-        /// </summary>
-        public string UrlAddress { get; set; }
-
-        /// <summary>
-        /// 设置或获取 
-        /// </summary>
-        public bool? Split { get; set; }
-
-        /// <summary>
-        /// 设置或获取 
-        /// </summary>
         public bool? IsPublic { get; set; }
 
         /// <summary>
@@ -92,7 +72,7 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 设置或获取 
         /// </summary>
-        public bool? EnabledMark { get; set; }
+        public bool EnabledMark { get; set; }
 
         /// <summary>
         /// 设置或获取 

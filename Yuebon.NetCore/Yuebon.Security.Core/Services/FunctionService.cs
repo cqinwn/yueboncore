@@ -14,10 +14,13 @@ namespace Yuebon.Security.Services
     public class FunctionService: BaseService<Function, FunctionOutputDto, string>, IFunctionService
     {
         private readonly IFunctionRepository functionRepository;
+        private readonly IUserRepository userRepository;
+        private readonly ISystemTypeRepository systemTypeRepository;
         private readonly ILogService _logService;
-        public FunctionService(IFunctionRepository repository, ILogService logService) : base(repository)
+        public FunctionService(IFunctionRepository repository, ISystemTypeRepository _systemTypeRepository, ILogService logService) : base(repository)
         {
             functionRepository = repository;
+            systemTypeRepository = _systemTypeRepository;
             _logService = logService;
             functionRepository.OnOperationLog += _logService.OnOperationLog;
         }
@@ -45,6 +48,77 @@ namespace Yuebon.Security.Services
             where = string.Format("ParentId='{0}'", function.ParentId);
             IEnumerable<Function> list = await functionRepository.GetAllByIsNotEnabledMarkAsync(where);
             return list.MapTo<FunctionOutputDto>().ToList();
+        }
+
+
+
+        /// <summary>
+        /// 获取功能菜单适用于Vue 树形列表
+        /// </summary>
+        /// <param name="systemTypeId">子系统Id</param>
+        /// <returns></returns>
+        public async Task<List<FunctionTreeTableOutputDto>> GetAllFunctionTreeTable(string systemTypeId)
+        {
+            string where = "1=1";
+            List<FunctionTreeTableOutputDto> reslist = new List<FunctionTreeTableOutputDto>();
+            if (!string.IsNullOrEmpty(systemTypeId))
+            {
+                IEnumerable<Function> elist = await functionRepository.GetListWhereAsync("SystemTypeId='" + systemTypeId + "'");
+                List<Function> list = elist.OrderBy(t => t.SortCode).ToList();
+                List<Function> oneMenuList = list.FindAll(t => t.ParentId == "");
+                foreach (Function item in oneMenuList)
+                {
+                    FunctionTreeTableOutputDto menuTreeTableOutputDto = new FunctionTreeTableOutputDto();
+                    menuTreeTableOutputDto = item.MapTo<FunctionTreeTableOutputDto>();
+                    menuTreeTableOutputDto.Children = GetSubMenus(list, item.Id).ToList<FunctionTreeTableOutputDto>();
+                    reslist.Add(menuTreeTableOutputDto);
+                }
+            }
+            else
+            {
+                IEnumerable<SystemType> listSystemType = await systemTypeRepository.GetListWhereAsync(where);
+                foreach (SystemType systemType in listSystemType)
+                {
+                    FunctionTreeTableOutputDto menuTreeTableOutputDto = new FunctionTreeTableOutputDto();
+                    menuTreeTableOutputDto.Id = systemType.Id;
+                    menuTreeTableOutputDto.FullName = systemType.FullName;
+                    menuTreeTableOutputDto.EnCode = systemType.EnCode;
+                    menuTreeTableOutputDto.UrlAddress = systemType.Url;
+                    menuTreeTableOutputDto.EnabledMark = systemType.EnabledMark;
+
+                    menuTreeTableOutputDto.SystemTag = true;
+
+                    IEnumerable<Function> elist = await functionRepository.GetListWhereAsync("SystemTypeId='" + systemType.Id + "'");
+                    if (elist.Count() > 0)
+                    {
+                        List<Function> list = elist.OrderBy(t => t.SortCode).ToList();
+                        menuTreeTableOutputDto.Children = GetSubMenus(list, "").ToList<FunctionTreeTableOutputDto>();
+                    }
+                    reslist.Add(menuTreeTableOutputDto);
+                }
+            }
+            return reslist;
+        }
+
+
+        /// <summary>
+        /// 获取子功能，递归调用
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="parentId">父级Id</param>
+        /// <returns></returns>
+        private List<FunctionTreeTableOutputDto> GetSubMenus(List<Function> data, string parentId)
+        {
+            List<FunctionTreeTableOutputDto> list = new List<FunctionTreeTableOutputDto>();
+            FunctionTreeTableOutputDto menuTreeTableOutputDto = new FunctionTreeTableOutputDto();
+            var ChilList = data.FindAll(t => t.ParentId == parentId);
+            foreach (Function entity in ChilList)
+            {
+                menuTreeTableOutputDto = entity.MapTo<FunctionTreeTableOutputDto>();
+                menuTreeTableOutputDto.Children = GetSubMenus(data, entity.Id).OrderBy(t => t.SortCode).MapTo<FunctionTreeTableOutputDto>();
+                list.Add(menuTreeTableOutputDto);
+            }
+            return list;
         }
     }
 }

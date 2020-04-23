@@ -39,5 +39,6 @@ module.exports = {
   apiWSecurityUrl: 'http://192.168.1.106:809/api/Security/', // 权限管理系统接口
   apiWMSUrl: 'http://192.168.1.106:809/api/wms/', // 仓储系统接口
   apiWCSUrl: 'http://192.168.1.106:809/api/wcs/', // 分拣系统接口
-  fileUrl: 'http://192.168.1.106:809'
+  fileUrl: 'http://192.168.1.106:809/', // 文件访问路径
+  fileUploadUrl: 'http://192.168.1.106:809/api/Files/Upload'// 文件上传路径
 }

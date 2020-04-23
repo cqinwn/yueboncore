@@ -143,6 +143,10 @@ namespace Yuebon.Security.Dtos
         /// </summary>
         [MaxLength(50)]
         public string DeleteUserId { get; set; }
+
+        /// <summary>
+        /// 子菜单集合
+        /// </summary>
         public List<MenuOutputDto> SubMenu { get; set; }
 
 

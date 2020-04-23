@@ -17,12 +17,12 @@ export function getAllMenuTreeTable(data) {
    * 新增或修改保存
    * @param data
    */
-export function saveMenu(data) {
+export function saveMenu(data, url) {
   return http.request({
-    url: 'Menu/InsertOrUpdateAsync',
+    url: url,
     method: 'post',
     data: data,
-    baseURL: defaultSettings.apiWMSUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -33,7 +33,7 @@ export function getMenuDetail(id) {
   return http({
     url: 'Menu/GetById?id=' + id,
     method: 'get',
-    baseURL: defaultSettings.apiWMSUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -45,7 +45,7 @@ export function setMenuEnable(data) {
     url: 'Menu/SetEnabledMarktBatchAsync',
     method: 'post',
     params: data,
-    baseURL: defaultSettings.apiWMSUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -57,7 +57,7 @@ export function deleteSoftMenu(data) {
     url: 'Menu/DeleteSoftBatchAsync',
     method: 'post',
     params: data,
-    baseURL: defaultSettings.apiWMSUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
   })
 }
 
@@ -70,7 +70,7 @@ export function deleteMenu(data) {
     url: 'Menu/DeleteBatchAsync',
     method: 'delete',
     params: data,
-    baseURL: defaultSettings.apiWMSUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
   })
 }
 
@@ -82,7 +82,7 @@ export function getMenuAllEnable() {
   return http.request({
     url: 'Menu/GetAllEnable',
     method: 'get',
-    baseURL: defaultSettings.apiWMSUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
   })
 }
 
@@ -102,12 +102,12 @@ export function getFunctionListWithPager(data) {
    * 新增或修改保存
    * @param data
    */
-export function saveFunction(data) {
+export function saveFunction(data, url) {
   return http.request({
-    url: 'Function/InsertOrUpdateAsync',
+    url: url,
     method: 'post',
     data: data,
-    baseURL: defaultSettings.apiWMSUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -118,7 +118,7 @@ export function getFunctionDetail(id) {
   return http({
     url: 'Function/GetById?id=' + id,
     method: 'get',
-    baseURL: defaultSettings.apiWMSUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -130,7 +130,7 @@ export function setFunctionEnable(data) {
     url: 'Function/SetEnabledMarktBatchAsync',
     method: 'post',
     params: data,
-    baseURL: defaultSettings.apiWMSUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -142,7 +142,7 @@ export function deleteSoftFunction(data) {
     url: 'Function/DeleteSoftBatchAsync',
     method: 'post',
     params: data,
-    baseURL: defaultSettings.apiWMSUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
   })
 }
 
@@ -155,18 +155,30 @@ export function deleteFunction(data) {
     url: 'Function/DeleteBatchAsync',
     method: 'delete',
     params: data,
-    baseURL: defaultSettings.apiWMSUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
   })
 }
 
 /**
-   * 查询所有可用的仓库
+   * 查询所有可用的
    * @param {查询条件} data
    */
 export function getFunctionAllEnable() {
   return http.request({
     url: 'Function/GetAllEnable',
     method: 'get',
-    baseURL: defaultSettings.apiWMSUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+  })
+}
+/**
+ * 根据子系统查询所有功能
+ * @param {} data
+ */
+export function getAllFunctionTreeTable(data) {
+  return http.request({
+    url: 'Function/GetAllFunctionTreeTable',
+    method: 'get',
+    params: data,
+    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
   })
 }

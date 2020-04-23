@@ -46,45 +46,8 @@ export const constantRoutes = [
       component: () => import('@/views/dashboard/index'),
       meta: { title: '控制台', icon: 'icon-dashboard' }
     }]
-  },
-  {
-    path: '/user',
-    component: Layout,
-    redirect: '/user/index',
-    meta: { title: '系统管理', icon: 'icon-goods' },
-    children: [{
-      path: '/user/index',
-      name: 'userindex',
-      component: () => import('@/views/user/index'),
-      meta: { title: '用户管理', icon: 'icon-code', funcode: 'User/List' }
-    },
-    {
-      path: '/menus/index',
-      name: 'menusindex',
-      component: () => import('@/views/menus/index'),
-      meta: { title: '菜单管理', icon: 'icon-databaseserverst', funcode: 'Menu/List' }
-    }
-    ]
-  },
-  {
-    path: '/tool',
-    component: Layout,
-    redirect: '/tool/index',
-    meta: { title: '工具类', icon: 'icon-goods' },
-    children: [{
-      path: '/tool/index',
-      name: 'codegenerator',
-      component: () => import('@/views//tool/index'),
-      meta: { title: '代码生成器', icon: 'icon-code' }
-    },
-    {
-      path: '/tool/dbtools',
-      name: 'toolDbTools',
-      component: () => import('@/views/tool/dbtools'),
-      meta: { title: '数据库加解密', icon: 'icon-databaseserverst' }
-    }
-    ]
   }
+
   // 404 page must be placed at the end !!!
   // { path: '*', redirect: '/404', hidden: true }
 ]

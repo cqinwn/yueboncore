@@ -231,7 +231,7 @@ $light_gray: #eee;
     position: relative;
     width: 369px;
     max-width: 100%;
-    margin: 10% auto;
+    margin: 15% 10% 10% 65%;
     overflow: hidden;
     background: #fff;
     border-radius: 10px;

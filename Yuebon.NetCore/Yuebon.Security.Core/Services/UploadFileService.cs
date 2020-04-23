@@ -10,7 +10,10 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Services
 {
-    public class UploadFileService : BaseService<UploadFile, UploadFileOuputDto, string>, IUploadFileService
+    /// <summary>
+    /// 
+    /// </summary>
+    public class UploadFileService : BaseService<UploadFile, UploadFileOutputDto, string>, IUploadFileService
     {
         private readonly IUploadFileRepository _uploadFileRepository;
         private readonly ILogService _logService;

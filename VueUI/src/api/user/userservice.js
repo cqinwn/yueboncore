@@ -1,0 +1,101 @@
+import http from '@/utils/request'
+import defaultSettings from '@/settings'
+
+/**
+   * 角色分页查询
+   * @param {查询条件} data
+   */
+export function getUserListWithPager(data) {
+  return http.request({
+    url: 'User/FindWithPagerSearchAsync',
+    method: 'get',
+    params: data,
+    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+  })
+}
+/**
+   * 新增或修改保存角色
+   * @param data
+   */
+export function saveUser(data, url) {
+  return http.request({
+    url: url,
+    method: 'post',
+    data: data,
+    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+  })
+}
+/**
+   * 获取角色详情
+   * @param {Id} 角色Id
+   */
+export function getUserDetail(id) {
+  return http({
+    url: 'User/GetById?id=' + id,
+    method: 'get',
+    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+  })
+}
+/**
+   * 批量设置启用状态
+   * @param {id集合} ids
+   */
+export function setUserEnable(data) {
+  return http({
+    url: 'User/SetEnabledMarktBatchAsync',
+    method: 'post',
+    params: data,
+    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+  })
+}
+/**
+   * 批量软删除
+   * @param {id集合} ids
+   */
+export function deleteSoftUser(data) {
+  return http({
+    url: 'User/DeleteSoftBatchAsync',
+    method: 'post',
+    params: data,
+    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+  })
+}
+
+/**
+   * 批量删除
+   * @param {id集合} ids
+   */
+export function deleteUser(data) {
+  return http({
+    url: 'User/DeleteBatchAsync',
+    method: 'delete',
+    params: data,
+    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+  })
+}
+
+/**
+   * 重置密码
+   * @param {userId:用户id} data
+   */
+export function resetPassword(data) {
+  return http({
+    url: 'User/ResetPassword',
+    method: 'post',
+    params: data,
+    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+  })
+}
+
+/**
+   * 修改密码
+   * @param {password:新密码,password2:重复新密码} data
+   */
+export function modifyPassword(data) {
+  return http({
+    url: 'User/ModifyPassword',
+    method: 'post',
+    params: data,
+    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+  })
+}

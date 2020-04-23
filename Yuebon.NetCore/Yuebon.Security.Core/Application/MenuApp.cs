@@ -54,9 +54,9 @@ namespace Yuebon.Security.Application
         /// </summary>
         /// <param name="parentId"></param>
         /// <returns></returns>
-        public List<MenuOutputDto> GetMenu(string parentId)
+        public List<MenuInputDto> GetMenu(string parentId)
         {
-            List<MenuOutputDto> list = new List<MenuOutputDto>();
+            List<MenuInputDto> list = new List<MenuInputDto>();
 
             return list;
         }
@@ -106,9 +106,9 @@ namespace Yuebon.Security.Application
         /// <param name="roleIds">角色ID</param>
         /// <param name="systemCode">系统类型代码子系统代码</param>
         /// <returns></returns>
-        public List<MenuOutputDto> GetMenuFuntionJson(string roleIds, string systemCode)
+        public List<MenuInputDto> GetMenuFuntionJson(string roleIds, string systemCode)
         {
-            List<MenuOutputDto> list = new List<MenuOutputDto>();
+            List<MenuInputDto> list = new List<MenuInputDto>();
             try
             {
                 SystemType systemType = systemservice.GetByCode(systemCode);
@@ -129,7 +129,7 @@ namespace Yuebon.Security.Application
                 //    vueTreeModel.children = VuexMenusTreeJson(listMenu, menu.Id);
                 //    list.Add(vueTreeModel);
                 //}
-                list =listMenu.MapTo<MenuOutputDto>();
+                list =listMenu.MapTo<MenuInputDto>();
             }
             catch (Exception ex)
             {

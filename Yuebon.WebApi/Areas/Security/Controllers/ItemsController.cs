@@ -24,7 +24,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
     /// </summary>
     [ApiController]
     [Route("api/Security/[controller]")]
-    public class ItemsController : AreaApiController<Items, ItemsOutputDto, IItemsService,string>
+    public class ItemsController : AreaApiController<Items, ItemsOutputDto, ItemsInputDto, IItemsService,string>
     {
 
         private readonly IItemsDetailService itemsDetailService;
@@ -123,6 +123,68 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             IEnumerable<ItemsDetailOutputDto> list = await itemsDetailService.GetItemDetailsByItemCode(itemCode);
             result.ErrCode = ErrCode.successCode;
             result.ResData = list;
+            return ToJsonContent(result);
+        }
+
+
+        /// <summary>
+        /// 异步更新数据
+        /// </summary>
+        /// <param name="tinfo"></param>
+        /// <param name="id">主键Id</param>
+        /// <returns></returns>
+        [HttpPost("Update")]
+        [YuebonAuthorize("Edit")]
+        public override async Task<IActionResult> UpdateAsync(ItemsInputDto tinfo, string id)
+        {
+            CommonResult result = new CommonResult();
+
+            Items info = iService.Get(id);
+            info.FullName = tinfo.FullName;
+            info.EnCode = tinfo.EnCode;
+            info.ParentId = tinfo.ParentId;
+            info.EnabledMark = tinfo.EnabledMark;
+            info.IsTree = tinfo.IsTree;
+            info.SortCode = tinfo.SortCode;
+            info.Description = tinfo.Description;
+
+
+            OnBeforeUpdate(info);
+            bool bl = await iService.UpdateAsync(info, id).ConfigureAwait(false);
+            if (bl)
+            {
+                result.ErrCode = ErrCode.successCode;
+                result.ErrMsg = ErrCode.err0;
+            }
+            else
+            {
+                result.ErrMsg = ErrCode.err43002;
+                result.ErrCode = "43002";
+            }
+            return ToJsonContent(result);
+        }
+        /// <summary>
+        /// 获取功能菜单适用于Vue 树形列表
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetAllItemsTreeTable")]
+        [YuebonAuthorize("List")]
+        public async Task<IActionResult> GetAllItemsTreeTable()
+        {
+            CommonResult result = new CommonResult();
+            try
+            {
+                List<ItemsOutputDto> list = await iService.GetAllItemsTreeTable();
+                result.Success = true;
+                result.ErrCode = ErrCode.successCode;
+                result.ResData = list;
+            }
+            catch (Exception ex)
+            {
+                Log4NetHelper.Error("获取菜单异常", ex);
+                result.ErrMsg = ErrCode.err40110;
+                result.ErrCode = "40110";
+            }
             return ToJsonContent(result);
         }
     }

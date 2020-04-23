@@ -23,7 +23,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
     /// </summary>
     [ApiController]
     [Route("api/Security/[controller]")]
-    public class FunctionController : AreaApiController<Function, FunctionOutputDto, IFunctionService,string>
+    public class FunctionController : AreaApiController<Function, FunctionOutputDto, FunctionInputDto, IFunctionService,string>
     {
         /// <summary>
         /// 构造函数
@@ -54,6 +54,15 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             {
                 info.SortCode = 99;
             }
+            if (string.IsNullOrEmpty(info.ParentId))
+            {
+                info.Layers = 1;
+                info.ParentId = "";
+            }
+            else
+            {
+                info.Layers = iService.Get(info.ParentId).Layers + 1;
+            }
         }
         
         /// <summary>
@@ -65,6 +74,19 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         {
             info.LastModifyUserId = CurrentUser.UserId;
             info.LastModifyTime = DateTime.Now;
+            if (info.SortCode == null)
+            {
+                info.SortCode = 99;
+            }
+            if (string.IsNullOrEmpty(info.ParentId))
+            {
+                info.Layers = 1;
+                info.ParentId = "";
+            }
+            else
+            {
+                info.Layers = iService.Get(info.ParentId).Layers + 1;
+            }
         }
 
         /// <summary>
@@ -81,6 +103,44 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
 
 
         /// <summary>
+        /// 异步更新数据
+        /// </summary>
+        /// <param name="tinfo"></param>
+        /// <param name="id">主键Id</param>
+        /// <returns></returns>
+        [HttpPost("Update")]
+        [YuebonAuthorize("Edit")]
+        public override async Task<IActionResult> UpdateAsync(FunctionInputDto tinfo, string id)
+        {
+            CommonResult result = new CommonResult();
+
+            Function info = iService.Get(id);
+            info.FullName = tinfo.FullName;
+            info.EnCode = tinfo.EnCode;
+            info.SystemTypeId = tinfo.SystemTypeId;
+            info.ParentId = tinfo.ParentId;
+            info.Icon = tinfo.Icon;
+            info.EnabledMark = tinfo.EnabledMark;
+            info.SortCode = tinfo.SortCode;
+            info.Description = tinfo.Description;
+            info.IsPublic = tinfo.IsPublic;
+
+
+            OnBeforeUpdate(info);
+            bool bl = await iService.UpdateAsync(info, id).ConfigureAwait(false);
+            if (bl)
+            {
+                result.ErrCode = ErrCode.successCode;
+                result.ErrMsg = ErrCode.err0;
+            }
+            else
+            {
+                result.ErrMsg = ErrCode.err43002;
+                result.ErrCode = "43002";
+            }
+            return ToJsonContent(result);
+        }
+        /// <summary>
         /// 根据父级功能编码查询所有子集功能，主要用于页面操作按钮权限
         /// </summary>
         /// <param name="enCode">菜单功能编码</param>
@@ -92,14 +152,13 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             CommonResult result = new CommonResult();
             try
             {
-
                 IEnumerable<FunctionOutputDto> list = await iService.GetListByParentEnCode(enCode);
                 result.ErrCode = ErrCode.successCode;
                 result.ResData = list;
             }
             catch(Exception ex)
             {
-
+                Log4NetHelper.Error("", ex);
             }
             return ToJsonContent(result);
         }
@@ -145,6 +204,34 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             result.ErrCode = ErrCode.successCode;
             return ToJsonContent(result);
         }
+
+
+        /// <summary>
+        /// 获取功能菜单适用于Vue 树形列表
+        /// </summary>
+        /// <param name="systemTypeId">子系统Id</param>
+        /// <returns></returns>
+        [HttpGet("GetAllFunctionTreeTable")]
+        [YuebonAuthorize("List")]
+        public async Task<IActionResult> GetAllFunctionTreeTable(string systemTypeId)
+        {
+            CommonResult result = new CommonResult();
+            try
+            {
+                List<FunctionTreeTableOutputDto> list = await iService.GetAllFunctionTreeTable(systemTypeId);
+                result.Success = true;
+                result.ErrCode = ErrCode.successCode;
+                result.ResData = list;
+            }
+            catch (Exception ex)
+            {
+                Log4NetHelper.Error("获取菜单异常", ex);
+                result.ErrMsg = ErrCode.err40110;
+                result.ErrCode = "40110";
+            }
+            return ToJsonContent(result);
+        }
+
 
     }
 }

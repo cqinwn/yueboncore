@@ -178,14 +178,24 @@ namespace Yuebon.Commons.Helpers
             httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
             return Post(requestUri, httpContent);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <param name="requestUrl"></param>
+        /// <returns></returns>
         public string PostByte(byte[] bytes, string requestUrl)
         {
             HttpContent content = new ByteArrayContent(bytes);
             content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
             return Post(requestUrl, content);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="requestUrl"></param>
+        /// <param name="content"></param>
+        /// <returns></returns>
         private string Post(string requestUrl, HttpContent content)
         {
             var result = _httpClient.PostAsync(ConcatURL(requestUrl),content);
@@ -201,7 +211,12 @@ namespace Yuebon.Commons.Helpers
         {
             return new Uri(_httpClient.BaseAddress, requestUrl).OriginalString;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         private AuthenticationHeaderValue CreateBasicCredentials(string userName, string password)
         {
             string toEncode = userName + ":" + password;

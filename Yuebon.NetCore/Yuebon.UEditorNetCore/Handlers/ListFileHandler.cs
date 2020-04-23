@@ -26,7 +26,7 @@ namespace Yuebon.UEditorNetCore.Handlers
         private ResultState State;
         private String PathToList;
         //private String[] FileList;
-        private List<UploadFileOuputDto> FileList;
+        private List<UploadFileOutputDto> FileList;
         private String[] SearchExtensions;
 
         public ListFileManager(HttpContext context, string pathToList, string[] searchExtensions)
@@ -49,7 +49,7 @@ namespace Yuebon.UEditorNetCore.Handlers
                 WriteResult();
                 return;
             }
-            List<UploadFileOuputDto> buildingList = new List<UploadFileOuputDto>();
+            List<UploadFileOutputDto> buildingList = new List<UploadFileOutputDto>();
             try
             {
                 int pageIndex = 1;

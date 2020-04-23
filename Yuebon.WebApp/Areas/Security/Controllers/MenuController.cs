@@ -22,7 +22,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
 {
     [Area("Security")]
     [Route("Security/[controller]/[action]")]
-    public class MenuController : BusinessController<Menu, MenuOutputDto, IMenuService, string>
+    public class MenuController : BusinessController<Menu, MenuInputDto, IMenuService, string>
     {
         private IUserService userService;
         private IRoleAuthorizeService roleAuthorizeService;
@@ -163,7 +163,7 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
             CommonResult result = new CommonResult();
             try
             {
-                result.ResData = iService.Get(id).MapTo<MenuOutputDto>();
+                result.ResData = iService.Get(id).MapTo<MenuInputDto>();
                 result.Success = true;
             }
             catch (Exception ex)
@@ -282,10 +282,10 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
 
 
             List<Menu> list = iService.GetListWhere(where).OrderBy(t => t.SortCode).ToList();
-            List<MenuOutputDto> listResult = new List<MenuOutputDto>();
+            List<MenuInputDto> listResult = new List<MenuInputDto>();
             foreach (Menu item in list)
             {
-                MenuOutputDto MenuOutputDto = new MenuOutputDto();
+                MenuInputDto MenuOutputDto = new MenuInputDto();
                 MenuOutputDto.Id = item.Id;
                 MenuOutputDto.FullName = item.FullName;
                 MenuOutputDto.EnCode = item.EnCode;

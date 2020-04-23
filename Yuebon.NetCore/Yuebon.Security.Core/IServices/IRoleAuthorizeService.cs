@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Yuebon.Commons.IServices;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.Models;
@@ -18,5 +19,12 @@ namespace Yuebon.Security.IServices
         /// <param name="itemType"></param>
         /// <returns></returns>
         IEnumerable<RoleAuthorize> GetListRoleAuthorizeByRoleId(string roleIds, int itemType);
+
+
+        /// <summary>
+        /// 获取功能菜单适用于Vue Tree树形
+        /// </summary>
+        /// <returns></returns>
+        Task<List<ModuleFunctionOutputDto>> GetAllFunctionTree();
     }
 }

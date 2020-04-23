@@ -6,8 +6,18 @@ using System.Text;
 
 namespace Yuebon.Commons.Extend
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class ExtQueryable
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="ordering"></param>
+        /// <returns></returns>
         public static IQueryable<T> OrderBy<T>(this IQueryable<T> source, string ordering)
         {
             var type = typeof(T);
@@ -18,6 +28,13 @@ namespace Yuebon.Commons.Extend
             MethodCallExpression resultExp = Expression.Call(typeof(Queryable), "OrderBy", new Type[] { type, property.PropertyType }, source.Expression, Expression.Quote(orderByExp));
             return source.Provider.CreateQuery<T>(resultExp);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="ordering"></param>
+        /// <returns></returns>
         public static IQueryable<T> OrderByDescending<T>(this IQueryable<T> source, string ordering)
         {
             var type = typeof(T);

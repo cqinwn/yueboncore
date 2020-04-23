@@ -22,7 +22,7 @@ namespace Yuebon.AspNetCore.Controllers
     [ApiController]
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class FunctionController : AreaApiController<Function, FunctionOutputDto, IFunctionService,string>
+    public class FunctionController : AreaApiController<Function, FunctionOutputDto, FunctionInputDto, IFunctionService,string>
     {
         /// <summary>
         /// 

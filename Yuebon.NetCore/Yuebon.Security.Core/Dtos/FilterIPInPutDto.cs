@@ -18,30 +18,37 @@ namespace Yuebon.Security.Dtos
         /// 设置或获取 
         /// </summary>
         public string Id { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
-        public bool? Type { get; set; }
-        /// <summary>
+        public bool? FilterType { get; set; }
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string StartIP { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string EndIP { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public int? SortCode { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
-        public bool? EnabledMark { get; set; }
-        /// <summary>
+        public bool EnabledMark { get; set; }
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string Description { get; set; }
-
+
+
     }
 }

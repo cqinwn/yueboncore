@@ -199,10 +199,10 @@ namespace Yuebon.Security.Application
         /// </summary>
         /// <param name="userid"></param>
         /// <returns></returns>
-        public UserNameCardOutPutDto GetUserNameCardInfo(string userid)
-        {
-            return service.GetUserNameCardInfo(userid);
-        }
+        //public UserNameCardOutPutDto GetUserNameCardInfo(string userid)
+        //{
+        //    return service.GetUserNameCardInfo(userid);
+        //}
 
         /// <summary>
         /// 保存名片
@@ -223,13 +223,13 @@ namespace Yuebon.Security.Application
         /// <param name="address"></param>
         /// <param name="openflag"></param>
         /// <returns></returns>
-        public bool SaveNameCard(string userid, string headicon, string nickName, string name,  string company, string position,
-            string weburl, string mobile, string email, string wx, string wximg,
-            string industry, string area, string address, int openflag)
-        {
-            return service.SaveNameCard(userid, headicon, nickName, name, company, position, weburl,
-                mobile, email, wx, wximg, industry, area, address, openflag);
-        }
+        //public bool SaveNameCard(string userid, string headicon, string nickName, string name,  string company, string position,
+        //    string weburl, string mobile, string email, string wx, string wximg,
+        //    string industry, string area, string address, int openflag)
+        //{
+        //    return service.SaveNameCard(userid, headicon, nickName, name, company, position, weburl,
+        //        mobile, email, wx, wximg, industry, area, address, openflag);
+        //}
 
 
         /// <summary>

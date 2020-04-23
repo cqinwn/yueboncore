@@ -419,7 +419,11 @@ namespace Yuebon.Commons.Extensions
             }
             return info;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public static byte[] ToBytes(this object obj)
         {
             if (obj == null)
@@ -431,7 +435,11 @@ namespace Yuebon.Commons.Extensions
                 return ms.ToArray();
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
         public static object ToObject(this byte[] source)
         {
             using (var memStream = new MemoryStream())

@@ -20,6 +20,7 @@ namespace Yuebon.Commons.Helpers
         /// </summary>
         /// <param name="url"></param>
         /// <param name="encoding"></param>
+        /// <param name="timeOut"></param>
         /// <returns></returns>
         public static string HttpGet(string url, Encoding encoding = null, int timeOut = 60000)
         {

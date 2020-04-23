@@ -35,7 +35,6 @@ using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
 using Yuebon.WebApi.Areas.WeiXin.Models;
 using Yuebon.WeChat.Model;
-using System.IO;
 namespace Yuebon.WebApi.Areas.Weixin.Controllers
 {
     /// <summary>
@@ -68,10 +67,12 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
         private Type type = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType;
         private readonly IUserService userService;
         private readonly IRoleService roleService;
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="hostingEnvironment"></param>
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="hostingEnvironment"></param>
+       /// <param name="_userService"></param>
+       /// <param name="_roleService"></param>
         public WxOpenController(IWebHostEnvironment hostingEnvironment, IUserService _userService, IRoleService _roleService)
         {
             _hostingEnvironment = hostingEnvironment;

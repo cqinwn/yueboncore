@@ -53,7 +53,7 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 设置或获取 
         /// </summary>
-        public bool? EnabledMark { get; set; }
+        public bool EnabledMark { get; set; }
         /// <summary>
         /// 设置或获取 
         /// </summary>

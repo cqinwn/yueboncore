@@ -101,7 +101,7 @@ namespace Yuebon.Commons.Cache
         /// <summary>
         /// 批量删除缓存
         /// </summary>
-        /// <param name="key">缓存Key集合</param>
+        /// <param name="keys">缓存Key集合</param>
         /// <returns></returns>
         public void RemoveAll(IEnumerable<string> keys)
         {

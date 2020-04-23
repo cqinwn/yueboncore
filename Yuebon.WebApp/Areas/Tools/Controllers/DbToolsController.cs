@@ -16,7 +16,7 @@ namespace Yuebon.WebApp.Areas.Tools.Controllers
 {
     [Area("Tools")]
     [Route("Tools/[controller]/[action]")]
-    public class DbToolsController : BusinessController<Menu, MenuOutputDto, IMenuService,string>
+    public class DbToolsController : BusinessController<Menu, MenuInputDto, IMenuService,string>
     {
         public DbToolsController(IMenuService _iService) : base(_iService)
         {

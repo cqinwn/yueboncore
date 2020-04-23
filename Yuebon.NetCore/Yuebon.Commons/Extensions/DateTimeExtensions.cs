@@ -106,7 +106,11 @@ namespace Yuebon.Commons.Extensions
             DateTime d = dateTime.Value;
             return new DateTime(d.Year, d.Month, d.Day, d.Hour, d.Minute, 0);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
         public static long ToJavaScriptTicks(this DateTime dateTime)
         {
             DateTimeOffset utcDateTime = dateTime.ToUniversalTime();

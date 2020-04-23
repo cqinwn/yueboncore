@@ -24,16 +24,25 @@ namespace Yuebon.Commons.Repositories
         /// </summary>
         public bool HasCommitted { get; private set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void BeginOrUseTransaction()
         {
             throw new NotImplementedException();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public Task BeginOrUseTransactionAsync(CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public void Commit()
         {
             throw new NotImplementedException();
@@ -46,27 +55,47 @@ namespace Yuebon.Commons.Repositories
         {
             throw new NotImplementedException();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TEntity"></typeparam>
+        /// <typeparam name="TKey"></typeparam>
+        /// <returns></returns>
         public IDbContext GetDbContext<TEntity, TKey>() where TEntity : IBaseEntity<TKey>
         {
             throw new NotImplementedException();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entityType"></param>
+        /// <returns></returns>
         public IDbContext GetDbContext(Type entityType)
         {
             throw new NotImplementedException();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public void Rollback()
         {
             throw new NotImplementedException();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TEntity"></typeparam>
+        /// <typeparam name="TKey"></typeparam>
+        /// <returns></returns>
         IDbContext IUnitOfWork.GetDbContext<TEntity, TKey>()
         {
             throw new NotImplementedException();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entityType"></param>
+        /// <returns></returns>
         IDbContext IUnitOfWork.GetDbContext(Type entityType)
         {
             throw new NotImplementedException();

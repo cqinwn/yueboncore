@@ -1184,10 +1184,6 @@ namespace Yuebon.Commons.Repositories
                 try
                 {
                     trans = conn.BeginTransaction();
-                    foreach (T item in entities)
-                    {
-                        OperationLogOfInsert(item);
-                    }
                     long row = conn.Insert(entities, trans);
                     trans.Commit();
                     return row;
@@ -1212,10 +1208,6 @@ namespace Yuebon.Commons.Repositories
                 trans = conn.BeginTransaction();
                 try
                 {
-                    foreach (T item in entities)
-                    {
-                       OperationLogOfInsert(item);
-                    }
                     long row = await conn.InsertAsync(entities, trans);
                     trans.Commit();
                     return row;
@@ -1870,7 +1862,6 @@ namespace Yuebon.Commons.Repositories
             if (OnOperationLog != null)
             {
                 string operationType = DbLogType.Update.ToString();
-                string userId = "";
                 Hashtable recordField = GetHashByEntity(obj);
                 Dictionary<string, string> dictColumnNameAlias = GetColumnNameAlias();
 

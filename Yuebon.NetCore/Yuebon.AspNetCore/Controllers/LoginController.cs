@@ -16,6 +16,7 @@ using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IoC;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Models;
+using Yuebon.Commons.Net;
 using Yuebon.Commons.Options;
 using Yuebon.Security.Application;
 using Yuebon.Security.Dtos;
@@ -34,15 +35,18 @@ namespace Yuebon.AspNetCore.Controllers
     {
         private IUserService _userService;
         private ISystemTypeService _systemTypeService;
+        private ILogService _logService;
         /// <summary>
         /// 构造函数注入服务
         /// </summary>
         /// <param name="iService"></param>
         /// <param name="systemTypeService"></param>
-        public LoginController(IUserService iService, ISystemTypeService systemTypeService)
+        /// <param name="logService"></param>
+        public LoginController(IUserService iService, ISystemTypeService systemTypeService,ILogService logService)
         {
             _userService = iService;
             _systemTypeService = systemTypeService;
+            _logService = logService;
         }
 
         /// <summary>
@@ -60,6 +64,8 @@ namespace Yuebon.AspNetCore.Controllers
         {
 
             CommonResult result = new CommonResult();
+            Log logEntity = new Log();
+            RemoteIpParser remoteIpParser = new RemoteIpParser();
             if (string.IsNullOrEmpty(username))
             {
                 result.ErrMsg = "用户名不能为空！";
@@ -121,17 +127,37 @@ namespace Yuebon.AspNetCore.Controllers
                             currentSession.Modules = listFunction;
                             TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
                             yuebonCacheHelper.Add("login_user_" + user.Id, currentSession, expiresSliding, true);
-                                //CookiesHelper.WriteCookie(HttpContext,"loginuser", DEncrypt.Encrypt(user.Id, "qingwen"), 1);
                            
                             CurrentUser = currentSession;
                             result.ResData = currentSession;
                             result.ErrCode = ErrCode.successCode;
                             result.Success = true;
+
+                            logEntity.Account = CurrentUser.Account;
+                            logEntity.NickName = CurrentUser.RealName;
+                            logEntity.Date = logEntity.CreatorTime = DateTime.Now;
+                            logEntity.IPAddress = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
+                            logEntity.IPAddressName = IpAddressUtil.GetCityByIp(logEntity.IPAddress);
+                            logEntity.Result = true;
+                            logEntity.ModuleName = "登录";
+                            logEntity.Description = "登录成功";
+                            logEntity.Type = "Login";
+                            _logService.Insert(logEntity);
                         }
                         else
                         {
                             result.ErrCode = ErrCode.failCode;
                             result.ErrMsg = userLogin.Item2;
+
+                            logEntity.Account = username;
+                            logEntity.Date = logEntity.CreatorTime = DateTime.Now;
+                            logEntity.IPAddress = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
+                            logEntity.IPAddressName = IpAddressUtil.GetCityByIp(logEntity.IPAddress);
+                            logEntity.Result = false;
+                            logEntity.ModuleName = "登录";
+                            logEntity.Type = "Login";
+                            logEntity.Description = "登录失败，" + userLogin.Item2;
+                            _logService.Insert(logEntity);
                         }
                     }
                 }

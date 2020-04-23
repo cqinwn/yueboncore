@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Yuebon.Commons.IRepositories;
+using Yuebon.Security.Dtos;
 using Yuebon.Security.Models;
 
 namespace Yuebon.Security.IRepositories
@@ -14,5 +16,8 @@ namespace Yuebon.Security.IRepositories
         /// <param name="typeID">系统类型ID</param>
         /// <returns></returns>
         IEnumerable<Function> GetFunctions(string roleIDs, string typeID);
+
+
+
     }
 }

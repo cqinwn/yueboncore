@@ -31,7 +31,7 @@ namespace Yuebon.Security.Models
         /// <summary>
         /// 类型
         /// </summary>
-        public virtual bool? PolicyType { get; set; }
+        public virtual bool? FilterType { get; set; }
 
         /// <summary>
         /// 开始IP

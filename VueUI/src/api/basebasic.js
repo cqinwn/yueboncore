@@ -30,10 +30,32 @@ export function refreshToken(data) {
     baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
   })
 }
+/**
+ * 获取系统基础设置信息
+ */
 export function getSysSetting() {
   return http({
     url: 'Security/SysSetting/GetInfo',
     method: 'get',
+    baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
+  })
+}
+
+/**
+ * 获取系统信息
+ */
+export function getSysInfo() {
+  return http({
+    url: 'Security/SysSetting/GetSysInfo',
+    method: 'get',
+    baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
+  })
+}
+export function saveSysSetting(data) {
+  return http({
+    url: 'Security/SysSetting/Save',
+    method: 'post',
+    data: data,
     baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
   })
 }
@@ -142,7 +164,7 @@ export function getListItemDetailsByCode(code) {
   })
 }
 /**
-   * 根据菜单功能编码查询该页面功能
+   * 根据菜单功能编码查询该页面操作功能
    */
 export function getListMeunFuntionBymeunCode(code) {
   return http({

@@ -33,7 +33,7 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 设置或获取 
         /// </summary>
-        public bool? IsTree { get; set; }
+        public bool IsTree { get; set; }
         /// <summary>
         /// 设置或获取 
         /// </summary>
@@ -45,7 +45,7 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 设置或获取 
         /// </summary>
-        public bool? EnabledMark { get; set; }
+        public bool EnabledMark { get; set; }
         /// <summary>
         /// 设置或获取 
         /// </summary>

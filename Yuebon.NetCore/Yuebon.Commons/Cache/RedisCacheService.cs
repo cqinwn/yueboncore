@@ -39,6 +39,11 @@ namespace Yuebon.Commons.Cache
             _cache = _connection.GetDatabase(database);
             _instance = options.InstanceName;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public string GetKeyForRedis(string key)
         {
             return _instance + key;

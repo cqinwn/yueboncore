@@ -165,7 +165,11 @@ namespace Yuebon.Commons
             }
 
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="unit"></param>
+        /// <returns></returns>
         protected string EncodeUnit(params byte[] unit)
         {
             int[] obj = new int[4];

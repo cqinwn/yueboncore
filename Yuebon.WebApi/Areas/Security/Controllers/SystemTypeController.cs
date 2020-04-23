@@ -17,6 +17,7 @@ using Newtonsoft.Json;
 using Yuebon.Commons.Json;
 using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.AspNetCore.Mvc;
+using Yuebon.AspNetCore.UI;
 
 namespace Yuebon.WebApi.Areas.Security.Controllers
 {
@@ -25,7 +26,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
     /// </summary>
     [ApiController]
     [Route("api/Security/[controller]")]
-    public class SystemTypeController : AreaApiController<SystemType, SystemTypeOutputDto, ISystemTypeService,string>
+    public class SystemTypeController : AreaApiController<SystemType, SystemTypeOutputDto, SystemTypeInputDto, ISystemTypeService,string>
     {
         /// <summary>
         /// 构造函数
@@ -82,37 +83,80 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         }
 
         /// <summary>
-        /// 获取系统基本信息
+        /// 异步更新数据
         /// </summary>
+        /// <param name="tinfo"></param>
+        /// <param name="id">主键Id</param>
         /// <returns></returns>
-        [HttpGet("GetInfo")]
-        [NoPermissionRequired]
-        public IActionResult GetInfo()
+        [HttpPost("Update")]
+        [YuebonAuthorize("Edit")]
+        public override async Task<IActionResult> UpdateAsync(SystemTypeInputDto tinfo, string id)
         {
             CommonResult result = new CommonResult();
-            YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                SysSetting sysSetting = JsonConvert.DeserializeObject<SysSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
-                if (sysSetting != null)
-                {
-                    result.ResData = sysSetting;
-                    result.Success = true;
-                }
-                else
-                {
-                    sysSetting = XmlConverter.Deserialize<SysSetting>("xmlconfig/sys.config");
-                    if (sysSetting != null)
-                    {
-                        result.ResData = sysSetting;
-                        result.Success = true;
-                    }
-                    else
-                    {
-                        result.ErrMsg = ErrCode.err60001;
-                        result.ErrCode = "60001";
-                    }
-                }
+
+            SystemType info = iService.Get(id);
+            info.FullName = tinfo.FullName;
+            info.EnCode = tinfo.EnCode;
+            info.Url = tinfo.Url;
+            info.AllowEdit = tinfo.AllowEdit;
+            info.AllowDelete = tinfo.AllowDelete;
+            info.SortCode = tinfo.SortCode;
+            info.EnabledMark = tinfo.EnabledMark;
+            info.Description = tinfo.Description;
+
+            OnBeforeUpdate(info);
+            bool bl = await iService.UpdateAsync(info, id).ConfigureAwait(true);
+            if (bl)
+            {
+                result.ErrCode = ErrCode.successCode;
+                result.ErrMsg = ErrCode.err0;
+            }
+            else
+            {
+                result.ErrMsg = ErrCode.err43002;
+                result.ErrCode = "43002";
+            }
             return ToJsonContent(result);
         }
+
+
+
+        /// <summary>
+        /// 异步分页查询
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        [HttpGet("FindWithPagerAsync")]
+        [YuebonAuthorize("List")]
+        public override async Task<IActionResult> FindWithPagerAsync([FromQuery]SearchModel search)
+        {
+            CommonResult result = new CommonResult();
+            string orderByDir = string.IsNullOrEmpty(Request.Query["Order"].ToString()) ? "" : Request.Query["Order"].ToString();
+            string orderFlied = string.IsNullOrEmpty(Request.Query["Sort"].ToString()) ? "Id" : Request.Query["Sort"].ToString();
+            bool order = orderByDir == "asc" ? false : true;
+            string where = GetPagerCondition();
+
+            if (!string.IsNullOrEmpty(search.Keywords))
+            {
+                where += string.Format(" and (FullName like '%{0}%' or EnCode like '%{0}%')", search.Keywords);
+            }
+
+            PagerInfo pagerInfo = GetPagerInfo();
+            List<SystemType> list = await iService.FindWithPagerAsync(where, pagerInfo, orderFlied, order);
+            List<SystemTypeOutputDto> resultList = list.MapTo<SystemTypeOutputDto>();
+           
+            PageResult<SystemTypeOutputDto> pageResult = new PageResult<SystemTypeOutputDto>
+            {
+                CurrentPage = pagerInfo.CurrenetPageIndex,
+                Items = resultList,
+                ItemsPerPage = pagerInfo.PageSize,
+                TotalItems = pagerInfo.RecordCount
+            };
+            result.ResData = pageResult;
+            result.ErrCode = ErrCode.successCode;
+            return ToJsonContent(result);
+        }
+
 
         /// <summary>
         /// 获取所有子系统

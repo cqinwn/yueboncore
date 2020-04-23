@@ -12,6 +12,7 @@ using Yuebon.Commons.Helpers;
 using Dapper.Contrib.Extensions;
 using Yuebon.Security.Dtos;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Yuebon.Security.Repositories
 {
@@ -84,6 +85,38 @@ namespace Yuebon.Security.Repositories
             }
         }
 
+        /// <summary>
+        /// 注册用户
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="userLogOnEntity"></param>
+        /// <param name="trans"></param>
+        public async Task<bool> InsertAsync(User entity, UserLogOn userLogOnEntity, IDbTransaction trans = null)
+        {
+            using (IDbConnection conn = OpenSharedConnection())
+            {
+                try
+                {
+                    trans = conn.BeginTransaction();
+                    long row = 0;
+                    userLogOnEntity.Id = GuidUtils.CreateNo();
+                    userLogOnEntity.UserId = entity.Id;
+                    userLogOnEntity.UserSecretkey = MD5Util.GetMD5_16(GuidUtils.NewGuidFormatN()).ToLower();
+                    userLogOnEntity.UserPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(userLogOnEntity.UserPassword).ToLower(), userLogOnEntity.UserSecretkey).ToLower()).ToLower();
+                    row = await conn.InsertAsync(entity, trans);
+                    long row1 = await conn.InsertAsync(userLogOnEntity, trans);
+
+                    trans.Commit();
+                    return (row + row1) >= 2;
+                }
+                catch (Exception)
+                {
+                    trans.Rollback();
+                    throw;
+                }
+
+            }
+        }
         /// <summary>
         /// 注册用户,第三方平台
         /// </summary>
@@ -194,14 +227,14 @@ namespace Yuebon.Security.Repositories
         /// </summary>
         /// <param name="userid"></param>
         /// <returns></returns>
-        public UserNameCardOutPutDto GetUserNameCardInfo(string userid)
-        {
-            using (IDbConnection conn = OpenSharedConnection())
-            {
-                string sql = @"select * from dbo.Vw_NameCard where MUserId='" + userid + "' ";
-                return conn.QueryFirstOrDefault<UserNameCardOutPutDto>(sql);
-            }
-        }
+        //public UserNameCardOutPutDto GetUserNameCardInfo(string userid)
+        //{
+        //    using (IDbConnection conn = OpenSharedConnection())
+        //    {
+        //        string sql = @"select * from dbo.Vw_NameCard where MUserId='" + userid + "' ";
+        //        return conn.QueryFirstOrDefault<UserNameCardOutPutDto>(sql);
+        //    }
+        //}
 
 
         /// <summary>

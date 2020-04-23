@@ -34,5 +34,7 @@ namespace Yuebon.Security.Repositories
                 return conn.Query<Function>(sql);
             }
         }
+
+
     }
 }

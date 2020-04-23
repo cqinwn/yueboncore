@@ -13,6 +13,9 @@ using System.Text;
 
 namespace Yuebon.Commons.Encrypt
 {
+    /// <summary>
+    /// RSA加解密工具
+    /// </summary>
     public static class RSAUtils
     {
         /// <summary>

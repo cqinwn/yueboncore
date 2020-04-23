@@ -27,13 +27,15 @@ namespace Yuebon.AspNetCore.Controllers
     /// </summary>
     /// <typeparam name="T">实体类型</typeparam>
     /// <typeparam name="TDto">数据输出实体类型</typeparam>
+    /// <typeparam name="TIDto">数据输入实体类型</typeparam>
     /// <typeparam name="TService">Service类型</typeparam>
     /// <typeparam name="TKey">主键数据类型</typeparam>
     [ApiController]
-    public abstract class AreaApiController<T,TDto, TService, TKey> : ApiController
+    public abstract class AreaApiController<T,TDto, TIDto, TService, TKey> : ApiController
         where T : class, IBaseEntity<TKey>
         where TService : IService<T, TDto, TKey>
         where TDto : class
+        where TIDto : class
         where TKey : IEquatable<TKey>
     {
 
@@ -142,25 +144,26 @@ namespace Yuebon.AspNetCore.Controllers
         /// <summary>
         /// 异步新增数据
         /// </summary>
-        /// <param name="info"></param>
+        /// <param name="tinfo"></param>
         /// <returns></returns>
         [HttpPost("Insert")]
         [YuebonAuthorize("Add")]
-        public virtual async Task<IActionResult> InsertAsync(T info)
+        public virtual async Task<IActionResult> InsertAsync(TIDto tinfo)
         {
             CommonResult result = new CommonResult();
-                OnBeforeInsert(info);
-                long ln = await iService.InsertAsync(info).ConfigureAwait(true);
-                if (ln > 0)
-                {
-                    result.ErrCode = ErrCode.successCode;
-                    result.ErrMsg = ErrCode.err0;
-                }
-                else
-                {
-                    result.ErrMsg = ErrCode.err43001;
-                    result.ErrCode = "43001";
-                }
+            T info = tinfo.MapTo<T>();
+            OnBeforeInsert(info);
+            long ln = await iService.InsertAsync(info).ConfigureAwait(false);
+            if (ln > 0)
+            {
+                result.ErrCode = ErrCode.successCode;
+                result.ErrMsg = ErrCode.err0;
+            }
+            else
+            {
+                result.ErrMsg = ErrCode.err43001;
+                result.ErrCode = "43001";
+            }
             return ToJsonContent(result);
         }
 
@@ -168,26 +171,27 @@ namespace Yuebon.AspNetCore.Controllers
         /// <summary>
         /// 异步更新数据
         /// </summary>
-        /// <param name="info"></param>
+        /// <param name="tinfo"></param>
         /// <param name="id">主键Id</param>
         /// <returns></returns>
         [HttpPost("Update")]
         [YuebonAuthorize("Edit")]
-        public virtual async Task<IActionResult> UpdateAsync(T info,TKey id)
+        public virtual async Task<IActionResult> UpdateAsync(TIDto tinfo, TKey id)
         {
             CommonResult result = new CommonResult();
-                OnBeforeUpdate(info);
-                bool bl = await iService.UpdateAsync(info, id);
-                if (bl)
-                {
-                    result.ErrCode = ErrCode.successCode;
-                    result.ErrMsg = ErrCode.err0;
-                }
-                else
-                {
-                    result.ErrMsg = ErrCode.err43002;
-                    result.ErrCode = "43002";
-                }
+            T info = tinfo.MapTo<T>();
+            OnBeforeUpdate(info);
+            bool bl = await iService.UpdateAsync(info, id).ConfigureAwait(false);
+            if (bl)
+            {
+                result.ErrCode = ErrCode.successCode;
+                result.ErrMsg = ErrCode.err0;
+            }
+            else
+            {
+                result.ErrMsg = ErrCode.err43002;
+                result.ErrCode = "43002";
+            }
             return ToJsonContent(result);
         }
 
@@ -547,10 +551,13 @@ namespace Yuebon.AspNetCore.Controllers
             string orderFlied = string.IsNullOrEmpty(Request.Query["Sort"].ToString()) ? "Id" : Request.Query["Sort"].ToString();
             bool order = orderByDir == "asc" ? false : true;
             string where = GetPagerCondition();
-            if (!string.IsNullOrEmpty(search.Keywords))
+            if (search != null)
             {
-                where += " and Title like '%" + search.Keywords + "%'";
-            };
+                if (!string.IsNullOrEmpty(search.Keywords))
+                {
+                    where += " and Title like '%" + search.Keywords + "%'";
+                };
+            }
             PagerInfo pagerInfo = GetPagerInfo();
             List<T> list = await iService.FindWithPagerAsync(where, pagerInfo, orderFlied, order);
             List<TDto> resultList = list.MapTo<TDto>();

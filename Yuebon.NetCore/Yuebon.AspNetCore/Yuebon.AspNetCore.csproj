@@ -12,15 +12,15 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <IsPackable>true</IsPackable>
     <PackageLicenseExpression />
-    <Version>1.3.1.4</Version>
+    <Version>1.3.1.5</Version>
     <PackageReleaseNotes>兼容最新版Yuebon.Security.Core</PackageReleaseNotes>
     <RunAnalyzersDuringLiveAnalysis>true</RunAnalyzersDuringLiveAnalysis>
     <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
     <PackageProjectUrl>https://gitee.com/yuebon/YuebonNetCore</PackageProjectUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <AssemblyName>Yuebon.AspNetCore</AssemblyName>
-    <AssemblyVersion>1.3.1.4</AssemblyVersion>
-    <FileVersion>1.3.1.4</FileVersion>
+    <AssemblyVersion>1.3.1.5</AssemblyVersion>
+    <FileVersion>1.3.1.5</FileVersion>
     <RepositoryUrl>https://gitee.com/yuebon/YuebonNetCore</RepositoryUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>

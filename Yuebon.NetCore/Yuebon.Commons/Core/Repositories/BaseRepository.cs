@@ -1153,7 +1153,7 @@ namespace Yuebon.Commons.Repositories
         {
             using (DbConnection conn = OpenSharedConnection())
             {
-                OperationLogOfInsert(entity);
+                //OperationLogOfInsert(entity);
                 return conn.Insert(entity,trans);
             }
         }
@@ -1167,7 +1167,7 @@ namespace Yuebon.Commons.Repositories
         {
             using (DbConnection conn = OpenSharedConnection())
             {
-                OperationLogOfInsert(entity);
+                //OperationLogOfInsert(entity);
                 return await conn.InsertAsync(entity, trans);
             }
         }
@@ -1230,7 +1230,7 @@ namespace Yuebon.Commons.Repositories
         {
             using (DbConnection conn = OpenSharedConnection())
             {
-                OperationLogOfUpdate(entity,id);
+                //OperationLogOfUpdate(entity,id);
                 return conn.Update(entity,trans);
             }
         }
@@ -1245,7 +1245,7 @@ namespace Yuebon.Commons.Repositories
         {
             using (DbConnection conn = OpenSharedConnection())
             {
-                OperationLogOfUpdate(entity, id);
+               // OperationLogOfUpdate(entity, id);
                 return await conn.UpdateAsync(entity,trans);
             }
         }

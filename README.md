@@ -5,19 +5,13 @@
 
 ### 更新日志
 
-##### 2020/4/23
+##### 2020/4/24
 
 1、vue版在yysql数据库通过，感谢@cuijianhao_admin[催催啊](https://gitee.com/cuijianhao_admin)提供mysql测试环境
 
 2、修复mvc版本的bug
 
 3、近期将发布相关文档，请到QQ群下载，在末尾有入口
-
-##### 2020/4/23
-
-1、已经完全实现前后端分离，前端采用Vue+element实现。
-
-2、本次更新是大版本更新，传统的asp.net core MVC有部分bug还未修复。
 
 更多更新日志 [点击查看](https://gitee.com/yuebon/YuebonNetCore/wikis/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97?sort_id=1983111)
 
@@ -28,13 +22,11 @@ YuebonCore FW其核心设计目标是开发迅速、代码量少、学习简单�
 
 ### 项目简介
 
-使用时请务必保留来源，请勿用于违反我国法律的web平台、如诈骗等非法平台网站。版权最终解释权归《YuebonCore团队》所有。
-
-YuebonCore是一套基于NetCore3.1+Dapper+Vue开发出来的框架，源代码完全开源，可以帮助你解决C#.NET项目70%的重复工作，让开发人员远离加班！
+YuebonCore是一套基于NetCore3.1.3 开发出来的框架，源代码完全开源！目前发布了Vue单页面版和mvc版两个版本，开发者可以根据自己的喜好选择。
 
 使用 Apache License 2.0 协议，采用主流框架，容易上手，简单易学，学习成本低。可完全实现二次开发、基本满足80%项目需求。
 
-可以帮助解决.NET项目70%的重复工作，让开发更多关注业务逻辑。既能快速提高开发效率，帮助公司节省人力成本，同时又不失灵活性。
+代码生成器可以帮助解决.NET项目70%的重复工作，让开发更多关注业务逻辑。既能快速提高开发效率，帮助公司节省人力成本，同时又不失灵活性。
 
 操作权限控制精密细致，对所有管理链接都进行权限验证，可控制到导航菜单、功能按钮。
 
@@ -52,16 +44,16 @@ Asp.net core mvc 版本体验地址：[http://netcore.ts.yuebon.com](http://netc
 WebApi接口地址：[http://netcoreapi.ts.yuebon.com](http://netcoreapi.ts.yuebon.com)
 
 
-#### 技术介绍
+### 技术介绍
 
 前端目前采用Vue独立前端和asp.net core MVC模式，使用的技术栈有些区别，后期将侧重于Vue端的优化运维。
 
-#####  前端技术 
+####  前端技术 
 1、asp.net MVC版详见：[asp.netcore MVC前端技术栈](https://gitee.com/yuebon/YuebonNetCore/wikis/asp.netcore%20MVC%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E6%A0%88?sort_id=2142838)
 
 2、Vue版前端技术栈 ：基于 ES2015+、vue、vuex、vue-router 、vue-cli 、axios 和 element-ui，，前端采用vscode工具开发
 
-##### 后端技术
+#### 后端技术
 
 核心框架：.NetCore3.1 + Web API + Dapper + autofac + AutoMapper+swagger
 
@@ -92,7 +84,7 @@ Yuebon.Cms.Core[CMS基础类库]，包含文章管理、广告管理等内容，
 
 Yuebon.WebApi[webapi接口]：为Vue版或其他三方系统提供接口服务。
 
-DataBase是最新数据库备份文件，目前仅支持MS SQL Server。
+DataBase是最新数据库备份文件，目前支持MS SQL Server和MySql。
 
 ### 部分界面展示
 

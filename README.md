@@ -53,7 +53,7 @@ WebApi接口地址：[http://netcoreapi.ts.yuebon.com](http://netcoreapi.ts.yueb
 #####  前端技术 
 1、asp.net MVC版详见：[asp.netcore MVC前端技术栈](https://gitee.com/yuebon/YuebonNetCore/wikis/asp.netcore%20MVC%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E6%A0%88?sort_id=2142838)
 
-2、Vue版前端技术栈 ：Vue+elementUI+Vue Router+aoxis+Vuex，前端采用vscode工具开发
+2、Vue版前端技术栈 ：基于 ES2015+、vue、vuex、vue-router 、vue-cli 、axios 和 element-ui，，前端采用vscode工具开发
 
 ##### 后端技术
 
@@ -136,27 +136,36 @@ DataBase是最新数据库备份文件，目前仅支持MS SQL Server。
 
 5、打开解决方案，如果使用aspnet core mvc版本启动项目Yuebon.WebApp即可。初始化用户名为admin，密码为admin888
 
-6、使用vue版请按如下操作：
+### vue版如何用起来
 
-1）打开解决方案，启动Yuebon.Webapi项目
+1、你需要在本地安装 node 和 git。
 
-2）进入项目目录vueUI
+2、克隆项目
+git clone https://gitee.com/yuebon/YuebonNetCore.git
+
+3、进入项目目录
 
 cd vueUI
 
-3）安装依赖
+4、安装依赖
 
 npm install
 
-4）# 本地开发 启动项目
+建议不要用 cnpm 安装 会有各种诡异的bug 可以通过如下操作解决 npm 下载速度慢的问题
+
+npm install --registry=https://registry.npm.taobao.org
+
+6、本地开发 启动项目
 
 npm run dev
 
+7、打开解决方案，启动Yuebon.Webapi项目
 
 注意：启动后需要修接口访问地址，在vueUI -> src目录下settings.js的文件中修改
 
+强烈建议不要用直接使用 cnpm 安装，会有各种诡异的 bug，可以通过重新指定 registry 来解决 npm 安装速度慢的问题。若还是不行，可使用 yarn 替代 npm。
 
-7、如果使用有任何疑问，可以联系作者QQ：381450948（微信同号）
+8、如果使用有任何疑问，可以联系作者QQ：381450948（微信同号）
 
 
 ### 部分应用案例

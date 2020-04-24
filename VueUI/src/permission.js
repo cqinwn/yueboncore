@@ -66,6 +66,7 @@ router.beforeEach(async(to, from, next) => {
             convertTree(menuRouters) // 用递归填充
             router.addRoutes(menuRouters) // 2.动态添加路由
             store.getters.addRoutes = menuRouters // 3.将路由数据传递给全局变量，做侧边栏菜单渲染工作
+
             // 不加这个判断，路由会陷入死循环
             getRouter = true
             next({

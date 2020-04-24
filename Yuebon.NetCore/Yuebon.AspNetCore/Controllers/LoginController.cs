@@ -176,18 +176,15 @@ namespace Yuebon.AspNetCore.Controllers
         public IActionResult Logout()
         {
             CommonResult result = new CommonResult();
-            result = CheckToken();
-            if (result.ErrCode == ErrCode.successCode)
-            {
-                YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                yuebonCacheHelper.Remove("login_user_" + CurrentUser.UserId);
-                yuebonCacheHelper.Remove("User_Function_" + CurrentUser.UserId);
-                yuebonCacheHelper.Remove("User_Menu_" + CurrentUser.UserId);
-                CurrentUser = null;
-                result.Success = true;
-                result.ErrCode = ErrCode.successCode;
-                result.ErrMsg = "成功退出";
-            }
+         
+            YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+            yuebonCacheHelper.Remove("login_user_" + CurrentUser.UserId);
+            yuebonCacheHelper.Remove("User_Function_" + CurrentUser.UserId);
+            yuebonCacheHelper.Remove("User_Menu_" + CurrentUser.UserId);
+            CurrentUser = null;
+            result.Success = true;
+            result.ErrCode = ErrCode.successCode;
+            result.ErrMsg = "成功退出";
             return ToJsonContent(result);
         }
 

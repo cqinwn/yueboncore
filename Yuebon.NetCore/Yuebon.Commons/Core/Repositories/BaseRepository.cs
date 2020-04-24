@@ -58,7 +58,7 @@ namespace Yuebon.Commons.Repositories
         /// <summary>
         /// 数据库配置名称
         /// </summary>
-        protected string dbConfigName = "MsSqlServer";
+        protected string dbConfigName = "MySql";
         /// <summary>
         /// 需要初始化的对象表名
         /// </summary>

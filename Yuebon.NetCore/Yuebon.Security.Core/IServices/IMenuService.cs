@@ -7,6 +7,9 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.IServices
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IMenuService:IService<Menu, MenuOutputDto, string>
     {
 

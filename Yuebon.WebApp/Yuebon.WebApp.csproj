@@ -84,6 +84,9 @@
   <ItemGroup>
     <Compile Remove="Areas\Base\BusinessFController.cs" />
     <Compile Remove="Areas\Base\BusinessMemberController.cs" />
+    <Compile Remove="Areas\Security\Controllers\MenuController.cs" />
+    <Compile Remove="Areas\Security\Controllers\WorkOrderController.cs" />
+    <Compile Remove="Areas\Tools\Controllers\DbToolsController.cs" />
   </ItemGroup>
 
 
@@ -146,6 +149,7 @@
     <Folder Include="Areas\CMS\Data\" />
     <Folder Include="Areas\CMS\Models\" />
     <Folder Include="Areas\Security\Data\" />
+    <Folder Include="Areas\Tools\Controllers\" />
     <Folder Include="Areas\Tools\Data\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\lib\ueditor\" />

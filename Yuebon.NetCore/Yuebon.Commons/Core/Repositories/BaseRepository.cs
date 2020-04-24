@@ -58,7 +58,7 @@ namespace Yuebon.Commons.Repositories
         /// <summary>
         /// 数据库配置名称
         /// </summary>
-        protected string dbConfigName = "MySql";
+        protected string dbConfigName = "";
         /// <summary>
         /// 需要初始化的对象表名
         /// </summary>
@@ -231,7 +231,10 @@ namespace Yuebon.Commons.Repositories
         public DbConnection OpenSharedConnection()
         {
             string conStringEncrypt = Configs.GetConfigurationValue("AppSetting", "ConStringEncrypt");
-           
+            if (string.IsNullOrEmpty(dbConfigName))
+            {
+                dbConfigName= Configs.GetConfigurationValue("AppSetting", "DefaultDataBase");
+            }
             defaultSqlConnectionString = Configs.GetConnectionString(dbConfigName);
             if (conStringEncrypt == "true")
             {

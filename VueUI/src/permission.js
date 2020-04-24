@@ -117,13 +117,12 @@ function convertTree(routers) {
 }
 
 function updateRoutes() {
-  console.log('3 store.getters.menus:'+JSON.stringify(store.getters.menus))
+  console.log('3 store.getters.menus:' + JSON.stringify(store.getters.menus))
   menuList = store.getters.menus
   const menuRouters = [] // 定义一个空数组，这个是用来装真正路由数据的
   // 先取出根节点，没有父id的就是根节点
   menuList.forEach((m, i) => {
-
-    if (m.ParentId === '') {//注意null值不是''
+    if (m.ParentId === '') {
       const module = {
         path: m.UrlAddress,
         name: m.EnCode,
@@ -132,7 +131,6 @@ function updateRoutes() {
         meta: { id: m.Id, title: m.FullName, icon: m.Icon, funcode: m.EnCode }
       }
       menuRouters.push(module)
-
     }
   })
   convertTree(menuRouters) // 用递归填充

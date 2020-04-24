@@ -176,7 +176,6 @@ namespace Yuebon.AspNetCore.Controllers
         public IActionResult Logout()
         {
             CommonResult result = new CommonResult();
-         
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
             yuebonCacheHelper.Remove("login_user_" + CurrentUser.UserId);
             yuebonCacheHelper.Remove("User_Function_" + CurrentUser.UserId);

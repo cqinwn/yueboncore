@@ -104,9 +104,12 @@ namespace Yuebon.Security.Dtos
 
 
         /// <summary>
-        /// 可以访问菜单
+        /// 授权访问菜单
         /// </summary>
         public List<MenuInputDto> MenusList { get; set; }
+        /// <summary>
+        /// 授权使用功能
+        /// </summary>
         public List<FunctionOutputDto> Modules { get; set; }
     }
 }

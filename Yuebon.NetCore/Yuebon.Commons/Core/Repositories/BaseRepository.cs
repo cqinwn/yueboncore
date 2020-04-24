@@ -24,6 +24,7 @@ using Yuebon.Commons.Log;
 using Yuebon.Commons.Pages;
 using static Dapper.SqlMapper;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace Yuebon.Commons.Repositories
 {
@@ -1156,7 +1157,7 @@ namespace Yuebon.Commons.Repositories
         {
             using (DbConnection conn = OpenSharedConnection())
             {
-                //OperationLogOfInsert(entity);
+                OperationLogOfInsert(entity);
                 return conn.Insert(entity,trans);
             }
         }
@@ -1170,7 +1171,7 @@ namespace Yuebon.Commons.Repositories
         {
             using (DbConnection conn = OpenSharedConnection())
             {
-                //OperationLogOfInsert(entity);
+                OperationLogOfInsert(entity);
                 return await conn.InsertAsync(entity, trans);
             }
         }
@@ -1189,6 +1190,7 @@ namespace Yuebon.Commons.Repositories
                     trans = conn.BeginTransaction();
                     long row = conn.Insert(entities, trans);
                     trans.Commit();
+                    OperationLogOfInsert(entities);
                     return row;
                 }
                 catch (Exception)
@@ -1213,6 +1215,7 @@ namespace Yuebon.Commons.Repositories
                 {
                     long row = await conn.InsertAsync(entities, trans);
                     trans.Commit();
+                    OperationLogOfInsert(entities);
                     return row;
                 }
                 catch (Exception)
@@ -1233,7 +1236,7 @@ namespace Yuebon.Commons.Repositories
         {
             using (DbConnection conn = OpenSharedConnection())
             {
-                //OperationLogOfUpdate(entity,id);
+                OperationLogOfUpdate(entity,id);
                 return conn.Update(entity,trans);
             }
         }
@@ -1248,7 +1251,7 @@ namespace Yuebon.Commons.Repositories
         {
             using (DbConnection conn = OpenSharedConnection())
             {
-               // OperationLogOfUpdate(entity, id);
+                OperationLogOfUpdate(entity, id);
                 return await conn.UpdateAsync(entity,trans);
             }
         }
@@ -1267,6 +1270,7 @@ namespace Yuebon.Commons.Repositories
                     trans = conn.BeginTransaction();
                     bool bl=conn.Update(entities, trans);
                     trans.Commit();
+                    OperationLogOfUpdate(entities);
                     return bl;
                 }
                 catch (Exception)
@@ -1291,6 +1295,7 @@ namespace Yuebon.Commons.Repositories
                 {
                     bool isSuccess = await conn.UpdateAsync(entities, trans);
                     trans.Commit();
+                    OperationLogOfUpdate(entities);
                     return isSuccess;
                 }
                 catch (Exception)
@@ -1300,32 +1305,57 @@ namespace Yuebon.Commons.Repositories
                 }
             }
         }
+
         /// <summary>
-        /// 删除数据
+        /// 同步物理删除实体。
         /// </summary>
-        /// <param name="entity"></param>
+        /// <param name="entity">实体</param>
         /// <param name="trans">事务对象</param>
-        /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual bool Delete(T entity, IDbTransaction trans=null)
+        /// <returns></returns>
+        public virtual bool Delete(T entity, IDbTransaction trans = null)
         {
-            using (DbConnection conn =OpenSharedConnection())
+            using (DbConnection conn = OpenSharedConnection())
             {
-                return conn.Delete(entity,trans);
+                trans = conn.BeginTransaction();
+                try
+                {
+                    bool isSuccess =  conn.Delete<T>(entity, trans);
+                    trans.Commit();
+                    return isSuccess;
+                }
+                catch (Exception)
+                {
+                    trans.Rollback();
+                    throw;
+                }
             }
         }
+
         /// <summary>
-        /// 异步删除数据
+        /// 异步物理删除实体。
         /// </summary>
-        /// <param name="entity"></param>
+        /// <param name="entity">实体</param>
         /// <param name="trans">事务对象</param>
-        /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual async Task<bool> DeleteAsync(T entity, IDbTransaction trans=null)
+        /// <returns></returns>
+        public virtual async Task<bool> DeleteAsync(T entity, IDbTransaction trans = null)
         {
-            using (DbConnection conn =OpenSharedConnection())
+            using (DbConnection conn = OpenSharedConnection())
             {
-                return await conn.DeleteAsync(entity,trans);
+                trans = conn.BeginTransaction();
+                try
+                {
+                    bool isSuccess = await conn.DeleteAsync<T>(entity, trans);
+                    trans.Commit();
+                    return isSuccess;
+                }
+                catch (Exception)
+                {
+                    trans.Rollback();
+                    throw;
+                }
             }
         }
+
         /// <summary>
         /// 物理删除所有数据
         /// </summary>
@@ -1819,41 +1849,25 @@ namespace Yuebon.Commons.Repositories
             if (OnOperationLog != null)
             {
                 string operationType = DbLogType.Create.ToString();
-                //string userId = "";
-                //string validateUserWay = Configs.GetConfigurationValue("AppSetting", "ValidateUserWay");
-                //if (validateUserWay == "Session")
-                //{
-                //    userId = SessionHelper.GetString("CurrentUserId").ToString();
-                //}
-                //else
-                //{
-
-                //}
-                
-
-                Hashtable recordField = GetHashByEntity(obj);
-                Dictionary<string, string> dictColumnNameAlias = GetColumnNameAlias();
-
-                StringBuilder sb = new StringBuilder();
-                foreach (string field in recordField.Keys)
-                {
-                    string columnAlias = field;
-                    bool result = dictColumnNameAlias.TryGetValue(field, out columnAlias);
-                    if (result && !string.IsNullOrEmpty(columnAlias))
-                    {
-                        columnAlias = string.Format("({0})", columnAlias);//增加一个括号显示
-                    }
-
-                    sb.AppendLine(string.Format("{0}{1}:{2}", field, columnAlias, recordField[field]));
-                    sb.AppendLine("\r\n");
-                }
-                sb.AppendLine();
-                string note = sb.ToString();
-
+                string note = JsonConvert.SerializeObject(obj);
                 OnOperationLog(this.tableName, operationType, note);
             }
         }
 
+        /// <summary>
+        /// 插入操作的日志记录
+        /// </summary>
+        /// <param name="obj">数据对象</param>
+        /// <param name="trans">事务对象</param>
+        protected virtual void OperationLogOfInsert(List<T> obj, IDbTransaction trans = null)
+        {
+            if (OnOperationLog != null)
+            {
+                string operationType = DbLogType.Create.ToString();
+                string note = JsonConvert.SerializeObject(obj);
+                OnOperationLog(this.tableName, operationType, note);
+            }
+        }
         /// <summary>
         /// 修改操作的日志记录
         /// </summary>
@@ -1865,41 +1879,28 @@ namespace Yuebon.Commons.Repositories
             if (OnOperationLog != null)
             {
                 string operationType = DbLogType.Update.ToString();
-                Hashtable recordField = GetHashByEntity(obj);
-                Dictionary<string, string> dictColumnNameAlias = GetColumnNameAlias();
+                string note = "更新前的数据：\n\r"+JsonConvert.SerializeObject(obj);
+                note += "更新后的数据：\n\r" + JsonConvert.SerializeObject(obj);
+                OnOperationLog(this.tableName, operationType, note);
 
-                T objInDb = Get(id);
-                if (objInDb != null)
-                {
-                    Hashtable dbrecordField = GetHashByEntity(objInDb);//把数据库里的实体对象数据转换为哈希表
-
-                    StringBuilder sb = new StringBuilder();
-                    foreach (string field in recordField.Keys)
-                    {
-                        string newValue = recordField[field].ToString();
-                        string oldValue = dbrecordField[field].ToString();
-                        if (newValue != oldValue)//只记录变化的内容
-                        {
-                            string columnAlias = "";
-                            bool result = dictColumnNameAlias.TryGetValue(field, out columnAlias);
-                            if (result && !string.IsNullOrEmpty(columnAlias))
-                            {
-                                columnAlias = string.Format("({0})", columnAlias);//增加一个括号显示
-                            }
-
-                            sb.AppendLine(string.Format("{0}{1}:", field, columnAlias));
-                            sb.AppendLine(string.Format("\t {0} -> {1}", dbrecordField[field], recordField[field]));
-                            sb.AppendLine("\r\n");
-                        }
-                    }
-                    sb.AppendLine();
-                    string note = sb.ToString();
-
-                    OnOperationLog(this.tableName, operationType, note);
-                }
             }
         }
 
+        /// <summary>
+        /// 修改操作的日志记录
+        /// </summary>
+        /// <param name="obj">数据对象</param>
+        /// <param name="trans">事务对象</param>
+        protected virtual void OperationLogOfUpdate(List<T> obj, IDbTransaction trans = null)
+        {
+            if (OnOperationLog != null)
+            {
+                string operationType = DbLogType.Update.ToString();
+                string note = "批量更新的数据：\n\r" + JsonConvert.SerializeObject(obj);
+                OnOperationLog(this.tableName, operationType, note);
+
+            }
+        }
         /// <summary>
         /// 禁用或启用操作的日志记录
         /// </summary>
@@ -1943,29 +1944,12 @@ namespace Yuebon.Commons.Repositories
             {
                 string operationType = DbLogType.Delete.ToString();
 
-                Dictionary<string, string> dictColumnNameAlias = GetColumnNameAlias();
 
                 T objInDb = Get(id);
                 if (objInDb != null) 
                 {
-                    Hashtable dbrecordField = GetHashByEntity(objInDb);//把数据库里的实体对象数据转换为哈希表
 
-                    StringBuilder sb = new StringBuilder();
-                    foreach (string field in dbrecordField.Keys)
-                    {
-                        string columnAlias = "";
-                        bool result = dictColumnNameAlias.TryGetValue(field, out columnAlias);
-                        if (result && !string.IsNullOrEmpty(columnAlias))
-                        {
-                            columnAlias = string.Format("({0})", columnAlias);//增加一个括号显示
-                        }
-
-                        sb.AppendLine(string.Format("{0}{1}:", field, columnAlias));
-                        sb.AppendLine(string.Format("\t {0}", dbrecordField[field]));
-                        sb.AppendLine("\r\n");
-                    }
-                    sb.AppendLine();
-                    string note = sb.ToString();
+                    string note = "删除数据：\n\r"+JsonConvert.SerializeObject(objInDb);
 
                     OnOperationLog(this.tableName, operationType, note);
                 }
@@ -1997,50 +1981,6 @@ namespace Yuebon.Commons.Repositories
         #endregion
 
         #region 辅助类方法
-
-        private Hashtable EntityTypeHash = new Hashtable();
-        /// <summary>
-        /// 将实体对象的属性值转化为Hashtable对应的键值(用于插入或者更新操作)
-        /// (提供了默认的反射机制获取信息，为了提高性能，建议重写该函数)
-        /// </summary>
-        /// <param name="obj">有效的实体对象</param>
-        /// <returns>包含键值映射的Hashtable</returns>
-        protected virtual Hashtable GetHashByEntity(T obj)
-        {
-            Hashtable ht = new Hashtable();
-            PropertyInfo[] pis = obj.GetType().GetProperties();
-            for (int i = 0; i < pis.Length; i++)
-            {
-                if (pis[i].Name != PrimaryKey)
-                {
-                    object objValue = pis[i].GetValue(obj, null);
-                    objValue = (objValue == null) ? DBNull.Value : objValue;
-
-                    if (!ht.ContainsKey(pis[i].Name))
-                    {
-                        ht.Add(pis[i].Name, objValue);
-                        if (!EntityTypeHash.ContainsKey(pis[i].Name))
-                        {
-                            EntityTypeHash.Add(pis[i].Name, pis[i].GetType());
-                        }
-                    }
-
-                }
-            }
-            return ht;
-        }
-
-
-
-        /// <summary>
-        /// 获取字段中文别名（用于界面显示）的字典集合
-        /// </summary>
-        /// <returns></returns>
-        public virtual Dictionary<string, string> GetColumnNameAlias()
-        {
-            return new Dictionary<string, string>();
-        }
-
 
 
         /// <summary>

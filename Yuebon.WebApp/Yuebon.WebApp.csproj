@@ -84,7 +84,6 @@
   <ItemGroup>
     <Compile Remove="Areas\Base\BusinessFController.cs" />
     <Compile Remove="Areas\Base\BusinessMemberController.cs" />
-    <Compile Remove="Areas\Security\Controllers\MenuController.cs" />
     <Compile Remove="Areas\Security\Controllers\WorkOrderController.cs" />
     <Compile Remove="Areas\Tools\Controllers\DbToolsController.cs" />
   </ItemGroup>
@@ -166,7 +165,7 @@
     <_ContentIncludedByDefault Remove="Areas\Security\Views\Duty\Index.cshtml" />
     <_ContentIncludedByDefault Remove="Areas\Security\Views\FilterIp\Index.cshtml" />
     <_ContentIncludedByDefault Remove="Areas\Security\Views\Items\Index.cshtml" />
-    <_ContentIncludedByDefault Remove="Areas\Security\Views\Log\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Security\Views\SysLog\Index.cshtml" />
     <_ContentIncludedByDefault Remove="Areas\Security\Views\Function\Index.cshtml" />
     <_ContentIncludedByDefault Remove="Areas\Security\Views\Menu\Index.cshtml" />
     <_ContentIncludedByDefault Remove="Areas\Security\Views\Organize\Index.cshtml" />
@@ -187,7 +186,7 @@
 
 
   <ItemGroup>
-    <UpToDateCheckInput Remove="Areas\Security\Views\Log\Index.cshtml" />
+    <UpToDateCheckInput Remove="Areas\Security\Views\SysLog\Index.cshtml" />
   </ItemGroup>
 
 

@@ -15,10 +15,10 @@ namespace Yuebon.WebApp.Areas.Security.Controllers
 {
     [Area("Security")]
     [Route("Security/[controller]/[action]")]
-    public class LogController : BusinessController<Log, LogOutputDto, ILogService, string>
+    public class SysLogController : BusinessController<Log, LogOutputDto, ILogService, string>
     {
         private IOrganizeService organizeService;
-        public LogController(ILogService _iService, IOrganizeService _organizeService) : base(_iService)
+        public SysLogController(ILogService _iService, IOrganizeService _organizeService) : base(_iService)
         {
             iService = _iService;
             organizeService = _organizeService;

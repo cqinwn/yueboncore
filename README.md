@@ -7,11 +7,17 @@
 
 ##### 2020/4/23
 
+1、vue版在yysql数据库通过，感谢@cuijianhao_admin[催催啊](https://gitee.com/cuijianhao_admin)提供mysql测试环境
+
+2、修复mvc版本的bug
+
+3、近期将发布相关文档，请到QQ群下载，在末尾有入口
+
+##### 2020/4/23
+
 1、已经完全实现前后端分离，前端采用Vue+element实现。
 
 2、本次更新是大版本更新，传统的asp.net core MVC有部分bug还未修复。
-
-3、近期将发布相关文档，请到QQ群下载
 
 更多更新日志 [点击查看](https://gitee.com/yuebon/YuebonNetCore/wikis/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97?sort_id=1983111)
 
@@ -161,7 +167,9 @@ DataBase是最新数据库备份文件，目前仅支持MS SQL Server。
 
 5、实现微服务
 
+### 鸣谢
 
+1、感谢@cuijianhao_admin[催催啊](https://gitee.com/cuijianhao_admin)提供mysql测试环境
 
 ### 开发者信息
 

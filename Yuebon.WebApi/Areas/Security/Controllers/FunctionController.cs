@@ -183,12 +183,12 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 Function function = await iService.GetWhereAsync("EnCode='"+ search.EnCode + "'");
                 if (function != null)
                 {
-                    where += "and ParentId='" + function.Id + "'";
+                    where += " and ParentId='" + function.Id + "'";
                 }
             }
             if (!string.IsNullOrEmpty(search.Keywords))
             {
-                    where += "and (FullName like '%" + search.Keywords + "%' or EnCode like '%" + search.Keywords + "%')";
+                    where += " and (FullName like '%" + search.Keywords + "%' or EnCode like '%" + search.Keywords + "%')";
             }
             PagerInfo pagerInfo = GetPagerInfo();
             List<Function> list = await iService.FindWithPagerAsync(where, pagerInfo, orderFlied, order);

@@ -81,54 +81,49 @@ namespace Yuebon.AspNetCore.Controllers
         {
             CommonResult result = new CommonResult();
             string strHost = Request.Host.ToString();
-            if (!strHost.Contains("localhost"))
+
+            if (string.IsNullOrEmpty(token))
             {
-                if (string.IsNullOrEmpty(token))
+                string authHeader = HttpContext.Request.Headers["Authorization"];//Header中的token
+                token = string.Empty;
+                if (authHeader != null && authHeader.StartsWith("Bearer") && authHeader.Length > 10)
                 {
-                    string authHeader = HttpContext.Request.Headers["Authorization"];//Header中的token
-                    token = string.Empty;
-                    if (authHeader != null && authHeader.StartsWith("Bearer") && authHeader.Length > 10)
-                    {
-                        token = authHeader.Substring("Bearer ".Length).Trim();
-                    }
-                }
-                TokenProvider tokenProvider = new TokenProvider();
-                result = tokenProvider.ValidateToken(token);
-                if (result.ResData != null)
-                {
-                    YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                    string userId = result.ResData.ToString();
-                    var user = JsonConvert.DeserializeObject<UserAuthSession>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
-                    if (user != null)
-                    {
-                        CurrentUser = user;
-                    }
-                    else
-                    {
-                        User userInfo = new UserApp().GetUserById(userId);
-                        var currentSession = new UserAuthSession
-                        {
-                            UserId = userInfo.Id,
-                            Account = userInfo.Account,
-                            Name = userInfo.RealName,
-                            NickName = userInfo.NickName,
-                            CreateTime = DateTime.Now,
-                            HeadIcon = userInfo.HeadIcon,
-                            Gender = userInfo.Gender,
-                            ReferralUserId = userInfo.ReferralUserId,
-                            MemberGradeId = userInfo.MemberGradeId,
-                            Role = new RoleApp().GetRoleEnCode(userInfo.RoleId)
-                        };
-                        CurrentUser = currentSession;
-                        TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
-                        yuebonCacheHelper.Add("login_user_" + userInfo.Id, currentSession, expiresSliding, true);
-                    }
+                    token = authHeader.Substring("Bearer ".Length).Trim();
                 }
             }
-            else
+            TokenProvider tokenProvider = new TokenProvider();
+            result = tokenProvider.ValidateToken(token);
+            if (result.ResData != null)
             {
-                result.ErrCode = "0";
+                YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+                string userId = result.ResData.ToString();
+                var user = JsonConvert.DeserializeObject<UserAuthSession>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
+                if (user != null)
+                {
+                    CurrentUser = user;
+                }
+                else
+                {
+                    User userInfo = new UserApp().GetUserById(userId);
+                    var currentSession = new UserAuthSession
+                    {
+                        UserId = userInfo.Id,
+                        Account = userInfo.Account,
+                        Name = userInfo.RealName,
+                        NickName = userInfo.NickName,
+                        CreateTime = DateTime.Now,
+                        HeadIcon = userInfo.HeadIcon,
+                        Gender = userInfo.Gender,
+                        ReferralUserId = userInfo.ReferralUserId,
+                        MemberGradeId = userInfo.MemberGradeId,
+                        Role = new RoleApp().GetRoleEnCode(userInfo.RoleId)
+                    };
+                    CurrentUser = currentSession;
+                    TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
+                    yuebonCacheHelper.Add("login_user_" + userInfo.Id, currentSession, expiresSliding, true);
+                }
             }
+           
             return result;
         }
 

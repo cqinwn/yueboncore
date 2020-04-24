@@ -30,7 +30,7 @@ namespace Yuebon.Commons.CodeGenerator
         /// <summary>
         /// 数据库配置名称
         /// </summary>
-        protected string dbConfigName = "MsSqlServerCode";
+        protected string dbConfigName = "MySql";
         /// <summary>
         /// 实例化
         /// </summary>

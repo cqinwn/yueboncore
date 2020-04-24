@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Models;
@@ -54,47 +55,7 @@ namespace Yuebon.AspNetCore.Controllers
         #endregion
 
 
-        #region 
-        /// <summary>
-        /// 重新基类在Action执行之前的事情
-        /// </summary>
-        /// <param name="filterContext">重写方法的参数</param>
-        public override void OnActionExecuting(ActionExecutingContext filterContext)
-        {
-            try
-            {
-                string useridcookie = CookiesHelper.ReadCookie(filterContext.HttpContext, "loginuser");
-                string authHeader = HttpContext.Request.Headers["Authorization"];//Header中的token
-                CommonResult result = new CommonResult();
-                string token = string.Empty;
-                if (authHeader != null && authHeader.StartsWith("Bearer") && authHeader.Length > 10)
-                {
-                    token = authHeader.Substring("Bearer ".Length).Trim();
-                }
-                TokenProvider tokenProvider = new TokenProvider();
-                result = tokenProvider.ValidateToken(token);
-                if (result.ResData != null)
-                {
-                    YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                    string userId = result.ResData.ToString();
-                    var user = JsonConvert.DeserializeObject<UserAuthSession>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
-                    if (user != null)
-                    {
-                        CurrentUser = user;
-                    }
-                }
-                    base.OnActionExecuting(filterContext);
-                ////设置授权属性，然后赋值给ViewBag保存
-                //ConvertAuthorizedInfo();
-                //ViewBag.AuthorizeKey = AuthorizeKey;
-            }
-            catch (Exception ex)
-            {
-                Log4NetHelper.Error("", ex);
-                throw new MyApiException("", "", ex);
-            }
-        }
-        #endregion
+        
         #region 构造函数及常用
 
         /// <summary>

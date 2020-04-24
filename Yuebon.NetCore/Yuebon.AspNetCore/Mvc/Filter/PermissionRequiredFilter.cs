@@ -15,6 +15,9 @@ using Yuebon.Security.Dtos;
 
 namespace Yuebon.AspNetCore.Mvc.Filter
 {
+    /// <summary>
+    /// 需要权限验证
+    /// </summary>
     public class PermissionRequiredAttribute: ActionFilterAttribute
     {
         #region 字段和属性
@@ -74,11 +77,6 @@ namespace Yuebon.AspNetCore.Mvc.Filter
                 string userId = result.ResData.ToString();
                 if (!string.IsNullOrEmpty(userId))
                 {
-
-                    //if (string.IsNullOrEmpty(Modules))
-                    //{
-                    //    throw new MyApiException(ErrCode.err40006, "40006");
-                    //}
                     string functionCode = controllerActionDescriptor.ControllerName + "/" + controllerActionDescriptor.ActionName;
                     bool bl = new Permission().HasFunction(functionCode, userId);
                     if (!bl)

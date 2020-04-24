@@ -1878,10 +1878,14 @@ namespace Yuebon.Commons.Repositories
         {
             if (OnOperationLog != null)
             {
-                string operationType = DbLogType.Update.ToString();
-                string note = "更新前的数据：\n\r"+JsonConvert.SerializeObject(obj);
-                note += "更新后的数据：\n\r" + JsonConvert.SerializeObject(obj);
-                OnOperationLog(this.tableName, operationType, note);
+                T objInDb = Get(id);
+                if (objInDb != null)
+                {
+                    string operationType = DbLogType.Update.ToString();
+                    string note = "更新前的数据：\n\r" + JsonConvert.SerializeObject(objInDb);
+                    note += "更新后的数据：\n\r" + JsonConvert.SerializeObject(obj);
+                    OnOperationLog(this.tableName, operationType, note);
+                }
 
             }
         }

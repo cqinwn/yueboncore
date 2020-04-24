@@ -2,16 +2,26 @@
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Extensions;
+using Yuebon.Commons.Helpers;
+using Yuebon.Commons.IoC;
 using Yuebon.Commons.Json;
+using Yuebon.Commons.Log;
 using Yuebon.Commons.Models;
 using Yuebon.Commons.Pages;
 using Yuebon.Security.Application;
 using Yuebon.Security.Dtos;
+using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
 
 namespace Yuebon.AspNetCore.Controllers
@@ -27,6 +37,106 @@ namespace Yuebon.AspNetCore.Controllers
         /// 当前登录的用户属性
         /// </summary>
         public UserAuthSession CurrentUser;
+        private ILogService logService = IoCContainer.Resolve<ILogService>();
+        #region 
+        /// <summary>
+        /// 重新基类在Action执行之前的事情
+        /// </summary>
+        /// <param name="filterContext">重写方法的参数</param>
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            try
+            {
+                string useridcookie = CookiesHelper.ReadCookie(filterContext.HttpContext, "loginuser");
+                string authHeader = HttpContext.Request.Headers["Authorization"];//Header中的token
+                CommonResult result = new CommonResult();
+                string token = string.Empty;
+                if (authHeader != null && authHeader.StartsWith("Bearer") && authHeader.Length > 10)
+                {
+                    token = authHeader.Substring("Bearer ".Length).Trim();
+                }
+                TokenProvider tokenProvider = new TokenProvider();
+                result = tokenProvider.ValidateToken(token);
+                if (result.ResData != null)
+                {
+                    YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+                    List<Claim> claimlist = result.ResData as List<Claim>;
+                    string userId = claimlist[3].Value;
+                    var user = JsonConvert.DeserializeObject<UserAuthSession>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
+                    if (user != null)
+                    {
+                        CurrentUser = user;
+                    }
+                }
+                base.OnActionExecuting(filterContext);
+            }
+            catch (Exception ex)
+            {
+                Log4NetHelper.Error("", ex);
+                throw new MyApiException("", "", ex);
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filterContext"></param>
+        public override void OnActionExecuted(ActionExecutedContext filterContext)
+        {
+            try
+            {
+                if (CurrentUser != null)
+                {
+                    var controllerActionDescriptor = filterContext.ActionDescriptor as ControllerActionDescriptor;
+                    string moudleName = controllerActionDescriptor.ControllerName + "/" + controllerActionDescriptor.ActionName;
+                    var authorizeAttributes = controllerActionDescriptor.MethodInfo.GetCustomAttributes(typeof(YuebonAuthorizeAttribute), true).OfType<YuebonAuthorizeAttribute>();
+                    if (authorizeAttributes.Count()>0)
+                    {
+                        if (authorizeAttributes.First() != null)
+                        {
+                            string function = authorizeAttributes.First().Function;
+
+                            if (!string.IsNullOrEmpty(function))
+                            {
+                                string operationType = "";
+                                switch (function)
+                                {
+                                    case "Add":
+                                        operationType = DbLogType.Create.ToString();
+                                        break;
+                                    case "Edit":
+                                        operationType = DbLogType.Update.ToString();
+                                        break;
+                                    case "Delete":
+                                        operationType = DbLogType.Delete.ToString();
+                                        break;
+                                    case "DeleteSoft":
+                                        operationType = DbLogType.DeleteSoft.ToString();
+                                        break;
+                                    case "List":
+                                        operationType = DbLogType.Visit.ToString();
+                                        break;
+                                    case "Exit":
+                                        operationType = DbLogType.Exit.ToString();
+                                        break;
+                                    default:
+                                        operationType = DbLogType.Other.ToString();
+                                        break;
+
+                                }
+                                logService.OnOperationLog(controllerActionDescriptor.ControllerName, operationType, controllerActionDescriptor.ActionName, CurrentUser);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log4NetHelper.Error("", ex);
+                throw new MyApiException("", "", ex);
+            }
+        }
+        #endregion
+
         /// <summary>
         /// 把object对象转换为ContentResult
         /// </summary>

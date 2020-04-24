@@ -7,23 +7,26 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.Commons.Models;
+using Yuebon.Security.Application;
 using Yuebon.Security.Dtos;
+using Yuebon.Security.Models;
 
 namespace Yuebon.AspNetCore.Mvc
 {
     /// <summary>
-    /// 功能权限授权验证
+    /// 功能权限授权验证筛选
     /// </summary>
     public class YuebonAuthorizationFilter : AuthorizeAttribute, IAuthorizationFilter
     {
         private static AuthorizationPolicy _policy_ = new AuthorizationPolicy(new[] { new DenyAnonymousAuthorizationRequirement() }, new string[] { });
         /// <summary>
-        /// 
+        /// 授权验证
         /// </summary>
         /// <param name="context"></param>
         public void OnAuthorization(AuthorizationFilterContext context)
@@ -76,8 +79,8 @@ namespace Yuebon.AspNetCore.Mvc
                    
                     if (result.ResData!=null)
                     {
-                        string userId = result.ResData.ToString();
-                        
+                        List<Claim> claimlist = result.ResData as List<Claim>;
+                        string userId = claimlist[3].Value;                        
                         var authorizeAttributes = controllerActionDescriptor.MethodInfo.GetCustomAttributes(typeof(YuebonAuthorizeAttribute), true).OfType<YuebonAuthorizeAttribute>();
                         if (authorizeAttributes.First() != null)
                         {

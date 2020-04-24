@@ -60,7 +60,6 @@ namespace Yuebon.WebApi.Areas.Security
         /// <returns></returns>
         [HttpGet("GetSysInfo")]
         [YuebonAuthorize("")]
-        [PermissionRequired]
         public async Task<IActionResult> GetSysInfo()
         {
             CommonResult result = new CommonResult();

@@ -109,10 +109,11 @@ namespace Yuebon.AspNetCore.Mvc
                             if (jwtToken.Subject == GrantType.Password)
                             {
                                 var claimlist = jwtToken?.Payload.Claims as List<Claim>;
-                                result.ResData = claimlist[3].Value;
+                                result.ResData= claimlist;
                             }
                             result.ErrMsg = ErrCode.err0;
                             result.ErrCode = ErrCode.successCode;
+                            
                         }
                         #endregion
                     }

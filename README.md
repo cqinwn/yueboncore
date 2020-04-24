@@ -136,36 +136,7 @@ DataBase是最新数据库备份文件，目前仅支持MS SQL Server。
 
 5、打开解决方案，如果使用aspnet core mvc版本启动项目Yuebon.WebApp即可。初始化用户名为admin，密码为admin888
 
-### vue版如何用起来
-
-1、你需要在本地安装 node 和 git。
-
-2、克隆项目
-git clone https://gitee.com/yuebon/YuebonNetCore.git
-
-3、进入项目目录
-
-cd vueUI
-
-4、安装依赖
-
-npm install
-
-建议不要用 cnpm 安装 会有各种诡异的bug 可以通过如下操作解决 npm 下载速度慢的问题
-
-npm install --registry=https://registry.npm.taobao.org
-
-6、本地开发 启动项目
-
-npm run dev
-
-7、打开解决方案，启动Yuebon.Webapi项目
-
-注意：启动后需要修接口访问地址，在vueUI -> src目录下settings.js的文件中修改
-
-强烈建议不要用直接使用 cnpm 安装，会有各种诡异的 bug，可以通过重新指定 registry 来解决 npm 安装速度慢的问题。若还是不行，可使用 yarn 替代 npm。
-
-8、如果使用有任何疑问，可以联系作者QQ：381450948（微信同号）
+### vue版如何用起来，[请点击进入专题](https://gitee.com/yuebon/YuebonNetCore/wikis/%E5%85%B3%E4%BA%8EVue%E7%89%88%E6%9C%AC%E7%9A%84%E4%BD%BF%E7%94%A8?sort_id=2148244)
 
 
 ### 部分应用案例

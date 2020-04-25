@@ -80,61 +80,61 @@ namespace Yuebon.AspNetCore.Controllers
         /// 
         /// </summary>
         /// <param name="filterContext"></param>
-        public override void OnActionExecuted(ActionExecutedContext filterContext)
-        {
-            try
-            {
-                if (CurrentUser != null)
-                {
-                    var controllerActionDescriptor = filterContext.ActionDescriptor as ControllerActionDescriptor;
-                    string moudleName = controllerActionDescriptor.ControllerName + "/" + controllerActionDescriptor.ActionName;
-                    var authorizeAttributes = controllerActionDescriptor.MethodInfo.GetCustomAttributes(typeof(YuebonAuthorizeAttribute), true).OfType<YuebonAuthorizeAttribute>();
-                    if (authorizeAttributes.Count()>0)
-                    {
-                        if (authorizeAttributes.First() != null)
-                        {
-                            string function = authorizeAttributes.First().Function;
+        //public override void OnActionExecuted(ActionExecutedContext filterContext)
+        //{
+        //    try
+        //    {
+        //        if (CurrentUser != null)
+        //        {
+        //            var controllerActionDescriptor = filterContext.ActionDescriptor as ControllerActionDescriptor;
+        //            string moudleName = controllerActionDescriptor.ControllerName + "/" + controllerActionDescriptor.ActionName;
+        //            var authorizeAttributes = controllerActionDescriptor.MethodInfo.GetCustomAttributes(typeof(YuebonAuthorizeAttribute), true).OfType<YuebonAuthorizeAttribute>();
+        //            if (authorizeAttributes.Count()>0)
+        //            {
+        //                if (authorizeAttributes.First() != null)
+        //                {
+        //                    string function = authorizeAttributes.First().Function;
 
-                            if (!string.IsNullOrEmpty(function))
-                            {
-                                string operationType = "";
-                                switch (function)
-                                {
-                                    case "Add":
-                                        operationType = DbLogType.Create.ToString();
-                                        break;
-                                    case "Edit":
-                                        operationType = DbLogType.Update.ToString();
-                                        break;
-                                    case "Delete":
-                                        operationType = DbLogType.Delete.ToString();
-                                        break;
-                                    case "DeleteSoft":
-                                        operationType = DbLogType.DeleteSoft.ToString();
-                                        break;
-                                    case "List":
-                                        operationType = DbLogType.Visit.ToString();
-                                        break;
-                                    case "Exit":
-                                        operationType = DbLogType.Exit.ToString();
-                                        break;
-                                    default:
-                                        operationType = DbLogType.Other.ToString();
-                                        break;
+        //                    if (!string.IsNullOrEmpty(function))
+        //                    {
+        //                        string operationType = "";
+        //                        switch (function)
+        //                        {
+        //                            case "Add":
+        //                                operationType = DbLogType.Create.ToString();
+        //                                break;
+        //                            case "Edit":
+        //                                operationType = DbLogType.Update.ToString();
+        //                                break;
+        //                            case "Delete":
+        //                                operationType = DbLogType.Delete.ToString();
+        //                                break;
+        //                            case "DeleteSoft":
+        //                                operationType = DbLogType.DeleteSoft.ToString();
+        //                                break;
+        //                            case "List":
+        //                                operationType = DbLogType.Visit.ToString();
+        //                                break;
+        //                            case "Exit":
+        //                                operationType = DbLogType.Exit.ToString();
+        //                                break;
+        //                            default:
+        //                                operationType = DbLogType.Other.ToString();
+        //                                break;
 
-                                }
-                                logService.OnOperationLog(controllerActionDescriptor.ControllerName, operationType, controllerActionDescriptor.ActionName, CurrentUser);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Log4NetHelper.Error("", ex);
-                throw new MyApiException("", "", ex);
-            }
-        }
+        //                        }
+        //                        logService.OnOperationLog(controllerActionDescriptor.ControllerName, operationType, controllerActionDescriptor.ActionName, CurrentUser);
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Log4NetHelper.Error("", ex);
+        //        throw new MyApiException("", "", ex);
+        //    }
+        //}
         #endregion
 
         /// <summary>

@@ -138,9 +138,9 @@ DataBase是最新数据库备份文件，目前支持MS SQL Server和MySql。
 
 
 ### 部分应用案例
-1、做个车吧(http://img.qichetester.com)
+1、做个车吧
 
-2、展途汽车(http://www.zhantucar.com)
+2、展途汽车
 
 3、视奇光学仓库发货系统
 
@@ -148,20 +148,7 @@ DataBase是最新数据库备份文件，目前支持MS SQL Server和MySql。
 
 5、汇聚自动化设备
 
-### 未来计划
-1、微信开放平台对接、小程序对接、公众号对接
 
-2、实现权限的数据控制（已实现）
-
-3、实现图片可以自管理
-
-4、实现阿里云OSS、腾讯云OSS云存储
-
-5、实现微服务
-
-### 鸣谢
-
-1、感谢@cuijianhao_admin[催催啊](https://gitee.com/cuijianhao_admin)提供mysql测试环境
 
 ### 开发者信息
 
@@ -182,5 +169,12 @@ DataBase是最新数据库备份文件，目前支持MS SQL Server和MySql。
 交流QQ群：90311523，直接扫码加入
 
 ![QQ群](https://images.gitee.com/uploads/images/2020/0417/183047_30037ea3_1017224.jpeg "微信图片_20200417183028.jpg")
+
+### 帮助[请查看](https://gitee.com/yuebon/YuebonNetCore/wikis/%E9%A1%B9%E7%9B%AE%E7%AE%80%E4%BB%8B)
+
+### 鸣谢
+
+1、感谢@cuijianhao_admin[催催啊](https://gitee.com/cuijianhao_admin)提供mysql测试环境
+
 
 ### 如果对您有帮助，您可以点右上角 "Star" 支持一下，这样我们才有继续免费下去的动力，谢谢！

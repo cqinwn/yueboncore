@@ -30,7 +30,7 @@ namespace Yuebon.Commons.CodeGenerator
         /// <summary>
         /// 数据库配置名称
         /// </summary>
-        protected string dbConfigName = "MySql";
+        protected string dbConfigName = "";
         /// <summary>
         /// 实例化
         /// </summary>
@@ -48,7 +48,10 @@ namespace Yuebon.Commons.CodeGenerator
         public DbConnection OpenSharedConnection()
         {
             string conStringEncrypt = Configs.GetConfigurationValue("AppSetting", "ConStringEncrypt");
-
+            if (string.IsNullOrEmpty(dbConfigName))
+            {
+                dbConfigName = Configs.GetConfigurationValue("AppSetting", "DefaultDataBase");
+            }
             DefaultSqlConnectionString = Configs.GetConnectionString(dbConfigName);
             if (conStringEncrypt == "true")
             {

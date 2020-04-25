@@ -9,6 +9,7 @@ using Yuebon.Messages.Models;
 using Yuebon.Messages.Services;
 using Yuebon.Messages.SMS;
 using Yuebon.Security.Application;
+using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
 using Yuebon.WeChat.CommonService.SubscribeMessage.WxApplet;
 
@@ -19,6 +20,7 @@ namespace Yuebon.Messages.Application
         static IMessageTemplatesService messageTemplatesService = IoCContainer.Resolve<IMessageTemplatesService>();
         static IMemberMessageBoxService memberMessageBoxService = IoCContainer.Resolve<IMemberMessageBoxService>();
         static IMemberSubscribeMsgService memberSubscribeMsgService = IoCContainer.Resolve<IMemberSubscribeMsgService>();
+        static IUserService userService = IoCContainer.Resolve<IUserService>();
 
         /// <summary>
         /// 留言提醒

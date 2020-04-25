@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.Commons.Cache;
@@ -46,7 +47,7 @@ namespace Yuebon.AspNetCore.SSO
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public LoginResult Validate(PassportLoginRequest model)
+        public async Task<LoginResult> Validate(PassportLoginRequest model)
         {
             var result = new LoginResult();
             try
@@ -61,11 +62,11 @@ namespace Yuebon.AspNetCore.SSO
                 }
                 //获取用户信息
                 User userInfo = new User();
-                userInfo = userService.GetByUserName(model.Account);
+                userInfo = await userService.GetByUserName(model.Account);
 
                 if (userInfo == null)
                 {
-                    userInfo = userService.GetUserByMobilePhone(model.Account);
+                    userInfo = await userService.GetUserByMobilePhone(model.Account);
                     if (userInfo == null)
                     {
                         throw new Exception("用户不存在");

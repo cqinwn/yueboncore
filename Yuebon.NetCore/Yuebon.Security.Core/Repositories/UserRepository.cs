@@ -16,8 +16,14 @@ using System.Threading.Tasks;
 
 namespace Yuebon.Security.Repositories
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class UserRepository : BaseRepository<User, string>, IUserRepository
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public UserRepository()
         {
             this.tableName = "Sys_User";
@@ -29,12 +35,12 @@ namespace Yuebon.Security.Repositories
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
-        public User GetByUserName(string userName)
+        public async Task<User> GetByUserName(string userName)
        {
             using (IDbConnection conn = OpenSharedConnection())
             {
                 string sql = @"SELECT * FROM Sys_User t WHERE t.Account = @UserName";
-                return conn.QueryFirstOrDefault<User>(sql, new { UserName = userName });
+                return await conn.QueryFirstOrDefaultAsync<User>(sql, new { UserName = userName });
             }
        }
 
@@ -43,12 +49,12 @@ namespace Yuebon.Security.Repositories
         /// </summary>
         /// <param name="mobilephone">ÊÖ»úºÅÂë</param>
         /// <returns></returns>
-        public User GetUserByMobilePhone(string mobilephone)
+        public async Task<User> GetUserByMobilePhone(string mobilephone)
         {
             using (IDbConnection conn = OpenSharedConnection())
             {
                 string sql = @"SELECT * FROM Sys_User t WHERE t.MobilePhone = @MobilePhone";
-                return conn.QueryFirstOrDefault<User>(sql, new { MobilePhone = mobilephone });
+                return await conn.QueryFirstOrDefaultAsync<User>(sql, new { MobilePhone = mobilephone });
             }
         }
         /// <summary>
@@ -57,7 +63,7 @@ namespace Yuebon.Security.Repositories
         /// <param name="entity"></param>
         /// <param name="userLogOnEntity"></param>
         /// <param name="trans"></param>
-        public bool Insert(User entity, UserLogOn userLogOnEntity, IDbTransaction trans = null)
+        public  bool Insert(User entity, UserLogOn userLogOnEntity, IDbTransaction trans = null)
         {
             using (IDbConnection conn = OpenSharedConnection())
             {

@@ -20,20 +20,20 @@ namespace Yuebon.Security.IServices
         /// <param name="userName">用户名</param>
         /// <param name="password">密码（第一次md5加密后）</param>
         /// <returns>验证成功返回用户实体，验证失败返回null|提示消息</returns>
-        Tuple<User,string> Validate(string userName, string password);
+        Task<Tuple<User, string>> Validate(string userName, string password);
 
         /// <summary>
         /// 根据用户账号查询用户信息
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
-        User GetByUserName(string userName);
+        Task<User> GetByUserName(string userName);
         /// <summary>
         /// 根据用户手机号码查询用户信息
         /// </summary>
         /// <param name="mobilePhone">手机号码</param>
         /// <returns></returns>
-        User GetUserByMobilePhone(string mobilePhone);
+        Task<User> GetUserByMobilePhone(string mobilePhone);
 
 
         /// <summary>

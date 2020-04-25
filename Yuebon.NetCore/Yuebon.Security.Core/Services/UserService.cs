@@ -41,9 +41,9 @@ namespace Yuebon.Security.Services
         /// <param name="userName">用户名</param>
         /// <param name="password">密码（第一次md5加密后）</param>
         /// <returns>验证成功返回用户实体，验证失败返回null|提示消息</returns>
-        public Tuple<User, string> Validate(string userName, string password)
+        public async Task<Tuple<User, string>> Validate(string userName, string password)
         {
-            var userEntity = _userRepository.GetByUserName(userName);
+            var userEntity = await _userRepository.GetByUserName(userName);
 
             if (userEntity == null)
             {
@@ -73,18 +73,18 @@ namespace Yuebon.Security.Services
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
-        public User GetByUserName(string userName)
+        public async Task<User> GetByUserName(string userName)
         {
-            return _userRepository.GetByUserName(userName);
+            return await _userRepository.GetByUserName(userName);
         }
         /// <summary>
         /// 根据用户手机号码查询用户信息
         /// </summary>
         /// <param name="mobilephone">手机号码</param>
         /// <returns></returns>
-        public User GetUserByMobilePhone(string mobilephone)
+        public async Task<User> GetUserByMobilePhone(string mobilephone)
         {
-            return _userRepository.GetUserByMobilePhone(mobilephone);
+            return await _userRepository.GetUserByMobilePhone(mobilephone);
         }
         /// <summary>
         /// 注册用户
@@ -158,42 +158,6 @@ namespace Yuebon.Security.Services
         {
             return _userRepository.GetUserByUnionId(unionId);
         }
-        /// <summary>
-        /// 根据用户ID得到名片信息
-        /// </summary>
-        /// <param name="userid"></param>
-        /// <returns></returns>
-        //public UserNameCardOutPutDto GetUserNameCardInfo(string userid)
-        //{
-        //    return _userRepository.GetUserNameCardInfo(userid);
-        //}
-
-        /// <summary>
-        /// 保存名片
-        /// </summary>
-        /// <param name="userid"></param>
-        /// <param name="headicon"></param>
-        /// <param name="nickName"></param>
-        /// <param name="name"></param>
-        /// <param name="company"></param>
-        /// <param name="position"></param>
-        /// <param name="weburl"></param>
-        /// <param name="mobile"></param>
-        /// <param name="email"></param>
-        /// <param name="wx"></param>
-        /// <param name="wximg"></param>
-        /// <param name="industry"></param>
-        /// <param name="area"></param>
-        /// <param name="address"></param>
-        /// <param name="openflag"></param>
-        /// <returns></returns>
-        //public bool SaveNameCard(string userid, string headicon, string nickName, string name, string company, string position,
-        //    string weburl, string mobile, string email, string wx, string wximg,
-        //    string industry, string area, string address, int openflag)
-        //{
-        //    return _userRepository.SaveNameCard(userid, headicon, nickName, name, company, position, weburl,
-        //        mobile, email, wx, wximg, industry, area, address, openflag);
-        //}
 
 
         /// <summary>

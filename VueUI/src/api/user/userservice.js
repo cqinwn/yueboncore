@@ -2,7 +2,7 @@ import http from '@/utils/request'
 import defaultSettings from '@/settings'
 
 /**
-   * 角色分页查询
+   * 用户分页查询
    * @param {查询条件} data
    */
 export function getUserListWithPager(data) {
@@ -14,7 +14,7 @@ export function getUserListWithPager(data) {
   })
 }
 /**
-   * 新增或修改保存角色
+   * 新增或修改保存用户
    * @param data
    */
 export function saveUser(data, url) {
@@ -26,12 +26,23 @@ export function saveUser(data, url) {
   })
 }
 /**
-   * 获取角色详情
-   * @param {Id} 角色Id
+   * 获取用户详情
+   * @param {Id} 用户Id
    */
 export function getUserDetail(id) {
   return http({
     url: 'User/GetById?id=' + id,
+    method: 'get',
+    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+  })
+}
+/**
+   * 获取用户详情
+   * @param {userName} 用户账号
+   */
+export function getByUserName(userName) {
+  return http({
+    url: 'User/GetByUserName?userName=' + userName,
     method: 'get',
     baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
   })

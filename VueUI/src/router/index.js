@@ -46,10 +46,28 @@ export const constantRoutes = [
       component: () => import('@/views/dashboard/index'),
       meta: { title: '控制台', icon: 'icon-dashboard' }
     }]
-  }
+  },
+  {
+    path: '/',
+    redirect: '/usercenter/index',
+    component: Layout,
+    meta: { title: '个人中心', icon: 'icon-my' },
+    children: [{
+      path: 'usercenter/index',
+      name: 'usercenter',
+      component: () => import('@/views/usercenter/index'),
+      meta: { title: '个人信息', icon: 'icon-card' }
+    },
+    {
+      path: 'usercenter/modify',
+      name: 'usercentermodify',
+      component: () => import('@/views/usercenter/modify'),
+      meta: { title: '修改密码', icon: 'icon-new-pwd' }
+    }]
+  },
 
   // 404 page must be placed at the end !!!
-  // { path: '*', redirect: '/404', hidden: true }
+  { path: '*', redirect: '/404', hidden: true }
 ]
 
 const createRouter = () => new Router({

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.Commons.Json;
@@ -27,20 +28,21 @@ namespace Yuebon.AspNetCore.Controllers
     public class TokenController : ControllerBase
     {
         private IAPPService _iAPPService;
+        private readonly IUserService userService;
         private readonly JwtOption _jwtModel;
-        #if DEBUG
-        private Type type = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType;
-#endif
+
         /// <summary>
-        /// 
+        /// 构造函数
         /// </summary>
         /// <param name="iAPPService"></param>
+        /// <param name="_userService"></param>
         /// <param name="jwtModel"></param>
-        public TokenController(IAPPService iAPPService, JwtOption jwtModel)
+        public TokenController(IAPPService iAPPService, IUserService _userService, JwtOption jwtModel)
         {
             if (iAPPService == null)
                 throw new ArgumentNullException(nameof(iAPPService));
             _iAPPService = iAPPService;
+            userService = _userService;
             _jwtModel = jwtModel;
         }
 
@@ -118,7 +120,7 @@ namespace Yuebon.AspNetCore.Controllers
         /// <returns></returns>
         [HttpGet("RefreshToken")]
         [AllowAnonymous]
-        public IActionResult RefreshToken(string token)
+        public async Task<IActionResult> RefreshToken(string token)
         {
             CommonResult result = new CommonResult();
             TokenProvider tokenProvider = new TokenProvider(_jwtModel);
@@ -160,8 +162,7 @@ namespace Yuebon.AspNetCore.Controllers
                     if (jwtToken.Subject == GrantType.Password)
                     {
                         var claimlist = jwtToken?.Payload.Claims as List<Claim>;
-                        UserApp userApp = new UserApp();
-                        User user = userApp.GetByUserName(claimlist[2].Value);
+                        User user = await userService.GetByUserName(claimlist[2].Value);
                         TokenResult tokenResult = tokenProvider.LoginToken(user, claimlist[0].Value);
                         result.ResData = tokenResult;
                         result.ErrCode = "0";

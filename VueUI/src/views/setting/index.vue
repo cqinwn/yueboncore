@@ -212,11 +212,7 @@ export default {
       })
     },
     uploadFileSuccess: function(response, file, fileList) {
-      console.log(JSON.stringify(fileList))
-      console.log(JSON.stringify(file))
-      console.log(JSON.stringify(response))
       this.editFrom.SysLogo = defaultSettings.fileUrl + response.ResData.FilePath
-      console.log(this.editFrom.SysLogo)
     },
     saveEditForm() {
       this.$refs['editFrom'].validate((valid) => {

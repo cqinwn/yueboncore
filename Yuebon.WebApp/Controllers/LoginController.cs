@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.SSO;
 using Yuebon.Commons.Cache;
@@ -69,7 +70,7 @@ namespace Yuebon.WebApp.Controllers
         /// <param name="username">用户名</param>
         /// <param name="password">密码</param>
         /// <returns>返回用户User对象</returns>
-        public IActionResult GetCheckUser(string username, string password)
+        public async Task<IActionResult> GetCheckUser(string username, string password)
         {
             CommonResult result = new CommonResult();
             Log logEntity = new Log();
@@ -86,7 +87,7 @@ namespace Yuebon.WebApp.Controllers
             }
             else
             {
-                Tuple<User, string> user = this.userService.Validate(username, password);
+                Tuple<User, string> user = await this.userService.Validate(username, password);
                 if (user != null)
                 {
                     if (user.Item1 != null)

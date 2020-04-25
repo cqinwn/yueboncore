@@ -19,13 +19,13 @@ namespace Yuebon.Security.IRepositories
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
-        User GetByUserName(string userName);
+        Task<User> GetByUserName(string userName);
         /// <summary>
         /// 根据用户手机号码查询用户信息
         /// </summary>
         /// <param name="mobilePhone">手机号码</param>
         /// <returns></returns>
-        User GetUserByMobilePhone(string mobilePhone);
+        Task<User> GetUserByMobilePhone(string mobilePhone);
 
         /// <summary>
         /// 注册用户

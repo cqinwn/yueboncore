@@ -63,7 +63,7 @@ namespace Yuebon.AspNetCore.Controllers
         [HttpGet("GetCheckUser")]
         [AllowAnonymous]
         [NoPermissionRequired]
-        public IActionResult GetCheckUser(string username, string password,string appId,string systemCode)
+        public async Task<IActionResult> GetCheckUser(string username, string password,string appId,string systemCode)
         {
 
             CommonResult result = new CommonResult();
@@ -107,7 +107,7 @@ namespace Yuebon.AspNetCore.Controllers
                         }
                         else
                         {
-                            Tuple<User, string> userLogin = this._userService.Validate(username, password);
+                            Tuple<User, string> userLogin = await this._userService.Validate(username, password);
                             if (userLogin != null)
                             {
                                 if (userLogin.Item1 != null)

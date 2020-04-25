@@ -100,11 +100,27 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         public override async Task<IActionResult> InsertAsync(UserInputDto tinfo)
         {
             CommonResult result = new CommonResult();
+
+            if (!string.IsNullOrEmpty(tinfo.Account))
+            {
+                string where = string.Format("Account='{0}'", tinfo.Account);
+                User user = iService.GetWhere(where);
+                if (user != null)
+                {
+                    result.ErrMsg = "登录账号不能重复";
+                    return ToJsonContent(result);
+                }
+            }
+            else
+            {
+                result.ErrMsg = "登录账号不能为空";
+                return ToJsonContent(result);
+            }
             User info = tinfo.MapTo<User>();
             OnBeforeInsert(info);
             UserLogOn userLogOn = new UserLogOn();
             userLogOn.UserPassword = "12345678";
-            result.Success=await iService.InsertAsync(info, userLogOn);
+            result.Success = await iService.InsertAsync(info, userLogOn);
             if (result.Success)
             {
                 result.ErrCode = ErrCode.successCode;
@@ -128,9 +144,24 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         public override async Task<IActionResult> UpdateAsync(UserInputDto tinfo, string id)
         {
             CommonResult result = new CommonResult();
-
+            if (!string.IsNullOrEmpty(tinfo.Account))
+            {
+                string where = string.Format(" Account='{0}'  and id!='{1}' ", tinfo.Account, id);
+                User user = iService.GetWhere(where);
+                if (user != null)
+                {
+                    result.ErrMsg = "登录账号不能重复";
+                    return ToJsonContent(result);
+                }
+            }
+            else
+            {
+                result.ErrMsg = "登录账号不能为空";
+                return ToJsonContent(result);
+            }
             User info = iService.Get(id);
             info.Account = tinfo.Account;
+            info.HeadIcon = tinfo.HeadIcon;
             info.RealName = tinfo.RealName;
             info.NickName = tinfo.NickName;
             info.Gender = tinfo.Gender;
@@ -159,6 +190,31 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             return ToJsonContent(result);
         }
 
+        /// <summary>
+        /// 根据用户登录账号获取详细信息
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+
+        [HttpGet("GetByUserName")]
+        [YuebonAuthorize("Edit")]
+        public async Task<IActionResult> GetByUserName(string userName)
+        {
+            CommonResult result = new CommonResult();
+            try
+            {
+                User user = await iService.GetByUserName(userName);
+                result.ResData = user.MapTo<UserOutputDto>();
+                result.ErrCode = ErrCode.successCode;
+                result.ErrMsg = ErrCode.err0;
+            }
+            catch (Exception ex)
+            {
+                Log4NetHelper.Error("获取用户异常", ex);//错误记录
+                result.ErrMsg = ex.Message;
+            }
+            return ToJsonContent(result);
+        }
 
         /// <summary>
         /// 异步分页查询
@@ -262,16 +318,30 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <summary>
         /// 修改密码
         /// </summary>
+        /// <param name="oldpassword">原密码</param>
         /// <param name="password">新密码</param>
         /// <param name="password2">重复新密码</param>
         /// <returns></returns>
 
         [HttpPost("ModifyPassword")]
         [YuebonAuthorize("ModifyPassword")]
-        public async Task<IActionResult> ModifyPassword(string password, string password2)
+        public async Task<IActionResult> ModifyPassword(string oldpassword,string password, string password2)
         {
             CommonResult result = new CommonResult();
-            if (string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(oldpassword))
+            {
+                result.ErrMsg = "原密码不能为空！";
+            }
+            else if (!string.IsNullOrEmpty(oldpassword))
+            {
+                var userSinginEntity = userLogOnService.GetByUserId(CurrentUser.UserId);
+                string inputPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(oldpassword).ToLower(), userSinginEntity.UserSecretkey).ToLower()).ToLower();
+                if (inputPassword != userSinginEntity.UserPassword)
+                {
+                    result.ErrMsg = "原密码错误！";
+                }
+            }
+            else if (string.IsNullOrEmpty(password))
             {
                 result.ErrMsg = "密码不能为空！";
             }
@@ -290,7 +360,6 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 if (bl)
                 {
                     result.ErrCode = ErrCode.successCode;
-                    result.Success = true;
                 }
                 else
                 {

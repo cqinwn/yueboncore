@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29209.152
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.WebApi", "Yuebon.WebApi\Yuebon.WebApi.csproj", "{4009E327-CC77-4517-AE3B-A3E9AABDF30C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.Commons", "Yuebon.NetCore\Yuebon.Commons\Yuebon.Commons.csproj", "{75C4B78A-34AD-44F7-AABE-87D757BC85CD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.Security.Core", "Yuebon.NetCore\Yuebon.Security.Core\Yuebon.Security.Core.csproj", "{AB4694C8-A952-4D6C-BC91-D882F00EAC25}"
@@ -21,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.UEditorNetCore", "Yu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.CMS.Core", "Yuebon.Cms.Core\Yuebon.CMS.Core.csproj", "{3C119187-DCBA-4C39-9A09-38059ADEFD70}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.UnitTest", "Yuebon.UnitTest\Yuebon.UnitTest.csproj", "{7E40097E-9218-452D-87EE-D16D7F1E3B91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.WebApi", "Yuebon.WebApi\Yuebon.WebApi.csproj", "{0A1C0CF8-1232-4C55-B147-C334E3143479}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +27,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4009E327-CC77-4517-AE3B-A3E9AABDF30C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4009E327-CC77-4517-AE3B-A3E9AABDF30C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4009E327-CC77-4517-AE3B-A3E9AABDF30C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4009E327-CC77-4517-AE3B-A3E9AABDF30C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{75C4B78A-34AD-44F7-AABE-87D757BC85CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{75C4B78A-34AD-44F7-AABE-87D757BC85CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75C4B78A-34AD-44F7-AABE-87D757BC85CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -65,10 +59,10 @@ Global
 		{3C119187-DCBA-4C39-9A09-38059ADEFD70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C119187-DCBA-4C39-9A09-38059ADEFD70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C119187-DCBA-4C39-9A09-38059ADEFD70}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7E40097E-9218-452D-87EE-D16D7F1E3B91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7E40097E-9218-452D-87EE-D16D7F1E3B91}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7E40097E-9218-452D-87EE-D16D7F1E3B91}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7E40097E-9218-452D-87EE-D16D7F1E3B91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A1C0CF8-1232-4C55-B147-C334E3143479}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A1C0CF8-1232-4C55-B147-C334E3143479}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A1C0CF8-1232-4C55-B147-C334E3143479}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A1C0CF8-1232-4C55-B147-C334E3143479}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

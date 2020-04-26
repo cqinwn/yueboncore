@@ -3421,7 +3421,7 @@
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
       },
-      "Yuebon.Commons/1.3.1.6": {
+      "Yuebon.Commons/1.3.1.7": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
@@ -10217,7 +10217,7 @@
         "system.xml.xpath.xmldocument.nuspec"
       ]
     },
-    "Yuebon.Commons/1.3.1.6": {
+    "Yuebon.Commons/1.3.1.7": {
       "type": "project",
       "path": "../Yuebon.Commons/Yuebon.Commons.csproj",
       "msbuildProject": "../Yuebon.Commons/Yuebon.Commons.csproj"
@@ -10225,14 +10225,14 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "Yuebon.Commons >= 1.3.1.6"
+      "Yuebon.Commons >= 1.3.1.7"
     ]
   },
   "packageFolders": {
     "C:\\Users\\Administrator\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "1.3.2",
+    "version": "1.3.2.1",
     "restore": {
       "projectUniqueName": "D:\\netcorespace\\YueGroup\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj",
       "projectName": "Yuebon.Security.Core",

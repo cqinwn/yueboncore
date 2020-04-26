@@ -148,7 +148,7 @@
       :visible.sync="dialogEditFormVisible"
       width="640px"
     >
-      <el-form ref="editFrom" :inline="true" :model="editFrom" :rules="rules" class="demo-form-inline">
+      <el-form ref="editFrom" :model="editFrom" :rules="rules">
         <el-form-item label="系统名称" :label-width="formLabelWidth" prop="FullName">
           <el-input v-model="editFrom.FullName" placeholder="请输入系统名称" autocomplete="off" clearable />
         </el-form-item>
@@ -186,7 +186,9 @@
 
 <script>
 
-import { getSystemTypeListWithPager, getSystemTypeDetail, saveSystemType, setSystemTypeEnable, deleteSoftSystemType, deleteSystemType } from '@/api/systemtype/systemtypeservice'
+import { getSystemTypeListWithPager, getSystemTypeDetail,
+  saveSystemType, setSystemTypeEnable, deleteSoftSystemType,
+  deleteSystemType } from '@/api/developers/systemtypeservice'
 
 export default {
   data() {

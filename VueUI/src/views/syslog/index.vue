@@ -79,7 +79,7 @@
 
 <script>
 
-import { getLogListWithPager, deleteLog } from '@/api/syslog/logservice'
+import { getLogListWithPager, deleteLog } from '@/api/security/logservice'
 
 export default {
   data() {

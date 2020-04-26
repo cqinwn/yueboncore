@@ -97,21 +97,11 @@ namespace Yuebon.Security.Application
             string where = string.Format("");
             string roleId = serviceUser.Get(userID).RoleId;
             List<FunctionOutputDto> functions = new List<FunctionOutputDto>();
-            //YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            //if (yuebonCacheHelper.Exists("Role_Functions_" + roleId))
-            //{
-            //    functions = JsonConvert.DeserializeObject<List<FunctionOutputDto>>(yuebonCacheHelper.Get("Role_Functions_" + roleId).ToJson());
-            //}
-            //else
-            //{
-                string roleIDsStr = string.Format("'{0}'",roleId.Replace(",","','"));
-                if (roleIDsStr != "")
-                {
-                    functions = service.GetFunctions(roleIDsStr, typeID).ToList().MapTo<FunctionOutputDto>();
-                    //写入缓存
-                    //yuebonCacheHelper.Add("Role_Functions_" + roleId, functions);
-                }
-            //}
+            string roleIDsStr = string.Format("'{0}'",roleId.Replace(",","','"));
+            if (roleIDsStr != "")
+            {
+                functions = service.GetFunctions(roleIDsStr, typeID).ToList().MapTo<FunctionOutputDto>();
+            }
             return functions;
         }
 
@@ -125,21 +115,11 @@ namespace Yuebon.Security.Application
         {
             string where = string.Format("");
             List<FunctionOutputDto> functions = new List<FunctionOutputDto>();
-            //YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            //if (yuebonCacheHelper.Exists("Role_Functions_" + roleIds + systemId))
-            //{
-            //    functions = JsonConvert.DeserializeObject<List<FunctionOutputDto>>(yuebonCacheHelper.Get("Role_Functions_" + roleIds + systemId).ToJson());
-            //}
-            //else
-            //{
             string roleIDsStr = string.Format("'{0}'", roleIds.Replace(",", "','"));
             if (roleIDsStr != "")
             {
                 functions = service.GetFunctions(roleIDsStr, systemId).ToList().MapTo<FunctionOutputDto>();
-                ////写入缓存
-                //yuebonCacheHelper.Add("Role_Functions_" + roleIds + systemId, functions);
             }
-            //}
             return functions;
         }
         /// <summary>
@@ -152,16 +132,8 @@ namespace Yuebon.Security.Application
         {
             List<FunctionOutputDto> functions = new List<FunctionOutputDto>();
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            //if (yuebonCacheHelper.Exists("Role_Functions_" + roleId))
-            //{
-            //    functions = JsonConvert.DeserializeObject<List<FunctionOutputDto>>(yuebonCacheHelper.Get("Role_Functions_" + roleId).ToJson());
-            //}
-            //else
-            //{
-                functions = service.GetAll().ToList().MapTo<FunctionOutputDto>();
-                //写入缓存
-                //yuebonCacheHelper.Add("Role_Functions_" + roleId, functions);
-            //}
+            functions = service.GetAll().ToList().MapTo<FunctionOutputDto>();
+               
             return functions;
         }
 

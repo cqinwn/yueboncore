@@ -106,7 +106,7 @@
 
 <script>
 
-import { getUploadFileListWithPager, deleteUploadFile } from '@/api/uploadfile/uploadfileservice'
+import { getUploadFileListWithPager, deleteUploadFile } from '@/api/security/uploadfileservice'
 
 import defaultSettings from '@/settings'
 export default {

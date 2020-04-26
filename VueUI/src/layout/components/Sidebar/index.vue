@@ -31,7 +31,6 @@ export default {
       'sidebar'
     ]),
     routes() {
-      // console.log('store.getters.addRoutes:' + JSON.stringify(this.$store.getters.addRoutes))
       return this.$router.options.routes.concat(this.$store.getters.addRoutes)
     },
     activeMenu() {

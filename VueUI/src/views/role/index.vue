@@ -230,9 +230,11 @@
 <script>
 
 import { getListItemDetailsByCode } from '@/api/basebasic'
-import { getRoleListWithPager, getRoleDetail, saveRole, setRoleEnable, deleteSoftRole, deleteRole, getRoleAuthorizeFunction, getAllFunctionTree, saveRoleAuthorize } from '@/api/role/roleservice'
+import { getRoleListWithPager, getRoleDetail, saveRole,
+  setRoleEnable, deleteSoftRole, deleteRole, getRoleAuthorizeFunction,
+  getAllFunctionTree, saveRoleAuthorize } from '@/api/security/roleservice'
 
-import { getAllOrganizeTreeTable } from '@/api/organize/organizeservice'
+import { getAllOrganizeTreeTable } from '@/api/security/organizeservice'
 
 export default {
   data() {

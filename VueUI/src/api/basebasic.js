@@ -108,47 +108,27 @@ export function logout() {
     baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
   })
 }
+
 /**
-   * 获取数据库表
+   * 系统切换
+   * @param {id集合} ids
    */
-export function codeGetTableList(data) {
+export function yuebonConnecSys(data) {
   return http({
-    url: 'CodeGenerator/GetListTable',
+    url: 'SystemType/YuebonConnecSys',
     method: 'get',
     params: data,
-    baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
-   * 生成代码
+   * 系统切换sso
+   * @param {id集合} ids
    */
-export function codeGenerator(data) {
+export function sysConnect(data) {
   return http({
-    url: 'CodeGenerator/Generate',
+    url: 'SSO/SysConnect',
     method: 'get',
-    params: data,
-    baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
-  })
-}
-/**
- *
-* 数据库解密
-*/
-export function dbtoolsConnStrDecrypt(data) {
-  return http({
-    url: 'DbTools/ConnStrDecrypt',
-    method: 'post',
-    params: data,
-    baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
-  })
-}
-/**
-   * 数据库加密
-   */
-export function dbtoolsConnStrEncrypt(data) {
-  return http({
-    url: 'DbTools/ConnStrEncrypt',
-    method: 'post',
     params: data,
     baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
   })

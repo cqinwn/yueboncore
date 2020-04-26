@@ -210,7 +210,7 @@ import { getAllItemsTreeTable, getItemsDetail, saveItems, setItemsEnable, delete
   getItemsDetailDetail, saveItemsDetail, setItemsDetailEnable, deleteSoftItemsDetail,
   deleteItemsDetail,
   getAllItemsDetailTreeTable
-} from '@/api/items/itemsservice'
+} from '@/api/security/itemsservice'
 
 import { getListMeunFuntionBymeunCode } from '@/api/basebasic'
 export default {

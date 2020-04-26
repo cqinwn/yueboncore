@@ -50,7 +50,7 @@
 
 <script>
 
-import { dbtoolsConnStrDecrypt, dbtoolsConnStrEncrypt } from '@/api/basebasic'
+import { dbtoolsConnStrDecrypt, dbtoolsConnStrEncrypt } from '@/api/developers/toolsservice'
 export default {
   data() {
     return {

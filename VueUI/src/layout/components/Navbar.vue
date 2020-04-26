@@ -3,14 +3,14 @@
     <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
     <breadcrumb class="breadcrumb-container" />
     <div class="right-menu">
-      <el-dropdown class="el-dropdown-link" trigger="click">
+      <el-dropdown class="el-dropdown-link" trigger="click" @command="handlerSysType">
         <div class="avatar-wrapper">
           您处在：{{ activeSystemName }}(切换)
           <i class="el-icon-arrow-down el-icon--right" />
         </div>
         <el-dropdown-menu slot="dropdown">
-          <a v-for="item in subSystem" :key="item.Id" target="_blank" :href="item.Url">
-            <el-dropdown-item>{{ item.FullName }}</el-dropdown-item>
+          <a v-for="item in subSystem" :key="item.Id" href="#">
+            <el-dropdown-item :command="item.EnCode">{{ item.FullName }}</el-dropdown-item>
           </a>
         </el-dropdown-menu>
       </el-dropdown>
@@ -42,6 +42,7 @@
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
+import { yuebonConnecSys } from '@/api/basebasic'
 
 export default {
   components: {
@@ -64,6 +65,16 @@ export default {
     async logout() {
       await this.$store.dispatch('user/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+    },
+    handlerSysType(command) {
+      var data = {
+        systype: command
+      }
+      yuebonConnecSys(data).then(res => {
+        if (res.Success) {
+          window.location.href = res.ResData
+        }
+      })
     }
   }
 }

@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import { codeGetTableList, codeGenerator } from '@/api/basebasic'
+import { codeGetTableList, codeGenerator } from '@/api/developers/toolsservice'
 export default {
   data() {
     return {

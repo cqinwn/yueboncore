@@ -18,6 +18,8 @@ using Yuebon.Commons.Json;
 using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.UI;
+using Yuebon.AspNetCore.ViewModel;
+using Yuebon.Commons.Encrypt;
 
 namespace Yuebon.WebApi.Areas.Security.Controllers
 {
@@ -170,13 +172,50 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             try
             {
                 IEnumerable<SystemType> list = await iService.GetAllAsync();
-                result.Success = true;
                 result.ErrCode = ErrCode.successCode;
                 result.ResData = list.MapTo<SystemTypeOutputDto>();
             }
             catch (Exception ex)
             {
-                Log4NetHelper.Error("获取菜单异常", ex);
+                Log4NetHelper.Error("获子系统异常", ex);
+                result.ErrMsg = ErrCode.err40110;
+                result.ErrCode = "40110";
+            }
+            return ToJsonContent(result);
+        }
+
+
+        /// <summary>
+        /// 系统切换时获取凭据
+        /// 适用于不同子系统分别独立部署站点场景
+        /// </summary>
+        /// <param name="systype"></param>
+        /// <returns></returns>
+        [HttpGet("YuebonConnecSys")]
+        [YuebonAuthorize("")]
+        public async Task<IActionResult> YuebonConnecSys(string systype)
+        {
+            CommonResult result = new CommonResult();
+            try
+            {
+                if (!string.IsNullOrEmpty(systype))
+                {
+                    SystemType systemType = iService.GetByCode(systype);
+                    string openmf = MD5Util.GetMD5_32(DEncrypt.Encrypt(CurrentUser.UserId + systemType.Id, GuidUtils.NewGuidFormatN())).ToLower();
+                    YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+                    yuebonCacheHelper.Add("openmf" + openmf, CurrentUser.UserId);
+                    result.ErrCode = ErrCode.successCode;
+                    result.ResData = systemType.Url + "?openmf=" + openmf;
+                }
+                else
+                {
+                    result.ErrCode = ErrCode.failCode;
+                    result.ErrMsg = "切换子系统参数错误";
+                }
+            }
+            catch (Exception ex)
+            {
+                Log4NetHelper.Error("切换子系统异常", ex);
                 result.ErrMsg = ErrCode.err40110;
                 result.ErrCode = "40110";
             }

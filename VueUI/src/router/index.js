@@ -48,26 +48,26 @@ export const constantRoutes = [
     }]
   },
   {
-    path: '/',
+    path: '/usercenter',
     redirect: '/usercenter/index',
     component: Layout,
     meta: { title: '个人中心', icon: 'icon-my' },
     children: [{
-      path: 'usercenter/index',
+      path: '/usercenter/index',
       name: 'usercenter',
       component: () => import('@/views/usercenter/index'),
       meta: { title: '个人信息', icon: 'icon-card' }
     },
     {
-      path: 'usercenter/modify',
+      path: '/usercenter/modify',
       name: 'usercentermodify',
       component: () => import('@/views/usercenter/modify'),
       meta: { title: '修改密码', icon: 'icon-new-pwd' }
     }]
-  },
+  }
 
   // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  // { path: '*', redirect: '/404', hidden: true }
 ]
 
 const createRouter = () => new Router({

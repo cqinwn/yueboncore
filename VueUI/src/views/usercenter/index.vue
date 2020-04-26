@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-form ref="editFrom" :model="editFrom" :rules="rules" class="yuebon-setting-form">
-      <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
+      <el-tabs v-model="activeName" type="border-card">
         <el-tab-pane label="基本信息" name="first">
           <el-form-item label="头像" :label-width="formLabelWidth" prop="HeadIcon">
             <el-upload
@@ -97,16 +97,10 @@
 
 import { mapGetters } from 'vuex'
 import defaultSettings from '@/settings'
-import { getByUserName, saveUser } from '@/api/user/userservice'
-import { getAllRoleList } from '@/api/role/roleservice'
-import { getAllOrganizeTreeTable } from '@/api/organize/organizeservice'
+import { getByUserName, saveUser } from '@/api/security/userservice'
+import { getAllRoleList } from '@/api/security/roleservice'
+import { getAllOrganizeTreeTable } from '@/api/security/organizeservice'
 export default {
-  computed: {
-    ...mapGetters([
-      'name'
-    ])
-  },
-
   data() {
     return {
       activeName: 'first',
@@ -145,6 +139,11 @@ export default {
       filelist: [],
       formLabelWidth: '100px'
     }
+  },
+  computed: {
+    ...mapGetters([
+      'name'
+    ])
   },
   created() {
     this.InitDictItem()

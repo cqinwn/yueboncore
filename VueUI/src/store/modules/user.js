@@ -1,7 +1,7 @@
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 import Cookies from 'js-cookie'
-import { login, logout, refreshToken, getListMeunFuntionBymeunCode } from '@/api/basebasic'
+import { login, logout, refreshToken, getListMeunFuntionBymeunCode, sysConnect } from '@/api/basebasic'
 const getDefaultState = () => {
   return {
     token: getToken(),
@@ -49,7 +49,6 @@ const mutations = {
 
 const actions = {
   userlogin({ commit }, userInfo) {
-    console.log('000:' + JSON.stringify(userInfo))
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password, appId: 'system', systemCode: 'openauth' }).then(response => {
@@ -61,6 +60,7 @@ const actions = {
         commit('SET_SUBSYSTEM', data.SubSystemList)
         commit('SET_ACTIVESYSTEMNAME', data.ActiveSystem)
         commit('SET_MENUS', data.MenusList)
+        commit('SET_NAME', data.Account)
         Cookies.set('yuebon_loginuser', data.UserId)
         resolve(response)
       }).catch(error => {
@@ -69,10 +69,24 @@ const actions = {
       })
     })
   },
-  getInfo({ commit }) {
+  // 系统切换
+  sysConnetLogin({ commit }, userInfo) {
     return new Promise((resolve, reject) => {
-      var account = localStorage.getItem('usernametemp')
-      commit('SET_NAME', account)
+      sysConnect(userInfo).then(response => {
+        const data = response.ResData
+        commit('SET_TOKEN', data.AccessToken)
+        setToken(data.AccessToken)
+        commit('SET_TEMPNAME', data.Account)
+        commit('SET_AVATAR', data.HeadIcon)
+        commit('SET_SUBSYSTEM', data.SubSystemList)
+        commit('SET_ACTIVESYSTEMNAME', data.ActiveSystem)
+        commit('SET_MENUS', data.MenusList)
+        commit('SET_NAME', data.Account)
+        Cookies.set('yuebon_loginuser', data.UserId)
+        resolve(response)
+      }).catch(error => {
+        reject(error)
+      })
     })
   },
   // user logout
@@ -84,6 +98,7 @@ const actions = {
         localStorage.removeItem('useravatar')
         localStorage.removeItem('usersubSystem')
         localStorage.removeItem('activeSystemName')
+        localStorage.removeItem('nowmenus')
         Cookies.remove('yuebon_loginuser')
         resetRouter()
         commit('RESET_STATE')
@@ -94,6 +109,7 @@ const actions = {
         localStorage.removeItem('useravatar')
         localStorage.removeItem('usersubSystem')
         localStorage.removeItem('activeSystemName')
+        localStorage.removeItem('nowmenus')
         Cookies.remove('yuebon_loginuser')
         resetRouter()
         commit('RESET_STATE')

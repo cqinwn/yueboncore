@@ -297,7 +297,7 @@ import { getAllMenuTreeTable, getMenuDetail, saveMenu, setMenuEnable, deleteSoft
   getFunctionDetail, saveFunction, setFunctionEnable, deleteSoftFunction,
   deleteFunction,
   getAllFunctionTreeTable
-} from '@/api/menu/menufunction'
+} from '@/api/developers/menufunction'
 
 export default {
   data() {

@@ -222,7 +222,8 @@
 </template>
 
 <script>
-import { getAPPListWithPager, getAPPDetail, saveAPP, setAPPEnable, deleteSoftAPP, deleteAPP, resetAppSecret, resetEncodingAESKey } from '@/api/app/appservice'
+import { getAPPListWithPager, getAPPDetail, saveAPP, setAPPEnable,
+  deleteSoftAPP, deleteAPP, resetAppSecret, resetEncodingAESKey } from '@/api/developers/appservice'
 
 export default {
   data() {

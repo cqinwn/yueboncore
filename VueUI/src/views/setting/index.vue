@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-form ref="editFrom" :model="editFrom" :rules="rules" class="yuebon-setting-form">
-      <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
+      <el-tabs v-model="activeName" type="border-card">
         <el-tab-pane label="基本信息" name="first">
           <el-form-item label="系统名称" :label-width="formLabelWidth" prop="SoftName">
             <el-input v-model="editFrom.SoftName" placeholder="请输入系统名称" autocomplete="off" clearable />
@@ -33,8 +33,8 @@
           <el-form-item label="公司名称" :label-width="formLabelWidth" prop="CompanyName">
             <el-input v-model="editFrom.CompanyName" placeholder="请输入公司名称" autocomplete="off" clearable />
           </el-form-item>
-          <el-form-item label="通讯地址" :label-width="formLabelWidth" prop="Telphone">
-            <el-input v-model="editFrom.Telphone" placeholder="请输入通讯地址" autocomplete="off" clearable />
+          <el-form-item label="通讯地址" :label-width="formLabelWidth" prop="Address">
+            <el-input v-model="editFrom.Address" placeholder="请输入通讯地址" autocomplete="off" clearable />
           </el-form-item>
           <el-form-item label="电话" :label-width="formLabelWidth" prop="Telphone">
             <el-input v-model="editFrom.Telphone" placeholder="请输入电话" autocomplete="off" clearable />
@@ -65,7 +65,7 @@
             <el-input v-model="editFrom.Webcountcode" type="textarea" placeholder="请输入系统统计代码" autocomplete="off" clearable />
           </el-form-item>
         </el-tab-pane>
-        <el-tab-pane label="短信设置" name="third">
+        <el-tab-pane label="短信设置" name="three">
           <el-form-item label="短信API地址" :label-width="formLabelWidth" prop="Smsapiurl">
             <el-input v-model="editFrom.Smsapiurl" placeholder="请输入短信API地址" autocomplete="off" clearable />
           </el-form-item>
@@ -81,30 +81,28 @@
             如果您尚未申请开通，请点击这里注册成功后填写您的用户名和通讯密钥均可正常使用。
           </el-form-item>
         </el-tab-pane>
-        <el-tab-pane label="邮件设置" name="fourth">
-          <el-form ref="editFrom" :model="editFrom" :rules="rules">
-            <el-form-item label="SMTP服务器" :label-width="formLabelWidth" prop="Emailsmtp">
-              <el-input v-model="editFrom.Emailsmtp" placeholder="请输入系统名称" autocomplete="off" clearable />
-            </el-form-item>
-            <el-form-item label="SSL加密连接" :label-width="formLabelWidth" prop="Emailssl">
-              <el-input v-model="editFrom.Emailssl" placeholder="请输入系统简介" autocomplete="off" clearable />
-            </el-form-item>
-            <el-form-item label="SMTP端口" :label-width="formLabelWidth" prop="Emailport">
-              <el-input v-model="editFrom.Emailport" placeholder="请输入SMTP端口" autocomplete="off" clearable />
-            </el-form-item>
-            <el-form-item label="发件人地址" :label-width="formLabelWidth" prop="Emailfrom">
-              <el-input v-model="editFrom.Emailfrom" placeholder="请输入发件人地址" autocomplete="off" clearable />
-            </el-form-item>
-            <el-form-item label="邮箱账号" :label-width="formLabelWidth" prop="Emailusername">
-              <el-input v-model="editFrom.Emailusername" placeholder="请输入邮箱账号" autocomplete="off" clearable />
-            </el-form-item>
-            <el-form-item label="邮箱密码" :label-width="formLabelWidth" prop="Emailpassword">
-              <el-input v-model="editFrom.Emailpassword" placeholder="请输入邮箱密码" autocomplete="off" clearable />
-            </el-form-item>
-            <el-form-item label="发件人昵称" :label-width="formLabelWidth" prop="Emailnickname">
-              <el-input v-model="editFrom.Emailnickname" placeholder="请输入发件人昵称" autocomplete="off" clearable />
-            </el-form-item>
-          </el-form>
+        <el-tab-pane label="邮件设置" name="four">
+          <el-form-item label="SMTP服务器" :label-width="formLabelWidth" prop="Emailsmtp">
+            <el-input v-model="editFrom.Emailsmtp" placeholder="请输入系统名称" autocomplete="off" clearable />
+          </el-form-item>
+          <el-form-item label="SSL加密连接" :label-width="formLabelWidth" prop="Emailssl">
+            <el-input v-model="editFrom.Emailssl" placeholder="请输入系统简介" autocomplete="off" clearable />
+          </el-form-item>
+          <el-form-item label="SMTP端口" :label-width="formLabelWidth" prop="Emailport">
+            <el-input v-model="editFrom.Emailport" placeholder="请输入SMTP端口" autocomplete="off" clearable />
+          </el-form-item>
+          <el-form-item label="发件人地址" :label-width="formLabelWidth" prop="Emailfrom">
+            <el-input v-model="editFrom.Emailfrom" placeholder="请输入发件人地址" autocomplete="off" clearable />
+          </el-form-item>
+          <el-form-item label="邮箱账号" :label-width="formLabelWidth" prop="Emailusername">
+            <el-input v-model="editFrom.Emailusername" placeholder="请输入邮箱账号" autocomplete="off" clearable />
+          </el-form-item>
+          <el-form-item label="邮箱密码" :label-width="formLabelWidth" prop="Emailpassword">
+            <el-input v-model="editFrom.Emailpassword" placeholder="请输入邮箱密码" autocomplete="off" clearable />
+          </el-form-item>
+          <el-form-item label="发件人昵称" :label-width="formLabelWidth" prop="Emailnickname">
+            <el-input v-model="editFrom.Emailnickname" placeholder="请输入发件人昵称" autocomplete="off" clearable />
+          </el-form-item>
         </el-tab-pane>
         <el-tab-pane label="文件上传" name="five">
           <el-form-item label="文件服务器" :label-width="formLabelWidth" prop="Fileserver">
@@ -193,11 +191,7 @@ export default {
     this.loadSettingData()
   },
   methods: {
-    handleClick(tab, event) {
-      console.log(tab, event)
-    },
     handleRemove(file, fileList) {
-      console.log(file, fileList)
       this.editFrom.SysLogo = file.url
     },
     handlePictureCardPreview(file) {

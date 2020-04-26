@@ -1,16 +1,16 @@
 <template>
   <div class="app-container">
-    <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
+    <el-tabs v-model="activeName" type="border-card">
       <el-tab-pane label="修改密码" name="first">
         <el-form ref="editFrom" :model="editFrom" :rules="rules" class="yuebon-setting-form">
           <el-form-item label="原密码" :label-width="formLabelWidth" prop="OldPassword">
-            <el-input v-model="editFrom.OldPassword" placeholder="请输入原密码" autocomplete="off" clearable />
+            <el-input v-model="editFrom.OldPassword" type="password" placeholder="请输入原密码" autocomplete="off" clearable />
           </el-form-item>
           <el-form-item label="新密码" :label-width="formLabelWidth" prop="NewPassword">
-            <el-input v-model="editFrom.NewPassword" placeholder="请输入新密码" autocomplete="off" clearable />
+            <el-input v-model="editFrom.NewPassword" type="password" placeholder="请输入新密码" autocomplete="off" clearable />
           </el-form-item>
           <el-form-item label="再输入一次" :label-width="formLabelWidth" prop="NewPassword2">
-            <el-input v-model="editFrom.NewPassword2" placeholder="请再输入一次新密码" autocomplete="off" clearable />
+            <el-input v-model="editFrom.NewPassword2" type="password" placeholder="请再输入一次新密码" autocomplete="off" clearable />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="saveEditForm()">保 存</el-button>
@@ -22,7 +22,7 @@
 </template>
 <script>
 
-import { modifyPassword } from '@/api/user/userservice'
+import { modifyPassword } from '@/api/security/userservice'
 export default {
   data() {
     return {

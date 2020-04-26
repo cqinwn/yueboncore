@@ -192,7 +192,8 @@
 <script>
 
 import { getListItemDetailsByCode } from '@/api/basebasic'
-import { getAllOrganizeTreeTable, getOrganizeDetail, saveOrganize, setOrganizeEnable, deleteSoftOrganize, deleteOrganize } from '@/api/organize/organizeservice'
+import { getAllOrganizeTreeTable, getOrganizeDetail, saveOrganize,
+  setOrganizeEnable, deleteSoftOrganize, deleteOrganize } from '@/api/security/organizeservice'
 
 export default {
   data() {

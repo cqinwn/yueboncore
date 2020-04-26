@@ -196,7 +196,8 @@
 
 <script>
 
-import { getFilterIPListWithPager, getFilterIPDetail, saveFilterIP, setFilterIPEnable, deleteSoftFilterIP, deleteFilterIP } from '@/api/filterip/filteripservice'
+import { getFilterIPListWithPager, getFilterIPDetail, saveFilterIP, setFilterIPEnable,
+  deleteSoftFilterIP, deleteFilterIP } from '@/api/security/filteripservice'
 
 export default {
   data() {

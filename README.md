@@ -5,13 +5,17 @@
 
 ### 更新日志
 
-##### 2020/4/24
+##### 2020年4月
 
 1、vue版在yysql数据库通过，感谢@cuijianhao_admin[催催啊](https://gitee.com/cuijianhao_admin)提供mysql测试环境
 
 2、修复mvc版本的bug
 
-3、近期将发布相关文档，请到QQ群下载，在末尾有入口
+3、修复修改密码bug和新增跨域访问请求连接可配置，提高安全性，具体请见[跨域访问设置](https://gitee.com/yuebon/YuebonNetCore/wikis/%E8%B7%A8%E5%9F%9F%E8%AE%BF%E9%97%AE%E8%AE%BE%E7%BD%AE?sort_id=2157923)
+
+4、实现vue版的多系统独立部署的系统切换
+
+5、近期将发布相关文档，请到QQ群90311523 下载，在文末有群二维码
 
 更多更新日志 [点击查看](https://gitee.com/yuebon/YuebonNetCore/wikis/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97?sort_id=1983111)
 
@@ -148,7 +152,7 @@ DataBase是最新数据库备份文件，目前支持MS SQL Server和MySql。
 
 5、汇聚自动化设备
 
-
+6、天逸电器订单系统
 
 ### 开发者信息
 

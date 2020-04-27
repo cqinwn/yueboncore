@@ -441,21 +441,28 @@ export default {
         const data = {
           ids: currentIds
         }
-        deleteOrganize(data).then(res => {
-          if (res.Success) {
-            this.$message({
-              message: '恭喜你，操作成功',
-              type: 'success'
-            })
-            this.currentSelected = ''
-            this.loadTableData()
-          } else {
-            this.$message({
-              message: res.ErrMsg,
-              type: 'error'
-            })
-          }
-        })
+        try {
+          deleteOrganize(data).then(res => {
+            if (res.Success) {
+              this.$message({
+                message: '恭喜你，操作成功',
+                type: 'success'
+              })
+              this.currentSelected = ''
+              this.loadTableData()
+            } else {
+              this.$message({
+                message: res.ErrMsg,
+                type: 'error'
+              })
+            }
+          })
+        } catch (error) {
+          this.$message({
+            message: error,
+            type: 'error'
+          })
+        }
       }
     },
     /**

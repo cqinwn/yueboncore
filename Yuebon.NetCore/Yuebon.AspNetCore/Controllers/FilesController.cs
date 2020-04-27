@@ -171,14 +171,8 @@ namespace Yuebon.AspNetCore.Controllers
                 using (var binaryReader = new BinaryReader(file.OpenReadStream()))
                 {
                     var fileName = string.Empty;
-                    //if (file.Name.IndexOf('.') > 0)
-                    //{
                         fileName = _fileName;
-                    //}
-                    //else
-                    //{
-                    //    fileName = Path.GetFileName(file.FileName) + ".png";
-                    //}
+                    
                     var data = binaryReader.ReadBytes((int)file.Length);
                     UploadFile(fileName, data);
 

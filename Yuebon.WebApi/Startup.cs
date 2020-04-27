@@ -121,7 +121,7 @@ namespace Yuebon.WebApi
             });
             //全局设置跨域访问
             services.AddCors(options => options.AddPolicy("yuebonCors",
-                policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+                policy => policy.WithOrigins(Configuration.GetSection("AppSetting:AllowOrigins").Value.Split(',', StringSplitOptions.RemoveEmptyEntries)).AllowAnyHeader().AllowAnyMethod()));
             services.AddControllers();
 
             services.AddSignalR();//使用 SignalR

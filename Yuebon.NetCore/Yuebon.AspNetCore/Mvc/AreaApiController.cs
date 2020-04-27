@@ -205,8 +205,8 @@ namespace Yuebon.AspNetCore.Controllers
         /// 异步批量物理删除
         /// </summary>
         /// <param name="ids">主键Id</param>
-        [YuebonAuthorize("Delete")]
         [HttpDelete("DeleteBatchAsync")]
+        [YuebonAuthorize("Delete")]
         public virtual async Task<IActionResult> DeleteBatchAsync(TKey ids)
         {
             CommonResult result = new CommonResult();

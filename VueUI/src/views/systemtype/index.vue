@@ -222,13 +222,17 @@ export default {
         Description: ''
       },
       rules: {
-        name: [
+        FullName: [
           { required: true, message: '请输入系统名称', trigger: 'blur' },
           { min: 2, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur' }
         ],
-        code: [
+        EnCode: [
           { required: true, message: '请输入系统编码', trigger: 'blur' },
-          { min: 2, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur' }
+          { min: 6, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur' }
+        ],
+        Url: [
+          { required: true, message: '请输入系统访问地址', trigger: 'blur' },
+          { min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur' }
         ]
       },
       formLabelWidth: '80px',

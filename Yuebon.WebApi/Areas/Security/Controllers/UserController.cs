@@ -341,15 +341,6 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 {
                     result.ErrMsg = "原密码不能为空！";
                 }
-                else if (!string.IsNullOrEmpty(oldpassword))
-                {
-                    var userSinginEntity = userLogOnService.GetByUserId(CurrentUser.UserId);
-                    string inputPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(oldpassword).ToLower(), userSinginEntity.UserSecretkey).ToLower()).ToLower();
-                    if (inputPassword != userSinginEntity.UserPassword)
-                    {
-                        result.ErrMsg = "原密码错误！";
-                    }
-                }
                 else if (string.IsNullOrEmpty(password))
                 {
                     result.ErrMsg = "密码不能为空！";
@@ -360,20 +351,29 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 }
                 else if (password == password2)
                 {
-                    string where = string.Format("UserId='{0}'", CurrentUser.UserId);
-                    UserLogOn userLogOn = userLogOnService.GetWhere(where);
-
-                    userLogOn.UserSecretkey = MD5Util.GetMD5_16(GuidUtils.NewGuidFormatN()).ToLower();
-                    userLogOn.UserPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(password).ToLower(), userLogOn.UserSecretkey).ToLower()).ToLower();
-                    bool bl = await userLogOnService.UpdateAsync(userLogOn, userLogOn.Id);
-                    if (bl)
+                    var userSinginEntity = userLogOnService.GetByUserId(CurrentUser.UserId);
+                    string inputPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(oldpassword).ToLower(), userSinginEntity.UserSecretkey).ToLower()).ToLower();
+                    if (inputPassword != userSinginEntity.UserPassword)
                     {
-                        result.ErrCode = ErrCode.successCode;
+                        result.ErrMsg = "原密码错误！";
                     }
                     else
                     {
-                        result.ErrMsg = ErrCode.err43002;
-                        result.ErrCode = "43002";
+                        string where = string.Format("UserId='{0}'", CurrentUser.UserId);
+                        UserLogOn userLogOn = userLogOnService.GetWhere(where);
+
+                        userLogOn.UserSecretkey = MD5Util.GetMD5_16(GuidUtils.NewGuidFormatN()).ToLower();
+                        userLogOn.UserPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(password).ToLower(), userLogOn.UserSecretkey).ToLower()).ToLower();
+                        bool bl = await userLogOnService.UpdateAsync(userLogOn, userLogOn.Id);
+                        if (bl)
+                        {
+                            result.ErrCode = ErrCode.successCode;
+                        }
+                        else
+                        {
+                            result.ErrMsg = ErrCode.err43002;
+                            result.ErrCode = "43002";
+                        }
                     }
                 }
                 else

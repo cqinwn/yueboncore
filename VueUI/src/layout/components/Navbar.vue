@@ -20,7 +20,7 @@
           <i class="el-icon-arrow-down" />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
-          <router-link to="/">
+          <router-link to="/usercenter/index">
             <el-dropdown-item>
               <i class="el-icon-user" />个人中心
             </el-dropdown-item>

@@ -102,14 +102,21 @@
 <script>
 import countto from 'vue-count-to'
 import { getSysInfo } from '@/api/basebasic'
+import { getUrlKey } from '@/utils/index'
+import defaultSettings from '@/settings'
 export default {
   components: { countto },
   data() {
     return {
-      SysSetting: []
+      SysSetting: [],
+      syskey: ''
     }
   },
   created() {
+    this.syskey = getUrlKey('openmf')
+    if (this.syskey !== '' && this.syskey !== null && this.syskey !== 'null' && this.syskey !== undefined) {
+      this.loadsysType()
+    }
     this.InitDictItem()
   },
   methods: {
@@ -120,6 +127,25 @@ export default {
       getSysInfo().then(res => {
         this.SysSetting = res.ResData
       })
+    },
+    loadsysType() {
+      var data = {
+        openmf: this.syskey,
+        appId: defaultSettings.appId,
+        systemCode: defaultSettings.activeSystemCode
+      }
+      this.loading = true
+      this.$store
+        .dispatch('user/sysConnetLogin', data)
+        .then(res => {
+          window.location.href = res.ResData.ActiveSystemUrl
+          this.loading = false
+        })
+        .catch(res => {
+          console.log(JSON.stringify(res))
+          console.log('登录失败')
+          this.loading = false
+        })
     }
   }
 }

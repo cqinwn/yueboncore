@@ -35,16 +35,12 @@ module.exports = {
    * 动态可访问路由
    */
   addRouters: {},
-  apiHostUrl: 'http://192.168.0.102:809/api/', // 基础接口
-  apiWSecurityUrl: 'http://192.168.0.102:809/api/Security/', // 权限管理系统接口
-  apiWMSUrl: 'http://192.168.0.106:802/api/wms/', // 仓储系统接口
-  apiWCSUrl: 'http://192.168.0.106:802/api/wcs/', // 分拣系统接口
-  fileUrl: 'http://192.168.0.102:809/', // 文件访问路径
-  fileUploadUrl: 'http://192.168.0.102:809/api/Files/Upload'// 文件上传路径
-  // apiHostUrl: 'http://netcoreapi.ts.yuebon.com/api/', // 基础接口
-  // apiWSecurityUrl: 'http://netcoreapi.ts.yuebon.com/api/Security/', // 权限管理系统接口
-  // apiWMSUrl: 'http://netcoreapi.ts.yuebon.com/api/wms/', // 仓储系统接口
-  // apiWCSUrl: 'http://netcoreapi.ts.yuebon.com/api/wcs/', // 分拣系统接口
-  // fileUrl: 'http://netcoreapi.ts.yuebon.com/', // 文件访问路径
-  // fileUploadUrl: 'http://netcoreapi.ts.yuebon.com/api/Files/Upload'// 文件上传路径
+  // apiHostUrl: 'http://192.168.0.102:809/api/', // 基础接口
+  // apiWSecurityUrl: 'http://192.168.0.102:809/api/Security/', // 权限管理系统接口
+  // fileUrl: 'http://192.168.0.102:809/', // 文件访问路径
+  // fileUploadUrl: 'http://192.168.0.102:809/api/Files/Upload'// 文件上传路径
+  apiHostUrl: 'http://netcoreapi.ts.yuebon.com/api/', // 基础接口
+  apiWSecurityUrl: 'http://netcoreapi.ts.yuebon.com/api/Security/', // 权限管理系统接口
+  fileUrl: 'http://netcoreapi.ts.yuebon.com/', // 文件访问路径
+  fileUploadUrl: 'http://netcoreapi.ts.yuebon.com/api/Files/Upload'// 文件上传路径
 }

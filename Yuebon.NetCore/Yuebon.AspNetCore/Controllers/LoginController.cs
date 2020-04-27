@@ -138,6 +138,7 @@ namespace Yuebon.AspNetCore.Controllers
                                     };
                                     currentSession.SubSystemList = _systemTypeService.GetSubSystemList(user.RoleId);
                                     currentSession.ActiveSystem = systemType.FullName;
+                                    currentSession.ActiveSystemUrl = systemType.Url;
                                     currentSession.MenusList = new MenuApp().GetMenuFuntionJson(user.RoleId, systemCode);
 
                                     //取得用户可使用的授权功能信息，并存储在缓存中

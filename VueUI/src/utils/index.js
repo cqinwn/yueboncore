@@ -105,3 +105,11 @@ export function param2Obj(url) {
       '"}'
   )
 }
+
+/**
+ * 获取url参数值
+ * @param {url参数名称} name
+ */
+export function getUrlKey(name) {
+  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [, ''])[1].replace(/\+/g, '%20')) || null
+}

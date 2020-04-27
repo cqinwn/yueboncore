@@ -93,9 +93,13 @@ namespace Yuebon.Security.Dtos
         public virtual string CurrentLoginIP { get; set; }
 
         /// <summary>
-        /// 当前访问的系统
+        /// 当前访问的系统名称
         /// </summary>
         public string ActiveSystem { get; set; }
+        /// <summary>
+        /// 当前访问的系统Url
+        /// </summary>
+        public string ActiveSystemUrl { get; set; }
 
         /// <summary>
         /// 可以访问子系统

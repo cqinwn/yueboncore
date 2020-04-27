@@ -3459,7 +3459,7 @@
           "bin/placeholder/Yuebon.Commons.dll": {}
         }
       },
-      "Yuebon.Security.Core/1.3.2.1": {
+      "Yuebon.Security.Core/1.3.2.2": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
@@ -10235,7 +10235,7 @@
       "path": "../Yuebon.NetCore/Yuebon.Commons/Yuebon.Commons.csproj",
       "msbuildProject": "../Yuebon.NetCore/Yuebon.Commons/Yuebon.Commons.csproj"
     },
-    "Yuebon.Security.Core/1.3.2.1": {
+    "Yuebon.Security.Core/1.3.2.2": {
       "type": "project",
       "path": "../Yuebon.NetCore/Yuebon.Security.Core/Yuebon.Security.Core.csproj",
       "msbuildProject": "../Yuebon.NetCore/Yuebon.Security.Core/Yuebon.Security.Core.csproj"
@@ -10243,7 +10243,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "Yuebon.Security.Core >= 1.3.2.1"
+      "Yuebon.Security.Core >= 1.3.2.2"
     ]
   },
   "packageFolders": {

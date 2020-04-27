@@ -293,24 +293,31 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         [YuebonAuthorize("ResetPassword")]
         public async Task<IActionResult> ResetPassword(string userId)
         {
-            string where = string.Format("UserId='{0}'", userId);
             CommonResult result = new CommonResult();
-            UserLogOn userLogOn = userLogOnService.GetWhere(where);
-            Random random = new Random();
-            string strRandom = random.Next(100000, 999999).ToString(); //生成编号 
-            userLogOn.UserSecretkey = MD5Util.GetMD5_16(GuidUtils.NewGuidFormatN()).ToLower();
-            userLogOn.UserPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(strRandom).ToLower(), userLogOn.UserSecretkey).ToLower()).ToLower();
-            bool bl =await userLogOnService.UpdateAsync(userLogOn, userLogOn.Id);
-            if (bl)
+            try
             {
-                result.ErrCode = ErrCode.successCode;
-                result.ErrMsg = strRandom;
-                result.Success = true;
-            }
-            else
+                string where = string.Format("UserId='{0}'", userId);
+                UserLogOn userLogOn = userLogOnService.GetWhere(where);
+                Random random = new Random();
+                string strRandom = random.Next(100000, 999999).ToString(); //生成编号 
+                userLogOn.UserSecretkey = MD5Util.GetMD5_16(GuidUtils.NewGuidFormatN()).ToLower();
+                userLogOn.UserPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(strRandom).ToLower(), userLogOn.UserSecretkey).ToLower()).ToLower();
+                bool bl = await userLogOnService.UpdateAsync(userLogOn, userLogOn.Id);
+                if (bl)
+                {
+                    result.ErrCode = ErrCode.successCode;
+                    result.ErrMsg = strRandom;
+                    result.Success = true;
+                }
+                else
+                {
+                    result.ErrMsg = ErrCode.err43002;
+                    result.ErrCode = "43002";
+                }
+            }catch(Exception ex)
             {
-                result.ErrMsg = ErrCode.err43002;
-                result.ErrCode = "43002";
+                Log4NetHelper.Error("重置密码异常", ex);//错误记录
+                result.ErrMsg = ex.Message;
             }
             return ToJsonContent(result);
         }
@@ -328,48 +335,56 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         public async Task<IActionResult> ModifyPassword(string oldpassword,string password, string password2)
         {
             CommonResult result = new CommonResult();
-            if (string.IsNullOrEmpty(oldpassword))
+            try
             {
-                result.ErrMsg = "原密码不能为空！";
-            }
-            else if (!string.IsNullOrEmpty(oldpassword))
-            {
-                var userSinginEntity = userLogOnService.GetByUserId(CurrentUser.UserId);
-                string inputPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(oldpassword).ToLower(), userSinginEntity.UserSecretkey).ToLower()).ToLower();
-                if (inputPassword != userSinginEntity.UserPassword)
+                if (string.IsNullOrEmpty(oldpassword))
                 {
-                    result.ErrMsg = "原密码错误！";
+                    result.ErrMsg = "原密码不能为空！";
                 }
-            }
-            else if (string.IsNullOrEmpty(password))
-            {
-                result.ErrMsg = "密码不能为空！";
-            }
-            else if (string.IsNullOrEmpty(password2))
-            {
-                result.ErrMsg = "重复输入密码不能为空！";
-            }
-            else if (password == password2)
-            {
-                string where = string.Format("UserId='{0}'", CurrentUser.UserId);
-                UserLogOn userLogOn = userLogOnService.GetWhere(where);
-
-                userLogOn.UserSecretkey = MD5Util.GetMD5_16(GuidUtils.NewGuidFormatN()).ToLower();
-                userLogOn.UserPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(password).ToLower(), userLogOn.UserSecretkey).ToLower()).ToLower();
-                bool bl = await userLogOnService.UpdateAsync(userLogOn, userLogOn.Id);
-                if (bl)
+                else if (!string.IsNullOrEmpty(oldpassword))
                 {
-                    result.ErrCode = ErrCode.successCode;
+                    var userSinginEntity = userLogOnService.GetByUserId(CurrentUser.UserId);
+                    string inputPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(oldpassword).ToLower(), userSinginEntity.UserSecretkey).ToLower()).ToLower();
+                    if (inputPassword != userSinginEntity.UserPassword)
+                    {
+                        result.ErrMsg = "原密码错误！";
+                    }
+                }
+                else if (string.IsNullOrEmpty(password))
+                {
+                    result.ErrMsg = "密码不能为空！";
+                }
+                else if (string.IsNullOrEmpty(password2))
+                {
+                    result.ErrMsg = "重复输入密码不能为空！";
+                }
+                else if (password == password2)
+                {
+                    string where = string.Format("UserId='{0}'", CurrentUser.UserId);
+                    UserLogOn userLogOn = userLogOnService.GetWhere(where);
+
+                    userLogOn.UserSecretkey = MD5Util.GetMD5_16(GuidUtils.NewGuidFormatN()).ToLower();
+                    userLogOn.UserPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(password).ToLower(), userLogOn.UserSecretkey).ToLower()).ToLower();
+                    bool bl = await userLogOnService.UpdateAsync(userLogOn, userLogOn.Id);
+                    if (bl)
+                    {
+                        result.ErrCode = ErrCode.successCode;
+                    }
+                    else
+                    {
+                        result.ErrMsg = ErrCode.err43002;
+                        result.ErrCode = "43002";
+                    }
                 }
                 else
                 {
-                    result.ErrMsg = ErrCode.err43002;
-                    result.ErrCode = "43002";
+                    result.ErrMsg = "两次输入的密码不一样";
                 }
             }
-            else
+            catch (Exception ex)
             {
-                result.ErrMsg = "两次输入的密码不一样";
+                Log4NetHelper.Error("重置密码异常", ex);//错误记录
+                result.ErrMsg = ex.Message;
             }
             return ToJsonContent(result);
         }

@@ -102,50 +102,60 @@ namespace Yuebon.AspNetCore.Controllers
                         {
                             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
                             object dd = yuebonCacheHelper.Get("openmf" + openmf);
-                            User user = _userService.Get(dd.ToString());
-                            if (user != null)
+                            yuebonCacheHelper.Remove("openmf" + openmf);
+                            if (dd == null)
                             {
-                                result.Success = true;
-                                JwtOption jwtModel = IoCContainer.Resolve<JwtOption>();
-                                TokenProvider tokenProvider = new TokenProvider(jwtModel);
-                                TokenResult tokenResult = tokenProvider.LoginToken(user, appId);
-                                UserAuthSession currentSession = new UserAuthSession
-                                {
-                                    UserId = user.Id,
-                                    Account = user.Account,
-                                    Name = user.RealName,
-                                    NickName = user.NickName,
-                                    AccessToken = tokenResult.AccessToken,
-                                    AppKey = appId,
-                                    CreateTime = DateTime.Now,
-                                    HeadIcon = user.HeadIcon,
-                                    Gender = user.Gender,
-                                    ReferralUserId = user.ReferralUserId,
-                                    MemberGradeId = user.MemberGradeId,
-                                    Role = new RoleApp().GetRoleEnCode(user.RoleId),
-                                    MobilePhone = user.MobilePhone
-                                };
-                                currentSession.SubSystemList = _systemTypeService.GetSubSystemList(user.RoleId);
-                                currentSession.ActiveSystem = systemType.FullName;
-                                currentSession.MenusList = new MenuApp().GetMenuFuntionJson(user.RoleId, systemCode);
-
-                                //取得用户可使用的授权功能信息，并存储在缓存中
-                                FunctionApp functionApp = new FunctionApp();
-                                List<FunctionOutputDto> listFunction = functionApp.GetFunctionsByUser(user.Id, systemType.Id);
-                                yuebonCacheHelper.Add("User_Function_" + user.Id, listFunction);
-                                currentSession.Modules = listFunction;
-                                TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
-                                yuebonCacheHelper.Add("login_user_" + user.Id, currentSession, expiresSliding, true);
-
-                                CurrentUser = currentSession;
-                                result.ResData = currentSession;
-                                result.ErrCode = ErrCode.successCode;
-                                result.Success = true;
+                                result.ErrCode = "40007";
+                                result.ErrMsg = ErrCode.err40007;
                             }
                             else
                             {
-                                result.ErrCode = ErrCode.failCode;
+                                User user = _userService.Get(dd.ToString());
+                                if (user != null)
+                                {
+                                    result.Success = true;
+                                    JwtOption jwtModel = IoCContainer.Resolve<JwtOption>();
+                                    TokenProvider tokenProvider = new TokenProvider(jwtModel);
+                                    TokenResult tokenResult = tokenProvider.LoginToken(user, appId);
+                                    UserAuthSession currentSession = new UserAuthSession
+                                    {
+                                        UserId = user.Id,
+                                        Account = user.Account,
+                                        Name = user.RealName,
+                                        NickName = user.NickName,
+                                        AccessToken = tokenResult.AccessToken,
+                                        AppKey = appId,
+                                        CreateTime = DateTime.Now,
+                                        HeadIcon = user.HeadIcon,
+                                        Gender = user.Gender,
+                                        ReferralUserId = user.ReferralUserId,
+                                        MemberGradeId = user.MemberGradeId,
+                                        Role = new RoleApp().GetRoleEnCode(user.RoleId),
+                                        MobilePhone = user.MobilePhone
+                                    };
+                                    currentSession.SubSystemList = _systemTypeService.GetSubSystemList(user.RoleId);
+                                    currentSession.ActiveSystem = systemType.FullName;
+                                    currentSession.ActiveSystemUrl = systemType.Url;
+                                    currentSession.MenusList = new MenuApp().GetMenuFuntionJson(user.RoleId, systemCode);
 
+                                    //取得用户可使用的授权功能信息，并存储在缓存中
+                                    FunctionApp functionApp = new FunctionApp();
+                                    List<FunctionOutputDto> listFunction = functionApp.GetFunctionsByUser(user.Id, systemType.Id);
+                                    yuebonCacheHelper.Replace("User_Function_" + user.Id, listFunction);
+                                    currentSession.Modules = listFunction;
+                                    TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
+                                    yuebonCacheHelper.Replace("login_user_" + user.Id, currentSession, expiresSliding, true);
+
+                                    CurrentUser = currentSession;
+                                    result.ResData = currentSession;
+                                    result.ErrCode = ErrCode.successCode;
+                                    result.Success = true;
+                                }
+                                else
+                                {
+                                    result.ErrCode = ErrCode.failCode;
+
+                                }
                             }
                         }
                     }

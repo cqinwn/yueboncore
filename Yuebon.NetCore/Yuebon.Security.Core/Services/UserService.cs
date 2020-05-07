@@ -143,6 +143,7 @@ namespace Yuebon.Security.Services
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="userLogOnEntity"></param>
+        /// <param name="userOpenIds"></param>
         /// <param name="trans"></param>
         public bool UpdateUserByOpenId(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds, IDbTransaction trans = null)
         {

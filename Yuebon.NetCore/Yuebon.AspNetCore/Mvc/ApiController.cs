@@ -38,6 +38,7 @@ namespace Yuebon.AspNetCore.Controllers
         /// </summary>
         public UserAuthSession CurrentUser;
         private ILogService logService = IoCContainer.Resolve<ILogService>();
+        private IUserService userService = IoCContainer.Resolve<IUserService>();
         #region 
         /// <summary>
         /// 重新基类在Action执行之前的事情
@@ -213,7 +214,7 @@ namespace Yuebon.AspNetCore.Controllers
                 }
                 else
                 {
-                    User userInfo = new UserApp().GetUserById(userId);
+                    User userInfo = userService.Get(userId);
                     var currentSession = new UserAuthSession
                     {
                         UserId = userInfo.Id,

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Version>1.1.5</Version>
+    <Version>1.1.5.1</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -13,6 +13,7 @@
     <PackageProjectUrl>https://gitee.com/yuebon/YuebonNetCore</PackageProjectUrl>
     <PackageIconUrl>http://www.yuebon.com/upload/201804/01/201804011125140585.jpg</PackageIconUrl>
     <RepositoryUrl>https://gitee.com/yuebon/YuebonNetCore</RepositoryUrl>
+    <PackageReleaseNotes>修复短信发送成功返回结果为false的bug</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

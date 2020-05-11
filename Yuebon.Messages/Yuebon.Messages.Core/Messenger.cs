@@ -240,7 +240,7 @@ namespace Yuebon.Messages.Application
         /// <param name="phone">接收者（用户）的电话号码</param>
         /// <param name="message">可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为 "{\"name\":\"Tom\"， \"code\":\"123\"}"</param>
         /// <param name="page"></param>
-        public static async Task<CommonResult> SendMakePhoneCallNotice(string userId, string phone, string message, string page)
+        public static CommonResult SendMakePhoneCallNotice(string userId, string phone, string message, string page)
         {
             CommonResult result = new CommonResult();
             User user = new UserApp().GetUserById(userId);
@@ -273,12 +273,12 @@ namespace Yuebon.Messages.Application
                     {
                         AliYunSMS aliYunSMS = new AliYunSMS();
                         string outmsg = string.Empty;
-                        bool sendRs=aliYunSMS.Send(phone,template.SMSTemplateCode,message,out outmsg);
+                        bool sendRs = aliYunSMS.Send(phone, template.SMSTemplateCode, message, out outmsg);
                         if (sendRs)
                         {
                             result.ErrCode = "0";
                             result.Success = true;
-                            result.ErrCode = "短信发送成功";
+                            result.ErrMsg = "短信发送成功";
                         }
                     }
                 }

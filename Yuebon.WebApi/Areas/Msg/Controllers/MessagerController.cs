@@ -31,14 +31,14 @@ namespace Yuebon.WebApi.Areas.Msg
         [HttpGet("MakePhoneCallNotice")]
         [YuebonAuthorize("")]
         [NoPermissionRequired]
-        public async Task<IActionResult> SendMakePhoneCallNotice(string userId, string tell,string tell2)
+        public IActionResult SendMakePhoneCallNotice(string userId, string tell, string tell2)
         {
             CommonResult result = new CommonResult();
             try
             {
                 tell = tell.Replace(" ", "");
-                string message = "{\"telphone\":\""+ tell2 + "\"}";
-                result = await Messenger.SendMakePhoneCallNotice(userId, tell, message, "");
+                string message = "{\"telphone\":\"" + tell2 + "\"}";
+                result = Messenger.SendMakePhoneCallNotice(userId, tell, message, "");
             }
             catch (Exception ex)
             {

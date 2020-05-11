@@ -28,7 +28,7 @@ router.beforeEach(async(to, from, next) => {
       try {
         const hasGetUserInfo = store.getters.name
         if (hasGetUserInfo && hasGetUserInfo !== 'null') {
-          if (to.meta.funcode !== '' || to.meta.funcode !== undefined) {
+          if (to.meta.funcode !== '' && (to.meta.funcode !== undefined && to.meta.funcode !== 'undefined')) {
             getListMeunFuntionBymeunCode(to.meta.funcode).then(res => {
               localStorage.setItem('yueboncurrentfuns', JSON.stringify(res.ResData))
             })

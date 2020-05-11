@@ -46,27 +46,34 @@ namespace Yuebon.AspNetCore.Controllers
         /// <param name="filterContext">重写方法的参数</param>
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            var controllerActionDescriptor = filterContext.ActionDescriptor as ControllerActionDescriptor;
+            
             try
-            {
-                string useridcookie = CookiesHelper.ReadCookie(filterContext.HttpContext, "loginuser");
-                string authHeader = HttpContext.Request.Headers["Authorization"];//Header中的token
-                CommonResult result = new CommonResult();
-                string token = string.Empty;
-                if (authHeader != null && authHeader.StartsWith("Bearer") && authHeader.Length > 10)
+            {   //匿名访问不需要token认证
+                var allowanyone = controllerActionDescriptor.ControllerTypeInfo.GetCustomAttributes(typeof(IAllowAnonymous), true).Any()
+                || controllerActionDescriptor.MethodInfo.GetCustomAttributes(typeof(IAllowAnonymous), true).Any();
+                if (!allowanyone)
                 {
-                    token = authHeader.Substring("Bearer ".Length).Trim();
-                }
-                TokenProvider tokenProvider = new TokenProvider();
-                result = tokenProvider.ValidateToken(token);
-                if (result.ResData != null)
-                {
-                    YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                    List<Claim> claimlist = result.ResData as List<Claim>;
-                    string userId = claimlist[3].Value;
-                    var user = JsonConvert.DeserializeObject<UserAuthSession>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
-                    if (user != null)
+                    string useridcookie = CookiesHelper.ReadCookie(filterContext.HttpContext, "loginuser");
+                    string authHeader = HttpContext.Request.Headers["Authorization"];//Header中的token
+                    CommonResult result = new CommonResult();
+                    string token = string.Empty;
+                    if (authHeader != null && authHeader.StartsWith("Bearer") && authHeader.Length > 10)
                     {
-                        CurrentUser = user;
+                        token = authHeader.Substring("Bearer ".Length).Trim();
+                    }
+                    TokenProvider tokenProvider = new TokenProvider();
+                    result = tokenProvider.ValidateToken(token);
+                    if (result.ResData != null)
+                    {
+                        YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+                        List<Claim> claimlist = result.ResData as List<Claim>;
+                        string userId = claimlist[3].Value;
+                        var user = JsonConvert.DeserializeObject<UserAuthSession>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
+                        if (user != null)
+                        {
+                            CurrentUser = user;
+                        }
                     }
                 }
                 base.OnActionExecuting(filterContext);

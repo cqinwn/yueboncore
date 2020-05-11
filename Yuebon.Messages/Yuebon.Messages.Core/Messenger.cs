@@ -1,17 +1,17 @@
-﻿using Senparc.Weixin.Entities;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IoC;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Models;
 using Yuebon.Messages.IServices;
 using Yuebon.Messages.Models;
-using Yuebon.Messages.Services;
 using Yuebon.Messages.SMS;
 using Yuebon.Security.Application;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
 using Yuebon.WeChat.CommonService.SubscribeMessage.WxApplet;
+using Senparc.Weixin.Entities;
+
 
 namespace Yuebon.Messages.Application
 {
@@ -265,6 +265,7 @@ namespace Yuebon.Messages.Application
                     }
                     else
                     {
+                        result.ErrCode = "0";
                         result.Success = true;
                         result.ErrCode = "用户拒绝或未订阅";
                     }
@@ -275,6 +276,7 @@ namespace Yuebon.Messages.Application
                         bool sendRs=aliYunSMS.Send(phone,template.SMSTemplateCode,message,out outmsg);
                         if (sendRs)
                         {
+                            result.ErrCode = "0";
                             result.Success = true;
                             result.ErrCode = "短信发送成功";
                         }

@@ -1,23 +1,27 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Company>上海越邦网络科技有限公司</Company>
-    <Product>消息管理类库</Product>
-    <Copyright>上海越邦网络科技有限公司 版权所有</Copyright>
+    <Version>1.1.5</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Company>上海越邦网络科技有限公司</Company>
+    <Product>YuebonNetCore开发框架基础库</Product>
+    <Authors>Yuebon</Authors>
+    <Copyright>上海越邦网络科技有限公司 版权所有</Copyright>
     <PackageProjectUrl>https://gitee.com/yuebon/YuebonNetCore</PackageProjectUrl>
+    <PackageIconUrl>http://www.yuebon.com/upload/201804/01/201804011125140585.jpg</PackageIconUrl>
     <RepositoryUrl>https://gitee.com/yuebon/YuebonNetCore</RepositoryUrl>
-    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="aliyun-net-sdk-core" Version="1.5.3" />
+    <PackageReference Include="aliyun-net-sdk-core" Version="1.5.6" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Yuebob.WeChat.Core\Yuebon.WeChat.Core.csproj" />
     <ProjectReference Include="..\..\Yuebon.NetCore\Yuebon.Security.Core\Yuebon.Security.Core.csproj" />
+    <ProjectReference Include="..\..\Yuebon.WeChat.Core\Yuebon.WeChat.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

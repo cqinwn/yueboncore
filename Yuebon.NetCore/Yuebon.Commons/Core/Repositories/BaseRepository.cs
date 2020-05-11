@@ -25,6 +25,8 @@ using Yuebon.Commons.Pages;
 using static Dapper.SqlMapper;
 using System.Linq;
 using Newtonsoft.Json;
+using System.Diagnostics;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace Yuebon.Commons.Repositories
 {
@@ -983,7 +985,6 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual async Task<List<T>> FindWithPagerSqlAsync(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
         {
-
             List<T> list = new List<T>();
             if (HasInjectionData(condition))
             {
@@ -1836,14 +1837,62 @@ namespace Yuebon.Commons.Repositories
                 return lit.FirstOrDefault();
             }
         }
+        /// <summary>
+        /// 多表操作--事务
+        /// </summary>
+        /// <param name="trans">事务</param>
+        /// <param name="commandTimeout">超时</param>
+        /// <returns></returns>
+        public async Task<Tuple<bool, string>> ExecuteTransaction(List<Tuple<string, object>> trans, int? commandTimeout = null)
+        {
+            if (!trans.Any()) return new Tuple<bool, string>(false, "执行事务SQL语句不能为空！");
+            using (DbConnection conn = OpenSharedConnection())
+            {
+                //开启事务
+                using (var transaction = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        var sb = new StringBuilder("ExecuteTransaction 事务： ");
+                        foreach (var tran in trans)
+                        {
+                            sb.Append("SQL语句:" + tran.Item1 + "  \n SQL参数: " + JsonConvert.SerializeObject(tran.Item2) + " \n");
+                            await conn.ExecuteAsync(tran.Item1, tran.Item2, transaction, commandTimeout);
+                        }
+                        Stopwatch stopwatch = new Stopwatch();
+                        stopwatch.Start();
+                        //提交事务
+                        await transaction.CommitAsync();
+                        stopwatch.Stop();
+                        sb.Append("耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
+                        Log4NetHelper.Info(sb.ToString());
+                        return new Tuple<bool, string>(true, string.Empty);
+                    }
+                    catch (Exception ex)
+                    {
+                        //回滚事务
+                        Log4NetHelper.Error("",ex);
+                        transaction.Rollback();
+                        conn.Close();
+                        conn.Dispose();
+                        return new Tuple<bool, string>(false, ex.ToString());
+                    }
+                    finally
+                    {
+                        conn.Close();
+                        conn.Dispose();
+                    }
+                }
+            }
+        }
         #endregion
 
         #region 用户操作记录的实现
-        /// <summary>
-        /// 插入操作的日志记录
-        /// </summary>
-        /// <param name="obj">数据对象</param>
-        /// <param name="trans">事务对象</param>
+                        /// <summary>
+                        /// 插入操作的日志记录
+                        /// </summary>
+                        /// <param name="obj">数据对象</param>
+                        /// <param name="trans">事务对象</param>
         protected virtual void OperationLogOfInsert(T obj, IDbTransaction trans = null)
         {
             if (OnOperationLog != null)

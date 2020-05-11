@@ -186,17 +186,6 @@ namespace Dapper.Contrib.Extensions
                     sbParameterList.Append(", ");
             }
 
-            //if (!isList)    //single entity
-            //{
-            //    return sqlAdapter.InsertAsync(connection, transaction, commandTimeout, name, sbColumnList.ToString(),
-            //        sbParameterList.ToString(), keyProperties, entityToInsert);
-            //}
-
-            ////insert list of entities
-            //var cmd = $"INSERT INTO {name} ({sbColumnList}) values ({sbParameterList})";
-           // return connection.ExecuteAsync(cmd, entityToInsert, transaction, commandTimeout);
-
-
             int returnVal=0;
             var wasClosed = connection.State == ConnectionState.Closed;
             if (wasClosed) connection.Open();
@@ -402,11 +391,6 @@ public partial class SqlServerAdapter
         if (first == null || first.num == null) return 0;
 
         var num = (int)first.num;
-        //var pi = keyProperties as PropertyInfo[] ?? keyProperties.ToArray();
-        //if (pi.Length == 0) return id;
-
-        //var idp = pi[0];
-        //idp.SetValue(entityToInsert, Convert.ChangeType(id, idp.PropertyType), null);
 
         return num;
     }
@@ -428,20 +412,15 @@ public partial class SqlCeServerAdapter
     /// <returns>The Id of the row created.</returns>
     public async Task<int> InsertAsync(IDbConnection connection, IDbTransaction transaction, int? commandTimeout, string tableName, string columnList, string parameterList, IEnumerable<PropertyInfo> keyProperties, object entityToInsert)
     {
-        var cmd = $"INSERT INTO {tableName} ({columnList}) VALUES ({parameterList})";
-        await connection.ExecuteAsync(cmd, entityToInsert, transaction, commandTimeout).ConfigureAwait(false);
-        var r = (await connection.QueryAsync<dynamic>("SELECT @@IDENTITY id", transaction: transaction, commandTimeout: commandTimeout).ConfigureAwait(false)).ToList();
+        var cmd = $"INSERT INTO {tableName} ({columnList}) values ({parameterList}); select @@ROWCOUNT  num";
+        var multi = await connection.QueryMultipleAsync(cmd, entityToInsert, transaction, commandTimeout).ConfigureAwait(false);
 
-        if (r[0] == null || r[0].id == null) return 0;
-        var id = (int)r[0].id;
+        var first = multi.Read().FirstOrDefault();
+        if (first == null || first.num == null) return 0;
 
-        var pi = keyProperties as PropertyInfo[] ?? keyProperties.ToArray();
-        if (pi.Length == 0) return id;
+        var num = (int)first.num;
 
-        var idp = pi[0];
-        idp.SetValue(entityToInsert, Convert.ChangeType(id, idp.PropertyType), null);
-
-        return id;
+        return num;
     }
 }
 

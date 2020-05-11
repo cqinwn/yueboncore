@@ -46,7 +46,6 @@ using Yuebon.Commons.Linq;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Module;
 using Yuebon.Commons.Options;
-using Yuebon.WeChat.CommonService.MessageHandlers.WebSocket;
 
 namespace Yuebon.WebApi
 {
@@ -147,8 +146,7 @@ namespace Yuebon.WebApi
             });
 
             services.AddSenparcGlobalServices(Configuration)
-                .AddSenparcWeixinServices(Configuration) //Senparc.Weixin 注册（必须）
-                .AddSenparcWebSocket<CustomNetCoreWebSocketMessageHandler>();//Senparc.WebSocket 注册（按需）;
+                .AddSenparcWeixinServices(Configuration); //Senparc.Weixin 注册（必须）;
             return InitIoC(services);
         }
 

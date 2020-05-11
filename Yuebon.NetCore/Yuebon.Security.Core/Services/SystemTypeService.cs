@@ -60,13 +60,16 @@ namespace Yuebon.Security.Services
             }
             
             IEnumerable<RoleAuthorize> roleAuthorizes = roleAuthorizeService.GetListRoleAuthorizeByRoleId(roleIDsStr, 0);
-
-            string strWhere = " Id in (";
-            foreach (RoleAuthorize item in roleAuthorizes)
+            string strWhere = string.Empty;
+            if (roleAuthorizes.Count() > 0)
             {
-                strWhere += "'" + item.ItemId + "',";
+                strWhere = " Id in (";
+                foreach (RoleAuthorize item in roleAuthorizes)
+                {
+                    strWhere += "'" + item.ItemId + "',";
+                }
+                strWhere = strWhere.Substring(0, strWhere.Length - 1) + ")";
             }
-            strWhere = strWhere.Substring(0, strWhere.Length - 1) + ")";
             List<SystemTypeOutputDto> list = _repository.GetAllByIsNotDeleteAndEnabledMark(strWhere).OrderBy(t => t.SortCode).ToList().MapTo<SystemTypeOutputDto>();
             return list;        
         }

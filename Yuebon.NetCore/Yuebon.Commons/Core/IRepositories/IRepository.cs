@@ -546,5 +546,13 @@ namespace Yuebon.Commons.IRepositories
         /// <param name="trans">事务</param>
         /// <returns>返回字段的最大值</returns>
         Task<int> GetMaxValueByFieldAsync(string strField, string where, IDbTransaction trans = null);
+
+        /// <summary>
+        /// 多表操作--事务
+        /// </summary>
+        /// <param name="trans">事务</param>
+        /// <param name="commandTimeout">超时</param>
+        /// <returns></returns>
+        Task<Tuple<bool, string>> ExecuteTransaction(List<Tuple<string, object>> trans, int? commandTimeout = null);
      }
 }

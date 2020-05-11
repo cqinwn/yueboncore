@@ -65,7 +65,9 @@ namespace Yuebon.Commons.Models
         [DataMember]
         public string ErrCode
         {
-            get { return m_ErrCode; }
+            get {
+                return m_ErrCode; 
+            }
             set { 
                 m_ErrCode = value;
                 if (value == "0")
@@ -101,8 +103,8 @@ namespace Yuebon.Commons.Models
                 }
                 return m_Success; 
             }
-            set { 
-                m_Success = value;
+            set {
+                 m_Success = value;
             }
         }
         /// <summary>

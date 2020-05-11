@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Yuebon.WeChat</RootNamespace>
+    <Company>上海越邦网络科技有限公司</Company>
+    <Authors>Yuebon</Authors>
+    <Product>YuebonNetCore 微信开放接口类库</Product>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Copyright>上海越邦网络科技有限公司 版权所有</Copyright>
+    <Description>YuebonNetCore 微信公众号、小程序、开放平台接口实现类库</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageProjectUrl>http://netcore.yuebon.com</PackageProjectUrl>
+    <PackageIconUrl>http://www.yuebon.com/upload/201804/01/201804011125140585.jpg</PackageIconUrl>
+    <PackageLicenseExpression></PackageLicenseExpression>
+    <Version>1.1.1.4</Version>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Senparc.WebSocket" Version="0.10.502" />
+    <PackageReference Include="Senparc.Weixin" Version="6.7.502" />
+    <PackageReference Include="Senparc.Weixin.Cache.Memcached" Version="2.6.502" />
+    <PackageReference Include="Senparc.Weixin.Cache.Redis" Version="2.8.502" />
+    <PackageReference Include="Senparc.Weixin.MP" Version="16.10.502" />
+    <PackageReference Include="Senparc.Weixin.Open" Version="4.7.502" />
+    <PackageReference Include="Senparc.Weixin.TenPay" Version="1.5.502" />
+    <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.8.502" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Yuebon.NetCore\Yuebon.Commons\Yuebon.Commons.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -70,9 +70,12 @@ namespace Yuebon.Commons.IoC
             {
                 var interfaceTypeName = interfaceAssemblyName + ".I" + type.Name;
                 var interfaceType = interfaceAssembly.GetType(interfaceTypeName);
-                if (interfaceType.IsAssignableFrom(type))
+                if (interfaceType != null)
                 {
-                    _dicTypes.Add(interfaceType, type);
+                    if (interfaceType.IsAssignableFrom(type))
+                    {
+                        _dicTypes.Add(interfaceType, type);
+                    }
                 }
             }
         }
@@ -105,9 +108,12 @@ namespace Yuebon.Commons.IoC
                     if (!string.IsNullOrEmpty(interfaceTypeName) && !interfaceTypeName.Contains("OperationLogEvent"))
                     {
                         var interfaceType = interfaceAssembly.GetType(interfaceTypeName);
-                        if (interfaceType.IsAssignableFrom(type))
+                        if (interfaceType != null)
                         {
-                            _dicTypes.Add(interfaceType, type);
+                            if (interfaceType.IsAssignableFrom(type))
+                            {
+                                _dicTypes.Add(interfaceType, type);
+                            }
                         }
                     }
                 }
@@ -142,9 +148,12 @@ namespace Yuebon.Commons.IoC
                 if (!string.IsNullOrEmpty(interfaceTypeName))
                 {
                     var interfaceType = interfaceAssembly.GetType(interfaceTypeName);
-                    if (interfaceType.IsAssignableFrom(type))
+                    if (interfaceType != null)
                     {
-                        _dicTypes.Add(interfaceType, type);
+                        if (interfaceType.IsAssignableFrom(type))
+                        {
+                            _dicTypes.Add(interfaceType, type);
+                        }
                     }
                 }
             }

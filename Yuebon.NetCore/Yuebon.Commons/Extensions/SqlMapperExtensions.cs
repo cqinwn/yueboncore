@@ -831,12 +831,6 @@ public partial class SqlServerAdapter : ISqlAdapter
         if (first == null || first.num == null) return 0;
 
         var num = (int)first.num;
-        //var propertyInfos = keyProperties as PropertyInfo[] ?? keyProperties.ToArray();
-        //if (propertyInfos.Length == 0) return num;
-
-        //var idProperty = propertyInfos[0];
-        //idProperty.SetValue(entityToInsert, Convert.ChangeType(num, idProperty.PropertyType), null);
-
         return num;
     }
 
@@ -880,20 +874,14 @@ public partial class SqlCeServerAdapter : ISqlAdapter
     /// <returns>The Id of the row created.</returns>
     public int Insert(IDbConnection connection, IDbTransaction transaction, int? commandTimeout, string tableName, string columnList, string parameterList, IEnumerable<PropertyInfo> keyProperties, object entityToInsert)
     {
-        var cmd = $"insert into {tableName} ({columnList}) values ({parameterList})";
-        connection.Execute(cmd, entityToInsert, transaction, commandTimeout);
-        var r = connection.Query("select @@IDENTITY id", transaction: transaction, commandTimeout: commandTimeout).ToList();
+        var cmd = $"insert into {tableName} ({columnList}) values ({parameterList}); select @@ROWCOUNT  num";
+        var multi = connection.QueryMultiple(cmd, entityToInsert, transaction, commandTimeout);
 
-        if (r[0].id == null) return 0;
-        var id = (int)r[0].id;
+        var first = multi.Read().FirstOrDefault();
+        if (first == null || first.num == null) return 0;
 
-        var propertyInfos = keyProperties as PropertyInfo[] ?? keyProperties.ToArray();
-        if (propertyInfos.Length == 0) return id;
-
-        var idProperty = propertyInfos[0];
-        idProperty.SetValue(entityToInsert, Convert.ChangeType(id, idProperty.PropertyType), null);
-
-        return id;
+        var num = (int)first.num;
+        return num;
     }
 
     /// <summary>

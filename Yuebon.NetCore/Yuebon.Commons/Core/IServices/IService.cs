@@ -568,5 +568,14 @@ namespace Yuebon.Commons.IServices
         /// <param name="trans">事务</param>
         /// <returns>返回字段的最大值</returns>
         Task<int> GetMaxValueByFieldAsync(string strField, string where, IDbTransaction trans = null);
+
+        /// <summary>
+        /// 根据条件统计某个字段之和,sum(字段)
+        /// </summary>
+        /// <param name="strField">字段</param>
+        /// <param name="where">条件</param>
+        /// <param name="trans">事务</param>
+        /// <returns>返回字段的最大值</returns>
+        Task<int> GetSumValueByFieldAsync(string strField, string where, IDbTransaction trans = null);
     }
 }

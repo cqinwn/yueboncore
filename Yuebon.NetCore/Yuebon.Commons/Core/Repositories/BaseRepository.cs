@@ -1828,7 +1828,27 @@ namespace Yuebon.Commons.Repositories
         {
             using (DbConnection conn = OpenSharedConnection())
             {
-                string sql = $"select MAX({strField}) as maxVaule from {tableName} ";
+                string sql = $"select isnull(MAX({strField}),0) as maxVaule from {tableName} ";
+                if (!string.IsNullOrEmpty(where))
+                {
+                    sql += " where " + where;
+                }
+                IEnumerable<int> lit = await conn.QueryAsync<int>(sql);
+                return lit.FirstOrDefault();
+            }
+        }
+        /// <summary>
+        /// 根据条件统计某个字段之和,sum(字段)
+        /// </summary>
+        /// <param name="strField">字段</param>
+        /// <param name="where">条件</param>
+        /// <param name="trans">事务</param>
+        /// <returns>返回字段的最大值</returns>
+        public virtual async Task<int> GetSumValueByFieldAsync(string strField, string where, IDbTransaction trans = null)
+        {
+            using (DbConnection conn = OpenSharedConnection())
+            {
+                string sql = $"select isnull(sum({strField}),0) as sumVaule from {tableName} ";
                 if (!string.IsNullOrEmpty(where))
                 {
                     sql += " where " + where;

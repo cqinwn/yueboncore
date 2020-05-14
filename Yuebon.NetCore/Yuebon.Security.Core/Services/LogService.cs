@@ -23,18 +23,15 @@ namespace Yuebon.Security.Services
     {
         private readonly ILogRepository _iLogRepository;
         private readonly IUserRepository _iuserRepository;
-
-        private IHttpContextAccessor _httpContextAccessor;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="repository"></param>
         /// <param name="userRepository"></param>
-        public LogService(ILogRepository repository, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor) : base(repository)
+        public LogService(ILogRepository repository, IUserRepository userRepository) : base(repository)
         {
             _iLogRepository = repository;
             _iuserRepository = userRepository;
-            _httpContextAccessor = httpContextAccessor;
         }
 
 

@@ -789,6 +789,18 @@ namespace Yuebon.Commons.Services
         {
             return await repository.GetMaxValueByFieldAsync(strField,where);
         }
+
+        /// <summary>
+        /// 根据条件统计某个字段之和,sum(字段)
+        /// </summary>
+        /// <param name="strField">字段</param>
+        /// <param name="where">条件</param>
+        /// <param name="trans">事务</param>
+        /// <returns>返回字段的最大值</returns>
+        public virtual async Task<int> GetSumValueByFieldAsync(string strField, string where, IDbTransaction trans = null)
+        {
+            return await repository.GetSumValueByFieldAsync(strField, where);
+        }
         #region IDisposable Support
         private bool disposedValue = false; // 要检测冗余调用
         /// <summary>

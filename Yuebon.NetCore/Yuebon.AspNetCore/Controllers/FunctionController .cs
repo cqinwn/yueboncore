@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc;
@@ -54,7 +55,7 @@ namespace Yuebon.AspNetCore.Controllers
                     List<FunctionOutputDto> nowFunList = new List<FunctionOutputDto>();
                     if (functionOutputDto != null)
                     {
-                        nowFunList = functions.FindAll(s => s.ParentId == functionOutputDto.Id);
+                        nowFunList = functions.FindAll(s => s.ParentId == functionOutputDto.Id).OrderBy(s=>s.SortCode).ToList();
                     }
                     result.ErrCode = ErrCode.successCode;
                     result.ResData = nowFunList;

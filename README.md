@@ -41,9 +41,11 @@ YuebonCore是一套基于NetCore3.1.3 开发出来的框架，源代码完全开
 
 ### 在线体验
 
-Vue版本体验地址：[http://netvue.ts.yuebon.com/](http://netvue.ts.yuebon.com)（用户名：admin，密码：admin888）
+Vue版本体验地址：[http://netvue.ts.yuebon.com/](http://netvue.ts.yuebon.com)（用户名：test，密码：802940）
 
-Asp.net core mvc 版本体验地址：[http://netcore.ts.yuebon.com](http://netcore.ts.yuebon.com)（用户名：admin，密码：admin888）
+Asp.net core mvc 版本体验地址：[http://netcore.ts.yuebon.com](http://netcore.ts.yuebon.com)（用户名：test，密码：802940）
+
+测试账号未分配删除和重置密码操作，最近总有那么个别人闲得慌登陆上来修改密码和删除关键数据。
 
 WebApi接口地址：[http://netcoreapi.ts.yuebon.com](http://netcoreapi.ts.yuebon.com)
 
@@ -176,9 +178,17 @@ DataBase是最新数据库备份文件，目前支持MS SQL Server和MySql。
 
 ### 帮助[请查看](https://gitee.com/yuebon/YuebonNetCore/wikis/%E9%A1%B9%E7%9B%AE%E7%AE%80%E4%BB%8B)
 
+
+
+
 ### 鸣谢
 
 1、感谢@cuijianhao_admin[催催啊](https://gitee.com/cuijianhao_admin)提供mysql测试环境
 
 
 ### 如果对您有帮助，您可以点右上角 "Star" 支持一下，这样我们才有继续免费下去的动力，谢谢！
+
+
+### 捐赠
+如果这个项目对您有所帮助，请扫下方二维码打赏一杯咖啡。
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0515/105002_d82f8d8e_1017224.jpeg "收款码.jpg")

@@ -41,9 +41,11 @@ YuebonCore是一套基于NetCore3.1.3 开发出来的框架，源代码完全开
 
 ### 在线体验
 
-Vue版本体验地址：[http://netvue.ts.yuebon.com/](http://netvue.ts.yuebon.com)（用户名：admin，密码：admin888）
+Vue版本体验地址：[http://netvue.ts.yuebon.com/](http://netvue.ts.yuebon.com)（用户名：test，密码：802940）
 
-Asp.net core mvc 版本体验地址：[http://netcore.ts.yuebon.com](http://netcore.ts.yuebon.com)（用户名：admin，密码：admin888）
+Asp.net core mvc 版本体验地址：[http://netcore.ts.yuebon.com](http://netcore.ts.yuebon.com)（用户名：test，密码：802940）
+
+测试账号未分配删除和重置密码操作，最近总有那么个别人闲得慌登陆上来修改密码和删除关键数据。
 
 WebApi接口地址：[http://netcoreapi.ts.yuebon.com](http://netcoreapi.ts.yuebon.com)
 

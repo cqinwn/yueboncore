@@ -586,7 +586,7 @@ INSERT [dbo].[Sys_Role] ([Id], [OrganizeId], [Category], [EnCode], [FullName], [
 GO
 INSERT [dbo].[Sys_Role] ([Id], [OrganizeId], [Category], [EnCode], [FullName], [Type], [AllowEdit], [AllowDelete], [SortCode], [DeleteMark], [EnabledMark], [Description], [CreatorTime], [CreatorUserId], [LastModifyTime], [LastModifyUserId], [DeleteTime], [DeleteUserId]) VALUES (N'2019091721053342871332', N'5AB270C0-5D33-4203-A54F-4552699FDA3C', 1, N'usermember', N'普通会员', N'1', 0, 0, 99, 0, 1, NULL, CAST(N'2019-09-17T21:05:33.430' AS DateTime), N'9f2ec079-7d0f-4fe2-90ab-8b09a8302aba', NULL, NULL, NULL, NULL)
 GO
-INSERT [dbo].[Sys_RoleAuthorize] ([Id], [ItemType], [ItemId], [ObjectType], [ObjectId], [SortCode], [CreatorTime], [CreatorUserId]) VALUES (N'effdd759729a4e0b98abd101240a1c7d', 1, N'201806141508359155', 1, N'F0A2B36F-35A7-4660-B46C-D4AB796591EB', 99, CAST(N'2020-03-04T15:44:37.517' AS DateTime), N'9f2ec079-7d0f-4fe2-90ab-8b09a8302aba')
+INSERT [dbo].[Sys_RoleAuthorize] ([Id], [ItemType], [ItemId], [ObjectType], [ObjectId], [SortCode], [CreatorTime], [CreatorUserId]) VALUES (N'effdd759729a4e0b98abd101240a1c7d', 0, N'201806141508359155', 1, N'F0A2B36F-35A7-4660-B46C-D4AB796591EB', 99, CAST(N'2020-03-04T15:44:37.517' AS DateTime), N'9f2ec079-7d0f-4fe2-90ab-8b09a8302aba')
 GO
 INSERT [dbo].[Sys_RoleAuthorize] ([Id], [ItemType], [ItemId], [ObjectType], [ObjectId], [SortCode], [CreatorTime], [CreatorUserId]) VALUES (N'571bedcb44b14bbebca8749cc1dfd204', 1, N'2020030415442459407542', 1, N'F0A2B36F-35A7-4660-B46C-D4AB796591EB', 99, CAST(N'2020-03-04T15:44:37.623' AS DateTime), N'9f2ec079-7d0f-4fe2-90ab-8b09a8302aba')
 GO

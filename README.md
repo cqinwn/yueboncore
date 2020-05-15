@@ -187,6 +187,6 @@ DataBase是最新数据库备份文件，目前支持MS SQL Server和MySql。
 ### 如果对您有帮助，您可以点右上角 "Star" 支持一下，这样我们才有继续免费下去的动力，谢谢！
 
 
-### 请喝咖啡
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0515/103306_085e7fb6_1017224.png "1.png")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0515/103318_67c64fb6_1017224.png "2.png")
+### 捐赠
+如果这个项目对您有所帮助，请扫下方二维码打赏一杯咖啡。
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0515/105002_d82f8d8e_1017224.jpeg "收款码.jpg")

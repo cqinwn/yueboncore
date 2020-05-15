@@ -5,6 +5,15 @@
 
 ### 更新日志
 
+##### 2020年5月
+1、优化AutoFac容器
+2、新增统计某个字段之和的方法GetSumValueByFieldAsync()
+3、优化异常和多表事务操作
+4、优化拨打电话短信通知
+5、修复MVC数据脚本错误 
+
+感谢@360528197[冬天](https://gitee.com/360528197)反馈
+
 ##### 2020年4月
 
 1、vue版在yysql数据库通过，感谢@cuijianhao_admin[催催啊](https://gitee.com/cuijianhao_admin)提供mysql测试环境

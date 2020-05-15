@@ -188,5 +188,5 @@ DataBase是最新数据库备份文件，目前支持MS SQL Server和MySql。
 
 
 ### 请喝咖啡
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0515/102637_51247ba0_1017224.jpeg "支付宝收款码.jpg")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0515/102732_1bcd2ad5_1017224.jpeg "微信收款码.jpg")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0515/103306_085e7fb6_1017224.png "1.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0515/103318_67c64fb6_1017224.png "2.png")

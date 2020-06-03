@@ -4,14 +4,14 @@
     "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.UEditorNetCore\\Yuebon.UEditorNetCore.csproj": {}
   },
   "projects": {
-    "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj": {
-      "version": "1.3.1.13",
+    "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.UEditorNetCore\\Yuebon.UEditorNetCore.csproj": {
+      "version": "1.0.3.1",
       "restore": {
-        "projectUniqueName": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj",
-        "projectName": "Yuebon.Commons",
-        "projectPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj",
+        "projectUniqueName": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.UEditorNetCore\\Yuebon.UEditorNetCore.csproj",
+        "projectName": "Yuebon.UEditorNetCore",
+        "projectPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.UEditorNetCore\\Yuebon.UEditorNetCore.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\obj\\",
+        "outputPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.UEditorNetCore\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -38,231 +38,13 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
-            "AutoMapper": {
-              "target": "Package",
-              "version": "[9.0.0, )"
-            },
-            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
-              "target": "Package",
-              "version": "[7.0.0, )"
-            },
-            "Autofac": {
-              "target": "Package",
-              "version": "[5.1.4, )"
-            },
-            "Autofac.Extensions.DependencyInjection": {
-              "target": "Package",
-              "version": "[6.0.0, )"
-            },
-            "Dapper": {
-              "target": "Package",
-              "version": "[2.0.35, )"
-            },
-            "DotNetCore.NPOI": {
-              "target": "Package",
-              "version": "[1.2.2, )"
-            },
-            "HtmlAgilityPack": {
-              "target": "Package",
-              "version": "[1.11.23, )"
-            },
-            "Microsoft.AspNetCore.Http.Abstractions": {
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
-            "Microsoft.AspNetCore.Mvc": {
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
-            "Microsoft.Data.Sqlite": {
-              "target": "Package",
-              "version": "[3.1.3, )"
-            },
-            "Microsoft.Extensions.Caching.Memory": {
-              "target": "Package",
-              "version": "[3.1.3, )"
-            },
-            "Microsoft.Extensions.Caching.StackExchangeRedis": {
-              "target": "Package",
-              "version": "[3.1.3, )"
-            },
-            "Microsoft.Extensions.Configuration": {
-              "target": "Package",
-              "version": "[3.1.3, )"
-            },
-            "Microsoft.Extensions.DependencyInjection": {
-              "target": "Package",
-              "version": "[3.1.3, )"
-            },
-            "Microsoft.Extensions.DependencyModel": {
-              "target": "Package",
-              "version": "[3.1.3, )"
-            },
-            "Microsoft.Extensions.Logging": {
-              "target": "Package",
-              "version": "[3.1.3, )"
-            },
-            "MySql.Data": {
-              "target": "Package",
-              "version": "[8.0.20, )"
-            },
-            "NPinyin.Core": {
-              "target": "Package",
-              "version": "[3.0.0, )"
-            },
-            "Newtonsoft.Json": {
-              "target": "Package",
-              "version": "[12.0.3, )"
-            },
-            "Npgsql": {
-              "target": "Package",
-              "version": "[4.1.3.1, )"
-            },
-            "Oracle.ManagedDataAccess.Core": {
-              "target": "Package",
-              "version": "[2.19.70, )"
-            },
-            "QRCoder": {
-              "target": "Package",
-              "version": "[1.3.9, )"
-            },
-            "SgmlReader.NetCore": {
-              "target": "Package",
-              "version": "[1.0.0, )"
-            },
-            "System.Data.SqlClient": {
-              "target": "Package",
-              "version": "[4.8.1, )"
-            },
-            "System.Drawing.Common": {
-              "target": "Package",
-              "version": "[4.7.0, )"
-            },
-            "log4net": {
-              "target": "Package",
-              "version": "[2.0.8, )"
-            }
-          },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj": {
-      "version": "1.3.2.10",
-      "restore": {
-        "projectUniqueName": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj",
-        "projectName": "Yuebon.Security.Core",
-        "projectPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "netcoreapp3.1"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "netcoreapp3.1": {
-            "projectReferences": {
-              "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj": {
-                "projectPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "netcoreapp3.1": {
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.UEditorNetCore\\Yuebon.UEditorNetCore.csproj": {
-      "version": "1.0.3.1",
-      "restore": {
-        "projectUniqueName": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.UEditorNetCore\\Yuebon.UEditorNetCore.csproj",
-        "projectName": "Yuebon.UEditorNetCore",
-        "projectPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.UEditorNetCore\\Yuebon.UEditorNetCore.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.UEditorNetCore\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "netcoreapp3.1"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "netcoreapp3.1": {
-            "projectReferences": {
-              "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj": {
-                "projectPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "netcoreapp3.1": {
-          "dependencies": {
             "Aliyun.OSS.SDK.NetCore": {
               "target": "Package",
-              "version": "[2.9.1, )"
+              "version": "[2.10.0, )"
             },
             "FluentFTP": {
               "target": "Package",
-              "version": "[31.3.1, )"
+              "version": "[32.4.3, )"
             },
             "Microsoft.AspNetCore.Http": {
               "target": "Package",
@@ -270,11 +52,15 @@
             },
             "Microsoft.Extensions.Hosting": {
               "target": "Package",
-              "version": "[3.1.2, )"
+              "version": "[3.1.4, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[12.0.3, )"
+            },
+            "Yuebon.Security.Core": {
+              "target": "Package",
+              "version": "[1.3.2.10, )"
             }
           },
           "imports": [
@@ -292,7 +78,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
         }
       }
     }

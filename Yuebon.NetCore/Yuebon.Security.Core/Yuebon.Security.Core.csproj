@@ -11,7 +11,7 @@
     <Product>YuebonNetCore开发框架权限管理系统类库</Product>
     <Description>YuebonNetCore开发框架权限管理系统类库</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.3.2.10</Version>
+    <Version>1.3.2.11</Version>
     <PackageReleaseNotes>更新最新公共库</PackageReleaseNotes>
     <Authors>Yuebon</Authors>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>

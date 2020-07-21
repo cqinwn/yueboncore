@@ -24,6 +24,13 @@ namespace Yuebon.Security.Services
         private readonly IUserLogOnRepository _userSigninRepository;
         private readonly ILogService _logService;
         private readonly IRoleService _roleService;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="repository"></param>
+        /// <param name="userLogOnRepository"></param>
+        /// <param name="logService"></param>
+        /// <param name="roleService"></param>
         public UserService(IUserRepository repository, IUserLogOnRepository userLogOnRepository, ILogService logService, IRoleService roleService) : base(repository)
         {
             _userRepository = repository;

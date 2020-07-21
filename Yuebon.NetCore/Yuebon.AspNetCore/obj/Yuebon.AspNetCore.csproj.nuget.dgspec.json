@@ -103,7 +103,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -143,11 +143,11 @@
           "dependencies": {
             "AutoMapper": {
               "target": "Package",
-              "version": "[9.0.0, )"
+              "version": "[10.0.0, )"
             },
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
-              "version": "[7.0.0, )"
+              "version": "[8.0.1, )"
             },
             "Autofac": {
               "target": "Package",
@@ -179,35 +179,35 @@
             },
             "Microsoft.Data.Sqlite": {
               "target": "Package",
-              "version": "[3.1.4, )"
+              "version": "[3.1.6, )"
             },
             "Microsoft.Extensions.Caching.Memory": {
               "target": "Package",
-              "version": "[3.1.4, )"
+              "version": "[3.1.6, )"
             },
             "Microsoft.Extensions.Caching.StackExchangeRedis": {
               "target": "Package",
-              "version": "[3.1.4, )"
+              "version": "[3.1.6, )"
             },
             "Microsoft.Extensions.Configuration": {
               "target": "Package",
-              "version": "[3.1.4, )"
+              "version": "[3.1.6, )"
             },
             "Microsoft.Extensions.DependencyInjection": {
               "target": "Package",
-              "version": "[3.1.4, )"
+              "version": "[3.1.6, )"
             },
             "Microsoft.Extensions.DependencyModel": {
               "target": "Package",
-              "version": "[3.1.4, )"
+              "version": "[3.1.6, )"
             },
             "Microsoft.Extensions.Logging": {
               "target": "Package",
-              "version": "[3.1.4, )"
+              "version": "[3.1.6, )"
             },
             "MySql.Data": {
               "target": "Package",
-              "version": "[8.0.20, )"
+              "version": "[8.0.21, )"
             },
             "NPinyin.Core": {
               "target": "Package",
@@ -219,11 +219,11 @@
             },
             "Npgsql": {
               "target": "Package",
-              "version": "[4.1.3.1, )"
+              "version": "[4.1.4, )"
             },
             "Oracle.ManagedDataAccess.Core": {
               "target": "Package",
-              "version": "[2.19.70, )"
+              "version": "[2.19.80, )"
             },
             "QRCoder": {
               "target": "Package",
@@ -238,6 +238,10 @@
               "version": "[4.8.1, )"
             },
             "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
+            "System.Management": {
               "target": "Package",
               "version": "[4.7.0, )"
             },
@@ -261,7 +265,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -317,7 +321,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
         }
       }
     }

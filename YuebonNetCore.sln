@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.Messages.Core", "Yue
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.WeChat.Core", "Yuebon.WeChat.Core\Yuebon.WeChat.Core.csproj", "{CCF54E71-A953-4874-87C5-75478242C00D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yuebon.WebApi", "Yuebon.WebApi\Yuebon.WebApi.csproj", "{64C6211F-C371-471F-A3B6-9F6258621AE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.WebApi", "Yuebon.WebApi\Yuebon.WebApi.csproj", "{64C6211F-C371-471F-A3B6-9F6258621AE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yuebon.Authorizer", "Yuebon.Authorizer\Yuebon.Authorizer.csproj", "{7E43D172-58A9-4F0E-BBF6-7AA16B3D2D6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{64C6211F-C371-471F-A3B6-9F6258621AE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64C6211F-C371-471F-A3B6-9F6258621AE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64C6211F-C371-471F-A3B6-9F6258621AE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E43D172-58A9-4F0E-BBF6-7AA16B3D2D6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E43D172-58A9-4F0E-BBF6-7AA16B3D2D6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E43D172-58A9-4F0E-BBF6-7AA16B3D2D6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E43D172-58A9-4F0E-BBF6-7AA16B3D2D6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

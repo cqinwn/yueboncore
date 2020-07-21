@@ -199,7 +199,7 @@ namespace Yuebon.Commons.CodeGenerator
         private static void GenerateIRepository(string modelTypeName, string modelTypeDesc, string keyTypeName, bool ifExsitedCovered = false)
         {
             var path = AppDomain.CurrentDomain.BaseDirectory;
-            path = path.Substring(0, path.IndexOf("\\bin"));
+            //path = path.Substring(0, path.IndexOf("\\bin"));
             var parentPath = path.Substring(0, path.LastIndexOf("\\"));
             var iRepositoryPath = parentPath + "\\" + _option.BaseNamespace + "\\" + _option.IRepositoriesNamespace;
             if (!Directory.Exists(iRepositoryPath))
@@ -229,7 +229,7 @@ namespace Yuebon.Commons.CodeGenerator
         private static void GenerateRepository(string modelTypeName, string modelTypeDesc, string tableName,string keyTypeName, bool ifExsitedCovered = false)
         {
             var path = AppDomain.CurrentDomain.BaseDirectory;
-            path = path.Substring(0, path.IndexOf("\\bin"));
+            //path = path.Substring(0, path.IndexOf("\\bin"));
             var parentPath = path.Substring(0, path.LastIndexOf("\\"));
             var repositoryPath = parentPath + "\\" + _option.BaseNamespace + "\\" + _option.RepositoriesNamespace;
             if (!Directory.Exists(repositoryPath))
@@ -263,7 +263,7 @@ namespace Yuebon.Commons.CodeGenerator
         {
             var iServicsNamespace = _option.IServicsNamespace;
             var path = AppDomain.CurrentDomain.BaseDirectory;
-            path = path.Substring(0, path.IndexOf("\\bin"));
+            //path = path.Substring(0, path.IndexOf("\\bin"));
             var parentPath = path.Substring(0, path.LastIndexOf("\\"));
             var iServicesPath = parentPath + "\\" + _option.BaseNamespace + "\\" + iServicsNamespace;
             if (!Directory.Exists(iServicesPath))
@@ -296,7 +296,7 @@ namespace Yuebon.Commons.CodeGenerator
         {
             var servicesNamespace = _option.ServicesNamespace;
             var path = AppDomain.CurrentDomain.BaseDirectory;
-            path = path.Substring(0, path.IndexOf("\\bin"));
+            //path = path.Substring(0, path.IndexOf("\\bin"));
             var parentPath = path.Substring(0, path.LastIndexOf("\\"));
             var servicesPath = parentPath + "\\" + _option.BaseNamespace + "\\" + servicesNamespace;
             if (!Directory.Exists(servicesPath))
@@ -331,7 +331,7 @@ namespace Yuebon.Commons.CodeGenerator
         {
             var servicesNamespace = _option.ServicesNamespace;
             var path = AppDomain.CurrentDomain.BaseDirectory;
-            path = path.Substring(0, path.IndexOf("\\bin"));
+            //path = path.Substring(0, path.IndexOf("\\bin"));
             var parentPath = path.Substring(0, path.LastIndexOf("\\"));
             var servicesPath = parentPath + "\\" + _option.BaseNamespace + "\\" + servicesNamespace;
             if (!Directory.Exists(servicesPath))
@@ -364,7 +364,7 @@ namespace Yuebon.Commons.CodeGenerator
         {
             var servicesNamespace = _option.DtosNamespace;
             var path = AppDomain.CurrentDomain.BaseDirectory;
-            path = path.Substring(0, path.IndexOf("\\bin"));
+            //path = path.Substring(0, path.IndexOf("\\bin"));
             var parentPath = path.Substring(0, path.LastIndexOf("\\"));
             var servicesPath = parentPath + "\\" + _option.BaseNamespace + "\\" + servicesNamespace;
             if (!Directory.Exists(servicesPath))
@@ -396,7 +396,7 @@ namespace Yuebon.Commons.CodeGenerator
         {
             var servicesNamespace = _option.DtosNamespace;
             var path = AppDomain.CurrentDomain.BaseDirectory;
-            path = path.Substring(0, path.IndexOf("\\bin"));
+            //path = path.Substring(0, path.IndexOf("\\bin"));
             var parentPath = path.Substring(0, path.LastIndexOf("\\"));
             var servicesPath = parentPath + "\\" + _option.BaseNamespace + "\\" + servicesNamespace;
             if (!Directory.Exists(servicesPath))
@@ -430,7 +430,7 @@ namespace Yuebon.Commons.CodeGenerator
         private static void GenerateModels(string modelsNamespace, string modelTypeName,string tableName,  string modelContent, string modelTypeDesc, string keyTypeName, bool ifExsitedCovered = false)
         {
             var path = AppDomain.CurrentDomain.BaseDirectory;
-            path = path.Substring(0, path.IndexOf("\\bin"));
+            //path = path.Substring(0, path.IndexOf("\\bin"));
             var parentPath = path.Substring(0, path.LastIndexOf("\\"));
             var servicesPath = parentPath + "\\" + _option.BaseNamespace + "\\" + modelsNamespace;
             if (!Directory.Exists(servicesPath))
@@ -465,7 +465,7 @@ namespace Yuebon.Commons.CodeGenerator
             var servicesNamespace = _option.DtosNamespace;
             var fileClassName = _option.BaseNamespace.Substring(_option.BaseNamespace.IndexOf('.') + 1);
             var path = AppDomain.CurrentDomain.BaseDirectory;
-            path = path.Substring(0, path.IndexOf("\\bin"));
+            //path = path.Substring(0, path.IndexOf("\\bin"));
             var parentPath = path.Substring(0, path.LastIndexOf("\\"));
             var servicesPath = parentPath + "\\" + _option.BaseNamespace + "\\" + servicesNamespace;
             if (!Directory.Exists(servicesPath))

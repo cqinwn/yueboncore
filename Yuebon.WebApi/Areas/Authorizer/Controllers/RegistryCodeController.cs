@@ -81,7 +81,7 @@ namespace Yuebon.WebApi.Areas.Authorizer.Controllers
             CommonResult result = new CommonResult();
             try
             {
-                RSASecurityHelper.RSAEncrypSignature(machineCode,);
+                //RSASecurityHelper.RSAEncrypSignature(machineCode,);
             }
             catch (Exception ex)
             {

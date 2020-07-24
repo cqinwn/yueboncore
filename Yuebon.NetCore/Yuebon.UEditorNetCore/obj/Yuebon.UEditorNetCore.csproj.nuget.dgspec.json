@@ -52,7 +52,7 @@
             },
             "Microsoft.Extensions.Hosting": {
               "target": "Package",
-              "version": "[3.1.4, )"
+              "version": "[3.1.6, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -60,7 +60,7 @@
             },
             "Yuebon.Security.Core": {
               "target": "Package",
-              "version": "[1.3.2.10, )"
+              "version": "[1.3.2.12, )"
             }
           },
           "imports": [

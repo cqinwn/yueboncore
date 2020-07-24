@@ -9,7 +9,7 @@
     <Copyright>上海越邦网络科技有限公司 版权所有</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://gitee.com/yuebon/YuebonNetCore</PackageProjectUrl>
-    <Version>1.3.1.14</Version>
+    <Version>1.3.1.15</Version>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>1、新增统计某个字段之和的方法GetSumValueByFieldAsync()
 2、优化获取某个字段的最大值</PackageReleaseNotes>

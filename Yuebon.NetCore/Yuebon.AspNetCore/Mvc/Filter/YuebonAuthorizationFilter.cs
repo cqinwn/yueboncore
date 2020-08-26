@@ -24,7 +24,6 @@ namespace Yuebon.AspNetCore.Mvc
     /// </summary>
     public class YuebonAuthorizationFilter : AuthorizeAttribute, IAuthorizationFilter
     {
-        private static AuthorizationPolicy _policy_ = new AuthorizationPolicy(new[] { new DenyAnonymousAuthorizationRequirement() }, new string[] { });
         /// <summary>
         /// 授权验证
         /// </summary>

@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\netcorespace\\权限管理\\Yuebon.Cms.Core\\Yuebon.CMS.Core.csproj": {
-      "version": "1.1.2.1",
+      "version": "1.1.2.2",
       "restore": {
         "projectUniqueName": "D:\\netcorespace\\权限管理\\Yuebon.Cms.Core\\Yuebon.CMS.Core.csproj",
         "projectName": "Yuebon.CMS.Core",
@@ -56,12 +56,12 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
         }
       }
     },
     "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj": {
-      "version": "1.3.1.15",
+      "version": "1.3.1.16",
       "restore": {
         "projectUniqueName": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj",
         "projectName": "Yuebon.Commons",
@@ -132,23 +132,23 @@
             },
             "Microsoft.Data.Sqlite": {
               "target": "Package",
-              "version": "[3.1.6, )"
+              "version": "[3.1.7, )"
             },
             "Microsoft.Extensions.Caching.Memory": {
               "target": "Package",
-              "version": "[3.1.6, )"
+              "version": "[3.1.7, )"
             },
             "Microsoft.Extensions.Caching.StackExchangeRedis": {
               "target": "Package",
-              "version": "[3.1.6, )"
+              "version": "[3.1.7, )"
             },
             "Microsoft.Extensions.Configuration": {
               "target": "Package",
-              "version": "[3.1.6, )"
+              "version": "[3.1.7, )"
             },
             "Microsoft.Extensions.DependencyInjection": {
               "target": "Package",
-              "version": "[3.1.6, )"
+              "version": "[3.1.7, )"
             },
             "Microsoft.Extensions.DependencyModel": {
               "target": "Package",
@@ -156,7 +156,7 @@
             },
             "Microsoft.Extensions.Logging": {
               "target": "Package",
-              "version": "[3.1.6, )"
+              "version": "[3.1.7, )"
             },
             "MySql.Data": {
               "target": "Package",
@@ -188,7 +188,7 @@
             },
             "System.Data.SqlClient": {
               "target": "Package",
-              "version": "[4.8.1, )"
+              "version": "[4.8.2, )"
             },
             "System.Drawing.Common": {
               "target": "Package",
@@ -200,7 +200,7 @@
             },
             "log4net": {
               "target": "Package",
-              "version": "[2.0.8, )"
+              "version": "[2.0.9, )"
             }
           },
           "imports": [
@@ -218,12 +218,12 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
         }
       }
     },
     "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj": {
-      "version": "1.3.2.12",
+      "version": "1.3.2.13",
       "restore": {
         "projectUniqueName": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj",
         "projectName": "Yuebon.Security.Core",
@@ -274,7 +274,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

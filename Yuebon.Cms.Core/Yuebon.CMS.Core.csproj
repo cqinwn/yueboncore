@@ -3,20 +3,20 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Yuebon.CMS</RootNamespace>
-    <Version>1.1.2.1</Version>
+    <Version>1.1.2.2</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Company>上海越邦网络科技有限公司</Company>
     <Authors>Yuebon</Authors>
     <Product>Yuebon.CMS.Core</Product>
     <Copyright>上海越邦网络科技有限公司 版权所有</Copyright>
     <Description>CMS类库</Description>
-    <PackageLicenseFile>README.md</PackageLicenseFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://gitee.com/yuebon/YuebonNetCore</PackageProjectUrl>
     <RepositoryUrl>https://gitee.com/yuebon/YuebonNetCore</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\README.md">
+    <None Include="..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>

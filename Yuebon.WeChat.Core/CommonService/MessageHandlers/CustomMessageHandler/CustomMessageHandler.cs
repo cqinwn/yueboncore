@@ -206,7 +206,7 @@ namespace Yuebon.WeChat.CommonService.CustomMessageHandler
 
                     #endregion
 
-                    var responseXml = MessageAgent.RequestXml(this, agentUrl, agentToken, agentXml);
+                    var responseXml = MessageAgent.RequestXml(this, Senparc.CO2NET.SenparcDI.GetServiceProvider(), agentUrl, agentToken, agentXml);
                     //获取返回的XML
                     //上面的方法也可以使用扩展方法：this.RequestResponseMessage(this,agentUrl, agentToken, RequestDocument.ToString());
 

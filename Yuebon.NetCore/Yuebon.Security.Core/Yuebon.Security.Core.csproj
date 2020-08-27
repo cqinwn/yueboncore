@@ -11,15 +11,16 @@
     <Product>YuebonNetCore开发框架权限管理系统类库</Product>
     <Description>YuebonNetCore开发框架权限管理系统类库</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.3.2.13</Version>
+    <Version>1.3.2.14</Version>
     <PackageReleaseNotes>更新最新公共库</PackageReleaseNotes>
     <Authors>Yuebon</Authors>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageIconUrl>http://www.yuebon.com/upload/201804/01/201804011125140585.jpg</PackageIconUrl>
+    <PackageIconUrl></PackageIconUrl>
     <PackageProjectUrl>https://gitee.com/yuebon/YuebonNetCore</PackageProjectUrl>
     <PackageLicenseExpression></PackageLicenseExpression>
     <RepositoryUrl>https://gitee.com/yuebon/YuebonNetCore</RepositoryUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageIcon>logo越邦科技.png</PackageIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -45,6 +46,10 @@
 
   <ItemGroup>
     <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\logo越邦科技.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>

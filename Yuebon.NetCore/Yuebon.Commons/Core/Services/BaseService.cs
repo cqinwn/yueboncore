@@ -801,6 +801,27 @@ namespace Yuebon.Commons.Services
         {
             return await repository.GetSumValueByFieldAsync(strField, where);
         }
+
+        /// <summary>
+        /// 多表操作--事务
+        /// </summary>
+        /// <param name="trans">事务</param>
+        /// <param name="commandTimeout">超时</param>
+        /// <returns></returns>
+        public virtual async Task<Tuple<bool, string>> ExecuteTransactionAsync(List<Tuple<string, object>> trans, int? commandTimeout = null)
+        {
+            return await repository.ExecuteTransactionAsync(trans, commandTimeout);
+        }
+        /// <summary>
+        /// 多表操作--事务
+        /// </summary>
+        /// <param name="trans">事务</param>
+        /// <param name="commandTimeout">超时</param>
+        /// <returns></returns>
+        public virtual Tuple<bool, string> ExecuteTransaction(List<Tuple<string, object>> trans, int? commandTimeout = null)
+        {
+            return  repository.ExecuteTransaction(trans, commandTimeout);
+        }
         #region IDisposable Support
         private bool disposedValue = false; // 要检测冗余调用
         /// <summary>

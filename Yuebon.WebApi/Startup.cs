@@ -95,6 +95,7 @@ namespace Yuebon.WebApi
                 string contactUrl = Configuration.GetSection("SwaggerDoc:ContactUrl").Value;
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
+                    
                     Version = Configuration.GetSection("SwaggerDoc:Version").Value,
                     Title = Configuration.GetSection("SwaggerDoc:Title").Value,
                     Description = Configuration.GetSection("SwaggerDoc:Description").Value,

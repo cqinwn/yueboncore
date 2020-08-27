@@ -10,15 +10,21 @@
     <Copyright>上海越邦网络科技有限公司 版权所有</Copyright>
     <Description>YuebonNetCore 微信公众号、小程序、开放平台接口实现类库</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageProjectUrl>http://netcore.yuebon.com</PackageProjectUrl>
-    <PackageIconUrl>http://www.yuebon.com/upload/201804/01/201804011125140585.jpg</PackageIconUrl>
+    <PackageProjectUrl>https://gitee.com/yuebon/YuebonNetCore</PackageProjectUrl>
+    <PackageIconUrl></PackageIconUrl>
     <PackageLicenseExpression></PackageLicenseExpression>
     <Version>1.1.1.4</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageIcon>logo越邦科技.png</PackageIcon>
+    <RepositoryUrl>https://gitee.com/yuebon/YuebonNetCore</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\logo越邦科技.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>

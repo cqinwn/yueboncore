@@ -562,6 +562,13 @@ namespace Yuebon.Commons.IRepositories
         /// <param name="trans">事务</param>
         /// <param name="commandTimeout">超时</param>
         /// <returns></returns>
-        Task<Tuple<bool, string>> ExecuteTransaction(List<Tuple<string, object>> trans, int? commandTimeout = null);
-     }
+        Task<Tuple<bool, string>> ExecuteTransactionAsync(List<Tuple<string, object>> trans, int? commandTimeout = null);
+        /// <summary>
+        /// 多表操作--事务
+        /// </summary>
+        /// <param name="trans">事务</param>
+        /// <param name="commandTimeout">超时</param>
+        /// <returns></returns>
+       Tuple<bool, string> ExecuteTransaction(List<Tuple<string, object>> trans, int? commandTimeout = null);
+    }
 }

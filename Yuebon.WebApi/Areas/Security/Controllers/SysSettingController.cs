@@ -59,7 +59,7 @@ namespace Yuebon.WebApi.Areas.Security
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetSysInfo")]
-        [YuebonAuthorize("")]
+        [NoPermissionRequired]
         public async Task<IActionResult> GetSysInfo()
         {
             CommonResult result = new CommonResult();
@@ -103,7 +103,6 @@ namespace Yuebon.WebApi.Areas.Security
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetInfo")]
-        [YuebonAuthorize("")]
         [NoPermissionRequired]
         public IActionResult GetInfo()
         {

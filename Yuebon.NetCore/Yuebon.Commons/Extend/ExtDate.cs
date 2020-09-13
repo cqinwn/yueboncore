@@ -168,7 +168,7 @@ namespace Yuebon.Commons.Extend
         /// <param name="d2">要参与计算的另一个日期</param>
         /// <param name="drf">决定返回值形式的枚举</param>
         /// <returns>一个代表年月日的int数组，具体数组长度与枚举参数drf有关</returns>
-        public static int[] toResult(DateTime d1, DateTime d2, diffResultFormat drf)
+        public static int[] ToDiffResult(DateTime d1, DateTime d2, DiffResultFormat drf)
         {
             #region 数据初始化
             DateTime max;
@@ -197,16 +197,16 @@ namespace Yuebon.Commons.Extend
             month = tempMonth - min.Month;
             #endregion
             #region 按条件计算
-            if (drf == diffResultFormat.dd)
+            if (drf == DiffResultFormat.dd)
             {
                 TimeSpan ts = max - min;
                 return new int[] { ts.Days };
             }
-            if (drf == diffResultFormat.mm)
+            if (drf == DiffResultFormat.mm)
             {
                 return new int[] { month + year * 12 };
             }
-            if (drf == diffResultFormat.yy)
+            if (drf == DiffResultFormat.yy)
             {
                 return new int[] { year };
             }
@@ -218,7 +218,7 @@ namespace Yuebon.Commons.Extend
     /// <summary>
     /// 关于返回值形式的枚举
     /// </summary>
-    public enum diffResultFormat
+    public enum DiffResultFormat
     {
         /// <summary>
         /// 年数和月数

@@ -37,12 +37,19 @@ namespace Yuebon.AspNetCore.Controllers
         /// 当前登录的用户属性
         /// </summary>
         public UserAuthSession CurrentUser;
+        /// <summary>
+        /// 日志服务
+        /// </summary>
         private ILogService logService = IoCContainer.Resolve<ILogService>();
+        /// <summary>
+        /// 用户服务
+        /// </summary>
         private IUserService userService = IoCContainer.Resolve<IUserService>();
 
         #region 
         /// <summary>
-        /// 重新基类在Action执行之前的事情
+        /// 重写基类在Action执行之前的事情
+        /// 根据token获得当前用户，允许匿名的不需要获取用户
         /// </summary>
         /// <param name="filterContext">重写方法的参数</param>
         public override void OnActionExecuting(ActionExecutingContext filterContext)

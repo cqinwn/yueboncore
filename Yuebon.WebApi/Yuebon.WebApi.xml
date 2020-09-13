@@ -1,0 +1,1209 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Yuebon.WebApi</name>
+    </assembly>
+    <members>
+        <member name="T:Yuebon.WebApi.Areas.Authorizer.Controllers.RegistryCodeController">
+            <summary>
+            接口
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Authorizer.Controllers.RegistryCodeController.#ctor(Yuebon.Authorizer.IServices.IRegistryCodeService)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="_iService"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Authorizer.Controllers.RegistryCodeController.OnBeforeInsert(Yuebon.Authorizer.Models.RegistryCode)">
+            <summary>
+            新增前处理数据
+            </summary>
+            <param name="info"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Authorizer.Controllers.RegistryCodeController.OnBeforeUpdate(Yuebon.Authorizer.Models.RegistryCode)">
+            <summary>
+            在更新数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Authorizer.Controllers.RegistryCodeController.OnBeforeSoftDelete(Yuebon.Authorizer.Models.RegistryCode)">
+            <summary>
+            在软删除数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Authorizer.Controllers.RegistryCodeController.GetRegCode(System.String)">
+            <summary>
+            根据机器特征码获取注册序列号
+            </summary>
+            <param name="machineCode">机器特征码</param>
+        </member>
+        <member name="T:Yuebon.WebApi.Areas.Msg.MessagerController">
+            <summary>
+            消息推送接口
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Msg.MessagerController.SendMakePhoneCallNotice(System.String,System.String,System.String)">
+            <summary>
+            拨打电话推送消息
+            </summary>
+            <param name="userId"></param>
+            <param name="tell">接受者电话号码</param>
+            <param name="tell2">推送内容电话号码</param>
+            <returns></returns>
+        </member>
+        <member name="T:Yuebon.WebApi.Areas.Security.Controllers.APPController">
+            <summary>
+            接口
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.APPController.#ctor(Yuebon.Security.IServices.IAPPService)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="_iService"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.APPController.OnBeforeInsert(Yuebon.Security.Models.APP)">
+            <summary>
+            新增前处理数据
+            </summary>
+            <param name="info"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.APPController.OnBeforeUpdate(Yuebon.Security.Models.APP)">
+            <summary>
+            在更新数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.APPController.OnBeforeSoftDelete(Yuebon.Security.Models.APP)">
+            <summary>
+            在软删除数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.APPController.UpdateAsync(Yuebon.Security.Dtos.APPInputDto,System.String)">
+            <summary>
+            异步更新数据
+            </summary>
+            <param name="tinfo"></param>
+            <param name="id">主键Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.APPController.FindWithPagerAsync(Yuebon.AspNetCore.UI.SearchModel)">
+            <summary>
+            异步分页查询
+            </summary>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.APPController.ResetAppSecret(System.String)">
+            <summary>
+            重置AppSecret
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.APPController.ResetEncodingAESKey(System.String)">
+            <summary>
+            重置消息加密密钥EncodingAESKey
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Yuebon.WebApi.Areas.Security.Controllers.AreaController">
+            <summary>
+            接口
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.AreaController.#ctor(Yuebon.Security.IServices.IAreaService)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="_iService"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.AreaController.OnBeforeInsert(Yuebon.Security.Models.Area)">
+            <summary>
+            新增前处理数据
+            </summary>
+            <param name="info"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.AreaController.OnBeforeUpdate(Yuebon.Security.Models.Area)">
+            <summary>
+            在更新数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.AreaController.OnBeforeSoftDelete(Yuebon.Security.Models.Area)">
+            <summary>
+            在软删除数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Yuebon.WebApi.Areas.Security.Controllers.DbBackupController">
+            <summary>
+            接口
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.DbBackupController.#ctor(Yuebon.Security.IServices.IDbBackupService)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="_iService"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.DbBackupController.OnBeforeInsert(Yuebon.Security.Models.DbBackup)">
+            <summary>
+            新增前处理数据
+            </summary>
+            <param name="info"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.DbBackupController.OnBeforeUpdate(Yuebon.Security.Models.DbBackup)">
+            <summary>
+            在更新数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.DbBackupController.OnBeforeSoftDelete(Yuebon.Security.Models.DbBackup)">
+            <summary>
+            在软删除数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Yuebon.WebApi.Areas.Security.Controllers.FilterIPController">
+            <summary>
+            接口
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.FilterIPController.#ctor(Yuebon.Security.IServices.IFilterIPService)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="_iService"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.FilterIPController.OnBeforeInsert(Yuebon.Security.Models.FilterIP)">
+            <summary>
+            新增前处理数据
+            </summary>
+            <param name="info"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.FilterIPController.OnBeforeUpdate(Yuebon.Security.Models.FilterIP)">
+            <summary>
+            在更新数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.FilterIPController.OnBeforeSoftDelete(Yuebon.Security.Models.FilterIP)">
+            <summary>
+            在软删除数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Yuebon.WebApi.Areas.Security.Controllers.FilterIPController.UpdateAsync(Yuebon.Security.Dtos.FilterIPInputDto,System.String)" -->
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.FilterIPController.FindWithPagerAsync(Yuebon.AspNetCore.UI.SearchModel)">
+            <summary>
+            异步分页查询
+            </summary>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Yuebon.WebApi.Areas.Security.Controllers.FunctionController">
+            <summary>
+            模块功能接口
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.FunctionController.#ctor(Yuebon.Security.IServices.IFunctionService)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="_iService"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.FunctionController.OnBeforeInsert(Yuebon.Security.Models.Function)">
+            <summary>
+            新增前处理数据
+            </summary>
+            <param name="info"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.FunctionController.OnBeforeUpdate(Yuebon.Security.Models.Function)">
+            <summary>
+            在更新数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.FunctionController.OnBeforeSoftDelete(Yuebon.Security.Models.Function)">
+            <summary>
+            在软删除数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.FunctionController.UpdateAsync(Yuebon.Security.Dtos.FunctionInputDto,System.String)">
+            <summary>
+            异步更新数据
+            </summary>
+            <param name="tinfo"></param>
+            <param name="id">主键Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.FunctionController.GetListByItemCode(System.String)">
+            <summary>
+            根据父级功能编码查询所有子集功能，主要用于页面操作按钮权限
+            </summary>
+            <param name="enCode">菜单功能编码</param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.FunctionController.FindWithPagerAsync(Yuebon.AspNetCore.UI.SearchModel)">
+            <summary>
+            异步分页查询
+            </summary>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.FunctionController.GetAllFunctionTreeTable(System.String)">
+            <summary>
+            获取功能菜单适用于Vue 树形列表
+            </summary>
+            <param name="systemTypeId">子系统Id</param>
+            <returns></returns>
+        </member>
+        <member name="T:Yuebon.WebApi.Areas.Security.Controllers.ItemsController">
+            <summary>
+            数据字典接口
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.ItemsController.#ctor(Yuebon.Security.IServices.IItemsService,Yuebon.Security.IServices.IItemsDetailService)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="_iService"></param>
+            <param name="_itemsDetailService"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.ItemsController.OnBeforeInsert(Yuebon.Security.Models.Items)">
+            <summary>
+            新增前处理数据
+            </summary>
+            <param name="info"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.ItemsController.OnBeforeUpdate(Yuebon.Security.Models.Items)">
+            <summary>
+            在更新数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.ItemsController.OnBeforeSoftDelete(Yuebon.Security.Models.Items)">
+            <summary>
+            在软删除数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.ItemsController.FindTreeSelectJson(System.String)">
+            <summary>
+            按字典分类编码查询树形展开，新增、修改需要
+            </summary>
+            <param name="itemCode">数据字典分类编码</param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.ItemsController.GetListByItemCode(System.String)">
+            <summary>
+            按字典分类编码查询,Vue element select新增、修改需要
+            </summary>
+            <param name="itemCode">数据字典分类编码</param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.ItemsController.UpdateAsync(Yuebon.Security.Dtos.ItemsInputDto,System.String)">
+            <summary>
+            异步更新数据
+            </summary>
+            <param name="tinfo"></param>
+            <param name="id">主键Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.ItemsController.GetAllItemsTreeTable">
+            <summary>
+            获取功能菜单适用于Vue 树形列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Yuebon.WebApi.Areas.Security.Controllers.ItemsDetailController">
+            <summary>
+            数据字典明细
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.ItemsDetailController.#ctor(Yuebon.Security.IServices.IItemsDetailService,Yuebon.Security.IServices.IItemsService)">
+            <summary>
+            
+            </summary>
+            <param name="_iService"></param>
+            <param name="itemsService"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.ItemsDetailController.OnBeforeUpdate(Yuebon.Security.Models.ItemsDetail)">
+            <summary>
+            在更新数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.ItemsDetailController.UpdateAsync(Yuebon.Security.Dtos.ItemsDetailInputDto,System.String)">
+            <summary>
+            异步更新数据
+            </summary>
+            <param name="tinfo"></param>
+            <param name="id">主键Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.ItemsDetailController.GetAllItemsDetailTreeTable(System.String)">
+            <summary>
+            获取某数据字典类别下的数据适用于Vue 树形列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Yuebon.WebApi.Areas.Security.Controllers.LogController">
+            <summary>
+            接口
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.LogController.#ctor(Yuebon.Security.IServices.ILogService,Yuebon.Security.IServices.IOrganizeService)">
+            <summary>
+            
+            </summary>
+            <param name="_iService"></param>
+            <param name="_organizeService"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.LogController.OnBeforeInsert(Yuebon.Security.Models.Log)">
+            <summary>
+            新增前处理数据
+            </summary>
+            <param name="info"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.LogController.OnBeforeUpdate(Yuebon.Security.Models.Log)">
+            <summary>
+            在更新数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.LogController.OnBeforeSoftDelete(Yuebon.Security.Models.Log)">
+            <summary>
+            在软删除数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.LogController.FindWithPagerAsync(Yuebon.AspNetCore.UI.SearchModel)">
+            <summary>
+            异步分页查询
+            </summary>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Yuebon.WebApi.Areas.Security.Controllers.MenuController">
+            <summary>
+            接口
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.MenuController.#ctor(Yuebon.Security.IServices.IMenuService)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="_iService"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.MenuController.OnBeforeInsert(Yuebon.Security.Models.Menu)">
+            <summary>
+            新增前处理数据
+            </summary>
+            <param name="info"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.MenuController.OnBeforeUpdate(Yuebon.Security.Models.Menu)">
+            <summary>
+            在更新数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.MenuController.OnBeforeSoftDelete(Yuebon.Security.Models.Menu)">
+            <summary>
+            在软删除数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.MenuController.UpdateAsync(Yuebon.Security.Dtos.MenuInputDto,System.String)">
+            <summary>
+            异步更新数据
+            </summary>
+            <param name="tinfo"></param>
+            <param name="id">主键Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.MenuController.GetAllMenuTreeTable(System.String)">
+            <summary>
+            获取功能菜单适用于Vue 树形列表
+            </summary>
+            <param name="systemTypeId">子系统Id</param>
+            <returns></returns>
+        </member>
+        <member name="T:Yuebon.WebApi.Areas.Security.Controllers.OrganizeController">
+            <summary>
+            接口
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.OrganizeController.#ctor(Yuebon.Security.IServices.IOrganizeService)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="_iService"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.OrganizeController.OnBeforeInsert(Yuebon.Security.Models.Organize)">
+            <summary>
+            新增前处理数据
+            </summary>
+            <param name="info"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.OrganizeController.OnBeforeUpdate(Yuebon.Security.Models.Organize)">
+            <summary>
+            在更新数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.OrganizeController.OnBeforeSoftDelete(Yuebon.Security.Models.Organize)">
+            <summary>
+            在软删除数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.OrganizeController.UpdateAsync(Yuebon.Security.Dtos.OrganizeInputDto,System.String)">
+            <summary>
+            异步更新数据
+            </summary>
+            <param name="tinfo"></param>
+            <param name="id">主键Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.OrganizeController.GetAllOrganizeTreeTable">
+            <summary>
+            获取功能菜单适用于Vue 树形列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Yuebon.WebApi.Areas.Security.Controllers.RoleAuthorizeController">
+            <summary>
+            接口
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.RoleAuthorizeController.#ctor(Yuebon.Security.IServices.IRoleAuthorizeService,Yuebon.Security.IServices.IMenuService,Yuebon.Security.IServices.IFunctionService,Yuebon.Security.IServices.IRoleDataService,Yuebon.Security.IServices.IOrganizeService)">
+            <summary>
+            
+            </summary>
+            <param name="_iService"></param>
+            <param name="_menuService"></param>
+            <param name="_functionService"></param>
+            <param name="_roleDataService"></param>
+            <param name="_organizeService"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.RoleAuthorizeController.OnBeforeInsert(Yuebon.Security.Models.RoleAuthorize)">
+            <summary>
+            新增前处理数据
+            </summary>
+            <param name="info"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.RoleAuthorizeController.OnBeforeUpdate(Yuebon.Security.Models.RoleAuthorize)">
+            <summary>
+            在更新数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.RoleAuthorizeController.OnBeforeSoftDelete(Yuebon.Security.Models.RoleAuthorize)">
+            <summary>
+            在软删除数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.RoleAuthorizeController.GetRoleAuthorizeFunction(System.String)">
+            <summary>
+            角色分配权限树
+            </summary>
+            <param name="roleId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.RoleAuthorizeController.SaveRoleAuthorize(Yuebon.AspNetCore.UI.SearchModel)">
+            <summary>
+            保存角色权限
+            </summary>
+            <param name="search">功能权限</param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.RoleAuthorizeController.GetAllFunctionTree">
+            <summary>
+            获取功能菜单适用于Vue Tree树形
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.RoleAuthorizeController.GetAllFunctionTreeTable(System.String)">
+            <summary>
+            获取功能菜单适用于Vue 树形列表
+            </summary>
+            <param name="systemTypeId">子系统Id</param>
+            <returns></returns>
+        </member>
+        <member name="T:Yuebon.WebApi.Areas.Security.Controllers.RoleController">
+            <summary>
+            接口
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Yuebon.WebApi.Areas.Security.Controllers.RoleController.#ctor(Yuebon.Security.IServices.IRoleService,Yuebon.Security.IServices.IOrganizeService)" -->
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.RoleController.OnBeforeInsert(Yuebon.Security.Models.Role)">
+            <summary>
+            新增前处理数据
+            </summary>
+            <param name="info"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.RoleController.OnBeforeUpdate(Yuebon.Security.Models.Role)">
+            <summary>
+            在更新数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.RoleController.OnBeforeSoftDelete(Yuebon.Security.Models.Role)">
+            <summary>
+            在软删除数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.RoleController.UpdateAsync(Yuebon.Security.Dtos.RoleInputDto,System.String)">
+            <summary>
+            异步更新数据
+            </summary>
+            <param name="tinfo"></param>
+            <param name="id">主键Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.RoleController.FindWithPagerAsync(Yuebon.AspNetCore.UI.SearchModel)">
+            <summary>
+            异步分页查询
+            </summary>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Yuebon.WebApi.Areas.Security.Controllers.RoleDataController">
+            <summary>
+            接口
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.RoleDataController.#ctor(Yuebon.Security.IServices.IRoleDataService)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="_iService"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.RoleDataController.OnBeforeInsert(Yuebon.Security.Models.RoleData)">
+            <summary>
+            新增前处理数据
+            </summary>
+            <param name="info"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.RoleDataController.OnBeforeUpdate(Yuebon.Security.Models.RoleData)">
+            <summary>
+            在更新数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.RoleDataController.OnBeforeSoftDelete(Yuebon.Security.Models.RoleData)">
+            <summary>
+            在软删除数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Yuebon.WebApi.Areas.Security.Controllers.SystemTypeController">
+            <summary>
+            接口
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.SystemTypeController.#ctor(Yuebon.Security.IServices.ISystemTypeService)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="_iService"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.SystemTypeController.OnBeforeInsert(Yuebon.Security.Models.SystemType)">
+            <summary>
+            新增前处理数据
+            </summary>
+            <param name="info"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.SystemTypeController.OnBeforeUpdate(Yuebon.Security.Models.SystemType)">
+            <summary>
+            在更新数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.SystemTypeController.OnBeforeSoftDelete(Yuebon.Security.Models.SystemType)">
+            <summary>
+            在软删除数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.SystemTypeController.UpdateAsync(Yuebon.Security.Dtos.SystemTypeInputDto,System.String)">
+            <summary>
+            异步更新数据
+            </summary>
+            <param name="tinfo"></param>
+            <param name="id">主键Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.SystemTypeController.FindWithPagerAsync(Yuebon.AspNetCore.UI.SearchModel)">
+            <summary>
+            异步分页查询
+            </summary>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.SystemTypeController.GetSubSystemList">
+            <summary>
+            获取所有子系统
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.SystemTypeController.YuebonConnecSys(System.String)">
+            <summary>
+            系统切换时获取凭据
+            适用于不同子系统分别独立部署站点场景
+            </summary>
+            <param name="systype"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Yuebon.WebApi.Areas.Security.Controllers.UploadFileController">
+            <summary>
+            文件管理
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.UploadFileController.FindWithPagerAsync(Yuebon.AspNetCore.UI.SearchModel)">
+            <summary>
+            异步分页查询
+            </summary>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Yuebon.WebApi.Areas.Security.Controllers.UserController">
+            <summary>
+            接口
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.UserController.#ctor(Yuebon.Security.IServices.IUserService,Yuebon.Security.IServices.IOrganizeService,Yuebon.Security.IServices.IRoleService,Yuebon.Security.IServices.IUserLogOnService)">
+            <summary>
+            
+            </summary>
+            <param name="_iService"></param>
+            <param name="_organizeService"></param>
+            <param name="_roleService"></param>
+            <param name="_userLogOnService"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.UserController.OnBeforeInsert(Yuebon.Security.Models.User)">
+            <summary>
+            新增前处理数据
+            </summary>
+            <param name="info"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.UserController.OnBeforeUpdate(Yuebon.Security.Models.User)">
+            <summary>
+            在更新数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.UserController.OnBeforeSoftDelete(Yuebon.Security.Models.User)">
+            <summary>
+            在软删除数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.UserController.InsertAsync(Yuebon.Security.Dtos.UserInputDto)">
+            <summary>
+            异步新增数据
+            </summary>
+            <param name="tinfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.UserController.UpdateAsync(Yuebon.Security.Dtos.UserInputDto,System.String)">
+            <summary>
+            异步更新数据
+            </summary>
+            <param name="tinfo"></param>
+            <param name="id">主键Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.UserController.GetByUserName(System.String)">
+            <summary>
+            根据用户登录账号获取详细信息
+            </summary>
+            <param name="userName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.UserController.FindWithPagerSearchAsync(Yuebon.WebApi.Areas.Security.Models.SearchUserModel)">
+            <summary>
+            异步分页查询
+            </summary>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.UserController.ResetPassword(System.String)">
+            <summary>
+            重置密码
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.UserController.ModifyPassword(System.String,System.String,System.String)">
+            <summary>
+            修改密码
+            </summary>
+            <param name="oldpassword">原密码</param>
+            <param name="password">新密码</param>
+            <param name="password2">重复新密码</param>
+            <returns></returns>
+        </member>
+        <member name="T:Yuebon.WebApi.Areas.Security.SysSettingController">
+            <summary>
+            系统基本信息
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.SysSettingController.#ctor(Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Yuebon.Security.IServices.IUserService,Yuebon.Security.IServices.IMenuService,Yuebon.Security.IServices.IRoleService,Yuebon.Security.IServices.ILogService)">
+            <summary>
+            
+            </summary>
+            <param name="hostingEnvironment"></param>
+            <param name="_userService"></param>
+            <param name="_menuService"></param>
+            <param name="_roleService"></param>
+            <param name="_logService"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.SysSettingController.GetSysInfo">
+            <summary>
+            获取系统信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.SysSettingController.GetInfo">
+            <summary>
+            获取系统基本信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.SysSettingController.Save(Yuebon.Security.Models.SysSetting)">
+            <summary>
+            保存系统设置信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Yuebon.WebApi.Areas.Security.Models.DashboardOutModel">
+            <summary>
+            控制台首页显示内容
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Areas.Security.Models.DashboardOutModel.CertificatedCompany">
+            <summary>
+            许可使用公司名称
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Areas.Security.Models.DashboardOutModel.WebUrl">
+            <summary>
+            系统访问Url
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Areas.Security.Models.DashboardOutModel.MachineName">
+            <summary>
+            服务器名称
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Areas.Security.Models.DashboardOutModel.OSName">
+            <summary>
+            操作系统
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Areas.Security.Models.DashboardOutModel.OSDescription">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Areas.Security.Models.DashboardOutModel.Directory">
+            <summary>
+            部署目录
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Areas.Security.Models.DashboardOutModel.SystemVersion">
+            <summary>
+            系统版本
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Areas.Security.Models.DashboardOutModel.Version">
+            <summary>
+            系统版本
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Areas.Security.Models.DashboardOutModel.Manufacturer">
+            <summary>
+            软件厂商
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Areas.Security.Models.DashboardOutModel.WebSite">
+            <summary>
+            网址
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Areas.Security.Models.DashboardOutModel.UpdateUrl">
+            <summary>
+            更新地址
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Areas.Security.Models.DashboardOutModel.IPAdress">
+            <summary>
+            服务器IP地址
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Areas.Security.Models.DashboardOutModel.Port">
+            <summary>
+            服务器端口
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Areas.Security.Models.DashboardOutModel.Title">
+            <summary>
+            系统名称
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Areas.Security.Models.DashboardOutModel.TotalUser">
+            <summary>
+            总用户数
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Areas.Security.Models.DashboardOutModel.TotalModule">
+            <summary>
+            总模块数
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Areas.Security.Models.DashboardOutModel.TotalUploadFile">
+            <summary>
+            总上传文件数
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Areas.Security.Models.DashboardOutModel.TotalLog">
+            <summary>
+            总日志数
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Areas.Security.Models.DashboardOutModel.TotalRole">
+            <summary>
+            总岗位角色数
+            </summary>
+        </member>
+        <member name="T:Yuebon.WebApi.Areas.Security.Models.SearchUserModel">
+            <summary>
+            用户搜索条件
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Yuebon.WebApi.Areas.Security.Models.SearchUserModel.RoleId" -->
+        <member name="P:Yuebon.WebApi.Areas.Security.Models.SearchUserModel.CreatorTime1">
+            <summary>
+            注册或添加时间 开始
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Areas.Security.Models.SearchUserModel.CreatorTime2">
+            <summary>
+            注册或添加时间 结束
+            </summary>
+        </member>
+        <member name="T:Yuebon.WebApi.Areas.Weixin.Controllers.WxOpenController">
+            <summary>
+            微信接口
+            </summary>
+        </member>
+        <member name="F:Yuebon.WebApi.Areas.Weixin.Controllers.WxOpenController.Token">
+            <summary>
+            与微信小程序后台的Token设置保持一致，区分大小写。
+            </summary>
+        </member>
+        <member name="F:Yuebon.WebApi.Areas.Weixin.Controllers.WxOpenController.EncodingAESKey">
+            <summary>
+            与微信小程序后台的EncodingAESKey设置保持一致，区分大小写。
+            </summary>
+        </member>
+        <member name="F:Yuebon.WebApi.Areas.Weixin.Controllers.WxOpenController.WxOpenAppId">
+            <summary>
+            与微信小程序后台的AppId设置保持一致，区分大小写。
+            </summary>
+        </member>
+        <member name="F:Yuebon.WebApi.Areas.Weixin.Controllers.WxOpenController.WxOpenAppSecret">
+            <summary>
+            与微信小程序账号后台的AppId设置保持一致，区分大小写。
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Weixin.Controllers.WxOpenController.#ctor(Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Yuebon.Security.IServices.IUserService,Yuebon.Security.IServices.IRoleService)">
+            <summary>
+            
+            </summary>
+            <param name="hostingEnvironment"></param>
+            <param name="_userService"></param>
+            <param name="_roleService"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Weixin.Controllers.WxOpenController.Get(Senparc.Weixin.WxOpen.Entities.Request.PostModel,System.String)">
+            <summary>
+            GET请求用于处理微信小程序后台的URL验证
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Weixin.Controllers.WxOpenController.OnLogin(System.String)">
+            <summary>
+            wx.login登陆成功之后发送的请求
+            </summary>
+            <param name="code"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Weixin.Controllers.WxOpenController.GetOpenId(System.String)">
+            <summary>
+            GetOpenId登陆成功之后发送的请求
+            </summary>
+            <param name="code"></param>
+            <returns>返回openId</returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Weixin.Controllers.WxOpenController.CheckWxOpenSignature(System.String,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="code"></param>
+            <param name="rawData"></param>
+            <param name="signature"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Weixin.Controllers.WxOpenController.DecryptPhoneNumber(System.String,System.String,System.String)">
+            <summary>
+            解密电话号码
+            </summary>
+            <param name="sessionId"></param>
+            <param name="encryptedData"></param>
+            <param name="iv"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Weixin.Controllers.WxOpenController.UpdatePhone(System.String,System.String)">
+            <summary>
+            更新用户电话号码
+            </summary>
+            <param name="sessionId"></param>
+            <param name="tell"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Weixin.Controllers.WxOpenController.DecryptRunData(System.String,System.String,System.String)">
+            <summary>
+            解密运动步数
+            </summary>
+            <param name="sessionId"></param>
+            <param name="encryptedData"></param>
+            <param name="iv"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Weixin.Controllers.WxOpenController.GetQrCode(System.String,System.String,System.String)">
+            <summary>
+            获取二维码
+            </summary>
+            <param name="sessionId"></param>
+            <param name="useBase64"></param>
+            <param name="codeType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Weixin.Controllers.WxOpenController.GetReferralQrCode">
+            <summary>
+            生成分销员二维码
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Weixin.Controllers.WxOpenController.ContentPlayBillQrCode(Yuebon.WebApi.Areas.WeiXin.Models.ContentPlayBillModel)">
+            <summary>
+            生成内容详情海报
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Weixin.Controllers.WxOpenController.ContentWxAppletQrCode(Yuebon.WebApi.Areas.WeiXin.Models.ContentPlayBillModel)">
+            <summary>
+            生成内容详情小程序二维码
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Weixin.Controllers.WxOpenController.ContentWxAppletQrCodeRes(Yuebon.WebApi.Areas.WeiXin.Models.ContentPlayBillModel)">
+            <summary>
+            生成内容详情小程序二维码，返回imgBase64编码
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Weixin.Controllers.WxOpenController.QuikLogin(Yuebon.WeChat.Model.WxUserInfo)">
+            <summary>
+            微信快速（一键）登录
+            用户存在即更新信息，不存在新增
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Weixin.Controllers.WxOpenController.LoginByOpenId(System.String)">
+            <summary>
+            根据OpenId登录
+            </summary>
+            <param name="openId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Weixin.Controllers.WxOpenController.CheckOpenId(System.String)">
+            <summary>
+            检查微信用户的OpenId
+            </summary>
+            <param name="openId"></param>
+            <returns>返回openId</returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Weixin.Controllers.WxOpenController.ValidateUserLogin(System.String)">
+            <summary>
+            根据OpenId验证是否登录
+            </summary>
+            <param name="openId"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Weixin.Controllers.WxOpenController.CheckMsgSecCheck(Yuebon.WebApi.Areas.WeiXin.Models.CheckMsgModel)">
+            <summary>
+            检查一段文本是否含有违法违规内容
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Weixin.Controllers.WxOpenController.ImgSecCheck(System.String)">
+            <summary>
+            校验一张图片是否含有违法违规内容
+            </summary>
+            <param name="filePath">要检测的图片文件，格式支持PNG、JPEG、JPG、GIF，图片尺寸不超过 750px x 1334px</param>
+            <returns></returns>
+        </member>
+        <member name="T:Yuebon.WebApi.Areas.WeiXin.Models.CheckMsgModel">
+            <summary>
+            内容安全校验
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Areas.WeiXin.Models.CheckMsgModel.ContenText">
+            <summary>
+            校验内容
+            </summary>
+        </member>
+        <member name="T:Yuebon.WebApi.Areas.WeiXin.Models.ContentPlayBillModel">
+            <summary>
+            详情页面生成海报传入参数模型
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Areas.WeiXin.Models.ContentPlayBillModel.ContentId">
+            <summary>
+            内容Id
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Areas.WeiXin.Models.ContentPlayBillModel.ContentType">
+            <summary>
+            内容类型art 文章、job职位等
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Areas.WeiXin.Models.ContentPlayBillModel.Title">
+            <summary>
+            内容标题
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Areas.WeiXin.Models.ContentPlayBillModel.Page">
+            <summary>
+            小程序跳转页面
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Areas.WeiXin.Models.ContentPlayBillModel.CenterImg">
+            <summary>
+            二维码中心图片
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Yuebon.WebApi.Areas.WeiXin.Models.ContentPlayBillModel.Scene" -->
+        <member name="P:Yuebon.WebApi.Areas.WeiXin.Models.ContentPlayBillModel.Width">
+            <summary>
+            二维码的宽度，单位 px。最小 280px，最大 1280px，默认480px
+            </summary>
+        </member>
+        <member name="T:Yuebon.WebApi.Program">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Program.Main(System.String[])">
+            <summary>
+            启动程序
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Yuebon.WebApi.Startup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Startup.loggerRepository">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Startup.Configuration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Options.IOptions{Senparc.CO2NET.SenparcSetting},Microsoft.Extensions.Options.IOptions{Senparc.Weixin.Entities.SenparcWeixinSetting})">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+            <param name="senparcSetting"></param>
+            <param name="senparcWeixinSetting"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Startup.InitIoC(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            IoC初始化
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Startup.LoadMoudleApps(Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            加载模块应用
+            </summary>
+            <param name="env"></param>
+        </member>
+    </members>
+</doc>

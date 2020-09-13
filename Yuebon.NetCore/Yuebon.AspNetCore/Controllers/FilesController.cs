@@ -63,6 +63,7 @@ namespace Yuebon.AspNetCore.Controllers
                 {
                     result.ErrCode = "500";
                     result.ErrMsg = ex.Message;
+                    Log4NetHelper.Error("", ex);
                 }
             return ToJsonContent(result);
         }
@@ -85,6 +86,7 @@ namespace Yuebon.AspNetCore.Controllers
             }
             catch (Exception ex)
             {
+                Log4NetHelper.Error("", ex);
                 result.ErrCode = "500";
                 result.ErrMsg = ex.Message;
             }
@@ -101,37 +103,34 @@ namespace Yuebon.AspNetCore.Controllers
         public IActionResult DeleteFile(string id)
         {
             CommonResult result = new CommonResult();
-            result = CheckToken();
-            if (result.Success)
+            try
             {
-                try
+                UploadFile uploadFile = new UploadFileApp().Get(id);
+
+                YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+                SysSetting sysSetting = JsonConvert.DeserializeObject<SysSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
+                if (uploadFile != null)
                 {
-                    UploadFile uploadFile = new UploadFileApp().Get(id);
+                    if (System.IO.File.Exists(sysSetting.LocalPath + "/" + uploadFile.FilePath))
+                        System.IO.File.Delete(sysSetting.LocalPath + "/" + uploadFile.FilePath);
+                    if (System.IO.File.Exists(sysSetting.LocalPath + "/" + uploadFile.Thumbnail))
+                        System.IO.File.Delete(sysSetting.LocalPath + "/" + uploadFile.Thumbnail);
 
-                    YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                    SysSetting sysSetting = JsonConvert.DeserializeObject<SysSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
-                    if (uploadFile!=null)
-                    {
-                        if (System.IO.File.Exists(sysSetting.LocalPath+"/"+uploadFile.FilePath))
-                            System.IO.File.Delete(sysSetting.LocalPath + "/" + uploadFile.FilePath);
-                        if (System.IO.File.Exists(sysSetting.LocalPath + "/" + uploadFile.Thumbnail))
-                            System.IO.File.Delete(sysSetting.LocalPath + "/" + uploadFile.Thumbnail);
-
-                        result.ErrCode = ErrCode.successCode;
-                        result.Success = true;
-                    }
-                    else
-                    {
-                        result.ErrCode = ErrCode.failCode;
-                        result.Success = false;
-                    }
-
+                    result.ErrCode = ErrCode.successCode;
+                    result.Success = true;
                 }
-                catch (Exception ex)
+                else
                 {
-                    result.ErrCode = "500";
-                    result.ErrMsg = ex.Message;
+                    result.ErrCode = ErrCode.failCode;
+                    result.Success = false;
                 }
+
+            }
+            catch (Exception ex)
+            {
+                Log4NetHelper.Error("", ex);
+                result.ErrCode = "500";
+                result.ErrMsg = ex.Message;
             }
             return ToJsonContent(result);
         }

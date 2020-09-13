@@ -13,11 +13,12 @@ using Yuebon.Authorizer.Dtos;
 using Yuebon.Authorizer.Models;
 using Yuebon.Authorizer.IServices;
 using Yuebon.Commons.Encrypt;
+using Yuebon.AspNetCore.Mvc;
 
 namespace Yuebon.WebApi.Areas.Authorizer.Controllers
 {
     /// <summary>
-    /// 接口
+    /// 软件授权注册和验证接口
     /// </summary>
     [ApiController]
     [Route("api/Authorizer/[controller]")]
@@ -76,6 +77,8 @@ namespace Yuebon.WebApi.Areas.Authorizer.Controllers
         /// 根据机器特征码获取注册序列号
         /// </summary>
         /// <param name="machineCode">机器特征码</param>
+        [HttpPost("GetRegCode")]
+        [YuebonAuthorize("Edit")]
         public IActionResult GetRegCode(string machineCode)
         {
             CommonResult result = new CommonResult();

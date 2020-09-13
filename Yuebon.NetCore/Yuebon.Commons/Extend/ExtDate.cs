@@ -67,12 +67,12 @@ namespace Yuebon.Commons.Extend
         {
             DateTime now = DateTime.Now;
             if (value < now) return "已过期";
-            TimeSpan dep = value-now;
+            TimeSpan dep = value - now;
 
             if (dep.TotalMinutes < 60)
             {
                 return (int)dep.TotalMinutes + " 分钟后";
-            }            
+            }
             else if (dep.TotalHours < 24)
             {
                 return (int)dep.TotalHours + " 小时后";
@@ -90,7 +90,7 @@ namespace Yuebon.Commons.Extend
                     defautlWeek++;
                 }
                 return defautlWeek + " 个月后";
-            }            
+            }
             else if (dep.TotalDays > 90 && dep.TotalDays < 365)
             {
                 return value.Month.ToString().PadLeft(2, '0') + "-" +
@@ -100,7 +100,7 @@ namespace Yuebon.Commons.Extend
         }
 
         /// <summary>
-        /// 
+        /// 格式：几秒、几分钟几秒、几小时几分钟几秒
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -138,7 +138,7 @@ namespace Yuebon.Commons.Extend
             }
 
 
-            
+
         }
         /// <summary>
         /// 
@@ -160,5 +160,81 @@ namespace Yuebon.Commons.Extend
             if (value.HasValue) return value.Value.ToEasyStringDQ();
             else return string.Empty;
         }
+
+        /// <summary>
+        /// 计算日期间隔
+        /// </summary>
+        /// <param name="d1">要参与计算的其中一个日期</param>
+        /// <param name="d2">要参与计算的另一个日期</param>
+        /// <param name="drf">决定返回值形式的枚举</param>
+        /// <returns>一个代表年月日的int数组，具体数组长度与枚举参数drf有关</returns>
+        public static int[] toResult(DateTime d1, DateTime d2, diffResultFormat drf)
+        {
+            #region 数据初始化
+            DateTime max;
+            DateTime min;
+            int year;
+            int month;
+            int tempYear, tempMonth;
+            if (d1 > d2)
+            {
+                max = d1;
+                min = d2;
+            }
+            else
+            {
+                max = d2;
+                min = d1;
+            }
+            tempYear = max.Year;
+            tempMonth = max.Month;
+            if (max.Month < min.Month)
+            {
+                tempYear--;
+                tempMonth = tempMonth + 12;
+            }
+            year = tempYear - min.Year;
+            month = tempMonth - min.Month;
+            #endregion
+            #region 按条件计算
+            if (drf == diffResultFormat.dd)
+            {
+                TimeSpan ts = max - min;
+                return new int[] { ts.Days };
+            }
+            if (drf == diffResultFormat.mm)
+            {
+                return new int[] { month + year * 12 };
+            }
+            if (drf == diffResultFormat.yy)
+            {
+                return new int[] { year };
+            }
+            return new int[] { year, month };
+            #endregion
+        }
+    }
+
+    /// <summary>
+    /// 关于返回值形式的枚举
+    /// </summary>
+    public enum diffResultFormat
+    {
+        /// <summary>
+        /// 年数和月数
+        /// </summary>
+        yymm,
+        /// <summary>
+        /// 年数
+        /// </summary>
+        yy,
+        /// <summary>
+        /// 月数
+        /// </summary>
+        mm,
+        /// <summary>
+        /// 天数
+        /// </summary>
+        dd,
     }
 }

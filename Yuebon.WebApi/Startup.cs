@@ -425,8 +425,5 @@ namespace Yuebon.WebApi
                 groups.ForEach(mvcBuilder.AddApplicationPart);
             }
         }
-
-
-
     }
 }

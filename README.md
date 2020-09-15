@@ -185,9 +185,9 @@ DataBase是最新数据库备份文件，目前支持MS SQL Server和MySql。
 
 欢迎你加入我们一起共商、共建、共享技术成果！开源让我们进步，开源让我们开阔视野！
 
-有任何疑问可加微信咨询，直接扫码加入
+有任何疑问可加微信咨询，微信二维码如下，添加时请备注 “gitee”
 
-![微信二维码，添加请备注 gitee](https://images.gitee.com/uploads/images/2020/0915/120702_f1c8e303_1017224.jpeg "微信图片_20200915120640.jpg")
+![微信二维码](https://images.gitee.com/uploads/images/2020/0915/120702_f1c8e303_1017224.jpeg "微信图片_20200915120640.jpg")
 
 ### 帮助[请查看](https://gitee.com/yuebon/YuebonNetCore/wikis/%E9%A1%B9%E7%9B%AE%E7%AE%80%E4%BB%8B)
 

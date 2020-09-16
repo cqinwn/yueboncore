@@ -55,7 +55,7 @@ namespace Yuebon.Security.Dtos
         public bool? IsPublic { get; set; }
 
         /// <summary>
-        /// 设置或获取 
+        /// 设置或获取 是否允许编辑
         /// </summary>
         public bool? AllowEdit { get; set; }
 
@@ -73,6 +73,11 @@ namespace Yuebon.Security.Dtos
         /// 设置或获取 
         /// </summary>
         public bool EnabledMark { get; set; }
+        /// <summary>
+        /// 设置或获取 是否批量新增功能
+        /// </summary>
+        public bool IsBatch { get; set; }
+        
 
         /// <summary>
         /// 设置或获取 

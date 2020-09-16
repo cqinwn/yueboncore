@@ -56,6 +56,11 @@ namespace Yuebon.Security.Dtos
             CreateMap<FilterIP, FilterIPOutputDto>();
             CreateMap<FilterIPInputDto, FilterIP>();
             CreateMap<SysSetting, SysSettingOutputDto>();
+
+            CreateMap<Sequence, SequenceOutputDto>();
+            CreateMap<SequenceInputDto, Sequence>();
+            CreateMap<SequenceRule, SequenceRuleOutputDto>();
+            CreateMap<SequenceRuleInputDto, SequenceRule>();
         }
     }
 }

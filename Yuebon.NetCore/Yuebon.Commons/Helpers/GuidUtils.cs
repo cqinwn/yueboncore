@@ -19,7 +19,7 @@ namespace Yuebon.Commons.Helpers
             return Guid.NewGuid().ToString();
         }
         /// <summary>
-        /// 自动生成编号/唯一订单号生成  201808251145409865
+        /// 自动生成编号/唯一订单号生成，时间戳+随机数，时间戳精确到毫秒，形如201807081618268678899
         /// </summary>
         /// <returns></returns>
         public static string CreateNo()
@@ -29,7 +29,6 @@ namespace Yuebon.Commons.Helpers
             string code = DateTime.Now.ToString("yyyyMMddHHmmssffff") + strRandom;//形如2018070116182686788
             return code;
         }
-
         #endregion
         /// <summary>  
         /// 获取一个大写的字符串  

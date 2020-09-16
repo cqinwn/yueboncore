@@ -6,7 +6,7 @@
     <members>
         <member name="T:Yuebon.WebApi.Areas.Authorizer.Controllers.RegistryCodeController">
             <summary>
-            接口
+            软件授权注册和验证接口
             </summary>
         </member>
         <member name="M:Yuebon.WebApi.Areas.Authorizer.Controllers.RegistryCodeController.#ctor(Yuebon.Authorizer.IServices.IRegistryCodeService)">
@@ -1204,6 +1204,75 @@
             加载模块应用
             </summary>
             <param name="env"></param>
+        </member>
+        <member name="T:Yuebon.SecurityApi.Areas.Security.Controllers.SequenceController">
+            <summary>
+            单据编码接口
+            </summary>
+        </member>
+        <member name="M:Yuebon.SecurityApi.Areas.Security.Controllers.SequenceController.#ctor(Yuebon.Security.IServices.ISequenceService)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="_iService"></param>
+        </member>
+        <member name="M:Yuebon.SecurityApi.Areas.Security.Controllers.SequenceController.OnBeforeInsert(Yuebon.Security.Models.Sequence)">
+            <summary>
+            新增前处理数据
+            </summary>
+            <param name="info"></param>
+        </member>
+        <member name="M:Yuebon.SecurityApi.Areas.Security.Controllers.SequenceController.OnBeforeUpdate(Yuebon.Security.Models.Sequence)">
+            <summary>
+            在更新数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.SecurityApi.Areas.Security.Controllers.SequenceController.OnBeforeSoftDelete(Yuebon.Security.Models.Sequence)">
+            <summary>
+            在软删除数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.SecurityApi.Areas.Security.Controllers.SequenceController.InsertOrUpdateAsync(Yuebon.Security.Dtos.SequenceInputDto)">
+            <summary>
+            异步新增或修改数据
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Yuebon.SecurityApi.Areas.Security.Controllers.SequenceRuleController">
+            <summary>
+            序号编码规则表接口
+            </summary>
+        </member>
+        <member name="M:Yuebon.SecurityApi.Areas.Security.Controllers.SequenceRuleController.#ctor(Yuebon.Security.IServices.ISequenceRuleService)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="_iService"></param>
+        </member>
+        <member name="M:Yuebon.SecurityApi.Areas.Security.Controllers.SequenceRuleController.OnBeforeInsert(Yuebon.Security.Models.SequenceRule)">
+            <summary>
+            新增前处理数据
+            </summary>
+            <param name="info"></param>
+        </member>
+        <member name="M:Yuebon.SecurityApi.Areas.Security.Controllers.SequenceRuleController.OnBeforeUpdate(Yuebon.Security.Models.SequenceRule)">
+            <summary>
+            在更新数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.SecurityApi.Areas.Security.Controllers.SequenceRuleController.OnBeforeSoftDelete(Yuebon.Security.Models.SequenceRule)">
+            <summary>
+            在软删除数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
         </member>
     </members>
 </doc>

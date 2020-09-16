@@ -54,6 +54,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             {
                 info.SortCode = 99;
             }
+            
             if (string.IsNullOrEmpty(info.ParentId))
             {
                 info.Layers = 1;
@@ -100,8 +101,116 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.DeleteTime = DateTime.Now;
             info.DeleteUserId = CurrentUser.UserId;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        [HttpPost("Insert")]
+        [YuebonAuthorize("Add")]
+        public override async Task<IActionResult> InsertAsync(FunctionInputDto info)
+        {
+            CommonResult result = new CommonResult();
+            Function function = info.MapTo<Function>();
+            long ln = 0;
+            if (info.IsBatch)
+            {
+                string strEnCode = info.EnCode;
+                Function listInfo = new Function();
+                listInfo = function;
+                listInfo.FullName = info.FullName + "列表";
+                listInfo.EnCode = strEnCode + "/List";
+                listInfo.Icon = "";
+                OnBeforeInsert(listInfo);
+                string listId = listInfo.Id;
+                ln = iService.Insert(listInfo);
+
+                Function addInfo = new Function();
+                addInfo = function;
+                addInfo.Id = GuidUtils.CreateNo();
+                addInfo.FullName = "新增";
+                addInfo.EnCode = strEnCode + "/Add";
+                addInfo.ParentId = listId;
+                addInfo.Icon = "el-icon-plus";
+                addInfo.SortCode = 1;
+                OnBeforeInsert(addInfo);
+                ln = iService.Insert(addInfo);
+
+                Function editnfo = new Function();
+                editnfo = function;
+                editnfo.Id = GuidUtils.CreateNo();
+                editnfo.FullName = "修改";
+                editnfo.EnCode = strEnCode + "/Edit";
+                editnfo.ParentId = listId;
+                editnfo.Icon = "el-icon-edit";
+                editnfo.SortCode = 2;
+                OnBeforeInsert(editnfo);
+                ln = iService.Insert(editnfo);
 
 
+                Function enableInfo = new Function();
+                enableInfo = function;
+                enableInfo.Id = GuidUtils.CreateNo();
+                enableInfo.FullName = "禁用";
+                enableInfo.EnCode = strEnCode + "/Enable";
+                enableInfo.ParentId = listId;
+                enableInfo.Icon = "el-icon-video-pause";
+                enableInfo.SortCode = 3;
+                OnBeforeInsert(enableInfo);
+                ln = iService.Insert(enableInfo);
+
+
+                Function enableInfo1 = new Function();
+                enableInfo1 = function;
+                enableInfo1.Id = GuidUtils.CreateNo();
+                enableInfo1.FullName = "启用";
+                enableInfo1.EnCode = strEnCode + "/Enable";
+                enableInfo1.ParentId = listId;
+                enableInfo1.Icon = "el-icon-video-play";
+                enableInfo1.SortCode = 4;
+                OnBeforeInsert(enableInfo1);
+                ln = iService.Insert(enableInfo1);
+
+
+                Function deleteSoftInfo = new Function();
+                deleteSoftInfo = function;
+                deleteSoftInfo.Id = GuidUtils.CreateNo();
+                deleteSoftInfo.FullName = "软删除";
+                deleteSoftInfo.EnCode = strEnCode + "/DeleteSoft";
+                deleteSoftInfo.ParentId = listId;
+                deleteSoftInfo.Icon = "el-icon-delete";
+                deleteSoftInfo.SortCode = 5;
+                OnBeforeInsert(deleteSoftInfo);
+                ln = iService.Insert(deleteSoftInfo);
+
+
+                Function deleteInfo = new Function();
+                deleteInfo = function;
+                deleteInfo.Id = GuidUtils.CreateNo();
+                deleteInfo.FullName = "删除";
+                deleteInfo.EnCode = strEnCode + "/Delete";
+                deleteInfo.ParentId = listId;
+                deleteInfo.Icon = "el-icon-delete";
+                deleteInfo.SortCode = 6;
+                OnBeforeInsert(deleteInfo);
+                ln = iService.Insert(deleteInfo);
+            }
+            else
+            {
+                OnBeforeInsert(function);
+                ln = await iService.InsertAsync(function);
+            }
+
+            if (ln >= 0)
+            {
+                result.Success = true;
+            }
+            else
+            {
+                result.ErrCode = "43001";
+            }
+            return ToJsonContent(result);
+        }
         /// <summary>
         /// 异步更新数据
         /// </summary>

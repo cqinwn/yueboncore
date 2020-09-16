@@ -12,7 +12,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <IsPackable>true</IsPackable>
     <PackageLicenseExpression />
-    <Version>1.3.1.22</Version>
+    <Version>1.3.1.23</Version>
     <PackageReleaseNotes>兼容最新版Yuebon.Security.Core</PackageReleaseNotes>
     <RunAnalyzersDuringLiveAnalysis>true</RunAnalyzersDuringLiveAnalysis>
     <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>

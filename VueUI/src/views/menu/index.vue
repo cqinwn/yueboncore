@@ -247,7 +247,7 @@
           <el-input v-model="editFunctionFrom.FullName" placeholder="请输入功能名称" autocomplete="off" clearable />
         </el-form-item>
         <el-form-item label="功能编码" :label-width="formLabelWidth" prop="EnCode">
-          <el-input v-model="editFunctionFrom.EnCode" placeholder="请输入功能编码" autocomplete="off" clearable />
+          <el-input v-model="editFunctionFrom.EnCode" placeholder="请输入功能编码，批量添加时仅填写控制器名称即可" autocomplete="off" clearable />
         </el-form-item>
         <el-form-item label="所属系统" :label-width="formLabelWidth" prop="SystemTypeId">
           <el-select v-model="selectSystemTypeId" clearable placeholder="请选择" @change="handleFunSystemTypeChange">
@@ -274,6 +274,13 @@
         </el-form-item>
         <el-form-item label="排序" :label-width="formLabelWidth" prop="SortCode">
           <el-input v-model.number="editFunctionFrom.SortCode" placeholder="请输入排序,默认为99" autocomplete="off" clearable />
+        </el-form-item>
+        <el-form-item label="批量新增" :label-width="formLabelWidth" prop="IsBatch">
+          <el-radio-group v-model="editFunctionFrom.IsBatch">
+            <el-radio label="true">是</el-radio>
+            <el-radio label="false">否</el-radio>
+          </el-radio-group>
+          <el-link disabled>批量添加时，功能编码填写控制器名称即可</el-link>
         </el-form-item>
         <el-form-item label="是否启用" :label-width="formLabelWidth" prop="enable">
           <el-radio-group v-model="editFunctionFrom.EnabledMark">
@@ -368,6 +375,7 @@ export default {
         Icon: '',
         UrlAddress: '',
         EnabledMark: 'true',
+        IsBatch: 'false',
         SortCode: 99
       },
       rulesfun: {
@@ -470,7 +478,6 @@ export default {
      * 添加模块式选择菜单
      */
     handleMenuChange: function() {
-      console.log(this.selectedMenuOptions)
       if (this.currentMenuId === this.selectedMenuOptions) {
         this.$alert('不能选择自己作为父级', '提示')
         this.selectedMenuOptions = ''
@@ -700,6 +707,7 @@ export default {
             'ParentId': this.editFunctionFrom.ParentId,
             'Icon': this.editFunctionFrom.Icon,
             'UrlAddress': this.editFunctionFrom.UrlAddress,
+            'IsBatch': this.editFunctionFrom.IsBatch,
             'EnabledMark': this.editFunctionFrom.EnabledMark,
             'SortCode': this.editFunctionFrom.SortCode,
             'Id': this.currentId

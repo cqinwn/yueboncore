@@ -45,8 +45,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
         /// <param name="info"></param>
         protected override void OnBeforeInsert(Sequence info)
         {
-            //info.Id = GuidUtils.CreateNo();
-            info.Id = iService.GetSequenceNext("OutStockSN").Result.ResData.ToString();
+            info.Id = GuidUtils.CreateNo();
             info.CreatorTime=info.LastModifyTime = DateTime.Now;
             info.CreatorUserId = info.LastModifyUserId= CurrentUser.UserId;
             info.CurrentNo = 0;

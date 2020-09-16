@@ -245,6 +245,13 @@
             <param name="info"></param>
             <returns></returns>
         </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.FunctionController.InsertAsync(Yuebon.Security.Dtos.FunctionInputDto)">
+            <summary>
+            
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
         <member name="M:Yuebon.WebApi.Areas.Security.Controllers.FunctionController.UpdateAsync(Yuebon.Security.Dtos.FunctionInputDto,System.String)">
             <summary>
             异步更新数据
@@ -1243,6 +1250,13 @@
             <param name="info"></param>
             <returns></returns>
         </member>
+        <member name="M:Yuebon.SecurityApi.Areas.Security.Controllers.SequenceController.FindWithPagerAsync(Yuebon.AspNetCore.UI.SearchModel)">
+            <summary>
+            分页查询
+            </summary>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
         <member name="T:Yuebon.SecurityApi.Areas.Security.Controllers.SequenceRuleController">
             <summary>
             序号编码规则表接口
@@ -1272,6 +1286,20 @@
             在软删除数据前对数据的修改操作
             </summary>
             <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.SecurityApi.Areas.Security.Controllers.SequenceRuleController.InsertOrUpdateAsync(Yuebon.Security.Dtos.SequenceRuleInputDto)">
+            <summary>
+            异步新增或修改数据
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.SecurityApi.Areas.Security.Controllers.SequenceRuleController.FindWithPagerAsync(Yuebon.AspNetCore.UI.SearchModel)">
+            <summary>
+            分页查询
+            </summary>
+            <param name="search"></param>
             <returns></returns>
         </member>
     </members>

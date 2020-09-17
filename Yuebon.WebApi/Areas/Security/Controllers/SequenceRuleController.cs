@@ -103,7 +103,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
                 }
                 SequenceRule sequence = new SequenceRule();
                 sequence = info.MapTo<SequenceRule>();
-                if (string.IsNullOrEmpty(info.PaddingChar))
+                if (!string.IsNullOrEmpty(info.PaddingChar))
                 {
                     sequence.PaddingChar = info.PaddingChar.ToCharArray()[0];
                 }
@@ -127,7 +127,10 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
                 sequenceRule.RuleValue = info.RuleValue;
                 sequenceRule.PaddingSide = info.PaddingSide;
                 sequenceRule.PaddingWidth = info.PaddingWidth;
-                sequenceRule.PaddingChar = info.PaddingChar.ToCharArray()[0];
+                if (!string.IsNullOrEmpty(info.PaddingChar))
+                {
+                    sequenceRule.PaddingChar = info.PaddingChar.ToCharArray()[0];
+                }
                 sequenceRule.EnabledMark = info.EnabledMark;
                 sequenceRule.Description = info.Description;
                 OnBeforeUpdate(sequenceRule);

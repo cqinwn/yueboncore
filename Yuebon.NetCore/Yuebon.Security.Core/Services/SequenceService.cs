@@ -9,6 +9,7 @@ using Yuebon.Commons.Models;
 using System.Collections.Generic;
 using System.Linq;
 using Yuebon.Commons.Extensions;
+using Yuebon.Commons.Helpers;
 
 namespace Yuebon.Security.Services
 {
@@ -158,6 +159,9 @@ namespace Yuebon.Security.Services
                                 sequenceNewNo += NumberingSeqRule(item, num).ToString();
                                 //更新当前序号, 当前序号+步长 
                                 sequence.CurrentNo += sequence.Step;
+                                break;
+                            case "guid"://Guid
+                                sequenceNewNo += GuidUtils.NewGuidFormatN(); 
                                 break;
                         }
                         if (!string.IsNullOrEmpty(sequence.SequenceDelimiter) && delimiterNum != list.Count())

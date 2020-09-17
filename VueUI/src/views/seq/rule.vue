@@ -84,14 +84,14 @@
         @sort-change="handleSortChange"
       >
         <el-table-column type="selection" width="30" />
-        <el-table-column prop="SequenceName" label="业务单据名称" sortable="custom" width="140" />
+        <el-table-column prop="SequenceName" label="业务单据名称" sortable="custom" width="180" />
         <el-table-column prop="RuleOrder" label="排序" width="80" />
-        <el-table-column prop="RuleType" label="规则类型" sortable="custom" width="120">
+        <el-table-column prop="RuleType" label="规则类型" sortable="custom" width="140">
           <template slot-scope="scope">
             <slot v-if="scope.row.RuleType==='const'">常量</slot>
             <slot v-else-if="scope.row.RuleType==='number'">计数</slot>
-            <slot v-else-if="scope.row.RuleType==='date'">日期型(yyMMdd)</slot>
-            <slot v-else-if="scope.row.RuleType==='shortdate'">日期型(yyyyMMdd)</slot>
+            <slot v-else-if="scope.row.RuleType==='date'">日期型(yyyyMMdd)</slot>
+            <slot v-else-if="scope.row.RuleType==='shortdate'">日期型(yyMMdd)</slot>
             <slot v-else-if="scope.row.RuleType==='timestamp'">日期时间型</slot>
             <slot v-else-if="scope.row.RuleType==='guid'">Guid</slot>
           </template>
@@ -287,11 +287,11 @@ export default {
         value: 'number',
         label: '计数'
       }, {
-        value: 'date(yyMMdd)',
-        label: '日期'
+        value: 'date',
+        label: '日期(yyyyMMdd)'
       }, {
         value: 'shortdate',
-        label: '日期(yyyyMMdd)'
+        label: '日期(yyMMdd)'
       }, {
         value: 'timestamp',
         label: '日期时间'

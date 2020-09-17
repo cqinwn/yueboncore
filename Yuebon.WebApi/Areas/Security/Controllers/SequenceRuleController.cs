@@ -103,6 +103,10 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
                 }
                 SequenceRule sequence = new SequenceRule();
                 sequence = info.MapTo<SequenceRule>();
+                if (string.IsNullOrEmpty(info.PaddingChar))
+                {
+                    sequence.PaddingChar = info.PaddingChar.ToCharArray()[0];
+                }
                 OnBeforeInsert(sequence);
                 long ln = await iService.InsertAsync(sequence).ConfigureAwait(true);
                 result.Success = ln > 0;
@@ -123,7 +127,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
                 sequenceRule.RuleValue = info.RuleValue;
                 sequenceRule.PaddingSide = info.PaddingSide;
                 sequenceRule.PaddingWidth = info.PaddingWidth;
-                sequenceRule.PaddingChar = info.PaddingChar;
+                sequenceRule.PaddingChar = info.PaddingChar.ToCharArray()[0];
                 sequenceRule.EnabledMark = info.EnabledMark;
                 sequenceRule.Description = info.Description;
                 OnBeforeUpdate(sequenceRule);

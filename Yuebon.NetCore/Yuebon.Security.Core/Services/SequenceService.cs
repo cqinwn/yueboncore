@@ -33,7 +33,7 @@ namespace Yuebon.Security.Services
         /// </summary>
         /// <param name="sequenceName">业务单据编码名称</param>
         /// <returns></returns>
-        public async Task<CommonResult> GetSequenceNext(string sequenceName)
+        public async Task<CommonResult> GetSequenceNextTask(string sequenceName)
         {
 
             CommonResult result = new CommonResult();
@@ -62,7 +62,10 @@ namespace Yuebon.Security.Services
                             case "const"://常量方式
                                 sequenceNewNo += item.RuleValue;
                                 break;
-                            case "date"://日期
+                            case "shortdate"://短日期 年2位月2位日期2位
+                                sequenceNewNo += DateTime.Now.ToString("yyMMdd");
+                                break;
+                            case "date"://日期，年4位
                                 sequenceNewNo += DateTime.Now.ToString("yyyyMMdd");
                                 break;
                             case "timestamp"://日期时间精确到毫秒
@@ -86,6 +89,87 @@ namespace Yuebon.Security.Services
                     sequence.CurrentCode = sequenceNewNo;
                     sequence.CurrentReset = DateTime.Now.ToString("yyyyMMdd");
                     await _repository.UpdateAsync(sequence, sequence.Id);
+                    result.ResData = sequenceNewNo;
+                    result.Success = true;
+                }
+                else
+                {
+                    result.Success = false;
+                    result.ErrMsg = "未查询到业务编码对应的编码规则配置, 请检查编码规则配置";
+                    return result;
+                }
+            }
+            else
+            {
+                result.Success = false;
+                result.ErrMsg = "请定义" + sequenceName + "的单据编码！";
+                return result;
+            }
+            #endregion
+            return result;
+        }
+
+        /// <summary>
+        /// 获取最新业务单据编码
+        /// </summary>
+        /// <param name="sequenceName">业务单据编码名称</param>
+        /// <returns></returns>
+        public CommonResult GetSequenceNext(string sequenceName)
+        {
+
+            CommonResult result = new CommonResult();
+            //生成编号   
+            string sequenceNewNo = "";
+            #region 获取序号生成器属性
+            if (string.IsNullOrWhiteSpace(sequenceName))
+            {
+                result.ErrMsg = "参数错误：业务编码编号";
+                return result;
+            }
+            //获取序号生成器属性
+            Sequence sequence = _repository.GetWhere("SequenceName='" + sequenceName + "'");
+            if (sequence != null)
+            {
+                IEnumerable<SequenceRule> list = _repositoryRule.GetListWhere("SequenceName='" + sequenceName + "' order by RuleOrder asc");
+                if (list.Count() > 0)
+                {
+                    int delimiterNum = 0;
+                    foreach (SequenceRule item in list)
+                    {
+                        delimiterNum++;
+
+                        switch (item.RuleType)
+                        {
+                            case "const"://常量方式
+                                sequenceNewNo += item.RuleValue;
+                                break;
+                            case "shortdate"://短日期 年2位月2位日期2位
+                                sequenceNewNo += DateTime.Now.ToString("yyMMdd");
+                                break;
+                            case "date"://日期，年4位
+                                sequenceNewNo += DateTime.Now.ToString("yyyyMMdd");
+                                break;
+                            case "timestamp"://日期时间精确到毫秒
+                                sequenceNewNo += DateTime.Now.ToString("yyyyMMddHHmmssffff");
+                                break;
+                            case "number"://计数，流水号
+                                int num = CurrentReset(sequence, item);
+                                //计数拼接
+                                sequenceNewNo += NumberingSeqRule(item, num).ToString();
+                                //更新当前序号, 当前序号+步长 
+                                sequence.CurrentNo += sequence.Step;
+                                break;
+                        }
+                        if (!string.IsNullOrEmpty(sequence.SequenceDelimiter) && delimiterNum != list.Count())
+                        {
+                            sequenceNewNo += sequence.SequenceDelimiter;
+                        }
+
+                    }
+                    //当前编号
+                    sequence.CurrentCode = sequenceNewNo;
+                    sequence.CurrentReset = DateTime.Now.ToString("yyyyMMdd");
+                   _repository.Update(sequence, sequence.Id);
                     result.ResData = sequenceNewNo;
                     result.Success = true;
                 }

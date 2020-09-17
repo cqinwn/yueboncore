@@ -17,6 +17,12 @@ namespace Yuebon.Security.IServices
         /// </summary>
         /// <param name="sequenceName">业务单据编码名称</param>
         /// <returns></returns>
-        Task<CommonResult> GetSequenceNext(string sequenceName);
+        Task<CommonResult> GetSequenceNextTask(string sequenceName);
+        /// <summary>
+        /// 获取最新业务单据编码
+        /// </summary>
+        /// <param name="sequenceName">业务单据编码名称</param>
+        /// <returns></returns>
+       CommonResult GetSequenceNext(string sequenceName);
     }
 }

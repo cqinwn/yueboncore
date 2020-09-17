@@ -4,9 +4,17 @@ using Yuebon.Commons.Json;
 
 namespace Yuebon.Commons.Tree
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class TreeView
     {
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
         public static string TreeViewJson(this List<TreeViewModel> data, string parentId = "")
         {
             StringBuilder strJson = new StringBuilder();

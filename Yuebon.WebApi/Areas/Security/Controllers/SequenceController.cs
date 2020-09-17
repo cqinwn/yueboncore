@@ -14,6 +14,7 @@ using Yuebon.Security.Models;
 using Yuebon.Security.IServices;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.UI;
+using Yuebon.Security.Application;
 
 namespace Yuebon.SecurityApi.Areas.Security.Controllers
 {
@@ -46,8 +47,10 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
         protected override void OnBeforeInsert(Sequence info)
         {
             info.Id = GuidUtils.CreateNo();
+            
             info.CreatorTime=info.LastModifyTime = DateTime.Now;
             info.CreatorUserId = info.LastModifyUserId= CurrentUser.UserId;
+            
             info.CurrentNo = 0;
             info.CurrentReset = "";
             info.DeleteMark = false;
@@ -106,6 +109,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
                 }
                 Sequence sequence = new Sequence();
                 sequence = info.MapTo<Sequence>();
+
                 OnBeforeInsert(sequence);
                 long ln = await iService.InsertAsync(sequence).ConfigureAwait(true);
                 result.Success = ln > 0;

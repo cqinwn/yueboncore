@@ -5,32 +5,17 @@
 
 ### 更新日志
 
-##### 2020年5月
-1、优化AutoFac容器
-
-2、新增统计某个字段之和的方法GetSumValueByFieldAsync()
-
-3、优化异常和多表事务操作
-
-4、优化拨打电话短信通知
-
-5、修复MVC数据脚本错误 
-
-感谢@360528197[冬天](https://gitee.com/360528197)反馈
-
-##### 2020年4月
-
-1、vue版在yysql数据库通过，感谢@cuijianhao_admin[催催啊](https://gitee.com/cuijianhao_admin)提供mysql测试环境
-
-2、修复mvc版本的bug
-
-3、修复修改密码bug和新增跨域访问请求连接可配置，提高安全性，具体请见[跨域访问设置](https://gitee.com/yuebon/YuebonNetCore/wikis/%E8%B7%A8%E5%9F%9F%E8%AE%BF%E9%97%AE%E8%AE%BE%E7%BD%AE?sort_id=2157923)
-
-4、实现vue版的多系统独立部署的系统切换
-
-5、近期将发布相关文档，请到QQ群90311523 下载，在文末有群二维码
+##### 近期更新
+1、新增业务单据编码规则，实现单据编码自定义规则
+2、优化批量处理方法
+3、升级到最新.netcore sdk 3.1.8
 
 更多更新日志 [点击查看](https://gitee.com/yuebon/YuebonNetCore/wikis/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97?sort_id=1983111)
+
+##### 新计划
+1、完善软件注册授权模块
+
+
 
 ### 概述
 YuebonCore FW是基于.NetCore3.1开发的权限管理及快速开发框架，整合应用最新技术包括Asp.NetCore MVC、Dapper、AutoFac、WebAPI、Swagger、Json.Net、IdentityServer4等，核心模块包括：组织机构、角色用户、权限授权、多系统、多应用管理等。它的架构易于扩展，是中小企业的优选。

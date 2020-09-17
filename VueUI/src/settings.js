@@ -35,9 +35,9 @@ module.exports = {
    * 动态可访问路由
    */
   addRouters: {},
-  apiHostUrl: 'http://192.168.0.106:809/api/', // 基础接口
-  apiWSecurityUrl: 'http://192.168.0.106:809/api/Security/', // 权限管理系统接口
-  fileUrl: 'http://192.168.0.106:809/', // 文件访问路径
-  fileUploadUrl: 'http://192.168.0.106:809/api/Files/Upload'// 文件上传路径
+  apiHostUrl: 'http://192.168.1.106:809/api/', // 基础接口
+  apiWSecurityUrl: 'http://192.168.1.106:809/api/Security/', // 权限管理系统接口
+  fileUrl: 'http://192.168.1.106:809/', // 文件访问路径
+  fileUploadUrl: 'http://192.168.1.106:809/api/Files/Upload'// 文件上传路径
 
 }

@@ -334,72 +334,14 @@ namespace Yuebon.Commons.Cache
         }
         #endregion
 
-
+        /// <summary>
+        /// 
+        /// </summary>
         public void Dispose()
         {
             if (_cache != null)
                 _cache.Dispose();
             GC.SuppressFinalize(this);
-        }
-
-        public Task<bool> ExistsAsync(string key)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> AddAsync(string key, object value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> AddAsync(string key, object value, TimeSpan expiresSliding, TimeSpan expiressAbsoulte)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> AddAsync(string key, object value, TimeSpan expiresIn, bool isSliding = false)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> RemoveAsync(string key)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task RemoveAllAsync(IEnumerable<string> keys)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<T> GetAsync<T>(string key) where T : class
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<object> GetAsync(string key)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IDictionary<string, object>> GetAllAsync(IEnumerable<string> keys)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> ReplaceAsync(string key, object value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> ReplaceAsync(string key, object value, TimeSpan expiresSliding, TimeSpan expiressAbsoulte)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> ReplaceAsync(string key, object value, TimeSpan expiresIn, bool isSliding = false)
-        {
-            throw new NotImplementedException();
         }
     }
 }

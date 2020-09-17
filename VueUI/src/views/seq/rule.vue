@@ -90,7 +90,8 @@
           <template slot-scope="scope">
             <slot v-if="scope.row.RuleType==='const'">常量</slot>
             <slot v-else-if="scope.row.RuleType==='number'">计数</slot>
-            <slot v-else-if="scope.row.RuleType==='date'">日期型</slot>
+            <slot v-else-if="scope.row.RuleType==='date'">日期型(yyMMdd)</slot>
+            <slot v-else-if="scope.row.RuleType==='shortdate'">日期型(yyyyMMdd)</slot>
             <slot v-else-if="scope.row.RuleType==='timestamp'">日期时间型</slot>
             <slot v-else-if="scope.row.RuleType==='guid'">Guid</slot>
           </template>
@@ -286,8 +287,11 @@ export default {
         value: 'number',
         label: '计数'
       }, {
-        value: 'date',
+        value: 'date(yyMMdd)',
         label: '日期'
+      }, {
+        value: 'shortdate',
+        label: '日期(yyyyMMdd)'
       }, {
         value: 'timestamp',
         label: '日期时间'

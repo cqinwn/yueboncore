@@ -7,7 +7,9 @@
 
 ##### 近期更新
 1、新增业务单据编码规则，实现单据编码自定义规则
+
 2、优化批量处理方法
+
 3、升级到最新.netcore sdk 3.1.8
 
 更多更新日志 [点击查看](https://gitee.com/yuebon/YuebonNetCore/wikis/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97?sort_id=1983111)
@@ -15,7 +17,11 @@
 ##### 新计划
 1、完善软件注册授权模块
 
+2、完善mysql的支持
 
+3、11月份发布支持.net5.0版本，同时更新名称为YBNF（YueBon Net Framework）
+
+有任何疑问可以在文尾添加作者微信咨询。
 
 ### 概述
 YuebonCore FW是基于.NetCore3.1开发的权限管理及快速开发框架，整合应用最新技术包括Asp.NetCore MVC、Dapper、AutoFac、WebAPI、Swagger、Json.Net、IdentityServer4等，核心模块包括：组织机构、角色用户、权限授权、多系统、多应用管理等。它的架构易于扩展，是中小企业的优选。
@@ -127,7 +133,7 @@ DataBase是最新数据库备份文件，目前支持MS SQL Server和MySql。
 
 
 ### 如何用起来
-1、系统基于Netcore SDK 3.1.102开发、Runtime 3.1.2版本，请务必安装sdk版本3.1.102 及以上；
+1、系统基于Netcore SDK 3.1.402开发、Runtime 3.1.8版本，请务必安装sdk版本3.1.402 及以上；
 
 2、安装Redis并启动，下载地址：https://github.com/MicrosoftArchive/redis/releases；
 如果不用redis缓存可以将UseRedis设置为false。
@@ -160,13 +166,13 @@ DataBase是最新数据库备份文件，目前支持MS SQL Server和MySql。
 
 系统作者：YuebonCore团队
 
-作者QQ：381450948(微信同号)
+作者微信：13524377688
 
 发布日期：2018年07月1日
 
 版权所有：YuebonCore开发团队出品
 
-开源协议：Apache License 2.0
+开源协议：Mit协议
 
 欢迎你加入我们一起共商、共建、共享技术成果！开源让我们进步，开源让我们开阔视野！
 

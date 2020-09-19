@@ -92,8 +92,10 @@
             <slot v-else-if="scope.row.RuleType==='number'">计数</slot>
             <slot v-else-if="scope.row.RuleType==='date'">日期型(yyyyMMdd)</slot>
             <slot v-else-if="scope.row.RuleType==='shortdate'">日期型(yyMMdd)</slot>
-            <slot v-else-if="scope.row.RuleType==='timestamp'">日期时间型</slot>
+            <slot v-else-if="scope.row.RuleType==='ydate'">年月(yyyyMM)</slot>
+            <slot v-else-if="scope.row.RuleType==='timestamp'">时间戳</slot>
             <slot v-else-if="scope.row.RuleType==='guid'">Guid</slot>
+            <slot v-else-if="scope.row.RuleType==='random'">随机数</slot>
           </template>
         </el-table-column>
         <el-table-column prop="RuleValue" label="规则参数" sortable="custom" width="120" />
@@ -168,6 +170,9 @@
       width="640px"
     >
       <el-form ref="editFrom" :model="editFrom" :rules="rules">
+        <el-form-item label="填写说明" :label-width="formLabelWidth">
+          <slot>规则参数值填写规则：规则类型为“常量”时填写一个固定字符串；为“计数”时填计数起始值；为“随机数”时是填最小值的随机数，最大随机数为同位数的“*9”</slot>
+        </el-form-item>
         <el-form-item label="单据名称" :label-width="formLabelWidth" prop="SequenceName">
           <el-select v-model="editFrom.SequenceName" clearable placeholder="请输入业务单据名称" @change="handleFunSystemTypeChange">
             <el-option
@@ -191,8 +196,8 @@
             />
           </el-select>
         </el-form-item>
-        <el-form-item v-if="editFrom.RuleType==='const'||editFrom.RuleType==='number'" label="规则参数" :label-width="formLabelWidth" prop="RuleValue">
-          <el-input v-model="editFrom.RuleValue" placeholder="请输入规则参数值" autocomplete="off" clearable />
+        <el-form-item v-if="editFrom.RuleType==='const'||editFrom.RuleType==='number'||editFrom.RuleType==='random'" label="规则参数" :label-width="formLabelWidth" prop="RuleValue">
+          <el-input v-model="editFrom.RuleValue" placeholder="请输入规则参数" autocomplete="off" clearable />
         </el-form-item>
         <el-form-item v-if="editFrom.RuleType==='number'" label="补齐方向" :label-width="formLabelWidth" prop="PaddingSide">
           <el-select v-model="editFrom.PaddingSide" clearable placeholder="请选补齐方向">
@@ -219,6 +224,7 @@
             <el-radio label="false">否</el-radio>
           </el-radio-group>
         </el-form-item>
+
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogEditFormVisible = false">取 消</el-button>
@@ -273,7 +279,7 @@ export default {
           { min: 2, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur' }
         ],
         RuleType: [
-          { required: true, message: '请选择规则类别', trigger: 'blur' },
+          { required: true, message: '请选择规则类型', trigger: 'blur' },
           { min: 2, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur' }
         ]
       },
@@ -288,16 +294,22 @@ export default {
         label: '计数'
       }, {
         value: 'date',
-        label: '日期(yyyyMMdd)'
+        label: '日期型(yyyyMMdd)'
       }, {
         value: 'shortdate',
-        label: '日期(yyMMdd)'
+        label: '日期型(yyMMdd)'
+      }, {
+        value: 'ydate',
+        label: '年月(yyyyMM)'
       }, {
         value: 'timestamp',
-        label: '日期时间'
+        label: '时间戳'
       }, {
         value: 'guid',
         label: 'Guid'
+      }, {
+        value: 'random',
+        label: '随机数'
       }
       ],
       selectPaddingSide: [{

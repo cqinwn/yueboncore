@@ -47,7 +47,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
         protected override void OnBeforeInsert(Sequence info)
         {
             info.Id = GuidUtils.CreateNo();
-            
+            info.Id = new SequenceApp().GetSequenceNext("SortingSn");
             info.CreatorTime=info.LastModifyTime = DateTime.Now;
             info.CreatorUserId = info.LastModifyUserId= CurrentUser.UserId;
             

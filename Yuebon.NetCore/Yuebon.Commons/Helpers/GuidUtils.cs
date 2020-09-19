@@ -19,14 +19,14 @@ namespace Yuebon.Commons.Helpers
             return Guid.NewGuid().ToString();
         }
         /// <summary>
-        /// 自动生成编号/唯一订单号生成，时间戳+随机数，时间戳精确到毫秒，形如201807081618268678899
+        /// 自动生成编号/唯一订单号生成，时间戳+随机数，时间戳精确到毫秒，形如2020052113254137177350
         /// </summary>
         /// <returns></returns>
         public static string CreateNo()
         {
             Random random = new Random();
             string strRandom = random.Next(1000, 10000).ToString(); //生成随机编号 
-            string code = DateTime.Now.ToString("yyyyMMddHHmmssffff") + strRandom;//形如2018070116182686788
+            string code = DateTime.Now.ToString("yyyyMMddHHmmssffff") + strRandom;//形如2020052113254137177350
             return code;
         }
         #endregion

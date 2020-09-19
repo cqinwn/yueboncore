@@ -21,6 +21,12 @@ namespace Yuebon.Security.Services
         private readonly ISequenceRepository _repository;
         private readonly ISequenceRuleRepository _repositoryRule;
         private readonly ILogService _logService;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="repository"></param>
+        /// <param name="repositoryRule"></param>
+        /// <param name="logService"></param>
         public SequenceService(ISequenceRepository repository, ISequenceRuleRepository repositoryRule, ILogService logService) : base(repository)
         {
             _repository = repository;
@@ -64,10 +70,13 @@ namespace Yuebon.Security.Services
                                 sequenceNewNo += item.RuleValue;
                                 break;
                             case "shortdate"://短日期 年2位月2位日期2位
-                                sequenceNewNo += DateTime.Now.ToString("yyMMdd");
+                                sequenceNewNo += DateTime.Now.ToString("yyyyMMdd").Substring(2);
                                 break;
                             case "date"://日期，年4位
                                 sequenceNewNo += DateTime.Now.ToString("yyyyMMdd");
+                                break;
+                            case "ydate"://年月，年4位月2位
+                                sequenceNewNo += DateTime.Now.ToString("yyyyMMdd").Substring(0,6);
                                 break;
                             case "timestamp"://日期时间精确到毫秒
                                 sequenceNewNo += DateTime.Now.ToString("yyyyMMddHHmmssffff");
@@ -76,8 +85,17 @@ namespace Yuebon.Security.Services
                                 int num = CurrentReset(sequence, item);
                                 //计数拼接
                                 sequenceNewNo += NumberingSeqRule(item, num).ToString();
-                                //更新当前序号, 当前序号+步长 
+                                //更新当前序号, 当前序号+步长
                                 sequence.CurrentNo += sequence.Step;
+                                break;
+                            case "guid"://Guid
+                                sequenceNewNo += GuidUtils.NewGuidFormatN();
+                                break;
+                            case "random"://随机数
+                                Random random = new Random();
+                                string strMax = "9".ToString().PadLeft(item.RuleValue.Length - 1, '9');
+                                string strRandom = random.Next(item.RuleValue.ToInt(), strMax.ToInt()).ToString(); //生成随机编号 
+                                sequenceNewNo += strRandom;
                                 break;
                         }
                         if (!string.IsNullOrEmpty(sequence.SequenceDelimiter)&& delimiterNum!= list.Count())
@@ -145,10 +163,13 @@ namespace Yuebon.Security.Services
                                 sequenceNewNo += item.RuleValue;
                                 break;
                             case "shortdate"://短日期 年2位月2位日期2位
-                                sequenceNewNo += DateTime.Now.ToString("yyMMdd");
+                                sequenceNewNo += DateTime.Now.ToString("yyyyMMdd").Substring(2);
                                 break;
                             case "date"://日期，年4位
                                 sequenceNewNo += DateTime.Now.ToString("yyyyMMdd");
+                                break;
+                            case "ydate"://年月，年4位月2位
+                                sequenceNewNo += DateTime.Now.ToString("yyyyMMdd").Substring(0, 6);
                                 break;
                             case "timestamp"://日期时间精确到毫秒
                                 sequenceNewNo += DateTime.Now.ToString("yyyyMMddHHmmssffff");
@@ -161,7 +182,13 @@ namespace Yuebon.Security.Services
                                 sequence.CurrentNo += sequence.Step;
                                 break;
                             case "guid"://Guid
-                                sequenceNewNo += GuidUtils.NewGuidFormatN(); 
+                                sequenceNewNo += GuidUtils.NewGuidFormatN();
+                                break;
+                            case "random"://随机数
+                                Random random = new Random();
+                                string strMax="9".ToString().PadLeft(item.RuleValue.Length, '9');
+                                string strRandom = random.Next(item.RuleValue.ToInt(), strMax.ToInt()).ToString(); //生成随机编号 
+                                sequenceNewNo += strRandom; 
                                 break;
                         }
                         if (!string.IsNullOrEmpty(sequence.SequenceDelimiter) && delimiterNum != list.Count())

@@ -172,6 +172,15 @@
           sortable
           width="160"
         />
+        <el-table-column
+          fixed="right"
+          label="操作"
+          width="100"
+        >
+          <template slot-scope="scope">
+            <el-button type="text" size="small" @click="handleShowLogs(scope.row)">查看日志</el-button>
+          </template>
+        </el-table-column>
       </el-table>
       <div class="pagination-container">
         <el-pagination
@@ -239,6 +248,30 @@
         <el-button type="primary" @click="saveEditForm()">确 定</el-button>
       </div>
     </el-dialog>
+
+    <el-dialog
+      ref="dialogShowLogForm"
+      :title="editFormTitle+'任务日志'"
+      :visible.sync="dialogShowLogFormVisible"
+      width="940px"
+    >
+      <div class="radio">
+        排序：
+        <el-radio-group v-model="reverse">
+          <el-radio :label="true">倒序</el-radio>
+          <el-radio :label="false">正序</el-radio>
+        </el-radio-group>
+      </div>
+      <el-timeline :reverse="reverse">
+        <el-timeline-item
+          v-for="(activity, index) in activities"
+          :key="index"
+          :timestamp="activity.CreatorTime"
+        >
+          {{ activity.Description }}
+        </el-timeline-item>
+      </el-timeline>
+    </el-dialog>
   </div>
 </template>
 
@@ -246,7 +279,7 @@
 
 import { getTaskManagerListWithPager, getTaskManagerDetail,
   saveTaskManager, setTaskManagerEnable, deleteSoftTaskManager,
-  deleteTaskManager, changeStatus, getLocalTaskJobs } from '@/api/security/taskmanager'
+  deleteTaskManager, changeStatus, getLocalTaskJobs, getTaskJobLogListWithPager } from '@/api/security/taskmanager'
 
 export default {
   data() {
@@ -263,11 +296,17 @@ export default {
         pagesize: 20,
         pageTotal: 0
       },
+      logspageination: {
+        currentPage: 1,
+        pagesize: 20,
+        pageTotal: 0
+      },
       sortableData: {
         order: '',
         sort: ''
       },
       dialogEditFormVisible: false,
+      dialogShowLogFormVisible: false,
       editFormTitle: '',
       editFrom: {
         TaskName: '',
@@ -300,7 +339,9 @@ export default {
       formLabelWidth: '120px',
       currentId: '', // 当前操作对象的ID值，主要用于修改
       currentSelected: [],
-      isShowSelect: 'true'
+      isShowSelect: 'true',
+      activities: [],
+      reverse: true
     }
   },
   created() {
@@ -346,6 +387,26 @@ export default {
     changeIsLocal: function() {
       this.isShowSelect = this.editFrom.IsLocal
       this.editFrom.JobCallAddress = ''
+    },
+    handleShowLogs: function(row) {
+      this.dialogShowLogFormVisible = true
+      this.loadJobLogData(row)
+    },
+    /**
+     * 加载页面table数据
+     */
+    loadJobLogData: function(row) {
+      var seachdata = {
+        'CurrentPage': this.logspageination.currentPage,
+        'length': this.logspageination.pagesize,
+        'Keywords': row.Id,
+        'Order': '',
+        'Sort': 'CreatorTime'
+      }
+      getTaskJobLogListWithPager(seachdata).then(res => {
+        this.activities = res.ResData.Items
+        this.logspageination.pageTotal = res.ResData.TotalItems
+      })
     },
     /**
      * 新增、修改或查看明细信息（绑定显示数据）     *

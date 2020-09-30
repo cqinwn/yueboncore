@@ -3,11 +3,14 @@ using Quartz.Impl;
 using Quartz.Impl.Triggers;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Yuebon.Commons.Extend;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IoC;
+using Yuebon.Commons.Options;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
 
@@ -27,7 +30,8 @@ namespace Yuebon.Quartz.Jobs
         /// <returns></returns>
         public Task Execute(IJobExecutionContext context)
         {
-            DateTime dateTime = DateTime.Now;
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             AbstractTrigger trigger = (context as JobExecutionContextImpl).Trigger as AbstractTrigger;
             string sqlWhere = string.Format("Id='{0}' and GroupName='{1}'", trigger.Name, trigger.Group);
             TaskManager taskManager = iService.GetWhere(sqlWhere);
@@ -38,11 +42,14 @@ namespace Yuebon.Quartz.Jobs
                 return Task.Delay(1);
             }
             FileQuartz.InitTaskJobLogPath(taskManager.Id);
-            iService.RecordRun(taskManager.Id);
-            FileQuartz.WriteStartLog($"作业[{taskManager.TaskName}]开始:{ DateTime.Now.ToString("yyyy-MM-dd HH:mm:sss")}");
+            string msg = $"开始时间:{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}";
+            //记录任务执行记录
+            iService.RecordRun(taskManager.Id, JobAction.开始, true, msg);
             if (string.IsNullOrEmpty(taskManager.JobCallAddress) || taskManager.JobCallAddress == "/")
             {
-                FileQuartz.WriteErrorLog($"{ DateTime.Now.ToString("yyyy-MM-dd HH:mm:sss")}未配置url,");
+                FileQuartz.WriteErrorLog($"{ DateTime.Now.ToString("yyyy-MM-dd HH:mm:sss")}未配置任务地址,");
+                iService.RecordRun(taskManager.Id, JobAction.结束, false, "未配置任务地址");
+                return Task.Delay(1);
             }
             try
             {
@@ -60,12 +67,14 @@ namespace Yuebon.Quartz.Jobs
                 {
                     httpMessage = HttpRequestHelper.HttpGet(taskManager.JobCallAddress);
                 }
-                FileQuartz.WriteJobAction(JobAction.执行, trigger, taskManager.TaskName, taskManager.GroupName);
+                stopwatch.Stop();
+                string content = $"结束时间:{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")} 共耗时{stopwatch.ElapsedMilliseconds} 毫秒,消息:{httpMessage??"OK"}\r\n";
+                iService.RecordRun(taskManager.Id, JobAction.结束,true, content);
             }
             catch (Exception ex)
             {
                 httpMessage = ex.Message;
-                iService.RecordRun(taskManager.Id,false);
+                iService.RecordRun(taskManager.Id, JobAction.结束, false,ex.Message);
                 FileQuartz.WriteErrorLog(ex.Message);
             }
 

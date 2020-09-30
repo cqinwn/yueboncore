@@ -106,3 +106,16 @@ export function getLocalTaskJobs() {
     baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
   })
 }
+
+/**
+   * 分页查询
+   * @param {查询条件} data
+   */
+export function getTaskJobLogListWithPager(data) {
+  return http.request({
+    url: 'TaskJobsLog/FindWithPagerAsync',
+    method: 'get',
+    params: data,
+    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+  })
+}

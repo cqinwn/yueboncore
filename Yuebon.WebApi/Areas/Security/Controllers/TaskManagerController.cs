@@ -175,20 +175,13 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 }
                 else  //启动
                 {
-                    var jobBuilderType = typeof(JobBuilder);
-                    var dd = jobBuilderType.GetMethods().FirstOrDefault(x => x.Name.Equals("Create", StringComparison.OrdinalIgnoreCase));
-                    //var dwew = dd.MakeGenericMethod(Type.GetType(job.JobCallAddress));
-
-                    //var method = jobBuilderType.GetMethods().FirstOrDefault(
-                    //        x => x.Name.Equals("Create", StringComparison.OrdinalIgnoreCase) &&
-                    //             x.IsGenericMethod && x.GetParameters().Length == 0)
-                    //    ?.MakeGenericMethod(Type.GetType(job.JobCallAddress));
                     IJobDetail jobDetail;
                     if (job.IsLocal)
                     {
-                        //jobDetail = JobBuilder.Create(Type.GetType(job.JobCallAddress)).WithIdentity(job.Id, job.GroupName).Build();
-
-                        jobDetail = JobBuilder.Create<TestJob>().WithIdentity(job.Id, job.GroupName).Build();
+                        var implementationAssembly = Assembly.Load("Yuebon.Quartz.Jobs");
+                        var implementationTypes = implementationAssembly.DefinedTypes.Where(t => t.GetInterfaces().Contains(typeof(IJob)));
+                        var tyeinfo = implementationTypes.Where(x => x.FullName == job.JobCallAddress).FirstOrDefault();
+                        jobDetail = JobBuilder.Create(tyeinfo).WithIdentity(job.Id, job.GroupName).Build();
                     }
                     else
                     {

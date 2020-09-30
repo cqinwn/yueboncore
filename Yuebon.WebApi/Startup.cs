@@ -377,6 +377,9 @@ namespace Yuebon.WebApi
             services.AddAutoMapper(myAssembly);
             services.AddScoped<IMapper, Mapper>();
 
+            //设置定时启动的任务
+            services.AddHostedService<QuartzService>();
+
             //开始注册微信信息，必须！
 
             //IRegisterService registerService = RegisterService.Start(senparcSetting).UseSenparcGlobal();

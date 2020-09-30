@@ -3,11 +3,13 @@ using Quartz.Impl;
 using Quartz.Impl.Triggers;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IoC;
 using Yuebon.Commons.Log;
+using Yuebon.Commons.Options;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
 
@@ -23,7 +25,9 @@ namespace Yuebon.Quartz.Jobs
 
         public Task Execute(IJobExecutionContext context)
         { 
-            DateTime dateTime = DateTime.Now;
+            DateTime dateTime = DateTime.Now; 
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             AbstractTrigger trigger = (context as JobExecutionContextImpl).Trigger as AbstractTrigger;
             string sqlWhere = string.Format("Id='{0}' and GroupName='{1}'", trigger.Name, trigger.Group);
             TaskManager taskManager = iService.GetWhere(sqlWhere);
@@ -34,13 +38,11 @@ namespace Yuebon.Quartz.Jobs
             }
             try
             {
+                string msg = $"开始时间:{dateTime.ToString("yyyy-MM-dd HH:mm:ss")}";
                 //记录任务执行记录
-                iService.RecordRun(taskManager.Id);
+                iService.RecordRun(taskManager.Id, JobAction.开始,true, msg);
                 //初始化任务日志
                 FileQuartz.InitTaskJobLogPath(taskManager.Id);
-                //任务开始日志
-                FileQuartz.WriteStartLog($"作业[{taskManager.TaskName}]开始:{ DateTime.Now.ToString("yyyy-MM-dd HH:mm:sss")}");
-
                 ////任务错误日志
                 //FileQuartz.WriteErrorLog($"{ DateTime.Now.ToString("yyyy-MM-dd HH:mm:sss")}未配置url,");
 
@@ -48,15 +50,17 @@ namespace Yuebon.Quartz.Jobs
                 //todo:这里可以加入自己的自动任务逻辑
                 Log4NetHelper.Info(DateTime.Now.ToString() + "执行任务");
 
-                FileQuartz.WriteJobAction(JobAction.执行, trigger, taskManager.TaskName, taskManager.GroupName);
+
+                stopwatch.Stop();
+                string content = $"结束时间:{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")} 共耗时{stopwatch.ElapsedMilliseconds} 毫秒\r\n";
+                iService.RecordRun(taskManager.Id, JobAction.结束, true, content);
             }
             catch (Exception ex)
             {
-                //记录任务错误记录
-                iService.RecordRun(taskManager.Id, false);
-                //任务错误日志
+                iService.RecordRun(taskManager.Id, JobAction.结束, false, ex.Message);
                 FileQuartz.WriteErrorLog(ex.Message);
             }
+
             return Task.Delay(1);
         }
     }

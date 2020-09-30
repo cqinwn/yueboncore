@@ -64,6 +64,7 @@ namespace Yuebon.Commons.Log
                 return logger;
             }
         }
+
         #region Log a message object
 
         /// <summary>
@@ -180,5 +181,23 @@ namespace Yuebon.Commons.Log
         }
         #endregion
 
+
+        /// <summary>
+        /// 关键信息日志
+        /// </summary>
+        /// <param name="path">文件路径</param>
+        /// <param name="msg">日志信息</param>
+        public static void Info(string path,string msg)
+        {
+            ILog logger = GetLogger("Info");
+            if (logger.IsInfoEnabled)
+            {
+                var stackTrace = new StackTrace();
+                var stackFrame = stackTrace.GetFrame(1);
+                var methodBase = stackFrame.GetMethod();
+                var message = "方法名称：" + methodBase.Name + "\r\n日志内容：" + msg;
+                logger.Info(message);
+            }
+        }
     }
 }

@@ -6,6 +6,9 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.IServices
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IRoleService:IService<Role, RoleOutputDto, string>
     {
         /// <summary>
@@ -13,7 +16,7 @@ namespace Yuebon.Security.IServices
         /// </summary>
         /// <param name="enCode"></param>
         /// <returns></returns>
-        public Role GetRole(string enCode);
+        Role GetRole(string enCode);
 
 
         /// <summary>

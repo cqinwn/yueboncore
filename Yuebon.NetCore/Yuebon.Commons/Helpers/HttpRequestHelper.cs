@@ -67,6 +67,7 @@ namespace Yuebon.Commons.Helpers
         /// <param name="url"></param>
         /// <param name="postData"></param>
         /// <param name="encoding"></param>
+        /// <param name="headers"></param>
         /// <returns></returns>
         public static string HttpPost(string url, string postData, Encoding encoding = null, Dictionary<string, string> headers = null)
         {
@@ -167,7 +168,11 @@ namespace Yuebon.Commons.Helpers
         }
 
         #endregion
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="formData"></param>
+        /// <param name="stream"></param>
         public static void FillFormDataStream(this Dictionary<string, string> formData, Stream stream)
         {
             string dataString = GetQueryString(formData);
@@ -202,7 +207,12 @@ namespace Yuebon.Commons.Helpers
             return sb.ToString();
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="apiPath"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public static string HttpEmployee_Post(string apiPath, string data)
         {
             string returnStr = "";

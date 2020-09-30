@@ -16,8 +16,8 @@ namespace Yuebon.Commons.Helpers
     /// </summary>
     public class HttpHelper
     {
-        private HttpClient _httpClient;
-        private string _baseIPAddress;
+        private readonly HttpClient _httpClient;
+        private  string _baseIPAddress;
 
         /// <param name="ipaddress">请求的基础IP，例如：http://192.168.1.22:8081/ </param>
         public HttpHelper(string ipaddress = "")

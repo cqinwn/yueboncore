@@ -9,14 +9,14 @@ using Yuebon.Security.IServices;
 namespace Yuebon.Security.Application
 {
     /// <summary>
-    /// 
+    /// 业务编码规则
     /// </summary>
     public class  SequenceApp
     {
         ISequenceService iService = IoCContainer.Resolve<ISequenceService>();
         static object locker = new object(); 
         /// <summary>
-        /// 获取新的单据编码
+        /// 获取新的业务单据编码
         /// </summary>
         /// <param name="name">单据编码规则名称</param>
         public  string GetSequenceNext(string name)

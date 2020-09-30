@@ -17,6 +17,9 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
+using Quartz;
+using Quartz.Impl;
+using Quartz.Spi;
 using Senparc.CO2NET;
 using Senparc.CO2NET.AspNet;
 using Senparc.CO2NET.Cache;
@@ -46,6 +49,7 @@ using Yuebon.Commons.Linq;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Module;
 using Yuebon.Commons.Options;
+using Yuebon.Quartz.Jobs;
 
 namespace Yuebon.WebApi
 {
@@ -343,6 +347,20 @@ namespace Yuebon.WebApi
                 };
             });
             services.AddScoped(typeof(SSOAuthHelper));
+            //services.AddQuartz(q =>
+            //{
+            //    // base quartz scheduler, job and trigger configuration
+            //});
+
+            //// ASP.NET Core hosting
+            //services.AddQuartzServer(options =>
+            //{
+            //    // when shutting down we want jobs to complete gracefully
+            //    options.WaitForJobsToComplete = true;
+            //});
+            services.AddTransient<HttpResultfulJob>();
+            services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
+            //services.AddSingleton<IJobFactory, IOCJobFactory>();
             IoCContainer.Register(cacheProvider);//注册缓存配置
             IoCContainer.Register(Configuration);//注册配置
             IoCContainer.Register(jwtOption);//注册配置
@@ -352,7 +370,6 @@ namespace Yuebon.WebApi
             IoCContainer.Register("Yuebon.AspNetCore");
             IoCContainer.Register("Yuebon.Security.Core");
             IoCContainer.RegisterNew("Yuebon.Security.Core", "Yuebon.Security");
-           
             IoCContainer.Register("Yuebon.Messages.Core");
             IoCContainer.RegisterNew("Yuebon.Messages.Core", "Yuebon.Messages");
             List<Assembly> myAssembly = new List<Assembly>();
@@ -415,7 +432,7 @@ namespace Yuebon.WebApi
                     catch (Exception ex)
                     {
                         //非.net程序集类型的dll关联load时会报错，这里忽略就可以
-                        //Log4NetHelper.WriteError(ex.Message);
+                       Log4NetHelper.Error(ex.Message);
                     }
                 }
                 // 从 Shadow Copy 目录加载 Assembly 并注册到 Mvc 中

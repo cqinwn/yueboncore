@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -384,11 +385,29 @@ namespace Yuebon.Commons.Extend
         {
             return string.Join(Path.DirectorySeparatorChar.ToString(), path.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
         }
+
+        #region 文件路径转换
         /// <summary>
-        /// 
+        /// 文件路径转换
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="path"></param>
+        /// <param name="path">文件路径</param>
+        /// <returns></returns>
+        public static string ReplacePath(this string path)
+        {
+            bool _windows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+            if (string.IsNullOrEmpty(path))
+                return "";
+            if (_windows)
+                return path.Replace("/", "\\");
+            return path.Replace("\\", "/");
+
+        }
+        #endregion
+        /// <summary>
+        /// 文件路径拼接
+        /// </summary>
+        /// <param name="p">原有文件路径</param>
+        /// <param name="path">新文件路径</param>
         /// <returns></returns>
         public static string CombinePath(this string p,string path)
         {

@@ -60,7 +60,9 @@ namespace Yuebon.Security.Dtos
             CreateMap<Sequence, SequenceOutputDto>();
             CreateMap<SequenceInputDto, Sequence>();
             CreateMap<SequenceRule, SequenceRuleOutputDto>();
-            CreateMap<SequenceRuleInputDto, SequenceRule>();
+            CreateMap<SequenceRuleInputDto, SequenceRule>(); 
+            CreateMap<TaskManager, TaskManagerOutputDto>();
+            CreateMap<TaskManagerInputDto, TaskManager>();
         }
     }
 }

@@ -171,6 +171,9 @@ namespace Yuebon.Security.Services
                             case "ydate"://年月，年4位月2位
                                 sequenceNewNo += DateTime.Now.ToString("yyyyMMdd").Substring(0, 6);
                                 break;
+                            case "sydate"://年月，年2位月2位
+                                sequenceNewNo += DateTime.Now.ToString("yyyyMMdd").Substring(2, 4);
+                                break;
                             case "timestamp"://日期时间精确到毫秒
                                 sequenceNewNo += DateTime.Now.ToString("yyyyMMddHHmmssffff");
                                 break;
@@ -248,21 +251,34 @@ namespace Yuebon.Security.Services
                     }
                     break;
                 case "M"://每月重置
-                    string resetDate = seq.CurrentReset.Substring(4, 2);
-                    if (DateTime.Now.Month!=resetDate.ToInt())
+                    if (!string.IsNullOrWhiteSpace(seq.CurrentReset)) {
+                        string resetDate = seq.CurrentReset.Substring(4, 2);
+                        if (DateTime.Now.Month != resetDate.ToInt())
+                        {
+                            // 判断当前时间是否是每月第一天, 如果是: 重置规则, 使用初始的值
+                            if (DateTime.Now.Day == 1)
+                            {
+                                newNo = ruleNo;
+                            }
+                        }
+                    }
+                    else
                     {
-                        // 判断当前时间是否是每月第一天, 如果是: 重置规则, 使用初始的值
-                        if (DateTime.Now.Day==1)
+                        newNo = 1;
+                    }
+                    break;
+                case "Y"://每年重置
+                    if (!string.IsNullOrWhiteSpace(seq.CurrentReset))
+                    {
+                        // 当前时间 = 1月1号 且 当前重置 != 1月1号
+                        if (DateTime.Now.ToShortDateString().Contains("0101") && !seq.CurrentReset.Contains("0101"))
                         {
                             newNo = ruleNo;
                         }
                     }
-                    break;
-                case "Y"://每年重置
-                    // 当前时间 = 1月1号 且 当前重置 != 1月1号
-                    if (DateTime.Now.ToShortDateString().Contains("0101") && !seq.CurrentReset.Contains("0101"))
+                    else
                     {
-                        newNo = ruleNo;
+                        newNo = 1;
                     }
                     break;
             }

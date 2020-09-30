@@ -12,6 +12,8 @@
 
 3、升级到最新.netcore sdk 3.1.8
 
+4、实现定时任务模块，支持本地任务和远程接口任务，详情参考[定时任务帮助](https://gitee.com/yuebon/YuebonNetCore/wikis/%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1?sort_id=2926976)
+
 更多更新日志 [点击查看](https://gitee.com/yuebon/YuebonNetCore/wikis/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97?sort_id=1983111)
 
 ##### 新计划
@@ -123,11 +125,17 @@ DataBase是最新数据库备份文件，目前支持MS SQL Server和MySql。
 8、日志管理
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/0423/212256_8a482274_1017224.png "日志管理.png")
 
-9、代码生成器
+9、定时任务
+
+![列表](https://images.gitee.com/uploads/images/2020/0930/145634_ed46d73b_1017224.png "屏幕截图.png")
+本地任务
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0930/150300_e99d86f7_1017224.png "屏幕截图.png")
+
+10、代码生成器
 支持一键生成服务端代码和前端代码，复制粘贴简单快速高效实现功能
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/0423/213202_8621bf65_1017224.png "代码生成器.png")
 
-10、WebApi 集成Swagger
+11、WebApi 集成Swagger
 ![输入图片说明](https://images.gitee.com/uploads/images/2018/0719/120718_772240d6_1017224.png "9 webapi.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2018/0719/120732_0776845c_1017224.png "9-1 webapi.png")
 

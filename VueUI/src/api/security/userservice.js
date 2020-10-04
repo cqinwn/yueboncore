@@ -10,7 +10,7 @@ export function getUserListWithPager(data) {
     url: 'User/FindWithPagerSearchAsync',
     method: 'get',
     params: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -22,7 +22,7 @@ export function saveUser(data, url) {
     url: url,
     method: 'post',
     data: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -33,7 +33,7 @@ export function getUserDetail(id) {
   return http({
     url: 'User/GetById?id=' + id,
     method: 'get',
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -44,7 +44,7 @@ export function getByUserName(userName) {
   return http({
     url: 'User/GetByUserName?userName=' + userName,
     method: 'get',
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -56,7 +56,7 @@ export function setUserEnable(data) {
     url: 'User/SetEnabledMarktBatchAsync',
     method: 'post',
     params: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -68,7 +68,7 @@ export function deleteSoftUser(data) {
     url: 'User/DeleteSoftBatchAsync',
     method: 'post',
     params: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 
@@ -81,7 +81,7 @@ export function deleteUser(data) {
     url: 'User/DeleteBatchAsync',
     method: 'delete',
     params: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 
@@ -94,7 +94,7 @@ export function resetPassword(data) {
     url: 'User/ResetPassword',
     method: 'post',
     params: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 
@@ -107,6 +107,6 @@ export function modifyPassword(data) {
     url: 'User/ModifyPassword',
     method: 'post',
     params: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

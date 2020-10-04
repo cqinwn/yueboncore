@@ -10,7 +10,7 @@ export function getSequenceRuleListWithPager(data) {
     url: 'SequenceRule/FindWithPagerAsync',
     method: 'get',
     params: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }/**
    * 获取所有可用的
@@ -19,7 +19,7 @@ export function getAllSequenceRuleList() {
   return http.request({
     url: 'SequenceRule/GetAllEnable',
     method: 'get',
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -31,7 +31,7 @@ export function saveSequenceRule(data) {
     url: 'SequenceRule/InsertOrUpdateAsync',
     method: 'post',
     data: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -42,7 +42,7 @@ export function getSequenceRuleDetail(id) {
   return http({
     url: 'SequenceRule/GetById?id=' + id,
     method: 'get',
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -54,7 +54,7 @@ export function setSequenceRuleEnable(data) {
     url: 'SequenceRule/SetEnabledMarktBatchAsync',
     method: 'post',
     params: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -66,7 +66,7 @@ export function deleteSoftSequenceRule(data) {
     url: 'SequenceRule/DeleteSoftBatchAsync',
     method: 'post',
     params: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 
@@ -79,7 +79,7 @@ export function deleteSequenceRule(data) {
     url: 'SequenceRule/DeleteBatchAsync',
     method: 'delete',
     params: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 

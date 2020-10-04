@@ -10,7 +10,7 @@ export function getTaskManagerListWithPager(data) {
     url: 'TaskManager/FindWithPagerAsync',
     method: 'get',
     params: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }/**
    * 获取所有可用的
@@ -19,7 +19,7 @@ export function getAllTaskManagerList() {
   return http.request({
     url: 'TaskManager/GetAllEnable',
     method: 'get',
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -31,7 +31,7 @@ export function saveTaskManager(data, url) {
     url: url,
     method: 'post',
     data: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -42,7 +42,7 @@ export function getTaskManagerDetail(id) {
   return http({
     url: 'TaskManager/GetById?id=' + id,
     method: 'get',
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -54,7 +54,7 @@ export function setTaskManagerEnable(data) {
     url: 'TaskManager/SetEnabledMarktBatchAsync',
     method: 'post',
     params: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -66,7 +66,7 @@ export function deleteSoftTaskManager(data) {
     url: 'TaskManager/DeleteSoftBatchAsync',
     method: 'post',
     params: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 
@@ -79,7 +79,7 @@ export function deleteTaskManager(data) {
     url: 'TaskManager/DeleteBatchAsync',
     method: 'delete',
     params: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 
@@ -92,7 +92,7 @@ export function changeStatus(data) {
     url: 'TaskManager/ChangeStatus',
     method: 'post',
     data: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 
@@ -103,7 +103,7 @@ export function getLocalTaskJobs() {
   return http({
     url: 'TaskManager/GetLocalHandlers',
     method: 'get',
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 
@@ -116,6 +116,6 @@ export function getTaskJobLogListWithPager(data) {
     url: 'TaskJobsLog/FindWithPagerAsync',
     method: 'get',
     params: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

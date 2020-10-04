@@ -10,7 +10,7 @@ export function getLogListWithPager(data) {
     url: 'Log/FindWithPagerAsync',
     method: 'get',
     params: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -21,7 +21,7 @@ export function getLogDetail(id) {
   return http({
     url: 'Log/GetById?id=' + id,
     method: 'get',
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -33,7 +33,7 @@ export function deleteLog(data) {
     url: 'Log/DeleteBatchAsync',
     method: 'delete',
     params: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 

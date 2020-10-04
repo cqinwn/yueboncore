@@ -36,13 +36,13 @@ module.exports = {
    */
   addRouters: {},
   // apiHostUrl: 'https://base.api.yuebon.com/api/', // 基础接口
-  // apiWSecurityUrl: 'https://base.api.yuebon.com/api/Security/', // 权限管理系统接口
+  // apiSecurityUrl: 'https://base.api.yuebon.com/api/Security/', // 权限管理系统接口
   // fileUrl: 'https://base.api.yuebon.com/', // 文件访问路径
   // fileUploadUrl: 'https://base.api.yuebon.com/api/Files/Upload'// 文件上传路径
 
-  apiHostUrl: 'http://192.168.1.106:809/api/', // 基础接口
-  apiWSecurityUrl: 'http://192.168.1.106:809/api/Security/', // 权限管理系统接口
-  fileUrl: 'http://192.168.1.106:809/', // 文件访问路径
-  fileUploadUrl: 'http://192.168.1.106:809/api/Files/Upload'// 文件上传路径
+  apiHostUrl: 'http://192.168.0.106:809/api/', // 基础接口
+  apiSecurityUrl: 'http://192.168.0.106:809/api/Security/', // 权限管理系统接口
+  fileUrl: 'http://192.168.0.106:809/', // 文件访问路径
+  fileUploadUrl: 'http://192.168.0.106:809/api/Files/Upload'// 文件上传路径
 
 }

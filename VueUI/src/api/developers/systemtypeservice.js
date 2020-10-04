@@ -10,7 +10,7 @@ export function getSystemTypeListWithPager(data) {
     url: 'SystemType/FindWithPagerAsync',
     method: 'get',
     params: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }/**
    * 获取所有可用的系统
@@ -19,7 +19,7 @@ export function getAllSystemTypeList() {
   return http.request({
     url: 'SystemType/GetAllEnable',
     method: 'get',
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -31,7 +31,7 @@ export function saveSystemType(data, url) {
     url: url,
     method: 'post',
     data: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -42,7 +42,7 @@ export function getSystemTypeDetail(id) {
   return http({
     url: 'SystemType/GetById?id=' + id,
     method: 'get',
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -54,7 +54,7 @@ export function setSystemTypeEnable(data) {
     url: 'SystemType/SetEnabledMarktBatchAsync',
     method: 'post',
     params: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -66,7 +66,7 @@ export function deleteSoftSystemType(data) {
     url: 'SystemType/DeleteSoftBatchAsync',
     method: 'post',
     params: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 
@@ -79,7 +79,7 @@ export function deleteSystemType(data) {
     url: 'SystemType/DeleteBatchAsync',
     method: 'delete',
     params: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 

@@ -9,7 +9,7 @@ export function getAllItemsTreeTable() {
   return http.request({
     url: 'Items/GetAllItemsTreeTable',
     method: 'get',
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -21,7 +21,7 @@ export function saveItems(data, url) {
     url: url,
     method: 'post',
     data: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -32,7 +32,7 @@ export function getItemsDetail(id) {
   return http({
     url: 'Items/GetById?id=' + id,
     method: 'get',
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -44,7 +44,7 @@ export function setItemsEnable(data) {
     url: 'Items/SetEnabledMarktBatchAsync',
     method: 'post',
     params: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -56,7 +56,7 @@ export function deleteSoftItems(data) {
     url: 'Items/DeleteSoftBatchAsync',
     method: 'post',
     params: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 
@@ -69,7 +69,7 @@ export function deleteItems(data) {
     url: 'Items/DeleteBatchAsync',
     method: 'delete',
     params: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 
@@ -81,7 +81,7 @@ export function getItemsAllEnable() {
   return http.request({
     url: 'Items/GetAllEnable',
     method: 'get',
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 
@@ -94,7 +94,7 @@ export function getItemsDetailListWithPager(data) {
     url: 'ItemsDetail/GetAllItemsDetailTreeTable',
     method: 'get',
     params: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -106,7 +106,7 @@ export function saveItemsDetail(data, url) {
     url: url,
     method: 'post',
     data: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -117,7 +117,7 @@ export function getItemsDetailDetail(id) {
   return http({
     url: 'ItemsDetail/GetById?id=' + id,
     method: 'get',
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -129,7 +129,7 @@ export function setItemsDetailEnable(data) {
     url: 'ItemsDetail/SetEnabledMarktBatchAsync',
     method: 'post',
     params: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -141,7 +141,7 @@ export function deleteSoftItemsDetail(data) {
     url: 'ItemsDetail/DeleteSoftBatchAsync',
     method: 'post',
     params: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 
@@ -154,7 +154,7 @@ export function deleteItemsDetail(data) {
     url: 'ItemsDetail/DeleteBatchAsync',
     method: 'delete',
     params: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 
@@ -166,7 +166,7 @@ export function getItemsDetailAllEnable() {
   return http.request({
     url: 'ItemsDetail/GetAllEnable',
     method: 'get',
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -178,6 +178,6 @@ export function getAllItemsDetailTreeTable(data) {
     url: 'ItemsDetail/GetAllItemsDetailTreeTable',
     method: 'get',
     params: data,
-    baseURL: defaultSettings.apiWSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

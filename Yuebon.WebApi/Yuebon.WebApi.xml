@@ -698,6 +698,105 @@
             <param name="systype"></param>
             <returns></returns>
         </member>
+        <member name="T:Yuebon.WebApi.Areas.Security.Controllers.TaskJobsLogController">
+            <summary>
+            定时任务执行日志接口
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.TaskJobsLogController.#ctor(Yuebon.Security.IServices.ITaskJobsLogService)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="_iService"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.TaskJobsLogController.OnBeforeInsert(Yuebon.Security.Models.TaskJobsLog)">
+            <summary>
+            新增前处理数据
+            </summary>
+            <param name="info"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.TaskJobsLogController.OnBeforeUpdate(Yuebon.Security.Models.TaskJobsLog)">
+            <summary>
+            在更新数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.TaskJobsLogController.OnBeforeSoftDelete(Yuebon.Security.Models.TaskJobsLog)">
+            <summary>
+            在软删除数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.TaskJobsLogController.FindWithPagerAsync(Yuebon.AspNetCore.UI.SearchModel)">
+            <summary>
+            分页查询
+            </summary>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Yuebon.WebApi.Areas.Security.Controllers.TaskManagerController">
+            <summary>
+            定时任务接口
+            </summary>
+        </member>
+        <member name="F:Yuebon.WebApi.Areas.Security.Controllers.TaskManagerController.schedulerFactory">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.TaskManagerController.#ctor(Yuebon.Security.IServices.ITaskManagerService,Quartz.ISchedulerFactory)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="_iService"></param>
+            <param name="_scheduler"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.TaskManagerController.OnBeforeInsert(Yuebon.Security.Models.TaskManager)">
+            <summary>
+            新增前处理数据
+            </summary>
+            <param name="info"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.TaskManagerController.OnBeforeUpdate(Yuebon.Security.Models.TaskManager)">
+            <summary>
+            在更新数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.TaskManagerController.OnBeforeSoftDelete(Yuebon.Security.Models.TaskManager)">
+            <summary>
+            在软删除数据前对数据的修改操作
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.TaskManagerController.UpdateAsync(Yuebon.Security.Dtos.TaskManagerInputDto,System.String)">
+            <summary>
+            异步更新数据
+            </summary>
+            <param name="tinfo"></param>
+            <param name="id">主键Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.TaskManagerController.GetLocalHandlers">
+            <summary>
+            获取本地可执行的任务列表
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.TaskManagerController.ChangeStatus(Yuebon.Security.Dtos.ChangeJobStatusReq)">
+            <summary>
+            改变任务状态，启动/停止
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.TaskManagerController.QueryLocalHandlers">
+            <summary>
+            返回系统的job接口
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Yuebon.WebApi.Areas.Security.Controllers.UploadFileController">
             <summary>
             文件管理
@@ -921,6 +1020,7 @@
             总岗位角色数
             </summary>
         </member>
+        <!-- Badly formed XML comment ignored for member "P:Yuebon.WebApi.Areas.Security.Models.LocalTaskModel.FullName" -->
         <member name="T:Yuebon.WebApi.Areas.Security.Models.SearchUserModel">
             <summary>
             用户搜索条件

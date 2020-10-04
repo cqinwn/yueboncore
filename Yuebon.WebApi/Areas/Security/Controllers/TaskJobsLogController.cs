@@ -83,6 +83,39 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             string where = GetPagerCondition();
             if (!string.IsNullOrEmpty(search.Keywords))
             {
+                where += string.Format(" and (TaskId like '%{0}%' or  TaskName like '%{0}%')", search.Keywords);
+            }
+            PagerInfo pagerInfo = GetPagerInfo();
+            List<TaskJobsLog> list = await iService.FindWithPagerAsync(where, pagerInfo, orderFlied, order);
+            List<TaskJobsLogOutputDto> resultList = list.MapTo<TaskJobsLogOutputDto>();
+            PageResult<TaskJobsLogOutputDto> pageResult = new PageResult<TaskJobsLogOutputDto>
+            {
+                CurrentPage = pagerInfo.CurrenetPageIndex,
+                Items = resultList,
+                ItemsPerPage = pagerInfo.PageSize,
+                TotalItems = pagerInfo.RecordCount
+            };
+            result.ResData = pageResult;
+            result.ErrCode = ErrCode.successCode;
+            return ToJsonContent(result);
+        }
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        [HttpGet("FindWithByTaskIdAsync")]
+        [YuebonAuthorize("List")]
+        public  async Task<IActionResult> FindWithByTaskIdAsync([FromQuery] SearchModel search)
+        {
+            CommonResult result = new CommonResult();
+            string orderByDir = string.IsNullOrEmpty(Request.Query["Order"].ToString()) ? "desc" : Request.Query["Order"].ToString();
+            string orderFlied = string.IsNullOrEmpty(Request.Query["Sort"].ToString()) ? " CreatorTime " : Request.Query["Sort"].ToString();
+            bool order = orderByDir == "asc" ? false : true;
+            string where = GetPagerCondition();
+            if (!string.IsNullOrEmpty(search.Keywords))
+            {
                 where += string.Format(" and TaskId ='{0}' ", search.Keywords);
             }
             PagerInfo pagerInfo = GetPagerInfo();

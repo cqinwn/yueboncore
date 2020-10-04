@@ -79,16 +79,16 @@ namespace Yuebon.Commons.CodeGenerator
         }
 
         /// <summary>
-        /// 
+        /// 单表生成代码
         /// </summary>
         /// <param name="listField">表字段集合</param>
-        /// <param name="tableInfo"></param>
-        /// <param name="ifExsitedCovered"></param>
+        /// <param name="tableInfo">表信息</param>
+        /// <param name="ifExsitedCovered">如果目标文件存在，是否覆盖。默认为false</param>
         public static void GenerateSingle(List<DbFieldInfo> listField, DbTableInfo tableInfo,bool ifExsitedCovered = false)
         {
             var modelsNamespace =_option.ModelsNamespace;
-            var modelTypeName = tableInfo.TableName;
-            var modelTypeDesc = tableInfo.Description;
+            var modelTypeName = tableInfo.TableName;//表名
+            var modelTypeDesc = tableInfo.Description;//表描述
             if (!string.IsNullOrEmpty(_option.ReplaceTableNameStr))
             {
                 string[] rel = _option.ReplaceTableNameStr.Split(';');
@@ -105,9 +105,17 @@ namespace Yuebon.Commons.CodeGenerator
             string modelcontent = "";//数据库模型字段
             string InputDtocontent = "";//输入模型
             string outputDtocontent = "";//输出模型
+            string vueViewListContent = string.Empty;//Vue列表输出内容
+            string vueViewFromContent = string.Empty;//Vue表单输出内容 
+            string vueViewEditFromContent = string.Empty;//Vue变量输出内容
+            string vueViewEditFromBindContent = string.Empty;//Vue显示初始化输出内容
+            string vueViewSaveBindContent = string.Empty;//Vue保存时输出内容
+            string vueViewEditFromRuleContent = string.Empty;//Vue数据校验
+
             foreach (DbFieldInfo dbFieldInfo in listField)
             {
                 string fieldName = dbFieldInfo.FieldName.Substring(0, 1).ToUpper() + dbFieldInfo.FieldName.Substring(1);// System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(dbFieldInfo.FieldName);
+                //主键
                 if (dbFieldInfo.IsIdentity)
                 {
                     keyTypeName = dbFieldInfo.DataType;
@@ -121,6 +129,7 @@ namespace Yuebon.Commons.CodeGenerator
                     outputDtocontent += string.Format("        public {0} {1}", dbFieldInfo.DataType, fieldName);
                     outputDtocontent += " { get; set; }\n\r";
                 }
+                //非主键
                 if (!dbFieldInfo.IsIdentity)
                 {
                     modelcontent += "        /// <summary>\n";
@@ -143,6 +152,47 @@ namespace Yuebon.Commons.CodeGenerator
                     }
                     outputDtocontent += string.Format("        public {0} {1}", dbFieldInfo.DataType, fieldName);
                     outputDtocontent += " { get; set; }\n\r";
+                    if (dbFieldInfo.DataType == "bool")
+                    {
+
+                        vueViewListContent += string.Format("        <el-table-column prop=\"{0}\" label=\"{1}\" sortable=\"custom\" width=\"120\" >\n", fieldName, dbFieldInfo.Description);
+                        vueViewListContent += "          <template slot-scope=\"scope\">\n";
+                        vueViewListContent += string.Format("            <el-tag :type=\"scope.row.{0} === true ? 'success' : 'info'\"  disable-transitions >", fieldName);
+                        vueViewListContent += "{{ ";
+                        vueViewListContent += string.Format("scope.row.{0}===true?'启用':'禁用' ", fieldName);
+                        vueViewListContent += "}}</el-tag>\n";
+                        vueViewListContent += "          </template>\n";
+                        vueViewListContent += "        </el-table-column>\n";
+
+                        vueViewFromContent += string.Format("        <el-form-item label=\"{0}\" :label-width=\"formLabelWidth\" prop=\"{1}\">", dbFieldInfo.Description, fieldName);
+                        vueViewFromContent += string.Format("          <el-radio-group v-model=\"editFrom.{0}\">\n", fieldName);
+                        vueViewFromContent += "           <el-radio label=\"true\">是</el-radio>\n";
+                        vueViewFromContent += "           <el-radio label=\"false\">否</el-radio>\n";
+                        vueViewFromContent += "          </el-radio-group>\n";
+                        vueViewFromContent += "        </el-form-item>\n";
+
+                        vueViewEditFromContent += string.Format("        {0}: 'true',\n", fieldName);
+                        vueViewEditFromBindContent+= string.Format("        this.editFrom.{0} = res.ResData.{0}+''\n", fieldName);
+                    }
+                    else
+                    {
+                        vueViewListContent += string.Format("        <el-table-column prop=\"{0}\" label=\"{1}\" sortable=\"custom\" width=\"120\" />\n", fieldName, dbFieldInfo.Description);
+
+                        vueViewFromContent += string.Format("        <el-form-item label=\"{0}\" :label-width=\"formLabelWidth\" prop=\"{1}\">\n", dbFieldInfo.Description, fieldName);
+                        vueViewFromContent += string.Format("          <el-input v-model=\"editFrom.{0}\" placeholder=\"请输入{1}\" autocomplete=\"off\" clearable />\n", fieldName, dbFieldInfo.Description);
+                        vueViewFromContent += "        </el-form-item>\n";
+                        vueViewEditFromContent += string.Format("        {0}: '',\n", fieldName);
+                        vueViewEditFromBindContent += string.Format("        this.editFrom.{0} = res.ResData.{0}\n", fieldName);
+                    }
+                    vueViewSaveBindContent += string.Format("        '{0}':this.editFrom.{0},\n", fieldName);
+                    if (!dbFieldInfo.IsNullable)
+                    {
+                        vueViewEditFromRuleContent += string.Format("        {0}: [\n", fieldName);
+                        vueViewEditFromRuleContent += "        {";
+                        vueViewEditFromRuleContent += string.Format("required: true, message:\"请输入{0}\", trigger: \"blur\"", dbFieldInfo.Description);
+                        vueViewEditFromRuleContent += "},\n          { min: 2, max: 50, message: \"长度在 2 到 50 个字符\", trigger:\"blur\" }\n";
+                        vueViewEditFromRuleContent += "        ],\n";
+                    }
                 }
 
                 if (!inputDtoNoField.Contains(dbFieldInfo.FieldName)||dbFieldInfo.FieldName=="Id")
@@ -157,6 +207,7 @@ namespace Yuebon.Commons.CodeGenerator
                     InputDtocontent += string.Format("        public {0} {1}", dbFieldInfo.DataType, fieldName);
                     InputDtocontent += " { get; set; }\n\r";
                 }
+                //
             }
             GenerateModels(modelsNamespace, modelTypeName, tableInfo.TableName, modelcontent, modelTypeDesc, keyTypeName, ifExsitedCovered);
             GenerateIRepository(modelTypeName, modelTypeDesc, keyTypeName, ifExsitedCovered);
@@ -166,6 +217,7 @@ namespace Yuebon.Commons.CodeGenerator
             GenerateOutputDto(modelTypeName, modelTypeDesc, outputDtocontent, ifExsitedCovered);
             GenerateInputDto(modelsNamespace, modelTypeName, modelTypeDesc, InputDtocontent, keyTypeName, ifExsitedCovered);
             GenerateControllers(modelTypeName, modelTypeDesc, keyTypeName, ifExsitedCovered);
+            GenerateVueViews(modelTypeName,modelTypeDesc,vueViewListContent,vueViewFromContent,vueViewEditFromContent,vueViewEditFromBindContent,vueViewSaveBindContent,vueViewEditFromRuleContent,ifExsitedCovered);
         }
 
 
@@ -420,12 +472,12 @@ namespace Yuebon.Commons.CodeGenerator
         /// <summary>
         /// 生成Models文件
         /// </summary>
-        /// <param name="modelsNamespace"></param>
-        /// <param name="modelTypeName"></param>
-        /// <param name="tableName"></param>
-        /// <param name="modelTypeDesc"></param>
-        /// <param name="modelContent"></param>
-        /// <param name="keyTypeName"></param>
+        /// <param name="modelsNamespace">命名空间</param>
+        /// <param name="modelTypeName">类名</param>
+        /// <param name="tableName">表名称</param>
+        /// <param name="modelTypeDesc">表描述</param>
+        /// <param name="modelContent">数据库表实体内容</param>
+        /// <param name="keyTypeName">主键数据类型</param>
         /// <param name="ifExsitedCovered">如果目标文件存在，是否覆盖。默认为false</param>
         private static void GenerateModels(string modelsNamespace, string modelTypeName,string tableName,  string modelContent, string modelTypeDesc, string keyTypeName, bool ifExsitedCovered = false)
         {
@@ -456,8 +508,8 @@ namespace Yuebon.Commons.CodeGenerator
         /// <summary>
         /// 生成控制器ApiControllers文件
         /// </summary>
-        /// <param name="modelTypeName"></param>
-        /// <param name="modelTypeDesc"></param>
+        /// <param name="modelTypeName">实体类型名称</param>
+        /// <param name="modelTypeDesc">实体描述</param>
         /// <param name="keyTypeName"></param>
         /// <param name="ifExsitedCovered">如果目标文件存在，是否覆盖。默认为false</param>
         private static void GenerateControllers(string modelTypeName, string modelTypeDesc,string keyTypeName, bool ifExsitedCovered = false)
@@ -486,6 +538,59 @@ namespace Yuebon.Commons.CodeGenerator
                 .Replace("{BaseNameSpaceEx}", fileClassName)
                 .Replace("{ModelTypeName}", modelTypeName)
                 .Replace("{KeyTypeName}", keyTypeName);
+            WriteAndSave(fullPath, content);
+        }
+
+        /// <summary>
+        /// 生成Vue页面
+        /// </summary>
+        /// <param name="modelTypeName">类名</param>
+        /// <param name="modelTypeDesc">表/类描述</param>
+        /// <param name="vueViewListContent"></param>
+        /// <param name="vueViewFromContent"></param>
+        /// <param name="vueViewEditFromContent"></param>
+        /// <param name="vueViewEditFromBindContent"></param>
+        /// <param name="vueViewSaveBindContent"></param>
+        /// <param name="vueViewEditFromRuleContent"></param>
+        /// <param name="ifExsitedCovered">如果目标文件存在，是否覆盖。默认为false</param>
+        private static void GenerateVueViews(string modelTypeName, string modelTypeDesc, string vueViewListContent, string vueViewFromContent, string vueViewEditFromContent, string vueViewEditFromBindContent, string vueViewSaveBindContent, string vueViewEditFromRuleContent, bool ifExsitedCovered = false)
+        {
+            var servicesNamespace = _option.DtosNamespace;
+            var fileClassName = _option.BaseNamespace.Substring(_option.BaseNamespace.IndexOf('.') + 1);
+            var path = AppDomain.CurrentDomain.BaseDirectory;
+            //path = path.Substring(0, path.IndexOf("\\bin"));
+            var parentPath = path.Substring(0, path.LastIndexOf("\\"));
+            var servicesPath = parentPath + "\\" + _option.BaseNamespace + "\\" + servicesNamespace;
+            if (!Directory.Exists(servicesPath))
+            {
+                servicesPath = parentPath + "\\" + _option.BaseNamespace + "\\vue\\" +modelTypeName.ToLower();
+                Directory.CreateDirectory(servicesPath);
+            }
+            var fullPath = servicesPath + "\\" +"index.vue";
+            if (File.Exists(fullPath) && !ifExsitedCovered)
+                return;
+            var content = ReadTemplate("VueTemplate.txt");
+            content = content
+                .Replace("{BaseNamespace}", fileClassName.ToLower())
+                .Replace("{fileClassName}", modelTypeName.ToLower())
+                .Replace("{ModelTypeNameToLower}", modelTypeName.ToLower())
+                .Replace("{VueViewListContent}", vueViewListContent)
+                .Replace("{VueViewFromContent}", vueViewFromContent)
+                .Replace("{ModelTypeName}", modelTypeName)
+                .Replace("{VueViewEditFromContent}", vueViewEditFromContent)
+                .Replace("{VueViewEditFromBindContent}", vueViewEditFromBindContent)
+                .Replace("{VueViewSaveBindContent}", vueViewSaveBindContent)
+                .Replace("{VueViewEditFromRuleContent}", vueViewEditFromRuleContent);
+            WriteAndSave(fullPath, content);
+
+            fullPath = servicesPath + "\\" + modelTypeName.ToLower() + ".js";
+            if (File.Exists(fullPath) && !ifExsitedCovered)
+                return;
+            content = ReadTemplate("VueJsTemplate.txt");
+            content = content
+                .Replace("{ModelTypeName}", modelTypeName)
+                .Replace("{ModelTypeDesc}", modelTypeDesc)
+                .Replace("{fileClassName}", fileClassName);
             WriteAndSave(fullPath, content);
         }
         /// <summary>

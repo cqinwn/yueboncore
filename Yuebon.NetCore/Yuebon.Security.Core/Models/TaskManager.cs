@@ -23,7 +23,6 @@ namespace Yuebon.Security.Models
             this.ErrorCount = 0;
             this.NextRunTime = DateTime.Now;
             this.LastRunTime = DateTime.Now;
-            this.LastErrorTime = DateTime.Now;
             this.JobCallParams = string.Empty;
             this.Cron = string.Empty;
             this.Status = 0;

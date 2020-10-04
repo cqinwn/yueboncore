@@ -9,6 +9,9 @@ using Dapper;
 
 namespace Dapper.Contrib.Extensions
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static partial class SqlMapperExtensions
     {
         /// <summary>

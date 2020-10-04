@@ -99,6 +99,8 @@
     <None Remove="CodeTemplate\ProfileTemplate.txt" />
     <None Remove="CodeTemplate\RepositoryTemplate.txt" />
     <None Remove="CodeTemplate\ServiceTemplate.txt" />
+    <None Remove="CodeTemplate\VueJsTemplate.txt" />
+    <None Remove="CodeTemplate\VueTemplate.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -127,6 +129,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="CodeTemplate\ServiceTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CodeTemplate\VueJsTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CodeTemplate\VueTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

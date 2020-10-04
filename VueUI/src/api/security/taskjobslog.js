@@ -2,31 +2,31 @@ import http from '@/utils/request'
 import defaultSettings from '@/settings'
 
 /**
-   * 系统分页查询
+   * 定时任务执行日志分页查询
    * @param {查询条件} data
    */
-export function getFilterIPListWithPager(data) {
+export function getTaskJobsLogListWithPager(data) {
   return http.request({
-    url: 'FilterIP/FindWithPagerAsync',
+    url: 'TaskJobsLog/FindWithPagerAsync',
     method: 'get',
     params: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }/**
-   * 获取所有可用的系统
+   * 获取所有可用的定时任务执行日志
    */
-export function getAllFilterIPList() {
+export function getAllTaskJobsLogList() {
   return http.request({
-    url: 'FilterIP/GetAllEnable',
+    url: 'TaskJobsLog/GetAllEnable',
     method: 'get',
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
 /**
-   * 新增或修改保存系统
+   * 新增或修改保存定时任务执行日志
    * @param data
    */
-export function saveFilterIP(data, url) {
+export function saveTaskJobsLog(data, url) {
   return http.request({
     url: url,
     method: 'post',
@@ -35,12 +35,12 @@ export function saveFilterIP(data, url) {
   })
 }
 /**
-   * 获取系统详情
-   * @param {Id} 系统Id
+   * 获取定时任务执行日志详情
+   * @param {Id} 定时任务执行日志Id
    */
-export function getFilterIPDetail(id) {
+export function getTaskJobsLogDetail(id) {
   return http({
-    url: 'FilterIP/GetById?id=' + id,
+    url: 'TaskJobsLog/GetById?id=' + id,
     method: 'get',
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
@@ -49,9 +49,9 @@ export function getFilterIPDetail(id) {
    * 批量设置启用状态
    * @param {id集合} ids
    */
-export function setFilterIPEnable(data) {
+export function setTaskJobsLogEnable(data) {
   return http({
-    url: 'FilterIP/SetEnabledMarktBatchAsync',
+    url: 'TaskJobsLog/SetEnabledMarktBatchAsync',
     method: 'post',
     params: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
@@ -61,9 +61,9 @@ export function setFilterIPEnable(data) {
    * 批量软删除
    * @param {id集合} ids
    */
-export function deleteSoftFilterIP(data) {
+export function deleteSoftTaskJobsLog(data) {
   return http({
-    url: 'FilterIP/DeleteSoftBatchAsync',
+    url: 'TaskJobsLog/DeleteSoftBatchAsync',
     method: 'post',
     params: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
@@ -74,12 +74,11 @@ export function deleteSoftFilterIP(data) {
    * 批量删除
    * @param {id集合} ids
    */
-export function deleteFilterIP(data) {
+export function deleteTaskJobsLog(data) {
   return http({
-    url: 'FilterIP/DeleteBatchAsync',
+    url: 'TaskJobsLog/DeleteBatchAsync',
     method: 'delete',
     params: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
-

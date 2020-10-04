@@ -93,7 +93,7 @@ namespace Yuebon.AspNetCore.Controllers
                 }
                 else
                 {
-                    if (!app.RequestUrl.Contains(strHost) && !strHost.Contains("localhost"))
+                    if (!app.RequestUrl.Contains(strHost, StringComparison.Ordinal) && !strHost.Contains("localhost",StringComparison.Ordinal))
                     {
                         result.ErrCode = "40002";
                         result.ErrMsg = ErrCode.err40002 + "，你当前请求主机：" + strHost;

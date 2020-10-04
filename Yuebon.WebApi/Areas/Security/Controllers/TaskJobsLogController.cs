@@ -110,25 +110,15 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         public  async Task<IActionResult> FindWithByTaskIdAsync([FromQuery] SearchModel search)
         {
             CommonResult result = new CommonResult();
-            string orderByDir = string.IsNullOrEmpty(Request.Query["Order"].ToString()) ? "desc" : Request.Query["Order"].ToString();
-            string orderFlied = string.IsNullOrEmpty(Request.Query["Sort"].ToString()) ? " CreatorTime " : Request.Query["Sort"].ToString();
-            bool order = orderByDir == "asc" ? false : true;
-            string where = GetPagerCondition();
+            string where = "";
             if (!string.IsNullOrEmpty(search.Keywords))
             {
-                where += string.Format(" and TaskId ='{0}' ", search.Keywords);
+                where += string.Format(" TaskId ='{0}' ", search.Keywords);
             }
-            PagerInfo pagerInfo = GetPagerInfo();
-            List<TaskJobsLog> list = await iService.FindWithPagerAsync(where, pagerInfo, orderFlied, order);
+            where += " order by CreatorTime desc";
+            IEnumerable<TaskJobsLog> list = await iService.GetListTopWhereAsync(30,where);
             List<TaskJobsLogOutputDto> resultList = list.MapTo<TaskJobsLogOutputDto>();
-            PageResult<TaskJobsLogOutputDto> pageResult = new PageResult<TaskJobsLogOutputDto>
-            {
-                CurrentPage = pagerInfo.CurrenetPageIndex,
-                Items = resultList,
-                ItemsPerPage = pagerInfo.PageSize,
-                TotalItems = pagerInfo.RecordCount
-            };
-            result.ResData = pageResult;
+            result.ResData = resultList;
             result.ErrCode = ErrCode.successCode;
             return ToJsonContent(result);
         }

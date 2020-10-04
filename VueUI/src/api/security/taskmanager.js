@@ -113,7 +113,7 @@ export function getLocalTaskJobs() {
    */
 export function getTaskJobLogListWithPager(data) {
   return http.request({
-    url: 'TaskJobsLog/FindWithPagerAsync',
+    url: 'TaskJobsLog/FindWithByTaskIdAsync',
     method: 'get',
     params: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式

@@ -142,8 +142,6 @@ export default {
           this.loading = false
         })
         .catch(res => {
-          console.log(JSON.stringify(res))
-          console.log('登录失败')
           this.loading = false
         })
     }

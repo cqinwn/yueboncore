@@ -255,14 +255,7 @@
       :visible.sync="dialogShowLogFormVisible"
       width="940px"
     >
-      <div class="radio">
-        排序：
-        <el-radio-group v-model="reverse">
-          <el-radio :label="true">倒序</el-radio>
-          <el-radio :label="false">正序</el-radio>
-        </el-radio-group>
-      </div>
-      <el-timeline :reverse="reverse">
+      <el-timeline>
         <el-timeline-item
           v-for="(activity, index) in activities"
           :key="index"
@@ -292,11 +285,6 @@ export default {
       tableData: [],
       tableloading: true,
       pagination: {
-        currentPage: 1,
-        pagesize: 20,
-        pageTotal: 0
-      },
-      logspageination: {
         currentPage: 1,
         pagesize: 20,
         pageTotal: 0
@@ -397,15 +385,10 @@ export default {
      */
     loadJobLogData: function(row) {
       var seachdata = {
-        'CurrentPage': this.logspageination.currentPage,
-        'length': this.logspageination.pagesize,
-        'Keywords': row.Id,
-        'Order': '',
-        'Sort': 'CreatorTime'
+        'Keywords': row.Id
       }
       getTaskJobLogListWithPager(seachdata).then(res => {
-        this.activities = res.ResData.Items
-        this.logspageination.pageTotal = res.ResData.TotalItems
+        this.activities = res.ResData
       })
     },
     /**

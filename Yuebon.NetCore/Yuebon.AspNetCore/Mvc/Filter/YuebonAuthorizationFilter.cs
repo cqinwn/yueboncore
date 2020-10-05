@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,8 @@ using System.Threading.Tasks;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc.Filter;
+using Yuebon.Commons.Cache;
+using Yuebon.Commons.Json;
 using Yuebon.Commons.Models;
 using Yuebon.Security.Application;
 using Yuebon.Security.Dtos;
@@ -52,7 +55,7 @@ namespace Yuebon.AspNetCore.Mvc
             else
             {
                 string token = string.Empty;
-                if (authHeader != null && authHeader.StartsWith("Bearer") && authHeader.Length > 10)
+                if (authHeader != null && authHeader.StartsWith("Bearer",StringComparison.Ordinal) && authHeader.Length > 10)
                 {
                     token = authHeader.Substring("Bearer ".Length).Trim();
                 }
@@ -79,7 +82,14 @@ namespace Yuebon.AspNetCore.Mvc
                     if (result.ResData!=null)
                     {
                         List<Claim> claimlist = result.ResData as List<Claim>;
-                        string userId = claimlist[3].Value;                        
+                        string userId = claimlist[3].Value;
+                        YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+                        var user = JsonConvert.DeserializeObject<UserAuthSession>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
+                        if (user == null)
+                        {
+                            context.Result = new JsonResult(new CommonResult(ErrCode.err40008, "40008"));
+                            return;
+                        }
                         var authorizeAttributes = controllerActionDescriptor.MethodInfo.GetCustomAttributes(typeof(YuebonAuthorizeAttribute), true).OfType<YuebonAuthorizeAttribute>();
                         if (authorizeAttributes.First() != null)
                         {

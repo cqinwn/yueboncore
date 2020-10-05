@@ -1858,7 +1858,7 @@ namespace Yuebon.Commons.Repositories
             }
         }
         /// <summary>
-        /// 多表操作--事务
+        /// 异步多表操作--事务
         /// </summary>
         /// <param name="trans">事务</param>
         /// <param name="commandTimeout">超时</param>

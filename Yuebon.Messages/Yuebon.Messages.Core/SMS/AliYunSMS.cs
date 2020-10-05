@@ -142,9 +142,13 @@ namespace Yuebon.Messages.SMS
                 return false;
             }
         }
-
+        /// <summary>
+        /// Appkey 应用Id
+        /// </summary>
         public string Appkey { get; set; }
-
+        /// <summary>
+        /// Appsecret应用密钥
+        /// </summary>
         public string Appsecret { get; set; }
 
         /// <summary>

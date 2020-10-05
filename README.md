@@ -10,7 +10,7 @@
 
 2、优化批量处理方法
 
-3、升级到最新.netcore sdk 3.1.8
+3、升级到最新SDK 3.1.402,ASP.NET Core Runtime 3.1.8
 
 4、实现定时任务模块，支持本地任务和远程接口任务，详情参考[定时任务帮助](https://gitee.com/yuebon/YuebonNetCore/wikis/%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1?sort_id=2926976)
 
@@ -26,13 +26,13 @@
 有任何疑问可以在文尾添加作者微信咨询。
 
 ### 概述
-YuebonCore FW是基于.NetCore3.1开发的权限管理及快速开发框架，整合应用最新技术包括Asp.NetCore MVC、Dapper、AutoFac、WebAPI、Swagger、Json.Net、IdentityServer4等，核心模块包括：组织机构、角色用户、权限授权、多系统、多应用管理等。它的架构易于扩展，是中小企业的优选。
+YuebonCore FW是基于.NetCore3.1开发的权限管理及快速开发框架，整合应用最新技术包括Asp.NetCore MVC、Dapper、AutoFac、WebAPI、Swagger、IdentityServer4、Vue等，核心模块包括：组织机构、角色用户、权限授权、多系统、多应用管理、定时任务、业务单据编码规则、代码生成器等。它的架构易于扩展，是中小企业的优选。
 
 YuebonCore FW其核心设计目标是开发迅速、代码量少、学习简单、功能强大、轻量级、易扩展，让Web开发更快速、简单，解决70%重复工作。轻松开发，专注您的业务，从YuebonCore FW开始！
 
 ### 项目简介
 
-YuebonCore是一套基于NetCore3.1.3 开发出来的框架，源代码完全开源！目前发布了Vue单页面版和mvc版两个版本，开发者可以根据自己的喜好选择。
+YuebonCore是一套基于NetCore3.1 开发出来的框架，源代码完全开源！目前发布了Vue单页面版和mvc版两个版本，开发者可以根据自己的喜好选择。
 
 使用 MIT 协议，采用主流框架，容易上手，简单易学，学习成本低。可完全实现二次开发、基本满足80%项目需求。
 
@@ -128,6 +128,7 @@ DataBase是最新数据库备份文件，目前支持MS SQL Server和MySql。
 9、定时任务
 
 ![列表](https://images.gitee.com/uploads/images/2020/0930/145634_ed46d73b_1017224.png "屏幕截图.png")
+
 本地任务
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/0930/150300_e99d86f7_1017224.png "屏幕截图.png")
 

@@ -74,10 +74,11 @@ namespace Yuebon.Security.Services
                 job.ErrorCount++;
                 job.LastErrorTime= DateTime.Now;
                 strDesc = $"异常，"+msg;
+               
             }
             else
             {
-                strDesc = $"正常" + msg;
+                strDesc = $"正常，" + msg;
             }
             if (jobAction == JobAction.开始)
             {

@@ -116,7 +116,7 @@
             <el-tag
               :type="scope.row.Status === true ? 'success' : 'info'"
               disable-transitions
-            >{{ scope.row.Status===true?'启用':'禁用' }}</el-tag>
+            >{{ scope.row.Status===true?'正常':'异常' }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column

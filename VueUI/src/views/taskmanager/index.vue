@@ -236,6 +236,16 @@
         <el-form-item label="描述" :label-width="formLabelWidth" prop="Description">
           <el-input v-model="editFrom.Description" type="textarea" autocomplete="off" clearable />
         </el-form-item>
+
+        <el-form-item label="邮件通知" :label-width="formLabelWidth" prop="IsSendMail">
+          <el-radio-group v-model="editFrom.IsSendMail">
+            <el-radio label="true">通知</el-radio>
+            <el-radio label="false">不通知</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item v-if="editFrom.IsSendMail=='true'" label="Email地址" :label-width="formLabelWidth" prop="EmailAddress">
+          <el-input v-model="editFrom.EmailAddress" placeholder="请输入接收Email地址多个用英文逗号隔开" autocomplete="off" clearable />
+        </el-form-item>
         <el-form-item label="是否启用" :label-width="formLabelWidth" prop="EnabledMark">
           <el-radio-group v-model="editFrom.EnabledMark">
             <el-radio label="true">是</el-radio>
@@ -304,7 +314,9 @@ export default {
         JobCallParams: '',
         EnabledMark: 'true',
         IsLocal: 'true',
-        Description: ''
+        Description: '',
+        IsSendMail: 'true',
+        EmailAddress: ''
       },
       rules: {
         TaskName: [
@@ -421,6 +433,8 @@ export default {
         this.editFrom.IsLocal = res.ResData.IsLocal + ''
         this.editFrom.Description = res.ResData.Description
         this.editFrom.JobCallAddress = res.ResData.JobCallAddress
+        this.editFrom.IsSendMail = res.ResData.IsSendMail + ''
+        this.editFrom.EmailAddress = res.ResData.EmailAddress
         this.isShowSelect = res.ResData.IsLocal + ''
       })
     },
@@ -439,6 +453,8 @@ export default {
             'EnabledMark': this.editFrom.EnabledMark,
             'IsLocal': this.editFrom.IsLocal,
             'Description': this.editFrom.Description,
+            'IsSendMail': this.editFrom.IsSendMail,
+            'EmailAddress': this.editFrom.EmailAddress,
             'Id': this.currentId
           }
           var url = 'TaskManager/Insert'

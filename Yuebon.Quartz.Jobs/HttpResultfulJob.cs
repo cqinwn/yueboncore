@@ -4,6 +4,7 @@ using Quartz.Impl.Triggers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using Yuebon.Commons.Extend;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IoC;
 using Yuebon.Commons.Options;
+using Yuebon.Messages.Mail;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
 
@@ -70,12 +72,44 @@ namespace Yuebon.Quartz.Jobs
                 stopwatch.Stop();
                 string content = $"结束时间:{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")} 共耗时{stopwatch.ElapsedMilliseconds} 毫秒,消息:{httpMessage??"OK"}\r\n";
                 iService.RecordRun(taskManager.Id, JobAction.结束,true, content);
+                if (taskManager.IsSendMail)
+                {
+                    if (!string.IsNullOrEmpty(taskManager.EmailAddress))
+                    {
+
+                        List<string> recipients = new List<string>();
+                        recipients = taskManager.EmailAddress.Split(",").ToList();
+                        //recipients.Add(taskManager.EmailAddress);
+                        var mailBodyEntity = new MailBodyEntity()
+                        {
+                            Body = content + "\n\r请勿回复本邮件",
+                            Recipients = recipients,
+                            Subject = taskManager.TaskName,
+                        };
+                        SendMailHelper.SendMail(mailBodyEntity);
+                    }
+                }
             }
             catch (Exception ex)
             {
-                httpMessage = ex.Message;
                 iService.RecordRun(taskManager.Id, JobAction.结束, false,ex.Message);
-                FileQuartz.WriteErrorLog(ex.Message);
+                FileQuartz.WriteErrorLog(ex.Message); 
+                if (taskManager.IsSendMail)
+                {
+                    if (!string.IsNullOrEmpty(taskManager.EmailAddress))
+                    {
+
+                        List<string> recipients = new List<string>();
+                        recipients = taskManager.EmailAddress.Split(",").ToList();
+                        var mailBodyEntity = new MailBodyEntity()
+                        {
+                            Body = ex.Message+ "\n\r请勿回复本邮件",
+                            Recipients = recipients,
+                            Subject = taskManager.TaskName,
+                        };
+                        SendMailHelper.SendMail(mailBodyEntity);
+                    }
+                }
             }
 
             return Task.Delay(1);

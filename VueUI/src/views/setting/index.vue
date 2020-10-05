@@ -83,10 +83,13 @@
         </el-tab-pane>
         <el-tab-pane label="邮件设置" name="four">
           <el-form-item label="SMTP服务器" :label-width="formLabelWidth" prop="Emailsmtp">
-            <el-input v-model="editFrom.Emailsmtp" placeholder="请输入系统名称" autocomplete="off" clearable />
+            <el-input v-model="editFrom.Emailsmtp" placeholder="请输入SMTP服务器" autocomplete="off" clearable />
           </el-form-item>
           <el-form-item label="SSL加密连接" :label-width="formLabelWidth" prop="Emailssl">
-            <el-input v-model="editFrom.Emailssl" placeholder="请输入系统简介" autocomplete="off" clearable />
+            <el-radio-group v-model="editFrom.Emailssl">
+              <el-radio label="true">是</el-radio>
+              <el-radio label="false">否</el-radio>
+            </el-radio-group>
           </el-form-item>
           <el-form-item label="SMTP端口" :label-width="formLabelWidth" prop="Emailport">
             <el-input v-model="editFrom.Emailport" placeholder="请输入SMTP端口" autocomplete="off" clearable />
@@ -202,6 +205,7 @@ export default {
       getSysSetting().then(res => {
         this.editFrom = res.ResData
         this.editFrom.Webstatus = res.ResData.Webstatus + ''
+        this.editFrom.Emailssl = res.ResData.Emailssl + ''
         this.filelist = [{ name: res.ResData.SysLogo, url: res.ResData.SysLogo }]
       })
     },

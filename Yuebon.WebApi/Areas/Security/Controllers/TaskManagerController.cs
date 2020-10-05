@@ -108,6 +108,8 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.EnabledMark = tinfo.EnabledMark;
             info.Description = tinfo.Description;
             info.IsLocal = tinfo.IsLocal;
+            info.IsSendMail = tinfo.IsSendMail;
+            info.EmailAddress = tinfo.EmailAddress;
 
 
             OnBeforeUpdate(info);

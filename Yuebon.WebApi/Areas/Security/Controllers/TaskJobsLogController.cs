@@ -101,7 +101,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         }
 
         /// <summary>
-        /// 分页查询
+        /// 根据任务Id查询最新的30条日志
         /// </summary>
         /// <param name="search"></param>
         /// <returns></returns>

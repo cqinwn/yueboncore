@@ -44,10 +44,10 @@ service.interceptors.response.use(
           confirmButtonText: '重新登录',
           cancelButtonText: '取消',
           type: 'warning'
-        }).then(() => {
-          // store.dispatch('user/resetToken').then((res) => {
-          //   location.reload()
-          // })
+        }).then((re) => {
+          store.dispatch('user/resetToken').then((res) => {
+            location.reload()
+          })
         })
       }
       return Promise.reject(new Error(res.ErrMsg || 'Error'))

@@ -17,7 +17,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="aliyun-net-sdk-core" Version="1.5.8" />
+    <Compile Remove="Mail\Email.cs" />
+    <Compile Remove="Mail\SendMail.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="aliyun-net-sdk-core" Version="1.5.10" />
+    <PackageReference Include="MailKit" Version="2.9.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -93,6 +93,15 @@ namespace Yuebon.Security.Dtos
         /// </summary>
         public bool? EnabledMark { get; set; }
 
+
+        /// <summary>
+        /// 设置或获取是否邮件通知
+        /// </summary>
+        public bool IsSendMail { get; set; }
+        /// <summary>
+        /// 设置或获取接受邮件地址
+        /// </summary>
+        public string EmailAddress { get; set; }
         /// <summary>
         /// 设置或获取删除标记
         /// </summary>

@@ -82,7 +82,7 @@ namespace Yuebon.Quartz.Jobs
                         //recipients.Add(taskManager.EmailAddress);
                         var mailBodyEntity = new MailBodyEntity()
                         {
-                            Body = content + "\n\r请勿回复本邮件",
+                            Body = content + "\n\r请勿直接回复本邮件！",
                             Recipients = recipients,
                             Subject = taskManager.TaskName,
                         };
@@ -98,12 +98,11 @@ namespace Yuebon.Quartz.Jobs
                 {
                     if (!string.IsNullOrEmpty(taskManager.EmailAddress))
                     {
-
                         List<string> recipients = new List<string>();
                         recipients = taskManager.EmailAddress.Split(",").ToList();
                         var mailBodyEntity = new MailBodyEntity()
                         {
-                            Body = ex.Message+ "\n\r请勿回复本邮件",
+                            Body = ex.Message+ "\n\r请勿直接回复本邮件!",
                             Recipients = recipients,
                             Subject = taskManager.TaskName,
                         };

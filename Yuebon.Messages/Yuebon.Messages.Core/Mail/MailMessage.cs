@@ -197,11 +197,11 @@ namespace Yuebon.Messages.Mail
             {
                 Directory.CreateDirectory(logPath);
             }
-
-            if (File.Exists(logPath)) return logPath + filename;
-            var fs = File.Create(logPath+ filename);
+            logPath=logPath + filename;
+            if (File.Exists(logPath)) return logPath;
+            var fs = File.Create(logPath);
             fs.Close();
-            return logPath + filename;
+            return logPath;
 
         }
     }

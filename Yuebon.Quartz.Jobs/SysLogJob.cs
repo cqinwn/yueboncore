@@ -70,7 +70,7 @@ namespace Yuebon.Quartz.Jobs
                         {
                             Body = content + ",请勿回复本邮件",
                             Recipients = recipients,
-                            Subject = "定时删除日志",
+                            Subject = taskManager.TaskName
                         };
                         SendMailHelper.SendMail(mailBodyEntity);
                     }
@@ -92,7 +92,7 @@ namespace Yuebon.Quartz.Jobs
                         {
                             Body = "处理失败," + ex.Message + ",请勿回复本邮件",
                             Recipients = recipients,
-                            Subject = "定时删除日志",
+                            Subject = taskManager.TaskName
                         };
                         SendMailHelper.SendMail(mailBodyEntity);
                     }

@@ -208,8 +208,8 @@
         <el-form-item label="分组名称" :label-width="formLabelWidth" prop="GroupName">
           <el-input v-model="editFrom.GroupName" placeholder="请输入分组名称" autocomplete="off" clearable />
         </el-form-item>
-        <el-form-item label="间隔(Cron)" :label-width="formLabelWidth" prop="Cron">
-          <el-input v-model="editFrom.Cron" placeholder="请输入间隔(Cron)" autocomplete="off" clearable />
+        <el-form-item label="Cron表达式" :label-width="formLabelWidth" prop="Cron">
+          <el-input v-model="editFrom.Cron" placeholder="请输入Cron表达式" autocomplete="off" clearable />
         </el-form-item>
         <el-form-item label="任务执行方式" :label-width="formLabelWidth" prop="IsLocal">
           <el-radio-group v-model="editFrom.IsLocal" @change="changeIsLocal">
@@ -328,11 +328,11 @@ export default {
           { min: 2, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur' }
         ],
         Cron: [
-          { required: true, message: '请输入间隔(Cron)', trigger: 'blur' },
+          { required: true, message: '请输入Cron表达式', trigger: 'blur' },
           { min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur' }
         ],
         JobCallAddress: [
-          { required: true, message: '请输入接口地址', trigger: 'blur' },
+          { required: true, message: '请输入远程接口地址', trigger: 'blur' },
           { min: 1, max: 250, message: '长度在 1 到 50 个字符', trigger: 'blur' }
         ]
       },

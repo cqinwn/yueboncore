@@ -78,7 +78,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.DeleteUserId = CurrentUser.UserId;
         }
 
-
+        /// <summary>
         /// 异步更新数据
         /// </summary>
         /// <param name="tinfo"></param>

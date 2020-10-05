@@ -14,6 +14,8 @@
 
 4、实现定时任务模块，支持本地任务和远程接口任务，详情参考[定时任务帮助](https://gitee.com/yuebon/YuebonNetCore/wikis/%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1?sort_id=2926976)
 
+5、实现邮件发送功能
+
 更多更新日志 [点击查看](https://gitee.com/yuebon/YuebonNetCore/wikis/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97?sort_id=1983111)
 
 ##### 新计划
@@ -47,9 +49,9 @@ YuebonCore是一套基于NetCore3.1 开发出来的框架，源代码完全开�
 
 ### 在线体验
 
-Vue版本体验地址：[http://netvue.ts.yuebon.com/](http://netvue.ts.yuebon.com)（用户名：test，密码：802940）
+Vue版本体验地址：[http://netvue.ts.yuebon.com/](http://netvue.ts.yuebon.com)（用户名：test，密码：test123）
 
-Asp.net core mvc 版本体验地址：[http://netcore.ts.yuebon.com](http://netcore.ts.yuebon.com)（用户名：test，密码：802940）
+Asp.net core mvc 版本体验地址：[http://netcore.ts.yuebon.com](http://netcore.ts.yuebon.com)（用户名：test，密码：test123）
 
 测试账号未分配删除和重置密码操作，最近总有那么个别人闲得慌登陆上来修改密码和删除关键数据。
 

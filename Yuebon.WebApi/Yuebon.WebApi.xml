@@ -736,6 +736,13 @@
             <param name="search"></param>
             <returns></returns>
         </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.TaskJobsLogController.FindWithByTaskIdAsync(Yuebon.AspNetCore.UI.SearchModel)">
+            <summary>
+            根据任务Id查询最新的30条日志
+            </summary>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
         <member name="T:Yuebon.WebApi.Areas.Security.Controllers.TaskManagerController">
             <summary>
             定时任务接口
@@ -795,6 +802,13 @@
             <summary>
             返回系统的job接口
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.TaskManagerController.FindWithPagerAsync(Yuebon.AspNetCore.UI.SearchModel)">
+            <summary>
+            分页查询
+            </summary>
+            <param name="search"></param>
             <returns></returns>
         </member>
         <member name="T:Yuebon.WebApi.Areas.Security.Controllers.UploadFileController">

@@ -11,7 +11,7 @@ namespace Yuebon.WebApi.Areas.Security.Models
     /// </summary>
     public class SearchUserModel: SearchModel
     {
-        // <summary>
+        /// <summary>
         /// 角色Id
         /// </summary>
         public string RoleId

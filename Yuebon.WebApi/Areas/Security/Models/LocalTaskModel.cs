@@ -7,7 +7,7 @@ namespace Yuebon.WebApi.Areas.Security.Models
 {
     public class LocalTaskModel
     {
-        // <summary>
+        /// <summary>
         /// 类名
         /// </summary>
         public string FullName

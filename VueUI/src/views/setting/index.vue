@@ -101,7 +101,7 @@
             <el-input v-model="editFrom.Emailusername" placeholder="请输入邮箱账号" autocomplete="off" clearable />
           </el-form-item>
           <el-form-item label="邮箱密码" :label-width="formLabelWidth" prop="Emailpassword">
-            <el-input v-model="editFrom.Emailpassword" placeholder="请输入邮箱密码" autocomplete="off" clearable />
+            <el-input v-model="editFrom.Emailpassword" placeholder="请输入邮箱密码" type="password" autocomplete="off" clearable />
           </el-form-item>
           <el-form-item label="发件人昵称" :label-width="formLabelWidth" prop="Emailnickname">
             <el-input v-model="editFrom.Emailnickname" placeholder="请输入发件人昵称" autocomplete="off" clearable />

@@ -28,7 +28,7 @@
             </el-tooltip>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" icon="iconfont icon-csharp" @click="handleGenerate()">生成代码</el-button>
+            <el-button type="primary" icon="iconfont icon-code" @click="handleGenerate()">生成代码</el-button>
           </el-form-item>
         </el-form>
       </div>

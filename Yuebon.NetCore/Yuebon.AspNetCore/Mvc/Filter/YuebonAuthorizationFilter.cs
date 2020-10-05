@@ -78,8 +78,8 @@ namespace Yuebon.AspNetCore.Mvc
                         return;
                     }
                     //需要登录和验证功能权限
-                   
-                    if (result.ResData!=null)
+
+                    if (result.ResData != null)
                     {
                         List<Claim> claimlist = result.ResData as List<Claim>;
                         string userId = claimlist[3].Value;
@@ -90,17 +90,22 @@ namespace Yuebon.AspNetCore.Mvc
                             context.Result = new JsonResult(new CommonResult(ErrCode.err40008, "40008"));
                             return;
                         }
-                        var authorizeAttributes = controllerActionDescriptor.MethodInfo.GetCustomAttributes(typeof(YuebonAuthorizeAttribute), true).OfType<YuebonAuthorizeAttribute>();
-                        if (authorizeAttributes.First() != null)
+                        bool isAdmin = Permission.IsAdmin(user);
+                        if (!isAdmin)
                         {
-                            string function = authorizeAttributes.First().Function;
-                            if (!string.IsNullOrEmpty(function))
+                            var authorizeAttributes = controllerActionDescriptor.MethodInfo.GetCustomAttributes(typeof(YuebonAuthorizeAttribute), true).OfType<YuebonAuthorizeAttribute>();
+                            if (authorizeAttributes.First() != null)
                             {
-                                string functionCode = controllerActionDescriptor.ControllerName + "/" + function;
-                                bool bl = new Permission().HasFunction(functionCode, userId);
-                                if (!bl)
+                                string function = authorizeAttributes.First().Function;
+                                if (!string.IsNullOrEmpty(function))
                                 {
-                                    context.Result = new JsonResult(new CommonResult(ErrCode.err40006, "40006"));
+                                    string functionCode = controllerActionDescriptor.ControllerName + "/" + function;
+
+                                    bool bl = Permission.HasFunction(functionCode, userId);
+                                    if (!bl)
+                                    {
+                                        context.Result = new JsonResult(new CommonResult(ErrCode.err40006, "40006"));
+                                    }
                                 }
                             }
                         }

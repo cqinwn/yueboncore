@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Yuebon.AspNetCore.SSO
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Serializable]
     public class UserAuthInfo
     {

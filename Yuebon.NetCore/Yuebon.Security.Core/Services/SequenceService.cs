@@ -307,11 +307,11 @@ namespace Yuebon.Security.Services
             string str = "";
             if (seqRule.PaddingSide == "Left")
             {
-                str += code.ToString().PadLeft(seqRule.PaddingWidth,seqRule.PaddingChar);
+                str += code.ToString().PadLeft(seqRule.PaddingWidth,seqRule.PaddingChar.ToChar());
             }
             if (seqRule.PaddingSide == "Right")
             {
-                str += code.ToString().PadRight(seqRule.PaddingWidth, seqRule.PaddingChar);
+                str += code.ToString().PadRight(seqRule.PaddingWidth, seqRule.PaddingChar.ToChar());
             }
             return str;
         }

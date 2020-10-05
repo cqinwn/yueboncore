@@ -241,7 +241,7 @@ namespace Yuebon.WebApp.Controllers
             CommonResult resp = new CommonResult();
             try
             {
-                LoginResult result = authHelper.Login(_appKey, appSecret, username, password);
+                LoginResult result = authHelper.Login(_appKey, username, password);
                 if (result.Success)
                 {
                     Response.Cookies.Append("X-Token", result.AccessToken);

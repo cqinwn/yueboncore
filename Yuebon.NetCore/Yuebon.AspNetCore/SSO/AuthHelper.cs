@@ -39,7 +39,7 @@ namespace Yuebon.AspNetCore.SSO
             string token = _httpContextAccessor.HttpContext.Request.Query["Token"];
             if (!String.IsNullOrEmpty(token)) return token;
             string authHeader = _httpContextAccessor.HttpContext.Request.Headers["Authorization"];//Header中的token
-            if (authHeader != null && authHeader.StartsWith("Bearer"))
+            if (authHeader != null && authHeader.StartsWith("Bearer",StringComparison.Ordinal))
             {
                 token = authHeader.Substring("Bearer ".Length).Trim();
                 return token;
@@ -58,7 +58,7 @@ namespace Yuebon.AspNetCore.SSO
             if (String.IsNullOrEmpty(token) || String.IsNullOrEmpty(GetToken()))
                 return false;
 
-            var requestUri = String.Format("/api/Check/GetStatus?token={0}&requestid={1}", token, remark);
+            var requestUri = string.Format("/api/Check/GetStatus?token={0}&requestid={1}", token, remark);
 
             try
             {
@@ -94,7 +94,7 @@ namespace Yuebon.AspNetCore.SSO
         public UserWithAccessedCtrls GetCurrentUser(string remark = "")
         {
 
-            var requestUri = String.Format("/api/Check/GetUserWithAccessedCtrls?token={0}&requestid={1}", GetToken(), remark);
+            var requestUri = string.Format("/api/Check/GetUserWithAccessedCtrls?token={0}&requestid={1}", GetToken(), remark);
 
             try
             {
@@ -143,15 +143,14 @@ namespace Yuebon.AspNetCore.SSO
         /// 登录接口
         /// </summary>
         /// <param name="appKey">应用程序key.</param>
-        /// <param name="appSecret">应用程序Secret.</param>
         /// <param name="account">用户名</param>
         /// <param name="pwd">密码</param>
         /// <returns>System.String.</returns>
-        public LoginResult Login(string appKey,string appSecret, string account, string pwd)
+        public LoginResult Login(string appKey, string account, string pwd)
         {
             try
             {
-                var requestUri = string.Format("/api/Check/Login?account={0}&password={1}&systemCode={2}", account,pwd, appKey);
+                var requestUri = string.Format("/api/Check/Login?account={0}&password={1}&systemCode={2}", account, pwd, appKey);
 
                 try
                 {

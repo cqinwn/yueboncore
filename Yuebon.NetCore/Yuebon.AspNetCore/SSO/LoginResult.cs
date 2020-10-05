@@ -13,10 +13,10 @@ namespace Yuebon.AspNetCore.SSO
         /// <summary>
         /// 跳转Url
         /// </summary>
-        public string ReturnUrl;
+        public string ReturnUrl { get; set; }
         /// <summary>
         /// token
         /// </summary>
-        public string AccessToken;
+        public string AccessToken { get; set; }
     }
 }

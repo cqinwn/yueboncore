@@ -214,7 +214,7 @@
           <el-input v-model="editFrom.PaddingWidth" placeholder="请输入补齐宽度" autocomplete="off" clearable />
         </el-form-item>
         <el-form-item v-if="editFrom.RuleType==='number'" label="填充字符" :label-width="formLabelWidth" prop="PaddingChar">
-          <el-input v-model="editFrom.PaddingChar" placeholder="请输入填充字符" autocomplete="off" clearable />
+          <el-input v-model="editFrom.PaddingChar" placeholder="请输入填充字符" maxlength="1" autocomplete="off" clearable />
         </el-form-item>
         <el-form-item label="描述" :label-width="formLabelWidth" prop="Description">
           <el-input v-model="editFrom.Description" autocomplete="off" clearable />

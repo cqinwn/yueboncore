@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Yuebon.AspNetCore.SSO
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class TokenModel
     {
         private string _access_token;

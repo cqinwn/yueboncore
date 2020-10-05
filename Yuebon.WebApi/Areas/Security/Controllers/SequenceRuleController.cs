@@ -105,7 +105,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
                 sequence = info.MapTo<SequenceRule>();
                 if (!string.IsNullOrEmpty(info.PaddingChar))
                 {
-                    sequence.PaddingChar = info.PaddingChar.ToCharArray()[0];
+                    sequence.PaddingChar = info.PaddingChar.ToCharArray()[0].ToString();
                 }
                 OnBeforeInsert(sequence);
                 long ln = await iService.InsertAsync(sequence).ConfigureAwait(true);
@@ -129,7 +129,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
                 sequenceRule.PaddingWidth = info.PaddingWidth;
                 if (!string.IsNullOrEmpty(info.PaddingChar))
                 {
-                    sequenceRule.PaddingChar = info.PaddingChar.ToCharArray()[0];
+                    sequenceRule.PaddingChar = info.PaddingChar.ToCharArray()[0].ToString();
                 }
                 sequenceRule.EnabledMark = info.EnabledMark;
                 sequenceRule.Description = info.Description;

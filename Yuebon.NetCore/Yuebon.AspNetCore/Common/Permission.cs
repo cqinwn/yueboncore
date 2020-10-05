@@ -17,7 +17,7 @@ namespace Yuebon.AspNetCore.Common
     /// <summary>
     /// 权限控制
     /// </summary>
-    public class Permission
+    public static class Permission
     {
         /// <summary>
         /// 判断当前用户是否拥有某功能点的权限
@@ -25,7 +25,7 @@ namespace Yuebon.AspNetCore.Common
         /// <param name="functionCode">功能编码code</param>
         /// <param name="userId">用户id</param>
         /// <returns></returns>
-        public bool HasFunction(string functionCode, string userId)
+        public static bool HasFunction(string functionCode, string userId)
         {            
             bool hasFunction = false;
             if (!string.IsNullOrEmpty(userId)) { 

@@ -1,3 +1,18 @@
+USE [master]
+GO
+
+if exists (select * from sys.databases where name = 'YBNF')
+	drop database [YBNF]
+
+Create database [YBNF]
+GO
+
+ALTER DATABASE [YBNF] SET RECOVERY SIMPLE
+GO
+
+ALTER DATABASE [YBNF] SET AUTO_SHRINK ON 
+GO
+
 USE [YBNF]
 GO
 /****** Object:  Table [dbo].[Sys_APP]    Script Date: 2020/10/5 17:39:10 ******/

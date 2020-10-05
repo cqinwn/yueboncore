@@ -206,7 +206,14 @@
             <param name="info"></param>
             <returns></returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Yuebon.WebApi.Areas.Security.Controllers.FilterIPController.UpdateAsync(Yuebon.Security.Dtos.FilterIPInputDto,System.String)" -->
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.FilterIPController.UpdateAsync(Yuebon.Security.Dtos.FilterIPInputDto,System.String)">
+            <summary>
+            异步更新数据
+            </summary>
+            <param name="tinfo"></param>
+            <param name="id">主键Id</param>
+            <returns></returns>
+        </member>
         <member name="M:Yuebon.WebApi.Areas.Security.Controllers.FilterIPController.FindWithPagerAsync(Yuebon.AspNetCore.UI.SearchModel)">
             <summary>
             异步分页查询
@@ -1034,13 +1041,21 @@
             总岗位角色数
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:Yuebon.WebApi.Areas.Security.Models.LocalTaskModel.FullName" -->
+        <member name="P:Yuebon.WebApi.Areas.Security.Models.LocalTaskModel.FullName">
+            <summary>
+            类名
+            </summary>
+        </member>
         <member name="T:Yuebon.WebApi.Areas.Security.Models.SearchUserModel">
             <summary>
             用户搜索条件
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:Yuebon.WebApi.Areas.Security.Models.SearchUserModel.RoleId" -->
+        <member name="P:Yuebon.WebApi.Areas.Security.Models.SearchUserModel.RoleId">
+            <summary>
+            角色Id
+            </summary>
+        </member>
         <member name="P:Yuebon.WebApi.Areas.Security.Models.SearchUserModel.CreatorTime1">
             <summary>
             注册或添加时间 开始

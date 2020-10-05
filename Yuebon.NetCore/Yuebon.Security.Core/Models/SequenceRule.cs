@@ -47,7 +47,7 @@ namespace Yuebon.Security.Models
         /// <summary>
         /// 设置或获取填充字符
         /// </summary>
-        public char PaddingChar { get; set; }
+        public string PaddingChar { get; set; }
 
         /// <summary>
         /// 设置或获取 

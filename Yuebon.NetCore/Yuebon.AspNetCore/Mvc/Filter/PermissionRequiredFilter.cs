@@ -42,9 +42,11 @@ namespace Yuebon.AspNetCore.Mvc.Filter
         public bool IsLog { get; set; } = true;
 
         private string ActionArguments { get; set; }
-
-        public UserAuthSession CurrentUser;
         #endregion
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filterContext"></param>
         public override void OnActionExecuting(ActionExecutingContext filterContext)
 
         {
@@ -60,7 +62,7 @@ namespace Yuebon.AspNetCore.Mvc.Filter
 
             string authHeader = filterContext.HttpContext.Request.Headers["Authorization"];//Header中的token
             string token = string.Empty;
-            if (authHeader != null && authHeader.StartsWith("Bearer") && authHeader.Length > 10)
+            if (authHeader != null && authHeader.StartsWith("Bearer",StringComparison.Ordinal) && authHeader.Length > 10)
             {
                 token = authHeader.Substring("Bearer ".Length).Trim();
             }
@@ -78,7 +80,7 @@ namespace Yuebon.AspNetCore.Mvc.Filter
                 if (!string.IsNullOrEmpty(userId))
                 {
                     string functionCode = controllerActionDescriptor.ControllerName + "/" + controllerActionDescriptor.ActionName;
-                    bool bl = new Permission().HasFunction(functionCode, userId);
+                    bool bl = Permission.HasFunction(functionCode, userId);
                     if (!bl)
                     {
                         throw new MyApiException(ErrCode.err40006, "40006");

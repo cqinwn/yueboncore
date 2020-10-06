@@ -15,7 +15,7 @@ GO
 
 USE [YBNF]
 GO
-/****** Object:  Table [dbo].[Sys_APP]    Script Date: 2020/10/5 17:39:10 ******/
+/****** Object:  Table [dbo].[Sys_APP]    Script Date: 2020/10/6 8:32:39 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -41,7 +41,7 @@ CREATE TABLE [dbo].[Sys_APP](
 	[DeleteUserId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Area]    Script Date: 2020/10/5 17:39:11 ******/
+/****** Object:  Table [dbo].[Sys_Area]    Script Date: 2020/10/6 8:32:39 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -67,7 +67,7 @@ CREATE TABLE [dbo].[Sys_Area](
 	[DeleteUserId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_DbBackup]    Script Date: 2020/10/5 17:39:11 ******/
+/****** Object:  Table [dbo].[Sys_DbBackup]    Script Date: 2020/10/6 8:32:39 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -92,7 +92,7 @@ CREATE TABLE [dbo].[Sys_DbBackup](
 	[DeleteUserId] [varchar](500) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_FilterIP]    Script Date: 2020/10/5 17:39:11 ******/
+/****** Object:  Table [dbo].[Sys_FilterIP]    Script Date: 2020/10/6 8:32:39 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -114,7 +114,7 @@ CREATE TABLE [dbo].[Sys_FilterIP](
 	[DeleteUserId] [varchar](500) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Function]    Script Date: 2020/10/5 17:39:11 ******/
+/****** Object:  Table [dbo].[Sys_Function]    Script Date: 2020/10/6 8:32:39 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -146,7 +146,7 @@ CREATE TABLE [dbo].[Sys_Function](
 	[DeleteUserId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Items]    Script Date: 2020/10/5 17:39:11 ******/
+/****** Object:  Table [dbo].[Sys_Items]    Script Date: 2020/10/6 8:32:39 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -170,7 +170,7 @@ CREATE TABLE [dbo].[Sys_Items](
 	[DeleteUserId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_ItemsDetail]    Script Date: 2020/10/5 17:39:11 ******/
+/****** Object:  Table [dbo].[Sys_ItemsDetail]    Script Date: 2020/10/6 8:32:39 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -196,7 +196,7 @@ CREATE TABLE [dbo].[Sys_ItemsDetail](
 	[DeleteUserId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Log]    Script Date: 2020/10/5 17:39:11 ******/
+/****** Object:  Table [dbo].[Sys_Log]    Script Date: 2020/10/6 8:32:39 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -224,7 +224,7 @@ CREATE TABLE [dbo].[Sys_Log](
 	[DeleteUserId] [varchar](50) NULL
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Menu]    Script Date: 2020/10/5 17:39:11 ******/
+/****** Object:  Table [dbo].[Sys_Menu]    Script Date: 2020/10/6 8:32:39 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -256,7 +256,7 @@ CREATE TABLE [dbo].[Sys_Menu](
 	[DeleteUserId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_OpenIdSettings]    Script Date: 2020/10/5 17:39:11 ******/
+/****** Object:  Table [dbo].[Sys_OpenIdSettings]    Script Date: 2020/10/6 8:32:39 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -268,7 +268,7 @@ CREATE TABLE [dbo].[Sys_OpenIdSettings](
 	[Settings] [ntext] NOT NULL
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Organize]    Script Date: 2020/10/5 17:39:11 ******/
+/****** Object:  Table [dbo].[Sys_Organize]    Script Date: 2020/10/6 8:32:39 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -303,7 +303,7 @@ CREATE TABLE [dbo].[Sys_Organize](
 	[DeleteUserId] [varchar](500) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Role]    Script Date: 2020/10/5 17:39:11 ******/
+/****** Object:  Table [dbo].[Sys_Role]    Script Date: 2020/10/6 8:32:39 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -329,7 +329,7 @@ CREATE TABLE [dbo].[Sys_Role](
 	[DeleteUserId] [varchar](500) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_RoleAuthorize]    Script Date: 2020/10/5 17:39:11 ******/
+/****** Object:  Table [dbo].[Sys_RoleAuthorize]    Script Date: 2020/10/6 8:32:39 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -345,7 +345,7 @@ CREATE TABLE [dbo].[Sys_RoleAuthorize](
 	[CreatorUserId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_RoleData]    Script Date: 2020/10/5 17:39:11 ******/
+/****** Object:  Table [dbo].[Sys_RoleData]    Script Date: 2020/10/6 8:32:39 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -359,7 +359,7 @@ CREATE TABLE [dbo].[Sys_RoleData](
 	[Note] [ntext] NULL
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Sequence]    Script Date: 2020/10/5 17:39:11 ******/
+/****** Object:  Table [dbo].[Sys_Sequence]    Script Date: 2020/10/6 8:32:39 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -390,7 +390,7 @@ CREATE TABLE [dbo].[Sys_Sequence](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_SequenceRule]    Script Date: 2020/10/5 17:39:11 ******/
+/****** Object:  Table [dbo].[Sys_SequenceRule]    Script Date: 2020/10/6 8:32:39 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -421,7 +421,7 @@ CREATE TABLE [dbo].[Sys_SequenceRule](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_SystemType]    Script Date: 2020/10/5 17:39:11 ******/
+/****** Object:  Table [dbo].[Sys_SystemType]    Script Date: 2020/10/6 8:32:39 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -445,7 +445,7 @@ CREATE TABLE [dbo].[Sys_SystemType](
 	[DeleteUserId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_TaskJobsLog]    Script Date: 2020/10/5 17:39:11 ******/
+/****** Object:  Table [dbo].[Sys_TaskJobsLog]    Script Date: 2020/10/6 8:32:39 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -464,7 +464,7 @@ CREATE TABLE [dbo].[Sys_TaskJobsLog](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_TaskManager]    Script Date: 2020/10/5 17:39:11 ******/
+/****** Object:  Table [dbo].[Sys_TaskManager]    Script Date: 2020/10/6 8:32:39 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -502,7 +502,7 @@ CREATE TABLE [dbo].[Sys_TaskManager](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_UploadFile]    Script Date: 2020/10/5 17:39:11 ******/
+/****** Object:  Table [dbo].[Sys_UploadFile]    Script Date: 2020/10/6 8:32:39 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -526,7 +526,7 @@ CREATE TABLE [dbo].[Sys_UploadFile](
 	[BelongAppId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_User]    Script Date: 2020/10/5 17:39:11 ******/
+/****** Object:  Table [dbo].[Sys_User]    Script Date: 2020/10/6 8:32:39 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -570,7 +570,7 @@ CREATE TABLE [dbo].[Sys_User](
 	[DeleteUserId] [varchar](500) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_UserExtend]    Script Date: 2020/10/5 17:39:11 ******/
+/****** Object:  Table [dbo].[Sys_UserExtend]    Script Date: 2020/10/6 8:32:39 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -610,7 +610,7 @@ CREATE TABLE [dbo].[Sys_UserExtend](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_UserLogOn]    Script Date: 2020/10/5 17:39:11 ******/
+/****** Object:  Table [dbo].[Sys_UserLogOn]    Script Date: 2020/10/6 8:32:39 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -638,7 +638,7 @@ CREATE TABLE [dbo].[Sys_UserLogOn](
 	[Theme] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_UserOpenIds]    Script Date: 2020/10/5 17:39:11 ******/
+/****** Object:  Table [dbo].[Sys_UserOpenIds]    Script Date: 2020/10/6 8:32:39 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -696,6 +696,30 @@ ALTER TABLE [dbo].[Sys_UserExtend] ADD  CONSTRAINT [DF_CMS_NameCard_EnabledMark]
 GO
 ALTER TABLE [dbo].[Sys_UserExtend] ADD  CONSTRAINT [DF_CMS_NameCard_DeleteMark]  DEFAULT ((0)) FOR [DeleteMark]
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'应用管理' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_APP'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'地区信息' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_Area'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'数据备份' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_DbBackup'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'IP地址过滤' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_FilterIP'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'功能模块' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_Function'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'数据字典' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_Items'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'数据字典明细项目' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_ItemsDetail'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'日志管理' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_Log'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'菜单管理' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_Menu'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'第三方开放平台设置' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_OpenIdSettings'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'组织机构' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_Organize'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'岗位角色' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_Role'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'项目类型0-子系统，1-模块，2-列表/菜单，3-按钮' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_RoleAuthorize', @level2type=N'COLUMN',@level2name=N'ItemType'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'项目主键' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_RoleAuthorize', @level2type=N'COLUMN',@level2name=N'ItemId'
@@ -703,6 +727,10 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'对象分类/类型1-角色，2-部门，3-用户' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_RoleAuthorize', @level2type=N'COLUMN',@level2name=N'ObjectType'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'对象主键，对象分类/类型为角色时就是角色ID，部门就是部门ID，用户就是用户ID' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_RoleAuthorize', @level2type=N'COLUMN',@level2name=N'ObjectId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'角色功能权限' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_RoleAuthorize'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'角色数据权限' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_RoleData'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'业务单据号名称' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_Sequence', @level2type=N'COLUMN',@level2name=N'SequenceName'
 GO
@@ -776,6 +804,8 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'删除人' , @
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'序号编码规则表' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_SequenceRule'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'子系统' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_SystemType'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'任务Id' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_TaskJobsLog', @level2type=N'COLUMN',@level2name=N'TaskId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'任务名称' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_TaskJobsLog', @level2type=N'COLUMN',@level2name=N'TaskName'
@@ -840,6 +870,10 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'删除人' , @
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'定时任务' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_TaskManager'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'上传文件管理' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_UploadFile'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'用户' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_User'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'用户Id' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_UserExtend', @level2type=N'COLUMN',@level2name=N'UserId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'名片内容' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_UserExtend', @level2type=N'COLUMN',@level2name=N'CardContent'
@@ -873,4 +907,10 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'是否认证' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_UserExtend', @level2type=N'COLUMN',@level2name=N'IsAuthentication'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'认证类型1-企业；2-个人' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_UserExtend', @level2type=N'COLUMN',@level2name=N'AuthenticationType'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'用户扩展信息' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_UserExtend'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'用户登录信息' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_UserLogOn'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'用户与第三方开放平台对应关系' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_UserOpenIds'
 GO

@@ -120,6 +120,10 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             OnBeforeInsert(info);
             UserLogOn userLogOn = new UserLogOn();
             userLogOn.UserPassword = "12345678";
+            userLogOn.AllowStartTime =userLogOn.LockEndDate=userLogOn.LockStartDate=userLogOn.ChangePasswordDate= DateTime.Now;
+            userLogOn.AllowEndTime = DateTime.Now.AddYears(100);
+            userLogOn.MultiUserLogin = userLogOn.CheckIPAddress= false;
+            userLogOn.LogOnCount = 0;
             result.Success = await iService.InsertAsync(info, userLogOn);
             if (result.Success)
             {
@@ -302,6 +306,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 string strRandom = random.Next(100000, 999999).ToString(); //生成编号 
                 userLogOn.UserSecretkey = MD5Util.GetMD5_16(GuidUtils.NewGuidFormatN()).ToLower();
                 userLogOn.UserPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(strRandom).ToLower(), userLogOn.UserSecretkey).ToLower()).ToLower();
+                userLogOn.ChangePasswordDate = DateTime.Now;
                 bool bl = await userLogOnService.UpdateAsync(userLogOn, userLogOn.Id);
                 if (bl)
                 {
@@ -364,6 +369,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
 
                         userLogOn.UserSecretkey = MD5Util.GetMD5_16(GuidUtils.NewGuidFormatN()).ToLower();
                         userLogOn.UserPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(password).ToLower(), userLogOn.UserSecretkey).ToLower()).ToLower();
+                        userLogOn.ChangePasswordDate = DateTime.Now;
                         bool bl = await userLogOnService.UpdateAsync(userLogOn, userLogOn.Id);
                         if (bl)
                         {

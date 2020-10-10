@@ -153,18 +153,13 @@ export default {
           this.$store
             .dispatch('user/userlogin', this.loginForm)
             .then(res => {
-              console.log(JSON.stringify(res))
-              console.log('登录成功')
               this.$router.push({ path: this.redirect || '/' })
               this.loading = false
             })
             .catch(res => {
-              console.log(JSON.stringify(res))
-              console.log('登录失败')
               this.loading = false
             })
         } else {
-          console.log('error submit!!')
           return false
         }
       })

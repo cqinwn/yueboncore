@@ -187,7 +187,7 @@ namespace Yuebon.Messages.Mail
         public static string CreateMailLog()
         {
             var logPath = AppDomain.CurrentDomain.BaseDirectory + "logs\\Email\\";
-            var filename=DateTime.Now.ToString("yyyyMMddhh") + ".txt";
+            var filename=DateTime.Now.ToString("yyyyMMddHHmmssffff") + ".txt";
             if (!logPath.EndsWith("\\"))
             {
                 logPath = logPath + "\\";

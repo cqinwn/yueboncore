@@ -65,7 +65,6 @@ namespace Yuebon.Quartz.Jobs
                         
                         List<string> recipients = new List<string>();
                         recipients = taskManager.EmailAddress.Split(",").ToList();
-                        //recipients.Add(taskManager.EmailAddress);
                         var mailBodyEntity = new MailBodyEntity()
                         {
                             Body = content + ",请勿回复本邮件",
@@ -78,7 +77,9 @@ namespace Yuebon.Quartz.Jobs
             }
             catch (Exception ex)
             {
-                iService.RecordRun(taskManager.Id, JobAction.结束, false, ex.Message);
+                stopwatch.Stop();
+                string content = $"结束时间:{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")} 共耗时{stopwatch.ElapsedMilliseconds} 毫秒\r\n";
+                iService.RecordRun(taskManager.Id, JobAction.结束, false, content+ ex.Message);
                 FileQuartz.WriteErrorLog(ex.Message);
                 if (taskManager.IsSendMail)
                 {
@@ -87,7 +88,6 @@ namespace Yuebon.Quartz.Jobs
 
                         List<string> recipients = new List<string>();
                         recipients = taskManager.EmailAddress.Split(",").ToList();
-                        //recipients.Add(taskManager.EmailAddress);
                         var mailBodyEntity = new MailBodyEntity()
                         {
                             Body = "处理失败," + ex.Message + ",请勿回复本邮件",

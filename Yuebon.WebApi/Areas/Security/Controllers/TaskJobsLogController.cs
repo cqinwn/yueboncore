@@ -116,8 +116,8 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 where += string.Format(" TaskId ='{0}' ", search.Keywords);
             }
             where += " order by CreatorTime desc";
-            IEnumerable<TaskJobsLog> list = await iService.GetListTopWhereAsync(30,where);
-            List<TaskJobsLogOutputDto> resultList = list.MapTo<TaskJobsLogOutputDto>();
+            IEnumerable<TaskJobsLog> list = await iService.GetListTopWhereAsync(40,where);
+            List<TaskJobsLogVueTimelineOutputDto> resultList = list.MapTo<TaskJobsLogVueTimelineOutputDto>();
             result.ResData = resultList;
             result.ErrCode = ErrCode.successCode;
             return ToJsonContent(result);

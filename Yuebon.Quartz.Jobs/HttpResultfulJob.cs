@@ -44,12 +44,12 @@ namespace Yuebon.Quartz.Jobs
                 return Task.Delay(1);
             }
             FileQuartz.InitTaskJobLogPath(taskManager.Id);
-            string msg = $"开始时间:{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}";
+            string msg = $"开始时间:{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss ffff")}";
             //记录任务执行记录
             iService.RecordRun(taskManager.Id, JobAction.开始, true, msg);
             if (string.IsNullOrEmpty(taskManager.JobCallAddress) || taskManager.JobCallAddress == "/")
             {
-                FileQuartz.WriteErrorLog($"{ DateTime.Now.ToString("yyyy-MM-dd HH:mm:sss")}未配置任务地址,");
+                FileQuartz.WriteErrorLog($"{ DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss ffff")}未配置任务地址,");
                 iService.RecordRun(taskManager.Id, JobAction.结束, false, "未配置任务地址");
                 return Task.Delay(1);
             }
@@ -70,7 +70,7 @@ namespace Yuebon.Quartz.Jobs
                     httpMessage = HttpRequestHelper.HttpGet(taskManager.JobCallAddress);
                 }
                 stopwatch.Stop();
-                string content = $"结束时间:{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")} 共耗时{stopwatch.ElapsedMilliseconds} 毫秒,消息:{httpMessage??"OK"}\r\n";
+                string content = $"结束时间:{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss ffff")} 共耗时{stopwatch.ElapsedMilliseconds} 毫秒,消息:{httpMessage??"OK"}\r\n";
                 iService.RecordRun(taskManager.Id, JobAction.结束,true, content);
                 if (taskManager.IsSendMail)
                 {
@@ -92,7 +92,9 @@ namespace Yuebon.Quartz.Jobs
             }
             catch (Exception ex)
             {
-                iService.RecordRun(taskManager.Id, JobAction.结束, false,ex.Message);
+                stopwatch.Stop();
+                string content = $"结束时间:{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss ffff")} 共耗时{stopwatch.ElapsedMilliseconds} 毫秒\r\n";
+                iService.RecordRun(taskManager.Id, JobAction.结束, false, content+ex.Message);
                 FileQuartz.WriteErrorLog(ex.Message); 
                 if (taskManager.IsSendMail)
                 {

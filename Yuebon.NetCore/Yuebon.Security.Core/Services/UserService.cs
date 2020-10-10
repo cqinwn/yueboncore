@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Mapping;
 using System.Threading.Tasks;
+using Yuebon.Commons.Extend;
 
 namespace Yuebon.Security.Services
 {
@@ -72,6 +73,28 @@ namespace Yuebon.Security.Services
             }
             else
             {
+                UserLogOn userLogOn = _userSigninRepository.GetWhere("UserId='"+ userEntity.Id+ "'");
+                if (userLogOn.AllowEndTime < DateTime.Now)
+                {
+                    return new Tuple<User, string>(null, "您的账号已过期，请联系系统管理员！");
+                }
+                if (userLogOn.LockEndDate >DateTime.Now)
+                {
+                    string dateStr=userLogOn.LockEndDate.ToEasyStringDQ();
+                    return new Tuple<User, string>(null, "当前被锁定，请"+ dateStr + "登录");
+                }
+                if (userLogOn.FirstVisitTime == null)
+                {
+                    userLogOn.FirstVisitTime =userLogOn.PreviousVisitTime= DateTime.Now;
+                }
+                else
+                {
+                    userLogOn.PreviousVisitTime = DateTime.Now;
+                }
+                userLogOn.LogOnCount++;
+                userLogOn.LastVisitTime = DateTime.Now;
+                userLogOn.UserOnLine = true;
+                await  _userSigninRepository.UpdateAsync(userLogOn,userLogOn.Id);
                 return new Tuple<User, string>(userEntity, "");
             }
         }

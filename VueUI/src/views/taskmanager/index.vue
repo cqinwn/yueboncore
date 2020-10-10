@@ -261,7 +261,7 @@
 
     <el-dialog
       ref="dialogShowLogForm"
-      :title="editFormTitle+'任务日志'"
+      :title="editFormTitle+'任务日志最近40条记录'"
       :visible.sync="dialogShowLogFormVisible"
       width="940px"
     >
@@ -269,6 +269,7 @@
         <el-timeline-item
           v-for="(activity, index) in activities"
           :key="index"
+          :color="activity.Color"
           :timestamp="activity.CreatorTime"
         >
           {{ activity.Description }}

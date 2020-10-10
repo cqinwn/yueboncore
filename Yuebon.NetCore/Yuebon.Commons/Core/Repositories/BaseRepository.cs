@@ -47,7 +47,7 @@ namespace Yuebon.Commons.Repositories
         where T : class, IBaseEntity<TKey>
         where TKey : IEquatable<TKey>
     {
-        #region 构造函数及配置
+        #region 构造函数及基本配置
         /// <summary>
         /// 定义一个操作记录的事件处理
         /// </summary>
@@ -189,7 +189,7 @@ namespace Yuebon.Commons.Repositories
             dbConfigName = _dbConfigName;
         }
         /// <summary>
-        /// 
+        /// 指定数据库连接配置
         /// </summary>
         /// <param name="_dbConfigName">数据库连接配置名称</param>
         public BaseRepository(string _dbConfigName) : this()

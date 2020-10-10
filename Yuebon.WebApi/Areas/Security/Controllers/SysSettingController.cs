@@ -12,12 +12,15 @@ using Yuebon.AspNetCore.Controllers;
 using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.Mvc.Filter;
+using Yuebon.Commons;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
+using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Models;
 using Yuebon.Security.Application;
+using Yuebon.Security.Dtos;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
 using Yuebon.WebApi.Areas.Security.Models;
@@ -109,26 +112,28 @@ namespace Yuebon.WebApi.Areas.Security
             CommonResult result = new CommonResult();
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
             SysSetting sysSetting = JsonConvert.DeserializeObject<SysSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
+            SysSettingOutputDto sysSettingOutputDto = new SysSettingOutputDto();
             if (sysSetting != null)
             {
-                result.ResData = sysSetting;
+                sysSettingOutputDto = sysSetting.MapTo<SysSettingOutputDto>();
+            }
+            else
+            {
+                sysSetting = XmlConverter.Deserialize<SysSetting>("xmlconfig/sys.config");
+                sysSettingOutputDto = sysSetting.MapTo<SysSettingOutputDto>();
+
+            }
+            if (sysSettingOutputDto != null)
+            {
+                sysSettingOutputDto.CopyRight= UIConstants.CopyRight;
+                result.ResData = sysSettingOutputDto;
                 result.Success = true;
                 result.ErrCode = ErrCode.successCode;
             }
             else
             {
-                sysSetting = XmlConverter.Deserialize<SysSetting>("xmlconfig/sys.config");
-                if (sysSetting != null)
-                {
-                    result.ResData = sysSetting;
-                    result.Success = true;
-                    result.ErrCode = ErrCode.successCode;
-                }
-                else
-                {
-                    result.ErrMsg = ErrCode.err60001;
-                    result.ErrCode = "60001";
-                }
+                result.ErrMsg = ErrCode.err60001;
+                result.ErrCode = "60001";
             }
             return ToJsonContent(result);
         }

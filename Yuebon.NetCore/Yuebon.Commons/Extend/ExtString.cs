@@ -376,6 +376,7 @@ namespace Yuebon.Commons.Extend
             }
             return instance;
         }
+        #region 文件路径转换
         /// <summary>
         /// 文件路径
         /// </summary>
@@ -386,7 +387,6 @@ namespace Yuebon.Commons.Extend
             return string.Join(Path.DirectorySeparatorChar.ToString(), path.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
         }
 
-        #region 文件路径转换
         /// <summary>
         /// 文件路径转换
         /// </summary>

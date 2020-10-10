@@ -1,26 +1,24 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Yuebon.Security.Dtos
 {
+
     /// <summary>
     /// 定时任务执行日志输出对象模型
     /// </summary>
     [Serializable]
-    public class TaskJobsLogOutputDto
+    public class TaskJobsLogVueTimelineOutputDto
     {
         /// <summary>
         /// 设置或获取 
         /// </summary>
-        [MaxLength(50)]
         public string Id { get; set; }
 
         /// <summary>
         /// 设置或获取任务Id
         /// </summary>
-        [MaxLength(50)]
         public string TaskId { get; set; }
 
 
@@ -34,22 +32,19 @@ namespace Yuebon.Security.Dtos
         /// </summary>
         public string JobAction { get; set; }
         /// <summary>
-        /// 设置或获取执行状态 成功、失败
+        /// 设置或获取颜色
         /// </summary>
-        public bool Status { get; set; }
+        public string Color { get; set; }
 
 
         /// <summary>
         /// 设置或获取结果描述
         /// </summary>
-        [MaxLength(2147483647)]
         public string Description { get; set; }
 
         /// <summary>
         /// 设置或获取创建时间
         /// </summary>
         public DateTime CreatorTime { get; set; }
-
-
     }
 }

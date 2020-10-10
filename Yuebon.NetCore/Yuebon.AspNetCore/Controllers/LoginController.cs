@@ -34,6 +34,7 @@ namespace Yuebon.AspNetCore.Controllers
     public class LoginController : ApiController
     {
         private IUserService _userService;
+        private IUserLogOnService _userLogOnService;
         private ISystemTypeService _systemTypeService;
         private IAPPService _appService;
         private ILogService _logService;
@@ -41,12 +42,14 @@ namespace Yuebon.AspNetCore.Controllers
         /// 构造函数注入服务
         /// </summary>
         /// <param name="iService"></param>
+        /// <param name="userLogOnService"></param>
         /// <param name="systemTypeService"></param>
         /// <param name="logService"></param>
         /// <param name="appService"></param>
-        public LoginController(IUserService iService, ISystemTypeService systemTypeService,ILogService logService, IAPPService appService)
+        public LoginController(IUserService iService, IUserLogOnService userLogOnService, ISystemTypeService systemTypeService,ILogService logService, IAPPService appService)
         {
             _userService = iService;
+            _userLogOnService = userLogOnService;
             _systemTypeService = systemTypeService;
             _logService = logService;
             _appService = appService;
@@ -203,6 +206,9 @@ namespace Yuebon.AspNetCore.Controllers
             yuebonCacheHelper.Remove("login_user_" + CurrentUser.UserId);
             yuebonCacheHelper.Remove("User_Function_" + CurrentUser.UserId);
             yuebonCacheHelper.Remove("User_Menu_" + CurrentUser.UserId);
+            UserLogOn userLogOn = _userLogOnService.GetWhere("UserId='"+ CurrentUser.UserId + "'");
+            userLogOn.UserOnLine = false;
+            _userLogOnService.Update(userLogOn,userLogOn.Id);
             CurrentUser = null;
             result.Success = true;
             result.ErrCode = ErrCode.successCode;

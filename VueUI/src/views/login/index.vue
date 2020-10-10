@@ -13,7 +13,7 @@
       </div>
 
       <div class="logo-container">
-        <img :src="companyLogo">
+        <img :src="companyLogo" />
       </div>
       <el-form-item prop="username">
         <span class="svg-container">
@@ -46,16 +46,19 @@
           @keyup.enter.native="handleLogin"
         />
         <span class="show-pwd" @click="showPwd">
-          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
+          <svg-icon
+            :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"
+          />
         </span>
       </el-form-item>
 
       <el-button
         :loading="loading"
         type="primary"
-        style="width:100%;margin-bottom:30px;"
+        style="width: 100%; margin-bottom: 30px"
         @click.native.prevent="handleLogin"
-      >登录</el-button>
+        >登录</el-button
+      >
 
       <div class="tips" />
     </el-form>
@@ -115,7 +118,7 @@ export default {
   },
   watch: {
     $route: {
-      handler: function(route) {
+      handler: function (route) {
         this.redirect = route.query && route.query.redirect
       },
       immediate: true
@@ -153,7 +156,8 @@ export default {
           this.$store
             .dispatch('user/userlogin', this.loginForm)
             .then(res => {
-              this.$router.push({ path: this.redirect || '/' })
+              // this.$router.push({ path: this.redirect || '/' })
+              this.$router.push('/')
               this.loading = false
             })
             .catch(res => {
@@ -230,7 +234,7 @@ $light_gray: #eee;
     overflow: hidden;
     background: #fff;
     border-radius: 10px;
-    padding:0 20px;
+    padding: 0 20px;
   }
 
   .tips {

@@ -16,7 +16,13 @@
 
 5、实现邮件发送功能
 
-更多更新日志 [点击查看](https://gitee.com/yuebon/YuebonNetCore/wikis/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97?sort_id=1983111)
+6、修复角色新增必填字段验证
+
+7、修复组织机构新增必填字段验证
+
+8、优化登录返回页面到主页，不在返回登录前页面
+
+更多更新日志 [点击查看](https://gitee.com/yuebon/YuebonNetCore/commits/master)
 
 ##### 新计划
 1、完善软件注册授权模块

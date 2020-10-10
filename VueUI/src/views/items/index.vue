@@ -312,7 +312,7 @@ export default {
     /**
      * 加载页面左侧菜单table数据
      */
-    loadTableData: function() {
+    loadTableData: function () {
       getAllItemsTreeTable().then(res => {
         this.selectItemss = this.tableDataItemss = res.ResData
       })
@@ -320,13 +320,13 @@ export default {
     /**
      * 点击查询菜单
      */
-    handleSearch: function() {
+    handleSearch: function () {
       this.loadTableData()
     },
     /**
      * 点击查询
      */
-    handleSearchItemsDetail: function() {
+    handleSearchItemsDetail: function () {
       this.pagination.currentPage = 1
       this.loadItemsDetailTableData()
     },
@@ -342,7 +342,7 @@ export default {
     /**
      * 添加添加分类是选择父级分类
      */
-    handleItemsChange: function() {
+    handleItemsChange: function () {
       console.log(this.selectedItemsOptions)
       if (this.currentItemsId === this.selectedItemsOptions) {
         this.$alert('不能选择自己作为父级', '提示')
@@ -354,7 +354,7 @@ export default {
     /**
      * 添加分类值是选择分类
      */
-    handleAddItemsDetailChange: function() {
+    handleAddItemsDetailChange: function () {
       console.log(this.selectedItemsOptions)
       this.selectItemsId = this.selectedItemsOptions
       this.loadItemsDetailTree()
@@ -363,7 +363,7 @@ export default {
     /**
      * 添加分类值时选择父级
      */
-    handleAddItemsDetailItemsChange: function() {
+    handleAddItemsDetailItemsChange: function () {
       console.log(this.selectedItemsDetailOptions)
       if (this.currentId === this.selectedItemsDetailOptions) {
         this.$alert('不能选择自己作为父级', '提示')
@@ -376,7 +376,7 @@ export default {
     /**
      * 新增、修改或查看明细信息（绑定显示数据）*
      */
-    ShowItemsEditOrViewDialog: function(view) {
+    ShowItemsEditOrViewDialog: function (view) {
       if (view !== undefined) {
         if (this.currentItemsId === '') {
           this.$alert('请选择一条数据进行编辑/修改', '提示')
@@ -392,7 +392,7 @@ export default {
         this.$refs['editItemsFrom'].resetFields()
       }
     },
-    bindItemsEditInfo: function() {
+    bindItemsEditInfo: function () {
       getItemsDetail(this.currentItemsId).then(res => {
         this.editItemsFrom.FullName = res.ResData.FullName
         this.editItemsFrom.EnCode = res.ResData.EnCode
@@ -446,7 +446,7 @@ export default {
         }
       })
     },
-    setItemsEnable: function(val) {
+    setItemsEnable: function (val) {
       if (this.currentItemsId === '') {
         this.$alert('请先选择要操作的数据', '提示')
         return false
@@ -472,7 +472,7 @@ export default {
         })
       }
     },
-    deleteItemsSoft: function(val) {
+    deleteItemsSoft: function (val) {
       if (this.currentItemsId === '') {
         this.$alert('请先选择要操作的数据', '提示')
         return false
@@ -498,7 +498,7 @@ export default {
         })
       }
     },
-    deleteItemsPhysics: function() {
+    deleteItemsPhysics: function () {
       if (this.currentItemsId === '') {
         this.$alert('请先选择要操作的数据', '提示')
         return false
@@ -526,7 +526,7 @@ export default {
     /**
      * 新增、修改或查看明细信息（绑定显示数据）*
      */
-    ShowItemsDetailEditOrViewDialog: function(view) {
+    ShowItemsDetailEditOrViewDialog: function (view) {
       if (view !== undefined) {
         if (this.currentSelected.length === 0) {
           this.$alert('请选择一条数据进行编辑/修改', '提示')
@@ -543,7 +543,7 @@ export default {
         this.$refs['editItemsDetailFrom'].resetFields()
       }
     },
-    bindItemsDetailEditInfo: function() {
+    bindItemsDetailEditInfo: function () {
       getItemsDetailDetail(this.currentId).then(res => {
         this.editItemsDetailFrom.ItemName = res.ResData.ItemName
         this.editItemsDetailFrom.ItemCode = res.ResData.ItemCode
@@ -602,7 +602,7 @@ export default {
         }
       })
     },
-    setItemsDetailEnable: function(val) {
+    setItemsDetailEnable: function (val) {
       if (this.currentSelected.length === 0) {
         this.$alert('请先选择要操作的数据', '提示')
         return false
@@ -632,7 +632,7 @@ export default {
         })
       }
     },
-    deleteItemsDetailSoft: function(val) {
+    deleteItemsDetailSoft: function (val) {
       if (this.currentSelected.length === 0) {
         this.$alert('请先选择要操作的数据', '提示')
         return false
@@ -662,7 +662,7 @@ export default {
         })
       }
     },
-    deleteItemsDetailPhysics: function() {
+    deleteItemsDetailPhysics: function () {
       if (this.currentSelected.length === 0) {
         this.$alert('请先选择要操作的数据', '提示')
         return false
@@ -694,7 +694,7 @@ export default {
     /**
      * 当表格的排序条件发生变化的时候会触发该事件
      */
-    handleSortChange: function(column) {
+    handleSortChange: function (column) {
       this.sortableData.sort = column.prop
       if (column.order === 'ascending') {
         this.sortableData.order = 'asc'
@@ -704,7 +704,7 @@ export default {
       this.loadItemsDetailTableData()
     },
     //
-    handleClickItemsChange: function(row, column, event) {
+    handleClickItemsChange: function (row, column, event) {
       this.searchform.code = row.EnCode
       this.currentItemsId = row.Id
       this.loadItemsDetailTableData()
@@ -712,20 +712,20 @@ export default {
     /**
      * 当用户手动勾选checkbox数据行事件
      */
-    handleSelectChange: function(selection, row) {
+    handleSelectChange: function (selection, row) {
       this.currentSelected = selection
     },
     /**
      * 当用户手动勾选全选checkbox事件
      */
-    handleSelectAllChange: function(selection) {
+    handleSelectAllChange: function (selection) {
       this.currentSelected = selection
     },
 
     /**
      * 加载页面table数据
      */
-    loadItemsDetailTableData: function() {
+    loadItemsDetailTableData: function () {
       this.tableloading = true
       var seachdata = {
         itemId: this.currentItemsId

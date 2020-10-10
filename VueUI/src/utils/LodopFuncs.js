@@ -44,8 +44,8 @@ function loadCLodop() {
   var JS2 = document.createElement('script')
   JS1.src = 'http://localhost:8000/CLodopfuncs.js?priority=1'
   JS2.src = 'http://localhost:18000/CLodopfuncs.js'
-  JS1.onload = JS2.onload = function() { CLodopJsState = 'complete' }
-  JS1.onerror = JS2.onerror = function(evt) { CLodopJsState = 'complete' }
+  JS1.onload = JS2.onload = function () { CLodopJsState = 'complete' }
+  JS1.onerror = JS2.onerror = function (evt) { CLodopJsState = 'complete' }
   head.insertBefore(JS1, head.firstChild)
   head.insertBefore(JS2, head.firstChild)
   CLodopIsLocal = !!((JS1.src + JS2.src).match(/\/\/localho|\/\/127.0.0./i))

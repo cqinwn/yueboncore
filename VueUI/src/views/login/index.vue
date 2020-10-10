@@ -13,7 +13,7 @@
       </div>
 
       <div class="logo-container">
-        <img :src="companyLogo" />
+        <img :src="companyLogo">
       </div>
       <el-form-item prop="username">
         <span class="svg-container">
@@ -57,8 +57,7 @@
         type="primary"
         style="width: 100%; margin-bottom: 30px"
         @click.native.prevent="handleLogin"
-        >登录</el-button
-      >
+      >登录</el-button>
 
       <div class="tips" />
     </el-form>

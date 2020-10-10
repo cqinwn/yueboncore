@@ -120,7 +120,7 @@ export default {
     /**
      * 加载页面table数据
      */
-    loadTableData: function() {
+    loadTableData: function () {
       this.tableloading = true
       var seachdata = {
         'CurrentPage': this.pagination.currentPage,
@@ -138,14 +138,14 @@ export default {
     /**
      * 点击查询
      */
-    handleSearch: function() {
+    handleSearch: function () {
       this.pagination.currentPage = 1
       this.loadTableData()
     },
     /**
      * 点击生成服务端代码
      */
-    handleGenerate: function() {
+    handleGenerate: function () {
       if (this.currentSelected.length === 0) {
         this.$alert('请先选择要生成代码的数据表', '提示')
         return false
@@ -183,7 +183,7 @@ export default {
     /**
      * 当表格的排序条件发生变化的时候会触发该事件
      */
-    handleSortChange: function(column) {
+    handleSortChange: function (column) {
       this.sortableData.sort = column.prop
       if (column.order === 'ascending') {
         this.sortableData.order = 'asc'
@@ -195,13 +195,13 @@ export default {
     /**
      * 当用户手动勾选checkbox数据行事件
      */
-    handleSelectChange: function(selection, row) {
+    handleSelectChange: function (selection, row) {
       this.currentSelected = selection
     },
     /**
      * 当用户手动勾选全选checkbox事件
      */
-    handleSelectAllChange: function(selection) {
+    handleSelectAllChange: function (selection) {
       this.currentSelected = selection
     },
     /**

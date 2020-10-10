@@ -168,7 +168,7 @@ export default {
     /**
      *选择组织
      */
-    handleSelectOrganizeChange: function() {
+    handleSelectOrganizeChange: function () {
       this.editFrom.OrganizeId = this.selectedOrganizeOptions
     },
     handleRemove(file, fileList) {
@@ -179,7 +179,7 @@ export default {
       this.dialogImageUrl = file.url
       this.dialogVisible = true
     },
-    bindEditInfo: function() {
+    bindEditInfo: function () {
       getByUserName(this.name).then(res => {
         this.editFrom.Account = res.ResData.Account
         this.editFrom.RealName = res.ResData.RealName
@@ -246,7 +246,7 @@ export default {
         }
       })
     },
-    uploadFileSuccess: function(response, file, fileList) {
+    uploadFileSuccess: function (response, file, fileList) {
       this.editFrom.HeadIcon = defaultSettings.fileUrl + response.ResData.FilePath
     }
   }

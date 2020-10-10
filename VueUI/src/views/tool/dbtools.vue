@@ -108,7 +108,7 @@ export default {
     /**
      * 解密数据库
      */
-    handleDecrypt: function() {
+    handleDecrypt: function () {
       this.$refs['resultFrom'].validate((valid) => {
         if (valid) {
           var dataInfo = {
@@ -137,7 +137,7 @@ export default {
     /**
      * 生成连接字符串
      */
-    handleEncrypt: function() {
+    handleEncrypt: function () {
       this.$refs['editFrom'].validate((valid) => {
         if (valid) {
           var dataInfo = {

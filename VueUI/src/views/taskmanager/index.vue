@@ -363,7 +363,7 @@ export default {
     /**
      * 加载页面table数据
      */
-    loadTableData: function() {
+    loadTableData: function () {
       this.tableloading = true
       var seachdata = {
         'CurrentPage': this.pagination.currentPage,
@@ -381,22 +381,22 @@ export default {
     /**
      * 点击查询
      */
-    handleSearch: function() {
+    handleSearch: function () {
       this.pagination.currentPage = 1
       this.loadTableData()
     },
-    changeIsLocal: function() {
+    changeIsLocal: function () {
       this.isShowSelect = this.editFrom.IsLocal
       this.editFrom.JobCallAddress = ''
     },
-    handleShowLogs: function(row) {
+    handleShowLogs: function (row) {
       this.dialogShowLogFormVisible = true
       this.loadJobLogData(row)
     },
     /**
      * 加载页面table数据
      */
-    loadJobLogData: function(row) {
+    loadJobLogData: function (row) {
       var seachdata = {
         'Keywords': row.Id
       }
@@ -407,7 +407,7 @@ export default {
     /**
      * 新增、修改或查看明细信息（绑定显示数据）     *
      */
-    ShowEditOrViewDialog: function(view) {
+    ShowEditOrViewDialog: function (view) {
       if (view !== undefined) {
         if (this.currentSelected.length > 1 || this.currentSelected.length === 0) {
           this.$alert('请选择一条数据进行编辑/修改', '提示')
@@ -424,7 +424,7 @@ export default {
         this.$refs['editFrom'].resetFields()
       }
     },
-    bindEditInfo: function() {
+    bindEditInfo: function () {
       getTaskManagerDetail(this.currentId).then(res => {
         this.editFrom.TaskName = res.ResData.TaskName
         this.editFrom.GroupName = res.ResData.GroupName
@@ -485,7 +485,7 @@ export default {
         }
       })
     },
-    setEnable: function(val) {
+    setEnable: function (val) {
       if (this.currentSelected.length === 0) {
         this.$alert('请先选择要操作的数据', '提示')
         return false
@@ -515,7 +515,7 @@ export default {
         })
       }
     },
-    deleteSoft: function(val) {
+    deleteSoft: function (val) {
       if (this.currentSelected.length === 0) {
         this.$alert('请先选择要操作的数据', '提示')
         return false
@@ -545,7 +545,7 @@ export default {
         })
       }
     },
-    deletePhysics: function() {
+    deletePhysics: function () {
       if (this.currentSelected.length === 0) {
         this.$alert('请先选择要操作的数据', '提示')
         return false
@@ -575,7 +575,7 @@ export default {
       }
     },
     // 启动/暂停
-    setStatus: function(val) {
+    setStatus: function (val) {
       if (this.currentSelected.length === 0) {
         this.$alert('请先选择要操作的数据', '提示')
         return false
@@ -605,7 +605,7 @@ export default {
     /**
      * 当表格的排序条件发生变化的时候会触发该事件
      */
-    handleSortChange: function(column) {
+    handleSortChange: function (column) {
       this.sortableData.sort = column.prop
       if (column.order === 'ascending') {
         this.sortableData.order = 'asc'
@@ -617,13 +617,13 @@ export default {
     /**
      * 当用户手动勾选checkbox数据行事件
      */
-    handleSelectChange: function(selection, row) {
+    handleSelectChange: function (selection, row) {
       this.currentSelected = selection
     },
     /**
      * 当用户手动勾选全选checkbox事件
      */
-    handleSelectAllChange: function(selection) {
+    handleSelectAllChange: function (selection) {
       this.currentSelected = selection
     },
     /**

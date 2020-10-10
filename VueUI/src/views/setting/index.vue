@@ -201,7 +201,7 @@ export default {
       this.dialogImageUrl = file.url
       this.dialogVisible = true
     },
-    loadSettingData: function() {
+    loadSettingData: function () {
       getSysSetting().then(res => {
         this.editFrom = res.ResData
         this.editFrom.Webstatus = res.ResData.Webstatus + ''
@@ -209,7 +209,7 @@ export default {
         this.filelist = [{ name: res.ResData.SysLogo, url: res.ResData.SysLogo }]
       })
     },
-    uploadFileSuccess: function(response, file, fileList) {
+    uploadFileSuccess: function (response, file, fileList) {
       this.editFrom.SysLogo = defaultSettings.fileUrl + response.ResData.FilePath
     },
     saveEditForm() {

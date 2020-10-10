@@ -4,14 +4,63 @@
       <div class="list-btn-container">
         <el-button-group>
           <slot v-for="itemf in loadBtnFunc">
-            <el-button v-if="itemf.FullName==='新增'" type="primary" icon="el-icon-plus" size="small" @click="ShowEditOrViewDialog()">新增</el-button>
-            <el-button v-if="itemf.FullName==='修改'" type="primary" icon="el-icon-edit" class="el-button-modify" size="small" @click="ShowEditOrViewDialog('edit')">修改</el-button>
-            <el-button v-if="itemf.FullName=='禁用'" type="info" icon="el-icon-video-pause" size="small" @click="setEnable('0')">禁用</el-button>
-            <el-button v-if="itemf.FullName=='启用'" type="success" icon="el-icon-video-play" size="small" @click="setEnable('1')">启用</el-button>
-            <el-button v-if="itemf.FullName==='软删除'" type="warning" icon="el-icon-delete" size="small" @click="deleteSoft('0')">软删除</el-button>
-            <el-button v-if="itemf.FullName==='删除'" type="danger" icon="el-icon-delete" size="small" @click="deletePhysics()">删除</el-button>
+            <el-button
+              v-if="itemf.FullName === '新增'"
+              type="primary"
+              icon="el-icon-plus"
+              size="small"
+              @click="ShowEditOrViewDialog()"
+              >新增</el-button
+            >
+            <el-button
+              v-if="itemf.FullName === '修改'"
+              type="primary"
+              icon="el-icon-edit"
+              class="el-button-modify"
+              size="small"
+              @click="ShowEditOrViewDialog('edit')"
+              >修改</el-button
+            >
+            <el-button
+              v-if="itemf.FullName == '禁用'"
+              type="info"
+              icon="el-icon-video-pause"
+              size="small"
+              @click="setEnable('0')"
+              >禁用</el-button
+            >
+            <el-button
+              v-if="itemf.FullName == '启用'"
+              type="success"
+              icon="el-icon-video-play"
+              size="small"
+              @click="setEnable('1')"
+              >启用</el-button
+            >
+            <el-button
+              v-if="itemf.FullName === '软删除'"
+              type="warning"
+              icon="el-icon-delete"
+              size="small"
+              @click="deleteSoft('0')"
+              >软删除</el-button
+            >
+            <el-button
+              v-if="itemf.FullName === '删除'"
+              type="danger"
+              icon="el-icon-delete"
+              size="small"
+              @click="deletePhysics()"
+              >删除</el-button
+            >
           </slot>
-          <el-button type="default" icon="el-icon-refresh" size="small" @click="loadTableData()">刷新</el-button>
+          <el-button
+            type="default"
+            icon="el-icon-refresh"
+            size="small"
+            @click="loadTableData()"
+            >刷新</el-button
+          >
         </el-button-group>
       </div>
       <el-table
@@ -24,15 +73,12 @@
         highlight-current-row
         style="width: 100%"
         default-expand-all
-        :tree-props="{children: 'Children'}"
+        :tree-props="{ children: 'Children' }"
         @select="handleSelectChange"
         @select-all="handleSelectAllChange"
         @sort-change="handleSortChange"
       >
-        <el-table-column
-          type="selection"
-          width="30"
-        />
+        <el-table-column type="selection" width="30" />
         <el-table-column
           prop="FullName"
           label="组织名称"
@@ -53,10 +99,10 @@
           align="center"
         >
           <template slot-scope="scope">
-            <slot v-if="scope.row.CategoryId==='Group'">集团</slot>
-            <slot v-if="scope.row.CategoryId==='Company'">公司</slot>
-            <slot v-else-if="scope.row.CategoryId==='Department'">部门</slot>
-            <slot v-else-if="scope.row.CategoryId==='WorkGroup'">工作组</slot>
+            <slot v-if="scope.row.CategoryId === 'Group'">集团</slot>
+            <slot v-if="scope.row.CategoryId === 'Company'">公司</slot>
+            <slot v-else-if="scope.row.CategoryId === 'Department'">部门</slot>
+            <slot v-else-if="scope.row.CategoryId === 'WorkGroup'">工作组</slot>
           </template>
         </el-table-column>
         <el-table-column
@@ -88,7 +134,8 @@
             <el-tag
               :type="scope.row.EnabledMark === true ? 'success' : 'info'"
               disable-transitions
-            >{{ scope.row.EnabledMark===true?'启用':'禁用' }}</el-tag>
+              >{{ scope.row.EnabledMark === true ? "启用" : "禁用" }}</el-tag
+            >
           </template>
         </el-table-column>
         <el-table-column
@@ -102,42 +149,80 @@
             <el-tag
               :type="scope.row.DeleteMark === true ? 'danger' : 'success'"
               disable-transitions
-            >{{ scope.row.DeleteMark===true?'已删除':'否' }}</el-tag>
+              >{{ scope.row.DeleteMark === true ? "已删除" : "否" }}</el-tag
+            >
           </template>
         </el-table-column>
-        <el-table-column
-          prop="CreatorTime"
-          label="创建时间"
-          sortable
-        />
-        <el-table-column
-          prop="LastModifyTime"
-          label="更新时间"
-          sortable
-        />
+        <el-table-column prop="CreatorTime" label="创建时间" sortable />
+        <el-table-column prop="LastModifyTime" label="更新时间" sortable />
       </el-table>
     </el-card>
-    <el-dialog ref="dialogEditForm" :title="editFormTitle+'组织'" :visible.sync="dialogEditFormVisible" width="660px">
-      <el-form ref="editFrom" :inline="true" :model="editFrom" :rules="rules" class="demo-form-inline">
-        <el-form-item label="上级组织" :label-width="formLabelWidth" prop="ParentId">
+    <el-dialog
+      ref="dialogEditForm"
+      :title="editFormTitle + '组织'"
+      :visible.sync="dialogEditFormVisible"
+      width="660px"
+    >
+      <el-form
+        ref="editFrom"
+        :inline="true"
+        :model="editFrom"
+        :rules="rules"
+        class="demo-form-inline"
+      >
+        <el-form-item
+          label="上级组织"
+          :label-width="formLabelWidth"
+          prop="ParentId"
+        >
           <el-cascader
             v-model="selectedOrganizeOptions"
-            style="width:500px;"
+            style="width: 500px"
             :options="selectOrganize"
             filterable
-            :props="{label:'FullName',value:'Id',children:'Children',emitPath:false, checkStrictly: true,expandTrigger: 'hover' }"
+            :props="{
+              label: 'FullName',
+              value: 'Id',
+              children: 'Children',
+              emitPath: false,
+              checkStrictly: true,
+              expandTrigger: 'hover',
+            }"
             clearable
             @change="handleSelectOrganizeChange"
           />
         </el-form-item>
-        <el-form-item label="名称" :label-width="formLabelWidth" prop="FullName">
-          <el-input v-model="editFrom.FullName" style="width:500px;" placeholder="请输入机构名称" autocomplete="off" clearable />
+        <el-form-item
+          label="名称"
+          :label-width="formLabelWidth"
+          prop="FullName"
+        >
+          <el-input
+            v-model="editFrom.FullName"
+            style="width: 500px"
+            placeholder="请输入机构名称"
+            autocomplete="off"
+            clearable
+          />
         </el-form-item>
         <el-form-item label="编码" :label-width="formLabelWidth" prop="EnCode">
-          <el-input v-model="editFrom.EnCode" placeholder="请输入机构编码" autocomplete="off" clearable />
+          <el-input
+            v-model="editFrom.EnCode"
+            placeholder="请输入机构编码"
+            autocomplete="off"
+            clearable
+          />
         </el-form-item>
-        <el-form-item label="类型" :label-width="formLabelWidth" prop="CategoryId">
-          <el-select v-model="editFrom.CategoryId" clearable placeholder="请选类型">
+        <el-form-item
+          label="类型"
+          :label-width="formLabelWidth"
+          prop="CategoryId"
+        >
+          <el-select
+            v-model="editFrom.CategoryId"
+            clearable
+            placeholder="请选类型"
+          >
             <el-option
               v-for="item in selectOrganizeType"
               :key="item.Id"
@@ -146,39 +231,118 @@
             />
           </el-select>
         </el-form-item>
-        <el-form-item label="简称" :label-width="formLabelWidth" prop="ShortName">
-          <el-input v-model="editFrom.ShortName" placeholder="请输入简称" autocomplete="off" clearable />
+        <el-form-item
+          label="简称"
+          :label-width="formLabelWidth"
+          prop="ShortName"
+        >
+          <el-input
+            v-model="editFrom.ShortName"
+            placeholder="请输入简称"
+            autocomplete="off"
+            clearable
+          />
         </el-form-item>
-        <el-form-item label="负责人" :label-width="formLabelWidth" prop="ManagerId">
-          <el-input v-model="editFrom.ManagerId" placeholder="请输入负责人" autocomplete="off" clearable />
+        <el-form-item
+          label="负责人"
+          :label-width="formLabelWidth"
+          prop="ManagerId"
+        >
+          <el-input
+            v-model="editFrom.ManagerId"
+            placeholder="请输入负责人"
+            autocomplete="off"
+            clearable
+          />
         </el-form-item>
-        <el-form-item label="手机" :label-width="formLabelWidth" prop="MobilePhone">
-          <el-input v-model="editFrom.MobilePhone" placeholder="请输入手机" autocomplete="off" clearable />
+        <el-form-item
+          label="手机"
+          :label-width="formLabelWidth"
+          prop="MobilePhone"
+        >
+          <el-input
+            v-model="editFrom.MobilePhone"
+            placeholder="请输入手机"
+            autocomplete="off"
+            clearable
+          />
         </el-form-item>
-        <el-form-item label="座机电话" :label-width="formLabelWidth" prop="TelePhone">
-          <el-input v-model="editFrom.TelePhone" placeholder="请输入电话" autocomplete="off" clearable />
+        <el-form-item
+          label="座机电话"
+          :label-width="formLabelWidth"
+          prop="TelePhone"
+        >
+          <el-input
+            v-model="editFrom.TelePhone"
+            placeholder="请输入电话"
+            autocomplete="off"
+            clearable
+          />
         </el-form-item>
-        <el-form-item label="微信号" :label-width="formLabelWidth" prop="WeChat">
-          <el-input v-model="editFrom.WeChat" placeholder="请输入微信" autocomplete="off" clearable />
+        <el-form-item
+          label="微信号"
+          :label-width="formLabelWidth"
+          prop="WeChat"
+        >
+          <el-input
+            v-model="editFrom.WeChat"
+            placeholder="请输入微信"
+            autocomplete="off"
+            clearable
+          />
         </el-form-item>
         <el-form-item label="Email" :label-width="formLabelWidth" prop="Email">
-          <el-input v-model="editFrom.Email" placeholder="请输入Email" autocomplete="off" clearable />
+          <el-input
+            v-model="editFrom.Email"
+            placeholder="请输入Email"
+            autocomplete="off"
+            clearable
+          />
         </el-form-item>
         <el-form-item label="传真" :label-width="formLabelWidth" prop="Fax">
-          <el-input v-model="editFrom.Fax" placeholder="请输入传真" autocomplete="off" clearable />
+          <el-input
+            v-model="editFrom.Fax"
+            placeholder="请输入传真"
+            autocomplete="off"
+            clearable
+          />
         </el-form-item>
-        <el-form-item label="排序" :label-width="formLabelWidth" prop="SortCode">
-          <el-input v-model.number="editFrom.SortCode" placeholder="请输入排序,默认为99" autocomplete="off" clearable />
+        <el-form-item
+          label="排序"
+          :label-width="formLabelWidth"
+          prop="SortCode"
+        >
+          <el-input
+            v-model.number="editFrom.SortCode"
+            placeholder="请输入排序,默认为99"
+            autocomplete="off"
+            clearable
+          />
         </el-form-item>
         <el-form-item label="选项" :label-width="formLabelWidth" prop="">
           <el-checkbox v-model="editFrom.EnabledMark">启用</el-checkbox>
           <el-checkbox v-model="editFrom.DeleteMark">删除</el-checkbox>
         </el-form-item>
         <el-form-item label="地址" :label-width="formLabelWidth" prop="Address">
-          <el-input v-model="editFrom.Address" style="width:500px;" placeholder="请输入地址" autocomplete="off" clearable />
+          <el-input
+            v-model="editFrom.Address"
+            style="width: 500px"
+            placeholder="请输入地址"
+            autocomplete="off"
+            clearable
+          />
         </el-form-item>
-        <el-form-item label="描述" :label-width="formLabelWidth" prop="Description">
-          <el-input v-model="editFrom.Description" style="width:500px;" autocomplete="off" clearable />
+        <el-form-item
+          label="描述"
+          :label-width="formLabelWidth"
+          prop="Description"
+        >
+          <el-input
+            v-model="editFrom.Description"
+            style="width: 500px"
+            autocomplete="off"
+            clearable
+          />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -192,8 +356,10 @@
 <script>
 
 import { getListItemDetailsByCode } from '@/api/basebasic'
-import { getAllOrganizeTreeTable, getOrganizeDetail, saveOrganize,
-  setOrganizeEnable, deleteSoftOrganize, deleteOrganize } from '@/api/security/organizeservice'
+import {
+  getAllOrganizeTreeTable, getOrganizeDetail, saveOrganize,
+  setOrganizeEnable, deleteSoftOrganize, deleteOrganize
+} from '@/api/security/organizeservice'
 
 export default {
   data() {
@@ -227,13 +393,12 @@ export default {
         Description: ''
       },
       rules: {
-        name: [
-          { required: true, message: '请输入角色名称', trigger: 'blur' },
+        FullName: [
+          { required: true, message: '请输入名称', trigger: 'blur' },
           { min: 2, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur' }
         ],
-        code: [
-          { required: true, message: '请输入角色编码', trigger: 'blur' },
-          { min: 2, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur' }
+        CategoryId: [
+          { required: true, message: '请选择类型', trigger: 'blur' }
         ]
       },
       formLabelWidth: '80px',
@@ -258,7 +423,7 @@ export default {
     /**
      * 加载页面table数据
      */
-    loadTableData: function() {
+    loadTableData: function () {
       this.tableloading = true
       getAllOrganizeTreeTable().then(res => {
         this.tableData = res.ResData
@@ -270,13 +435,13 @@ export default {
     /**
      *选择组织
      */
-    handleSelectOrganizeChange: function() {
+    handleSelectOrganizeChange: function () {
       this.editFrom.ParentId = this.selectedOrganizeOptions
     },
     /**
      * 新增、修改或查看明细信息（绑定显示数据）     *
      */
-    ShowEditOrViewDialog: function(view) {
+    ShowEditOrViewDialog: function (view) {
       if (view !== undefined) {
         if (this.currentSelected.length > 1 || this.currentSelected.length === 0) {
           this.$alert('请选择一条数据进行编辑/修改', '提示')
@@ -293,7 +458,7 @@ export default {
         this.$refs['editFrom'].resetFields()
       }
     },
-    bindEditInfo: function() {
+    bindEditInfo: function () {
       getOrganizeDetail(this.currentId).then(res => {
         this.editFrom.FullName = res.ResData.FullName
         this.editFrom.EnCode = res.ResData.EnCode
@@ -369,7 +534,7 @@ export default {
         }
       })
     },
-    setEnable: function(val) {
+    setEnable: function (val) {
       if (this.currentSelected.length === 0) {
         this.$alert('请先选择要操作的数据', '提示')
         return false
@@ -399,7 +564,7 @@ export default {
         })
       }
     },
-    deleteSoft: function(val) {
+    deleteSoft: function (val) {
       if (this.currentSelected.length === 0) {
         this.$alert('请先选择要操作的数据', '提示')
         return false
@@ -429,7 +594,7 @@ export default {
         })
       }
     },
-    deletePhysics: function() {
+    deletePhysics: function () {
       if (this.currentSelected.length === 0) {
         this.$alert('请先选择要操作的数据', '提示')
         return false
@@ -468,7 +633,7 @@ export default {
     /**
      * 当表格的排序条件发生变化的时候会触发该事件
      */
-    handleSortChange: function(column) {
+    handleSortChange: function (column) {
       this.sortableData.sort = column.prop
       if (column.order === 'ascending') {
         this.sortableData.order = 'asc'
@@ -480,13 +645,13 @@ export default {
     /**
      * 当用户手动勾选checkbox数据行事件
      */
-    handleSelectChange: function(selection, row) {
+    handleSelectChange: function (selection, row) {
       this.currentSelected = selection
     },
     /**
      * 当用户手动勾选全选checkbox事件
      */
-    handleSelectAllChange: function(selection) {
+    handleSelectAllChange: function (selection) {
       this.currentSelected = selection
     }
   }

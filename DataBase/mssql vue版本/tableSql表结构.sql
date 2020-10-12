@@ -15,7 +15,7 @@ GO
 
 USE [YBNF]
 GO
-/****** Object:  Table [dbo].[Sys_APP]    Script Date: 2020/10/6 8:32:39 ******/
+/****** Object:  Table [dbo].[Sys_APP]    Script Date: 2020/10/12 15:07:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -41,7 +41,7 @@ CREATE TABLE [dbo].[Sys_APP](
 	[DeleteUserId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Area]    Script Date: 2020/10/6 8:32:39 ******/
+/****** Object:  Table [dbo].[Sys_Area]    Script Date: 2020/10/12 15:07:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -67,7 +67,7 @@ CREATE TABLE [dbo].[Sys_Area](
 	[DeleteUserId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_DbBackup]    Script Date: 2020/10/6 8:32:39 ******/
+/****** Object:  Table [dbo].[Sys_DbBackup]    Script Date: 2020/10/12 15:07:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -92,7 +92,7 @@ CREATE TABLE [dbo].[Sys_DbBackup](
 	[DeleteUserId] [varchar](500) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_FilterIP]    Script Date: 2020/10/6 8:32:39 ******/
+/****** Object:  Table [dbo].[Sys_FilterIP]    Script Date: 2020/10/12 15:07:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -114,7 +114,7 @@ CREATE TABLE [dbo].[Sys_FilterIP](
 	[DeleteUserId] [varchar](500) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Function]    Script Date: 2020/10/6 8:32:39 ******/
+/****** Object:  Table [dbo].[Sys_Function]    Script Date: 2020/10/12 15:07:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -146,7 +146,7 @@ CREATE TABLE [dbo].[Sys_Function](
 	[DeleteUserId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Items]    Script Date: 2020/10/6 8:32:39 ******/
+/****** Object:  Table [dbo].[Sys_Items]    Script Date: 2020/10/12 15:07:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -170,7 +170,7 @@ CREATE TABLE [dbo].[Sys_Items](
 	[DeleteUserId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_ItemsDetail]    Script Date: 2020/10/6 8:32:39 ******/
+/****** Object:  Table [dbo].[Sys_ItemsDetail]    Script Date: 2020/10/12 15:07:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -196,7 +196,7 @@ CREATE TABLE [dbo].[Sys_ItemsDetail](
 	[DeleteUserId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Log]    Script Date: 2020/10/6 8:32:39 ******/
+/****** Object:  Table [dbo].[Sys_Log]    Script Date: 2020/10/12 15:07:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -224,7 +224,7 @@ CREATE TABLE [dbo].[Sys_Log](
 	[DeleteUserId] [varchar](50) NULL
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Menu]    Script Date: 2020/10/6 8:32:39 ******/
+/****** Object:  Table [dbo].[Sys_Menu]    Script Date: 2020/10/12 15:07:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -256,7 +256,7 @@ CREATE TABLE [dbo].[Sys_Menu](
 	[DeleteUserId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_OpenIdSettings]    Script Date: 2020/10/6 8:32:39 ******/
+/****** Object:  Table [dbo].[Sys_OpenIdSettings]    Script Date: 2020/10/12 15:07:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -268,7 +268,7 @@ CREATE TABLE [dbo].[Sys_OpenIdSettings](
 	[Settings] [ntext] NOT NULL
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Organize]    Script Date: 2020/10/6 8:32:39 ******/
+/****** Object:  Table [dbo].[Sys_Organize]    Script Date: 2020/10/12 15:07:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -303,7 +303,7 @@ CREATE TABLE [dbo].[Sys_Organize](
 	[DeleteUserId] [varchar](500) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Role]    Script Date: 2020/10/6 8:32:39 ******/
+/****** Object:  Table [dbo].[Sys_Role]    Script Date: 2020/10/12 15:07:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -329,7 +329,7 @@ CREATE TABLE [dbo].[Sys_Role](
 	[DeleteUserId] [varchar](500) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_RoleAuthorize]    Script Date: 2020/10/6 8:32:39 ******/
+/****** Object:  Table [dbo].[Sys_RoleAuthorize]    Script Date: 2020/10/12 15:07:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -345,7 +345,7 @@ CREATE TABLE [dbo].[Sys_RoleAuthorize](
 	[CreatorUserId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_RoleData]    Script Date: 2020/10/6 8:32:39 ******/
+/****** Object:  Table [dbo].[Sys_RoleData]    Script Date: 2020/10/12 15:07:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -359,7 +359,7 @@ CREATE TABLE [dbo].[Sys_RoleData](
 	[Note] [ntext] NULL
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Sequence]    Script Date: 2020/10/6 8:32:39 ******/
+/****** Object:  Table [dbo].[Sys_Sequence]    Script Date: 2020/10/12 15:07:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -390,7 +390,7 @@ CREATE TABLE [dbo].[Sys_Sequence](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_SequenceRule]    Script Date: 2020/10/6 8:32:39 ******/
+/****** Object:  Table [dbo].[Sys_SequenceRule]    Script Date: 2020/10/12 15:07:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -421,7 +421,7 @@ CREATE TABLE [dbo].[Sys_SequenceRule](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_SystemType]    Script Date: 2020/10/6 8:32:39 ******/
+/****** Object:  Table [dbo].[Sys_SystemType]    Script Date: 2020/10/12 15:07:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -445,7 +445,7 @@ CREATE TABLE [dbo].[Sys_SystemType](
 	[DeleteUserId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_TaskJobsLog]    Script Date: 2020/10/6 8:32:39 ******/
+/****** Object:  Table [dbo].[Sys_TaskJobsLog]    Script Date: 2020/10/12 15:07:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -464,7 +464,7 @@ CREATE TABLE [dbo].[Sys_TaskJobsLog](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_TaskManager]    Script Date: 2020/10/6 8:32:39 ******/
+/****** Object:  Table [dbo].[Sys_TaskManager]    Script Date: 2020/10/12 15:07:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -473,6 +473,8 @@ CREATE TABLE [dbo].[Sys_TaskManager](
 	[Id] [nvarchar](50) NOT NULL,
 	[TaskName] [nvarchar](300) NOT NULL,
 	[GroupName] [nvarchar](300) NOT NULL,
+	[StartTime] [datetime] NULL,
+	[EndTime] [datetime] NULL,
 	[Cron] [nvarchar](300) NOT NULL,
 	[IsLocal] [bit] NOT NULL,
 	[JobCallAddress] [nvarchar](300) NOT NULL,
@@ -483,7 +485,7 @@ CREATE TABLE [dbo].[Sys_TaskManager](
 	[RunCount] [int] NOT NULL,
 	[ErrorCount] [int] NOT NULL,
 	[Description] [nvarchar](200) NULL,
-	[IsSendMail] [bit] NULL,
+	[SendMail] [int] NULL,
 	[EmailAddress] [nvarchar](200) NULL,
 	[Status] [int] NOT NULL,
 	[EnabledMark] [bit] NULL,
@@ -502,7 +504,7 @@ CREATE TABLE [dbo].[Sys_TaskManager](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_UploadFile]    Script Date: 2020/10/6 8:32:39 ******/
+/****** Object:  Table [dbo].[Sys_UploadFile]    Script Date: 2020/10/12 15:07:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -526,7 +528,7 @@ CREATE TABLE [dbo].[Sys_UploadFile](
 	[BelongAppId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_User]    Script Date: 2020/10/6 8:32:39 ******/
+/****** Object:  Table [dbo].[Sys_User]    Script Date: 2020/10/12 15:07:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -570,7 +572,7 @@ CREATE TABLE [dbo].[Sys_User](
 	[DeleteUserId] [varchar](500) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_UserExtend]    Script Date: 2020/10/6 8:32:39 ******/
+/****** Object:  Table [dbo].[Sys_UserExtend]    Script Date: 2020/10/12 15:07:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -610,7 +612,7 @@ CREATE TABLE [dbo].[Sys_UserExtend](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_UserLogOn]    Script Date: 2020/10/6 8:32:39 ******/
+/****** Object:  Table [dbo].[Sys_UserLogOn]    Script Date: 2020/10/12 15:07:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -638,7 +640,7 @@ CREATE TABLE [dbo].[Sys_UserLogOn](
 	[Theme] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_UserOpenIds]    Script Date: 2020/10/6 8:32:39 ******/
+/****** Object:  Table [dbo].[Sys_UserOpenIds]    Script Date: 2020/10/12 15:07:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -674,7 +676,7 @@ ALTER TABLE [dbo].[Sys_TaskManager] ADD  CONSTRAINT [DF_Sys_Task_ExeNumber]  DEF
 GO
 ALTER TABLE [dbo].[Sys_TaskManager] ADD  CONSTRAINT [DF_Sys_TaskManager_ErrorCount]  DEFAULT ((0)) FOR [ErrorCount]
 GO
-ALTER TABLE [dbo].[Sys_TaskManager] ADD  CONSTRAINT [DF_Sys_TaskManager_IsSendMail]  DEFAULT ((0)) FOR [IsSendMail]
+ALTER TABLE [dbo].[Sys_TaskManager] ADD  CONSTRAINT [DF_Sys_TaskManager_IsSendMail]  DEFAULT ((0)) FOR [SendMail]
 GO
 ALTER TABLE [dbo].[Sys_TaskManager] ADD  CONSTRAINT [DF_Sys_Task_Status]  DEFAULT ((0)) FOR [Status]
 GO
@@ -824,6 +826,10 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'任务名称' 
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'任务分组' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_TaskManager', @level2type=N'COLUMN',@level2name=N'GroupName'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'开始时间' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_TaskManager', @level2type=N'COLUMN',@level2name=N'StartTime'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'结束时间' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_TaskManager', @level2type=N'COLUMN',@level2name=N'EndTime'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'CRON表达式' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_TaskManager', @level2type=N'COLUMN',@level2name=N'Cron'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'是否是本地任务1：本地任务；0：外部接口任务' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_TaskManager', @level2type=N'COLUMN',@level2name=N'IsLocal'
@@ -844,7 +850,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'异常次数' 
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'描述' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_TaskManager', @level2type=N'COLUMN',@level2name=N'Description'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'是否接受邮件通知' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_TaskManager', @level2type=N'COLUMN',@level2name=N'IsSendMail'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'是否接受邮件通知' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_TaskManager', @level2type=N'COLUMN',@level2name=N'SendMail'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'状态' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_TaskManager', @level2type=N'COLUMN',@level2name=N'Status'
 GO

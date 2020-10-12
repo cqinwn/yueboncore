@@ -7,11 +7,14 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
+using Yuebon.Commons.Cache;
 using Yuebon.Commons.Extend;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IoC;
+using Yuebon.Commons.Json;
 using Yuebon.Commons.Options;
 using Yuebon.Messages.Mail;
 using Yuebon.Security.IServices;
@@ -33,6 +36,8 @@ namespace Yuebon.Quartz.Jobs
         /// <returns></returns>
         public Task Execute(IJobExecutionContext context)
         {
+            YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+            SysSetting sysSetting = JsonSerializer.Deserialize<SysSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             AbstractTrigger trigger = (context as JobExecutionContextImpl).Trigger as AbstractTrigger;
@@ -73,22 +78,24 @@ namespace Yuebon.Quartz.Jobs
                 stopwatch.Stop();
                 string content = $"结束时间:{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss ffff")} 共耗时{stopwatch.ElapsedMilliseconds} 毫秒,消息:{httpMessage??"OK"}\r\n";
                 iService.RecordRun(taskManager.Id, JobAction.结束,true, content);
-                if (taskManager.SendMail==MsgTypeOption.All.ToInt())
+                if (taskManager.SendMail == MsgTypeOption.All.ToInt())
                 {
+                    string emailAddress = sysSetting.Email;
                     if (!string.IsNullOrEmpty(taskManager.EmailAddress))
                     {
-
-                        List<string> recipients = new List<string>();
-                        recipients = taskManager.EmailAddress.Split(",").ToList();
-                        //recipients.Add(taskManager.EmailAddress);
-                        var mailBodyEntity = new MailBodyEntity()
-                        {
-                            Body = content + "\n\r请勿直接回复本邮件！",
-                            Recipients = recipients,
-                            Subject = taskManager.TaskName,
-                        };
-                        SendMailHelper.SendMail(mailBodyEntity);
+                        emailAddress = taskManager.EmailAddress;
                     }
+
+                    List<string> recipients = new List<string>();
+                    recipients = taskManager.EmailAddress.Split(",").ToList();
+                    //recipients.Add(taskManager.EmailAddress);
+                    var mailBodyEntity = new MailBodyEntity()
+                    {
+                        Body = content + "\n\r请勿直接回复本邮件！",
+                        Recipients = recipients,
+                        Subject = taskManager.TaskName,
+                    };
+                    SendMailHelper.SendMail(mailBodyEntity);
                 }
             }
             catch (Exception ex)
@@ -99,18 +106,20 @@ namespace Yuebon.Quartz.Jobs
                 FileQuartz.WriteErrorLog(ex.Message); 
                 if (taskManager.SendMail== MsgTypeOption.Error.ToInt()|| taskManager.SendMail == MsgTypeOption.All.ToInt())
                 {
+                    string emailAddress = sysSetting.Email;
                     if (!string.IsNullOrEmpty(taskManager.EmailAddress))
                     {
-                        List<string> recipients = new List<string>();
-                        recipients = taskManager.EmailAddress.Split(",").ToList();
-                        var mailBodyEntity = new MailBodyEntity()
-                        {
-                            Body = ex.Message+ "\n\r请勿直接回复本邮件!",
-                            Recipients = recipients,
-                            Subject = taskManager.TaskName,
-                        };
-                        SendMailHelper.SendMail(mailBodyEntity);
+                        emailAddress = taskManager.EmailAddress;
                     }
+                    List<string> recipients = new List<string>();
+                    recipients = emailAddress.Split(",").ToList();
+                    var mailBodyEntity = new MailBodyEntity()
+                    {
+                        Body = ex.Message + "\n\r请勿直接回复本邮件!",
+                        Recipients = recipients,
+                        Subject = taskManager.TaskName,
+                    };
+                    SendMailHelper.SendMail(mailBodyEntity);
                 }
             }
 

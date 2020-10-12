@@ -412,14 +412,14 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item
-          v-if="editFrom.IsSendMail == 'true'"
+          v-if="editFrom.SendMail != '0'"
           label="Email地址"
           :label-width="formLabelWidth"
           prop="EmailAddress"
         >
           <el-input
             v-model="editFrom.EmailAddress"
-            placeholder="请输入接收Email地址多个用英文逗号隔开"
+            placeholder="接收通知邮件多个用英文逗号隔开，为空默认系统配置邮箱"
             autocomplete="off"
             clearable
           />

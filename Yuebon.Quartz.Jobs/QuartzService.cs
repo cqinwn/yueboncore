@@ -30,7 +30,7 @@ namespace Yuebon.Quartz.Jobs
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-                Log4NetHelper.Info("开始启动定时任务");
+            Log4NetHelper.Info("开始启动定时任务");
             try
             {
                 IEnumerable<TaskManager> list = iService.GetAllByIsNotDeleteAndEnabledMark();

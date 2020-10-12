@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Models;
@@ -53,6 +54,7 @@ namespace Yuebon.Security.Services
         /// <param name="msg">任务记录描述</param>
         public void RecordRun(string jobId,JobAction jobAction, bool blresultTag = true,string msg="")
         {
+            DateTime addTime = DateTime.Now;
             var job = _repository.Get(jobId);
             if (job == null)
             {
@@ -72,7 +74,7 @@ namespace Yuebon.Security.Services
             if (!blresultTag)
             {
                 job.ErrorCount++;
-                job.LastErrorTime= DateTime.Now;
+                job.LastErrorTime= addTime;
                 strDesc = $"异常，"+msg;
                
             }
@@ -83,7 +85,10 @@ namespace Yuebon.Security.Services
             if (jobAction == JobAction.开始)
             {
                 job.RunCount++;
-                job.LastRunTime = DateTime.Now;
+                job.LastRunTime = addTime;
+
+                CronExpression cronExpression = new CronExpression(job.Cron);
+                job.NextRunTime = cronExpression.GetNextValidTimeAfter(addTime).ToDateTime();
             }
             _repository.Update(job,jobId);
 

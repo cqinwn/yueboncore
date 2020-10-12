@@ -68,10 +68,6 @@
               "target": "Package",
               "version": "[6.7.1, )"
             },
-            "Newtonsoft.Json": {
-              "target": "Package",
-              "version": "[12.0.3, )"
-            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[5.6.3, )"
@@ -151,7 +147,7 @@
             },
             "Autofac.Extensions.DependencyInjection": {
               "target": "Package",
-              "version": "[7.0.1, )"
+              "version": "[7.0.2, )"
             },
             "Dapper": {
               "target": "Package",
@@ -205,10 +201,6 @@
               "target": "Package",
               "version": "[3.0.0, )"
             },
-            "Newtonsoft.Json": {
-              "target": "Package",
-              "version": "[12.0.3, )"
-            },
             "Npgsql": {
               "target": "Package",
               "version": "[4.1.5, )"
@@ -223,7 +215,7 @@
             },
             "Quartz": {
               "target": "Package",
-              "version": "[3.1.0, )"
+              "version": "[3.2.0, )"
             },
             "SgmlReader.NetCore": {
               "target": "Package",

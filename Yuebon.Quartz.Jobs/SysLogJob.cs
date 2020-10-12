@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IoC;
 using Yuebon.Commons.Log;
@@ -56,9 +57,9 @@ namespace Yuebon.Quartz.Jobs
                 iLogService.DeleteBatchWhereAsync("");
 
                 stopwatch.Stop();
-                string content = $"结束时间:{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")} 共耗时{stopwatch.ElapsedMilliseconds} 毫秒\r\n";
+                string content = $"结束时间:{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss ffff")} 共耗时{stopwatch.ElapsedMilliseconds} 毫秒\r\n";
                 iService.RecordRun(taskManager.Id, JobAction.结束, true, content);
-                if (taskManager.IsSendMail)
+                if (taskManager.SendMail==MsgTypeOption.All.ToInt())
                 {
                     if (!string.IsNullOrEmpty(taskManager.EmailAddress))
                     {
@@ -78,10 +79,10 @@ namespace Yuebon.Quartz.Jobs
             catch (Exception ex)
             {
                 stopwatch.Stop();
-                string content = $"结束时间:{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")} 共耗时{stopwatch.ElapsedMilliseconds} 毫秒\r\n";
+                string content = $"结束时间:{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss ffff")} 共耗时{stopwatch.ElapsedMilliseconds} 毫秒\r\n";
                 iService.RecordRun(taskManager.Id, JobAction.结束, false, content+ ex.Message);
                 FileQuartz.WriteErrorLog(ex.Message);
-                if (taskManager.IsSendMail)
+                if (taskManager.SendMail == MsgTypeOption.Error.ToInt() || taskManager.SendMail == MsgTypeOption.All.ToInt())
                 {
                     if (!string.IsNullOrEmpty(taskManager.EmailAddress))
                     {

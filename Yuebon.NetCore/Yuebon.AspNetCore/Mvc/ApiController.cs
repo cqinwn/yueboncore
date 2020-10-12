@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.Json;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.Commons.Cache;
@@ -77,7 +77,7 @@ namespace Yuebon.AspNetCore.Controllers
                         YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
                         List<Claim> claimlist = result.ResData as List<Claim>;
                         string userId = claimlist[3].Value;
-                        var user = JsonConvert.DeserializeObject<UserAuthSession>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
+                        var user = JsonSerializer.Deserialize<UserAuthSession>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
                         if (user != null)
                         {
                             CurrentUser = user;
@@ -103,11 +103,11 @@ namespace Yuebon.AspNetCore.Controllers
         [Route("api/ToJsonContent")]
         protected IActionResult ToJsonContent(object obj)
         {
-            JsonSerializerSettings settings = new JsonSerializerSettings();
-            settings.Formatting = Formatting.Indented;
-            settings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-            settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            string result = JsonConvert.SerializeObject(obj, settings);
+            //JsonSerializerSettings settings = new JsonSerializerSettings();
+            //settings.Formatting = Formatting.Indented;
+            //settings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+            //settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            //string result = JsonConvert.SerializeObject(obj, settings);
             return Content(obj.ToJson());
         }
 
@@ -163,7 +163,7 @@ namespace Yuebon.AspNetCore.Controllers
             {
                 YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
                 string userId = result.ResData.ToString();
-                var user = JsonConvert.DeserializeObject<UserAuthSession>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
+                var user = JsonSerializer.Deserialize<UserAuthSession>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
                 if (user != null)
                 {
                     CurrentUser = user;

@@ -10,7 +10,11 @@
           size="small"
         >
           <el-form-item label="任务名称：">
-            <el-input v-model="searchform.name" clearable placeholder="任务名称或分组" />
+            <el-input
+              v-model="searchform.name"
+              clearable
+              placeholder="任务名称或分组"
+            />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="handleSearch()">查询</el-button>
@@ -23,65 +27,78 @@
         <el-button-group>
           <slot v-for="itemf in loadBtnFunc">
             <el-button
-              v-if="itemf.FullName==='新增'"
+              v-if="itemf.FullName === '新增'"
               type="primary"
               icon="el-icon-plus"
               size="small"
               @click="ShowEditOrViewDialog()"
-            >新增</el-button>
+              >新增</el-button
+            >
             <el-button
-              v-if="itemf.FullName==='修改'"
+              v-if="itemf.FullName === '修改'"
               type="primary"
               icon="el-icon-edit"
               class="el-button-modify"
               size="small"
               @click="ShowEditOrViewDialog('edit')"
-            >修改</el-button>
+              >修改</el-button
+            >
             <el-button
-              v-if="itemf.EnCode=='TaskManager/ChangeStatus'"
+              v-if="itemf.EnCode == 'TaskManager/ChangeStatus'"
               type="info"
               icon="el-icon-video-pause"
               size="small"
               @click="setStatus('0')"
-            >暂停</el-button>
+              >暂停</el-button
+            >
             <el-button
-              v-if="itemf.EnCode=='TaskManager/ChangeStatus'"
+              v-if="itemf.EnCode == 'TaskManager/ChangeStatus'"
               type="success"
               icon="el-icon-video-play"
               size="small"
               @click="setStatus('1')"
-            >启动</el-button>
+              >启动</el-button
+            >
             <el-button
-              v-if="itemf.FullName=='禁用'"
+              v-if="itemf.FullName == '禁用'"
               type="info"
               icon="el-icon-video-pause"
               size="small"
               @click="setEnable('0')"
-            >禁用</el-button>
+              >禁用</el-button
+            >
             <el-button
-              v-if="itemf.FullName=='启用'"
+              v-if="itemf.FullName == '启用'"
               type="success"
               icon="el-icon-video-play"
               size="small"
               @click="setEnable('1')"
-            >启用</el-button>
+              >启用</el-button
+            >
             <el-button
-              v-if="itemf.FullName==='软删除'"
+              v-if="itemf.FullName === '软删除'"
               type="warning"
               icon="el-icon-delete"
               size="small"
               @click="deleteSoft('0')"
-            >软删除</el-button>
+              >软删除</el-button
+            >
             <el-button
-              v-if="itemf.FullName==='删除'"
+              v-if="itemf.FullName === '删除'"
               type="danger"
               icon="el-icon-delete"
               size="small"
               @click="deletePhysics()"
-            >删除</el-button>
+              >删除</el-button
+            >
           </slot>
-          <el-button type="default" icon="el-icon-refresh" size="small" @click="loadTableData()">刷新</el-button>
-
+          <el-button
+            type="default"
+            icon="el-icon-refresh"
+            size="small"
+            @click="loadTableData()"
+            >刷新</el-button
+          >
         </el-button-group>
       </div>
       <el-table
@@ -92,16 +109,36 @@
         stripe
         highlight-current-row
         style="width: 100%"
-        :default-sort="{prop: 'Id', order: 'ascending'}"
+        :default-sort="{ prop: 'Id', order: 'ascending' }"
         @select="handleSelectChange"
         @select-all="handleSelectAllChange"
         @sort-change="handleSortChange"
       >
         <el-table-column type="selection" width="30" />
-        <el-table-column prop="Id" label="任务Id" sortable="custom" width="100" />
-        <el-table-column prop="TaskName" label="任务名称" sortable="custom" width="150" />
-        <el-table-column prop="GroupName" label="分组名称" sortable="custom" width="150" />
-        <el-table-column prop="Cron" label="Cron表达式" sortable="custom" width="130" />
+        <el-table-column
+          prop="Id"
+          label="任务Id"
+          sortable="custom"
+          width="100"
+        />
+        <el-table-column
+          prop="TaskName"
+          label="任务名称"
+          sortable="custom"
+          width="150"
+        />
+        <el-table-column
+          prop="GroupName"
+          label="分组名称"
+          sortable="custom"
+          width="150"
+        />
+        <el-table-column
+          prop="Cron"
+          label="Cron表达式"
+          sortable="custom"
+          width="130"
+        />
         <el-table-column
           label="状态"
           sortable="custom"
@@ -113,19 +150,58 @@
             <el-tag
               :type="scope.row.Status === 1 ? 'success' : 'danger'"
               disable-transitions
-            >{{ scope.row.Status===1?'正在运行':'暂停' }}</el-tag>
+              >{{ scope.row.Status === 1 ? "正在运行" : "暂停" }}</el-tag
+            >
           </template>
         </el-table-column>
-        <el-table-column prop="Description" label="简述" sortable="custom" />
-        <el-table-column prop="JobCallAddress" label="任务地址" sortable="custom" width="180" />
+        <el-table-column
+          prop="Description"
+          label="简述"
+          sortable="custom"
+          width="110"
+        />
+        <el-table-column
+          prop="JobCallAddress"
+          label="任务地址"
+          sortable="custom"
+          width="180"
+        />
+        <el-table-column
+          prop="StartTime"
+          label="任务开始时间"
+          sortable
+          width="160"
+        />
+        <el-table-column
+          prop="EndTime"
+          label="任务结束时间"
+          sortable
+          width="160"
+        />
         <el-table-column
           prop="LastRunTime"
           label="最近执行时间"
           sortable
           width="160"
         />
-        <el-table-column prop="RunCount" label="执行次数" sortable="custom" width="110" />
-        <el-table-column prop="ErrorCount" label="出错次数" sortable="custom" width="110" />
+        <el-table-column
+          prop="NextRunTime"
+          label="下次执行时间"
+          sortable
+          width="160"
+        />
+        <el-table-column
+          prop="RunCount"
+          label="执行次数"
+          sortable="custom"
+          width="110"
+        />
+        <el-table-column
+          prop="ErrorCount"
+          label="出错次数"
+          sortable="custom"
+          width="110"
+        />
         <el-table-column
           prop="LastErrorTime"
           label="出错时间"
@@ -143,7 +219,8 @@
             <el-tag
               :type="scope.row.EnabledMark === true ? 'success' : 'info'"
               disable-transitions
-            >{{ scope.row.EnabledMark===true?'启用':'禁用' }}</el-tag>
+              >{{ scope.row.EnabledMark === true ? "启用" : "禁用" }}</el-tag
+            >
           </template>
         </el-table-column>
         <el-table-column
@@ -157,7 +234,8 @@
             <el-tag
               :type="scope.row.DeleteMark === true ? 'danger' : 'success'"
               disable-transitions
-            >{{ scope.row.DeleteMark===true?'已删除':'否' }}</el-tag>
+              >{{ scope.row.DeleteMark === true ? "已删除" : "否" }}</el-tag
+            >
           </template>
         </el-table-column>
         <el-table-column
@@ -172,13 +250,14 @@
           sortable
           width="160"
         />
-        <el-table-column
-          fixed="right"
-          label="操作"
-          width="100"
-        >
+        <el-table-column fixed="right" label="操作" width="100">
           <template slot-scope="scope">
-            <el-button type="text" size="small" @click="handleShowLogs(scope.row)">查看日志</el-button>
+            <el-button
+              type="text"
+              size="small"
+              @click="handleShowLogs(scope.row)"
+              >查看日志</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
@@ -186,7 +265,7 @@
         <el-pagination
           background
           :current-page="pagination.currentPage"
-          :page-sizes="[5,10,20,50,100, 200, 300, 400]"
+          :page-sizes="[5, 10, 20, 50, 100, 200, 300, 400]"
           :page-size="pagination.pagesize"
           layout="total, sizes, prev, pager, next, jumper"
           :total="pagination.pageTotal"
@@ -197,28 +276,83 @@
     </el-card>
     <el-dialog
       ref="dialogEditForm"
-      :title="editFormTitle+'任务'"
+      :title="editFormTitle + '任务'"
       :visible.sync="dialogEditFormVisible"
       width="640px"
     >
       <el-form ref="editFrom" :model="editFrom" :rules="rules">
-        <el-form-item label="任务名称" :label-width="formLabelWidth" prop="TaskName">
-          <el-input v-model="editFrom.TaskName" placeholder="请输入任务名称" autocomplete="off" clearable />
+        <el-form-item
+          label="任务名称"
+          :label-width="formLabelWidth"
+          prop="TaskName"
+        >
+          <el-input
+            v-model="editFrom.TaskName"
+            placeholder="请输入任务名称"
+            autocomplete="off"
+            clearable
+          />
         </el-form-item>
-        <el-form-item label="分组名称" :label-width="formLabelWidth" prop="GroupName">
-          <el-input v-model="editFrom.GroupName" placeholder="请输入分组名称" autocomplete="off" clearable />
+        <el-form-item
+          label="分组名称"
+          :label-width="formLabelWidth"
+          prop="GroupName"
+        >
+          <el-input
+            v-model="editFrom.GroupName"
+            placeholder="请输入分组名称"
+            autocomplete="off"
+            clearable
+          />
         </el-form-item>
-        <el-form-item label="Cron表达式" :label-width="formLabelWidth" prop="Cron">
-          <el-input v-model="editFrom.Cron" placeholder="请输入Cron表达式" autocomplete="off" clearable />
+        <el-form-item
+          label="起止时间"
+          :label-width="formLabelWidth"
+          prop="StartEndTime"
+        >
+          <el-date-picker
+            v-model="editFrom.StartEndTime"
+            type="datetimerange"
+            start-placeholder="开始时间"
+            end-placeholder="结束结束"
+            :default-time="['12:00:00']"
+          />
         </el-form-item>
-        <el-form-item label="任务执行方式" :label-width="formLabelWidth" prop="IsLocal">
+        <el-form-item
+          label="Cron表达式"
+          :label-width="formLabelWidth"
+          prop="Cron"
+        >
+          <el-input
+            v-model="editFrom.Cron"
+            placeholder="请输入Cron表达式"
+            autocomplete="off"
+            clearable
+          />
+        </el-form-item>
+        <el-form-item
+          label="任务执行方式"
+          :label-width="formLabelWidth"
+          prop="IsLocal"
+        >
           <el-radio-group v-model="editFrom.IsLocal" @change="changeIsLocal">
             <el-radio label="true">本地任务</el-radio>
             <el-radio label="false">外部接口任务</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item v-if="isShowSelect==='true'" label="任务地址" :label-width="formLabelWidth" prop="JobCallAddress">
-          <el-select v-model="editFrom.JobCallAddress" clearable filterable placeholder="请输入任务地址" style="width:300px;">
+        <el-form-item
+          v-if="isShowSelect === 'true'"
+          label="任务地址"
+          :label-width="formLabelWidth"
+          prop="JobCallAddress"
+        >
+          <el-select
+            v-model="editFrom.JobCallAddress"
+            clearable
+            filterable
+            placeholder="请输入任务地址"
+            style="width: 300px"
+          >
             <el-option
               v-for="item in selectLocalTask"
               :key="item.FullName"
@@ -227,26 +361,74 @@
             />
           </el-select>
         </el-form-item>
-        <el-form-item v-if="isShowSelect!=='true'" label="任务地址" :label-width="formLabelWidth" prop="JobCallAddress">
-          <el-input v-model="editFrom.JobCallAddress" placeholder="请输入外部接口任务地址" autocomplete="off" clearable />
+        <el-form-item
+          v-if="isShowSelect !== 'true'"
+          label="任务地址"
+          :label-width="formLabelWidth"
+          prop="JobCallAddress"
+        >
+          <el-input
+            v-model="editFrom.JobCallAddress"
+            placeholder="请输入外部接口任务地址"
+            autocomplete="off"
+            clearable
+          />
         </el-form-item>
-        <el-form-item label="任务参数" :label-width="formLabelWidth" prop="JobCallParams">
-          <el-input v-model="editFrom.JobCallParams" type="textarea" placeholder="请输入任务参数，JSON格式,为空时请求访问方式为get，反之为post" autocomplete="off" clearable />
+        <el-form-item
+          label="任务参数"
+          :label-width="formLabelWidth"
+          prop="JobCallParams"
+        >
+          <el-input
+            v-model="editFrom.JobCallParams"
+            type="textarea"
+            placeholder="请输入任务参数，JSON格式,为空时请求访问方式为get，反之为post"
+            autocomplete="off"
+            clearable
+          />
         </el-form-item>
-        <el-form-item label="描述" :label-width="formLabelWidth" prop="Description">
-          <el-input v-model="editFrom.Description" type="textarea" autocomplete="off" clearable />
+        <el-form-item
+          label="描述"
+          :label-width="formLabelWidth"
+          prop="Description"
+        >
+          <el-input
+            v-model="editFrom.Description"
+            type="textarea"
+            autocomplete="off"
+            clearable
+          />
         </el-form-item>
 
-        <el-form-item label="邮件通知" :label-width="formLabelWidth" prop="IsSendMail">
-          <el-radio-group v-model="editFrom.IsSendMail">
-            <el-radio label="true">通知</el-radio>
-            <el-radio label="false">不通知</el-radio>
+        <el-form-item
+          label="邮件通知"
+          :label-width="formLabelWidth"
+          prop="IsSendMail"
+        >
+          <el-radio-group v-model="editFrom.SendMail">
+            <el-radio label="0">不通知</el-radio>
+            <el-radio label="1">异常通知</el-radio>
+            <el-radio label="2">所有通知</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item v-if="editFrom.IsSendMail=='true'" label="Email地址" :label-width="formLabelWidth" prop="EmailAddress">
-          <el-input v-model="editFrom.EmailAddress" placeholder="请输入接收Email地址多个用英文逗号隔开" autocomplete="off" clearable />
+        <el-form-item
+          v-if="editFrom.IsSendMail == 'true'"
+          label="Email地址"
+          :label-width="formLabelWidth"
+          prop="EmailAddress"
+        >
+          <el-input
+            v-model="editFrom.EmailAddress"
+            placeholder="请输入接收Email地址多个用英文逗号隔开"
+            autocomplete="off"
+            clearable
+          />
         </el-form-item>
-        <el-form-item label="是否启用" :label-width="formLabelWidth" prop="EnabledMark">
+        <el-form-item
+          label="是否启用"
+          :label-width="formLabelWidth"
+          prop="EnabledMark"
+        >
           <el-radio-group v-model="editFrom.EnabledMark">
             <el-radio label="true">是</el-radio>
             <el-radio label="false">否</el-radio>
@@ -261,7 +443,7 @@
 
     <el-dialog
       ref="dialogShowLogForm"
-      :title="editFormTitle+'任务日志最近40条记录'"
+      :title="editFormTitle + '任务日志最近40条记录'"
       :visible.sync="dialogShowLogFormVisible"
       width="940px"
     >
@@ -281,9 +463,11 @@
 
 <script>
 
-import { getTaskManagerListWithPager, getTaskManagerDetail,
+import {
+  getTaskManagerListWithPager, getTaskManagerDetail,
   saveTaskManager, setTaskManagerEnable, deleteSoftTaskManager,
-  deleteTaskManager, changeStatus, getLocalTaskJobs, getTaskJobLogListWithPager } from '@/api/security/taskmanager'
+  deleteTaskManager, changeStatus, getLocalTaskJobs, getTaskJobLogListWithPager
+} from '@/api/security/taskmanager'
 
 export default {
   data() {
@@ -316,8 +500,11 @@ export default {
         EnabledMark: 'true',
         IsLocal: 'true',
         Description: '',
-        IsSendMail: 'true',
-        EmailAddress: ''
+        SendMail: '0',
+        EmailAddress: '',
+        StartTime: '',
+        EndTime: '',
+        StartEndTime: ''
       },
       rules: {
         TaskName: [
@@ -327,6 +514,9 @@ export default {
         GroupName: [
           { required: true, message: '请输入分组名称', trigger: 'blur' },
           { min: 2, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur' }
+        ],
+        StartEndTime: [
+          { required: true, message: '请设置任务起止时间', trigger: 'blur' }
         ],
         Cron: [
           { required: true, message: '请输入Cron表达式', trigger: 'blur' },
@@ -434,9 +624,10 @@ export default {
         this.editFrom.IsLocal = res.ResData.IsLocal + ''
         this.editFrom.Description = res.ResData.Description
         this.editFrom.JobCallAddress = res.ResData.JobCallAddress
-        this.editFrom.IsSendMail = res.ResData.IsSendMail + ''
+        this.editFrom.SendMail = res.ResData.SendMail + ''
         this.editFrom.EmailAddress = res.ResData.EmailAddress
         this.isShowSelect = res.ResData.IsLocal + ''
+        this.editFrom.StartEndTime = [res.ResData.StartTime, res.ResData.EndTime]
       })
     },
     /**
@@ -451,11 +642,13 @@ export default {
             'Cron': this.editFrom.Cron,
             'JobCallAddress': this.editFrom.JobCallAddress,
             'JobCallParams': this.editFrom.JobCallParams,
-            'EnabledMark': this.editFrom.EnabledMark,
+            'StartTime': this.editFrom.StartEndTime[0],
+            'EndTime': this.editFrom.StartEndTime[1],
             'IsLocal': this.editFrom.IsLocal,
             'Description': this.editFrom.Description,
-            'IsSendMail': this.editFrom.IsSendMail,
+            'SendMail': this.editFrom.SendMail,
             'EmailAddress': this.editFrom.EmailAddress,
+            'EnabledMark': this.editFrom.EnabledMark,
             'Id': this.currentId
           }
           var url = 'TaskManager/Insert'
@@ -470,6 +663,7 @@ export default {
               })
               this.dialogEditFormVisible = false
               this.currentSelected = ''
+              this.editFrom.StartEndTime = ''
               this.$refs['editFrom'].resetFields()
               this.loadTableData()
               this.InitDictItem()

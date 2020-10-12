@@ -22,6 +22,10 @@
 
 8、优化登录返回页面到主页，不在返回登录前页面
 
+9、json序列化和反序列化采用system.text.json，Newtonsoft.Json。
+
+10、定时任务可以设置任务开始和结束时间，通知节点。
+
 更多更新日志 [点击查看](https://gitee.com/yuebon/YuebonNetCore/commits/master)
 
 ##### 新计划

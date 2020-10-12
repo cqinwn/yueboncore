@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Models;
@@ -84,7 +84,7 @@ namespace Yuebon.AspNetCore.Mvc
                         List<Claim> claimlist = result.ResData as List<Claim>;
                         string userId = claimlist[3].Value;
                         YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                        var user = JsonConvert.DeserializeObject<UserAuthSession>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
+                        var user = JsonSerializer.Deserialize<UserAuthSession>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
                         if (user == null)
                         {
                             context.Result = new JsonResult(new CommonResult(ErrCode.err40008, "40008"));

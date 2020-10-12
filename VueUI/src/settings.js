@@ -1,14 +1,11 @@
 module.exports = {
   title: '管理系统',
   /**
-   * @type {boolean} true | false
-   * @description Whether fix the header
+   *是否固定头部
    */
   fixedHeader: false,
-
   /**
-   * @type {boolean} true | false
-   * @description 是否在侧边显示logo
+   * 是否显示侧边Logo
    */
   sidebarLogo: true,
   /**
@@ -50,5 +47,4 @@ module.exports = {
   apiSecurityUrl: 'http://192.168.1.106:809/api/Security/', // 权限管理系统接口
   fileUrl: 'http://192.168.1.106:809/', // 文件访问路径
   fileUploadUrl: 'http://192.168.1.106:809/api/Files/Upload'// 文件上传路径
-
 }

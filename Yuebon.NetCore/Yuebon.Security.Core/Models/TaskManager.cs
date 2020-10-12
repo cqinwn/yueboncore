@@ -38,6 +38,14 @@ namespace Yuebon.Security.Models
         public string GroupName { get; set; }
 
         /// <summary>
+        /// 设置或获取结束时间
+        /// </summary>
+        public DateTime? EndTime { get; set; }
+        /// <summary>
+        /// 设置或获取开始时间
+        /// </summary>
+        public DateTime? StartTime { get; set; }
+        /// <summary>
         /// 设置或获取CRON表达式
         /// </summary>
         public string Cron { get; set; }
@@ -95,7 +103,7 @@ namespace Yuebon.Security.Models
         /// <summary>
         /// 设置或获取是否邮件通知
         /// </summary>
-        public bool IsSendMail { get; set; }
+        public int SendMail { get; set; }
         /// <summary>
         /// 设置或获取接受邮件地址
         /// </summary>

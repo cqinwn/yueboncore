@@ -24,9 +24,9 @@ using Yuebon.Commons.Log;
 using Yuebon.Commons.Pages;
 using static Dapper.SqlMapper;
 using System.Linq;
-using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Yuebon.Commons.Json;
 
 namespace Yuebon.Commons.Repositories
 {
@@ -1876,7 +1876,7 @@ namespace Yuebon.Commons.Repositories
                         var sb = new StringBuilder("ExecuteTransaction 事务： ");
                         foreach (var tran in trans)
                         {
-                            sb.Append("SQL语句:" + tran.Item1 + "  \n SQL参数: " + JsonConvert.SerializeObject(tran.Item2) + " \n");
+                            sb.Append("SQL语句:" + tran.Item1 + "  \n SQL参数: " + JsonHelper.ToJson(tran.Item2) + " \n");
                             await conn.ExecuteAsync(tran.Item1, tran.Item2, transaction, commandTimeout);
                         }
                         Stopwatch stopwatch = new Stopwatch();
@@ -1926,7 +1926,7 @@ namespace Yuebon.Commons.Repositories
                         var sb = new StringBuilder("ExecuteTransaction 事务： ");
                         foreach (var tran in trans)
                         {
-                            sb.Append("SQL语句:" + tran.Item1 + "  \n SQL参数: " + JsonConvert.SerializeObject(tran.Item2) + " \n");
+                            sb.Append("SQL语句:" + tran.Item1 + "  \n SQL参数: " + JsonHelper.ToJson(tran.Item2) + " \n");
                             conn.Execute(tran.Item1, tran.Item2, transaction, commandTimeout);
                         }
                         Stopwatch stopwatch = new Stopwatch();
@@ -1968,7 +1968,7 @@ namespace Yuebon.Commons.Repositories
             if (OnOperationLog != null)
             {
                 string operationType = DbLogType.Create.ToString();
-                string note = JsonConvert.SerializeObject(obj);
+                string note = JsonHelper.ToJson(obj);
                 OnOperationLog(this.tableName, operationType, note);
             }
         }
@@ -1983,7 +1983,7 @@ namespace Yuebon.Commons.Repositories
             if (OnOperationLog != null)
             {
                 string operationType = DbLogType.Create.ToString();
-                string note = JsonConvert.SerializeObject(obj);
+                string note = JsonHelper.ToJson(obj);
                 OnOperationLog(this.tableName, operationType, note);
             }
         }
@@ -2001,8 +2001,8 @@ namespace Yuebon.Commons.Repositories
                 if (objInDb != null)
                 {
                     string operationType = DbLogType.Update.ToString();
-                    string note = "更新前的数据：\n\r" + JsonConvert.SerializeObject(objInDb);
-                    note += "更新后的数据：\n\r" + JsonConvert.SerializeObject(obj);
+                    string note = "更新前的数据：\n\r" + JsonHelper.ToJson(objInDb);
+                    note += "\n\r更新后的数据：\n\r" + JsonHelper.ToJson(obj);
                     OnOperationLog(this.tableName, operationType, note);
                 }
 
@@ -2019,7 +2019,7 @@ namespace Yuebon.Commons.Repositories
             if (OnOperationLog != null)
             {
                 string operationType = DbLogType.Update.ToString();
-                string note = "批量更新的数据：\n\r" + JsonConvert.SerializeObject(obj);
+                string note = "批量更新的数据：\n\r" + JsonHelper.ToJson(obj);
                 OnOperationLog(this.tableName, operationType, note);
 
             }
@@ -2072,7 +2072,7 @@ namespace Yuebon.Commons.Repositories
                 if (objInDb != null) 
                 {
 
-                    string note = "删除数据：\n\r"+JsonConvert.SerializeObject(objInDb);
+                    string note = "删除数据：\n\r"+ JsonHelper.ToJson(objInDb);
 
                     OnOperationLog(this.tableName, operationType, note);
                 }

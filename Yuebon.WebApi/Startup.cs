@@ -38,12 +38,15 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.AspNetCore.SSO;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Extensions;
+using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IoC;
 using Yuebon.Commons.Linq;
 using Yuebon.Commons.Log;
@@ -126,17 +129,22 @@ namespace Yuebon.WebApi
             //全局设置跨域访问
             services.AddCors(options => options.AddPolicy("yuebonCors",
                 policy => policy.WithOrigins(Configuration.GetSection("AppSetting:AllowOrigins").Value.Split(',', StringSplitOptions.RemoveEmptyEntries)).AllowAnyHeader().AllowAnyMethod()));
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(options =>
+            {
+                //设置时间格式
+                options.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter());
+                //设置bool获取格式
+                options.JsonSerializerOptions.Converters.Add(new BooleanJsonConverter());
+                //设置数字
+                options.JsonSerializerOptions.Converters.Add(new IntJsonConverter());
+                options.JsonSerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All);
+            });
 
             services.AddSignalR();//使用 SignalR
             mvcBuilder = services.AddMvc(option =>
             {
                 option.Filters.Add<YuebonAuthorizationFilter>();
                 option.Filters.Add(new ExceptionHandlingAttribute());
-            }).AddNewtonsoftJson(options =>
-            {
-                options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-                options.SerializerSettings.ContractResolver = new DefaultContractResolver();
             }).SetCompatibilityVersion(CompatibilityVersion.Latest).AddRazorRuntimeCompilation();
 
             services.AddMvcCore()

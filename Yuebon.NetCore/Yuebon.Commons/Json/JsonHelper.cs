@@ -1,9 +1,12 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Text;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Unicode;
+using Yuebon.Commons.Helpers;
 
 namespace Yuebon.Commons.Json
 {
@@ -20,13 +23,18 @@ namespace Yuebon.Commons.Json
         /// <returns></returns>
         public static string ToJson(this object obj)
         {
-            JsonSerializerSettings settings = new JsonSerializerSettings();
-            settings.Formatting = Formatting.Indented;
-            settings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-            settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            settings.ContractResolver = new DefaultContractResolver();
-            string result = JsonConvert.SerializeObject(obj, settings);
-            return JsonConvert.SerializeObject(obj, settings);
+            JsonSerializerOptions options = new JsonSerializerOptions()
+            {
+                WriteIndented = true,                                   //格式化json字符串
+                AllowTrailingCommas = true,                             //可以结尾有逗号
+                //IgnoreNullValues = true,                              //可以有空值,转换json去除空值属性
+                IgnoreReadOnlyProperties = true,                        //忽略只读属性
+                PropertyNameCaseInsensitive = true,                     //忽略大小写
+                                                                        //PropertyNamingPolicy = JsonNamingPolicy.CamelCase     //命名方式是默认还是CamelCase
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
+            }; 
+            options.Converters.Add(new DateTimeJsonConverter());
+            return JsonSerializer.Serialize(obj,options);
         }
 
         /// <summary>
@@ -37,7 +45,7 @@ namespace Yuebon.Commons.Json
         /// <returns></returns>
         public static T ToObject<T>(this string json)
         {
-            return json == null ? default(T) : JsonConvert.DeserializeObject<T>(json);
+            return json == null ? default(T) : JsonSerializer.Deserialize<T>(json);
         }
 
         /// <summary>
@@ -48,7 +56,7 @@ namespace Yuebon.Commons.Json
         /// <returns></returns>
         public static List<T> ToList<T>(this string json)
         {
-            return json == null ? null : JsonConvert.DeserializeObject<List<T>>(json);
+            return json == null ? null : JsonSerializer.Deserialize<List<T>>(json);
         }
 
         /// <summary>
@@ -58,24 +66,7 @@ namespace Yuebon.Commons.Json
         /// <returns></returns>
         public static DataTable ToTable(this string json)
         {
-            return json == null ? null : JsonConvert.DeserializeObject<DataTable>(json);
+            return json == null ? null : JsonSerializer.Deserialize<DataTable>(json);
         }
-    }
-
-    /// <summary>
-    /// JSON分解器。
-    /// </summary>
-    public class JsonPropertyContractResolver : DefaultContractResolver
-    {
-        /// <summary>
-        /// 需要排除的属性。
-        /// </summary>
-        private IEnumerable<string> _listExclude;
-
-        public JsonPropertyContractResolver(params string[] ignoreProperties)
-        {
-            this._listExclude = ignoreProperties;
-        }
-
     }
 }

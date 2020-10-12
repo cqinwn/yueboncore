@@ -9,6 +9,7 @@ using Yuebon.AspNetCore.Controllers;
 using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.UI;
+using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Mapping;
@@ -61,6 +62,9 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.DeleteMark = false;
             info.RunCount = 0;
             info.Status = 0;
+
+            CronExpression cronExpression = new CronExpression(info.Cron);
+            info.NextRunTime =cronExpression.GetNextValidTimeAfter(DateTime.Now).ToDateTime();// CronHelper.GetNextDateTime(info.Cron, DateTime.Now).ToDateTime();
             info.CreatorTime =info.NextRunTime=info.LastRunTime=info.LastModifyTime= DateTime.Now;
             info.CreatorUserId =info.LastModifyUserId= CurrentUser.UserId;
         }
@@ -74,6 +78,9 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         {
             info.LastModifyUserId = CurrentUser.UserId;
             info.LastModifyTime = DateTime.Now;
+            CronExpression cronExpression = new CronExpression(info.Cron);
+            info.NextRunTime = cronExpression.GetNextValidTimeAfter(DateTime.Now).ToDateTime();
+           
         }
 
         /// <summary>
@@ -108,8 +115,10 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.EnabledMark = tinfo.EnabledMark;
             info.Description = tinfo.Description;
             info.IsLocal = tinfo.IsLocal;
-            info.IsSendMail = tinfo.IsSendMail;
+            info.SendMail = tinfo.SendMail;
             info.EmailAddress = tinfo.EmailAddress;
+            info.StartTime = tinfo.StartTime;
+            info.EndTime = tinfo.EndTime;
 
 
             OnBeforeUpdate(info);

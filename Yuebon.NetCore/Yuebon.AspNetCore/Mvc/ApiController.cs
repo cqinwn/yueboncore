@@ -13,16 +13,10 @@ using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Extensions;
-using Yuebon.Commons.Helpers;
-using Yuebon.Commons.IoC;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
-using Yuebon.Commons.Models;
 using Yuebon.Commons.Pages;
-using Yuebon.Security.Application;
 using Yuebon.Security.Dtos;
-using Yuebon.Security.IServices;
-using Yuebon.Security.Models;
 
 namespace Yuebon.AspNetCore.Controllers
 {
@@ -37,10 +31,6 @@ namespace Yuebon.AspNetCore.Controllers
         /// 当前登录的用户属性
         /// </summary>
         public YuebonCurrentUser CurrentUser;
-        /// <summary>
-        /// 用户服务
-        /// </summary>
-        private IUserService userService = IoCContainer.Resolve<IUserService>();
 
         #region 
         /// <summary>
@@ -123,58 +113,6 @@ namespace Yuebon.AspNetCore.Controllers
             pagerInfo.CurrenetPageIndex = pageIndex;
             pagerInfo.PageSize = pageSize;
             return pagerInfo;
-        }
-        /// <summary>
-        /// 验证token的合法性。如果不合法，返回MyApiException异常
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost("CheckToken")]
-        [HiddenApi]
-        public CommonResult CheckToken(string token = "")
-        {
-            CommonResult result = new CommonResult();
-            string strHost = Request.Host.ToString();
-            if (string.IsNullOrEmpty(token))
-            {
-                string authHeader = HttpContext.Request.Headers["Authorization"];//Header中的token
-                token = string.Empty;
-                if (authHeader != null && authHeader.StartsWith("Bearer") && authHeader.Length > 10)
-                {
-                    token = authHeader.Substring("Bearer ".Length).Trim();
-                }
-            }
-            TokenProvider tokenProvider = new TokenProvider();
-            result = tokenProvider.ValidateToken(token);
-            if (result.ResData != null)
-            {
-                YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                string userId = result.ResData.ToString();
-                var user = JsonSerializer.Deserialize<YuebonCurrentUser>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
-                if (user != null)
-                {
-                    CurrentUser = user;
-                }
-                else
-                {
-                    User userInfo = userService.Get(userId);
-                    CurrentUser = new YuebonCurrentUser
-                    {
-                        UserId = userInfo.Id,
-                        Account = userInfo.Account,
-                        Name = userInfo.RealName,
-                        NickName = userInfo.NickName,
-                        CreateTime = DateTime.Now,
-                        HeadIcon = userInfo.HeadIcon,
-                        Gender = userInfo.Gender,
-                        ReferralUserId = userInfo.ReferralUserId,
-                        MemberGradeId = userInfo.MemberGradeId,
-                        Role = new RoleApp().GetRoleEnCode(userInfo.RoleId)
-                    };
-                    TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
-                    yuebonCacheHelper.Add("login_user_" + userInfo.Id, CurrentUser, expiresSliding, true);
-                }
-            } 
-            return result;
         }
 
         /// <summary>

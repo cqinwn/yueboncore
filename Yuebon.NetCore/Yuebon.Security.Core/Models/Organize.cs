@@ -25,11 +25,6 @@ namespace Yuebon.Security.Models
 
         #region Property Members
 
-        /// <summary>
-        /// 组织主键
-        /// </summary>
-        //[ExplicitKey]
-        //public virtual string Id { get; set; }
 
         /// <summary>
         /// 父级

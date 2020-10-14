@@ -21,12 +21,6 @@ namespace Yuebon.Security.Models
 
         #region Property APP
 
-        ///// <summary>
-        ///// 主键
-        ///// </summary>
-        //[MaxLength(50)]
-        //[ExplicitKey]
-        //public virtual string Id { get; set; }
 
         /// <summary>
         /// 应用Id

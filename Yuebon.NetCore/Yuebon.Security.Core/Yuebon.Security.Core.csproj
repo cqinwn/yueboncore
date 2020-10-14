@@ -34,6 +34,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Application\APPApp.cs" />
+    <Compile Remove="Application\ItemsApp.cs" />
+    <Compile Remove="Application\LogApp.cs" />
+    <Compile Remove="Application\RoleApp.cs" />
+    <Compile Remove="Application\RoleAuthorizeApp.cs" />
+    <Compile Remove="Application\RoleDataApp.cs" />
     <Compile Remove="Dtos\AutoMapperConfiguration.cs" />
     <Compile Remove="Dtos\UserFocusInputDto.cs" />
     <Compile Remove="Dtos\UserFollowInputDto.cs" />

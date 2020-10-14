@@ -21,7 +21,6 @@ namespace Yuebon.Security.Models
 
         public FilterIP()
 		{
-            //this.Id= System.Guid.NewGuid().ToString();
 
  		}
 

@@ -10,6 +10,7 @@ using Yuebon.Commons.IoC;
 using Yuebon.Commons.Json;
 using Yuebon.Security.Application;
 using Yuebon.Security.Dtos;
+using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
 
 namespace Yuebon.AspNetCore.Common
@@ -19,6 +20,7 @@ namespace Yuebon.AspNetCore.Common
     /// </summary>
     public static class Permission
     {
+
         /// <summary>
         /// 判断当前用户是否拥有某功能点的权限
         /// </summary>
@@ -55,19 +57,9 @@ namespace Yuebon.AspNetCore.Common
             bool blnIsAdmin = false;
             if (currentUser != null)
             {
-                if(currentUser.Account == "admin")
+                if(currentUser.Account == "admin"|| currentUser.Role.Contains("administrators",StringComparison.Ordinal))
                 {
                     return true;
-                }
-                string where = string.Format("Id in('{0}')", currentUser.Role.Replace(",", "','"));
-                List<Role> listRole = new RoleApp().GetListWhere(where);
-                foreach (Role item in listRole)
-                {
-                    if (item.EnCode == "administrators")
-                    {
-                        blnIsAdmin = true;
-                        continue;
-                    }
                 }
             }
             return blnIsAdmin;

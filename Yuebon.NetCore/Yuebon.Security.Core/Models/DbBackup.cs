@@ -20,18 +20,10 @@ namespace Yuebon.Security.Models
         /// </summary>
 	    public DbBackup()
 		{
-            //this.Id= System.Guid.NewGuid().ToString();
 
  		}
 
         #region Property Members
-
-        /// <summary>
-        /// 备份主键
-        /// </summary>
-        //[ExplicitKey]
-        //public virtual string Id { get; set; }
-
         /// <summary>
         /// 备份类型
         /// </summary>

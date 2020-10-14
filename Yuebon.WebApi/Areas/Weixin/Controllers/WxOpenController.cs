@@ -392,85 +392,81 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
         public async Task<IActionResult> GetReferralQrCode()
         {
             CommonResult result = new CommonResult();
-            result = CheckToken();
-            if (result.ErrCode == ErrCode.successCode)
+            try
             {
-                try
+                MemoryStream ms = new MemoryStream();
+                string page = "pages/index/index";//此接口不可以带参数，如果需要加参数，必须加到scene中
+                string scene = "Ref=" + CurrentUser.UserId;//储存OpenId后缀，以及codeType。scene最多允许32个字符
+
+                //图片名称
+                string picname = "ref_" + GuidUtils.CreateNo() + ".jpg";
+                var _tempfilepath = "/upload/" + CurrentUser.UserId + "/qrcode/";
+                var uploadPath = _filePath + _tempfilepath;
+                if (!Directory.Exists(uploadPath))
                 {
-                    MemoryStream ms = new MemoryStream();
-                    string page = "pages/index/index";//此接口不可以带参数，如果需要加参数，必须加到scene中
-                    string scene = "Ref=" + CurrentUser.UserId;//储存OpenId后缀，以及codeType。scene最多允许32个字符
+                    Directory.CreateDirectory(uploadPath);
+                }
+                string qrcodePicPath = uploadPath + picname;//小程序二维码图片
+                var resultImg = await WxAppApi.GetWxaCodeUnlimitAsync(WxOpenAppId, qrcodePicPath, scene, page, 280);
+                if (resultImg.errcode == ReturnCode.请求成功)
+                {
+                    string picnameh = "refs_" + CurrentUser.UserId + ".jpg";
+                    var sor = _filePath + "/images/";
+                    string qrcodebg = "share_bg2.jpg";
 
-                    //图片名称
-                    string picname = "ref_" + GuidUtils.CreateNo() + ".jpg";
-                    var _tempfilepath = "/upload/" + CurrentUser.UserId + "/qrcode/";
-                    var uploadPath = _filePath + _tempfilepath;
-                    if (!Directory.Exists(uploadPath))
+                    Bitmap cardbmp = new Bitmap(1080, 1926);
+                    Graphics g = Graphics.FromImage(cardbmp);
+                    g.SmoothingMode = SmoothingMode.HighQuality; ; //抗锯齿
+                    g.CompositingQuality = CompositingQuality.HighQuality;
+                    g.InterpolationMode = InterpolationMode.High;
+                    g.Clear(System.Drawing.Color.White); //白色填充
+
+                    Bitmap bgimg = new Bitmap(1080, 1926);
+                    //如果背景图片存在，
+                    bgimg = (Bitmap)System.Drawing.Image.FromFile(sor + qrcodebg); //如果存在，读取背景图片
+                    g.DrawImage(bgimg, 0, 0, 1080, 1926);
+                    //合成二维码
+                    Bitmap productImg = new Bitmap(280, 280);
+                    productImg = (Bitmap)System.Drawing.Image.FromFile(qrcodePicPath);
+                    g.DrawImage(productImg, 713, 1570, 280, 280);
+                    //合成头像
+                    Bitmap headerimg = new Bitmap(110, 110);
+                    if (CurrentUser.HeadIcon.Contains("wx.qlogo.cn"))
                     {
-                        Directory.CreateDirectory(uploadPath);
-                    }
-                    string qrcodePicPath = uploadPath + picname;//小程序二维码图片
-                    var resultImg = await WxAppApi.GetWxaCodeUnlimitAsync(WxOpenAppId, qrcodePicPath, scene, page, 280);
-                    if (resultImg.errcode == ReturnCode.请求成功)
-                    {
-                        string picnameh = "refs_" + CurrentUser.UserId + ".jpg";
-                        var sor = _filePath + "/images/";
-                        string qrcodebg = "share_bg2.jpg";
-
-                        Bitmap cardbmp = new Bitmap(1080, 1926);
-                        Graphics g = Graphics.FromImage(cardbmp);
-                        g.SmoothingMode = SmoothingMode.HighQuality; ; //抗锯齿
-                        g.CompositingQuality = CompositingQuality.HighQuality;
-                        g.InterpolationMode = InterpolationMode.High;
-                        g.Clear(System.Drawing.Color.White); //白色填充
-
-                        Bitmap bgimg = new Bitmap(1080, 1926);
-                        //如果背景图片存在，
-                        bgimg = (Bitmap)System.Drawing.Image.FromFile(sor + qrcodebg); //如果存在，读取背景图片
-                        g.DrawImage(bgimg, 0, 0, 1080, 1926);
-                        //合成二维码
-                        Bitmap productImg = new Bitmap(280, 280);
-                        productImg = (Bitmap)System.Drawing.Image.FromFile(qrcodePicPath);
-                        g.DrawImage(productImg, 713, 1570, 280, 280);
-                        //合成头像
-                        Bitmap headerimg = new Bitmap(110, 110);
-                        if (CurrentUser.HeadIcon.Contains("wx.qlogo.cn"))
-                        {
-                            headerimg = ImgHelper.GetNetImg(CurrentUser.HeadIcon);
-                        }
-                        else
-                        {
-                            headerimg = ImgHelper.GetNetImg(CurrentUser.HeadIcon);
-                            //headerimg = (Bitmap)System.Drawing.Image.FromFile(_filePath + CurrentUser.HeadIcon);
-                        }
-                        headerimg = ImgHelper.CutEllipse(headerimg, new Rectangle(0, 0, 110, 110), new Size(110, 110));
-                        g.DrawImage(headerimg, 100, 1505, 110, 110);
-
-                        //合成文字
-                        Font nickName = new Font("微软雅黑", 22);
-                        Font adtxt = new Font("微软雅黑", 26);
-
-                        StringFormat StringFormat = new StringFormat(StringFormatFlags.DisplayFormatControl);
-                        g.DrawString(CurrentUser.NickName, nickName, new SolidBrush(System.Drawing.Color.LightGray), 100, 1630, StringFormat);
-                        g.DrawString("推荐你一个超棒的汽车工程师圈子”", adtxt, new SolidBrush(System.Drawing.Color.Black), 100, 1680, StringFormat);
-
-                        cardbmp.Save(uploadPath + picnameh, ImageFormat.Jpeg);
-                        cardbmp.Dispose();
-
-                        result.ResData = _tempfilepath + picnameh;
+                        headerimg = ImgHelper.GetNetImg(CurrentUser.HeadIcon);
                     }
                     else
                     {
-                        result.ErrCode = resultImg.errcode.ToString();
-                        result.ErrMsg = resultImg.errmsg;
+                        headerimg = ImgHelper.GetNetImg(CurrentUser.HeadIcon);
+                        //headerimg = (Bitmap)System.Drawing.Image.FromFile(_filePath + CurrentUser.HeadIcon);
                     }
+                    headerimg = ImgHelper.CutEllipse(headerimg, new Rectangle(0, 0, 110, 110), new Size(110, 110));
+                    g.DrawImage(headerimg, 100, 1505, 110, 110);
+
+                    //合成文字
+                    Font nickName = new Font("微软雅黑", 22);
+                    Font adtxt = new Font("微软雅黑", 26);
+
+                    StringFormat StringFormat = new StringFormat(StringFormatFlags.DisplayFormatControl);
+                    g.DrawString(CurrentUser.NickName, nickName, new SolidBrush(System.Drawing.Color.LightGray), 100, 1630, StringFormat);
+                    g.DrawString("推荐你一个超棒的汽车工程师圈子”", adtxt, new SolidBrush(System.Drawing.Color.Black), 100, 1680, StringFormat);
+
+                    cardbmp.Save(uploadPath + picnameh, ImageFormat.Jpeg);
+                    cardbmp.Dispose();
+
+                    result.ResData = _tempfilepath + picnameh;
                 }
-                catch (Exception ex)
+                else
                 {
-                    Log4NetHelper.Error("代码生成异常", ex);
-                    result.ErrMsg = "代码生成异常:" + ex.Message;
-                    result.ErrCode = ErrCode.failCode;
+                    result.ErrCode = resultImg.errcode.ToString();
+                    result.ErrMsg = resultImg.errmsg;
                 }
+            }
+            catch (Exception ex)
+            {
+                Log4NetHelper.Error("代码生成异常", ex);
+                result.ErrMsg = "代码生成异常:" + ex.Message;
+                result.ErrCode = ErrCode.failCode;
             }
             return ToJsonContent(result);
 
@@ -487,81 +483,77 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
         public async Task<IActionResult> ContentPlayBillQrCode(ContentPlayBillModel info)
         {
             CommonResult result = new CommonResult();
-            result = CheckToken();
-            if (result.ErrCode == ErrCode.successCode)
-            {
                 YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
                 MemoryStream ms = new MemoryStream();
-                try
+            try
+            {
+
+                if (info == null) { return ToJsonContent(result); }
+                string page = info.Page;//此接口不可以带参数，如果需要加参数，必须加到scene中
+                string scene = info.Scene; ;//id=xxxxxx,scene最多允许32个字符
+
+                //图片名称
+                string picname = "ref_" + GuidUtils.CreateNo() + ".jpg";
+                var _tempfilepath = "/upload/" + scene + "/contentqrcode/";
+                var uploadPath = _filePath + _tempfilepath;
+                if (!Directory.Exists(uploadPath))
                 {
-
-                    if (info == null) { return ToJsonContent(result); }
-                    string page = info.Page;//此接口不可以带参数，如果需要加参数，必须加到scene中
-                    string scene = info.Scene; ;//id=xxxxxx,scene最多允许32个字符
-
-                    //图片名称
-                    string picname = "ref_" + GuidUtils.CreateNo() + ".jpg";
-                    var _tempfilepath = "/upload/" + scene + "/contentqrcode/";
-                    var uploadPath = _filePath + _tempfilepath;
-                    if (!Directory.Exists(uploadPath))
-                    {
-                        Directory.CreateDirectory(uploadPath);
-                    }
-                    string qrcodePicPath = uploadPath + picname;//小程序二维码图片
-                    var resultImg = await WxAppApi.GetWxaCodeUnlimitAsync(WxOpenAppId, qrcodePicPath, scene, page, 280);
-                    if (resultImg.errcode == ReturnCode.请求成功)
-                    {
-                        string picnameh = "c_" + GuidUtils.CreateNo() + ".jpg";
-                        var sor = _filePath + "/images/";
-                        string qrcodebg = "share_content_bg.jpg";
-
-                        Bitmap cardbmp = new Bitmap(460, 736);
-                        Graphics g = Graphics.FromImage(cardbmp);
-                        g.SmoothingMode = SmoothingMode.HighQuality; ; //抗锯齿
-                        g.CompositingQuality = CompositingQuality.HighQuality;
-                        g.InterpolationMode = InterpolationMode.High;
-                        g.Clear(System.Drawing.Color.White); //白色填充
-
-                        Bitmap bgimg = new Bitmap(460, 736);
-                        //如果背景图片存在，
-                        bgimg = (Bitmap)Image.FromFile(qrcodebg); //如果存在，读取背景图片
-                        g.DrawImage(bgimg, 0, 0, 460, 736);
-                        //合成二维码
-                        Bitmap productImg = new Bitmap(128, 128);
-                        productImg = (Bitmap)Image.FromFile(qrcodePicPath);
-                        g.DrawImage(productImg, 276, 580, 128, 128);
-                        //合成文字
-                        Font nickName = new Font("微软雅黑", 22);
-                        Font adtxt = new Font("微软雅黑", 18);
-
-                        StringFormat stringFormat = new StringFormat(StringFormatFlags.DisplayFormatControl);
-                        Brush fontBrush = SystemBrushes.ControlText;
-                        stringFormat.Alignment = StringAlignment.Center;
-                        stringFormat.LineAlignment = StringAlignment.Center;
-                        RectangleF rectangleF = new RectangleF(40, 500, 380, 80);
-                        g.DrawString(info.Title, adtxt, fontBrush, rectangleF, stringFormat);
-                        cardbmp.Save(uploadPath + picnameh, ImageFormat.Jpeg);
-                        cardbmp.Dispose();
-                        ms.Dispose();
-
-                        result.ResData = _tempfilepath + picnameh;
-                    }
-                    else
-                    {
-                        result.ErrCode = resultImg.errcode.ToString();
-                        result.ErrMsg = resultImg.errmsg;
-                    }
+                    Directory.CreateDirectory(uploadPath);
                 }
-                catch (Exception ex)
+                string qrcodePicPath = uploadPath + picname;//小程序二维码图片
+                var resultImg = await WxAppApi.GetWxaCodeUnlimitAsync(WxOpenAppId, qrcodePicPath, scene, page, 280);
+                if (resultImg.errcode == ReturnCode.请求成功)
                 {
-                    Log4NetHelper.Error("代码生成异常", ex);
-                    result.ErrMsg = "代码生成异常:" + ex.Message;
-                    result.ErrCode = ErrCode.failCode;
-                }
-                finally
-                {
+                    string picnameh = "c_" + GuidUtils.CreateNo() + ".jpg";
+                    var sor = _filePath + "/images/";
+                    string qrcodebg = "share_content_bg.jpg";
+
+                    Bitmap cardbmp = new Bitmap(460, 736);
+                    Graphics g = Graphics.FromImage(cardbmp);
+                    g.SmoothingMode = SmoothingMode.HighQuality; ; //抗锯齿
+                    g.CompositingQuality = CompositingQuality.HighQuality;
+                    g.InterpolationMode = InterpolationMode.High;
+                    g.Clear(System.Drawing.Color.White); //白色填充
+
+                    Bitmap bgimg = new Bitmap(460, 736);
+                    //如果背景图片存在，
+                    bgimg = (Bitmap)Image.FromFile(qrcodebg); //如果存在，读取背景图片
+                    g.DrawImage(bgimg, 0, 0, 460, 736);
+                    //合成二维码
+                    Bitmap productImg = new Bitmap(128, 128);
+                    productImg = (Bitmap)Image.FromFile(qrcodePicPath);
+                    g.DrawImage(productImg, 276, 580, 128, 128);
+                    //合成文字
+                    Font nickName = new Font("微软雅黑", 22);
+                    Font adtxt = new Font("微软雅黑", 18);
+
+                    StringFormat stringFormat = new StringFormat(StringFormatFlags.DisplayFormatControl);
+                    Brush fontBrush = SystemBrushes.ControlText;
+                    stringFormat.Alignment = StringAlignment.Center;
+                    stringFormat.LineAlignment = StringAlignment.Center;
+                    RectangleF rectangleF = new RectangleF(40, 500, 380, 80);
+                    g.DrawString(info.Title, adtxt, fontBrush, rectangleF, stringFormat);
+                    cardbmp.Save(uploadPath + picnameh, ImageFormat.Jpeg);
+                    cardbmp.Dispose();
                     ms.Dispose();
+
+                    result.ResData = _tempfilepath + picnameh;
                 }
+                else
+                {
+                    result.ErrCode = resultImg.errcode.ToString();
+                    result.ErrMsg = resultImg.errmsg;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log4NetHelper.Error("代码生成异常", ex);
+                result.ErrMsg = "代码生成异常:" + ex.Message;
+                result.ErrCode = ErrCode.failCode;
+            }
+            finally
+            {
+                ms.Dispose();
             }
             return ToJsonContent(result);
 
@@ -686,69 +678,65 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
             CommonResult result = new CommonResult();
             try
             {
-                result = CheckToken();
-                if (result.ErrCode == ErrCode.successCode)
+                if (info != null)
                 {
-                    if (info != null)
+                    DecodedUserInfo decodedUserInfo = EncryptHelper.DecodeUserInfoBySessionId(info.SessionId, info.EncryptedData, info.Iv);
+
+                    UserInputDto userInput = new UserInputDto();
+                    userInput.NickName = decodedUserInfo.nickName;
+                    userInput.HeadIcon = decodedUserInfo.avatarUrl;
+                    userInput.Gender = decodedUserInfo.gender;
+                    userInput.Country = decodedUserInfo.country;
+                    userInput.Province = decodedUserInfo.province;
+                    userInput.City = decodedUserInfo.city;
+                    userInput.language = info.language;
+                    userInput.OpenId = decodedUserInfo.openId;
+                    userInput.OpenIdType = "yuebon.openid.wxapplet";
+                    userInput.ReferralUserId = info.ReferralUserId;
+                    userInput.UnionId = decodedUserInfo.unionId;
+                    User user = userService.GetUserByOpenId(userInput.OpenIdType, decodedUserInfo.openId);
+                    if (user == null)
                     {
-                        DecodedUserInfo decodedUserInfo = EncryptHelper.DecodeUserInfoBySessionId(info.SessionId, info.EncryptedData, info.Iv);
+                        result.Success = userService.CreateUserByWxOpenId(userInput);
+                    }
+                    else
+                    {
+                        result.Success = userService.UpdateUserByOpenId(userInput);
+                    }
+                    user = userService.GetUserByOpenId(info.openIdType, info.openId);
+                    if (user != null)
+                    {
+                        JwtOption jwtModel = IoCContainer.Resolve<JwtOption>();
+                        TokenProvider tokenProvider = new TokenProvider(jwtModel);
+                        TokenResult tokenResult = tokenProvider.LoginToken(user, "wxapplet");
+                        var currentSession = new YuebonCurrentUser
+                        {
+                            UserId = user.Id,
+                            Account = user.Account,
+                            Name = user.RealName,
+                            NickName = user.NickName,
+                            AccessToken = tokenResult.AccessToken,
+                            AppKey = "wxapplet",
+                            CreateTime = DateTime.Now,
+                            HeadIcon = user.HeadIcon,
+                            Gender = user.Gender,
+                            ReferralUserId = user.ReferralUserId,
+                            MemberGradeId = user.MemberGradeId,
+                            Role = roleService.GetRoleEnCode(user.RoleId)
+                        };
 
-                        UserInputDto userInput = new UserInputDto();
-                        userInput.NickName = decodedUserInfo.nickName;
-                        userInput.HeadIcon = decodedUserInfo.avatarUrl;
-                        userInput.Gender = decodedUserInfo.gender;
-                        userInput.Country = decodedUserInfo.country;
-                        userInput.Province = decodedUserInfo.province;
-                        userInput.City = decodedUserInfo.city;
-                        userInput.language = info.language;
-                        userInput.OpenId = decodedUserInfo.openId;
-                        userInput.OpenIdType = "yuebon.openid.wxapplet";
-                        userInput.ReferralUserId = info.ReferralUserId;
-                        userInput.UnionId = decodedUserInfo.unionId;
-                        User user = userService.GetUserByOpenId(userInput.OpenIdType, decodedUserInfo.openId);
-                        if (user == null)
-                        {
-                            result.Success = userService.CreateUserByWxOpenId(userInput);
-                        }
-                        else
-                        {
-                            result.Success = userService.UpdateUserByOpenId(userInput);
-                        }
-                        user = userService.GetUserByOpenId(info.openIdType, info.openId);
-                        if (user != null)
-                        {
-                            JwtOption jwtModel = IoCContainer.Resolve<JwtOption>();
-                            TokenProvider tokenProvider = new TokenProvider(jwtModel);
-                            TokenResult tokenResult = tokenProvider.LoginToken(user, "wxapplet");
-                            var currentSession = new YuebonCurrentUser
-                            {
-                                UserId = user.Id,
-                                Account = user.Account,
-                                Name = user.RealName,
-                                NickName = user.NickName,
-                                AccessToken = tokenResult.AccessToken,
-                                AppKey = "wxapplet",
-                                CreateTime = DateTime.Now,
-                                HeadIcon = user.HeadIcon,
-                                Gender = user.Gender,
-                                ReferralUserId = user.ReferralUserId,
-                                MemberGradeId = user.MemberGradeId,
-                                Role = roleService.GetRoleEnCode(user.RoleId)
-                            };
+                        CurrentUser = currentSession;
+                        YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+                        TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
+                        yuebonCacheHelper.Add("login_user_" + user.Id, currentSession, expiresSliding, true);
+                        result.ErrCode = ErrCode.successCode;
+                        result.ResData = currentSession;
+                        result.Success = true;
 
-                            CurrentUser = currentSession;
-                            YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                            TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
-                            yuebonCacheHelper.Add("login_user_" + user.Id, currentSession, expiresSliding, true);
-                            result.ErrCode = ErrCode.successCode;
-                            result.ResData = currentSession;
-                            result.Success = true;
-
-                        }
-                        else
-                        {
-                            result.ErrCode = ErrCode.failCode;
-                        }
+                    }
+                    else
+                    {
+                        result.ErrCode = ErrCode.failCode;
                     }
                 }
             }catch(Exception ex)
@@ -772,67 +760,65 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
         public IActionResult LoginByOpenId(string openId)
         {
             CommonResult result = new CommonResult();
-            result = CheckToken();
-            if (result.ErrCode == ErrCode.successCode)
+
+            try
             {
-                try
+                YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+                User user = userService.GetUserByOpenId("yuebon.openid.wxapplet", openId);
+                if (user == null)
                 {
-                    YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                    User user = userService.GetUserByOpenId("yuebon.openid.wxapplet", openId);
-                    if (user == null)
-                    {
-                        UserInputDto userInput = new UserInputDto();
-                        userInput.OpenId = openId;
-                        userInput.OpenIdType = "yuebon.openid.wxapplet";
-                        userInput.NickName = "游客";
-                        result.Success = userService.CreateUserByWxOpenId(userInput);
-                    }
-                    string userId = string.Empty;
-                    if (result.ResData != null)
-                    {
-                        userId = result.ResData.ToString();
-                    }
-                    if (user == null)
-                    {
-                        user = userService.GetUserByOpenId("yuebon.openid.wxapplet", openId);
-                    }
-                    var currentSession = JsonConvert.DeserializeObject<YuebonCurrentUser>(yuebonCacheHelper.Get("login_user_" + user.Id).ToJson());
-                    if (currentSession == null || string.IsNullOrWhiteSpace(currentSession.AccessToken))
-                    {
-                        JwtOption jwtModel = IoCContainer.Resolve<JwtOption>();
-                        TokenProvider tokenProvider = new TokenProvider(jwtModel);
-                        TokenResult tokenResult = tokenProvider.LoginToken(user, "wxapplet");
-                        currentSession = new YuebonCurrentUser
-                        {
-                            UserId = user.Id,
-                            Account = user.Account,
-                            Name = user.RealName,
-                            NickName = user.NickName,
-                            AccessToken = tokenResult.AccessToken,
-                            AppKey = "wxapplet",
-                            CreateTime = DateTime.Now,
-                            HeadIcon = user.HeadIcon,
-                            Gender = user.Gender,
-                            ReferralUserId = user.ReferralUserId,
-                            MemberGradeId = user.MemberGradeId,
-                            Role = roleService.GetRoleEnCode(user.RoleId),
-                            MobilePhone = user.MobilePhone
-                        };
-                        TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
-                        yuebonCacheHelper.Add("login_user_" + user.Id, currentSession, expiresSliding, true);
-                    }
-                    CurrentUser = currentSession;
-                    result.ErrCode = ErrCode.successCode;
-                    result.Success = true;
-                    result.ResData = currentSession; //new AuthorizeApp().GetAccessedControls(user.Account);
+                    UserInputDto userInput = new UserInputDto();
+                    userInput.OpenId = openId;
+                    userInput.OpenIdType = "yuebon.openid.wxapplet";
+                    userInput.NickName = "游客";
+                    result.Success = userService.CreateUserByWxOpenId(userInput);
                 }
-                catch (Exception ex)
+                string userId = string.Empty;
+                if (result.ResData != null)
                 {
-                    Log4NetHelper.Error("微信登录异常 LoginByOpenId", ex);
-                    result.ErrMsg = "微信登录异常:" + ex.Message;
-                    result.ErrCode = ErrCode.successCode;
+                    userId = result.ResData.ToString();
                 }
+                if (user == null)
+                {
+                    user = userService.GetUserByOpenId("yuebon.openid.wxapplet", openId);
+                }
+                var currentSession = JsonConvert.DeserializeObject<YuebonCurrentUser>(yuebonCacheHelper.Get("login_user_" + user.Id).ToJson());
+                if (currentSession == null || string.IsNullOrWhiteSpace(currentSession.AccessToken))
+                {
+                    JwtOption jwtModel = IoCContainer.Resolve<JwtOption>();
+                    TokenProvider tokenProvider = new TokenProvider(jwtModel);
+                    TokenResult tokenResult = tokenProvider.LoginToken(user, "wxapplet");
+                    currentSession = new YuebonCurrentUser
+                    {
+                        UserId = user.Id,
+                        Account = user.Account,
+                        Name = user.RealName,
+                        NickName = user.NickName,
+                        AccessToken = tokenResult.AccessToken,
+                        AppKey = "wxapplet",
+                        CreateTime = DateTime.Now,
+                        HeadIcon = user.HeadIcon,
+                        Gender = user.Gender,
+                        ReferralUserId = user.ReferralUserId,
+                        MemberGradeId = user.MemberGradeId,
+                        Role = roleService.GetRoleEnCode(user.RoleId),
+                        MobilePhone = user.MobilePhone
+                    };
+                    TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
+                    yuebonCacheHelper.Add("login_user_" + user.Id, currentSession, expiresSliding, true);
+                }
+                CurrentUser = currentSession;
+                result.ErrCode = ErrCode.successCode;
+                result.Success = true;
+                result.ResData = currentSession; //new AuthorizeApp().GetAccessedControls(user.Account);
             }
+            catch (Exception ex)
+            {
+                Log4NetHelper.Error("微信登录异常 LoginByOpenId", ex);
+                result.ErrMsg = "微信登录异常:" + ex.Message;
+                result.ErrCode = ErrCode.successCode;
+            }
+           
             return ToJsonContent(result);
         }
 
@@ -847,23 +833,18 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
         public IActionResult CheckOpenId(string openId)
         {
             CommonResult result = new CommonResult();
-            result = CheckToken();
             try
             {
-                if (result.ErrCode == ErrCode.successCode)
+                if (string.IsNullOrEmpty(openId) && !ValidateUserLogin(openId))
                 {
-
-                    if (string.IsNullOrEmpty(openId) && !ValidateUserLogin(openId))
-                    {
-                        result.ErrCode = ErrCode.successCode;
-                        result.ErrMsg = ErrCode.err50001;
-                    }
+                    result.ErrCode = ErrCode.successCode;
+                    result.ErrMsg = ErrCode.err50001;
                 }
             }
             catch (Exception ex)
             {
-                Log4NetHelper.Error("代码生成异常", ex);
-                result.ErrMsg = "代码生成异常:" + ex.Message;
+                Log4NetHelper.Error("检查微信用户的OpenId", ex);
+                result.ErrMsg = "检查微信用户的OpenId:" + ex.Message;
                 result.ErrCode = ErrCode.failCode;
             }
             return ToJsonContent(result);
@@ -897,39 +878,35 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
         public IActionResult CheckMsgSecCheck(CheckMsgModel checkMsgModel)
         {
             CommonResult result = new CommonResult();
-            result = CheckToken();
-            if (result.ErrCode == ErrCode.successCode)
+            try
             {
-                try
+                if (checkMsgModel != null)
                 {
-                    if (checkMsgModel != null)
+                    WxJsonResult res = WxAppApi.MsgSecCheck(WxOpenAppId, checkMsgModel.ContenText);
+                    if (res.errcode == ReturnCode.请求成功)
                     {
-                        WxJsonResult res = WxAppApi.MsgSecCheck(WxOpenAppId, checkMsgModel.ContenText);
-                        if (res.errcode == ReturnCode.请求成功)
-                        {
-                            result.ErrCode = ErrCode.successCode;
-                            result.Success = true;
-                            result.ResData = res;
-                        }
-                        else
-                        {
-                            result.ErrCode = ErrCode.failCode;
-                            result.ErrMsg = "内容含有违法违规内容";
-                            result.ResData = res;
-                        }
+                        result.ErrCode = ErrCode.successCode;
+                        result.Success = true;
+                        result.ResData = res;
                     }
                     else
                     {
                         result.ErrCode = ErrCode.failCode;
-                        result.ErrMsg = "内容为空";
+                        result.ErrMsg = "内容含有违法违规内容";
+                        result.ResData = res;
                     }
                 }
-                catch (Exception ex)
+                else
                 {
-                    Log4NetHelper.Error("代码生成异常", ex);
-                    result.ErrMsg = "代码生成异常:" + ex.Message;
                     result.ErrCode = ErrCode.failCode;
+                    result.ErrMsg = "内容为空";
                 }
+            }
+            catch (Exception ex)
+            {
+                Log4NetHelper.Error("代码生成异常", ex);
+                result.ErrMsg = "代码生成异常:" + ex.Message;
+                result.ErrCode = ErrCode.failCode;
             }
             return ToJsonContent(result);
 
@@ -947,32 +924,28 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
         public IActionResult ImgSecCheck(string filePath)
         {
             CommonResult result = new CommonResult();
-            result = CheckToken();
-            if (result.ErrCode == ErrCode.successCode)
+            try
             {
-                try
+                var fileDic = new Dictionary<string, string>();
+                WxJsonResult res = WxAppApi.ImgSecCheck(WxOpenAppId, filePath);
+                if (res.errcode == ReturnCode.请求成功)
                 {
-                    var fileDic = new Dictionary<string, string>();
-                    WxJsonResult res = WxAppApi.ImgSecCheck(WxOpenAppId, filePath);
-                    if (res.errcode == ReturnCode.请求成功)
-                    {
-                        result.ErrCode = ErrCode.successCode;
-                        result.Success = true;
-                        result.ResData = res;
-                    }
-                    else
-                    {
-                        result.ErrCode = ErrCode.failCode;
-                        result.ErrMsg = "图片含有违法违规内容，请更换图片";
-                        result.ResData = res;
-                    }
+                    result.ErrCode = ErrCode.successCode;
+                    result.Success = true;
+                    result.ResData = res;
                 }
-                catch (Exception ex)
+                else
                 {
-                    Log4NetHelper.Error("代码生成异常", ex);
-                    result.ErrMsg = "代码生成异常:" + ex.Message;
                     result.ErrCode = ErrCode.failCode;
+                    result.ErrMsg = "图片含有违法违规内容，请更换图片";
+                    result.ResData = res;
                 }
+            }
+            catch (Exception ex)
+            {
+                Log4NetHelper.Error("代码生成异常", ex);
+                result.ErrMsg = "代码生成异常:" + ex.Message;
+                result.ErrCode = ErrCode.failCode;
             }
             return ToJsonContent(result);
 

@@ -20,7 +20,6 @@ namespace Yuebon.Security.Models
         /// </summary>
 	    public UserLogOn()
 		{
-            this.Id = GuidUtils.NewGuidFormatN();
         }
 
         #region Property Members

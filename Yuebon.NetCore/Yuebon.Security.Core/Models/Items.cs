@@ -19,18 +19,11 @@ namespace Yuebon.Security.Models
         /// </summary>
 	    public Items()
 		{
-            //this.Id= System.Guid.NewGuid().ToString();
-
+           
  		}
 
         #region Property Members
 
-        /// <summary>
-        /// 主表主键
-        /// </summary>
-
-        //[ExplicitKey]
-        //public virtual string Id { get; set; }
 
         /// <summary>
         /// 父级

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
+using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Encrypt;
+using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Models;
+using Yuebon.Commons.Net;
 using Yuebon.Commons.Options;
 using Yuebon.Security.Application;
 using Yuebon.Security.Dtos;
@@ -25,6 +27,8 @@ namespace Yuebon.AspNetCore.SSO
         private IUserService userService;
         private IUserLogOnService userLogOnService;
         private readonly JwtOption jwtModel;
+        private ILogService logService;
+        private IRoleService roleService;
 
         /// <summary>
         /// 
@@ -34,13 +38,17 @@ namespace Yuebon.AspNetCore.SSO
         /// <param name="_userService"></param>
         /// <param name="_userLogOnService"></param>
         /// <param name="_jwtModel"></param>
-        public SSOAuthHelper(ISystemTypeService _systemTypeService, IAPPService _aPPService, IUserService _userService, IUserLogOnService _userLogOnService, JwtOption _jwtModel)
+        /// <param name="_logService"></param>
+        /// <param name="_roleService"></param>
+        public SSOAuthHelper(ISystemTypeService _systemTypeService, IAPPService _aPPService, IUserService _userService, IUserLogOnService _userLogOnService, JwtOption _jwtModel, ILogService _logService, IRoleService _roleService)
         {
             systemTypeService = _systemTypeService;
             aPPService = _aPPService;
             userService = _userService;
             userLogOnService = _userLogOnService;
             jwtModel = _jwtModel;
+            logService = _logService;
+            roleService = _roleService;
         }
         /// <summary>
         /// 用户登录验证，主要用管理后台、H5和App应用用户登录
@@ -53,6 +61,8 @@ namespace Yuebon.AspNetCore.SSO
             try
             {
                 model.Trim();
+
+                RemoteIpParser remoteIpParser = new RemoteIpParser();
                 //获取应用信息
 
                 var systemType = systemTypeService.GetByCode(model.SystemCode);
@@ -94,15 +104,51 @@ namespace Yuebon.AspNetCore.SSO
                     Gender = userInfo.Gender,
                     ReferralUserId = userInfo.ReferralUserId,
                     MemberGradeId = userInfo.MemberGradeId,
-                    Role =new RoleApp().GetRoleEnCode(userInfo.RoleId)
+                    Role = roleService.GetRoleEnCode(userInfo.RoleId)
                 };
 
+                currentSession.ActiveSystem = systemType.FullName;
+                currentSession.ActiveSystemUrl = systemType.Url;
+                List<FunctionOutputDto> listFunction = new List<FunctionOutputDto>();
+                FunctionApp functionApp = new FunctionApp();
+                if (Permission.IsAdmin(currentSession))
+                {
+                    currentSession.SubSystemList = systemTypeService.GetAllByIsNotDeleteAndEnabledMark().MapTo<SystemTypeOutputDto>();
+                    currentSession.MenusList = new MenuApp().GetMenuFuntionJson(model.SystemCode);
+                    //取得用户可使用的授权功能信息，并存储在缓存中
+                    listFunction = functionApp.GetFunctionsBySystem(systemType.Id);
+                }
+                else
+                {
+                    currentSession.SubSystemList = systemTypeService.GetSubSystemList(userInfo.RoleId);
+                    currentSession.MenusList = new MenuApp().GetMenuFuntionJson(userInfo.RoleId, model.SystemCode);
+
+                    //取得用户可使用的授权功能信息，并存储在缓存中
+                    listFunction = functionApp.GetFunctionsByUser(userInfo.Id, systemType.Id);
+                }
+
+
                 YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+
+                yuebonCacheHelper.Add("User_Function_" + userInfo.Id, listFunction);
+                currentSession.Modules = listFunction;
                 TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
                 yuebonCacheHelper.Add("login_user_" + userInfo.Id, currentSession, expiresSliding, true);
                 result.AccessToken = tokenResult.AccessToken;
                 result.ErrCode =ErrCode.successCode;
                 result.ReturnUrl = systemType.Url;
+
+                Log logEntity = new Log();
+                logEntity.Account = currentSession.Account;
+                logEntity.NickName = currentSession.RealName;
+                logEntity.Date = logEntity.CreatorTime = DateTime.Now;
+                //logEntity.IPAddress = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
+                //logEntity.IPAddressName = IpAddressUtil.GetCityByIp(logEntity.IPAddress);
+                logEntity.Result = true;
+                logEntity.ModuleName = "登录";
+                logEntity.Description = "登录成功";
+                logEntity.Type = "Login";
+                logService.Insert(logEntity);
             }
             catch (Exception ex)
             {

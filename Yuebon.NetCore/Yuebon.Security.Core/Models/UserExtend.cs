@@ -20,7 +20,6 @@ namespace Yuebon.Security.Models
         /// </summary>
 	    public UserExtend()
         {
-            this.Id = Guid.NewGuid().ToString();
         }
 
         #region Property Members

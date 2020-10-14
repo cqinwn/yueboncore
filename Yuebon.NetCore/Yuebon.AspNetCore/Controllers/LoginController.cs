@@ -39,6 +39,7 @@ namespace Yuebon.AspNetCore.Controllers
         private IUserLogOnService _userLogOnService;
         private ISystemTypeService _systemTypeService;
         private IAPPService _appService;
+        private IRoleService _roleService;
         private ILogService _logService;
         /// <summary>
         /// 构造函数注入服务
@@ -48,13 +49,14 @@ namespace Yuebon.AspNetCore.Controllers
         /// <param name="systemTypeService"></param>
         /// <param name="logService"></param>
         /// <param name="appService"></param>
-        public LoginController(IUserService iService, IUserLogOnService userLogOnService, ISystemTypeService systemTypeService,ILogService logService, IAPPService appService)
+        public LoginController(IUserService iService, IUserLogOnService userLogOnService, ISystemTypeService systemTypeService,ILogService logService, IAPPService appService, IRoleService roleService)
         {
             _userService = iService;
             _userLogOnService = userLogOnService;
             _systemTypeService = systemTypeService;
             _logService = logService;
             _appService = appService;
+            _roleService = roleService;
         }
 
         /// <summary>
@@ -138,7 +140,7 @@ namespace Yuebon.AspNetCore.Controllers
                                         Gender = user.Gender,
                                         ReferralUserId = user.ReferralUserId,
                                         MemberGradeId = user.MemberGradeId,
-                                        Role = new RoleApp().GetRoleEnCode(user.RoleId),
+                                        Role = _roleService.GetRoleEnCode(user.RoleId),
                                         MobilePhone = user.MobilePhone
                                     };
 
@@ -191,7 +193,7 @@ namespace Yuebon.AspNetCore.Controllers
                                     logEntity.Account = username;
                                     logEntity.Date = logEntity.CreatorTime = DateTime.Now;
                                     logEntity.IPAddress = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
-                                    //logEntity.IPAddressName = IpAddressUtil.GetCityByIp(logEntity.IPAddress);
+                                    logEntity.IPAddressName = IpAddressUtil.GetCityByIp(logEntity.IPAddress);
                                     logEntity.Result = false;
                                     logEntity.ModuleName = "登录";
                                     logEntity.Type = "Login";

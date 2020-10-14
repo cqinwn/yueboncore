@@ -355,17 +355,6 @@ namespace Yuebon.WebApi
                 };
             });
             services.AddScoped(typeof(SSOAuthHelper));
-            //services.AddQuartz(q =>
-            //{
-            //    // base quartz scheduler, job and trigger configuration
-            //});
-
-            //// ASP.NET Core hosting
-            //services.AddQuartzServer(options =>
-            //{
-            //    // when shutting down we want jobs to complete gracefully
-            //    options.WaitForJobsToComplete = true;
-            //});
             services.AddTransient<HttpResultfulJob>();
             services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
             //services.AddSingleton<IJobFactory, IOCJobFactory>();

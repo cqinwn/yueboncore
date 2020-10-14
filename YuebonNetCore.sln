@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.Security.Core", "Yue
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.AspNetCore", "Yuebon.NetCore\Yuebon.AspNetCore\Yuebon.AspNetCore.csproj", "{18932470-2130-43FE-83FD-C4F2B3A564FD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.WebApp", "Yuebon.WebApp\Yuebon.WebApp.csproj", "{290F1F08-B2DC-413F-ABEB-724D3DC1BBEF}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.UEditorNetCore", "Yuebon.NetCore\Yuebon.UEditorNetCore\Yuebon.UEditorNetCore.csproj", "{B5BAFC71-24B8-4C19-A243-B301344EE669}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.CMS.Core", "Yuebon.Cms.Core\Yuebon.CMS.Core.csproj", "{3C119187-DCBA-4C39-9A09-38059ADEFD70}"
@@ -43,10 +41,6 @@ Global
 		{18932470-2130-43FE-83FD-C4F2B3A564FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18932470-2130-43FE-83FD-C4F2B3A564FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18932470-2130-43FE-83FD-C4F2B3A564FD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{290F1F08-B2DC-413F-ABEB-724D3DC1BBEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{290F1F08-B2DC-413F-ABEB-724D3DC1BBEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{290F1F08-B2DC-413F-ABEB-724D3DC1BBEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{290F1F08-B2DC-413F-ABEB-724D3DC1BBEF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B5BAFC71-24B8-4C19-A243-B301344EE669}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B5BAFC71-24B8-4C19-A243-B301344EE669}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5BAFC71-24B8-4C19-A243-B301344EE669}.Release|Any CPU.ActiveCfg = Release|Any CPU

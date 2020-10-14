@@ -30,7 +30,7 @@ namespace Yuebon.WebApp.Controllers
     /// <typeparam name="T">实体类型</typeparam>
     /// <typeparam name="TService">Service类型</typeparam>
     public class BusinessController<T, TDto, TService, TKey> : Controller
-        where T : class, IBaseEntity<TKey>
+        where T :Entity
         where TService : IService<T, TDto, TKey>
         where TDto : class
         where TKey : IEquatable<TKey>

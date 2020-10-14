@@ -29,6 +29,6 @@ namespace Yuebon.Security.IServices
         /// <param name="note">操作详细表述</param>
         /// <param name="currentUser">操作用户</param>
         /// <returns></returns>
-        bool OnOperationLog(string module, string operationType,  string note,UserAuthSession currentUser);
+        bool OnOperationLog(string module, string operationType,  string note, YuebonCurrentUser currentUser);
     }
 }

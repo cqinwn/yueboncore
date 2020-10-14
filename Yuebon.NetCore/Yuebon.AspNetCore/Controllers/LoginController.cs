@@ -123,7 +123,7 @@ namespace Yuebon.AspNetCore.Controllers
                                     JwtOption jwtModel = IoCContainer.Resolve<JwtOption>();
                                     TokenProvider tokenProvider = new TokenProvider(jwtModel);
                                     TokenResult tokenResult = tokenProvider.LoginToken(user, appId);
-                                    UserAuthSession currentSession = new UserAuthSession
+                                    YuebonCurrentUser currentSession = new YuebonCurrentUser
                                     {
                                         UserId = user.Id,
                                         Account = user.Account,

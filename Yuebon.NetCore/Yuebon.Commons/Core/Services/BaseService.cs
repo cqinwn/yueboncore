@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ namespace Yuebon.Commons.Services
         where TDto : class
         where TKey : IEquatable<TKey>
     {
+        private IHttpContextAccessor _accessor;
         /// <summary>
         /// 
         /// </summary>
@@ -33,6 +35,17 @@ namespace Yuebon.Commons.Services
         protected BaseService(IRepository<T, TKey> iRepository)
         {
             repository = iRepository ?? throw new ArgumentNullException(nameof(repository));
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="iRepository"></param>
+        /// <param name="accessor"></param>
+        protected BaseService(IRepository<T, TKey> iRepository, IHttpContextAccessor accessor)
+        {
+            _accessor = accessor;
+            repository = iRepository ?? throw new ArgumentNullException(nameof(repository));
+
         }
         /// <summary>
         /// 查询对象，并返回关联的创建用户信息，

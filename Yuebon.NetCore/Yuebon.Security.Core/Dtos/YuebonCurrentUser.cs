@@ -9,7 +9,7 @@ namespace Yuebon.Security.Dtos
     /// 登录成功返回用户信息
     /// </summary>
     [Serializable]
-    public class UserAuthSession
+    public class YuebonCurrentUser
     {
         /// <summary>
         /// 授权token码
@@ -87,7 +87,12 @@ namespace Yuebon.Security.Dtos
         /// 微信登录SessionId
         /// </summary>
         public string WxSessionId { get; set; }
+        /// <summary>
+        /// 租户TenantId
+        /// </summary>
+        public string TenantId { get; set; }
 
+        /// <summary>
         /// 登录IP地址
         /// </summary>
         public virtual string CurrentLoginIP { get; set; }

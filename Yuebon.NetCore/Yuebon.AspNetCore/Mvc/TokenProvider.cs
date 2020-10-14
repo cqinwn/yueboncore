@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Models;
+using Yuebon.Commons.Extensions;
 using Yuebon.Commons.IoC;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
@@ -41,11 +42,11 @@ namespace Yuebon.AspNetCore.Mvc
         /// <summary>
         /// 直接通过appid和加密字符串获取访问令牌接口
         /// </summary>
-        /// <param name="grant_type">获取access_token填写client_credential</param>
+        /// <param name="granttype">获取access_token填写client_credential</param>
         /// <param name="appid">用户唯一凭证</param>
         /// <param name="secret">用户唯一凭证密钥，即appsecret</param>
         /// <returns></returns>
-        public TokenResult GenerateToken(string grant_type, string appid, string secret)
+        public TokenResult GenerateToken(string granttype, string appid, string secret)
         {
             var keyByteArray = Encoding.UTF8.GetBytes(secret);
             var signingKey = new SymmetricSecurityKey(keyByteArray);
@@ -57,7 +58,7 @@ namespace Yuebon.AspNetCore.Mvc
                     new Claim(JwtClaimTypes.Audience,appid),
                     new Claim(JwtClaimTypes.Issuer,_jwtModel.Issuer),
                     new Claim(JwtClaimTypes.Subject, GrantType.ClientCredentials)
-                }, grant_type),
+                }, granttype),
                 Expires = expires,
                 //对称秘钥SymmetricSecurityKey
                 //签名证书(秘钥，加密算法)SecurityAlgorithms

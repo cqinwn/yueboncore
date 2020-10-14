@@ -19,7 +19,7 @@ namespace Yuebon.Commons.Application
     /// <typeparam name="TService">Service类型</typeparam>
     /// <typeparam name="Tkey">主键类型</typeparam>
     public class BaseApp<T, TDto, TService, Tkey>
-       where T : Entity, IBaseEntity<Tkey>
+       where T : Entity
        where TDto : class
         where TService : IService<T, TDto, Tkey>
     {

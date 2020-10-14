@@ -36,11 +36,7 @@ namespace Yuebon.AspNetCore.Controllers
         /// <summary>
         /// 当前登录的用户属性
         /// </summary>
-        public UserAuthSession CurrentUser;
-        /// <summary>
-        /// 日志服务
-        /// </summary>
-        private ILogService logService = IoCContainer.Resolve<ILogService>();
+        public YuebonCurrentUser CurrentUser;
         /// <summary>
         /// 用户服务
         /// </summary>
@@ -62,25 +58,20 @@ namespace Yuebon.AspNetCore.Controllers
                 || controllerActionDescriptor.MethodInfo.GetCustomAttributes(typeof(IAllowAnonymous), true).Any();
                 if (!allowanyone)
                 {
-                    string useridcookie = CookiesHelper.ReadCookie(filterContext.HttpContext, "loginuser");
-                    string authHeader = HttpContext.Request.Headers["Authorization"];//Header中的token
-                    CommonResult result = new CommonResult();
-                    string token = string.Empty;
-                    if (authHeader != null && authHeader.StartsWith("Bearer") && authHeader.Length > 10)
+                    var identities = filterContext.HttpContext.User.Identities;
+                    var claimsIdentity = identities.First<ClaimsIdentity>();
+                    if (claimsIdentity != null)
                     {
-                        token = authHeader.Substring("Bearer ".Length).Trim();
-                    }
-                    TokenProvider tokenProvider = new TokenProvider();
-                    result = tokenProvider.ValidateToken(token);
-                    if (result.ResData != null)
-                    {
-                        YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                        List<Claim> claimlist = result.ResData as List<Claim>;
-                        string userId = claimlist[3].Value;
-                        var user = JsonSerializer.Deserialize<UserAuthSession>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
-                        if (user != null)
+                        List<Claim> claimlist= claimsIdentity.Claims as List<Claim>;
+                        if (claimlist.Count > 0)
                         {
-                            CurrentUser = user;
+                            string userId = claimlist[0].Value;
+                            YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+                            var user = JsonSerializer.Deserialize<YuebonCurrentUser>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
+                            if (user != null)
+                            {
+                                CurrentUser = user;
+                            }
                         }
                     }
                 }
@@ -103,11 +94,6 @@ namespace Yuebon.AspNetCore.Controllers
         [Route("api/ToJsonContent")]
         protected IActionResult ToJsonContent(object obj)
         {
-            //JsonSerializerSettings settings = new JsonSerializerSettings();
-            //settings.Formatting = Formatting.Indented;
-            //settings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-            //settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            //string result = JsonConvert.SerializeObject(obj, settings);
             return Content(obj.ToJson());
         }
 
@@ -163,7 +149,7 @@ namespace Yuebon.AspNetCore.Controllers
             {
                 YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
                 string userId = result.ResData.ToString();
-                var user = JsonSerializer.Deserialize<UserAuthSession>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
+                var user = JsonSerializer.Deserialize<YuebonCurrentUser>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
                 if (user != null)
                 {
                     CurrentUser = user;
@@ -171,7 +157,7 @@ namespace Yuebon.AspNetCore.Controllers
                 else
                 {
                     User userInfo = userService.Get(userId);
-                    var currentSession = new UserAuthSession
+                    CurrentUser = new YuebonCurrentUser
                     {
                         UserId = userInfo.Id,
                         Account = userInfo.Account,
@@ -184,9 +170,8 @@ namespace Yuebon.AspNetCore.Controllers
                         MemberGradeId = userInfo.MemberGradeId,
                         Role = new RoleApp().GetRoleEnCode(userInfo.RoleId)
                     };
-                    CurrentUser = currentSession;
                     TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
-                    yuebonCacheHelper.Add("login_user_" + userInfo.Id, currentSession, expiresSliding, true);
+                    yuebonCacheHelper.Add("login_user_" + userInfo.Id, CurrentUser, expiresSliding, true);
                 }
             } 
             return result;

@@ -18,7 +18,7 @@ namespace Yuebon.WebApp.Areas.CMS.Controllers
 {
     [Area("CMS")]
     [Route("CMS/[controller]/[action]")]
-    public class AdvertController : BusinessController<Advert, AdvertOutputDto, IAdvertService,string>
+    public class AdvertController : BusinessController<Advert, AdvertOutputDto,IAdvertService,string>
     {
         public AdvertController(IAdvertService _iService) : base(_iService)
         {

@@ -14,6 +14,7 @@ using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Models;
 using Yuebon.Security.Application;
@@ -78,13 +79,20 @@ namespace Yuebon.AspNetCore.Mvc
                         return;
                     }
                     //需要登录和验证功能权限
-
                     if (result.ResData != null)
                     {
                         List<Claim> claimlist = result.ResData as List<Claim>;
                         string userId = claimlist[3].Value;
+                        var claims = new[] {
+                           new Claim(YuebonClaimTypes.UserId,userId),
+                           new Claim(YuebonClaimTypes.UserName,claimlist[2].Value),
+                           new Claim(YuebonClaimTypes.Role,claimlist[4].Value)
+                        };
+                        var identity = new ClaimsIdentity(claims);
+                        var principal = new ClaimsPrincipal(identity);
+                        context.HttpContext.User = principal;
                         YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                        var user = JsonSerializer.Deserialize<UserAuthSession>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
+                        var user = JsonSerializer.Deserialize<YuebonCurrentUser>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
                         if (user == null)
                         {
                             context.Result = new JsonResult(new CommonResult(ErrCode.err40008, "40008"));

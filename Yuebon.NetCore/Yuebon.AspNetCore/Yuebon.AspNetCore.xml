@@ -680,57 +680,57 @@
             获取到的凭证值
             </summary>
         </member>
-        <member name="P:Yuebon.AspNetCore.SSO.UserAuthSession.UserId">
+        <member name="P:Yuebon.AspNetCore.SSO.YuebonCurrentUser.UserId">
             <summary>
             用户ID
             </summary>
         </member>
-        <member name="P:Yuebon.AspNetCore.SSO.UserAuthSession.Account">
+        <member name="P:Yuebon.AspNetCore.SSO.YuebonCurrentUser.Account">
             <summary>
             用户账号
             </summary>
         </member>
-        <member name="P:Yuebon.AspNetCore.SSO.UserAuthSession.Name">
+        <member name="P:Yuebon.AspNetCore.SSO.YuebonCurrentUser.Name">
             <summary>
             用户名
             </summary>
         </member>
-        <member name="P:Yuebon.AspNetCore.SSO.UserAuthSession.NickName">
+        <member name="P:Yuebon.AspNetCore.SSO.YuebonCurrentUser.NickName">
             <summary>
             昵称
             </summary>
         </member>
-        <member name="P:Yuebon.AspNetCore.SSO.UserAuthSession.HeadIcon">
+        <member name="P:Yuebon.AspNetCore.SSO.YuebonCurrentUser.HeadIcon">
             <summary>
             头像
             </summary>
         </member>
-        <member name="P:Yuebon.AspNetCore.SSO.UserAuthSession.Gender">
+        <member name="P:Yuebon.AspNetCore.SSO.YuebonCurrentUser.Gender">
             <summary>
             性别
             </summary>
         </member>
-        <member name="P:Yuebon.AspNetCore.SSO.UserAuthSession.MemberGradeId">
+        <member name="P:Yuebon.AspNetCore.SSO.YuebonCurrentUser.MemberGradeId">
             <summary>
             头像
             </summary>
         </member>
-        <member name="P:Yuebon.AspNetCore.SSO.UserAuthSession.ReferralUserId">
+        <member name="P:Yuebon.AspNetCore.SSO.YuebonCurrentUser.ReferralUserId">
             <summary>
             上级推广员
             </summary>
         </member>
-        <member name="P:Yuebon.AspNetCore.SSO.UserAuthSession.CreateTime">
+        <member name="P:Yuebon.AspNetCore.SSO.YuebonCurrentUser.CreateTime">
             <summary>
             注册时间
             </summary>
         </member>
-        <member name="P:Yuebon.AspNetCore.SSO.UserAuthSession.Role">
+        <member name="P:Yuebon.AspNetCore.SSO.YuebonCurrentUser.Role">
             <summary>
             角色编码，多个角色，使用“,”分格
             </summary>
         </member>
-        <member name="P:Yuebon.AspNetCore.SSO.UserAuthSession.OtherOpenObj">
+        <member name="P:Yuebon.AspNetCore.SSO.YuebonCurrentUser.OtherOpenObj">
             <summary>
             其他对象
             </summary>

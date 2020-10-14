@@ -81,7 +81,7 @@ namespace Yuebon.AspNetCore.SSO
                 }
                 TokenProvider tokenProvider = new TokenProvider(jwtModel);
                 TokenResult tokenResult = tokenProvider.LoginToken(userInfo, model.SystemCode);
-                var currentSession = new UserAuthSession
+                var currentSession = new YuebonCurrentUser
                 {
                     UserId = userInfo.Id,
                     Account = userInfo.Account,

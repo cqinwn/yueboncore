@@ -11,7 +11,7 @@ using Yuebon.Commons.Helpers;
 namespace Yuebon.Commons.Models
 {
     /// <summary>
-    /// 定义领域对象框架实体类的基类
+    /// 定义领域对象框架实体类的基类，系统默认主键为Id
     /// </summary>
 
     [Serializable]
@@ -23,19 +23,11 @@ namespace Yuebon.Commons.Models
         /// </summary>
         protected BaseEntity()
         {
-            if (typeof(TKey) == typeof(Guid))
-            {
-                Id = GuidUtils.CreateNo().CastTo<TKey>();
-            }
-            if (typeof(TKey) == typeof(int))
-            {
-                
-            }
         }
 
-        ///// <summary>
-        ///// 获取或设置 编号
-        ///// </summary>
+        /// <summary>
+        /// 获取或设置 编号
+        /// </summary>
         [DisplayName("编号")]
         [ExplicitKey]
         public TKey Id { get; set; }

@@ -118,7 +118,7 @@ namespace Yuebon.WebApp.Controllers
                         JwtOption jwtModel = IoCContainer.Resolve<JwtOption>();
                         TokenProvider tokenProvider = new TokenProvider(jwtModel);
                         TokenResult tokenResult = tokenProvider.LoginToken(user.Item1, _appKey);
-                        var currentSession = new UserAuthSession
+                        var currentSession = new YuebonCurrentUser
                         {
                             UserId = model.UserId,
                             Account = model.Account,

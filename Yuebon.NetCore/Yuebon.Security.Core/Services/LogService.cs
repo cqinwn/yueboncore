@@ -49,12 +49,12 @@ namespace Yuebon.Security.Services
             //if (settingInfo != null)
             //{
 
-            UserAuthSession CurrentUser = new UserAuthSession();//SessionHelper.GetSession<UserAuthSession>("CurrentUser");
+            YuebonCurrentUser CurrentUser = new YuebonCurrentUser();//SessionHelper.GetSession<YuebonCurrentUser>("CurrentUser");
             //if (CurrentUser == null)
             //{
                 //string userId= DEncrypt.Decrypt(CookiesHelper.ReadCookie(_httpContextAccessor.HttpContext,"loginuser"),"qingwen");
                 //YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                //UserAuthSession CurrentUser  =
+                //YuebonCurrentUser CurrentUser  =
             //}
             if (CurrentUser != null)
             {
@@ -97,7 +97,7 @@ namespace Yuebon.Security.Services
         /// <param name="note">操作详细表述</param>
         /// <param name="currentUser">操作用户</param>
         /// <returns></returns>
-        public bool OnOperationLog(string module, string operationType, string note, UserAuthSession currentUser)
+        public bool OnOperationLog(string module, string operationType, string note, YuebonCurrentUser currentUser)
         {
             //虽然实现了这个事件，但是我们还需要判断该表是否在配置表里面，如果不在，则不记录操作日志。
             //OperationLogSettingInfo settingInfo = BLLFactory<OperationLogSetting>.Instance.FindByTableName(tableName, trans);

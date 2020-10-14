@@ -150,13 +150,13 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
                     {
                         user = userService.GetUserByOpenId("yuebon.openid.wxapplet", jsonResult.openid);
                     }
-                    var currentSession = JsonConvert.DeserializeObject<UserAuthSession>(yuebonCacheHelper.Get("login_user_" + user.Id).ToJson());
+                    var currentSession = JsonConvert.DeserializeObject<YuebonCurrentUser>(yuebonCacheHelper.Get("login_user_" + user.Id).ToJson());
                     if (currentSession == null || string.IsNullOrWhiteSpace(currentSession.AccessToken))
                     {
                         JwtOption jwtModel = IoCContainer.Resolve<JwtOption>();
                         TokenProvider tokenProvider = new TokenProvider(jwtModel);
                         TokenResult tokenResult = tokenProvider.LoginToken(user, "wxapplet");
-                        currentSession = new UserAuthSession
+                        currentSession = new YuebonCurrentUser
                         {
                             UserId = user.Id,
                             Account = user.Account,
@@ -720,7 +720,7 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
                             JwtOption jwtModel = IoCContainer.Resolve<JwtOption>();
                             TokenProvider tokenProvider = new TokenProvider(jwtModel);
                             TokenResult tokenResult = tokenProvider.LoginToken(user, "wxapplet");
-                            var currentSession = new UserAuthSession
+                            var currentSession = new YuebonCurrentUser
                             {
                                 UserId = user.Id,
                                 Account = user.Account,
@@ -796,13 +796,13 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
                     {
                         user = userService.GetUserByOpenId("yuebon.openid.wxapplet", openId);
                     }
-                    var currentSession = JsonConvert.DeserializeObject<UserAuthSession>(yuebonCacheHelper.Get("login_user_" + user.Id).ToJson());
+                    var currentSession = JsonConvert.DeserializeObject<YuebonCurrentUser>(yuebonCacheHelper.Get("login_user_" + user.Id).ToJson());
                     if (currentSession == null || string.IsNullOrWhiteSpace(currentSession.AccessToken))
                     {
                         JwtOption jwtModel = IoCContainer.Resolve<JwtOption>();
                         TokenProvider tokenProvider = new TokenProvider(jwtModel);
                         TokenResult tokenResult = tokenProvider.LoginToken(user, "wxapplet");
-                        currentSession = new UserAuthSession
+                        currentSession = new YuebonCurrentUser
                         {
                             UserId = user.Id,
                             Account = user.Account,

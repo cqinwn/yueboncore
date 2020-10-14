@@ -89,6 +89,10 @@ namespace Yuebon.Commons.Repositories
         /// 选择的字段，默认为所有(*) 
         /// </summary>
         protected string selectedFields = " * ";
+        /// <summary>
+        /// 是否开启多租户
+        /// </summary>
+        protected bool isMultiTenant = false;
 
         /// <summary>
         /// 数据库配置名称，默认为空。
@@ -174,10 +178,6 @@ namespace Yuebon.Commons.Repositories
             }
         }
 
-        /// <summary>
-        /// 获取 当前单元操作对象
-        /// </summary>
-        //public IUnitOfWork UnitOfWork { get; }
 
         /// <summary>
         /// 设置数据库配置项名称
@@ -194,6 +194,17 @@ namespace Yuebon.Commons.Repositories
         public BaseRepository(string _dbConfigName) : this()
         {
             SetDbConfigName(_dbConfigName);
+        }
+
+        /// <summary>
+        /// 数据库访问对象的外键约束
+        /// </summary>
+        public bool IsMultiTenant
+        {
+            get
+            {
+                return isMultiTenant;
+            }
         }
         /// <summary>
         /// 
@@ -233,6 +244,7 @@ namespace Yuebon.Commons.Repositories
         public DbConnection OpenSharedConnection()
         {
             string conStringEncrypt = Configs.GetConfigurationValue("AppSetting", "ConStringEncrypt");
+            this.isMultiTenant = Configs.GetConfigurationValue("AppSetting", "IsMultiTenant").ToBool();
             if (string.IsNullOrEmpty(dbConfigName))
             {
                 dbConfigName= Configs.GetConfigurationValue("AppSetting", "DefaultDataBase");
@@ -1870,6 +1882,7 @@ namespace Yuebon.Commons.Repositories
                 {
                     sql += " where " + where;
                 }
+
                 IEnumerable<int> lit = await conn.QueryAsync<int>(sql);
                 return lit.FirstOrDefault();
             }

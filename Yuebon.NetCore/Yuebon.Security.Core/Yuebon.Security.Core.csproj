@@ -47,10 +47,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Events\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="..\..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>

@@ -10,7 +10,7 @@
 
 2、优化批量处理方法
 
-3、升级到最新SDK 3.1.402,ASP.NET Core Runtime 3.1.8
+3、升级到最新SDK 3.1.403,ASP.NET Core Runtime 3.1.9
 
 4、实现定时任务模块，支持本地任务和远程接口任务，详情参考[定时任务帮助](https://gitee.com/yuebon/YuebonNetCore/wikis/%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1?sort_id=2926976)
 
@@ -73,9 +73,8 @@ WebApi接口地址：[http://netcoreapi.ts.yuebon.com](http://netcoreapi.ts.yueb
 前端目前采用Vue独立前端和asp.net core MVC模式，使用的技术栈有些区别，后期将侧重于Vue端的优化运维。
 
 ####  前端技术 
-1、asp.net MVC版详见：[asp.netcore MVC前端技术栈](https://gitee.com/yuebon/YuebonNetCore/wikis/asp.netcore%20MVC%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E6%A0%88?sort_id=2142838)
 
-2、Vue版前端技术栈 ：基于 ES2015+、vue、vuex、vue-router 、vue-cli 、axios 和 element-ui，，前端采用vscode工具开发
+Vue版前端技术栈 ：基于 ES2015+、vue、vuex、vue-router 、vue-cli 、axios 和 element-ui，，前端采用vscode工具开发
 
 #### 后端技术
 
@@ -142,7 +141,8 @@ DataBase是最新数据库备份文件，目前支持MS SQL Server和MySql。
 ![列表](https://images.gitee.com/uploads/images/2020/0930/145634_ed46d73b_1017224.png "屏幕截图.png")
 
 本地任务
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0930/150300_e99d86f7_1017224.png "屏幕截图.png")
+
+![本地任务](https://images.gitee.com/uploads/images/2020/0930/150300_e99d86f7_1017224.png "屏幕截图.png")
 
 10、代码生成器
 支持一键生成服务端代码和前端代码，复制粘贴简单快速高效实现功能
@@ -162,8 +162,6 @@ DataBase是最新数据库备份文件，目前支持MS SQL Server和MySql。
 3、创建数据YuebonFW，然后按顺序分别执行mssql表结构.sql、mssql权限初始化数据.sql;地区数据可以根据自己的实际情况执行mssql地区数据.sql；
 
 4、修改数据库连接MsSqlServer，根据自己的数据库服务填写。
-
-5、打开解决方案，如果使用aspnet core mvc版本启动项目Yuebon.WebApp即可。初始化用户名为admin，密码为admin888
 
 ### vue版如何用起来，[请点击进入专题](https://gitee.com/yuebon/YuebonNetCore/wikis/%E5%85%B3%E4%BA%8EVue%E7%89%88%E6%9C%AC%E7%9A%84%E4%BD%BF%E7%94%A8?sort_id=2148244)
 

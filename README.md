@@ -26,6 +26,8 @@
 
 10、定时任务可以设置任务开始和结束时间，通知节点。
 
+11、支持自定义主键，详见[主键设置](https://gitee.com/yuebon/YuebonNetCore/wikis/%E4%B8%BB%E9%94%AE%E8%AE%BE%E7%BD%AE?sort_id=2990249)。
+
 更多更新日志 [点击查看](https://gitee.com/yuebon/YuebonNetCore/commits/master)
 
 ##### 新计划

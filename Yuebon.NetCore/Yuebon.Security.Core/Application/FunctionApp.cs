@@ -104,7 +104,6 @@ namespace Yuebon.Security.Application
             }
             return functions;
         }
-
         /// <summary>
         /// 根据用户角色IDs，获取对应的功能列表
         /// </summary>
@@ -122,13 +121,24 @@ namespace Yuebon.Security.Application
             }
             return functions;
         }
+
+        /// <summary>
+        /// 根据用户角色IDs，获取对应的功能列表
+        /// </summary>
+        /// <param name="systemId">系统类型ID/子系统ID</param>
+        /// <returns></returns>
+        public List<FunctionOutputDto> GetFunctionsBySystem(string systemId)
+        {
+            List<FunctionOutputDto> functions = new List<FunctionOutputDto>();
+            functions = service.GetFunctions(systemId).ToList().MapTo<FunctionOutputDto>();
+            return functions;
+        }
         /// <summary>
         ///获取超级管理员操作所有功能，
         /// </summary>
-        /// <param name="roleId">超级管理员角色ID</param>
         /// <param name="typeID">系统类别ID</param>
         /// <returns></returns>
-        public List<FunctionOutputDto> GetFunctionsByAdmin(string roleId, string typeID)
+        public List<FunctionOutputDto> GetFunctionsByAdmin(string typeID)
         {
             List<FunctionOutputDto> functions = new List<FunctionOutputDto>();
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();

@@ -113,23 +113,27 @@ namespace Yuebon.Security.Application
             {
                 SystemType systemType = systemservice.GetByCode(systemCode);
                 List<Menu> listMenu = GetMenusByRole(roleIds, systemType.Id).OrderBy(t => t.SortCode).ToList();
-                //var ChildNodeList = listMenu.FindAll(t => t.ParentId == "");
-                //foreach (Menu menu in ChildNodeList)
-                //{
-                //    VuexMenusTreeModel vueTreeModel = new VuexMenusTreeModel();
-                //    vueTreeModel.path = menu.UrlAddress;
-                //    vueTreeModel.component = "Layout";
-                //    vueTreeModel.name = menu.EnCode;
-                //    vueTreeModel.redirect = menu.UrlAddress;
-                //    Meta meta = new Meta();
-                //    meta.title = menu.FullName;
-                //    meta.icon = menu.Icon == null ? "" : menu.Icon;
-                //    vueTreeModel.meta = meta;
-
-                //    vueTreeModel.children = VuexMenusTreeJson(listMenu, menu.Id);
-                //    list.Add(vueTreeModel);
-                //}
                 list =listMenu.MapTo<MenuInputDto>();
+            }
+            catch (Exception ex)
+            {
+                Log4NetHelper.Error("根据用户角色和子系统代码获取菜单异常", ex);
+            }
+            return list;
+        }
+        /// <summary>
+        /// 根据用户角色获取菜单树VuexMenusTree模式
+        /// </summary>
+        /// <param name="systemCode">系统类型代码子系统代码</param>
+        /// <returns></returns>
+        public List<MenuInputDto> GetMenuFuntionJson(string systemCode)
+        {
+            List<MenuInputDto> list = new List<MenuInputDto>();
+            try
+            {
+                SystemType systemType = systemservice.GetByCode(systemCode);
+                List<Menu> listMenu = GetMenusByRole(systemType.Id).OrderBy(t => t.SortCode).ToList();
+                list = listMenu.MapTo<MenuInputDto>();
             }
             catch (Exception ex)
             {
@@ -233,7 +237,29 @@ namespace Yuebon.Security.Application
         public List<Menu> GetMenusByRole(string roleIds, string systemId)
         {
             FunctionApp functionApp = new FunctionApp();
-            List<FunctionOutputDto> functionList = functionApp.GetFunctionsByRole(roleIds, systemId);
+            List<FunctionOutputDto> functionList =functionApp.GetFunctionsByRole(roleIds, systemId);
+            List<Menu> menuList = service.GetAllByIsNotDeleteAndEnabledMark().ToList();
+            List<Menu> menuListResult = new List<Menu>();
+            foreach (Menu item in menuList)
+            {
+                if (functionList.Count(t => t.EnCode == item.EnCode) > 0)
+                {
+                    menuListResult.Add(item);
+                }
+            }
+            return menuListResult;
+        }
+
+
+        /// <summary>
+        /// 根据用户获取功能菜单
+        /// </summary>
+        /// <param name="systemId">系统类型ID/子系统ID</param>
+        /// <returns></returns>
+        public List<Menu> GetMenusByRole(string systemId)
+        {
+            FunctionApp functionApp = new FunctionApp();
+            List<FunctionOutputDto> functionList = functionApp.GetFunctionsBySystem(systemId);
             List<Menu> menuList = service.GetAllByIsNotDeleteAndEnabledMark().ToList();
             List<Menu> menuListResult = new List<Menu>();
             foreach (Menu item in menuList)

@@ -18,6 +18,12 @@ namespace Yuebon.Security.IRepositories
         IEnumerable<Function> GetFunctions(string roleIDs, string typeID);
 
 
+        /// <summary>
+        /// 根据系统类型ID，获取对应的操作功能列表
+        /// </summary>
+        /// <param name="typeID">系统类型ID</param>
+        /// <returns></returns>
+        IEnumerable<Function> GetFunctions(string typeID);
 
     }
 }

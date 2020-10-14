@@ -44,7 +44,6 @@ namespace Yuebon.AspNetCore.Common
             }
             return hasFunction;
         }
-
         /// <summary>
         /// 判断是否为系统管理员或超级管理员
         /// </summary>
@@ -56,12 +55,15 @@ namespace Yuebon.AspNetCore.Common
             bool blnIsAdmin = false;
             if (currentUser != null)
             {
-                string[] roleIds = currentUser.Role.Split(",");
+                if(currentUser.Account == "admin")
+                {
+                    return true;
+                }
                 string where = string.Format("Id in('{0}')", currentUser.Role.Replace(",", "','"));
                 List<Role> listRole = new RoleApp().GetListWhere(where);
                 foreach (Role item in listRole)
                 {
-                    if (item.FullName == "系统管理员" || item.FullName == "超级管理员")
+                    if (item.EnCode == "administrators")
                     {
                         blnIsAdmin = true;
                         continue;

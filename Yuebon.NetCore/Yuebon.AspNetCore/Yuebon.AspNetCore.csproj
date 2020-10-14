@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Remove="Controllers\DictionaryController.cs" />
     <Compile Remove="Mvc\AuthorizeMiddleware.cs" />
+    <Compile Remove="Mvc\Filter\PermissionRequiredFilter.cs" />
   </ItemGroup>
 
   <ItemGroup>

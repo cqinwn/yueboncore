@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Controllers;
 using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IoC;
 using Yuebon.Commons.Json;
+using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Models;
 using Yuebon.Commons.Net;
 using Yuebon.Commons.Options;
@@ -139,14 +141,27 @@ namespace Yuebon.AspNetCore.Controllers
                                         Role = new RoleApp().GetRoleEnCode(user.RoleId),
                                         MobilePhone = user.MobilePhone
                                     };
-                                    currentSession.SubSystemList = _systemTypeService.GetSubSystemList(user.RoleId);
+
                                     currentSession.ActiveSystem = systemType.FullName;
                                     currentSession.ActiveSystemUrl = systemType.Url;
-                                    currentSession.MenusList = new MenuApp().GetMenuFuntionJson(user.RoleId, systemCode);
-
-                                    //取得用户可使用的授权功能信息，并存储在缓存中
+                                    List<FunctionOutputDto> listFunction = new List<FunctionOutputDto>();
                                     FunctionApp functionApp = new FunctionApp();
-                                    List<FunctionOutputDto> listFunction = functionApp.GetFunctionsByUser(user.Id, systemType.Id);
+                                    if (Permission.IsAdmin(currentSession))
+                                    {
+                                        currentSession.SubSystemList = _systemTypeService.GetAllByIsNotDeleteAndEnabledMark().MapTo<SystemTypeOutputDto>();
+                                        currentSession.MenusList = new MenuApp().GetMenuFuntionJson(systemCode);
+                                        //取得用户可使用的授权功能信息，并存储在缓存中
+                                        listFunction = functionApp.GetFunctionsBySystem(systemType.Id);
+                                    }
+                                    else
+                                    {
+                                        currentSession.SubSystemList = _systemTypeService.GetSubSystemList(user.RoleId);
+                                        currentSession.MenusList = new MenuApp().GetMenuFuntionJson(user.RoleId, systemCode);
+
+                                        //取得用户可使用的授权功能信息，并存储在缓存中
+                                        listFunction = functionApp.GetFunctionsByUser(user.Id, systemType.Id);
+                                    }
+
                                     yuebonCacheHelper.Add("User_Function_" + user.Id, listFunction);
                                     currentSession.Modules = listFunction;
                                     TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;

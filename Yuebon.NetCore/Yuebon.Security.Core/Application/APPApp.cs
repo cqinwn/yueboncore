@@ -1,5 +1,4 @@
 ﻿using Yuebon.Commons.Application;
-using Yuebon.Commons.Entity;
 using Yuebon.Commons.IoC;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;

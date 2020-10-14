@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.DataProtection.KeyManagement;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
@@ -11,14 +12,14 @@ namespace Yuebon.Commons.Application
 {
 
     /// <summary>
-    /// 业务层基类，UnitWork用于事务操作，Service用于普通的数据库操作
+    /// 业务层基类，Service用于普通的数据库操作
     /// </summary>
     /// <typeparam name="T">实体类型</typeparam>
     /// <typeparam name="TDto">实体类型</typeparam>
     /// <typeparam name="TService">Service类型</typeparam>
     /// <typeparam name="Tkey">主键类型</typeparam>
     public class BaseApp<T, TDto, TService, Tkey>
-       where T : class, IBaseEntity<Tkey>
+       where T : Entity, IBaseEntity<Tkey>
        where TDto : class
         where TService : IService<T, TDto, Tkey>
     {
@@ -32,16 +33,14 @@ namespace Yuebon.Commons.Application
         /// 用于事务操作
         /// </summary>
         /// <value>The unit work.</value>
-        protected IUnitOfWork unitOfWork;
+        //protected IUnitOfWork unitOfWork;
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="_unitWork"></param>
         /// <param name="_service"></param>
-        public BaseApp(IUnitOfWork _unitWork, IService<T,TDto, Tkey> _service)
+        public BaseApp(IService<T,TDto, Tkey> _service)
         {
-            unitOfWork = _unitWork;
             service = _service;
         }
 

@@ -56,13 +56,12 @@ namespace Yuebon.Commons.Helpers
                 zos.Close();
             }
         }
-
-        /// <summary>
-        /// 读文件
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        public static string ReadFile(string path)
+            /// <summary>
+            /// 读文件
+            /// </summary>
+            /// <param name="path"></param>
+            /// <returns></returns>
+            public static string ReadFile(string path)
         {
             path = path.ToFilePath();
             if (!File.Exists(path))

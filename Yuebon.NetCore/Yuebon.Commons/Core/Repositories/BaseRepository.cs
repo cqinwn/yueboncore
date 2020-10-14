@@ -17,7 +17,6 @@ using System.Threading.Tasks;
 using Yuebon.Commons.IRepositories;
 using Yuebon.Commons.Models;
 using Yuebon.Commons.Encrypt;
-using Yuebon.Commons.Entity;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Log;
@@ -44,7 +43,7 @@ namespace Yuebon.Commons.Repositories
     /// <typeparam name="T">实体类型</typeparam>
     /// <typeparam name="TKey">实体主键类型</typeparam>
     public abstract class BaseRepository<T, TKey> : IRepository<T, TKey> 
-        where T : class, IBaseEntity<TKey>
+        where T : Entity
         where TKey : IEquatable<TKey>
     {
         #region 构造函数及基本配置
@@ -178,7 +177,7 @@ namespace Yuebon.Commons.Repositories
         /// <summary>
         /// 获取 当前单元操作对象
         /// </summary>
-        public IUnitOfWork UnitOfWork { get; }
+        //public IUnitOfWork UnitOfWork { get; }
 
         /// <summary>
         /// 设置数据库配置项名称
@@ -284,27 +283,27 @@ namespace Yuebon.Commons.Repositories
         /// <summary>
         /// 根据id获取一个对象
         /// </summary>
-        /// <param name="id">主键</param>
+        /// <param name="primaryKey">主键</param>
         /// <param name="trans">事务</param>
         /// <returns></returns>
-        public virtual T Get(TKey id, IDbTransaction trans=null)
+        public virtual T Get(TKey primaryKey, IDbTransaction trans=null)
         {
             using (DbConnection conn = OpenSharedConnection())
             {
-                return conn.Get<T>(id,trans);
+                return conn.Get<T>(primaryKey, trans);
             }
         }
         /// <summary>
         /// 异步根据id获取一个对象
         /// </summary>
-        /// <param name="id">主键</param>
+        /// <param name="primaryKey">主键</param>
         /// <param name="trans">事务</param>
         /// <returns></returns>
-        public virtual async Task<T> GetAsync(TKey id, IDbTransaction trans=null)
+        public virtual async Task<T> GetAsync(TKey primaryKey, IDbTransaction trans=null)
         {
             using (DbConnection conn = OpenSharedConnection())
             {
-                return await conn.GetAsync<T>(id,trans);
+                return await conn.GetAsync<T>(primaryKey, trans);
             }
         }
 
@@ -370,15 +369,15 @@ namespace Yuebon.Commons.Repositories
         /// 查询对象，并返回关联的创建用户信息，
         /// 查询表别名为s，条件要s.字段名
         /// </summary>
-        /// <param name="id">主键Id</param>
+        /// <param name="primaryKey">主键Id</param>
         /// <param name="trans">事务</param>
         /// <returns></returns>
-        public virtual T GetByIdRelationUser(TKey id, IDbTransaction trans = null)
+        public virtual T GetByIdRelationUser(TKey primaryKey, IDbTransaction trans = null)
         {
             string sql = $"select s.* ,u.RealName as RealName,u.NickName as NickName,u.HeadIcon as HeadIcon from { tableName} s left join sys_user u on s.CreatorUserId=u.Id";
-            if (!string.IsNullOrWhiteSpace(id.ToString()))
+            if (!string.IsNullOrWhiteSpace(primaryKey.ToString()))
             {
-                sql += " where s.Id='"+ id + "'";
+                sql += " where s."+ primaryKey + "='"+ primaryKey + "'";
             }
             using (DbConnection conn = OpenSharedConnection())
             {
@@ -1158,6 +1157,11 @@ namespace Yuebon.Commons.Repositories
         {
             using (DbConnection conn = OpenSharedConnection())
             {
+                if (entity.KeyIsNull())
+                {
+                    entity.GenerateDefaultKeyVal();
+                }
+
                 OperationLogOfInsert(entity);
                 return conn.Insert(entity,trans);
             }
@@ -1172,6 +1176,11 @@ namespace Yuebon.Commons.Repositories
         {
             using (DbConnection conn = OpenSharedConnection())
             {
+                if (entity.KeyIsNull())
+                {
+                    entity.GenerateDefaultKeyVal();
+                }
+
                 OperationLogOfInsert(entity);
                 return await conn.InsertAsync(entity, trans);
             }
@@ -1188,6 +1197,13 @@ namespace Yuebon.Commons.Repositories
             {
                 try
                 {
+                    foreach (var entity in entities)
+                    {
+                        if (entity.KeyIsNull())
+                        {
+                            entity.GenerateDefaultKeyVal();
+                        }
+                    }
                     trans = conn.BeginTransaction();
                     long row = conn.Insert(entities, trans);
                     trans.Commit();
@@ -1214,6 +1230,13 @@ namespace Yuebon.Commons.Repositories
                 trans = conn.BeginTransaction();
                 try
                 {
+                    foreach (var entity in entities)
+                    {
+                        if (entity.KeyIsNull())
+                        {
+                            entity.GenerateDefaultKeyVal();
+                        }
+                    }
                     long row = await conn.InsertAsync(entities, trans);
                     trans.Commit();
                     OperationLogOfInsert(entities);
@@ -1227,32 +1250,46 @@ namespace Yuebon.Commons.Repositories
             }
         }
         /// <summary>
-        /// 
+        /// 更新
         /// </summary>
         /// <param name="entity"></param>
-        /// <param name="id"></param>
+        /// <param name="primaryKey">主键</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual bool Update(T entity, TKey id,IDbTransaction trans=null)
+        public virtual bool Update(T entity, TKey primaryKey, IDbTransaction trans=null)
         {
             using (DbConnection conn = OpenSharedConnection())
             {
-                OperationLogOfUpdate(entity,id);
+                OperationLogOfUpdate(entity, primaryKey);
                 return conn.Update(entity,trans);
+            }
+        }
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="trans">事务对象</param>
+        /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
+        public virtual bool Update(T entity, IDbTransaction trans = null)
+        {
+            using (DbConnection conn = OpenSharedConnection())
+            {
+                OperationLogOfUpdate(entity);
+                return conn.Update(entity, trans);
             }
         }
         /// <summary>
         /// 
         /// </summary>
         /// <param name="entity"></param>
-        /// <param name="id"></param>
+        /// <param name="primaryKey"></param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual async Task<bool> UpdateAsync(T entity, TKey id, IDbTransaction trans=null)
+        public virtual async Task<bool> UpdateAsync(T entity, TKey primaryKey, IDbTransaction trans=null)
         {
             using (DbConnection conn = OpenSharedConnection())
             {
-                OperationLogOfUpdate(entity, id);
+                OperationLogOfUpdate(entity, primaryKey);
                 return await conn.UpdateAsync(entity,trans);
             }
         }
@@ -1384,30 +1421,30 @@ namespace Yuebon.Commons.Repositories
         /// <summary>
         /// 物理删除信息
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="primaryKey"></param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual bool Delete(TKey id, IDbTransaction trans=null)
+        public virtual bool Delete(TKey primaryKey, IDbTransaction trans=null)
         {
             using (DbConnection conn =OpenSharedConnection())
             {
-                OperationLogOfDelete(id);
-                int row = conn.Execute($"delete from {tableName} where Id=@id", new { @id = id },trans);
+                OperationLogOfDelete(primaryKey);
+                int row = conn.Execute($"delete from {tableName} where "+ primaryKey + "=@"+ primaryKey, new { primaryKey = primaryKey },trans);
                 return row > 0 ? true : false;
             }
         }
         /// <summary>
         /// 异步物理删除信息
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="primaryKey"></param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual async Task<bool> DeleteAsync(TKey id, IDbTransaction trans=null)
+        public virtual async Task<bool> DeleteAsync(TKey primaryKey, IDbTransaction trans=null)
         {
             using (DbConnection conn =OpenSharedConnection())
             {
-                OperationLogOfDelete(id);
-                int row = await conn.ExecuteAsync($"delete from {tableName} where Id=@id", new { @id = id },trans);
+                OperationLogOfDelete(primaryKey);
+                int row = await conn.ExecuteAsync($"delete from {tableName} where I" + primaryKey + "=@" + primaryKey, new { primaryKey = primaryKey },trans);
                 return row > 0 ? true : false;
             }
         }
@@ -1482,32 +1519,32 @@ namespace Yuebon.Commons.Repositories
         /// <summary>
         /// 根据指定对象的ID和用户ID,从数据库中删除指定对象(用于记录人员的操作日志）
         /// </summary>
-        /// <param name="id">指定对象的ID</param>
+        /// <param name="primaryKey">指定对象的ID</param>
         /// <param name="userId">用户ID</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual bool DeleteByUser(TKey id, string userId, IDbTransaction trans=null)
+        public virtual bool DeleteByUser(TKey primaryKey, string userId, IDbTransaction trans=null)
         {
             using (DbConnection conn =OpenSharedConnection())
             {
-                OperationLogOfDelete(id); //根据设置记录操作日志
-                int row = conn.Execute($"delete from {tableName} where Id=@id", new { @id = id },trans);
+                OperationLogOfDelete(primaryKey); //根据设置记录操作日志
+                int row = conn.Execute($"delete from {tableName} where " + primaryKey + "=@" + primaryKey, new { primaryKey = primaryKey },trans);
                 return row > 0 ? true : false;
             }
         }
         /// <summary>
         /// 异步根据指定对象的ID和用户ID,从数据库中删除指定对象(用于记录人员的操作日志）
         /// </summary>
-        /// <param name="id">指定对象的ID</param>
+        /// <param name="primaryKey">指定对象的ID</param>
         /// <param name="userId">用户ID</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual async Task<bool> DeleteByUserAsync(TKey id, string userId, IDbTransaction trans=null)
+        public virtual async Task<bool> DeleteByUserAsync(TKey primaryKey, string userId, IDbTransaction trans=null)
         {
             using (DbConnection conn =OpenSharedConnection())
             {
-                OperationLogOfDelete(id); //根据设置记录操作日志
-                int row = await conn.ExecuteAsync($"delete from {tableName} where Id=@id", new { @id = id },trans);
+                OperationLogOfDelete(primaryKey); //根据设置记录操作日志
+                int row = await conn.ExecuteAsync($"delete from {tableName} where "+ primaryKey + "=@"+ primaryKey, new { @primaryKey = primaryKey },trans);
                 return row > 0 ? true : false;
             }
         }
@@ -1516,16 +1553,16 @@ namespace Yuebon.Commons.Repositories
         /// 逻辑删除信息，bl为true时将DeleteMark设置为1删除，bl为flase时将DeleteMark设置为10-恢复删除
         /// </summary>
         /// <param name="bl">true为不删除，false删除</param>
-        /// <param name="id">主键ID</param>
+        /// <param name="primaryKey">主键ID</param>
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual bool DeleteSoft(bool bl, TKey id, string userId = null, IDbTransaction trans=null)
+        public virtual bool DeleteSoft(bool bl, TKey primaryKey, string userId = null, IDbTransaction trans=null)
         {
             using (DbConnection conn =OpenSharedConnection())
             {
 
-                OperationLogOfDeleteSoft(id, userId);
+                OperationLogOfDeleteSoft(primaryKey, userId);
                 string sql = $"update {tableName} set ";
                 if (bl)
                 {
@@ -1540,8 +1577,8 @@ namespace Yuebon.Commons.Repositories
                     sql += ",DeleteUserId='" + userId + "'";
                 }
                 DateTime deleteTime = DateTime.Now;
-                sql += ",DeleteTime=@DeleteTime where Id=@id";
-                int row = conn.Execute(sql, new { @id = id, @DeleteTime = deleteTime },trans);
+                sql += ",DeleteTime=@DeleteTime where " + primaryKey + "=@" + primaryKey;
+                int row = conn.Execute(sql, new { @primaryKey = primaryKey, @DeleteTime = deleteTime },trans);
                 return row > 0 ? true : false;
             }
         }
@@ -1550,15 +1587,15 @@ namespace Yuebon.Commons.Repositories
         /// 异步逻辑删除信息，bl为true时将DeleteMark设置为1删除，bl为flase时将DeleteMark设置为0-恢复删除
         /// </summary>
         /// <param name="bl">true为不删除，false删除</param>
-        /// <param name="id">主键ID</param>
+        /// <param name="primaryKey">主键ID</param>
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual async Task<bool> DeleteSoftAsync(bool bl, TKey id,string userId=null, IDbTransaction trans=null)
+        public virtual async Task<bool> DeleteSoftAsync(bool bl, TKey primaryKey,string userId=null, IDbTransaction trans=null)
         {
             using (DbConnection conn =OpenSharedConnection())
             {
-                OperationLogOfDeleteSoft(id, userId);
+                OperationLogOfDeleteSoft(primaryKey, userId);
                 string sql = $"update {tableName} set ";
                 if (bl)
                 {
@@ -1573,8 +1610,8 @@ namespace Yuebon.Commons.Repositories
                     sql += ",DeleteUserId='"+userId+"'";
                 }
                 DateTime deleteTime = DateTime.Now;
-                sql += ",DeleteTime=@DeleteTime where Id=@id";
-                int row = await conn.ExecuteAsync(sql, new { @id = id, @DeleteTime = deleteTime },trans);
+                sql += ",DeleteTime=@DeleteTime where " + primaryKey + "=@" + primaryKey;
+                int row = await conn.ExecuteAsync(sql, new { @primaryKey = primaryKey, @DeleteTime = deleteTime },trans);
                 return row > 0 ? true : false;
             }
         }
@@ -1625,15 +1662,15 @@ namespace Yuebon.Commons.Repositories
         /// 设置数据有效性，将EnabledMark设置为1-有效，0-为无效
         /// </summary>
         /// <param name="bl">true为有效，false无效</param>
-        /// <param name="id">主键ID</param>
+        /// <param name="primaryKey">主键ID</param>
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual bool SetEnabledMark(bool bl, TKey id, string userId = null, IDbTransaction trans=null)
+        public virtual bool SetEnabledMark(bool bl, TKey primaryKey, string userId = null, IDbTransaction trans=null)
         {
             using (DbConnection conn =OpenSharedConnection())
             {
-                OperationLogOfSetEnable(id, userId, bl);
+                OperationLogOfSetEnable(primaryKey, userId, bl);
                 string sql = $"update {tableName} set ";
                 if (bl)
                 {
@@ -1648,8 +1685,8 @@ namespace Yuebon.Commons.Repositories
                     sql += ",LastModifyUserId='" + userId + "'";
                 }
                 DateTime lastModifyTime = DateTime.Now;
-                sql += ",LastModifyTime=@lastModifyTime where Id=@id";
-                int row = conn.Execute(sql, new { @id = id, @lastModifyTime= lastModifyTime },trans);
+                sql += ",LastModifyTime=@lastModifyTime where "+ primaryKey + "=@"+ primaryKey;
+                int row = conn.Execute(sql, new { @primaryKey = primaryKey, @lastModifyTime= lastModifyTime },trans);
                 return row > 0 ? true : false;
             }
         }
@@ -1658,16 +1695,16 @@ namespace Yuebon.Commons.Repositories
         /// 异步设置数据有效性，将EnabledMark设置为1:有效，0-为无效
         /// </summary>
         /// <param name="bl">true为有效，false无效</param>
-        /// <param name="id">主键ID</param>
+        /// <param name="primaryKey">主键ID</param>
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual async Task<bool> SetEnabledMarkAsync(bool bl, TKey id, string userId = null, IDbTransaction trans = null)
+        public virtual async Task<bool> SetEnabledMarkAsync(bool bl, TKey primaryKey, string userId = null, IDbTransaction trans = null)
         {
             using (DbConnection conn =OpenSharedConnection())
             {
 
-                OperationLogOfSetEnable(id, userId,bl);
+                OperationLogOfSetEnable(primaryKey, userId,bl);
                 string sql = $"update {tableName} set ";
                 if (bl)
                 {
@@ -1682,8 +1719,8 @@ namespace Yuebon.Commons.Repositories
                     sql += ",LastModifyUserId='" + userId + "'";
                 }
                 DateTime lastModifyTime = DateTime.Now;
-                sql += ",LastModifyTime=@lastModifyTime where Id=@id";
-                int row = await conn.ExecuteAsync(sql, new { @id = id, @lastModifyTime = lastModifyTime },trans);
+                sql += ",LastModifyTime=@lastModifyTime where " + primaryKey + "=@" + primaryKey;
+                int row = await conn.ExecuteAsync(sql, new { primaryKey = primaryKey, @lastModifyTime = lastModifyTime },trans);
                 return row > 0 ? true : false;
             }
         }
@@ -1710,7 +1747,7 @@ namespace Yuebon.Commons.Repositories
                 {
                     where = "1=1";
                 }
-                //OperationLogOfSetEnable(id, userId, bl);
+                //OperationLogOfSetEnable(primaryKey, userId, bl);
                 string sql = $"update {tableName} set ";
                 if (bl)
                 {
@@ -1990,14 +2027,14 @@ namespace Yuebon.Commons.Repositories
         /// <summary>
         /// 修改操作的日志记录
         /// </summary>
-        /// <param name="id">记录ID</param>
+        /// <param name="primaryKey">记录ID</param>
         /// <param name="obj">数据对象</param>
         /// <param name="trans">事务对象</param>
-        protected virtual void OperationLogOfUpdate(T obj, TKey id, IDbTransaction trans = null)
+        protected virtual void OperationLogOfUpdate(T obj, TKey primaryKey, IDbTransaction trans = null)
         {
             if (OnOperationLog != null)
             {
-                T objInDb = Get(id);
+                T objInDb = Get(primaryKey);
                 if (objInDb != null)
                 {
                     string operationType = DbLogType.Update.ToString();
@@ -2008,7 +2045,20 @@ namespace Yuebon.Commons.Repositories
 
             }
         }
-
+        /// <summary>
+        /// 修改操作的日志记录
+        /// </summary>
+        /// <param name="obj">数据对象</param>
+        /// <param name="trans">事务对象</param>
+        protected virtual void OperationLogOfUpdate(T obj,  IDbTransaction trans = null)
+        {
+            if (OnOperationLog != null)
+            {
+                string operationType = DbLogType.Update.ToString();
+                string note = "\n\r更新后的数据：\n\r" + JsonHelper.ToJson(obj);
+                OnOperationLog(this.tableName, operationType, note);
+            }
+        }
         /// <summary>
         /// 修改操作的日志记录
         /// </summary>
@@ -2027,20 +2077,20 @@ namespace Yuebon.Commons.Repositories
         /// <summary>
         /// 禁用或启用操作的日志记录
         /// </summary>
-        /// <param name="id">记录ID</param>
+        /// <param name="primaryKey">记录ID</param>
         /// <param name="userId">用户ID</param>
         /// <param name="bltag">事务对象</param>
-        protected virtual void OperationLogOfSetEnable(TKey id, string userId,bool bltag)
+        protected virtual void OperationLogOfSetEnable(TKey primaryKey, string userId,bool bltag)
         {
             if (OnOperationLog != null)
             {
                 string operationType = DbLogType.Update.ToString();
 
 
-                if (id != null)
+                if (primaryKey != null)
                 {
                     StringBuilder sb = new StringBuilder();
-                    sb.AppendFormat("Id：{0}",id);
+                    sb.AppendFormat("Id：{0}", primaryKey);
                     sb.AppendLine();
                     if (bltag)
                     {
@@ -2060,15 +2110,15 @@ namespace Yuebon.Commons.Repositories
         /// <summary>
         /// 删除操作的日志记录
         /// </summary>
-        /// <param name="id">记录ID</param>
-        protected virtual void OperationLogOfDelete(TKey id)
+        /// <param name="primaryKey">记录ID</param>
+        protected virtual void OperationLogOfDelete(TKey primaryKey)
         {
             if (OnOperationLog != null)
             {
                 string operationType = DbLogType.Delete.ToString();
 
 
-                T objInDb = Get(id);
+                T objInDb = Get(primaryKey);
                 if (objInDb != null) 
                 {
 
@@ -2082,18 +2132,18 @@ namespace Yuebon.Commons.Repositories
         /// <summary>
         /// 软删除操作的日志记录
         /// </summary>
-        /// <param name="id">记录ID</param>
+        /// <param name="primaryKey">记录ID</param>
         /// <param name="userId">用户ID</param>
         /// <param name="trans">事务对象</param>
-        protected virtual void OperationLogOfDeleteSoft(TKey id, string userId, IDbTransaction trans = null)
+        protected virtual void OperationLogOfDeleteSoft(TKey primaryKey, string userId, IDbTransaction trans = null)
         {
             if (OnOperationLog != null)
             {
                 string operationType = DbLogType.DeleteSoft.ToString();
-                if (id != null)
+                if (primaryKey != null)
                 {
                     StringBuilder sb = new StringBuilder();
-                    sb.AppendFormat("Id：{0},软删除", id);
+                    sb.AppendFormat("Id：{0},软删除", primaryKey);
                     sb.AppendLine("\r\n");
 
                     string note = sb.ToString();

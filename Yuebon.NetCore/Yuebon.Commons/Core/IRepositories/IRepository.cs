@@ -12,12 +12,12 @@ namespace Yuebon.Commons.IRepositories
     /// </summary>
     /// <typeparam name="T">实体类型</typeparam>
     /// <typeparam name="TKey">主键类型</typeparam>
-    public interface IRepository<T, TKey>:IDisposable where T : IBaseEntity<TKey>
+    public interface IRepository<T, TKey>:IDisposable where T : Entity
     {
         /// <summary>
         /// 获取 当前单元操作对象
         /// </summary>
-        IUnitOfWork UnitOfWork { get; }
+        //IUnitOfWork UnitOfWork { get; }
         /// <summary>
         /// 定义一个操作记录的事件处理
         /// </summary>
@@ -25,18 +25,18 @@ namespace Yuebon.Commons.IRepositories
         /// <summary>
         /// 同步查询单个实体。
         /// </summary>
-        /// <param name="id">主键</param>
+        /// <param name="primaryKey">主键</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        T Get(TKey id,IDbTransaction trans=null);
+        T Get(TKey primaryKey,IDbTransaction trans=null);
 
         /// <summary>
         /// 异步查询单个实体。
         /// </summary>
-        /// <param name="id">主键</param>
+        /// <param name="primaryKey">主键</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        Task<T> GetAsync(TKey id, IDbTransaction trans=null);
+        Task<T> GetAsync(TKey primaryKey, IDbTransaction trans=null);
 
         /// <summary>
         /// 同步查询单个实体。
@@ -58,10 +58,10 @@ namespace Yuebon.Commons.IRepositories
         /// 查询对象，并返回关联的创建用户信息，
         /// 查询表别名为s，条件要s.字段名
         /// </summary>
-        /// <param name="id">主键Id</param>
+        /// <param name="primaryKey">主键Id</param>
         /// <param name="trans"></param>
         /// <returns></returns>
-        T GetByIdRelationUser(TKey id, IDbTransaction trans = null);
+        T GetByIdRelationUser(TKey primaryKey, IDbTransaction trans = null);
 
         /// <summary>
         /// 同步查询所有实体。
@@ -147,19 +147,19 @@ namespace Yuebon.Commons.IRepositories
         /// 同步更新实体。
         /// </summary>
         /// <param name="entity">实体</param>
-        /// <param name="id">主键ID</param>
+        /// <param name="primaryKey">主键ID</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        bool Update(T entity, TKey id, IDbTransaction trans=null);
+        bool Update(T entity, TKey primaryKey, IDbTransaction trans=null);
 
         /// <summary>
         /// 异步更新实体。
         /// </summary>
         /// <param name="entity">实体</param>
-        /// <param name="id">主键ID</param>
+        /// <param name="primaryKey">主键ID</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        Task<bool> UpdateAsync(T entity, TKey id, IDbTransaction trans=null);
+        Task<bool> UpdateAsync(T entity, TKey primaryKey, IDbTransaction trans=null);
 
         /// <summary>
         /// 同步批量更新实体。
@@ -233,18 +233,18 @@ namespace Yuebon.Commons.IRepositories
         /// <summary>
         /// 同步物理删除实体。
         /// </summary>
-        /// <param name="id">主键</param>
+        /// <param name="primaryKey">主键</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        bool Delete(TKey id, IDbTransaction trans=null);
+        bool Delete(TKey primaryKey, IDbTransaction trans=null);
 
         /// <summary>
         /// 异步物理删除实体。
         /// </summary>
-        /// <param name="id">主键</param>
+        /// <param name="primaryKey">主键</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        Task<bool> DeleteAsync(TKey id, IDbTransaction trans=null);
+        Task<bool> DeleteAsync(TKey primaryKey, IDbTransaction trans=null);
 
         /// <summary>
         /// 按主键批量删除
@@ -272,21 +272,21 @@ namespace Yuebon.Commons.IRepositories
         /// 同步软删除信息，将DeleteMark设置为1-删除，0-恢复删除
         /// </summary>
         /// <param name="bl">true为不删除，false删除</param>
-        /// <param name="id">主键ID</param>
+        /// <param name="primaryKey">主键ID</param>
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        bool DeleteSoft(bool bl, TKey id,string userId=null, IDbTransaction trans=null);
+        bool DeleteSoft(bool bl, TKey primaryKey,string userId=null, IDbTransaction trans=null);
 
         /// <summary>
         /// 异步软删除信息，将DeleteMark设置为1-删除，0-恢复删除
         /// </summary>
         /// <param name="bl">true为不删除，false删除</param> c
-        /// <param name="id">主键ID</param>
+        /// <param name="primaryKey">主键ID</param>
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        Task<bool> DeleteSoftAsync(bool bl, TKey id, string userId = null, IDbTransaction trans=null);
+        Task<bool> DeleteSoftAsync(bool bl, TKey primaryKey, string userId = null, IDbTransaction trans=null);
 
         /// <summary>
         /// 异步批量软删除信息，将DeleteMark设置为1-删除，0-恢复删除
@@ -301,21 +301,21 @@ namespace Yuebon.Commons.IRepositories
         /// 设置数据有效性，将EnabledMark设置为1-有效，0-为无效
         /// </summary>
         /// <param name="bl">true为有效，false无效</param>
-        /// <param name="id">主键ID</param>
+        /// <param name="primaryKey">主键ID</param>
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        bool SetEnabledMark(bool bl, TKey id, string userId = null, IDbTransaction trans=null);
+        bool SetEnabledMark(bool bl, TKey primaryKey, string userId = null, IDbTransaction trans=null);
 
         /// <summary>
         /// 异步设置数据有效性，将EnabledMark设置为1:有效，0-为无效
         /// </summary>
         /// <param name="bl">true为有效，false无效</param>
-        /// <param name="id">主键ID</param>
+        /// <param name="primaryKey">主键ID</param>
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        Task<bool> SetEnabledMarkAsync(bool bl, TKey id, string userId = null, IDbTransaction trans=null);
+        Task<bool> SetEnabledMarkAsync(bool bl, TKey primaryKey, string userId = null, IDbTransaction trans=null);
 
 
         /// <summary>

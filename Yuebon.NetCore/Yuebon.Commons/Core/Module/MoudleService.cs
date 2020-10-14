@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Yuebon.Commons.Repositories;
-using Yuebon.Commons.Entity;
 using Yuebon.Commons.IoC;
 using Yuebon.Commons.Linq;
 using Yuebon.Commons.Log;

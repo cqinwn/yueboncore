@@ -13,7 +13,7 @@ namespace Yuebon.Commons.IServices
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public interface IService<T,TDto, TKey> : IDisposable where T : IBaseEntity<TKey>
+    public interface IService<T,TDto, TKey> : IDisposable where T : Entity
         where TDto : class
     {
         /// <summary>

@@ -47,7 +47,7 @@ namespace Yuebon.Quartz.Jobs
             }
             try
             {
-                string msg = $"开始时间:{dateTime.ToString("yyyy-MM-dd HH:mm:ss")}";
+                string msg = $"开始时间:{dateTime.ToString("yyyy-MM-dd HH:mm:ss ffff")}";
                 //记录任务执行记录
                 iService.RecordRun(taskManager.Id, JobAction.开始,true, msg);
                 //初始化任务日志

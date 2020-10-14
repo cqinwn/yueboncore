@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.AspNetCore\\Yuebon.AspNetCore.csproj": {
-      "version": "1.3.1.28",
+      "version": "1.3.1.29",
       "restore": {
         "projectUniqueName": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.AspNetCore\\Yuebon.AspNetCore.csproj",
         "projectName": "Yuebon.AspNetCore",
@@ -100,7 +100,7 @@
       }
     },
     "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj": {
-      "version": "1.3.1.25",
+      "version": "1.3.1.26",
       "restore": {
         "projectUniqueName": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj",
         "projectName": "Yuebon.Commons",
@@ -258,7 +258,7 @@
       }
     },
     "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj": {
-      "version": "1.3.2.23",
+      "version": "1.3.2.24",
       "restore": {
         "projectUniqueName": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj",
         "projectName": "Yuebon.Security.Core",

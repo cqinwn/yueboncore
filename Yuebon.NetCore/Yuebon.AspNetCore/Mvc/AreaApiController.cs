@@ -33,7 +33,7 @@ namespace Yuebon.AspNetCore.Controllers
     /// <typeparam name="TKey">主键数据类型</typeparam>
     [ApiController]
     public abstract class AreaApiController<T,TDto, TIDto, TService, TKey> : ApiController
-        where T : class, IBaseEntity<TKey>
+        where T : Entity
         where TService : IService<T, TDto, TKey>
         where TDto : class
         where TIDto : class

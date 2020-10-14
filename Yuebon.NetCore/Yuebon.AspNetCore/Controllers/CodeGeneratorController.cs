@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
 using Yuebon.AspNetCore.Models;
@@ -19,6 +18,9 @@ using Yuebon.Commons.Log;
 using Yuebon.Commons.Pages;
 using Yuebon.AspNetCore.UI;
 using Yuebon.AspNetCore.Mvc.Filter;
+using System.IO;
+using Yuebon.Commons.Helpers;
+using System.Text.Json;
 
 namespace Yuebon.AspNetCore.Controllers
 {
@@ -86,8 +88,25 @@ namespace Yuebon.AspNetCore.Controllers
                 else
                 {
                     CodeGenerator.Generate(baseSpace, tables, replaceTableNameStr);
+                    //var path = AppDomain.CurrentDomain.BaseDirectory;
+                    ////path = path.Substring(0, path.IndexOf("\\bin"));
+                    //var parentPath = path.Substring(0, path.LastIndexOf("\\"));
+                    //var servicesPath = parentPath + "\\" + baseSpace + "\\";
+                    ////生成压缩包
+
+                    //YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+                    //SysSetting sysSetting = JsonSerializer.Deserialize<SysSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
+                    //string returnFileName = DateTime.Now.ToString("yyyyMMddHHmmss") + ".zip";
+                    //string zipFileName = sysSetting.LocalPath + "\\export\\Generatecode\\" + returnFileName;
+                    //if (System.IO.File.Exists(zipFileName))
+                    //{
+                    //    System.IO.File.Delete(zipFileName);
+                    //}
+                    //FileHelper.ZipFiles(servicesPath, zipFileName, 7, "", "", "*.*");
                     result.ErrMsg = "代码生成完毕";
                     result.ErrCode = ErrCode.successCode;
+                    result.Success = true;
+                    //result.ResData = zipFileName;
                 }
             }catch(Exception ex)
             {

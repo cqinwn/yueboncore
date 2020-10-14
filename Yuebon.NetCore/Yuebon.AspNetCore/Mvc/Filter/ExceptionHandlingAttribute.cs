@@ -38,7 +38,7 @@ namespace Yuebon.AspNetCore.Mvc.Filter
             }
             else
             {
-                context.Result = new JsonResult(new CommonResult("程序异常,服务端出现异常![异常消息]"+exception.Message, ErrCode.err40110));
+                context.Result = new JsonResult(new CommonResult("程序异常,服务端出现异常![异常消息]"+exception.Message, "500"));
             }
         }
     }

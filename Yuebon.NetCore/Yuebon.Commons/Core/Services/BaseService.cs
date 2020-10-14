@@ -17,7 +17,7 @@ namespace Yuebon.Commons.Services
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
     public abstract class BaseService<T, TDto,TKey> : IService<T, TDto, TKey>
-        where T: class, IBaseEntity<TKey>
+        where T: Entity
         where TDto : class
         where TKey : IEquatable<TKey>
     {

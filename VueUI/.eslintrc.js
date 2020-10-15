@@ -25,7 +25,7 @@ module.exports = {
     "vue/multiline-html-element-content-newline": "off",
     "vue/name-property-casing": ["error", "PascalCase"],
     "vue/no-v-html": "off",
-    "vue/html-indent": ["error", type, {
+    "vue/html-indent": ["error", 2, {
       "attribute": 1,
       "baseIndent": 1,
       "closeBracket": 0,

@@ -70,11 +70,11 @@ WebApi接口地址：[http://netcoreapi.ts.yuebon.com](http://netcoreapi.ts.yueb
 
 ### 技术介绍
 
-前端目前采用Vue独立前端和asp.net core MVC模式，使用的技术栈有些区别，后期将侧重于Vue端的优化运维。
+前端目前采用Vue家族前端技术。
 
 ####  前端技术 
 
-Vue版前端技术栈 ：基于 ES2015+、vue、vuex、vue-router 、vue-cli 、axios 和 element-ui，，前端采用vscode工具开发
+Vue版前端技术栈 ：基于vue、vuex、vue-router 、vue-cli 、axios 和 element-ui，，前端采用vscode工具开发
 
 #### 后端技术
 
@@ -90,7 +90,7 @@ Vue版前端技术栈 ：基于 ES2015+、vue、vuex、vue-router 、vue-cli 、
 
 日志管理：Log4net、登录日志、操作日志
 
-工具类：NPOI、Newtonsoft.Json、验证码、丰富公共功能
+工具类：NPOI、验证码、丰富公共功能
 
 ### 项目结构
 Yuebon.NetCore解决方案包含：
@@ -195,7 +195,7 @@ DataBase是最新数据库备份文件，目前支持MS SQL Server和MySql。
 
 欢迎你加入我们一起共商、共建、共享技术成果！开源让我们进步，开源让我们开阔视野！
 
-有任何疑问可加微信咨询，微信二维码如下，添加时请备注 “gitee”
+有任何疑问可加微信咨询，微信二维码如下，添加时请备注 “gitee”，或者加入QQ群90311523
 
 ![微信二维码](https://images.gitee.com/uploads/images/2020/0915/120702_f1c8e303_1017224.jpeg "微信图片_20200915120640.jpg")
 

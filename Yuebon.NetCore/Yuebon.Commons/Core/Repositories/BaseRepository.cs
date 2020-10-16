@@ -1,31 +1,31 @@
 ﻿using Dapper;
 using Dapper.Contrib.Extensions;
 using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
 using Npgsql;
 using Oracle.ManagedDataAccess.Client;
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Yuebon.Commons.IRepositories;
-using Yuebon.Commons.Models;
+using Yuebon.Commons.EfDbContext;
 using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Extensions;
-using Yuebon.Commons.Helpers;
+using Yuebon.Commons.IRepositories;
+using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
+using Yuebon.Commons.Models;
 using Yuebon.Commons.Pages;
 using static Dapper.SqlMapper;
-using System.Linq;
-using System.Diagnostics;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Yuebon.Commons.Json;
 
 namespace Yuebon.Commons.Repositories
 {
@@ -52,6 +52,9 @@ namespace Yuebon.Commons.Repositories
         /// </summary>
         public event OperationLogEventHandler OnOperationLog;
         private DbConnection dbConnection;
+        protected BaseDbContext _dbContext;
+
+        private DbSet<T> _dbSet;
         /// <summary>
         /// 数据库连接配置
         /// </summary>
@@ -187,14 +190,6 @@ namespace Yuebon.Commons.Repositories
         {
             dbConfigName = _dbConfigName;
         }
-        /// <summary>
-        /// 指定数据库连接配置
-        /// </summary>
-        /// <param name="_dbConfigName">数据库连接配置名称</param>
-        public BaseRepository(string _dbConfigName) : this()
-        {
-            SetDbConfigName(_dbConfigName);
-        }
 
         /// <summary>
         /// 数据库访问对象的外键约束
@@ -206,11 +201,32 @@ namespace Yuebon.Commons.Repositories
                 return isMultiTenant;
             }
         }
+
         /// <summary>
         /// 
         /// </summary>
         public BaseRepository()
         {
+        }
+
+        /// <summary>
+        /// 指定上下文
+        /// </summary>
+        /// <param name="dbContext">上下文</param>
+        public BaseRepository(BaseDbContext dbContext)
+        {
+            if (dbContext == null) throw new ArgumentNullException(nameof(dbContext));
+            _dbContext = dbContext;
+            _dbContext.Database.EnsureCreated();
+            _dbSet = dbContext.Set<T>();
+        }
+        /// <summary>
+        /// 指定数据库连接配置
+        /// </summary>
+        /// <param name="_dbConfigName">数据库连接配置名称</param>
+        public BaseRepository(string _dbConfigName) : this()
+        {
+            SetDbConfigName(_dbConfigName);
         }
         /// <summary>
 		/// 指定表名以及主键,对基类进构造
@@ -262,7 +278,8 @@ namespace Yuebon.Commons.Repositories
             else if (dbType.Contains("MYSQL"))
             {
                 dbConnection = new MySqlConnection(defaultSqlConnectionString);
-            }else if (dbType.Contains("ORACLE"))
+            }
+            else if (dbType.Contains("ORACLE"))
             {
                 dbConnection = new OracleConnection(defaultSqlConnectionString);
             }
@@ -288,7 +305,6 @@ namespace Yuebon.Commons.Repositories
             }
             return dbConnection;
         }
-
         #endregion
 
         #region 查询获得对象和列表
@@ -342,10 +358,11 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += " where " + where;
             }
-            using (DbConnection conn = OpenSharedConnection())
+
+            return Execute((conn, trans) =>
             {
-                return conn.QueryFirstOrDefault<T>(sql,trans);
-            }
+                return conn.QueryFirstOrDefault<T>(sql, trans);
+            });
         }
         /// <summary>
         /// 根据条件异步获取一个对象
@@ -370,9 +387,10 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += " where " + where;
             }
+
             using (DbConnection conn = OpenSharedConnection())
             {
-                return await conn.QueryFirstOrDefaultAsync<T>(sql,trans);
+                return conn.QueryFirstOrDefault<T>(sql, trans);
             }
         }
 
@@ -445,10 +463,10 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += " where " + where;
             }
-            using (DbConnection conn = OpenSharedConnection())
+            return Execute((conn, trans) =>
             {
                 return conn.Query<T>(sql, trans);
-            }
+            });
         }
 
         /// <summary>
@@ -474,10 +492,10 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += " where " + where;
             }
-            using (DbConnection conn = OpenSharedConnection())
+            return Execute((conn, trans) =>
             {
-                return await conn.QueryAsync<T>(sql,trans);
-            }
+                return conn.Query<T>(sql, trans);
+            });
         }
 
         /// <summary>
@@ -1173,10 +1191,31 @@ namespace Yuebon.Commons.Repositories
                 {
                     entity.GenerateDefaultKeyVal();
                 }
+                long row = conn.Insert(entity, trans);
+                OperationLogOfInsert(entity); 
+                return row;
+            }
+        }
+
+
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="trans">事务对象</param>
+        /// <returns></returns>
+        public virtual long InsertEF(T entity, IDbTransaction trans = null)
+        {
+                if (entity.KeyIsNull())
+                {
+                    entity.GenerateDefaultKeyVal();
+                }
+                this._dbContext.Add(entity);
 
                 OperationLogOfInsert(entity);
-                return conn.Insert(entity,trans);
-            }
+                int n = Save();
+                _dbContext.Entry(entity).State = EntityState.Detached;
+                return n;
         }
         /// <summary>
         /// 异步新增
@@ -1192,10 +1231,29 @@ namespace Yuebon.Commons.Repositories
                 {
                     entity.GenerateDefaultKeyVal();
                 }
-
+                long row = await conn.InsertAsync(entity, trans);
                 OperationLogOfInsert(entity);
-                return await conn.InsertAsync(entity, trans);
+                return row;
             }
+        }
+
+        /// <summary>
+        /// 异步新增
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="trans">事务对象</param>
+        /// <returns></returns>
+        public virtual async Task<long> InsertEFAsync(T entity, IDbTransaction trans = null)
+        {
+            if (entity.KeyIsNull())
+            {
+                entity.GenerateDefaultKeyVal();
+            }
+            await _dbContext.AddAsync(entity);
+            OperationLogOfInsert(entity);
+            int n = Save();
+            _dbContext.Entry(entity).State = EntityState.Detached;
+            return n;
         }
         /// <summary>
         /// 批量插入数据
@@ -1270,10 +1328,14 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual bool Update(T entity, TKey primaryKey, IDbTransaction trans=null)
         {
+            //_dbContext.Update(entity);
+            //OperationLogOfUpdate(entity, primaryKey);
+            //int n = Save();
+            //return n>0;
             using (DbConnection conn = OpenSharedConnection())
             {
-                OperationLogOfUpdate(entity, primaryKey);
-                return conn.Update(entity,trans);
+                OperationLogOfUpdate(entity);
+                return conn.Update(entity, trans);
             }
         }
         /// <summary>
@@ -1284,6 +1346,10 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual bool Update(T entity, IDbTransaction trans = null)
         {
+            //_dbContext.Update(entity);
+            //OperationLogOfUpdate(entity);
+            //int n = Save();
+            //return n > 0;
             using (DbConnection conn = OpenSharedConnection())
             {
                 OperationLogOfUpdate(entity);
@@ -1299,10 +1365,14 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual async Task<bool> UpdateAsync(T entity, TKey primaryKey, IDbTransaction trans=null)
         {
+            //_dbContext.Update(entity);
+            //OperationLogOfUpdate(entity);
+            //int n = Save();
+            //return n > 0;
             using (DbConnection conn = OpenSharedConnection())
             {
-                OperationLogOfUpdate(entity, primaryKey);
-                return await conn.UpdateAsync(entity,trans);
+                OperationLogOfUpdate(entity);
+                return await  conn.UpdateAsync(entity, trans);
             }
         }
         /// <summary>
@@ -1908,7 +1978,7 @@ namespace Yuebon.Commons.Repositories
             }
         }
         /// <summary>
-        /// 异步多表操作--事务
+        /// 多表多数据操作批量插入、更新、删除--事务
         /// </summary>
         /// <param name="trans">事务</param>
         /// <param name="commandTimeout">超时</param>
@@ -1958,12 +2028,12 @@ namespace Yuebon.Commons.Repositories
 
 
         /// <summary>
-        /// 多表操作--事务
+        /// 多表多数据操作批量插入、更新、删除--事务
         /// </summary>
         /// <param name="trans">事务</param>
         /// <param name="commandTimeout">超时</param>
         /// <returns></returns>
-        public  Tuple<bool, string> ExecuteTransaction(List<Tuple<string, object>> trans, int? commandTimeout = null)
+        public Tuple<bool, string> ExecuteTransaction(List<Tuple<string, object>> trans, int? commandTimeout = null)
         {
             if (!trans.Any()) return new Tuple<bool, string>(false, "执行事务SQL语句不能为空！");
             using (DbConnection conn = OpenSharedConnection())
@@ -2005,7 +2075,120 @@ namespace Yuebon.Commons.Repositories
                 }
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public async Task<T> ExecuteAsync<T>(Func<DbConnection, DbTransaction, T> func)
+        {
+            using (DbConnection conn = OpenSharedConnection())
+            {
+                using (var transaction = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        var sb = new StringBuilder("ExecuteTransaction 事务： ");
+                        Stopwatch stopwatch = new Stopwatch();
+                        stopwatch.Start();
+                        //提交事务
+                        transaction.Commit();
+                        stopwatch.Stop();
+                        sb.Append("耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
+                        Log4NetHelper.Info(sb.ToString());
+                        return func(conn, transaction);
+                    }
+                    catch (Exception ex)
+                    {
+                        //回滚事务
+                        Log4NetHelper.Error("", ex);
+                        transaction.Rollback();
+                        conn.Close();
+                        conn.Dispose();
+                        return func(conn, transaction);
+                    }
+                    finally
+                    {
+                        conn.Close();
+                        conn.Dispose();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public T Execute<T>(Func<DbConnection, DbTransaction, T> func)
+        {
+            using (DbConnection conn = OpenSharedConnection())
+            {
+                using (var transaction = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        var sb = new StringBuilder("ExecuteTransaction 事务： ");
+                        Stopwatch stopwatch = new Stopwatch();
+                        stopwatch.Start();
+                        //提交事务
+                        transaction.Commit();
+                        stopwatch.Stop();
+                        sb.Append("耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
+                        Log4NetHelper.Info(sb.ToString());
+                        return func(conn, transaction);
+                    }
+                    catch (Exception ex)
+                    {
+                        //回滚事务
+                        Log4NetHelper.Error("", ex);
+                        transaction.Rollback();
+                        conn.Close();
+                        conn.Dispose();
+                        return func(conn, transaction);
+                    }
+                    finally
+                    {
+                        conn.Close();
+                        conn.Dispose();
+                    }
+                }
+            }
+        }
         #endregion
+
+
+        public int Save()
+        {
+            try
+            {
+                var entities = _dbContext.ChangeTracker.Entries()
+                    .Where(e => e.State == EntityState.Added
+                                || e.State == EntityState.Modified)
+                    .Select(e => e.Entity);
+
+                foreach (var entity in entities)
+                {
+                    var validationContext = new ValidationContext(entity);
+                    Validator.ValidateObject(entity, validationContext, validateAllProperties: true);
+                }
+
+             return   _dbContext.SaveChanges();
+            }
+            catch (ValidationException exc)
+            {
+                Console.WriteLine($"{nameof(Save)} validation exception: {exc?.Message}");
+                throw (exc.InnerException as Exception ?? exc);
+            }
+            catch (Exception ex) //DbUpdateException 
+            {
+                throw (ex.InnerException as Exception ?? ex);
+            }
+        }
 
         #region 用户操作记录的实现
         /// <summary>
@@ -2251,6 +2434,10 @@ namespace Yuebon.Commons.Repositories
                 // TODO: 将大型字段设置为 null。
 
                 disposedValue = true;
+            }
+            if (_dbContext != null)
+            {
+                _dbContext.Dispose();
             }
         }
 

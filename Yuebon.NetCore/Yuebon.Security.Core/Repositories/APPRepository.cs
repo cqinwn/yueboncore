@@ -9,12 +9,19 @@ using System.Collections.Generic;
 using Yuebon.Security.Dtos;
 using Yuebon.Commons.Extend;
 using System.Linq;
+using Yuebon.Commons.EfDbContext;
 
 namespace Yuebon.Security.Repositories
 {
     public class APPRepository : BaseRepository<APP,string>, IAPPRepository
     {
         public APPRepository()
+        {
+            this.tableName = "Sys_APP";
+            this.primaryKey = "Id";
+        }
+
+        public APPRepository(BaseDbContext context) : base(context)
         {
             this.tableName = "Sys_APP";
             this.primaryKey = "Id";

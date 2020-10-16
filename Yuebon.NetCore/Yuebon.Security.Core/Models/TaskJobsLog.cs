@@ -25,11 +25,12 @@ namespace Yuebon.Security.Models
         public string TaskName { get; set; }
 
         /// <summary>
-        /// 设置或获取任务执行动作开始、暂停、结束
+        /// 设置或获取执行动作
         /// </summary>
         public string JobAction { get; set; }
+
         /// <summary>
-        /// 设置或获取执行状态 成功、是啊比阿
+        /// 设置或获取执行状态 正常、异常
         /// </summary>
         public bool Status { get; set; }
 

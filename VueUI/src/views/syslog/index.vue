@@ -2,13 +2,7 @@
   <div class="app-container">
     <div class="filter-container">
       <el-card>
-        <el-form
-          ref="searchform"
-          :inline="true"
-          :model="searchform"
-          class="demo-form-inline"
-          size="small"
-        >
+        <el-form ref="searchform" :inline="true" :model="searchform" class="demo-form-inline" size="small">
           <el-form-item label="关键词：">
             <el-input v-model="searchform.name" clearable placeholder="模块/IP等" />
           </el-form-item>
@@ -22,31 +16,12 @@
       <div class="list-btn-container">
         <el-button-group>
           <slot v-for="itemf in loadBtnFunc">
-            <el-button
-              v-if="itemf.FullName==='删除'"
-              type="danger"
-              icon="el-icon-delete"
-              size="small"
-              @click="deletePhysics()"
-            >删除</el-button>
+            <el-button v-if="itemf.FullName === '删除'" type="danger" icon="el-icon-delete" size="small" @click="deletePhysics()">删除</el-button>
           </slot>
           <el-button type="default" icon="el-icon-refresh" size="small" @click="loadTableData()">刷新</el-button>
-
         </el-button-group>
       </div>
-      <el-table
-        ref="gridtable"
-        v-loading="tableloading"
-        :data="tableData"
-        border
-        stripe
-        highlight-current-row
-        style="width: 100%"
-        :default-sort="{prop: 'CreatorTime', order: 'descending'}"
-        @select="handleSelectChange"
-        @select-all="handleSelectAllChange"
-        @sort-change="handleSortChange"
-      >
+      <el-table ref="gridtable" v-loading="tableloading" :data="tableData" border stripe highlight-current-row style="width: 100%" :default-sort="{ prop: 'CreatorTime', order: 'descending' }" @select="handleSelectChange" @select-all="handleSelectAllChange" @sort-change="handleSortChange">
         <el-table-column type="selection" width="30" />
         <el-table-column prop="CreatorTime" label="操作时间" sortable="custom" width="180" />
         <el-table-column prop="Account" label="操作账号" sortable="custom" width="120" />
@@ -55,34 +30,20 @@
         <el-table-column prop="Type" label="类型" sortable="custom" width="120" />
         <el-table-column prop="IPAddress" label="IP地址" sortable="custom" width="120" />
         <el-table-column prop="IPAddressName" label="IP城市" sortable="custom" width="120" />
-        <el-table-column
-          prop="Description"
-          label="详情"
-          width="560"
-        />
+        <el-table-column prop="Description" label="详情" width="560" />
       </el-table>
       <div class="pagination-container">
-        <el-pagination
-          background
-          :current-page="pagination.currentPage"
-          :page-sizes="[5,10,20,50,100, 200, 300, 400]"
-          :page-size="pagination.pagesize"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="pagination.pageTotal"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-        />
+        <el-pagination background :current-page="pagination.currentPage" :page-sizes="[5, 10, 20, 50, 100, 200, 300, 400]" :page-size="pagination.pagesize" layout="total, sizes, prev, pager, next, jumper" :total="pagination.pageTotal" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
       </div>
     </el-card>
   </div>
 </template>
 
 <script>
-
 import { getLogListWithPager, deleteLog } from '@/api/security/logservice'
 
 export default {
-  data() {
+  data () {
     return {
       searchform: {
         name: ''
@@ -103,7 +64,7 @@ export default {
       currentSelected: []
     }
   },
-  created() {
+  created () {
     this.pagination.currentPage = 1
     this.InitDictItem()
     this.loadTableData()
@@ -113,21 +74,20 @@ export default {
     /**
      * 初始化数据
      */
-    InitDictItem() {
-    },
+    InitDictItem () { },
     /**
      * 加载页面table数据
      */
     loadTableData: function () {
       this.tableloading = true
       var seachdata = {
-        'CurrentPage': this.pagination.currentPage,
-        'length': this.pagination.pagesize,
-        'Keywords': this.searchform.name,
-        'Order': this.sortableData.order,
-        'Sort': this.sortableData.sort
+        CurrentPage: this.pagination.currentPage,
+        length: this.pagination.pagesize,
+        Keywords: this.searchform.name,
+        Order: this.sortableData.order,
+        Sort: this.sortableData.sort
       }
-      getLogListWithPager(seachdata).then(res => {
+      getLogListWithPager(seachdata).then((res) => {
         this.tableData = res.ResData.Items
         this.pagination.pageTotal = res.ResData.TotalItems
         this.tableloading = false
@@ -147,13 +107,13 @@ export default {
         return false
       } else {
         var currentIds = ''
-        this.currentSelected.forEach(element => {
+        this.currentSelected.forEach((element) => {
           currentIds += element.Id + ','
         })
         const data = {
           ids: currentIds
         }
-        deleteLog(data).then(res => {
+        deleteLog(data).then((res) => {
           if (res.Success) {
             this.$message({
               message: '恭喜你，操作成功',
@@ -197,7 +157,7 @@ export default {
     /**
      * 选择每页显示数量
      */
-    handleSizeChange(val) {
+    handleSizeChange (val) {
       this.pagination.pagesize = val
       this.pagination.currentPage = 1
       this.loadTableData()
@@ -205,7 +165,7 @@ export default {
     /**
      * 选择当页面
      */
-    handleCurrentChange(val) {
+    handleCurrentChange (val) {
       this.pagination.currentPage = val
       this.loadTableData()
     }

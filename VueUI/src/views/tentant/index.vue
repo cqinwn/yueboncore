@@ -3,8 +3,8 @@
     <div class="filter-container">
       <el-card>
         <el-form ref="searchform" :inline="true" :model="searchform" class="demo-form-inline" size="small">
-          <el-form-item label="任务名称：">
-            <el-input v-model="searchform.name" clearable placeholder="任务Id或任务名称" />
+          <el-form-item label="名称：">
+            <el-input v-model="searchform.name" clearable placeholder="名称" />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="handleSearch()">查询</el-button>
@@ -17,7 +17,8 @@
         <el-button-group>
           <slot v-for="itemf in loadBtnFunc">
             <el-button v-if="itemf.FullName === '新增'" type="primary" icon="el-icon-plus" size="small" @click="ShowEditOrViewDialog()">新增</el-button>
-            <el-button v-if="itemf.FullName === '修改'" type="primary" icon="el-icon-edit" class="el-button-modify" size="small" @click="ShowEditOrViewDialog('edit')">修改</el-button>
+            <el-button v-if="itemf.FullName === '修改'" type="primary" icon="el-icon-edit" class="el-button-modify" size="small" @click="ShowEditOrViewDialog('edit')">
+              修改</el-button>
             <el-button v-if="itemf.FullName == '禁用'" type="info" icon="el-icon-video-pause" size="small" @click="setEnable('0')">禁用</el-button>
             <el-button v-if="itemf.FullName == '启用'" type="success" icon="el-icon-video-play" size="small" @click="setEnable('1')">启用</el-button>
             <el-button v-if="itemf.FullName === '软删除'" type="warning" icon="el-icon-delete" size="small" @click="deleteSoft('0')">软删除</el-button>
@@ -26,45 +27,59 @@
           <el-button type="default" icon="el-icon-refresh" size="small" @click="loadTableData()">刷新</el-button>
         </el-button-group>
       </div>
-      <el-table ref="gridtable" v-loading="tableloading" :data="tableData" border stripe highlight-current-row style="width: 100%" :default-sort="{ prop: 'SortCode', order: 'ascending' }" @select="handleSelectChange" @select-all="handleSelectAllChange" @sort-change="handleSortChange">
+      <el-table ref="gridtable" v-loading="tableloading" :data="tableData" border stripe highlight-current-row style="width: 100%" :default-sort="{ prop: 'SortCode', order: 'ascending' }" @select="handleSelectChange" @select-all="handleSelectAllChange">
         <el-table-column type="selection" width="30" />
-        <el-table-column prop="TaskId" label="任务Id" sortable="custom" width="120" />
-        <el-table-column prop="TaskName" label="任务名称" sortable="custom" width="220" />
-        <el-table-column prop="JobAction" label="执行动作" sortable="custom" width="120" />
-        <el-table-column prop="Status" label="执行状态" sortable="custom" width="120">
+        <el-table-column prop="TenantName" label="租户名称" sortable="custom" width="120" />
+        <el-table-column prop="CompanyName" label="公司名称" sortable="custom" width="180" />
+        <el-table-column prop="HostDomain" label="访问域名" sortable="custom" width="180" />
+        <el-table-column prop="LinkMan" label="联系人" sortable="custom" width="120" />
+        <el-table-column prop="Telphone" label="联系电话" sortable="custom" width="120" />
+        <el-table-column prop="Description" label="租户介绍" sortable="custom" width="220" />
+        <el-table-column label="是否启用" sortable="custom" width="120" prop="EnabledMark" align="center">
           <template slot-scope="scope">
-            <el-tag :type="scope.row.Status === true ? 'success' : 'info'" disable-transitions>{{ scope.row.Status === true ? "正常" : "异常" }}</el-tag>
+            <el-tag :type="scope.row.EnabledMark === true ? 'success' : 'info'" disable-transitions>{{ scope.row.EnabledMark === true ? "启用" : "禁用" }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="Description" label="结果描述" sortable="custom" width="390" />
-        <el-table-column prop="CreatorTime" label="创建时间" sortable="custom" width="160" />
+        <el-table-column label="是否删除" sortable="custom" width="120" prop="DeleteMark" align="center">
+          <template slot-scope="scope">
+            <el-tag :type="scope.row.DeleteMark === true ? 'danger' : 'success'" disable-transitions>{{ scope.row.DeleteMark === true ? "已删除" : "否" }}</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column prop="CreatorTime" label="创建时间" sortable width="160" />
+        <el-table-column prop="LastModifyTime" label="更新时间" sortable width="160" />
       </el-table>
       <div class="pagination-container">
         <el-pagination background :current-page="pagination.currentPage" :page-sizes="[5, 10, 20, 50, 100, 200, 300, 400]" :page-size="pagination.pagesize" layout="total, sizes, prev, pager, next, jumper" :total="pagination.pageTotal" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
       </div>
     </el-card>
-    <el-dialog ref="dialogEditForm" :title="editFormTitle + '{TableNameDesc}'" :visible.sync="dialogEditFormVisible" width="640px">
+    <el-dialog ref="dialogEditForm" :title="editFormTitle + '租户'" :visible.sync="dialogEditFormVisible" width="640px">
       <el-form ref="editFrom" :model="editFrom" :rules="rules">
-        <el-form-item label="任务Id" :label-width="formLabelWidth" prop="TaskId">
-          <el-input v-model="editFrom.TaskId" placeholder="请输入任务Id" autocomplete="off" clearable />
+        <el-form-item label="租户名称" :label-width="formLabelWidth" prop="TenantName">
+          <el-input v-model="editFrom.TenantName" placeholder="请输入租户名称" autocomplete="off" clearable />
         </el-form-item>
-        <el-form-item label="任务名称" :label-width="formLabelWidth" prop="TaskName">
-          <el-input v-model="editFrom.TaskName" placeholder="请输入任务名称" autocomplete="off" clearable />
+        <el-form-item label="公司名称" :label-width="formLabelWidth" prop="CompanyName">
+          <el-input v-model="editFrom.CompanyName" placeholder="请输入公司名称" autocomplete="off" clearable />
         </el-form-item>
-        <el-form-item label="执行动作" :label-width="formLabelWidth" prop="JobAction">
-          <el-input v-model="editFrom.JobAction" placeholder="请输入执行动作" autocomplete="off" clearable />
+        <el-form-item label="访问域名" :label-width="formLabelWidth" prop="HostDomain">
+          <el-input v-model="editFrom.HostDomain" placeholder="请输入访问域名" autocomplete="off" clearable />
         </el-form-item>
-        <el-form-item label="执行状态" :label-width="formLabelWidth" prop="Status">
-          <el-radio-group v-model="editFrom.Status">
+        <el-form-item label="联系人" :label-width="formLabelWidth" prop="LinkMan">
+          <el-input v-model="editFrom.LinkMan" placeholder="请输入联系人" autocomplete="off" clearable />
+        </el-form-item>
+        <el-form-item label="联系电话" :label-width="formLabelWidth" prop="Telphone">
+          <el-input v-model="editFrom.Telphone" placeholder="请输入联系电话" autocomplete="off" clearable />
+        </el-form-item>
+        <el-form-item label="数据源" :label-width="formLabelWidth" prop="DataSource">
+          <el-input v-model="editFrom.DataSource" placeholder="请输入数据源，分库使用" autocomplete="off" clearable />
+        </el-form-item>
+        <el-form-item label="是否可用" :label-width="formLabelWidth" prop="EnabledMark">
+          <el-radio-group v-model="editFrom.EnabledMark">
             <el-radio label="true">是</el-radio>
             <el-radio label="false">否</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="结果描述" :label-width="formLabelWidth" prop="Description">
-          <el-input v-model="editFrom.Description" placeholder="请输入结果描述" autocomplete="off" clearable />
-        </el-form-item>
-        <el-form-item label="创建时间" :label-width="formLabelWidth" prop="CreatorTime">
-          <el-input v-model="editFrom.CreatorTime" placeholder="请输入创建时间" autocomplete="off" clearable />
+        <el-form-item label="租户介绍" :label-width="formLabelWidth" prop="Description">
+          <el-input v-model="editFrom.Description" placeholder="请输入租户介绍" autocomplete="off" clearable />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -77,13 +92,13 @@
 
 <script>
 import {
-  getTaskJobsLogListWithPager,
-  getTaskJobsLogDetail,
-  saveTaskJobsLog,
-  setTaskJobsLogEnable,
-  deleteSoftTaskJobsLog,
-  deleteTaskJobsLog
-} from '@/api/security/taskjobslog'
+  getTentantListWithPager,
+  getTentantDetail,
+  saveTentant,
+  setTentantEnable,
+  deleteSoftTentant,
+  deleteTentant
+} from '@/api/security/tentant'
 
 export default {
   data () {
@@ -106,16 +121,18 @@ export default {
       dialogEditFormVisible: false,
       editFormTitle: '',
       editFrom: {
-        TaskId: '',
-        TaskName: '',
-        JobAction: '',
-        Status: 'true',
+        TenantName: '',
+        CompanyName: '',
+        HostDomain: '',
+        LinkMan: '',
+        Telphone: '',
+        DataSource: '',
         Description: '',
-        CreatorTime: ''
+        EnabledMark: 'true'
       },
       rules: {
-        TaskId: [
-          { required: true, message: '请输入任务Id', trigger: 'blur' },
+        TenantName: [
+          { required: true, message: '请输入租户名称', trigger: 'blur' },
           {
             min: 2,
             max: 50,
@@ -123,21 +140,8 @@ export default {
             trigger: 'blur'
           }
         ],
-        Status: [
-          {
-            required: true,
-            message: '请输入执行状态 正常、异常',
-            trigger: 'blur'
-          },
-          {
-            min: 2,
-            max: 50,
-            message: '长度在 2 到 50 个字符',
-            trigger: 'blur'
-          }
-        ],
-        CreatorTime: [
-          { required: true, message: '请输入创建时间', trigger: 'blur' },
+        HostDomain: [
+          { required: true, message: '请输入访问域名', trigger: 'blur' },
           {
             min: 2,
             max: 50,
@@ -174,7 +178,7 @@ export default {
         Order: this.sortableData.order,
         Sort: this.sortableData.sort
       }
-      getTaskJobsLogListWithPager(seachdata).then((res) => {
+      getTentantListWithPager(seachdata).then((res) => {
         this.tableData = res.ResData.Items
         this.pagination.pageTotal = res.ResData.TotalItems
         this.tableloading = false
@@ -212,13 +216,15 @@ export default {
       }
     },
     bindEditInfo: function () {
-      getTaskJobsLogDetail(this.currentId).then((res) => {
-        this.editFrom.TaskId = res.ResData.TaskId
-        this.editFrom.TaskName = res.ResData.TaskName
-        this.editFrom.JobAction = res.ResData.JobAction
-        this.editFrom.Status = res.ResData.Status + ''
+      getTentantDetail(this.currentId).then((res) => {
+        this.editFrom.TenantName = res.ResData.TenantName
+        this.editFrom.CompanyName = res.ResData.CompanyName
+        this.editFrom.HostDomain = res.ResData.HostDomain
+        this.editFrom.LinkMan = res.ResData.LinkMan
+        this.editFrom.Telphone = res.ResData.Telphone
+        this.editFrom.DataSource = res.ResData.DataSource
         this.editFrom.Description = res.ResData.Description
-        this.editFrom.CreatorTime = res.ResData.CreatorTime
+        this.editFrom.EnabledMark = res.ResData.EnabledMark
       })
     },
     /**
@@ -228,16 +234,21 @@ export default {
       this.$refs['editFrom'].validate((valid) => {
         if (valid) {
           const data = {
-            TaskId: this.editFrom.TaskId,
-            TaskName: this.editFrom.TaskName,
-            JobAction: this.editFrom.JobAction,
-            Status: this.editFrom.Status,
+            TenantName: this.editFrom.TenantName,
+            CompanyName: this.editFrom.CompanyName,
+            HostDomain: this.editFrom.HostDomain,
+            LinkMan: this.editFrom.LinkMan,
+            Telphone: this.editFrom.Telphone,
+            DataSource: this.editFrom.DataSource,
             Description: this.editFrom.Description,
-            CreatorTime: this.editFrom.CreatorTime,
-
-            Id: this.currentId
+            EnabledMark: this.editFrom.EnabledMark
           }
-          saveTaskJobsLog(data).then((res) => {
+
+          var url = 'Tentant/Insert'
+          if (this.currentId !== '') {
+            url = 'Tentant/Update?id=' + this.currentId
+          }
+          saveTentant(data, url).then((res) => {
             if (res.Success) {
               this.$message({
                 message: '恭喜你，操作成功',
@@ -273,7 +284,7 @@ export default {
           ids: currentIds,
           bltag: val
         }
-        setTaskJobsLogEnable(data).then((res) => {
+        setTentantEnable(data).then((res) => {
           if (res.Success) {
             this.$message({
               message: '恭喜你，操作成功',
@@ -303,7 +314,7 @@ export default {
           ids: currentIds,
           bltag: val
         }
-        deleteSoftTaskJobsLog(data).then((res) => {
+        deleteSoftTentant(data).then((res) => {
           if (res.Success) {
             this.$message({
               message: '恭喜你，操作成功',
@@ -332,7 +343,7 @@ export default {
         const data = {
           ids: currentIds
         }
-        deleteTaskJobsLog(data).then((res) => {
+        deleteTentant(data).then((res) => {
           if (res.Success) {
             this.$message({
               message: '恭喜你，操作成功',

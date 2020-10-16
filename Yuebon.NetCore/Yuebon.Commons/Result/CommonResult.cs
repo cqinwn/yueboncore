@@ -25,7 +25,7 @@ namespace Yuebon.Commons.Models
         /// <param name="errcode">错误代码</param>
         public CommonResult(string errmsg, string errcode)
         {
-            this.m_ErrMsg = errmsg;
+            this.ErrMsg = errmsg;
             this.ErrCode = errcode;
         }
         /// <summary>

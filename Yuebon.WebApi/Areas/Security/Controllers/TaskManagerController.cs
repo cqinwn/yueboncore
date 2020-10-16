@@ -64,7 +64,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.Status = 0;
 
             CronExpression cronExpression = new CronExpression(info.Cron);
-            info.NextRunTime =cronExpression.GetNextValidTimeAfter(DateTime.Now).ToDateTime();// CronHelper.GetNextDateTime(info.Cron, DateTime.Now).ToDateTime();
+            info.NextRunTime =cronExpression.GetNextValidTimeAfter(DateTime.Now).ToDateTime();
             info.CreatorTime =info.NextRunTime=info.LastRunTime=info.LastModifyTime= DateTime.Now;
             info.CreatorUserId =info.LastModifyUserId= CurrentUser.UserId;
         }

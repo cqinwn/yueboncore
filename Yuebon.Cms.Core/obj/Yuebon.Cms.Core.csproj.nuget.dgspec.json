@@ -96,11 +96,11 @@
           "dependencies": {
             "AutoMapper": {
               "target": "Package",
-              "version": "[10.0.0, )"
+              "version": "[10.1.0, )"
             },
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
-              "version": "[8.0.1, )"
+              "version": "[8.1.0, )"
             },
             "Autofac": {
               "target": "Package",
@@ -127,6 +127,18 @@
               "version": "[2.2.0, )"
             },
             "Microsoft.Data.Sqlite": {
+              "target": "Package",
+              "version": "[3.1.9, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.1.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
               "version": "[3.1.9, )"
             },
@@ -158,6 +170,10 @@
               "target": "Package",
               "version": "[8.0.21, )"
             },
+            "MySql.Data.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.21, )"
+            },
             "NPinyin.Core": {
               "target": "Package",
               "version": "[3.0.0, )"
@@ -165,6 +181,10 @@
             "Npgsql": {
               "target": "Package",
               "version": "[4.1.5, )"
+            },
+            "Oracle.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.19.80, )"
             },
             "Oracle.ManagedDataAccess.Core": {
               "target": "Package",

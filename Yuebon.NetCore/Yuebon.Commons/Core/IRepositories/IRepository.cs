@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
+using Yuebon.Commons.IRepositories;
 using Yuebon.Commons.Models;
 using Yuebon.Commons.Pages;
 using Yuebon.Commons.Repositories;
@@ -14,10 +15,6 @@ namespace Yuebon.Commons.IRepositories
     /// <typeparam name="TKey">主键类型</typeparam>
     public interface IRepository<T, TKey>:IDisposable where T : Entity
     {
-        /// <summary>
-        /// 获取 当前单元操作对象
-        /// </summary>
-        //IUnitOfWork UnitOfWork { get; }
         /// <summary>
         /// 定义一个操作记录的事件处理
         /// </summary>

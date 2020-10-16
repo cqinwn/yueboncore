@@ -28,6 +28,9 @@
 
 11、支持自定义主键，详见[主键设置](https://gitee.com/yuebon/YuebonNetCore/wikis/%E4%B8%BB%E9%94%AE%E8%AE%BE%E7%BD%AE?sort_id=2990249)。
 
+12、支持EF Core，推荐单个数据新增、修改使用，查询使用dapper的方法，详见[EF与Dapper混合使用](https://gitee.com/yuebon/YuebonNetCore/wikis/EF%E4%B8%8EDapper%E6%B7%B7%E5%90%88%E4%BD%BF%E7%94%A8?sort_id=3000217)
+
+13、支持多租户（saas）模式，详见[多租户](https://gitee.com/yuebon/YuebonNetCore/wikis/%E5%A4%9A%E7%A7%9F%E6%88%B7?sort_id=3000208)
 更多更新日志 [点击查看](https://gitee.com/yuebon/YuebonNetCore/commits/master)
 
 ##### 新计划

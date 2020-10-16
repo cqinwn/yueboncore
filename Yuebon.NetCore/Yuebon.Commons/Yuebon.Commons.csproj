@@ -69,14 +69,13 @@
     <Compile Remove="Attributes\MemoryCacheAttribute.cs" />
     <Compile Remove="Attributes\RedisCacheAttribute.cs" />
     <Compile Remove="Attributes\WriteAttribute.cs" />
-    <Compile Remove="Core\IRepositories\IUnitOfWork.cs" />
-    <Compile Remove="Core\Repositories\UnitOfWork.cs" />
     <Compile Remove="Extensions\AutoMapperExtension.cs" />
     <Compile Remove="Extensions\ComparisonHelper.cs" />
     <Compile Remove="Extensions\EnumerableExtensions.cs" />
     <Compile Remove="Extensions\GenericExtension.cs" />
     <Compile Remove="Extensions\IoCContainerExtensions.cs" />
     <Compile Remove="Extensions\MiddlewareExtensions.cs" />
+    <Compile Remove="Extensions\ServiceCollectionExtension.cs" />
     <Compile Remove="Helpers\BoolNullableConverter.cs" />
     <Compile Remove="Helpers\CacheKey.cs" />
     <Compile Remove="Helpers\RegistryHelper.cs" />
@@ -149,13 +148,16 @@
 
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.0.2" />
 
-    <PackageReference Include="AutoMapper" Version="10.0.0" />
+    <PackageReference Include="AutoMapper" Version="10.1.0" />
     <PackageReference Include="Dapper" Version="2.0.35" />
     <PackageReference Include="DotNetCore.NPOI" Version="1.2.2" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.24" />
     <PackageReference Include="log4net" Version="2.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.9" />
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="3.1.9" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.9" />
@@ -164,9 +166,11 @@
     <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.9" />
     <PackageReference Include="MySql.Data" Version="8.0.21" />
     <PackageReference Include="Autofac" Version="6.0.0" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
+    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.21" />
     <PackageReference Include="Npgsql" Version="4.1.5" />
     <PackageReference Include="NPinyin.Core" Version="3.0.0" />
+    <PackageReference Include="Oracle.EntityFrameworkCore" Version="3.19.80" />
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="2.19.90" />
     <PackageReference Include="QRCoder" Version="1.3.9" />
     <PackageReference Include="Quartz" Version="3.2.0" />

@@ -1,8 +1,8 @@
 using AutoMapper;
+using Dapper.Contrib.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Dapper.Contrib.Extensions;
 using Yuebon.Commons.Models;
 
 namespace Yuebon.Security.Models
@@ -26,6 +26,9 @@ namespace Yuebon.Security.Models
             this.JobCallParams = string.Empty;
             this.Cron = string.Empty;
             this.Status = 0;
+            this.CompanyId = "";
+            this.DeptId = "";
+            this.DeleteUserId = "";
         }
         /// <summary>
         /// 设置或获取任务名称

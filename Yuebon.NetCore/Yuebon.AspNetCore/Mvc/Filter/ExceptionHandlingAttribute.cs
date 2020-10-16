@@ -4,9 +4,13 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Unicode;
 using System.Threading.Tasks;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Models;
+using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Models;
 
@@ -30,16 +34,31 @@ namespace Yuebon.AspNetCore.Mvc.Filter
             string queryString = context.HttpContext.Request.QueryString.ToString();
             var type = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType;
             Log4NetHelper.Error(type, "全局捕获程序运行异常信息", context.Exception);
+            CommonResult result = new CommonResult();
             if (exception is MyApiException myApiex)
             {
                 context.HttpContext.Response.StatusCode = 200;
                 context.ExceptionHandled = true;
-                context.Result = new JsonResult(new CommonResult(myApiex.Msg, myApiex.ErrCode));
+                result.ErrMsg = myApiex.Msg;
+                result.ErrCode = myApiex.ErrCode;
             }
             else
             {
-                context.Result = new JsonResult(new CommonResult("程序异常,服务端出现异常![异常消息]"+exception.Message, "500"));
+                result.ErrMsg = "程序异常,服务端出现异常![异常消息]" + exception.Message;
+                result.ErrCode = "500";
             }
+            JsonSerializerOptions options = new JsonSerializerOptions()
+            {
+                WriteIndented = true,                                   //格式化json字符串
+                AllowTrailingCommas = true,                             //可以结尾有逗号
+                //IgnoreNullValues = true,                              //可以有空值,转换json去除空值属性
+                IgnoreReadOnlyProperties = true,                        //忽略只读属性
+                PropertyNameCaseInsensitive = true,                     //忽略大小写
+                                                                        //PropertyNamingPolicy = JsonNamingPolicy.CamelCase     //命名方式是默认还是CamelCase
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
+            };
+            options.Converters.Add(new DateTimeJsonConverter());
+            context.Result = new JsonResult(result,options);
         }
     }
 }

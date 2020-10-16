@@ -2,11 +2,11 @@
 using log4net;
 using log4net.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.Configuration;
@@ -16,16 +16,13 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json.Serialization;
 using Quartz;
 using Quartz.Impl;
-using Quartz.Spi;
 using Senparc.CO2NET;
 using Senparc.CO2NET.AspNet;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Cache.Memcached;
 using Senparc.CO2NET.RegisterServices;
-using Senparc.WebSocket;
 using Senparc.Weixin;
 using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Entities;
@@ -44,7 +41,9 @@ using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.AspNetCore.SSO;
+using Yuebon.Commons;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.EfDbContext;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IoC;
@@ -157,6 +156,7 @@ namespace Yuebon.WebApi
                 o.AssumeDefaultVersionWhenUnspecified = true;
                 o.DefaultApiVersion = new ApiVersion(1, 0);
             });
+            
 
             services.AddSenparcGlobalServices(Configuration)
                 .AddSenparcWeixinServices(Configuration); //Senparc.Weixin 注册（必须）;
@@ -297,6 +297,8 @@ namespace Yuebon.WebApi
                 CacheStrategyFactory.RegisterObjectCacheStrategy(() => MemcachedObjectCacheStrategy.Instance);
 
             }
+            services.AddDbContext<BaseDbContext>(options =>
+                   options.UseSqlServer(Configs.GetConnectionString("MsSqlServer")));
 
             var jwtConfig = Configuration.GetSection("Jwt");
             var jwtOption = new JwtOption
@@ -357,7 +359,6 @@ namespace Yuebon.WebApi
             services.AddScoped(typeof(SSOAuthHelper));
             services.AddTransient<HttpResultfulJob>();
             services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
-            //services.AddSingleton<IJobFactory, IOCJobFactory>();
             IoCContainer.Register(cacheProvider);//注册缓存配置
             IoCContainer.Register(Configuration);//注册配置
             IoCContainer.Register(jwtOption);//注册配置
@@ -374,6 +375,8 @@ namespace Yuebon.WebApi
             services.AddAutoMapper(myAssembly);
             services.AddScoped<IMapper, Mapper>();
 
+            ////注册数据库基础操作和工作单元
+            //services.AddScoped(typeof(IRepository<,>), typeof(BaseRepository<,>));
             //设置定时启动的任务
             services.AddHostedService<QuartzService>();
 

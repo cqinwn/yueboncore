@@ -5,9 +5,9 @@ import defaultSettings from '@/settings'
    * 租户分页查询
    * @param {查询条件} data
    */
-export function getTentantListWithPager (data) {
+export function getTenantListWithPager (data) {
   return http.request({
-    url: 'Tentant/FindWithPagerAsync',
+    url: 'Tenant/FindWithPagerAsync',
     method: 'get',
     params: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
@@ -15,9 +15,9 @@ export function getTentantListWithPager (data) {
 }/**
    * 获取所有可用的租户
    */
-export function getAllTentantList () {
+export function getAllTenantList () {
   return http.request({
-    url: 'Tentant/GetAllEnable',
+    url: 'Tenant/GetAllEnable',
     method: 'get',
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
@@ -26,7 +26,7 @@ export function getAllTentantList () {
    * 新增或修改保存租户
    * @param data
    */
-export function saveTentant (data, url) {
+export function saveTenant (data, url) {
   return http.request({
     url: url,
     method: 'post',
@@ -38,9 +38,9 @@ export function saveTentant (data, url) {
    * 获取租户详情
    * @param {Id} 租户Id
    */
-export function getTentantDetail (id) {
+export function getTenantDetail (id) {
   return http({
-    url: 'Tentant/GetById?id=' + id,
+    url: 'Tenant/GetById?id=' + id,
     method: 'get',
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
@@ -49,9 +49,9 @@ export function getTentantDetail (id) {
    * 批量设置启用状态
    * @param {id集合} ids
    */
-export function setTentantEnable (data) {
+export function setTenantEnable (data) {
   return http({
-    url: 'Tentant/SetEnabledMarktBatchAsync',
+    url: 'Tenant/SetEnabledMarktBatchAsync',
     method: 'post',
     params: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
@@ -61,9 +61,9 @@ export function setTentantEnable (data) {
    * 批量软删除
    * @param {id集合} ids
    */
-export function deleteSoftTentant (data) {
+export function deleteSoftTenant (data) {
   return http({
-    url: 'Tentant/DeleteSoftBatchAsync',
+    url: 'Tenant/DeleteSoftBatchAsync',
     method: 'post',
     params: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
@@ -74,9 +74,9 @@ export function deleteSoftTentant (data) {
    * 批量删除
    * @param {id集合} ids
    */
-export function deleteTentant (data) {
+export function deleteTenant (data) {
   return http({
-    url: 'Tentant/DeleteBatchAsync',
+    url: 'Tenant/DeleteBatchAsync',
     method: 'delete',
     params: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式

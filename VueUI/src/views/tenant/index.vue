@@ -92,13 +92,13 @@
 
 <script>
 import {
-  getTentantListWithPager,
-  getTentantDetail,
-  saveTentant,
-  setTentantEnable,
-  deleteSoftTentant,
-  deleteTentant
-} from '@/api/security/tentant'
+  getTenantListWithPager,
+  getTenantDetail,
+  saveTenant,
+  setTenantEnable,
+  deleteSoftTenant,
+  deleteTenant
+} from '@/api/security/tenant'
 
 export default {
   data () {
@@ -178,7 +178,7 @@ export default {
         Order: this.sortableData.order,
         Sort: this.sortableData.sort
       }
-      getTentantListWithPager(seachdata).then((res) => {
+      getTenantListWithPager(seachdata).then((res) => {
         this.tableData = res.ResData.Items
         this.pagination.pageTotal = res.ResData.TotalItems
         this.tableloading = false
@@ -216,7 +216,7 @@ export default {
       }
     },
     bindEditInfo: function () {
-      getTentantDetail(this.currentId).then((res) => {
+      getTenantDetail(this.currentId).then((res) => {
         this.editFrom.TenantName = res.ResData.TenantName
         this.editFrom.CompanyName = res.ResData.CompanyName
         this.editFrom.HostDomain = res.ResData.HostDomain
@@ -244,11 +244,11 @@ export default {
             EnabledMark: this.editFrom.EnabledMark
           }
 
-          var url = 'Tentant/Insert'
+          var url = 'Tenant/Insert'
           if (this.currentId !== '') {
-            url = 'Tentant/Update?id=' + this.currentId
+            url = 'Tenant/Update?id=' + this.currentId
           }
-          saveTentant(data, url).then((res) => {
+          saveTenant(data, url).then((res) => {
             if (res.Success) {
               this.$message({
                 message: '恭喜你，操作成功',
@@ -284,7 +284,7 @@ export default {
           ids: currentIds,
           bltag: val
         }
-        setTentantEnable(data).then((res) => {
+        setTenantEnable(data).then((res) => {
           if (res.Success) {
             this.$message({
               message: '恭喜你，操作成功',
@@ -314,7 +314,7 @@ export default {
           ids: currentIds,
           bltag: val
         }
-        deleteSoftTentant(data).then((res) => {
+        deleteSoftTenant(data).then((res) => {
           if (res.Success) {
             this.$message({
               message: '恭喜你，操作成功',
@@ -343,7 +343,7 @@ export default {
         const data = {
           ids: currentIds
         }
-        deleteTentant(data).then((res) => {
+        deleteTenant(data).then((res) => {
           if (res.Success) {
             this.$message({
               message: '恭喜你，操作成功',

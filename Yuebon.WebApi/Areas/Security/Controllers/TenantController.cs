@@ -23,28 +23,28 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
     /// </summary>
     [ApiController]
     [Route("api/Security/[controller]")]
-    public class TentantController : AreaApiController<Tentant, TentantOutputDto,TentantInputDto,ITentantService,string>
+    public class TenantController : AreaApiController<Tenant, TenantOutputDto,TenantInputDto,ITenantService,string>
     {
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="_iService"></param>
-        public TentantController(ITentantService _iService) : base(_iService)
+        public TenantController(ITenantService _iService) : base(_iService)
         {
             iService = _iService;
-            AuthorizeKey.ListKey = "Tentant/List";
-            AuthorizeKey.InsertKey = "Tentant/Add";
-            AuthorizeKey.UpdateKey = "Tentant/Edit";
-            AuthorizeKey.UpdateEnableKey = "Tentant/Enable";
-            AuthorizeKey.DeleteKey = "Tentant/Delete";
-            AuthorizeKey.DeleteSoftKey = "Tentant/DeleteSoft";
-            AuthorizeKey.ViewKey = "Tentant/View";
+            AuthorizeKey.ListKey = "Tenant/List";
+            AuthorizeKey.InsertKey = "Tenant/Add";
+            AuthorizeKey.UpdateKey = "Tenant/Edit";
+            AuthorizeKey.UpdateEnableKey = "Tenant/Enable";
+            AuthorizeKey.DeleteKey = "Tenant/Delete";
+            AuthorizeKey.DeleteSoftKey = "Tenant/DeleteSoft";
+            AuthorizeKey.ViewKey = "Tenant/View";
         }
         /// <summary>
         /// 新增前处理数据
         /// </summary>
         /// <param name="info"></param>
-        protected override void OnBeforeInsert(Tentant info)
+        protected override void OnBeforeInsert(Tenant info)
         {
             info.Id = GuidUtils.CreateNo();
             info.CreatorTime = DateTime.Now;
@@ -58,7 +58,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        protected override void OnBeforeUpdate(Tentant info)
+        protected override void OnBeforeUpdate(Tenant info)
         {
             info.LastModifyUserId = CurrentUser.UserId;
             info.LastModifyTime = DateTime.Now;
@@ -69,7 +69,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        protected override void OnBeforeSoftDelete(Tentant info)
+        protected override void OnBeforeSoftDelete(Tenant info)
         {
             info.DeleteMark = true;
             info.DeleteTime = DateTime.Now;
@@ -85,7 +85,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
         /// <returns></returns>
         [HttpPost("Update")]
         [YuebonAuthorize("Edit")]
-        public override async Task<IActionResult> UpdateAsync(TentantInputDto tinfo, string id)
+        public override async Task<IActionResult> UpdateAsync(TenantInputDto tinfo, string id)
         {
             CommonResult result = new CommonResult();
             if (!tinfo.TenantName.IsAlphanumeric())
@@ -94,7 +94,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
                 result.ErrCode = "43002";
                 return ToJsonContent(result);
             }
-            Tentant info = iService.Get(id);
+            Tenant info = iService.Get(id);
             info.TenantName = tinfo.TenantName;
             info.CompanyName = tinfo.CompanyName;
             info.HostDomain = tinfo.HostDomain;

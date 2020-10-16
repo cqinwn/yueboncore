@@ -69,6 +69,10 @@ namespace Yuebon.Security.Dtos
         /// </summary>
         public virtual string OrganizeId { get; set; }
         /// <summary>
+        /// 部门主键
+        /// </summary>
+        public virtual string DeptId { get; set; }
+        /// <summary>
         /// 角色编码，多个角色，使用“,”分格
         /// </summary>
         public string Role { get; set; }

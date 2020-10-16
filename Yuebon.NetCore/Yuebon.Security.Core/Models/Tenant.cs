@@ -14,10 +14,6 @@ namespace Yuebon.Security.Models
     [Serializable]
     public class Tenant:BaseEntity<string>, ICreationAudited, IModificationAudited, IDeleteAudited
     {
-        /// <summary>
-        /// 设置或获取 
-        /// </summary>
-        public string Id { get; set; }
         /// <summary>
         /// 设置或获取租户名称
         /// </summary>

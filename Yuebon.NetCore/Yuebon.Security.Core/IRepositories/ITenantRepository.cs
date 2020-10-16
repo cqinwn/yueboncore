@@ -7,7 +7,7 @@ namespace Yuebon.Security.IRepositories
     /// <summary>
     /// 定义租户仓储接口
     /// </summary>
-    public interface ITentantRepository:IRepository<Tentant, string>
+    public interface ITenantRepository:IRepository<Tenant, string>
     {
     }
 }

@@ -40,10 +40,6 @@
     <Compile Remove="Application\RoleApp.cs" />
     <Compile Remove="Application\RoleAuthorizeApp.cs" />
     <Compile Remove="Application\RoleDataApp.cs" />
-    <Compile Remove="Dtos\AutoMapperConfiguration.cs" />
-    <Compile Remove="Dtos\UserFocusInputDto.cs" />
-    <Compile Remove="Dtos\UserFollowInputDto.cs" />
-    <Compile Remove="Dtos\UserFollowOutputDto.cs" />
     <Compile Remove="SecurityDBContent.cs" />
   </ItemGroup>
 

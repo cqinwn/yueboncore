@@ -1,9 +1,11 @@
 ﻿using Dapper.Contrib.Extensions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.DependencyModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using Yuebon.Commons.Encrypt;
@@ -18,12 +20,6 @@ namespace Yuebon.Commons.EfDbContext
     /// </summary>
     public sealed class BaseDbContext : DbContext
     {
-
-
-        /// <summary>
-        /// 数据库连接配置
-        /// </summary>
-        protected string defaultSqlConnectionString = "";
 
         /// <summary>
         /// 数据库配置名称
@@ -80,7 +76,7 @@ namespace Yuebon.Commons.EfDbContext
             {
                 dbConfigName = Configs.GetConfigurationValue("AppSetting", "DefaultDataBase");
             }
-            defaultSqlConnectionString = Configs.GetConnectionString(dbConfigName);
+            string defaultSqlConnectionString = Configs.GetConnectionString(dbConfigName);
             if (conStringEncrypt == "true")
             {
                 defaultSqlConnectionString = DEncrypt.Decrypt(defaultSqlConnectionString);
@@ -133,6 +129,16 @@ namespace Yuebon.Commons.EfDbContext
                         continue;
                     var table=entityType.GetCustomAttributes<TableAttribute>().FirstOrDefault();
                     modelBuilder.Model.AddEntityType(entityType).SetTableName(table.Name);
+
+
+                    if (typeof(IMustHaveTenant).IsAssignableFrom(entityType))
+                    {
+
+                        //// Configure entity filters
+                        //modelBuilder.Entity<Blog>().Property<string>("TenantId").HasColumnName("TenantId");
+                        //modelBuilder.Entity<Blog>().HasQueryFilter(b => EF.Property<string>(b, "TenantId") == TenantId);
+                    }
+
                 }
             }
             base.OnModelCreating(modelBuilder);
@@ -162,5 +168,6 @@ namespace Yuebon.Commons.EfDbContext
             }
             return list;
         }
+        
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Yuebon.Commons.Core.Models
+namespace Yuebon.Commons.Models
 {
     /// <summary>
     /// 多租户实体接口

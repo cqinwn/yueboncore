@@ -10,9 +10,9 @@ namespace Yuebon.Security.Dtos
     /// <summary>
     /// 租户输入对象模型
     /// </summary>
-    [AutoMap(typeof(Tentant))]
+    [AutoMap(typeof(Tenant))]
     [Serializable]
-    public class TentantInputDto: IInputDto<string>
+    public class TenantInputDto: IInputDto<string>
     {
         /// <summary>
         /// 设置或获取 
@@ -38,11 +38,11 @@ namespace Yuebon.Security.Dtos
         /// 设置或获取联系电话
         /// </summary>
         public string Telphone { get; set; }
-
-        /// <summary>
-        /// 设置或获取联数据源，分库时使用
+        /// <summary>
+        /// 设置或获取数据源，分库使用
         /// </summary>
-        public string DataSource { get; set; }        /// <summary>
+        public string DataSource { get; set; }
+        /// <summary>
         /// 设置或获取租户介绍
         /// </summary>
         public string Description { get; set; }

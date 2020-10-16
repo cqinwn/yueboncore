@@ -52,6 +52,9 @@ namespace Yuebon.Commons.Repositories
         /// </summary>
         public event OperationLogEventHandler OnOperationLog;
         private DbConnection dbConnection;
+        /// <summary>
+        /// 上下文
+        /// </summary>
         protected BaseDbContext _dbContext;
 
         private DbSet<T> _dbSet;
@@ -1508,12 +1511,13 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual bool Delete(TKey primaryKey, IDbTransaction trans=null)
         {
-            using (DbConnection conn =OpenSharedConnection())
-            {
-                OperationLogOfDelete(primaryKey);
-                int row = conn.Execute($"delete from {tableName} where "+ primaryKey + "=@"+ primaryKey, new { primaryKey = primaryKey },trans);
-                return row > 0 ? true : false;
-            }
+            var param = new List<Tuple<string, object>>();
+            string sql = $"delete from {tableName} where " + primaryKey + "=@" + primaryKey;
+            Tuple<string, object> tupel = new Tuple<string, object>(sql, new { primaryKey = primaryKey });
+
+            param.Add(tupel);
+            Tuple<bool, string> result= ExecuteTransaction(param);
+            return result.Item1;
         }
         /// <summary>
         /// 异步物理删除信息
@@ -1523,12 +1527,13 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual async Task<bool> DeleteAsync(TKey primaryKey, IDbTransaction trans=null)
         {
-            using (DbConnection conn =OpenSharedConnection())
-            {
-                OperationLogOfDelete(primaryKey);
-                int row = await conn.ExecuteAsync($"delete from {tableName} where I" + primaryKey + "=@" + primaryKey, new { primaryKey = primaryKey },trans);
-                return row > 0 ? true : false;
-            }
+            var param = new List<Tuple<string, object>>();
+            string sql = $"delete from {tableName} where " + primaryKey + "=@" + primaryKey;
+            Tuple<string, object> tupel = new Tuple<string, object>(sql, new { primaryKey = primaryKey });
+
+            param.Add(tupel);
+            Tuple<bool, string> result =await ExecuteTransactionAsync(param);
+            return result.Item1;
         }
 
         /// <summary>
@@ -1539,15 +1544,13 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public  virtual bool DeleteBatch(IList<dynamic> ids, IDbTransaction trans = null)
         {
-            using (DbConnection conn = OpenSharedConnection())
-            {
-                foreach (dynamic item in ids)
-                {
-                    OperationLogOfDelete(item);
-                }
-                int row = conn.Execute($"delete from {tableName} where Id in (@ids)", new { @ids = ids }, trans);
-                return row > 0 ? true : false;
-            }
+            var param = new List<Tuple<string, object>>();
+            string sql = $"delete from {tableName} where Id in (@ids)";
+            Tuple<string, object> tupel = new Tuple<string, object>(sql, new { @ids = ids });
+
+            param.Add(tupel);
+            Tuple<bool, string> result = ExecuteTransaction(param);
+            return result.Item1;
         }
         /// <summary>
         /// 按条件批量删除
@@ -1557,7 +1560,6 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual bool DeleteBatchWhere(string where, IDbTransaction trans = null)
         {
-            var type = MethodBase.GetCurrentMethod().DeclaringType;
             if (HasInjectionData(where))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
@@ -1567,11 +1569,14 @@ namespace Yuebon.Commons.Repositories
             {
                 where = "1=1";
             }
-            using (DbConnection conn = OpenSharedConnection())
-            {
-                int row = conn.Execute($"delete from {tableName} where "+ where, trans);
-                return row > 0 ? true : false;
-            }
+
+            var param = new List<Tuple<string, object>>();
+            string sql = $"delete from {tableName} where " + where;
+            Tuple<string, object> tupel = new Tuple<string, object>(sql, null);
+
+            param.Add(tupel);
+            Tuple<bool, string> result = ExecuteTransaction(param);
+            return result.Item1;
         }
         /// <summary>
         /// 按条件批量删除
@@ -1581,21 +1586,21 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual  async Task<bool> DeleteBatchWhereAsync(string where, IDbTransaction trans = null)
         {
-            using (DbConnection conn = OpenSharedConnection())
+            if(HasInjectionData(where))
             {
-                var type = MethodBase.GetCurrentMethod().DeclaringType;
-                if (HasInjectionData(where))
-                {
-                    Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
-                    throw new Exception("检测出SQL注入的恶意数据");
-                }
-                if (string.IsNullOrEmpty(where))
-                {
-                    where = "1=1";
-                }
-                int row =await conn.ExecuteAsync($"delete from {tableName} where " + where, trans);
-                return row > 0 ? true : false;
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
+                throw new Exception("检测出SQL注入的恶意数据");
             }
+            if (string.IsNullOrEmpty(where))
+            {
+                where = "1=1";
+            }
+            var param = new List<Tuple<string, object>>();
+            string sql = $"delete from {tableName} where " + where;
+            Tuple<string, object> tupel = new Tuple<string, object>(sql, null);
+            param.Add(tupel);
+            Tuple<bool, string> result = await ExecuteTransactionAsync(param);
+            return result.Item1;
         }
 
         /// <summary>
@@ -2161,7 +2166,11 @@ namespace Yuebon.Commons.Repositories
         }
         #endregion
 
-
+        #region EF操作
+        /// <summary>
+        /// 保存
+        /// </summary>
+        /// <returns></returns>
         public int Save()
         {
             try
@@ -2176,19 +2185,19 @@ namespace Yuebon.Commons.Repositories
                     var validationContext = new ValidationContext(entity);
                     Validator.ValidateObject(entity, validationContext, validateAllProperties: true);
                 }
-
-             return   _dbContext.SaveChanges();
+                return _dbContext.SaveChanges();
             }
             catch (ValidationException exc)
             {
-                Console.WriteLine($"{nameof(Save)} validation exception: {exc?.Message}");
                 throw (exc.InnerException as Exception ?? exc);
             }
-            catch (Exception ex) //DbUpdateException 
+            catch (Exception ex)
             {
                 throw (ex.InnerException as Exception ?? ex);
             }
         }
+        #endregion
+
 
         #region 用户操作记录的实现
         /// <summary>

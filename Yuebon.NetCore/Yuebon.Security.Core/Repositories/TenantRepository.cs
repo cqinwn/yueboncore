@@ -9,11 +9,11 @@ namespace Yuebon.Security.Repositories
     /// <summary>
     /// 租户仓储接口的实现
     /// </summary>
-    public class TentantRepository : BaseRepository<Tentant, string>, ITentantRepository
+    public class TenantRepository : BaseRepository<Tenant, string>, ITenantRepository
     {
-		public TentantRepository()
+		public TenantRepository()
         {
-            this.tableName = "Sys_Tentant";
+            this.tableName = "Sys_Tenant";
             this.primaryKey = "Id";
         }
     }

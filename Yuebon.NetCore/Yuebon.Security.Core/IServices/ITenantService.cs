@@ -8,7 +8,7 @@ namespace Yuebon.Security.IServices
     /// <summary>
     /// 定义租户服务接口
     /// </summary>
-    public interface ITentantService:IService<Tentant,TentantOutputDto, string>
+    public interface ITenantService:IService<Tenant,TenantOutputDto, string>
     {
     }
 }

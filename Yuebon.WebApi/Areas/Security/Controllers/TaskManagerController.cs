@@ -67,6 +67,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.NextRunTime =cronExpression.GetNextValidTimeAfter(DateTime.Now).ToDateTime();
             info.CreatorTime =info.NextRunTime=info.LastRunTime=info.LastModifyTime= DateTime.Now;
             info.CreatorUserId =info.LastModifyUserId= CurrentUser.UserId;
+            info.CompanyId = CurrentUser.OrganizeId;
         }
         
         /// <summary>

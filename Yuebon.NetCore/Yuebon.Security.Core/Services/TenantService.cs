@@ -11,11 +11,11 @@ namespace Yuebon.Security.Services
     /// <summary>
     /// 租户服务接口实现
     /// </summary>
-    public class TentantService: BaseService<Tentant,TentantOutputDto, string>, ITentantService
+    public class TenantService: BaseService<Tenant,TenantOutputDto, string>, ITenantService
     {
-		private readonly ITentantRepository _repository;
+		private readonly ITenantRepository _repository;
         private readonly ILogService _logService;
-        public TentantService(ITentantRepository repository,ILogService logService) : base(repository)
+        public TenantService(ITenantRepository repository,ILogService logService) : base(repository)
         {
 			_repository=repository;
 			_logService=logService;

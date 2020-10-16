@@ -50,7 +50,8 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
             info.Id = new SequenceApp().GetSequenceNext("SortingSn");
             info.CreatorTime=info.LastModifyTime = DateTime.Now;
             info.CreatorUserId = info.LastModifyUserId= CurrentUser.UserId;
-            
+            info.CompanyId = CurrentUser.OrganizeId;
+
             info.CurrentNo = 0;
             info.CurrentReset = "";
             info.DeleteMark = false;

@@ -13,6 +13,8 @@ using Yuebon.Security.Dtos;
 using Yuebon.Security.Models;
 using Yuebon.Security.IServices;
 using Yuebon.AspNetCore.Mvc;
+using Senparc.Weixin.MP.AdvancedAPIs;
+using Yuebon.Commons.Extend;
 
 namespace Yuebon.SecurityApi.Areas.Security.Controllers
 {
@@ -47,6 +49,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
             info.Id = GuidUtils.CreateNo();
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = CurrentUser.UserId;
+            info.CompanyId = CurrentUser.OrganizeId;
             info.DeleteMark = false;
         }
         
@@ -85,7 +88,12 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
         public override async Task<IActionResult> UpdateAsync(TentantInputDto tinfo, string id)
         {
             CommonResult result = new CommonResult();
-
+            if (!tinfo.TenantName.IsAlphanumeric())
+            {
+                result.ErrMsg = "名称只能是字母和数字";
+                result.ErrCode = "43002";
+                return ToJsonContent(result);
+            }
             Tentant info = iService.Get(id);
             info.TenantName = tinfo.TenantName;
             info.CompanyName = tinfo.CompanyName;

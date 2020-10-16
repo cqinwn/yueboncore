@@ -141,7 +141,9 @@ namespace Yuebon.AspNetCore.Controllers
                                         ReferralUserId = user.ReferralUserId,
                                         MemberGradeId = user.MemberGradeId,
                                         Role = _roleService.GetRoleEnCode(user.RoleId),
-                                        MobilePhone = user.MobilePhone
+                                        MobilePhone = user.MobilePhone,
+                                        OrganizeId=user.OrganizeId,
+                                        DeptId=user.DepartmentId
                                     };
 
                                     currentSession.ActiveSystem = systemType.FullName;

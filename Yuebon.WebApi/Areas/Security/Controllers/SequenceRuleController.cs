@@ -48,6 +48,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
             info.Id = GuidUtils.CreateNo();
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = CurrentUser.UserId;
+            info.CompanyId = CurrentUser.OrganizeId;
             info.DeleteMark = false;
         }
         

@@ -359,6 +359,18 @@ namespace Yuebon.Commons.Extend
         {
             return string.IsNullOrEmpty(theString);
         }
+
+        /// <summary>
+        /// 是否字母和数字
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <returns></returns>
+        public static bool IsAlphanumeric(this string instance)
+        {
+            Regex reg = new Regex("^[a-zA-Z0-9-\u2E80-\u9FFF]+$");
+            return reg.IsMatch(instance);
+        }
+
         /// <summary>
         /// 字符串第一个字符大写
         /// </summary>
@@ -376,6 +388,7 @@ namespace Yuebon.Commons.Extend
             }
             return instance;
         }
+
         #region 文件路径转换
         /// <summary>
         /// 文件路径

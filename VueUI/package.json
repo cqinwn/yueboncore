@@ -55,7 +55,7 @@
     "babel-jest": "23.6.0",
     "babel-plugin-dynamic-import-node": "2.3.3",
     "chalk": "2.4.2",
-    "chokidar": "2.1.5",
+    "chokidar": "3.4.3",
     "connect": "3.6.6",
     "eslint": "6.7.2",
     "eslint-plugin-vue": "6.2.2",

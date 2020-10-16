@@ -67,7 +67,7 @@ router.afterEach(() => {
   NProgress.done()
 })
 
-function convertTree(routers) {
+function convertTree (routers) {
   routers.forEach(r => {
     menuList.forEach((m, i) => {
       if (m.ParentId && m.ParentId === r.meta.id) {
@@ -85,7 +85,7 @@ function convertTree(routers) {
   })
 }
 
-function initMenuRoutes() {
+function initMenuRoutes () {
   menuList = store.getters.menus
   const menuRouters = [] // 定义一个空数组，这个是用来装真正路由数据的
   // 先取出根节点，没有父id的就是根节点

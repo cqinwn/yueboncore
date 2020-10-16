@@ -12,6 +12,7 @@ using Yuebon.Commons.Pages;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.Models;
 using Yuebon.Security.IServices;
+using Yuebon.AspNetCore.Mvc;
 
 namespace Yuebon.WebApi.Areas.Security.Controllers
 {
@@ -62,6 +63,29 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <returns></returns>
         protected override void OnBeforeSoftDelete(RoleData info)
         {
+        }
+
+
+        /// <summary>
+        /// 角色可以访问数据
+        /// </summary>
+        /// <param name="roleId">角色Id</param>
+        /// <returns></returns>
+        [HttpGet("GetAllRoleDataByRoleId")]
+        [YuebonAuthorize("List")]
+        public async Task<IActionResult> GetAllRoleDataByRoleId(string roleId)
+        {
+            CommonResult result = new CommonResult();
+            string where = string.Format("RoleId='{0}'", roleId); 
+            List<string> resultlist = new List<string>();
+            IEnumerable<RoleData> list =await iService.GetListWhereAsync(where);
+            foreach (RoleData info in list)
+            {
+                resultlist.Add(info.AuthorizeData);
+            }
+            result.ResData = resultlist;
+            result.ErrCode = ErrCode.successCode;
+            return ToJsonContent(result);
         }
     }
 }

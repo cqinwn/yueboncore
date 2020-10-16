@@ -24,7 +24,7 @@
 
 import { modifyPassword } from '@/api/security/userservice'
 export default {
-  data() {
+  data () {
     return {
       activeName: 'first',
       editFrom: {
@@ -53,7 +53,7 @@ export default {
     /**
      * 新增/修改保存
      */
-    saveEditForm() {
+    saveEditForm () {
       console.log(this.editFrom.RoleId)
       this.$refs['editFrom'].validate((valid) => {
         if (valid) {

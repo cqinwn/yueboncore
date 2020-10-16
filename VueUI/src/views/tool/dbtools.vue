@@ -52,7 +52,7 @@
 
 import { dbtoolsConnStrDecrypt, dbtoolsConnStrEncrypt } from '@/api/developers/toolsservice'
 export default {
-  data() {
+  data () {
     return {
       selectDbTypes: [{
         Id: 'SqlServer',
@@ -102,7 +102,7 @@ export default {
       formLabelWidth: '120px'
     }
   },
-  created() {
+  created () {
   },
   methods: {
     /**

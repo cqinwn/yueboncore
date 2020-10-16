@@ -55,6 +55,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = CurrentUser.UserId;
             info.CompanyId = CurrentUser.OrganizeId;
+            info.DeptId = CurrentUser.DeptId;
             info.DeleteMark = false;
         }
         

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Models;
 
 namespace Yuebon.Security.Models
@@ -16,9 +17,9 @@ namespace Yuebon.Security.Models
         /// 默认构造函数（需要初始化属性的在此处理）
         /// </summary>
 	    public RoleData()
-		{
-            this.Id= System.Guid.NewGuid().ToString();
- 		}
+        {
+            this.Id = GuidUtils.CreateNo();
+        }
 
         #region Property Members
 
@@ -28,24 +29,15 @@ namespace Yuebon.Security.Models
         public virtual string RoleId { get; set; }
 
         /// <summary>
-        /// 所属公司
+        /// 类型，company-公司，dept-部门，person-个人
         /// </summary>
-        public virtual string BelongCompanys { get; set; }
+        public virtual string DType { get; set; }
 
         /// <summary>
-        /// 所属部门
+        /// 数据数据，部门ID或个人ID
         /// </summary>
-        public virtual string BelongDepts { get; set; }
+        public virtual string AuthorizeData { get; set; }
 
-        /// <summary>
-        /// 排除部门
-        /// </summary>
-        public virtual string ExcludeDepts { get; set; }
-
-        /// <summary>
-        /// 备注
-        /// </summary>
-        public virtual string Note { get; set; }
 
 
         #endregion

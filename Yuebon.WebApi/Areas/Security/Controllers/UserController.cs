@@ -59,6 +59,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.Id = GuidUtils.CreateNo();
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = CurrentUser.UserId;
+            info.OrganizeId = organizeService.GetRootOrganize(info.DepartmentId).Id;
             info.DeleteMark = false;
             if (info.SortCode == null)
             {
@@ -75,6 +76,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         {
             info.LastModifyUserId = CurrentUser.UserId;
             info.LastModifyTime = DateTime.Now;
+            info.OrganizeId = organizeService.GetRootOrganize(info.DepartmentId).Id;
         }
 
         /// <summary>
@@ -172,7 +174,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.Birthday = tinfo.Birthday;
             info.MobilePhone = tinfo.MobilePhone;
             info.WeChat = tinfo.WeChat;
-            info.OrganizeId = tinfo.OrganizeId;
+            info.DepartmentId = tinfo.DepartmentId;
             info.RoleId = tinfo.RoleId;
             info.IsAdministrator = tinfo.IsAdministrator;
             info.Email = tinfo.Email;

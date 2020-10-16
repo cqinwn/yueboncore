@@ -68,6 +68,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.CreatorTime =info.NextRunTime=info.LastRunTime=info.LastModifyTime= DateTime.Now;
             info.CreatorUserId =info.LastModifyUserId= CurrentUser.UserId;
             info.CompanyId = CurrentUser.OrganizeId;
+            info.DeptId = CurrentUser.DeptId;
         }
         
         /// <summary>

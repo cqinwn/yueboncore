@@ -18,26 +18,27 @@ namespace Yuebon.Security.Dtos
         /// 设置或获取 
         /// </summary>
         public string Id { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string RoleId { get; set; }
-        /// <summary>
-        /// 设置或获取 
+
+        /// <summary>
+        /// 类型，company-公司，dept-部门，person-个人
         /// </summary>
-        public string BelongCompanys { get; set; }
-        /// <summary>
-        /// 设置或获取 
+        public virtual string DType { get; set; }
+
+        /// <summary>
+        /// 数据数据，部门ID或个人ID
         /// </summary>
-        public string BelongDepts { get; set; }
-        /// <summary>
-        /// 设置或获取 
-        /// </summary>
-        public string ExcludeDepts { get; set; }
-        /// <summary>
+        public virtual string AuthorizeData { get; set; }
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string Note { get; set; }
-
+
+
     }
 }

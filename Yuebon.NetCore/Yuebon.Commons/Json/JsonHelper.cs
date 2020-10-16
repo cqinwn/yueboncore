@@ -45,6 +45,18 @@ namespace Yuebon.Commons.Json
         /// <returns></returns>
         public static T ToObject<T>(this string json)
         {
+            JsonSerializerOptions options = new JsonSerializerOptions()
+            {
+                WriteIndented = true,                                   //格式化json字符串
+                AllowTrailingCommas = true,                             //可以结尾有逗号
+                //IgnoreNullValues = true,                              //可以有空值,转换json去除空值属性
+                IgnoreReadOnlyProperties = true,                        //忽略只读属性
+                PropertyNameCaseInsensitive = true,                     //忽略大小写
+                                                                        //PropertyNamingPolicy = JsonNamingPolicy.CamelCase     //命名方式是默认还是CamelCase
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
+            };
+
+            options.Converters.Add(new DateTimeJsonConverter());
             return json == null ? default(T) : JsonSerializer.Deserialize<T>(json);
         }
 
@@ -56,7 +68,19 @@ namespace Yuebon.Commons.Json
         /// <returns></returns>
         public static List<T> ToList<T>(this string json)
         {
-            return json == null ? null : JsonSerializer.Deserialize<List<T>>(json);
+            JsonSerializerOptions options = new JsonSerializerOptions()
+            {
+                WriteIndented = true,                                   //格式化json字符串
+                AllowTrailingCommas = true,                             //可以结尾有逗号
+                //IgnoreNullValues = true,                              //可以有空值,转换json去除空值属性
+                IgnoreReadOnlyProperties = true,                        //忽略只读属性
+                PropertyNameCaseInsensitive = true,                     //忽略大小写
+                                                                        //PropertyNamingPolicy = JsonNamingPolicy.CamelCase     //命名方式是默认还是CamelCase
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
+            };
+
+            options.Converters.Add(new DateTimeJsonConverter());
+            return json == null ? null : JsonSerializer.Deserialize<List<T>>(json,options);
         }
 
         /// <summary>

@@ -1202,25 +1202,6 @@ namespace Yuebon.Commons.Repositories
 
 
         /// <summary>
-        /// 新增
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <param name="trans">事务对象</param>
-        /// <returns></returns>
-        public virtual long InsertEF(T entity, IDbTransaction trans = null)
-        {
-                if (entity.KeyIsNull())
-                {
-                    entity.GenerateDefaultKeyVal();
-                }
-                this._dbContext.Add(entity);
-
-                OperationLogOfInsert(entity);
-                int n = Save();
-                _dbContext.Entry(entity).State = EntityState.Detached;
-                return n;
-        }
-        /// <summary>
         /// 异步新增
         /// </summary>
         /// <param name="entity"></param>
@@ -1239,25 +1220,7 @@ namespace Yuebon.Commons.Repositories
                 return row;
             }
         }
-
-        /// <summary>
-        /// 异步新增
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <param name="trans">事务对象</param>
-        /// <returns></returns>
-        public virtual async Task<long> InsertEFAsync(T entity, IDbTransaction trans = null)
-        {
-            if (entity.KeyIsNull())
-            {
-                entity.GenerateDefaultKeyVal();
-            }
-            await _dbContext.AddAsync(entity);
-            OperationLogOfInsert(entity);
-            int n = Save();
-            _dbContext.Entry(entity).State = EntityState.Detached;
-            return n;
-        }
+        
         /// <summary>
         /// 批量插入数据
         /// </summary>
@@ -1612,6 +1575,7 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual bool DeleteByUser(TKey primaryKey, string userId, IDbTransaction trans=null)
         {
+
             using (DbConnection conn =OpenSharedConnection())
             {
                 OperationLogOfDelete(primaryKey); //根据设置记录操作日志
@@ -2167,6 +2131,45 @@ namespace Yuebon.Commons.Repositories
         #endregion
 
         #region EF操作
+
+
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="trans">事务对象</param>
+        /// <returns></returns>
+        public virtual long InsertEF(T entity, IDbTransaction trans = null)
+        {
+            if (entity.KeyIsNull())
+            {
+                entity.GenerateDefaultKeyVal();
+            }
+            this._dbContext.Add(entity);
+
+            OperationLogOfInsert(entity);
+            int n = Save();
+            _dbContext.Entry(entity).State = EntityState.Detached;
+            return n;
+        }
+        /// <summary>
+        /// 异步新增
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="trans">事务对象</param>
+        /// <returns></returns>
+        public virtual async Task<long> InsertEFAsync(T entity, IDbTransaction trans = null)
+        {
+            if (entity.KeyIsNull())
+            {
+                entity.GenerateDefaultKeyVal();
+            }
+            await _dbContext.AddAsync(entity);
+            OperationLogOfInsert(entity);
+            int n = Save();
+            _dbContext.Entry(entity).State = EntityState.Detached;
+            return n;
+        }
         /// <summary>
         /// 保存
         /// </summary>

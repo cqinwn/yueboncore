@@ -24,22 +24,14 @@ namespace Yuebon.Security.Dtos
         public string RoleId { get; set; }
 
         /// <summary>
-        /// 设置或获取 
+        /// 类型，company-公司，dept-部门，person-个人
         /// </summary>
-        [MaxLength(1073741823)]
-        public string BelongCompanys { get; set; }
+        public virtual string DType { get; set; }
 
         /// <summary>
-        /// 设置或获取 
+        /// 数据数据，部门ID或个人ID
         /// </summary>
-        [MaxLength(1073741823)]
-        public string BelongDepts { get; set; }
-
-        /// <summary>
-        /// 设置或获取 
-        /// </summary>
-        [MaxLength(1073741823)]
-        public string ExcludeDepts { get; set; }
+        public virtual string AuthorizeData { get; set; }
 
         /// <summary>
         /// 设置或获取 

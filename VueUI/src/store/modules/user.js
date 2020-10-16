@@ -48,7 +48,7 @@ const mutations = {
 }
 
 const actions = {
-  userlogin({ commit }, userInfo) {
+  userlogin ({ commit }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password, appId: 'system', systemCode: 'openauth' }).then(response => {
@@ -70,7 +70,7 @@ const actions = {
     })
   },
   // 系统切换
-  sysConnetLogin({ commit }, userInfo) {
+  sysConnetLogin ({ commit }, userInfo) {
     return new Promise((resolve, reject) => {
       sysConnect(userInfo).then(response => {
         const data = response.ResData
@@ -90,7 +90,7 @@ const actions = {
     })
   },
   // user logout
-  logout({ commit, state }) {
+  logout ({ commit, state }) {
     return new Promise((resolve, reject) => {
       logout(state.token).then(() => {
         removeToken() // must remove  token  first
@@ -118,7 +118,7 @@ const actions = {
     })
   },
   // remove token
-  resetToken({ commit }) {
+  resetToken ({ commit }) {
     const data = {
       'token': getToken()
     }
@@ -132,7 +132,7 @@ const actions = {
       resolve()
     })
   },
-  userNowMeunsFun(encode) {
+  userNowMeunsFun (encode) {
     const code = encode
     return new Promise((resolve, reject) => {
       getListMeunFuntionBymeunCode({ enCode: code }).then(response => {

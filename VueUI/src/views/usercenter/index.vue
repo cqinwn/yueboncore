@@ -101,7 +101,7 @@ import { getByUserName, saveUser } from '@/api/security/userservice'
 import { getAllRoleList } from '@/api/security/roleservice'
 import { getAllOrganizeTreeTable } from '@/api/security/organizeservice'
 export default {
-  data() {
+  data () {
     return {
       activeName: 'first',
       selectRole: [],
@@ -145,7 +145,7 @@ export default {
       'name'
     ])
   },
-  created() {
+  created () {
     this.InitDictItem()
     this.bindEditInfo()
   },
@@ -153,7 +153,7 @@ export default {
     /**
      * 初始化数据
      */
-    InitDictItem() {
+    InitDictItem () {
       getAllRoleList().then(res => {
         this.selectRole = res.ResData
       })
@@ -161,7 +161,7 @@ export default {
         this.selectOrganize = res.ResData
       })
     },
-    handleClick(tab, event) {
+    handleClick (tab, event) {
       console.log(tab, event)
     },
 
@@ -171,11 +171,11 @@ export default {
     handleSelectOrganizeChange: function () {
       this.editFrom.OrganizeId = this.selectedOrganizeOptions
     },
-    handleRemove(file, fileList) {
+    handleRemove (file, fileList) {
       console.log(file, fileList)
       this.editFrom.SysLogo = file.url
     },
-    handlePictureCardPreview(file) {
+    handlePictureCardPreview (file) {
       this.dialogImageUrl = file.url
       this.dialogVisible = true
     },
@@ -203,7 +203,7 @@ export default {
     /**
      * 新增/修改保存
      */
-    saveEditForm() {
+    saveEditForm () {
       console.log(this.editFrom.RoleId)
       this.$refs['editFrom'].validate((valid) => {
         if (valid) {

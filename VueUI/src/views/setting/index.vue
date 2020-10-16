@@ -140,7 +140,7 @@
 import { getSysSetting, saveSysSetting } from '@/api/basebasic'
 import defaultSettings from '@/settings'
 export default {
-  data() {
+  data () {
     return {
       activeName: 'first',
       editFrom: {
@@ -190,14 +190,14 @@ export default {
       formLabelWidth: '150px'
     }
   },
-  created() {
+  created () {
     this.loadSettingData()
   },
   methods: {
-    handleRemove(file, fileList) {
+    handleRemove (file, fileList) {
       this.editFrom.SysLogo = file.url
     },
-    handlePictureCardPreview(file) {
+    handlePictureCardPreview (file) {
       this.dialogImageUrl = file.url
       this.dialogVisible = true
     },
@@ -212,7 +212,7 @@ export default {
     uploadFileSuccess: function (response, file, fileList) {
       this.editFrom.SysLogo = defaultSettings.fileUrl + response.ResData.FilePath
     },
-    saveEditForm() {
+    saveEditForm () {
       this.$refs['editFrom'].validate((valid) => {
         if (valid) {
           const data = this.editFrom

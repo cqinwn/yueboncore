@@ -51,7 +51,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
             info.CreatorTime=info.LastModifyTime = DateTime.Now;
             info.CreatorUserId = info.LastModifyUserId= CurrentUser.UserId;
             info.CompanyId = CurrentUser.OrganizeId;
-
+            info.DeptId = CurrentUser.DeptId;
             info.CurrentNo = 0;
             info.CurrentReset = "";
             info.DeleteMark = false;

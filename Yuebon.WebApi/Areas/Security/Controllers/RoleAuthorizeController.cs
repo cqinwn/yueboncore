@@ -93,15 +93,16 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// 角色分配权限树
         /// </summary>
         /// <param name="roleId"></param>
+        /// <param name="itemType"></param>
         /// <returns></returns>
         [HttpGet("GetRoleAuthorizeFunction")]
         [YuebonAuthorize("List")]
-        public async Task<IActionResult> GetRoleAuthorizeFunction(string roleId)
+        public async Task<IActionResult> GetRoleAuthorizeFunction(string roleId,int itemType)
         {
             CommonResult result = new CommonResult();
             roleId = "'" + roleId + "'";
             List<string> resultlist = new List<string>();
-            IEnumerable<RoleAuthorize> list= iService.GetListRoleAuthorizeByRoleId(roleId,1);
+            IEnumerable<RoleAuthorize> list= iService.GetListRoleAuthorizeByRoleId(roleId, itemType);
             foreach(RoleAuthorize info in list)
             {
                 resultlist.Add(info.ItemId);
@@ -119,38 +120,57 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <returns></returns>
         [HttpPost("SaveRoleAuthorize")]
         [YuebonAuthorize("List")]
-        public async Task<IActionResult> SaveRoleAuthorize(SearchModel search)
+        public async Task<IActionResult> SaveRoleAuthorize(RoleAuthorizeDataInputDto roleinfo)
         {
             CommonResult result = new CommonResult();
             try
             {
-                string where = string.Format("ObjectId='{0}'", search.EnCode);
-                iService.DeleteBatchWhere(where);
-                where = string.Format("RoleId='{0}'", search.EnCode);
-                roleDataService.DeleteBatchWhere(where);
+                
                 List<RoleAuthorize> inList = new List<RoleAuthorize>();
-                List<ModuleFunctionOutputDto> list = search.Keywords.ToList<ModuleFunctionOutputDto>();
+                List<ModuleFunctionOutputDto> list = roleinfo.RoleFunctios.ToList<ModuleFunctionOutputDto>();
                 foreach (ModuleFunctionOutputDto item in list)
                 {
                     RoleAuthorize info = new RoleAuthorize();
-                    info.ObjectId = search.EnCode;
-                    if (item.FunctionTag == "S")
-                    {
-                        info.ItemType = 0;
-                    }
-                    else
-                    {
-                        info.ItemType = 1;
-                    }
+                    info.ObjectId = roleinfo.RoleId;
+                    //if (item.FunctionTag == "S")
+                    //{
+                    //    info.ItemType = 0;
+                    //}
+                    //else
+                    //{
+                       
+                    //} 
+                    info.ItemType = 1;
                     info.ObjectType = 1;
                     info.ItemId = item.Id.ToString();
                     OnBeforeInsert(info);
                     inList.Add(info);
                 }
-                long row= await iService.InsertAsync(inList);
-                if (row > 0)
+
+                List<RoleData> roleDataList = new List<RoleData>();
+                List<OrganizeOutputDto> listRoleData = roleinfo.RoleData.ToList<OrganizeOutputDto>();
+                foreach (OrganizeOutputDto item in listRoleData)
                 {
-                    result.Success = true;
+                    RoleData info = new RoleData();
+                    info.RoleId = roleinfo.RoleId;
+                    info.AuthorizeData = item.Id;
+                    info.DType = "dept";
+                    roleDataList.Add(info);
+                }
+                List<SystemTypeOutputDto> listRoleSystem = roleinfo.RoleSystem.ToList<SystemTypeOutputDto>();
+                foreach (SystemTypeOutputDto item in listRoleSystem)
+                {
+                    RoleAuthorize info = new RoleAuthorize();
+                    info.ObjectId = roleinfo.RoleId;
+                    info.ItemType = 0;
+                    info.ObjectType = 1;
+                    info.ItemId = item.Id.ToString();
+                    OnBeforeInsert(info);
+                    inList.Add(info);
+                }
+                result.Success = await iService.SaveRoleAuthorize(roleinfo.RoleId,inList, roleDataList);
+                if (result.Success)
+                {
                     result.ErrCode = ErrCode.successCode;
                 }
             }

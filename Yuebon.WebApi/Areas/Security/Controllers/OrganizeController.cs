@@ -170,5 +170,31 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             }
             return ToJsonContent(result);
         }
+
+
+        /// <summary>
+        /// 获取功能菜单适用于Vue Tree树形
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetAllOrganizeTree")]
+        [YuebonAuthorize("List")]
+        public async Task<IActionResult> GetAllOrganizeTree()
+        {
+            CommonResult result = new CommonResult();
+            try
+            {
+                List<OrganizeOutputDto> list = await iService.GetAllOrganizeTreeTable();
+                result.Success = true;
+                result.ErrCode = ErrCode.successCode;
+                result.ResData = list;
+            }
+            catch (Exception ex)
+            {
+                Log4NetHelper.Error("获取菜单异常", ex);
+                result.ErrMsg = ErrCode.err40110;
+                result.ErrCode = "40110";
+            }
+            return ToJsonContent(result);
+        }
     }
 }

@@ -243,7 +243,7 @@ import { getSequenceRuleListWithPager, getSequenceRuleDetail,
 import { getAllSequenceList } from '@/api/security/sequence'
 
 export default {
-  data() {
+  data () {
     return {
       searchform: {
         name: ''
@@ -329,7 +329,7 @@ export default {
       ]
     }
   },
-  created() {
+  created () {
     this.pagination.currentPage = 1
     this.InitDictItem()
     this.loadTableData()
@@ -339,7 +339,7 @@ export default {
     /**
      * 初始化数据
      */
-    InitDictItem() {
+    InitDictItem () {
       getAllSequenceList().then(res => {
         this.selectedSequence = res.ResData
       })
@@ -406,7 +406,7 @@ export default {
     /**
      * 新增/修改保存
      */
-    saveEditForm() {
+    saveEditForm () {
       this.$refs['editFrom'].validate((valid) => {
         if (valid) {
           const data = {
@@ -560,7 +560,7 @@ export default {
     /**
      * 选择每页显示数量
      */
-    handleSizeChange(val) {
+    handleSizeChange (val) {
       this.pagination.pagesize = val
       this.pagination.currentPage = 1
       this.loadTableData()
@@ -568,7 +568,7 @@ export default {
     /**
      * 选择当页面
      */
-    handleCurrentChange(val) {
+    handleCurrentChange (val) {
       this.pagination.currentPage = val
       this.loadTableData()
     }

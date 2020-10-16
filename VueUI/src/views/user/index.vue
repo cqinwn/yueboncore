@@ -6,29 +6,14 @@
 
           <el-form-item label="角色">
             <el-select v-model="searchform.RoleId" clearable placeholder="请选择">
-              <el-option
-                v-for="item in selectRole"
-                :key="item.Id"
-                :label="item.FullName"
-                :value="item.Id"
-              />
+              <el-option v-for="item in selectRole" :key="item.Id" :label="item.FullName" :value="item.Id" />
             </el-select>
           </el-form-item>
           <el-form-item label="用户信息：">
             <el-input v-model="searchform.Keywords" clearable placeholder="账号/姓名/昵称/电话" />
           </el-form-item>
           <el-form-item label="注册日期：">
-            <el-date-picker
-              v-model="searchform.CreateTime"
-              type="daterange"
-              align="right"
-              value-format="yyyy-MM-dd"
-              unlink-panels
-              range-separator="至"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
-              :picker-options="pickerOptions"
-            />
+            <el-date-picker v-model="searchform.CreateTime" type="daterange" align="right" value-format="yyyy-MM-dd" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions" />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="handleSearch()">查询</el-button>
@@ -51,140 +36,39 @@
           <el-button type="default" icon="el-icon-refresh" size="small" @click="loadTableData()">刷新</el-button>
         </el-button-group>
       </div>
-      <el-table
-        ref="gridtable"
-        v-loading="tableloading"
-        :data="tableData"
-        border
-        stripe
-        highlight-current-row
-        style="width: 100%"
-        :default-sort="{prop: 'SortCode', order: 'descending'}"
-        @select="handleSelectChange"
-        @select-all="handleSelectAllChange"
-        @sort-change="handleSortChange"
-      >
-        <el-table-column
-          type="selection"
-          width="30"
-        />
-        <el-table-column
-          prop="Account"
-          label="账号/用户名"
-          sortable="custom"
-          width="230"
-          fixed
-        />
-        <el-table-column
-          prop="RealName"
-          label="真实姓名"
-          sortable="custom"
-          width="180"
-          fixed
-        />
-        <el-table-column
-          prop="NickName"
-          label="昵称"
-          sortable="custom"
-          width="180"
-          fixed
-        />
-        <el-table-column
-          prop="Gender"
-          label="性别"
-          sortable="custom"
-          width="90"
-          align="center"
-        >
+      <el-table ref="gridtable" v-loading="tableloading" :data="tableData" border stripe highlight-current-row style="width: 100%" :default-sort="{prop: 'SortCode', order: 'descending'}" @select="handleSelectChange" @select-all="handleSelectAllChange" @sort-change="handleSortChange">
+        <el-table-column type="selection" width="30" />
+        <el-table-column prop="Account" label="账号/用户名" sortable="custom" width="230" fixed />
+        <el-table-column prop="RealName" label="真实姓名" sortable="custom" width="180" fixed />
+        <el-table-column prop="NickName" label="昵称" sortable="custom" width="180" fixed />
+        <el-table-column prop="Gender" label="性别" sortable="custom" width="90" align="center">
           <template slot-scope="scope">
             {{ scope.row.Gender=== 1 ? '男' : '女' }}
           </template>
         </el-table-column>
-        <el-table-column
-          prop="Birthday"
-          label="生日"
-          sortable="custom"
-          width="120"
-          align="center"
-          :formatter="dateformatter"
-        />
-        <el-table-column
-          prop="MobilePhone"
-          label="手机号码"
-          sortable="custom"
-          width="120"
-          align="center"
-        />
-        <el-table-column
-          prop="OrganizeName"
-          label="所属组织"
-          sortable="custom"
-          width="260"
-          align="center"
-        />
-        <el-table-column
-          prop="RoleName"
-          label="岗位角色"
-          sortable="custom"
-          width="280"
-          align="center"
-        />
-        <el-table-column
-          label="可用"
-          sortable="custom"
-          width="90"
-          prop="EnabledMark"
-          align="center"
-        >
+        <el-table-column prop="Birthday" label="生日" sortable="custom" width="120" align="center" :formatter="dateformatter" />
+        <el-table-column prop="MobilePhone" label="手机号码" sortable="custom" width="120" align="center" />
+        <el-table-column prop="OrganizeName" label="所属组织" sortable="custom" width="260" align="center" />
+        <el-table-column prop="RoleName" label="岗位角色" sortable="custom" width="280" align="center" />
+        <el-table-column label="可用" sortable="custom" width="90" prop="EnabledMark" align="center">
           <template slot-scope="scope">
-            <el-tag
-              :type="scope.row.EnabledMark === true ? 'success' : 'info'"
-              disable-transitions
-            >{{ scope.row.EnabledMark===true?'启用':'禁用' }}</el-tag>
+            <el-tag :type="scope.row.EnabledMark === true ? 'success' : 'info'" disable-transitions>{{ scope.row.EnabledMark===true?'启用':'禁用' }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column
-          label="删除"
-          sortable="custom"
-          width="90"
-          prop="DeleteMark"
-          align="center"
-        >
+        <el-table-column label="删除" sortable="custom" width="90" prop="DeleteMark" align="center">
           <template slot-scope="scope">
-            <el-tag
-              :type="scope.row.DeleteMark === true ? 'danger' : 'success'"
-              disable-transitions
-            >{{ scope.row.DeleteMark===true?'已删除':'否' }}</el-tag>
+            <el-tag :type="scope.row.DeleteMark === true ? 'danger' : 'success'" disable-transitions>{{ scope.row.DeleteMark===true?'已删除':'否' }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column
-          prop="CreatorTime"
-          label="添加时间"
-          width="180"
-          sortable
-        />
-        <el-table-column
-          prop="LastModifyTime"
-          label="更新时间"
-          width="180"
-          sortable
-        >
+        <el-table-column prop="CreatorTime" label="添加时间" width="180" sortable />
+        <el-table-column prop="LastModifyTime" label="更新时间" width="180" sortable>
           <template slot-scope="scope">
             {{ scope.row.LastModifyTime }}
           </template>
         </el-table-column>
       </el-table>
       <div class="pagination-container">
-        <el-pagination
-          background
-          :current-page="pagination.currentPage"
-          :page-sizes="[5,10,20,50,100, 200, 300, 400]"
-          :page-size="pagination.pagesize"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="pagination.pageTotal"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-        />
+        <el-pagination background :current-page="pagination.currentPage" :page-sizes="[5,10,20,50,100, 200, 300, 400]" :page-size="pagination.pagesize" layout="total, sizes, prev, pager, next, jumper" :total="pagination.pageTotal" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
       </div>
     </el-card>
     <el-dialog ref="dialogEditForm" :title="editFormTitle+'用户'" :visible.sync="dialogEditFormVisible" width="660px">
@@ -214,41 +98,18 @@
           <el-input v-model="editFrom.Email" placeholder="请输入Email @" autocomplete="off" clearable />
         </el-form-item>
         <el-form-item label="出身日期" :label-width="formLabelWidth" prop="Birthday">
-          <el-date-picker
-            v-model="editFrom.Birthday"
-            type="date"
-            placeholder="选择日期"
-          />
+          <el-date-picker v-model="editFrom.Birthday" type="date" placeholder="选择日期" />
         </el-form-item>
         <el-form-item label="选项" :label-width="formLabelWidth" prop="">
           <el-checkbox v-model="editFrom.EnabledMark">启用</el-checkbox>
           <el-checkbox v-model="editFrom.IsAdministrator">管理员</el-checkbox>
         </el-form-item>
-        <el-form-item label="所属组织" :label-width="formLabelWidth" prop="OrganizeId">
-          <el-cascader
-            v-model="selectedOrganizeOptions"
-            style="width:500px;"
-            :options="selectOrganize"
-            filterable
-            :props="{label:'FullName',value:'Id',children:'Children',emitPath:false, checkStrictly: true,expandTrigger: 'hover' }"
-            clearable
-            @change="handleSelectOrganizeChange"
-          />
+        <el-form-item label="所属组织" :label-width="formLabelWidth" prop="DepartmentId">
+          <el-cascader v-model="selectedOrganizeOptions" style="width:500px;" :options="selectOrganize" filterable :props="{label:'FullName',value:'Id',children:'Children',emitPath:false, checkStrictly: true,expandTrigger: 'hover' }" clearable @change="handleSelectOrganizeChange" />
         </el-form-item>
         <el-form-item label="岗位角色" :label-width="formLabelWidth" prop="RoleId">
-          <el-select
-            v-model="editFrom.RoleId"
-            style="width:500px"
-            multiple
-            clearable
-            placeholder="请选择"
-          >
-            <el-option
-              v-for="item in selectRole"
-              :key="item.Id"
-              :label="item.FullName"
-              :value="item.Id"
-            />
+          <el-select v-model="editFrom.RoleId" style="width:500px" multiple clearable placeholder="请选择">
+            <el-option v-for="item in selectRole" :key="item.Id" :label="item.FullName" :value="item.Id" />
           </el-select>
         </el-form-item>
         <el-form-item label="备注" :label-width="formLabelWidth" prop="Description">
@@ -265,14 +126,16 @@
 
 <script>
 
-import { getUserListWithPager, getUserDetail, saveUser, setUserEnable,
-  deleteSoftUser, deleteUser, resetPassword } from '@/api/security/userservice'
+import {
+  getUserListWithPager, getUserDetail, saveUser, setUserEnable,
+  deleteSoftUser, deleteUser, resetPassword
+} from '@/api/security/userservice'
 import * as fecha from 'element-ui/lib/utils/date'
 import { getAllRoleList } from '@/api/security/roleservice'
 import { getAllOrganizeTreeTable } from '@/api/security/organizeservice'
 
 export default {
-  data() {
+  data () {
     return {
       searchform: {
         RoleId: '',
@@ -285,7 +148,7 @@ export default {
       pickerOptions: {
         shortcuts: [{
           text: '今天',
-          onClick(picker) {
+          onClick (picker) {
             const end = new Date()
             const start = new Date()
             start.setTime(start.getTime())
@@ -293,7 +156,7 @@ export default {
           }
         }, {
           text: '昨天',
-          onClick(picker) {
+          onClick (picker) {
             const end = new Date()
             const start = new Date()
             start.setTime(start.getTime() - 3600 * 1000 * 24 * 1)
@@ -301,7 +164,7 @@ export default {
           }
         }, {
           text: '最近两天',
-          onClick(picker) {
+          onClick (picker) {
             const end = new Date()
             const start = new Date()
             start.setTime(start.getTime() - 3600 * 1000 * 24 * 2)
@@ -309,7 +172,7 @@ export default {
           }
         }, {
           text: '最近三天',
-          onClick(picker) {
+          onClick (picker) {
             const end = new Date()
             const start = new Date()
             start.setTime(start.getTime() - 3600 * 1000 * 24 * 3)
@@ -317,7 +180,7 @@ export default {
           }
         }, {
           text: '最近一周',
-          onClick(picker) {
+          onClick (picker) {
             const end = new Date()
             const start = new Date()
             start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
@@ -325,7 +188,7 @@ export default {
           }
         }, {
           text: '最近一个月',
-          onClick(picker) {
+          onClick (picker) {
             const end = new Date()
             const start = new Date()
             start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
@@ -333,7 +196,7 @@ export default {
           }
         }, {
           text: '最近两个月',
-          onClick(picker) {
+          onClick (picker) {
             const end = new Date()
             const start = new Date()
             start.setTime(start.getTime() - 3600 * 1000 * 24 * 60)
@@ -364,7 +227,7 @@ export default {
         MobilePhone: '',
         Email: '',
         WeChat: '',
-        OrganizeId: '',
+        DepartmentId: '',
         RoleId: '',
         IsAdministrator: true,
         EnabledMark: true,
@@ -379,7 +242,7 @@ export default {
           { required: true, message: '请输入姓名', trigger: 'blur' },
           { min: 2, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur' }
         ],
-        OrganizeId: [
+        DepartmentId: [
           { required: true, message: '请输选择所属组织', trigger: 'blur' }
         ],
         RoleId: [
@@ -391,7 +254,7 @@ export default {
       currentSelected: []
     }
   },
-  created() {
+  created () {
     this.pagination.currentPage = 1
     this.InitDictItem()
     this.loadTableData()
@@ -401,7 +264,7 @@ export default {
     /**
      * 初始化数据
      */
-    InitDictItem() {
+    InitDictItem () {
       getAllRoleList().then(res => {
         this.selectRole = res.ResData
       })
@@ -468,18 +331,18 @@ export default {
         this.editFrom.MobilePhone = res.ResData.MobilePhone
         this.editFrom.Email = res.ResData.Email
         this.editFrom.WeChat = res.ResData.WeChat
-        this.editFrom.OrganizeId = res.ResData.OrganizeId
+        this.editFrom.DepartmentId = res.ResData.DepartmentId
         this.editFrom.IsAdministrator = res.ResData.IsAdministrator
         this.editFrom.EnabledMark = res.ResData.EnabledMark
         this.editFrom.RoleId = res.ResData.RoleId.split(',')
         this.editFrom.Description = res.ResData.Description
-        this.selectedOrganizeOptions = res.ResData.OrganizeId
+        this.selectedOrganizeOptions = res.ResData.DepartmentId
       })
     },
     /**
      * 新增/修改保存
      */
-    saveEditForm() {
+    saveEditForm () {
       console.log(this.editFrom.RoleId)
       this.$refs['editFrom'].validate((valid) => {
         if (valid) {
@@ -492,7 +355,7 @@ export default {
             MobilePhone: this.editFrom.MobilePhone,
             Email: this.editFrom.Email,
             WeChat: this.editFrom.WeChat,
-            OrganizeId: this.editFrom.OrganizeId,
+            DepartmentId: this.editFrom.DepartmentId,
             IsAdministrator: this.editFrom.IsAdministrator,
             EnabledMark: this.editFrom.EnabledMark,
             RoleId: this.editFrom.RoleId.join(','),
@@ -644,7 +507,7 @@ export default {
     /**
      * 选择每页显示数量
      */
-    handleSizeChange(val) {
+    handleSizeChange (val) {
       this.pagination.pagesize = val
       this.pagination.currentPage = 1
       this.loadTableData()
@@ -652,7 +515,7 @@ export default {
     /**
      * 选择当页面
      */
-    handleCurrentChange(val) {
+    handleCurrentChange (val) {
       this.pagination.currentPage = val
       this.loadTableData()
     },
@@ -661,9 +524,9 @@ export default {
      *选择组织
      */
     handleSelectOrganizeChange: function () {
-      this.editFrom.OrganizeId = this.selectedOrganizeOptions
+      this.editFrom.DepartmentId = this.selectedOrganizeOptions
     },
-    dateformatter(row, column, cellValue, index) {
+    dateformatter (row, column, cellValue, index) {
       var date = row[column.property]
       return cellValue ? fecha.format(new Date(date), 'yyyy-MM-dd') : ''
     },

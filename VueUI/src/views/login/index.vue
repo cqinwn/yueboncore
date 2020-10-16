@@ -78,7 +78,7 @@ import { getToken, getSysSetting } from '@/api/basebasic'
 
 export default {
   name: 'Login',
-  data() {
+  data () {
     const validateUsername = (rule, value, callback) => {
       if (value.length < 1) {
         callback(new Error('请输入登录账号！'))
@@ -123,11 +123,11 @@ export default {
       immediate: true
     }
   },
-  created() {
+  created () {
     this.loadToken()
   },
   methods: {
-    loadToken() {
+    loadToken () {
       getToken().then(response => {
         setToken(response.ResData.AccessToken)
         getSysSetting().then(res => {
@@ -138,7 +138,7 @@ export default {
         })
       })
     },
-    showPwd() {
+    showPwd () {
       if (this.passwordType === 'password') {
         this.passwordType = ''
       } else {
@@ -148,7 +148,7 @@ export default {
         this.$refs.password.focus()
       })
     },
-    handleLogin() {
+    handleLogin () {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true

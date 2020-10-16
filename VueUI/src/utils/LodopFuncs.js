@@ -3,7 +3,7 @@
 var CreatedOKLodopObject, CLodopIsLocal, CLodopJsState
 
 // ==判断是否需要CLodop(那些不支持插件的浏览器):==
-function needCLodop() {
+function needCLodop () {
   try {
     var ua = navigator.userAgent
     if (ua.match(/Windows\sPhone/i)) { return true }
@@ -36,7 +36,7 @@ function needCLodop() {
 }
 
 // ==加载引用CLodop的主JS,用双端口8000和18000(以防其中一个被占):==
-function loadCLodop() {
+function loadCLodop () {
   if (CLodopJsState === 'loading' || CLodopJsState === 'complete') return
   CLodopJsState = 'loading'
   var head = document.head || document.getElementsByTagName('head')[0] || document.documentElement
@@ -54,7 +54,7 @@ function loadCLodop() {
 if (needCLodop()) { loadCLodop() }// 加载
 
 // ==获取LODOP对象主过程,判断是否安装、需否升级:==
-function getLodop(oOBJECT, oEMBED) {
+function getLodop (oOBJECT, oEMBED) {
   var strHtmInstall = "<br><font color='#FF00FF'>打印控件未安装!点击这里<a href='install_lodop32.exe' target='_self'>执行安装</a>,安装后请刷新页面或重新进入。</font>"
   var strHtmUpdate = "<br><font color='#FF00FF'>打印控件需要升级!点击这里<a href='install_lodop32.exe' target='_self'>执行升级</a>,升级后请重新进入。</font>"
   var strHtm64_Install = "<br><font color='#FF00FF'>打印控件未安装!点击这里<a href='install_lodop64.exe' target='_self'>执行安装</a>,安装后请刷新页面或重新进入。</font>"
@@ -72,7 +72,7 @@ function getLodop(oOBJECT, oEMBED) {
     if (needCLodop()) {
       try {
         LODOP = getCLodop()
-      } catch (err) {}
+      } catch (err) { }
       if (!LODOP && CLodopJsState !== 'complete') {
         if (CLodopJsState === 'loading') alert('网页还没下载完毕，请稍等一下再操作.'); else alert('没有加载CLodop的主js，请先调用loadCLodop过程.')
         return

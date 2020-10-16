@@ -50,6 +50,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = CurrentUser.UserId;
             info.CompanyId = CurrentUser.OrganizeId;
+            info.DeptId = CurrentUser.DeptId;
             info.DeleteMark = false;
         }
         
@@ -88,7 +89,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
         public override async Task<IActionResult> UpdateAsync(TenantInputDto tinfo, string id)
         {
             CommonResult result = new CommonResult();
-            if (!tinfo.TenantName.IsAlphanumeric())
+            if (!tinfo.TenantName.ToLower().IsAlphanumeric())
             {
                 result.ErrMsg = "名称只能是字母和数字";
                 result.ErrCode = "43002";

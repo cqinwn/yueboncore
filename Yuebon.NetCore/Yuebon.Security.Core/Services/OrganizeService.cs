@@ -73,5 +73,15 @@ namespace Yuebon.Security.Services
             }
             return list;
         }
+
+        /// <summary>
+        /// 获取根节点组织
+        /// </summary>
+        /// <param name="id">组织Id</param>
+        /// <returns></returns>
+        public Organize GetRootOrganize(string id)
+        {
+           return _repository.GetRootOrganize(id);
+        }
     }
 }

@@ -10,5 +10,11 @@ namespace Yuebon.Security.IRepositories
     /// </summary>
     public interface IOrganizeRepository:IRepository<Organize, string>
     {
+        /// <summary>
+        /// 获取根节点组织
+        /// </summary>
+        /// <param name="id">组织Id</param>
+        /// <returns></returns>
+        Organize GetRootOrganize(string id);
     }
 }

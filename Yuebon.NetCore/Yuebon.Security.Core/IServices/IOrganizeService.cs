@@ -18,5 +18,12 @@ namespace Yuebon.Security.IServices
         /// </summary>
         /// <returns></returns>
         Task<List<OrganizeOutputDto>> GetAllOrganizeTreeTable();
+
+        /// <summary>
+        /// 获取根节点组织
+        /// </summary>
+        /// <param name="id">组织Id</param>
+        /// <returns></returns>
+        Organize GetRootOrganize(string id);
     }
 }

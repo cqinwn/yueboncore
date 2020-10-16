@@ -214,7 +214,7 @@ import { getAllItemsTreeTable, getItemsDetail, saveItems, setItemsEnable, delete
 
 import { getListMeunFuntionBymeunCode } from '@/api/basebasic'
 export default {
-  data() {
+  data () {
     return {
       searchform: {
         keywords: '',
@@ -294,7 +294,7 @@ export default {
       tableDataItemss: []
     }
   },
-  created() {
+  created () {
     this.pagination.currentPage = 1
     this.InitDictItem()
     this.loadTableData()
@@ -304,7 +304,7 @@ export default {
     /**
      * 初始化数据
      */
-    InitDictItem() {
+    InitDictItem () {
       getListMeunFuntionBymeunCode('ItemsDetail/List').then(res => {
         this.loadItemsDetailBtnFunc = res.ResData
       })
@@ -331,7 +331,7 @@ export default {
       this.loadItemsDetailTableData()
     },
 
-    loadItemsDetailTree() {
+    loadItemsDetailTree () {
       var data = {
         itemId: this.selectItemsId
       }
@@ -406,7 +406,7 @@ export default {
     /**
      * 新增/修改保存
      */
-    saveEditItemsForm() {
+    saveEditItemsForm () {
       this.$refs['editItemsFrom'].validate((valid) => {
         if (valid) {
           const data = {
@@ -561,7 +561,7 @@ export default {
     /**
      * 新增/修改保存
      */
-    saveEditItemsDetailForm() {
+    saveEditItemsDetailForm () {
       this.$refs['editItemsDetailFrom'].validate((valid) => {
         if (valid) {
           const data = {

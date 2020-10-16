@@ -74,16 +74,6 @@ namespace Yuebon.Security.Models
         public virtual string CreatorUserId { get; set; }
 
         /// <summary>
-        /// 创建用户组织主键
-        /// </summary>
-        //[MaxLength(50)]
-        //public virtual string CompanyId { get; set; }
-        /// <summary>
-        /// 创建用户部门主键
-        /// </summary>
-        //[MaxLength(50)]
-        //public virtual string DeptId { get; set; }
-        /// <summary>
         /// 最后修改时间
         /// </summary>
         public virtual DateTime? LastModifyTime { get; set; }

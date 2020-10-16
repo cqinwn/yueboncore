@@ -20,7 +20,7 @@ namespace Yuebon.Security.Models
         /// </summary>
 	    public RoleAuthorize()
 		{
-            this.Id = GuidUtils.NewGuidFormatN();
+            this.Id = GuidUtils.CreateNo();
 
  		}
 

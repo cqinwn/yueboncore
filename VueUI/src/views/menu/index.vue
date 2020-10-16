@@ -307,7 +307,7 @@ import { getAllMenuTreeTable, getMenuDetail, saveMenu, setMenuEnable, deleteSoft
 } from '@/api/developers/menufunction'
 
 export default {
-  data() {
+  data () {
     return {
       searchform: {
         keywords: '',
@@ -396,7 +396,7 @@ export default {
       tableDataMenus: []
     }
   },
-  created() {
+  created () {
     this.pagination.currentPage = 1
     this.InitDictItem()
     this.loadTableData()
@@ -407,7 +407,7 @@ export default {
     /**
      * 初始化数据
      */
-    InitDictItem() {
+    InitDictItem () {
       getSubSystemList().then(res => {
         this.selectSystemType = res.ResData
       })
@@ -466,7 +466,7 @@ export default {
       this.editFunctionFrom.SystemTypeId = this.selectSystemTypeId
       this.loadFunctionTree()
     },
-    loadFunctionTree() {
+    loadFunctionTree () {
       var data = {
         systemTypeId: this.selectSystemTypeId
       }
@@ -536,7 +536,7 @@ export default {
     /**
      * 新增/修改保存
      */
-    saveEditMenuForm() {
+    saveEditMenuForm () {
       this.$refs['editMenuFrom'].validate((valid) => {
         if (valid) {
           const data = {
@@ -697,7 +697,7 @@ export default {
     /**
      * 新增/修改保存
      */
-    saveEditFunctionForm() {
+    saveEditFunctionForm () {
       this.$refs['editFunctionFrom'].validate((valid) => {
         if (valid) {
           const data = {
@@ -862,7 +862,7 @@ export default {
     /**
      * 选择每页显示数量
      */
-    handleSizeChange(val) {
+    handleSizeChange (val) {
       this.pagination.pagesize = val
       this.pagination.currentPage = 1
       this.loadFunctionTableData()
@@ -870,7 +870,7 @@ export default {
     /**
      * 选择当页面
      */
-    handleCurrentChange(val) {
+    handleCurrentChange (val) {
       this.pagination.currentPage = val
       this.loadFunctionTableData()
     },

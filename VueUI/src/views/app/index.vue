@@ -226,7 +226,7 @@ import { getAPPListWithPager, getAPPDetail, saveAPP, setAPPEnable,
   deleteSoftAPP, deleteAPP, resetAppSecret, resetEncodingAESKey } from '@/api/developers/appservice'
 
 export default {
-  data() {
+  data () {
     return {
       searchform: {
         name: ''
@@ -273,7 +273,7 @@ export default {
       currentSelected: []
     }
   },
-  created() {
+  created () {
     this.pagination.currentPage = 1
     this.InitDictItem()
     this.loadTableData()
@@ -283,7 +283,7 @@ export default {
     /**
      * 初始化数据
      */
-    InitDictItem() {
+    InitDictItem () {
     },
     /**
      * 加载页面table数据
@@ -346,7 +346,7 @@ export default {
     /**
      * 新增/修改保存
      */
-    saveEditForm() {
+    saveEditForm () {
       this.$refs['editFrom'].validate((valid) => {
         if (valid) {
           const data = {
@@ -503,7 +503,7 @@ export default {
     /**
      * 选择每页显示数量
      */
-    handleSizeChange(val) {
+    handleSizeChange (val) {
       this.pagination.pagesize = val
       this.pagination.currentPage = 1
       this.loadTableData()
@@ -511,7 +511,7 @@ export default {
     /**
      * 选择当页面
      */
-    handleCurrentChange(val) {
+    handleCurrentChange (val) {
       this.pagination.currentPage = val
       this.loadTableData()
     },

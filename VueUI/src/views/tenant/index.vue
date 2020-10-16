@@ -224,7 +224,7 @@ export default {
         this.editFrom.Telphone = res.ResData.Telphone
         this.editFrom.DataSource = res.ResData.DataSource
         this.editFrom.Description = res.ResData.Description
-        this.editFrom.EnabledMark = res.ResData.EnabledMark
+        this.editFrom.EnabledMark = res.ResData.EnabledMark + ''
       })
     },
     /**

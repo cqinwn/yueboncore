@@ -80,7 +80,7 @@
 <script>
 import { codeGetTableList, codeGenerator } from '@/api/developers/toolsservice'
 export default {
-  data() {
+  data () {
     return {
       searchform: {
         tableName: ''
@@ -112,7 +112,7 @@ export default {
       currentSelected: []
     }
   },
-  created() {
+  created () {
     this.pagination.currentPage = 1
     this.loadTableData()
   },
@@ -207,7 +207,7 @@ export default {
     /**
      * 选择每页显示数量
      */
-    handleSizeChange(val) {
+    handleSizeChange (val) {
       this.pagination.pagesize = val
       this.pagination.currentPage = 1
       this.loadTableData()
@@ -215,7 +215,7 @@ export default {
     /**
      * 选择当页面
      */
-    handleCurrentChange(val) {
+    handleCurrentChange (val) {
       this.pagination.currentPage = val
       this.loadTableData()
     }

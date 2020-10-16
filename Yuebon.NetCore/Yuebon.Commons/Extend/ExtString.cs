@@ -367,7 +367,7 @@ namespace Yuebon.Commons.Extend
         /// <returns></returns>
         public static bool IsAlphanumeric(this string instance)
         {
-            Regex reg = new Regex("^[a-zA-Z0-9-\u2E80-\u9FFF]+$");
+            Regex reg = new Regex("^[a-zA-Z0-9]+$");
             return reg.IsMatch(instance);
         }
 

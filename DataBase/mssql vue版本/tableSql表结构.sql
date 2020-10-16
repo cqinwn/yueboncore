@@ -350,14 +350,13 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+
 CREATE TABLE [dbo].[Sys_RoleData](
 	[Id] [nvarchar](50) NOT NULL,
 	[RoleId] [nvarchar](50) NOT NULL,
-	[BelongCompanys] [ntext] NULL,
-	[BelongDepts] [ntext] NULL,
-	[ExcludeDepts] [ntext] NULL,
-	[Note] [ntext] NULL
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+	[AuthorizeData] [nvarchar](50) NULL,
+	[DType] [nvarchar](50) NULL
+) ON [PRIMARY]
 GO
 /****** Object:  Table [dbo].[Sys_Sequence]    Script Date: 2020/10/12 15:07:56 ******/
 SET ANSI_NULLS ON
@@ -919,4 +918,13 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'用户登录信息' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_UserLogOn'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'用户与第三方开放平台对应关系' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_UserOpenIds'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'数据数据，部门ID或个人ID' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_RoleData', @level2type=N'COLUMN',@level2name=N'AuthorizeData'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'类型，company-公司，dept-部门，person-个人' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_RoleData', @level2type=N'COLUMN',@level2name=N'DType'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'角色数据权限' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_RoleData'
 GO

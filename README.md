@@ -58,8 +58,9 @@ YuebonCore是一套基于NetCore3.1 开发出来的框架，源代码完全开�
 
 操作权限控制精密细致，对所有管理链接都进行权限验证，可控制到导航菜单、功能按钮。
 
-数据权限（精细化数据权限控制，控制到行级，列表级，表单字段级，实现不同人看不同数据，不同人对同一个页面操作不同字段
-提高开发效率及质量。常用类封装，日志、缓存、验证、字典、文件、邮件、,Excel。等等，目前兼容浏览器（IE11+、Chrome、Firefox、360浏览器等）
+数据权限（精细化数据权限控制，可以设置角色可以访问的数据范围，部门、工作组、公司数据）
+
+常用类封装，日志、缓存、验证、字典、文件、邮件、,Excel。等等，目前兼容浏览器（IE11+、Chrome、Firefox、360浏览器等）
 
 适用范围：可以开发OA、ERP、BPM、CRM、WMS、TMS、MIS、BI、电商平台后台、物流管理系统、快递管理系统、教务管理系统等各类管理软件。
 
@@ -82,7 +83,7 @@ Vue版前端技术栈 ：基于vue、vuex、vue-router 、vue-cli 、axios 和 e
 
 #### 后端技术
 
-核心框架：.NetCore3.1 + Web API + Dapper + autofac + AutoMapper+swagger
+核心框架：.NetCore3.1 + Web API + Dapper + EF + autofac + AutoMapper+swagger
 
 定时计划任务：Quartz.Net组件
 

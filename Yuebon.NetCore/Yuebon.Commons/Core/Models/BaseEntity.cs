@@ -28,7 +28,7 @@ namespace Yuebon.Commons.Models
         /// <summary>
         /// 获取或设置 编号
         /// </summary>
-        [Description("应用名称")]
+        [Description("编号")]
         [DisplayName("编号")]
         [ExplicitKey]
         [System.ComponentModel.DataAnnotations.Key]

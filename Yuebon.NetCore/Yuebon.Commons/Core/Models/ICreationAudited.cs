@@ -8,10 +8,6 @@ namespace Yuebon.Commons.Models
     public interface ICreationAudited
     {
         /// <summary>
-        /// 主键ID
-        /// </summary>
-        string Id { get; set; }
-        /// <summary>
         /// 获取或设置 创建日期
         /// </summary>
         DateTime? CreatorTime { get; set; }

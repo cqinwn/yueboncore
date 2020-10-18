@@ -131,13 +131,15 @@ namespace Yuebon.Commons.EfDbContext
                     modelBuilder.Model.AddEntityType(entityType).SetTableName(table.Name);
 
 
-                    if (typeof(IMustHaveTenant).IsAssignableFrom(entityType))
+                    if (typeof(IDeleteAudited).IsAssignableFrom(entityType))
                     {
-
-                        //// Configure entity filters
-                        //modelBuilder.Entity<Blog>().Property<string>("TenantId").HasColumnName("TenantId");
-                        //modelBuilder.Entity<Blog>().HasQueryFilter(b => EF.Property<string>(b, "TenantId") == TenantId);
+                        modelBuilder.Entity<Entity>().HasQueryFilter(m => ((IDeleteAudited)m).DeleteMark == false);
                     }
+                    if (typeof(IMustHaveTenant).IsAssignableFrom(typeof(Entity)))
+                    {
+                        modelBuilder.Entity<Entity>().HasQueryFilter(m => ((IMustHaveTenant)m).TenantId == "");
+                    }
+                    
 
                 }
             }

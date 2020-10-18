@@ -239,14 +239,6 @@ namespace Yuebon.WebApi
         /// <returns></returns>
         private IServiceProvider InitIoC(IServiceCollection services)
         {
-            var codeGenerateOption = new CodeGenerateOption
-            {
-                ModelsNamespace = "Yuebon.WMS.Models",
-                IRepositoriesNamespace = "Yuebon.WMS.IRepositories",
-                RepositoriesNamespace = "Yuebon.WMS.Repositories",
-                IServicsNamespace = "Yuebon.WMS.IServices",
-                ServicesNamespace = "Yuebon.WMS.Services"
-            };
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMemoryCache();
             CacheProvider cacheProvider = new CacheProvider

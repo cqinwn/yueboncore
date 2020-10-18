@@ -52,12 +52,11 @@ namespace Yuebon.Quartz.Jobs
                 iService.RecordRun(taskManager.Id, JobAction.开始,true, msg);
                 //初始化任务日志
                 FileQuartz.InitTaskJobLogPath(taskManager.Id);
-                ////任务错误日志
-                //FileQuartz.WriteErrorLog($"{ DateTime.Now.ToString("yyyy-MM-dd HH:mm:sss")}未配置url,");
-
                 var jobId = context.MergedJobDataMap.GetString("OpenJob");
                 //todo:这里可以加入自己的自动任务逻辑
                 Log4NetHelper.Info(DateTime.Now.ToString() + "执行任务");
+
+
                 stopwatch.Stop();
                 string content = $"结束时间:{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss ffff")} 共耗时{stopwatch.ElapsedMilliseconds} 毫秒\r\n";
                 iService.RecordRun(taskManager.Id, JobAction.结束, true, content);

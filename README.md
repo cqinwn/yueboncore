@@ -44,7 +44,7 @@
 有任何疑问可以在文尾添加作者微信咨询。
 
 ### 概述
-YuebonCore FW是基于.NetCore3.1开发的权限管理及快速开发框架，整合应用最新技术包括Asp.NetCore MVC、Dapper、AutoFac、WebAPI、Swagger、IdentityServer4、Vue等，核心模块包括：组织机构、角色用户、权限授权、多系统、多应用管理、定时任务、业务单据编码规则、代码生成器等。它的架构易于扩展，是中小企业的优选。
+YuebonCore是基于.NetCore3.1开发的权限管理及快速开发框架，整合应用最新技术包括Asp.NetCore MVC、Dapper、AutoFac、WebAPI、Swagger、EF、Vue等，核心模块包括：组织机构、角色用户、权限授权、多系统、多应用管理、定时任务、业务单据编码规则、代码生成器等。它的架构易于扩展，规范了一套业务实现的代码结构与操作流程，使 YuebonCore框架更易于应用到实际项目开发中。
 
 YuebonCore FW其核心设计目标是开发迅速、代码量少、学习简单、功能强大、轻量级、易扩展，让Web开发更快速、简单，解决70%重复工作。轻松开发，专注您的业务，从YuebonCore FW开始！
 
@@ -72,6 +72,7 @@ Vue版本体验地址：[http://netvue.ts.yuebon.com/](http://netvue.ts.yuebon.c
 
 WebApi接口地址：[http://netcoreapi.ts.yuebon.com](http://netcoreapi.ts.yuebon.com)
 
+文档地址：[http://docs.v.yuebon.com/](http://docs.v.yuebon.com/)
 
 ### 技术介绍
 

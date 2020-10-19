@@ -4,43 +4,6 @@
         <name>Yuebon.WebApi</name>
     </assembly>
     <members>
-        <member name="T:Yuebon.WebApi.Areas.Authorizer.Controllers.RegistryCodeController">
-            <summary>
-            软件授权注册和验证接口
-            </summary>
-        </member>
-        <member name="M:Yuebon.WebApi.Areas.Authorizer.Controllers.RegistryCodeController.#ctor(Yuebon.Authorizer.IServices.IRegistryCodeService)">
-            <summary>
-            构造函数
-            </summary>
-            <param name="_iService"></param>
-        </member>
-        <member name="M:Yuebon.WebApi.Areas.Authorizer.Controllers.RegistryCodeController.OnBeforeInsert(Yuebon.Authorizer.Models.RegistryCode)">
-            <summary>
-            新增前处理数据
-            </summary>
-            <param name="info"></param>
-        </member>
-        <member name="M:Yuebon.WebApi.Areas.Authorizer.Controllers.RegistryCodeController.OnBeforeUpdate(Yuebon.Authorizer.Models.RegistryCode)">
-            <summary>
-            在更新数据前对数据的修改操作
-            </summary>
-            <param name="info"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Yuebon.WebApi.Areas.Authorizer.Controllers.RegistryCodeController.OnBeforeSoftDelete(Yuebon.Authorizer.Models.RegistryCode)">
-            <summary>
-            在软删除数据前对数据的修改操作
-            </summary>
-            <param name="info"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Yuebon.WebApi.Areas.Authorizer.Controllers.RegistryCodeController.GetRegCode(System.String)">
-            <summary>
-            根据机器特征码获取注册序列号
-            </summary>
-            <param name="machineCode">机器特征码</param>
-        </member>
         <member name="T:Yuebon.WebApi.Areas.Msg.MessagerController">
             <summary>
             消息推送接口

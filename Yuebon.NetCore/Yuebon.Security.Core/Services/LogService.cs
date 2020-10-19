@@ -75,7 +75,7 @@ namespace Yuebon.Security.Services
                     info.NickName = CurrentUser.NickName;
                     info.OrganizeId = CurrentUser.OrganizeId;
                     info.IPAddress = CurrentUser.CurrentLoginIP;
-                   // info.IPAddressName = IpAddressUtil.GetCityByIp(CurrentUser.CurrentLoginIP);
+                    info.IPAddressName = CurrentUser.IPAddressName;
                     info.Result = true;
                     long lg = _iLogRepository.Insert(info);
                     if (lg > 0)

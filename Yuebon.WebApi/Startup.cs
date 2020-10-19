@@ -289,8 +289,7 @@ namespace Yuebon.WebApi
                 CacheStrategyFactory.RegisterObjectCacheStrategy(() => MemcachedObjectCacheStrategy.Instance);
 
             }
-            services.AddDbContext<BaseDbContext>(options =>
-                   options.UseSqlServer(Configs.GetConnectionString("MsSqlServer")));
+            services.AddDbContext<BaseDbContext>();
 
             var jwtConfig = Configuration.GetSection("Jwt");
             var jwtOption = new JwtOption

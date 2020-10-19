@@ -100,6 +100,11 @@ namespace Yuebon.Security.Dtos
         /// 登录IP地址
         /// </summary>
         public virtual string CurrentLoginIP { get; set; }
+        /// <summary>
+        /// 登录IP地址
+        /// </summary>
+        public virtual string IPAddressName { get; set; }
+        
 
         /// <summary>
         /// 当前访问的系统名称

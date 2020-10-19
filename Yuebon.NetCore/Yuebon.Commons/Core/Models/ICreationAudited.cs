@@ -7,6 +7,7 @@ namespace Yuebon.Commons.Models
     /// </summary>
     public interface ICreationAudited
     {
+
         /// <summary>
         /// 获取或设置 创建日期
         /// </summary>

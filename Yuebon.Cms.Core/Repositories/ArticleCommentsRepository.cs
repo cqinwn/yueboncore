@@ -11,12 +11,18 @@ using System.Reflection;
 using System.Data.Common;
 using System.Text;
 using Yuebon.Commons.Pages;
+using Yuebon.Commons.EfDbContext;
 
 namespace Yuebon.CMS.Repositories
 {
     public class ArticleCommentsRepository : BaseRepository<ArticleComments, string>, IArticleCommentsRepository
     {
 		public ArticleCommentsRepository()
+        {
+            this.tableName = "CMS_ArticleComments";
+            this.primaryKey = "Id";
+        }
+        public ArticleCommentsRepository(BaseDbContext context) : base(context)
         {
             this.tableName = "CMS_ArticleComments";
             this.primaryKey = "Id";

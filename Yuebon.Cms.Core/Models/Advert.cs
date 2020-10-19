@@ -7,9 +7,9 @@ using Dapper.Contrib.Extensions;
 
 namespace Yuebon.CMS.Models
 {
+    /// <summary>
     /// 广告位，数据实体对象
     /// </summary>
-    [DataContract]
     [Table("CMS_Advert")]
     [Serializable]
     public class Advert : BaseEntity<string>, ICreationAudited, IModificationAudited, IDeleteAudited

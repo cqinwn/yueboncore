@@ -13,6 +13,7 @@ using System.Data;
 using System.Reflection;
 using Yuebon.Commons.Log;
 using System.Text;
+using Yuebon.Commons.EfDbContext;
 
 namespace Yuebon.CMS.Repositories
 {
@@ -24,6 +25,11 @@ namespace Yuebon.CMS.Repositories
             this.primaryKey = "Id";
         }
 
+        public ArticleNewsRepository(BaseDbContext context) : base(context)
+        {
+            this.tableName = "CMS_ArticleNews";
+            this.primaryKey = "Id";
+        }
         /// <summary>
         /// 得到商机列表信息，关联用户信息
         /// </summary>

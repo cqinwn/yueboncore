@@ -1,16 +1,12 @@
-﻿using Dapper.Contrib.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
 using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Extensions;
-using Yuebon.Commons.IRepositories;
 using Yuebon.Commons.Models;
 
 namespace Yuebon.Commons.EfDbContext
@@ -131,15 +127,17 @@ namespace Yuebon.Commons.EfDbContext
                     modelBuilder.Model.AddEntityType(entityType).SetTableName(table.Name);
 
 
-                    if (typeof(IDeleteAudited).IsAssignableFrom(entityType))
+                    if (typeof(IDeleteAudited).IsAssignableFrom(typeof(Entity)))
                     {
                         modelBuilder.Entity<Entity>().HasQueryFilter(m => ((IDeleteAudited)m).DeleteMark == false);
                     }
-                    if (typeof(IMustHaveTenant).IsAssignableFrom(typeof(Entity)))
-                    {
-                        modelBuilder.Entity<Entity>().HasQueryFilter(m => ((IMustHaveTenant)m).TenantId == "");
+                    if (isMultiTenant) {
+                        if (typeof(IMustHaveTenant).IsAssignableFrom(typeof(Entity)))
+                        {
+                            modelBuilder.Entity<Entity>().HasQueryFilter(m => ((IMustHaveTenant)m).TenantId == "");
+                        }
                     }
-                    
+
 
                 }
             }

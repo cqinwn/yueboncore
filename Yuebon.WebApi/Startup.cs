@@ -355,7 +355,6 @@ namespace Yuebon.WebApi
             IoCContainer.Register(Configuration);//注册配置
             IoCContainer.Register(jwtOption);//注册配置
             IoCContainer.Register(typeof(SenparcWeixinSetting));//注册配置
-            IoCContainer.Register(codeGenerateOption);//注册代码生成器相关配置信息
             IoCContainer.Register("Yuebon.Commons");
             IoCContainer.Register("Yuebon.AspNetCore");
             IoCContainer.Register("Yuebon.Security.Core");

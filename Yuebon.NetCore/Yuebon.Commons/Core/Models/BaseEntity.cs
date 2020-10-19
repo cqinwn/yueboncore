@@ -15,7 +15,6 @@ namespace Yuebon.Commons.Models
     /// </summary>
 
     [Serializable]
-    [DataContract]
     public  class BaseEntity<TKey> :Entity where TKey : IEquatable<TKey>
     {
         /// <summary>
@@ -28,11 +27,10 @@ namespace Yuebon.Commons.Models
         /// <summary>
         /// 获取或设置 编号
         /// </summary>
-        [Description("编号")]
         [DisplayName("编号")]
         [ExplicitKey]
         [System.ComponentModel.DataAnnotations.Key]
-        public TKey Id { get; set; }
+        public  TKey Id { get; set; }
 
 
         /// <summary>

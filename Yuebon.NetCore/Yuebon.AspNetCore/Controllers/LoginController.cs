@@ -143,8 +143,9 @@ namespace Yuebon.AspNetCore.Controllers
                                         Role = _roleService.GetRoleEnCode(user.RoleId),
                                         MobilePhone = user.MobilePhone,
                                         OrganizeId=user.OrganizeId,
-                                        DeptId=user.DepartmentId
-                                    };
+                                        DeptId=user.DepartmentId,
+                                        CurrentLoginIP= remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString()
+                                };
 
                                     currentSession.ActiveSystem = systemType.FullName;
                                     currentSession.ActiveSystemUrl = systemType.Url;
@@ -180,7 +181,7 @@ namespace Yuebon.AspNetCore.Controllers
                                     logEntity.NickName = CurrentUser.RealName;
                                     logEntity.Date = logEntity.CreatorTime = DateTime.Now;
                                     logEntity.IPAddress = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
-                                    //logEntity.IPAddressName = IpAddressUtil.GetCityByIp(logEntity.IPAddress);
+                                    logEntity.IPAddressName = IpAddressUtil.GetCityByIp(logEntity.IPAddress);
                                     logEntity.Result = true;
                                     logEntity.ModuleName = "登录";
                                     logEntity.Description = "登录成功";

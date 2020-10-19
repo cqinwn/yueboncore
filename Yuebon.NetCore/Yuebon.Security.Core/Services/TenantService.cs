@@ -5,6 +5,7 @@ using Yuebon.Security.IRepositories;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.Models;
+using System.Data;
 
 namespace Yuebon.Security.Services
 {

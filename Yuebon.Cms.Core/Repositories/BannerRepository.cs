@@ -4,6 +4,7 @@ using Yuebon.Commons.Repositories;
 using Yuebon.CMS.IRepositories;
 using Yuebon.CMS.Models;
 using System.Collections.Generic;
+using Yuebon.Commons.EfDbContext;
 
 namespace Yuebon.CMS.Repositories
 {
@@ -15,5 +16,10 @@ namespace Yuebon.CMS.Repositories
             this.primaryKey = "Id";
         }
 
+        public BannerRepository(BaseDbContext context) : base(context)
+        {
+            this.tableName = "CMS_Banner";
+            this.primaryKey = "Id";
+        }
     }
 }

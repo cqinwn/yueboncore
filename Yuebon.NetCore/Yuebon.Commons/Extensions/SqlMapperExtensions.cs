@@ -8,6 +8,8 @@ using System.Collections.Concurrent;
 using System.Reflection.Emit;
 using System.Threading;
 using Dapper;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 #if NETSTANDARD1_3
 using DataException = System.InvalidOperationException;
 #endif
@@ -99,7 +101,7 @@ namespace Dapper.Contrib.Extensions
             return explicitKeyProperties;
         }
         /// <summary>
-        /// 查询主键
+        /// 查询主键,属性加了Key标签
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
@@ -115,7 +117,7 @@ namespace Dapper.Contrib.Extensions
 
             if (keyProperties.Count == 0)
             {
-                var idProp = allProperties.Find(p => string.Equals(p.Name, "id", StringComparison.CurrentCultureIgnoreCase));
+                var idProp = allProperties.Find(p => string.Equals(p.Name, "Id", StringComparison.CurrentCultureIgnoreCase));
                 if (idProp != null && !idProp.GetCustomAttributes(true).Any(a => a is ExplicitKeyAttribute))
                 {
                     keyProperties.Add(idProp);
@@ -151,14 +153,14 @@ namespace Dapper.Contrib.Extensions
         {
             var type = typeof(T);
             var keys = KeyPropertiesCache(type);
-            var explicitKeys = ExplicitKeyPropertiesCache(type);
-            var keyCount = keys.Count + explicitKeys.Count;
+            //var explicitKeys = ExplicitKeyPropertiesCache(type);
+            var keyCount = keys.Count;// + explicitKeys.Count;
             if (keyCount > 1)
-                throw new DataException($"{method}<T> only supports an entity with a single [Key] or [ExplicitKey] property. [Key] Count: {keys.Count}, [ExplicitKey] Count: {explicitKeys.Count}");
+                throw new DataException($"{method}<T> only supports an entity with a single [Key]  property. [Key] Count: {keys.Count}");
             if (keyCount == 0)
-                throw new DataException($"{method}<T> only supports an entity with a [Key] or an [ExplicitKey] property");
+                throw new DataException($"{method}<T> only supports an entity with a [Key]  property");
 
-            return keys.Count > 0 ? keys[0] : explicitKeys[0];
+            return keys[0];
         }
 
         /// <summary>
@@ -356,7 +358,7 @@ namespace Dapper.Contrib.Extensions
             var allProperties = TypePropertiesCache(type);
             var keyProperties = KeyPropertiesCache(type);
             var computedProperties = ComputedPropertiesCache(type);
-            var allPropertiesExceptKeyAndComputed = allProperties.Except(keyProperties.Union(computedProperties)).ToList();
+            var allPropertiesExceptKeyAndComputed = allProperties.ToList();//.Except(keyProperties.Union(computedProperties)).ToList();
 
             var adapter = GetFormatter(connection);
 
@@ -704,34 +706,34 @@ namespace Dapper.Contrib.Extensions
         }
     }
 
-    /// <summary>
-    /// Defines the name of a table to use in Dapper.Contrib commands.
-    /// </summary>
-    [AttributeUsage(AttributeTargets.Class)]
-    public class TableAttribute : Attribute
-    {
-        /// <summary>
-        /// Creates a table mapping to a specific name for Dapper.Contrib commands
-        /// </summary>
-        /// <param name="tableName">The name of this table in the database.</param>
-        public TableAttribute(string tableName)
-        {
-            Name = tableName;
-        }
+    ///// <summary>
+    ///// Defines the name of a table to use in Dapper.Contrib commands.
+    ///// </summary>
+    //[AttributeUsage(AttributeTargets.Class)]
+    //public class TableAttribute : Attribute
+    //{
+    //    /// <summary>
+    //    /// Creates a table mapping to a specific name for Dapper.Contrib commands
+    //    /// </summary>
+    //    /// <param name="tableName">The name of this table in the database.</param>
+    //    public TableAttribute(string tableName)
+    //    {
+    //        Name = tableName;
+    //    }
 
-        /// <summary>
-        /// The name of the table in the database
-        /// </summary>
-        public string Name { get; set; }
-    }
+    //    /// <summary>
+    //    /// The name of the table in the database
+    //    /// </summary>
+    //    public string Name { get; set; }
+    //}
 
     /// <summary>
     /// Specifies that this field is a primary key in the database
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property)]
-    public class KeyAttribute : Attribute
-    {
-    }
+    //[AttributeUsage(AttributeTargets.Property)]
+    //public class KeyAttribute : Attribute
+    //{
+    //}
 
     /// <summary>
     /// Specifies that this field is a explicitly set primary key in the database

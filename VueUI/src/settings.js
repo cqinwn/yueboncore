@@ -43,8 +43,8 @@ module.exports = {
   // fileUrl: 'http://netcoreapi.ts.yuebon.com/', // 文件访问路径
   // fileUploadUrl: 'http://netcoreapi.ts.yuebon.com/api/Files/Upload'// 文件上传路径
 
-  apiHostUrl: 'http://192.168.1.106:809/api/', // 基础接口
-  apiSecurityUrl: 'http://192.168.1.106:809/api/Security/', // 权限管理系统接口
-  fileUrl: 'http://192.168.1.106:809/', // 文件访问路径
-  fileUploadUrl: 'http://192.168.1.106:809/api/Files/Upload'// 文件上传路径
+  apiHostUrl: 'https://localhost:44377/api/', // 基础接口
+  apiSecurityUrl: 'https://localhost:44377/api/Security/', // 权限管理系统接口
+  fileUrl: 'https://localhost:44377/', // 文件访问路径
+  fileUploadUrl: 'https://localhost:44377/api/Files/Upload'// 文件上传路径
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Dapper.Contrib.Extensions;
 using Yuebon.Commons.Models;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Yuebon.Messages.Models
 {
@@ -18,26 +19,32 @@ namespace Yuebon.Messages.Models
         /// 设置或获取消息内容Id
         /// </summary>
         public long? ContentId { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string MsgContent { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取发送者
         /// </summary>
         public string Sernder { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取接受者
         /// </summary>
         public string Accepter { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取是否已读
         /// </summary>
         public bool IsRead { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public DateTime? ReadDate { get; set; }
-
+
+
     }
 }

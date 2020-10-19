@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Dapper.Contrib.Extensions;
 using Yuebon.Commons.Models;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Yuebon.Messages.Models
 {
@@ -14,10 +15,6 @@ namespace Yuebon.Messages.Models
     [Serializable]
     public class MemberSubscribeMsg:BaseEntity<string>
     {
-        /// <summary>
-        /// 设置或获取 
-        /// </summary>
-        public string Id { get; set; }
 
         /// <summary>
         /// 设置或获取订阅用户

@@ -68,6 +68,7 @@
     <Compile Remove="Attributes\KeyAttribute.cs" />
     <Compile Remove="Attributes\MemoryCacheAttribute.cs" />
     <Compile Remove="Attributes\RedisCacheAttribute.cs" />
+    <Compile Remove="Attributes\TableAttribute.cs" />
     <Compile Remove="Attributes\WriteAttribute.cs" />
     <Compile Remove="Extensions\AutoMapperExtension.cs" />
     <Compile Remove="Extensions\ComparisonHelper.cs" />
@@ -199,6 +200,10 @@
     <None Update="CodeTemplate\ApplicationTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Attributes\" />
   </ItemGroup>
 
 </Project>

@@ -2170,6 +2170,29 @@ namespace Yuebon.Commons.Repositories
             _dbContext.Entry(entity).State = EntityState.Detached;
             return n;
         }
+
+        /// <summary>
+        /// 根据id获取一个对象
+        /// </summary>
+        /// <param name="primaryKey">主键</param>
+        /// <param name="trans">事务</param>
+        /// <returns></returns>
+        public virtual T GetEF(TKey primaryKey, IDbTransaction trans = null)
+        {
+          return  _dbContext.Find<T>(primaryKey);
+        }
+        /// <summary>
+        /// 异步根据id获取一个对象
+        /// </summary>
+        /// <param name="primaryKey">主键</param>
+        /// <param name="trans">事务</param>
+        /// <returns></returns>
+        public virtual async Task<T> GetEFAsync(TKey primaryKey, IDbTransaction trans = null)
+        {
+            return await _dbContext.FindAsync<T>(primaryKey);
+        }
+
+
         /// <summary>
         /// 保存
         /// </summary>

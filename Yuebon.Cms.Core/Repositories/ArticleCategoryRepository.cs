@@ -9,12 +9,18 @@ using System.Data;
 using Dapper;
 using Yuebon.Commons.Json;
 using System.Linq;
+using Yuebon.Commons.EfDbContext;
 
 namespace Yuebon.CMS.Repositories
 {
     public class ArticleCategoryRepository : BaseRepository<ArticleCategory, string>, IArticleCategoryRepository
     {
 		public ArticleCategoryRepository()
+        {
+            this.tableName = "CMS_ArticleCategory";
+            this.primaryKey = "Id";
+        }
+        public ArticleCategoryRepository(BaseDbContext context) : base(context)
         {
             this.tableName = "CMS_ArticleCategory";
             this.primaryKey = "Id";

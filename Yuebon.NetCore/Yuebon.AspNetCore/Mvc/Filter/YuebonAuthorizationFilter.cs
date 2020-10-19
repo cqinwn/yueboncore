@@ -8,13 +8,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Unicode;
 using System.Threading.Tasks;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Extensions;
+using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Models;
 using Yuebon.Security.Application;
@@ -47,6 +50,17 @@ namespace Yuebon.AspNetCore.Mvc
                 return;
             }
             CommonResult result = new CommonResult();
+            JsonSerializerOptions options = new JsonSerializerOptions()
+            {
+                WriteIndented = true,                                   //格式化json字符串
+                AllowTrailingCommas = true,                             //可以结尾有逗号
+                //IgnoreNullValues = true,                              //可以有空值,转换json去除空值属性
+                IgnoreReadOnlyProperties = true,                        //忽略只读属性
+                PropertyNameCaseInsensitive = true,                     //忽略大小写
+                                                                        //PropertyNamingPolicy = JsonNamingPolicy.CamelCase     //命名方式是默认还是CamelCase
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
+            };
+            options.Converters.Add(new DateTimeJsonConverter());
             //需要token认证
             string authHeader = context.HttpContext.Request.Headers["Authorization"];//Header中的token
             if (string.IsNullOrEmpty(authHeader))
@@ -54,7 +68,7 @@ namespace Yuebon.AspNetCore.Mvc
 
                 result.ErrCode = "40004";
                 result.ErrMsg = ErrCode.err40004;
-                context.Result = new JsonResult(result);
+                context.Result = new JsonResult(result, options);
                 return;
             }
             else
@@ -100,7 +114,7 @@ namespace Yuebon.AspNetCore.Mvc
                         {
                             result.ErrCode = "40008";
                             result.ErrMsg = ErrCode.err40008;
-                            context.Result = new JsonResult(result);
+                            context.Result = new JsonResult(result, options);
                             return;
                         }
                         bool isAdmin = Permission.IsAdmin(user);
@@ -119,7 +133,7 @@ namespace Yuebon.AspNetCore.Mvc
                                     {
                                         result.ErrCode = "40006";
                                         result.ErrMsg = ErrCode.err40006;
-                                        context.Result = new JsonResult(result);
+                                        context.Result = new JsonResult(result, options);
                                     }
                                 }
                             }
@@ -130,7 +144,7 @@ namespace Yuebon.AspNetCore.Mvc
                     {
                         result.ErrCode = "40008";
                         result.ErrMsg = ErrCode.err40008;
-                        context.Result = new JsonResult(result);
+                        context.Result = new JsonResult(result, options);
                     }
                 }
                 return;

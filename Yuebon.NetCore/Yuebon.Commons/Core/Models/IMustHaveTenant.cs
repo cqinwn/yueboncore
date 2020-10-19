@@ -5,7 +5,7 @@ using System.Text;
 namespace Yuebon.Commons.Models
 {
     /// <summary>
-    /// 多租户实体接口
+    /// 定义多租户实体信息
     /// </summary>
     public interface IMustHaveTenant
     {

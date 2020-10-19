@@ -1,18 +1,18 @@
 using Microsoft.AspNetCore.Http;
 using System;
-using Yuebon.Commons.Helpers;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Text.Json;
+using Yuebon.Commons.Cache;
+using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
-using Yuebon.Commons.IRepositories;
+using Yuebon.Commons.Net;
 using Yuebon.Commons.Services;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.IRepositories;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
-using Yuebon.Commons.Net;
-using Yuebon.Commons.Encrypt;
-using Yuebon.Commons.Cache;
-using Newtonsoft.Json;
-using Yuebon.Commons.Json;
 
 namespace Yuebon.Security.Services
 {
@@ -23,15 +23,18 @@ namespace Yuebon.Security.Services
     {
         private readonly ILogRepository _iLogRepository;
         private readonly IUserRepository _iuserRepository;
+        IHttpContextAccessor _httpContextAccessor;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="repository"></param>
         /// <param name="userRepository"></param>
-        public LogService(ILogRepository repository, IUserRepository userRepository) : base(repository)
+        /// <param name="httpContextAccessor"></param>
+        public LogService(ILogRepository repository, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor) : base(repository)
         {
             _iLogRepository = repository;
             _iuserRepository = userRepository;
+            _httpContextAccessor = httpContextAccessor;
         }
 
 
@@ -45,19 +48,16 @@ namespace Yuebon.Security.Services
         public bool OnOperationLog(string tableName, string operationType, string note)
         {
             //虽然实现了这个事件，但是我们还需要判断该表是否在配置表里面，如果不在，则不记录操作日志。
-            //OperationLogSettingInfo settingInfo = BLLFactory<OperationLogSetting>.Instance.FindByTableName(tableName, trans);
-            //if (settingInfo != null)
-            //{
-
-            YuebonCurrentUser CurrentUser = new YuebonCurrentUser();//SessionHelper.GetSession<YuebonCurrentUser>("CurrentUser");
-            //if (CurrentUser == null)
-            //{
-                //string userId= DEncrypt.Decrypt(CookiesHelper.ReadCookie(_httpContextAccessor.HttpContext,"loginuser"),"qingwen");
-                //YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                //YuebonCurrentUser CurrentUser  =
-            //}
-            if (CurrentUser != null)
+            var identities = _httpContextAccessor.HttpContext.User.Identities;
+            var claimsIdentity = identities.First<ClaimsIdentity>();
+            List<Claim> claimlist = claimsIdentity.Claims as List<Claim>;
+            string userId = claimlist[0].Value;
+            YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+            YuebonCurrentUser CurrentUser = new YuebonCurrentUser();
+            var user = JsonSerializer.Deserialize<YuebonCurrentUser>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
+            if (user != null)
             {
+                CurrentUser = user;
                 bool insert = operationType == DbLogType.Create.ToString(); ;//&& settingInfo.InsertLog;
                 bool update = operationType == DbLogType.Update.ToString();// && settingInfo.UpdateLog;
                 bool delete = operationType == DbLogType.Delete.ToString();// && settingInfo.DeleteLog;
@@ -72,7 +72,7 @@ namespace Yuebon.Security.Services
                     info.Date = info.CreatorTime = DateTime.Now;
                     info.CreatorUserId = CurrentUser.UserId;
                     info.Account = CurrentUser.Account;
-                    info.NickName = CurrentUser.RealName;
+                    info.NickName = CurrentUser.NickName;
                     info.OrganizeId = CurrentUser.OrganizeId;
                     info.IPAddress = CurrentUser.CurrentLoginIP;
                    // info.IPAddressName = IpAddressUtil.GetCityByIp(CurrentUser.CurrentLoginIP);

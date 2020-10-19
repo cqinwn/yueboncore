@@ -10,8 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Yuebon.Authorizer\Yuebon.Authorizer.csproj" />
-    <ProjectReference Include="..\Yuebon.Cms.Core\Yuebon.CMS.Core.csproj" />
+    <Compile Remove="Areas\Authorizer\**" />
+    <Content Remove="Areas\Authorizer\**" />
+    <EmbeddedResource Remove="Areas\Authorizer\**" />
+    <None Remove="Areas\Authorizer\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Yuebon.Messages\Yuebon.Messages.Core\Yuebon.Messages.Core.csproj" />
     <ProjectReference Include="..\Yuebon.NetCore\Yuebon.AspNetCore\Yuebon.AspNetCore.csproj" />
     <ProjectReference Include="..\Yuebon.NetCore\Yuebon.Security.Core\Yuebon.Security.Core.csproj" />
@@ -19,10 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Authorizer\Controllers\" />
-    <Folder Include="Areas\Authorizer\Data\" />
-    <Folder Include="Areas\Authorizer\Models\" />
-    <Folder Include="Areas\Authorizer\Views\" />
     <Folder Include="Controllers\" />
   </ItemGroup>
 

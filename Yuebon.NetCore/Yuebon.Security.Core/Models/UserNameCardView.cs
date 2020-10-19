@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Models;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Yuebon.Security.Models
 {

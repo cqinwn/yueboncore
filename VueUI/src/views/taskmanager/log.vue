@@ -36,8 +36,8 @@
             <el-tag :type="scope.row.Status === true ? 'success' : 'info'" disable-transitions>{{ scope.row.Status === true ? "正常" : "异常" }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="Description" label="结果描述" sortable="custom" width="390" />
         <el-table-column prop="CreatorTime" label="创建时间" sortable="custom" width="160" />
+        <el-table-column prop="Description" label="结果描述" sortable="custom" />
       </el-table>
       <div class="pagination-container">
         <el-pagination background :current-page="pagination.currentPage" :page-sizes="[5, 10, 20, 50, 100, 200, 300, 400]" :page-size="pagination.pagesize" layout="total, sizes, prev, pager, next, jumper" :total="pagination.pageTotal" @size-change="handleSizeChange" @current-change="handleCurrentChange" />

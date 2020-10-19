@@ -70,14 +70,21 @@
           </el-select>
         </el-form-item>
         <el-form-item label="归属组织" :label-width="formLabelWidth" prop="OrganizeId">
-          <el-cascader v-model="selectedOrganizeOptions" :options="selectOrganize" filterable :props="{
+          <el-cascader
+            v-model="selectedOrganizeOptions"
+            :options="selectOrganize"
+            filterable
+            :props="{
               label: 'FullName',
               value: 'Id',
               children: 'Children',
               emitPath: false,
               checkStrictly: true,
               expandTrigger: 'hover',
-            }" clearable @change="handleSelectOrganizeChange" />
+            }"
+            clearable
+            @change="handleSelectOrganizeChange"
+          />
         </el-form-item>
         <el-form-item label="排序" :label-width="formLabelWidth" prop="SortCode">
           <el-input v-model.number="editFrom.SortCode" placeholder="请输入排序,默认为99" autocomplete="off" clearable />
@@ -107,7 +114,7 @@
         </el-tab-pane>
         <el-tab-pane label="功能菜单">
           <el-card class="box-card">
-            <el-tree ref="treeFunction" :data="treeFuntionData" show-checkbox default-expand-all node-key="Id" highlight-current check-strictly :props="{ label: 'FullName', children: 'Children' }" :default-checked-keys="default_select" />
+            <el-tree ref="treeFunction" :data="treeFuntionData" show-checkbox default-expand-all node-key="Id" highlight-current check-strictly :props="{ label: 'FullName', children: 'Children',disabled:'FunctionTag' }" :default-checked-keys="default_select" />
           </el-card>
         </el-tab-pane>
         <el-tab-pane label="数据权限">

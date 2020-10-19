@@ -142,13 +142,11 @@ namespace Yuebon.AspNetCore.Controllers
                                         MemberGradeId = user.MemberGradeId,
                                         Role = _roleService.GetRoleEnCode(user.RoleId),
                                         MobilePhone = user.MobilePhone,
-                                        OrganizeId=user.OrganizeId,
-                                        DeptId=user.DepartmentId,
-                                        CurrentLoginIP= remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString(),
-                                        IPAddressName= IpAddressUtil.GetCityByIp(logEntity.IPAddress)
-
-                                };
-
+                                        OrganizeId = user.OrganizeId,
+                                        DeptId = user.DepartmentId,
+                                        CurrentLoginIP = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString(),
+                                        IPAddressName = IpAddressUtil.GetCityByIp(logEntity.IPAddress)
+                                    };
                                     currentSession.ActiveSystem = systemType.FullName;
                                     currentSession.ActiveSystemUrl = systemType.Url;
                                     List<FunctionOutputDto> listFunction = new List<FunctionOutputDto>();
@@ -197,8 +195,8 @@ namespace Yuebon.AspNetCore.Controllers
 
                                     logEntity.Account = username;
                                     logEntity.Date = logEntity.CreatorTime = DateTime.Now;
-                                    logEntity.IPAddress = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
-                                    logEntity.IPAddressName = IpAddressUtil.GetCityByIp(logEntity.IPAddress);
+                                    logEntity.IPAddress = CurrentUser.CurrentLoginIP;
+                                    logEntity.IPAddressName = CurrentUser.IPAddressName;
                                     logEntity.Result = false;
                                     logEntity.ModuleName = "登录";
                                     logEntity.Type = "Login";

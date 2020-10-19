@@ -47,6 +47,7 @@ namespace Yuebon.Commons.EfDbContext
                 return isMultiTenant;
             }
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -131,7 +132,7 @@ namespace Yuebon.Commons.EfDbContext
                     {
                         modelBuilder.Entity<Entity>().HasQueryFilter(m => ((IDeleteAudited)m).DeleteMark == false);
                     }
-                    if (isMultiTenant) {
+                    if (IsMultiTenant) {
                         if (typeof(IMustHaveTenant).IsAssignableFrom(typeof(Entity)))
                         {
                             modelBuilder.Entity<Entity>().HasQueryFilter(m => ((IMustHaveTenant)m).TenantId == "");

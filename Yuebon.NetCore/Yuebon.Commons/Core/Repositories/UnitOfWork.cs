@@ -68,13 +68,19 @@ namespace Yuebon.Commons.Repositories
         }
 
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public int SaveChanges()
         {
             return _context.SaveChanges();
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public Task<int> SaveChangesAsync()
         {
             return _context.SaveChangesAsync();

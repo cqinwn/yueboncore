@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Dapper.Contrib.Extensions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
@@ -51,17 +52,13 @@ namespace Yuebon.Commons.Repositories
         /// 定义一个操作记录的事件处理
         /// </summary>
         public event OperationLogEventHandler OnOperationLog;
-        private DbConnection dbConnection;
+        public DbConnection dbConnection;
         /// <summary>
         /// 上下文
         /// </summary>
         protected BaseDbContext _dbContext;
 
         private DbSet<T> _dbSet;
-        /// <summary>
-        /// 数据库连接配置
-        /// </summary>
-        protected string defaultSqlConnectionString = "";
 
         /// <summary>
         /// 数据库配置名称
@@ -99,7 +96,19 @@ namespace Yuebon.Commons.Repositories
         /// 是否开启多租户
         /// </summary>
         protected bool isMultiTenant = false;
+        /// <summary>
+        /// 是否开启多租户
+        /// </summary>
+        protected string tenantId = "";
 
+        /// <summary>
+        /// 租户Id
+        /// </summary>
+        public string TenantId
+        {
+            get { return tenantId; }
+            set { tenantId = value; }
+        }
         /// <summary>
         /// 数据库配置名称，默认为空。
         /// 可在子类指定不同的配置名称，用于访问不同的数据库
@@ -268,7 +277,12 @@ namespace Yuebon.Commons.Repositories
             {
                 dbConfigName= Configs.GetConfigurationValue("AppSetting", "DefaultDataBase");
             }
-            defaultSqlConnectionString = Configs.GetConnectionString(dbConfigName);
+            // 数据库连接配置
+            string defaultSqlConnectionString = Configs.GetConnectionString(dbConfigName);
+            if (IsMultiTenant)
+            {
+                defaultSqlConnectionString= Configs.GetConnectionString(dbConfigName);
+            }
             if (conStringEncrypt == "true")
             {
                 defaultSqlConnectionString = DEncrypt.Decrypt(defaultSqlConnectionString);

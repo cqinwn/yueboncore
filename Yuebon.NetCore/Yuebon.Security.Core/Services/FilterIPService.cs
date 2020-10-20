@@ -17,5 +17,14 @@ namespace Yuebon.Security.Services
             _logService = logService;
             _repository.OnOperationLog += _logService.OnOperationLog;
         }
+        /// <summary>
+        /// 验证IP地址是否被拒绝
+        /// </summary>
+        /// <param name="ip"></param>
+        /// <returns></returns>
+        public bool ValidateIP(string ip)
+        {
+          return  _repository.ValidateIP(ip);
+        }
     }
 }

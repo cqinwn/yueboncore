@@ -203,7 +203,8 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
 
             if (ln >= 0)
             {
-                result.Success = true;
+                result.ErrCode = ErrCode.successCode;
+                result.ErrMsg = ErrCode.err0;
             }
             else
             {

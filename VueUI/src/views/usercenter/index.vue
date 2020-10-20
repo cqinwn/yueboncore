@@ -6,6 +6,7 @@
           <el-form-item label="头像" :label-width="formLabelWidth" prop="HeadIcon">
             <el-upload
               :action="httpFileUploadUrl"
+              :headers="headers"
               list-type="picture-card"
               :on-preview="handlePictureCardPreview"
               :on-remove="handleRemove"
@@ -54,7 +55,7 @@
             <el-checkbox v-model="editFrom.EnabledMark">启用</el-checkbox>
             <el-checkbox v-model="editFrom.IsAdministrator">管理员</el-checkbox>
           </el-form-item>
-          <el-form-item label="所属组织" :label-width="formLabelWidth" prop="OrganizeId">
+          <el-form-item label="所属组织" :label-width="formLabelWidth" prop="DepartmentId">
             <el-cascader
               v-model="selectedOrganizeOptions"
               style="width:500px;"
@@ -100,6 +101,8 @@ import defaultSettings from '@/settings'
 import { getByUserName, saveUser } from '@/api/security/userservice'
 import { getAllRoleList } from '@/api/security/roleservice'
 import { getAllOrganizeTreeTable } from '@/api/security/organizeservice'
+
+import { getToken } from '@/utils/auth'
 export default {
   data () {
     return {
@@ -117,7 +120,7 @@ export default {
         MobilePhone: '',
         Email: '',
         WeChat: '',
-        OrganizeId: '',
+        DepartmentId: '',
         RoleId: '',
         IsAdministrator: true,
         EnabledMark: true,
@@ -137,7 +140,8 @@ export default {
       dialogHeadIconVisible: false,
       dialogHeadIconImageUrl: '',
       filelist: [],
-      formLabelWidth: '100px'
+      formLabelWidth: '100px',
+      headers: []
     }
   },
   computed: {
@@ -148,6 +152,7 @@ export default {
   created () {
     this.InitDictItem()
     this.bindEditInfo()
+    this.headers = { Authorization: 'Bearer ' + (getToken() || '') }
   },
   methods: {
     /**
@@ -172,7 +177,6 @@ export default {
       this.editFrom.OrganizeId = this.selectedOrganizeOptions
     },
     handleRemove (file, fileList) {
-      console.log(file, fileList)
       this.editFrom.SysLogo = file.url
     },
     handlePictureCardPreview (file) {
@@ -189,7 +193,7 @@ export default {
         this.editFrom.MobilePhone = res.ResData.MobilePhone
         this.editFrom.Email = res.ResData.Email
         this.editFrom.WeChat = res.ResData.WeChat
-        this.editFrom.OrganizeId = res.ResData.OrganizeId
+        this.editFrom.DepartmentId = res.ResData.DepartmentId
         this.editFrom.IsAdministrator = res.ResData.IsAdministrator
         this.editFrom.EnabledMark = res.ResData.EnabledMark
         this.editFrom.RoleId = res.ResData.RoleId.split(',')
@@ -216,7 +220,7 @@ export default {
             MobilePhone: this.editFrom.MobilePhone,
             Email: this.editFrom.Email,
             WeChat: this.editFrom.WeChat,
-            OrganizeId: this.editFrom.OrganizeId,
+            DepartmentId: this.editFrom.DepartmentId,
             IsAdministrator: this.editFrom.IsAdministrator,
             EnabledMark: this.editFrom.EnabledMark,
             RoleId: this.editFrom.RoleId.join(','),

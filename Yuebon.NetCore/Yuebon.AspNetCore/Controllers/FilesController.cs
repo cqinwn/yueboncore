@@ -43,7 +43,6 @@ namespace Yuebon.AspNetCore.Controllers
         /// </summary>
         /// <param name="formCollection"></param>
         /// <returns>服务器存储的文件信息</returns>
-        [AllowAnonymous]
         [HttpPost("Upload")]
         public IActionResult Upload([FromForm] IFormCollection formCollection)
         {
@@ -72,7 +71,6 @@ namespace Yuebon.AspNetCore.Controllers
         /// </summary>
         /// <param name="formCollection"></param>
         /// <returns>服务器存储的文件信息</returns>
-        [AllowAnonymous]
         [HttpPost("Uploads")]
         public IActionResult  Uploads([FromForm] IFormCollection formCollection)
         {
@@ -98,7 +96,6 @@ namespace Yuebon.AspNetCore.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [AllowAnonymous]
         [HttpGet("DeleteFile")]
         public IActionResult DeleteFile(string id)
         {

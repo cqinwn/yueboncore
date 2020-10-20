@@ -17,6 +17,7 @@
           <el-form-item label="Logo" :label-width="formLabelWidth" prop="SysLogo">
             <el-upload
               :action="httpFileUploadUrl"
+              :headers="headers"
               list-type="picture-card"
               :on-preview="handlePictureCardPreview"
               :on-remove="handleRemove"
@@ -139,6 +140,7 @@
 <script>
 import { getSysSetting, saveSysSetting } from '@/api/basebasic'
 import defaultSettings from '@/settings'
+import { getToken } from '@/utils/auth'
 export default {
   data () {
     return {
@@ -187,11 +189,13 @@ export default {
       dialogVisible: false,
       dialogImageUrl: '',
       filelist: [],
-      formLabelWidth: '150px'
+      formLabelWidth: '150px',
+      headers: []
     }
   },
   created () {
     this.loadSettingData()
+    this.headers = { Authorization: 'Bearer ' + (getToken() || '') }
   },
   methods: {
     handleRemove (file, fileList) {

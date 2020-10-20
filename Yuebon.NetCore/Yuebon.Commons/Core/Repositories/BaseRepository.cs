@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
 using Npgsql;
 using Oracle.ManagedDataAccess.Client;
 using System;
@@ -2017,19 +2018,19 @@ namespace Yuebon.Commons.Repositories
                 {
                     try
                     {
-                        string exeSqlLog = string.Empty;
+                        StringBuilder exeSqlLog = new StringBuilder();
                         foreach (var tran in trans)
                         {
-                            exeSqlLog += "SQL语句:" + tran.Item1 + "  \n SQL参数: " + JsonHelper.ToJson(tran.Item2) + " \n";
-                            conn.ExecuteAsync(tran.Item1, tran.Item2, transaction, commandTimeout);
+                            exeSqlLog.Append("SQL语句:" + tran.Item1 + "  \n SQL参数: " + JsonConvert.SerializeObject(tran.Item2) + " \n");
+                           await conn.ExecuteAsync(tran.Item1, tran.Item2, transaction, commandTimeout);
                         }
                         Stopwatch stopwatch = new Stopwatch();
                         stopwatch.Start();
                         //提交事务
                         transaction.Commit();
                         stopwatch.Stop();
-                        exeSqlLog += "耗时:" + stopwatch.ElapsedMilliseconds + "  毫秒\n";
-                        OperationLogOfSQL(sb.ToString());
+                        exeSqlLog.Append("耗时:" + stopwatch.ElapsedMilliseconds + "  毫秒\n");
+                        OperationLogOfSQL(exeSqlLog.ToString());
                         return new Tuple<bool, string>(true, string.Empty);
                     }
                     catch (Exception ex)
@@ -2068,10 +2069,10 @@ namespace Yuebon.Commons.Repositories
                 {
                     try
                     {
-                        string exeSqlLog = string.Empty;
+                        StringBuilder exeSqlLog = new StringBuilder();
                         foreach (var tran in trans)
                         {
-                            exeSqlLog+="SQL语句:" + tran.Item1 + "  \n SQL参数: " + JsonHelper.ToJson(tran.Item2) + " \n";
+                            exeSqlLog.Append("SQL语句:" + tran.Item1 + "  \n SQL参数: " + JsonConvert.SerializeObject(tran.Item2) + " \n");
                             conn.Execute(tran.Item1, tran.Item2, transaction, commandTimeout);
                         }
                         Stopwatch stopwatch = new Stopwatch();
@@ -2079,8 +2080,8 @@ namespace Yuebon.Commons.Repositories
                         //提交事务
                         transaction.Commit();
                         stopwatch.Stop();
-                        exeSqlLog+="耗时:" + stopwatch.ElapsedMilliseconds + "  毫秒\n";
-                        OperationLogOfSQL(exeSqlLog);
+                        exeSqlLog.Append("耗时:" + stopwatch.ElapsedMilliseconds + "  毫秒\n");
+                        OperationLogOfSQL(exeSqlLog.ToString());
                         return new Tuple<bool, string>(true, string.Empty);
                     }
                     catch (Exception ex)

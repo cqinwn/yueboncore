@@ -27,7 +27,7 @@
         <el-table-column prop="Account" label="操作账号" sortable="custom" width="120" />
         <el-table-column prop="NickName" label="操作人" sortable="custom" width="120" />
         <el-table-column prop="ModuleName" label="操作模块" sortable="custom" width="180" />
-        <el-table-column prop="Type" label="类型" sortable="custom" width="120" />
+        <el-table-column prop="Type" label="类型" sortable="custom" width="90" />
         <el-table-column prop="IPAddress" label="IP地址" sortable="custom" width="150" />
         <el-table-column prop="IPAddressName" label="IP城市" sortable="custom" width="220" />
         <el-table-column prop="Description" label="详情" width="560" />

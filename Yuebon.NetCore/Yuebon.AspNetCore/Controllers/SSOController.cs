@@ -41,6 +41,7 @@ namespace Yuebon.AspNetCore.Controllers
         private IAPPService _appService;
         private ILogService _logService;
         private IRoleService _roleService;
+        private IFilterIPService _filterIPService;
         /// <summary>
         /// 构造函数注入服务
         /// </summary>
@@ -49,13 +50,15 @@ namespace Yuebon.AspNetCore.Controllers
         /// <param name="logService"></param>
         /// <param name="appService"></param>
         /// <param name="roleService"></param>
-        public SSOController(IUserService iService, ISystemTypeService systemTypeService,ILogService logService, IAPPService appService, IRoleService roleService)
+        /// <param name="filterIPService"></param>
+        public SSOController(IUserService iService, ISystemTypeService systemTypeService,ILogService logService, IAPPService appService, IRoleService roleService, IFilterIPService filterIPService)
         {
             _userService = iService;
             _systemTypeService = systemTypeService;
             _logService = logService;
             _appService = appService;
             _roleService = roleService;
+            _filterIPService = filterIPService;
         }
 
         /// <summary>
@@ -72,104 +75,120 @@ namespace Yuebon.AspNetCore.Controllers
         {
             CommonResult result = new CommonResult();
             RemoteIpParser remoteIpParser = new RemoteIpParser();
-            if (string.IsNullOrEmpty(openmf))
+            string strIp = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
+            bool blIp = _filterIPService.ValidateIP(strIp);
+            if (blIp)
             {
-                result.ErrMsg = "切换参数错误！";
-            }
-            if (string.IsNullOrEmpty(systemCode))
-            {
-                result.ErrMsg = ErrCode.err40009;
+                result.ErrMsg = strIp + "，IP已被管理员禁止登录！";
             }
             else
             {
-                string strHost = Request.Host.ToString();
-                APP app = _appService.GetAPP(appId);
-                if (app == null)
+                string ipAddressName = IpAddressUtil.GetCityByIp(strIp);
+                if (string.IsNullOrEmpty(openmf))
                 {
-                    result.ErrCode = "40001";
-                    result.ErrMsg = ErrCode.err40001;
+                    result.ErrMsg = "切换参数错误！";
+                }
+                if (string.IsNullOrEmpty(systemCode))
+                {
+                    result.ErrMsg = ErrCode.err40009;
                 }
                 else
                 {
-                    if (!app.RequestUrl.Contains(strHost) && !strHost.Contains("localhost"))
+                    string strHost = Request.Host.ToString();
+                    APP app = _appService.GetAPP(appId);
+                    if (app == null)
                     {
-                        result.ErrCode = "40002";
-                        result.ErrMsg = ErrCode.err40002 + "，你当前请求主机：" + strHost;
+                        result.ErrCode = "40001";
+                        result.ErrMsg = ErrCode.err40001;
                     }
                     else
                     {
-                        SystemType systemType = _systemTypeService.GetByCode(systemCode);
-                        if (systemType == null)
+                        if (!app.RequestUrl.Contains(strHost) && !strHost.Contains("localhost"))
                         {
-                            result.ErrMsg = ErrCode.err40009;
+                            result.ErrCode = "40002";
+                            result.ErrMsg = ErrCode.err40002 + "，你当前请求主机：" + strHost;
                         }
                         else
                         {
-                            YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                            object dd = yuebonCacheHelper.Get("openmf" + openmf);
-                            yuebonCacheHelper.Remove("openmf" + openmf);
-                            if (dd == null)
+                            SystemType systemType = _systemTypeService.GetByCode(systemCode);
+                            if (systemType == null)
                             {
-                                result.ErrCode = "40007";
-                                result.ErrMsg = ErrCode.err40007;
+                                result.ErrMsg = ErrCode.err40009;
                             }
                             else
                             {
-                                User user = _userService.Get(dd.ToString());
-                                if (user != null)
+                                YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+                                object dd = yuebonCacheHelper.Get("openmf" + openmf);
+                                yuebonCacheHelper.Remove("openmf" + openmf);
+                                if (dd == null)
                                 {
-                                    result.Success = true;
-                                    JwtOption jwtModel = IoCContainer.Resolve<JwtOption>();
-                                    TokenProvider tokenProvider = new TokenProvider(jwtModel);
-                                    TokenResult tokenResult = tokenProvider.LoginToken(user, appId);
-                                    YuebonCurrentUser currentSession = new YuebonCurrentUser
-                                    {
-                                        UserId = user.Id,
-                                        Account = user.Account,
-                                        Name = user.RealName,
-                                        NickName = user.NickName,
-                                        AccessToken = tokenResult.AccessToken,
-                                        AppKey = appId,
-                                        CreateTime = DateTime.Now,
-                                        HeadIcon = user.HeadIcon,
-                                        Gender = user.Gender,
-                                        ReferralUserId = user.ReferralUserId,
-                                        MemberGradeId = user.MemberGradeId,
-                                        Role = _roleService.GetRoleEnCode(user.RoleId),
-                                        MobilePhone = user.MobilePhone
-                                    };
-                                    currentSession.ActiveSystem = systemType.FullName;
-                                    currentSession.ActiveSystemUrl = systemType.Url;
-                                    List<FunctionOutputDto> listFunction = new List<FunctionOutputDto>();
-                                    FunctionApp functionApp = new FunctionApp();
-                                    if (Permission.IsAdmin(currentSession))
-                                    {
-                                        currentSession.SubSystemList = _systemTypeService.GetAllByIsNotDeleteAndEnabledMark().MapTo<SystemTypeOutputDto>();
-                                        currentSession.MenusList = new MenuApp().GetMenuFuntionJson(systemCode);
-                                        //取得用户可使用的授权功能信息，并存储在缓存中
-                                        listFunction = functionApp.GetFunctionsBySystem(systemType.Id);
-                                    }
-                                    else
-                                    {
-                                        currentSession.SubSystemList = _systemTypeService.GetSubSystemList(user.RoleId);
-                                        currentSession.MenusList = new MenuApp().GetMenuFuntionJson(user.RoleId, systemCode);
-                                        //取得用户可使用的授权功能信息，并存储在缓存中
-                                        listFunction = functionApp.GetFunctionsByUser(user.Id, systemType.Id);
-                                    }
-                                    yuebonCacheHelper.Replace("User_Function_" + user.Id, listFunction);
-                                    currentSession.Modules = listFunction;
-                                    TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
-                                    yuebonCacheHelper.Replace("login_user_" + user.Id, currentSession, expiresSliding, true);
-
-                                    CurrentUser = currentSession;
-                                    result.ResData = currentSession;
-                                    result.ErrCode = ErrCode.successCode;
-                                    result.Success = true;
+                                    result.ErrCode = "40007";
+                                    result.ErrMsg = ErrCode.err40007;
                                 }
                                 else
                                 {
-                                    result.ErrCode = ErrCode.failCode;
+                                    User user = _userService.Get(dd.ToString());
+                                    if (user != null)
+                                    {
+                                        result.Success = true;
+                                        JwtOption jwtModel = IoCContainer.Resolve<JwtOption>();
+                                        TokenProvider tokenProvider = new TokenProvider(jwtModel);
+                                        TokenResult tokenResult = tokenProvider.LoginToken(user, appId);
+                                        YuebonCurrentUser currentSession = new YuebonCurrentUser
+                                        {
+                                            UserId = user.Id,
+                                            Account = user.Account,
+                                            Name = user.RealName,
+                                            NickName = user.NickName,
+                                            AccessToken = tokenResult.AccessToken,
+                                            AppKey = appId,
+                                            CreateTime = DateTime.Now,
+                                            HeadIcon = user.HeadIcon,
+                                            Gender = user.Gender,
+                                            ReferralUserId = user.ReferralUserId,
+                                            MemberGradeId = user.MemberGradeId,
+                                            Role = _roleService.GetRoleEnCode(user.RoleId),
+                                            MobilePhone = user.MobilePhone,
+                                            OrganizeId = user.OrganizeId,
+                                            DeptId = user.DepartmentId,
+                                            CurrentLoginIP = strIp,
+                                            IPAddressName = ipAddressName
+                                        };
+                                        currentSession.ActiveSystem = systemType.FullName;
+                                        currentSession.ActiveSystemUrl = systemType.Url;
+                                        List<FunctionOutputDto> listFunction = new List<FunctionOutputDto>();
+                                        FunctionApp functionApp = new FunctionApp();
+                                        if (Permission.IsAdmin(currentSession))
+                                        {
+                                            currentSession.SubSystemList = _systemTypeService.GetAllByIsNotDeleteAndEnabledMark().MapTo<SystemTypeOutputDto>();
+                                            currentSession.MenusList = new MenuApp().GetMenuFuntionJson(systemCode);
+                                            //取得用户可使用的授权功能信息，并存储在缓存中
+                                            listFunction = functionApp.GetFunctionsBySystem(systemType.Id);
+                                        }
+                                        else
+                                        {
+                                            currentSession.SubSystemList = _systemTypeService.GetSubSystemList(user.RoleId);
+                                            currentSession.MenusList = new MenuApp().GetMenuFuntionJson(user.RoleId, systemCode);
 
+                                            //取得用户可使用的授权功能信息，并存储在缓存中
+                                            listFunction = functionApp.GetFunctionsByUser(user.Id, systemType.Id);
+                                        }
+
+                                        yuebonCacheHelper.Add("User_Function_" + user.Id, listFunction);
+                                        currentSession.Modules = listFunction;
+                                        TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
+                                        yuebonCacheHelper.Add("login_user_" + user.Id, currentSession, expiresSliding, true);
+
+                                        CurrentUser = currentSession;
+                                        result.ResData = currentSession;
+                                        result.ErrCode = ErrCode.successCode;
+                                        result.Success = true;
+                                    }
+                                    else
+                                    {
+                                        result.ErrCode = ErrCode.failCode;
+
+                                    }
                                 }
                             }
                         }

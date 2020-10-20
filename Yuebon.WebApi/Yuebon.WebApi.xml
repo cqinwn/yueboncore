@@ -782,6 +782,13 @@
             改变任务状态，启动/停止
             </summary>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:Yuebon.WebApi.Areas.Security.Controllers.TaskManagerController.SetEnabledMarktBatchAsync(System.String,System.String)" -->
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.TaskManagerController.DeleteBatchAsync(System.String)">
+            <summary>
+            异步批量物理删除
+            </summary>
+            <param name="ids">主键Id</param>
+        </member>
         <member name="M:Yuebon.WebApi.Areas.Security.Controllers.TaskManagerController.QueryLocalHandlers">
             <summary>
             返回系统的job接口

@@ -88,7 +88,7 @@ namespace Yuebon.AspNetCore.Controllers
             }
             else
             {
-                string ipAddressName = IpAddressUtil.GetCityByIp(logEntity.IPAddress);
+                string ipAddressName = IpAddressUtil.GetCityByIp(strIp);
 
                 if (string.IsNullOrEmpty(username))
                 {

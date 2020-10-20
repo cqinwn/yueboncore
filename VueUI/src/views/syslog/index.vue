@@ -4,7 +4,7 @@
       <el-card>
         <el-form ref="searchform" :inline="true" :model="searchform" class="demo-form-inline" size="small">
           <el-form-item label="关键词：">
-            <el-input v-model="searchform.name" clearable placeholder="模块/IP等" />
+            <el-input v-model="searchform.name" clearable placeholder="模块/IP sq" />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="handleSearch()">查询</el-button>
@@ -85,7 +85,8 @@ export default {
         length: this.pagination.pagesize,
         Keywords: this.searchform.name,
         Order: this.sortableData.order,
-        Sort: this.sortableData.sort
+        Sort: this.sortableData.sort,
+        EnCode: 'Create,Update,Delete,DeleteSoft'
       }
       getLogListWithPager(seachdata).then((res) => {
         this.tableData = res.ResData.Items

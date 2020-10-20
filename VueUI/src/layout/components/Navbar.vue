@@ -25,7 +25,7 @@
               <i class="el-icon-user" />个人中心
             </el-dropdown-item>
           </router-link>
-          <a target="_blank" href="https://gitee.com/yuebon/YuebonNetCore/wikis">
+          <a target="_blank" href="http://docs.v.yuebon.com">
             <el-dropdown-item>
               <i class="el-icon-question" />使用手册</el-dropdown-item>
           </a>

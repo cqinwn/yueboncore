@@ -541,67 +541,6 @@ namespace Yuebon.AspNetCore.Controllers
         protected virtual string GetPagerCondition(bool blDeptCondition = true)
         {
             string where = "1=1";
-
-            //增加一个CustomedCondition条件，根据客户这个条件进行查询
-            //string CustomedCondition = Request["CustomedCondition"] ?? "";
-            //if (!string.IsNullOrWhiteSpace(CustomedCondition))
-            //{
-            //    where = CustomedCondition;//直接使用条件
-            //}
-            //else
-            //{
-            //    #region 根据数据库字段列，对所有可能的参数进行获值，然后构建查询条件
-            //    SearchCondition condition = new SearchCondition();
-            //    DataTable dt = baseBLL.GetFieldTypeList();
-            //    foreach (DataRow dr in dt.Rows)
-            //    {
-            //        string columnName = dr["ColumnName"].ToString();
-            //        string dataType = dr["DataType"].ToString();
-
-            //        //字段增加YUE_前缀字符，避免传递如URL这样的Request关键字冲突
-            //        string columnValue = Request["YUE_" + columnName] ?? "";
-            //        //对于数值型，如果是显示声明相等的，一般是外键引用，需要特殊处理
-            //        bool hasEqualValue = columnValue.StartsWith("=");
-
-            //        if (IsDateTime(dataType))
-            //        {
-            //            condition.AddDateCondition(columnName, columnValue);
-            //        }
-            //        else if (IsNumericType(dataType))
-            //        {
-            //            //如果数据库是数值类型，而传入的值是true或者false,那么代表数据库的参考值为1,0，需要进行转换
-            //            bool boolValue = false;
-            //            bool isBoolenValue = bool.TryParse(columnValue, out boolValue);
-            //            if (isBoolenValue)
-            //            {
-            //                condition.AddCondition(columnName, boolValue ? 1 : 0, SqlOperator.Equal);
-            //            }
-            //            else if (hasEqualValue)
-            //            {
-            //                columnValue = columnValue.Substring(columnValue.IndexOf("=") + 1);
-            //                condition.AddCondition(columnName, columnValue, SqlOperator.Equal);
-            //            }
-            //            else
-            //            {
-            //                condition.AddNumberCondition(columnName, columnValue);
-            //            }
-            //        }
-            //        else
-            //        {
-            //            if (ValidateUtil.IsNumeric(columnValue))
-            //            {
-            //                condition.AddCondition(columnName, columnValue, SqlOperator.Equal);
-            //            }
-            //            else
-            //            {
-            //                condition.AddCondition(columnName, columnValue, SqlOperator.Like);
-            //            }
-            //        }
-            //    }
-            //    #endregion
-
-            //    where = condition.BuildConditionSql().Replace("Where", "");
-            //}
             //if (blDeptCondition)
             //{
             //    //如果公司过滤条件不为空，那么需要进行过滤

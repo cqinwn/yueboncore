@@ -21,8 +21,7 @@ namespace Yuebon.Security.Models
         /// </summary>
 	    public Menu()
 		{
-           // this.Id = GuidUtils.CreateNo();
-
+          this.Id = GuidUtils.CreateNo();
         }
 
         #region Property Members

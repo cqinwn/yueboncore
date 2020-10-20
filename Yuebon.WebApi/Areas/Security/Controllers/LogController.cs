@@ -14,6 +14,7 @@ using Yuebon.Security.Models;
 using Yuebon.Security.IServices;
 using Yuebon.AspNetCore.UI;
 using Yuebon.AspNetCore.Mvc;
+using Yuebon.Commons.Linq;
 
 namespace Yuebon.WebApi.Areas.Security.Controllers
 {
@@ -101,6 +102,10 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 {
                     where += string.Format(" and (Account like '%{0}%' or ModuleName like '%{0}%' or IPAddress like '%{0}%' or IPAddressName like '%{0}%' or Description like '%{0}%')", search.Keywords);
                 };
+                if (!string.IsNullOrEmpty(search.EnCode))
+                {
+                    where += " and Type in('" + search.EnCode.Replace(",","','") + "')";
+                }
             }
             PagerInfo pagerInfo = GetPagerInfo();
             List<Log> list = await iService.FindWithPagerAsync(where, pagerInfo, orderFlied, order);

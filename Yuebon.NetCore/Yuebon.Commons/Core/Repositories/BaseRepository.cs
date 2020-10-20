@@ -1191,6 +1191,48 @@ namespace Yuebon.Commons.Repositories
                 return lit.FirstOrDefault();
             }
         }
+
+        /// <summary>
+        /// 根据条件查询获取某个字段的最大值
+        /// </summary>
+        /// <param name="strField">字段</param>
+        /// <param name="where">条件</param>
+        /// <param name="trans">事务</param>
+        /// <returns>返回字段的最大值</returns>
+        public virtual async Task<int> GetMaxValueByFieldAsync(string strField, string where, IDbTransaction trans = null)
+        {
+            using (DbConnection conn = OpenSharedConnection())
+            {
+                string sql = $"select isnull(MAX({strField}),0) as maxVaule from {tableName} ";
+                if (!string.IsNullOrEmpty(where))
+                {
+                    sql += " where " + where;
+                }
+
+                IEnumerable<int> lit = await conn.QueryAsync<int>(sql);
+                return lit.FirstOrDefault();
+            }
+        }
+        /// <summary>
+        /// 根据条件统计某个字段之和,sum(字段)
+        /// </summary>
+        /// <param name="strField">字段</param>
+        /// <param name="where">条件</param>
+        /// <param name="trans">事务</param>
+        /// <returns>返回字段的最大值</returns>
+        public virtual async Task<int> GetSumValueByFieldAsync(string strField, string where, IDbTransaction trans = null)
+        {
+            using (DbConnection conn = OpenSharedConnection())
+            {
+                string sql = $"select isnull(sum({strField}),0) as sumVaule from {tableName} ";
+                if (!string.IsNullOrEmpty(where))
+                {
+                    sql += " where " + where;
+                }
+                IEnumerable<int> lit = await conn.QueryAsync<int>(sql);
+                return lit.FirstOrDefault();
+            }
+        }
         #endregion
         #region 新增、修改和删除
 
@@ -1489,11 +1531,12 @@ namespace Yuebon.Commons.Repositories
         public virtual bool Delete(TKey primaryKey, IDbTransaction trans=null)
         {
             var param = new List<Tuple<string, object>>();
-            string sql = $"delete from {tableName} where " + primaryKey + "=@" + primaryKey;
-            Tuple<string, object> tupel = new Tuple<string, object>(sql, new { primaryKey = primaryKey });
+            string sql = $"delete from {tableName} where " + PrimaryKey + "=@PrimaryKey";
+            Tuple<string, object> tupel = new Tuple<string, object>(sql, new { @PrimaryKey = primaryKey });
 
             param.Add(tupel);
             Tuple<bool, string> result= ExecuteTransaction(param);
+            OperationLogOfDelete(primaryKey);
             return result.Item1;
         }
         /// <summary>
@@ -1505,11 +1548,11 @@ namespace Yuebon.Commons.Repositories
         public virtual async Task<bool> DeleteAsync(TKey primaryKey, IDbTransaction trans=null)
         {
             var param = new List<Tuple<string, object>>();
-            string sql = $"delete from {tableName} where " + primaryKey + "=@" + primaryKey;
-            Tuple<string, object> tupel = new Tuple<string, object>(sql, new { primaryKey = primaryKey });
-
+            string sql = $"delete from {tableName} where " + PrimaryKey + "=@PrimaryKey" ;
+            Tuple<string, object> tupel = new Tuple<string, object>(sql, new { @PrimaryKey = primaryKey });
             param.Add(tupel);
             Tuple<bool, string> result =await ExecuteTransactionAsync(param);
+            OperationLogOfDelete(primaryKey);
             return result.Item1;
         }
 
@@ -1522,8 +1565,8 @@ namespace Yuebon.Commons.Repositories
         public  virtual bool DeleteBatch(IList<dynamic> ids, IDbTransaction trans = null)
         {
             var param = new List<Tuple<string, object>>();
-            string sql = $"delete from {tableName} where Id in (@ids)";
-            Tuple<string, object> tupel = new Tuple<string, object>(sql, new { @ids = ids });
+            string sql = $"delete from {tableName} where PrimaryKey in (@PrimaryKey)";
+            Tuple<string, object> tupel = new Tuple<string, object>(sql, new { @PrimaryKey = ids });
 
             param.Add(tupel);
             Tuple<bool, string> result = ExecuteTransaction(param);
@@ -1590,12 +1633,12 @@ namespace Yuebon.Commons.Repositories
         public virtual bool DeleteByUser(TKey primaryKey, string userId, IDbTransaction trans=null)
         {
 
-            using (DbConnection conn =OpenSharedConnection())
-            {
-                OperationLogOfDelete(primaryKey); //根据设置记录操作日志
-                int row = conn.Execute($"delete from {tableName} where " + primaryKey + "=@" + primaryKey, new { primaryKey = primaryKey },trans);
-                return row > 0 ? true : false;
-            }
+            var param = new List<Tuple<string, object>>();
+            string sql = $"delete from {tableName} where " + PrimaryKey + " = @PrimaryKey";
+            Tuple<string, object> tupel = new Tuple<string, object>(sql, new { @PrimaryKey = primaryKey });
+            param.Add(tupel);
+            Tuple<bool, string> result = ExecuteTransaction(param);
+            return result.Item1;
         }
         /// <summary>
         /// 异步根据指定对象的ID和用户ID,从数据库中删除指定对象(用于记录人员的操作日志）
@@ -1606,12 +1649,12 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual async Task<bool> DeleteByUserAsync(TKey primaryKey, string userId, IDbTransaction trans=null)
         {
-            using (DbConnection conn =OpenSharedConnection())
-            {
-                OperationLogOfDelete(primaryKey); //根据设置记录操作日志
-                int row = await conn.ExecuteAsync($"delete from {tableName} where "+ primaryKey + "=@"+ primaryKey, new { @primaryKey = primaryKey },trans);
-                return row > 0 ? true : false;
-            }
+            var param = new List<Tuple<string, object>>();
+            string sql = $"delete from {tableName} where " + PrimaryKey + " = @PrimaryKey";
+            Tuple<string, object> tupel = new Tuple<string, object>(sql, new { @PrimaryKey = primaryKey });
+            param.Add(tupel);
+            Tuple<bool, string> result = await ExecuteTransactionAsync(param);
+            return result.Item1;
         }
 
         /// <summary>
@@ -1622,30 +1665,29 @@ namespace Yuebon.Commons.Repositories
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual bool DeleteSoft(bool bl, TKey primaryKey, string userId = null, IDbTransaction trans=null)
+        public virtual bool DeleteSoft(bool bl, TKey primaryKey, string userId = null, IDbTransaction trans = null)
         {
-            using (DbConnection conn =OpenSharedConnection())
+            OperationLogOfDeleteSoft(primaryKey, userId);
+            string sql = $"update {tableName} set ";
+            if (bl)
             {
-
-                OperationLogOfDeleteSoft(primaryKey, userId);
-                string sql = $"update {tableName} set ";
-                if (bl)
-                {
-                    sql += "DeleteMark=0 ";
-                }
-                else
-                {
-                    sql += "DeleteMark=1 ";
-                }
-                if (!string.IsNullOrEmpty(userId))
-                {
-                    sql += ",DeleteUserId='" + userId + "'";
-                }
-                DateTime deleteTime = DateTime.Now;
-                sql += ",DeleteTime=@DeleteTime where " + primaryKey + "=@" + primaryKey;
-                int row = conn.Execute(sql, new { @primaryKey = primaryKey, @DeleteTime = deleteTime },trans);
-                return row > 0 ? true : false;
+                sql += "DeleteMark=0 ";
             }
+            else
+            {
+                sql += "DeleteMark=1 ";
+            }
+            if (!string.IsNullOrEmpty(userId))
+            {
+                sql += ",DeleteUserId='" + userId + "'";
+            }
+            DateTime deleteTime = DateTime.Now;
+            sql += ",DeleteTime=@DeleteTime where " + PrimaryKey + "=@PrimaryKey" ;
+            var param = new List<Tuple<string, object>>();
+            Tuple<string, object> tupel = new Tuple<string, object>(sql, new { @PrimaryKey = primaryKey, @DeleteTime = deleteTime });
+            param.Add(tupel);
+            Tuple<bool, string> result = ExecuteTransaction(param);
+            return result.Item1;
         }
 
         /// <summary>
@@ -1656,29 +1698,29 @@ namespace Yuebon.Commons.Repositories
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual async Task<bool> DeleteSoftAsync(bool bl, TKey primaryKey,string userId=null, IDbTransaction trans=null)
+        public virtual async Task<bool> DeleteSoftAsync(bool bl, TKey primaryKey, string userId = null, IDbTransaction trans = null)
         {
-            using (DbConnection conn =OpenSharedConnection())
+            OperationLogOfDeleteSoft(primaryKey, userId);
+            string sql = $"update {tableName} set ";
+            if (bl)
             {
-                OperationLogOfDeleteSoft(primaryKey, userId);
-                string sql = $"update {tableName} set ";
-                if (bl)
-                {
-                    sql += "DeleteMark=0 ";
-                }
-                else
-                {
-                    sql += "DeleteMark=1 ";
-                }
-                if (!string.IsNullOrEmpty(userId))
-                {
-                    sql += ",DeleteUserId='"+userId+"'";
-                }
-                DateTime deleteTime = DateTime.Now;
-                sql += ",DeleteTime=@DeleteTime where " + primaryKey + "=@" + primaryKey;
-                int row = await conn.ExecuteAsync(sql, new { @primaryKey = primaryKey, @DeleteTime = deleteTime },trans);
-                return row > 0 ? true : false;
+                sql += "DeleteMark=0 ";
             }
+            else
+            {
+                sql += "DeleteMark=1 ";
+            }
+            if (!string.IsNullOrEmpty(userId))
+            {
+                sql += ",DeleteUserId='" + userId + "'";
+            }
+            DateTime deleteTime = DateTime.Now;
+            sql += ",DeleteTime=@DeleteTime where " + PrimaryKey + "=@PrimaryKey";
+            var param = new List<Tuple<string, object>>();
+            Tuple<string, object> tupel = new Tuple<string, object>(sql, new { @PrimaryKey = primaryKey, @DeleteTime = deleteTime });
+            param.Add(tupel);
+            Tuple<bool, string> result = await ExecuteTransactionAsync(param);
+            return result.Item1;
         }
 
         /// <summary>
@@ -1691,37 +1733,36 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual async Task<bool> DeleteSoftBatchAsync(bool bl, string where, string userId = null, IDbTransaction trans = null)
         {
-
-            using (DbConnection conn = OpenSharedConnection())
+            if (HasInjectionData(where))
             {
-                var type = MethodBase.GetCurrentMethod().DeclaringType;
-                if (HasInjectionData(where))
-                {
-                    Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
-                    throw new Exception("检测出SQL注入的恶意数据");
-                }
-                if (string.IsNullOrEmpty(where))
-                {
-                    where = "1=1";
-                }
-                string sql = $"update {tableName} set ";
-                if (bl)
-                {
-                    sql += "DeleteMark=0 ";
-                }
-                else
-                {
-                    sql += "DeleteMark=1 ";
-                }
-                if (!string.IsNullOrEmpty(userId))
-                {
-                    sql += ",DeleteUserId='" + userId + "'";
-                }
-                DateTime deleteTime = DateTime.Now;
-                sql += ",DeleteTime=@DeleteTime where "+ where;
-                int row = await conn.ExecuteAsync(sql, new { @DeleteTime = deleteTime }, trans);
-                return row > 0 ? true : false;
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
+                throw new Exception("检测出SQL注入的恶意数据");
             }
+            if (string.IsNullOrEmpty(where))
+            {
+                where = "1=1";
+            }
+            string sql = $"update {tableName} set ";
+            if (bl)
+            {
+                sql += "DeleteMark=0 ";
+            }
+            else
+            {
+                sql += "DeleteMark=1 ";
+            }
+            if (!string.IsNullOrEmpty(userId))
+            {
+                sql += ",DeleteUserId='" + userId + "'";
+            }
+            DateTime deleteTime = DateTime.Now;
+            sql += ",DeleteTime=@DeleteTime where " + where;
+
+            var param = new List<Tuple<string, object>>();
+            Tuple<string, object> tupel = new Tuple<string, object>(sql, new { @DeleteTime = deleteTime });
+            param.Add(tupel);
+            Tuple<bool, string> result = await ExecuteTransactionAsync(param);
+            return result.Item1;
         }
         /// <summary>
         /// 设置数据有效性，将EnabledMark设置为1-有效，0-为无效
@@ -1750,9 +1791,14 @@ namespace Yuebon.Commons.Repositories
                     sql += ",LastModifyUserId='" + userId + "'";
                 }
                 DateTime lastModifyTime = DateTime.Now;
-                sql += ",LastModifyTime=@lastModifyTime where "+ primaryKey + "=@"+ primaryKey;
-                int row = conn.Execute(sql, new { @primaryKey = primaryKey, @lastModifyTime= lastModifyTime },trans);
-                return row > 0 ? true : false;
+                sql += ",LastModifyTime=@lastModifyTime where "+ PrimaryKey + "=@PrimaryKey";
+
+                var param = new List<Tuple<string, object>>();
+                Tuple<string, object> tupel = new Tuple<string, object>(sql, new { @PrimaryKey = primaryKey, @lastModifyTime = lastModifyTime });
+                param.Add(tupel);
+                Tuple<bool, string> result =  ExecuteTransaction(param);
+                return result.Item1;
+
             }
         }
 
@@ -1766,28 +1812,28 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual async Task<bool> SetEnabledMarkAsync(bool bl, TKey primaryKey, string userId = null, IDbTransaction trans = null)
         {
-            using (DbConnection conn =OpenSharedConnection())
+            OperationLogOfSetEnable(primaryKey, userId, bl);
+            string sql = $"update {tableName} set ";
+            if (bl)
             {
-
-                OperationLogOfSetEnable(primaryKey, userId,bl);
-                string sql = $"update {tableName} set ";
-                if (bl)
-                {
-                    sql += "EnabledMark=1 ";
-                }
-                else
-                {
-                    sql += "EnabledMark=0 ";
-                }
-                if (!string.IsNullOrEmpty(userId))
-                {
-                    sql += ",LastModifyUserId='" + userId + "'";
-                }
-                DateTime lastModifyTime = DateTime.Now;
-                sql += ",LastModifyTime=@lastModifyTime where " + primaryKey + "=@" + primaryKey;
-                int row = await conn.ExecuteAsync(sql, new { primaryKey = primaryKey, @lastModifyTime = lastModifyTime },trans);
-                return row > 0 ? true : false;
+                sql += "EnabledMark=1 ";
             }
+            else
+            {
+                sql += "EnabledMark=0 ";
+            }
+            if (!string.IsNullOrEmpty(userId))
+            {
+                sql += ",LastModifyUserId='" + userId + "'";
+            }
+            DateTime lastModifyTime = DateTime.Now;
+            sql += ",LastModifyTime=@LastModifyTime where " + PrimaryKey + "=@PrimaryKey";
+
+            var param = new List<Tuple<string, object>>();
+            Tuple<string, object> tupel = new Tuple<string, object>(sql, new { @PrimaryKey = PrimaryKey, @LastModifyTime = lastModifyTime });
+            param.Add(tupel);
+            Tuple<bool, string> result = await ExecuteTransactionAsync(param);
+            return result.Item1;
         }
 
         /// <summary>
@@ -1800,37 +1846,36 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual async Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, string userId = null, IDbTransaction trans = null)
         {
-            using (DbConnection conn = OpenSharedConnection())
+            if (HasInjectionData(where))
             {
-                var type = MethodBase.GetCurrentMethod().DeclaringType;
-                if (HasInjectionData(where))
-                {
-                    Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
-                    throw new Exception("检测出SQL注入的恶意数据");
-                }
-                if (string.IsNullOrEmpty(where))
-                {
-                    where = "1=1";
-                }
-                //OperationLogOfSetEnable(primaryKey, userId, bl);
-                string sql = $"update {tableName} set ";
-                if (bl)
-                {
-                    sql += "EnabledMark=1 ";
-                }
-                else
-                {
-                    sql += "EnabledMark=0 ";
-                }
-                if (!string.IsNullOrEmpty(userId))
-                {
-                    sql += ",LastModifyUserId='" + userId + "'";
-                }
-                DateTime lastModifyTime = DateTime.Now;
-                sql += ",LastModifyTime=@lastModifyTime where "+where;
-                int row = await conn.ExecuteAsync(sql, new { @lastModifyTime = lastModifyTime }, trans);
-                return row > 0 ? true : false;
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
+                throw new Exception("检测出SQL注入的恶意数据");
             }
+            if (string.IsNullOrEmpty(where))
+            {
+                where = "1=1";
+            }
+            string sql = $"update {tableName} set ";
+            if (bl)
+            {
+                sql += "EnabledMark=1 ";
+            }
+            else
+            {
+                sql += "EnabledMark=0 ";
+            }
+            if (!string.IsNullOrEmpty(userId))
+            {
+                sql += ",LastModifyUserId='" + userId + "'";
+            }
+            DateTime lastModifyTime = DateTime.Now;
+            sql += ",LastModifyTime=@LastModifyTime where " + where;
+
+            var param = new List<Tuple<string, object>>();
+            Tuple<string, object> tupel = new Tuple<string, object>(sql, new { @LastModifyTime = lastModifyTime });
+            param.Add(tupel);
+            Tuple<bool, string> result = await ExecuteTransactionAsync(param);
+            return result.Item1;
         }
         /// <summary>
         /// 更新某一字段值,字段值字符类型
@@ -1842,16 +1887,26 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual bool UpdateTableField(string strField, string fieldValue, string where, IDbTransaction trans = null)
         {
-            using (DbConnection conn = OpenSharedConnection())
+            if (HasInjectionData(where))
             {
-                string sql = $"update {tableName} set "+ strField +"='"+ fieldValue + "'";
-                if (!string.IsNullOrEmpty(where))
-                {
-                    sql += " where " + where;
-                }
-                int row = conn.Execute(sql, trans);
-                return row > 0 ? true : false;
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
+                throw new Exception("检测出SQL注入的恶意数据");
             }
+            if (string.IsNullOrEmpty(where))
+            {
+                where = "1=1";
+            }
+            string sql = $"update {tableName} set " + strField + "='" + fieldValue + "'";
+            if (!string.IsNullOrEmpty(where))
+            {
+                sql += " where " + where;
+            }
+
+            var param = new List<Tuple<string, object>>();
+            Tuple<string, object> tupel = new Tuple<string, object>(sql, null);
+            param.Add(tupel);
+            Tuple<bool, string> result = ExecuteTransaction(param);
+            return result.Item1;
         }
 
         /// <summary>
@@ -1864,16 +1919,25 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual async Task<bool> UpdateTableFieldAsync(string strField, string fieldValue, string where, IDbTransaction trans = null)
         {
-            using (DbConnection conn = OpenSharedConnection())
+            if (HasInjectionData(where))
             {
-                string sql = $"update {tableName} set " + strField + "='" + fieldValue + "'";
-                if (!string.IsNullOrEmpty(where))
-                {
-                    sql += " where " + where;
-                }
-                int row =await conn.ExecuteAsync(sql, trans);
-                return row > 0 ? true : false;
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
+                throw new Exception("检测出SQL注入的恶意数据");
             }
+            if (string.IsNullOrEmpty(where))
+            {
+                where = "1=1";
+            }
+            string sql = $"update {tableName} set " + strField + "='" + fieldValue + "'";
+            if (!string.IsNullOrEmpty(where))
+            {
+                sql += " where " + where;
+            }
+            var param = new List<Tuple<string, object>>();
+            Tuple<string, object> tupel = new Tuple<string, object>(sql, null);
+            param.Add(tupel);
+            Tuple<bool, string> result = await ExecuteTransactionAsync(param);
+            return result.Item1;
         }
         /// <summary>
         /// 更新某一字段值，字段值为数字
@@ -1885,16 +1949,25 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual bool UpdateTableField(string strField, int fieldValue, string where, IDbTransaction trans = null)
         {
-            using (DbConnection conn = OpenSharedConnection())
+            if (HasInjectionData(where))
             {
-                string sql = $"update {tableName} set " + strField + "=" + fieldValue + "";
-                if (!string.IsNullOrEmpty(where))
-                {
-                    sql += " where " + where;
-                }
-                int row = conn.Execute(sql, trans);
-                return row > 0 ? true : false;
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
+                throw new Exception("检测出SQL注入的恶意数据");
             }
+            if (string.IsNullOrEmpty(where))
+            {
+                where = "1=1";
+            }
+            string sql = $"update {tableName} set " + strField + "=" + fieldValue + "";
+            if (!string.IsNullOrEmpty(where))
+            {
+                sql += " where " + where;
+            }
+            var param = new List<Tuple<string, object>>();
+            Tuple<string, object> tupel = new Tuple<string, object>(sql, null);
+            param.Add(tupel);
+            Tuple<bool, string> result = ExecuteTransaction(param);
+            return result.Item1;
         }
 
 
@@ -1908,57 +1981,25 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual async Task<bool> UpdateTableFieldAsync(string strField, int fieldValue, string where, IDbTransaction trans = null)
         {
-            using (DbConnection conn = OpenSharedConnection())
+            if (HasInjectionData(where))
             {
-                string sql = $"update {tableName} set " + strField + "=" + fieldValue + "";
-                if (!string.IsNullOrEmpty(where))
-                {
-                    sql += " where " + where;
-                }
-                int row = await conn.ExecuteAsync(sql, trans);
-                return row > 0 ? true : false;
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
+                throw new Exception("检测出SQL注入的恶意数据");
             }
-        }
-        /// <summary>
-        /// 根据条件查询获取某个字段的最大值
-        /// </summary>
-        /// <param name="strField">字段</param>
-        /// <param name="where">条件</param>
-        /// <param name="trans">事务</param>
-        /// <returns>返回字段的最大值</returns>
-        public virtual async Task<int> GetMaxValueByFieldAsync(string strField, string where, IDbTransaction trans = null)
-        {
-            using (DbConnection conn = OpenSharedConnection())
+            if (string.IsNullOrEmpty(where))
             {
-                string sql = $"select isnull(MAX({strField}),0) as maxVaule from {tableName} ";
-                if (!string.IsNullOrEmpty(where))
-                {
-                    sql += " where " + where;
-                }
-
-                IEnumerable<int> lit = await conn.QueryAsync<int>(sql);
-                return lit.FirstOrDefault();
+                where = "1=1";
             }
-        }
-        /// <summary>
-        /// 根据条件统计某个字段之和,sum(字段)
-        /// </summary>
-        /// <param name="strField">字段</param>
-        /// <param name="where">条件</param>
-        /// <param name="trans">事务</param>
-        /// <returns>返回字段的最大值</returns>
-        public virtual async Task<int> GetSumValueByFieldAsync(string strField, string where, IDbTransaction trans = null)
-        {
-            using (DbConnection conn = OpenSharedConnection())
+            string sql = $"update {tableName} set " + strField + "=" + fieldValue + "";
+            if (!string.IsNullOrEmpty(where))
             {
-                string sql = $"select isnull(sum({strField}),0) as sumVaule from {tableName} ";
-                if (!string.IsNullOrEmpty(where))
-                {
-                    sql += " where " + where;
-                }
-                IEnumerable<int> lit = await conn.QueryAsync<int>(sql);
-                return lit.FirstOrDefault();
+                sql += " where " + where;
             }
+            var param = new List<Tuple<string, object>>();
+            Tuple<string, object> tupel = new Tuple<string, object>(sql, null);
+            param.Add(tupel);
+            Tuple<bool, string> result = await ExecuteTransactionAsync(param);
+            return result.Item1;
         }
         /// <summary>
         /// 多表多数据操作批量插入、更新、删除--事务
@@ -1976,24 +2017,25 @@ namespace Yuebon.Commons.Repositories
                 {
                     try
                     {
-                        var sb = new StringBuilder("ExecuteTransaction 事务： ");
+                        string exeSqlLog = string.Empty;
                         foreach (var tran in trans)
                         {
-                            sb.Append("SQL语句:" + tran.Item1 + "  \n SQL参数: " + JsonHelper.ToJson(tran.Item2) + " \n");
-                            await conn.ExecuteAsync(tran.Item1, tran.Item2, transaction, commandTimeout);
+                            exeSqlLog += "SQL语句:" + tran.Item1 + "  \n SQL参数: " + JsonHelper.ToJson(tran.Item2) + " \n";
+                            conn.ExecuteAsync(tran.Item1, tran.Item2, transaction, commandTimeout);
                         }
                         Stopwatch stopwatch = new Stopwatch();
                         stopwatch.Start();
                         //提交事务
-                        await transaction.CommitAsync();
+                        transaction.Commit();
                         stopwatch.Stop();
-                        sb.Append("耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
-                        Log4NetHelper.Info(sb.ToString());
+                        exeSqlLog += "耗时:" + stopwatch.ElapsedMilliseconds + "  毫秒\n";
+                        OperationLogOfSQL(sb.ToString());
                         return new Tuple<bool, string>(true, string.Empty);
                     }
                     catch (Exception ex)
                     {
                         //回滚事务
+                        OperationLogOfException(ex);
                         Log4NetHelper.Error("",ex);
                         transaction.Rollback();
                         conn.Close();
@@ -2026,10 +2068,10 @@ namespace Yuebon.Commons.Repositories
                 {
                     try
                     {
-                        var sb = new StringBuilder("ExecuteTransaction 事务： ");
+                        string exeSqlLog = string.Empty;
                         foreach (var tran in trans)
                         {
-                            sb.Append("SQL语句:" + tran.Item1 + "  \n SQL参数: " + JsonHelper.ToJson(tran.Item2) + " \n");
+                            exeSqlLog+="SQL语句:" + tran.Item1 + "  \n SQL参数: " + JsonHelper.ToJson(tran.Item2) + " \n";
                             conn.Execute(tran.Item1, tran.Item2, transaction, commandTimeout);
                         }
                         Stopwatch stopwatch = new Stopwatch();
@@ -2037,13 +2079,14 @@ namespace Yuebon.Commons.Repositories
                         //提交事务
                         transaction.Commit();
                         stopwatch.Stop();
-                        sb.Append("耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
-                        Log4NetHelper.Info(sb.ToString());
+                        exeSqlLog+="耗时:" + stopwatch.ElapsedMilliseconds + "  毫秒\n";
+                        OperationLogOfSQL(exeSqlLog);
                         return new Tuple<bool, string>(true, string.Empty);
                     }
                     catch (Exception ex)
                     {
                         //回滚事务
+                        OperationLogOfException(ex);
                         Log4NetHelper.Error("", ex);
                         transaction.Rollback();
                         conn.Close();
@@ -2394,6 +2437,36 @@ namespace Yuebon.Commons.Repositories
                     string note = sb.ToString();
                     OnOperationLog(this.tableName, operationType, note);
                 }
+            }
+        }
+
+
+        /// <summary>
+        /// 插入Sql的日志记录
+        /// </summary>
+        /// <param name="strSql">SQL 语句</param>
+        /// <param name="trans">事务对象</param>
+        protected virtual void OperationLogOfSQL(string strSql, IDbTransaction trans = null)
+        {
+            if (OnOperationLog != null)
+            {
+                string operationType = DbLogType.SQL.ToString();
+                OnOperationLog(this.tableName, operationType, strSql);
+            }
+        }
+        /// <summary>
+        /// 插入异常记录
+        /// </summary>
+        /// <param name="ex">异常</param>
+        /// <param name="trans">事务对象</param>
+        protected virtual void OperationLogOfException(Exception ex, IDbTransaction trans = null)
+        {
+            if (OnOperationLog != null)
+            {
+                string operationType = DbLogType.Exception.ToString();
+                var message =
+                   $" 异常类型：{ex.GetType().Name} \r\n异常信息：{ex.Message} \r\n堆栈调用：\r\n{ex.StackTrace}";
+                OnOperationLog(this.tableName, operationType, message);
             }
         }
         #endregion

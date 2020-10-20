@@ -132,14 +132,6 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 {
                     RoleAuthorize info = new RoleAuthorize();
                     info.ObjectId = roleinfo.RoleId;
-                    //if (item.FunctionTag == "S")
-                    //{
-                    //    info.ItemType = 0;
-                    //}
-                    //else
-                    //{
-                       
-                    //} 
                     info.ItemType = 1;
                     info.ObjectType = 1;
                     info.ItemId = item.Id.ToString();
@@ -188,14 +180,15 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             {
                 RoleAuthorize info = new RoleAuthorize();
                 info.ObjectId = roleId;
-                if (item.FunctionTag == "S")
-                {
-                    info.ItemType = 0;
-                }
-                else
-                {
-                    info.ItemType = 1;
-                }
+                //if (item.FunctionTag == "S")
+                //{
+                //    info.ItemType = 0;
+                //}
+                //else
+                //{
+                //    
+                //}
+                info.ItemType = 1;
                 info.ObjectType = 1;
                 info.ItemId = item.Id.ToString();
                 OnBeforeInsert(info);

@@ -57,5 +57,10 @@ namespace Yuebon.Commons.Log
         /// </summary>
         [Description("软删除")]
         DeleteSoft = 9,
+        /// <summary>
+        /// 软删除
+        /// </summary>
+        [Description("SQL语句")]
+        SQL = 10,
     }
 }

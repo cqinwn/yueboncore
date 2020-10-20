@@ -69,7 +69,7 @@ namespace Yuebon.Security.Services
                 ModuleFunctionOutputDto menuTreeTableOutputDto = new ModuleFunctionOutputDto();
                 menuTreeTableOutputDto.Id = systemType.Id;
                 menuTreeTableOutputDto.FullName = systemType.FullName;
-                menuTreeTableOutputDto.FunctionTag = "S";
+                menuTreeTableOutputDto.FunctionTag =true;
 
                 IEnumerable<Function> elist = await functionRepository.GetListWhereAsync("SystemTypeId='" + systemType.Id + "'");
                 if (elist.Count() > 0)
@@ -98,7 +98,7 @@ namespace Yuebon.Security.Services
                 ModuleFunctionOutputDto menuTreeTableOutputDto = new ModuleFunctionOutputDto();
                 menuTreeTableOutputDto.Id= entity.Id;
                 menuTreeTableOutputDto.FullName = entity.FullName;
-                menuTreeTableOutputDto.FunctionTag="F";
+                menuTreeTableOutputDto.FunctionTag=false;
                 menuTreeTableOutputDto.Children = GetSubMenus(data, entity.Id).MapTo<ModuleFunctionOutputDto>();
                 list.Add(menuTreeTableOutputDto);
             }

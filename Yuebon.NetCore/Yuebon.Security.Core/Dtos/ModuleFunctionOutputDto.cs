@@ -23,7 +23,7 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 设置或获取  功能标识 S-子系统 M-标识菜单，F标识功能
         /// </summary>
-        public string FunctionTag { get; set; }
+        public bool FunctionTag { get; set; }
 
         /// <summary>
         /// 设置或获取  功能标识 M-标识菜单，F标识功能

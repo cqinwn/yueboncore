@@ -76,6 +76,8 @@ namespace Yuebon.AspNetCore.Controllers
             CommonResult result = new CommonResult();
             Log logEntity = new Log();
             RemoteIpParser remoteIpParser = new RemoteIpParser();
+            string strIp = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
+            string ipAddressName = IpAddressUtil.GetCityByIp(logEntity.IPAddress);
             if (string.IsNullOrEmpty(username))
             {
                 result.ErrMsg = "用户名不能为空！";
@@ -144,8 +146,8 @@ namespace Yuebon.AspNetCore.Controllers
                                         MobilePhone = user.MobilePhone,
                                         OrganizeId = user.OrganizeId,
                                         DeptId = user.DepartmentId,
-                                        CurrentLoginIP = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString(),
-                                        IPAddressName = IpAddressUtil.GetCityByIp(logEntity.IPAddress)
+                                        CurrentLoginIP = strIp,
+                                        IPAddressName = ipAddressName
                                     };
                                     currentSession.ActiveSystem = systemType.FullName;
                                     currentSession.ActiveSystemUrl = systemType.Url;
@@ -178,7 +180,7 @@ namespace Yuebon.AspNetCore.Controllers
                                     result.Success = true;
 
                                     logEntity.Account = CurrentUser.Account;
-                                    logEntity.NickName = CurrentUser.RealName;
+                                    logEntity.NickName = CurrentUser.NickName;
                                     logEntity.Date = logEntity.CreatorTime = DateTime.Now;
                                     logEntity.IPAddress = CurrentUser.CurrentLoginIP;
                                     logEntity.IPAddressName = CurrentUser.IPAddressName;
@@ -195,8 +197,8 @@ namespace Yuebon.AspNetCore.Controllers
 
                                     logEntity.Account = username;
                                     logEntity.Date = logEntity.CreatorTime = DateTime.Now;
-                                    logEntity.IPAddress = CurrentUser.CurrentLoginIP;
-                                    logEntity.IPAddressName = CurrentUser.IPAddressName;
+                                    logEntity.IPAddress = strIp;
+                                    logEntity.IPAddressName = ipAddressName;
                                     logEntity.Result = false;
                                     logEntity.ModuleName = "登录";
                                     logEntity.Type = "Login";

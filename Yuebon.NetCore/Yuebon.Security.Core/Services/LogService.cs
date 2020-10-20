@@ -63,7 +63,9 @@ namespace Yuebon.Security.Services
                 bool delete = operationType == DbLogType.Delete.ToString();// && settingInfo.DeleteLog;
                 bool deletesoft = operationType == DbLogType.DeleteSoft.ToString();// && settingInfo.DeleteLog;
                 bool exception = operationType == DbLogType.Exception.ToString();// && settingInfo.DeleteLog;
-                if (insert || update || delete || deletesoft || exception)
+                bool sql = operationType == DbLogType.SQL.ToString();// && settingInfo.DeleteLog;
+
+                if (insert || update || delete || deletesoft || exception|| sql)
                 {
                     Log info = new Log();
                     info.ModuleName = tableName;

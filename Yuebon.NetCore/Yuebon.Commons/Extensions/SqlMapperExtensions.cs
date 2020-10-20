@@ -184,12 +184,12 @@ namespace Dapper.Contrib.Extensions
                 var key = GetSingleKey<T>(nameof(Get));
                 var name = GetTableName(type);
 
-                sql = $"select * from {name} where {key.Name} = @id";
+                sql = $"select * from {name} where {key.Name} = @KeyName";
                 GetQueries[type.TypeHandle] = sql;
             }
 
             var dynParms = new DynamicParameters();
-            dynParms.Add("@id", id);
+            dynParms.Add("@KeyName", id);
 
             T obj;
 

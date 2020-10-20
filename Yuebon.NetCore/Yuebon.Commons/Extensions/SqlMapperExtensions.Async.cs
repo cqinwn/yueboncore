@@ -169,7 +169,7 @@ namespace Dapper.Contrib.Extensions
             var allProperties = TypePropertiesCache(type);
             var keyProperties = KeyPropertiesCache(type).ToList();
             var computedProperties = ComputedPropertiesCache(type);
-            var allPropertiesExceptKeyAndComputed = allProperties.Except(keyProperties.Union(computedProperties)).ToList();
+            var allPropertiesExceptKeyAndComputed = allProperties.ToList();//.Except(keyProperties.Union(computedProperties)).ToList();
 
             for (var i = 0; i < allPropertiesExceptKeyAndComputed.Count; i++)
             {

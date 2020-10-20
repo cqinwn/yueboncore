@@ -158,6 +158,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             }
             return ToJsonContent(result);
         }
+
         /// <summary>
         /// 改变任务状态，启动/停止
         /// </summary>
@@ -226,6 +227,108 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 result.ErrMsg = ex.InnerException?.Message ?? ex.Message;
             }
 
+            return ToJsonContent(result);
+        }
+        //// <summary>
+        /// 异步批量设为数据有效性
+        /// </summary>
+        /// <param name="ids">主键Id集合</param>
+        /// <param name="bltag">有效标识，默认为1：即设为无效,0：有效</param>
+        [HttpPost("SetEnabledMarktBatchAsync")]
+        [YuebonAuthorize("Enable")]
+        public override async Task<IActionResult> SetEnabledMarktBatchAsync(string ids, string bltag = "1")
+        {
+            CommonResult result = new CommonResult();
+            bool bl = false;
+            if (bltag == "1")
+            {
+                bl = true;
+            }
+            string where = string.Empty;
+            string newIds = ids.ToString();
+            where = "id in ('" + newIds.Trim(',').Replace(",", "','") + "')";
+            string[] jobsId = ids.Split(",");
+            if (!bl)
+            {
+                foreach (var item in jobsId)
+                {
+                    if (string.IsNullOrEmpty(item)) continue;
+                    TaskManager job = iService.Get(item);
+                    if (job == null)
+                    {
+                        throw new Exception("任务不存在");
+                    }
+                    IScheduler scheduler = await schedulerFactory.GetScheduler();
+                    TriggerKey triggerKey = new TriggerKey(job.Id, job.GroupName);
+                    // 停止触发器
+                    await scheduler.PauseTrigger(triggerKey);
+                    // 移除触发器
+                    await scheduler.UnscheduleJob(triggerKey);
+                    // 删除任务
+                    await scheduler.DeleteJob(new JobKey(job.Id));
+                }
+            }
+            if (!string.IsNullOrEmpty(where))
+            {
+                bool blresut = await iService.SetEnabledMarkByWhereAsync(bl, where, CurrentUser.UserId);
+                if (blresut)
+                {
+                    result.ErrCode = ErrCode.successCode;
+                    result.ErrMsg = ErrCode.err0;
+                }
+                else
+                {
+                    result.ErrMsg = ErrCode.err43002;
+                    result.ErrCode = "43002";
+                }
+            }
+            return ToJsonContent(result);
+        }
+        /// <summary>
+        /// 异步批量物理删除
+        /// </summary>
+        /// <param name="ids">主键Id</param>
+        [HttpDelete("DeleteBatchAsync")]
+        [YuebonAuthorize("Delete")]
+        public override async Task<IActionResult> DeleteBatchAsync(string ids)
+        {
+            CommonResult result = new CommonResult();
+            string where = string.Empty;
+            string newIds = ids.ToString();
+            where = "id in ('" + newIds.Trim(',').Replace(",", "','") + "')";
+            string[] jobsId = ids.Split(",");
+            foreach (var item in jobsId)
+            {
+                if (string.IsNullOrEmpty(item)) continue;
+                TaskManager job = iService.Get(item);
+                if (job == null)
+                {
+                    throw new Exception("任务不存在");
+                }
+                IScheduler scheduler = await schedulerFactory.GetScheduler();
+                TriggerKey triggerKey = new TriggerKey(job.Id, job.GroupName);
+                // 停止触发器
+                await scheduler.PauseTrigger(triggerKey);
+                // 移除触发器
+                await scheduler.UnscheduleJob(triggerKey);
+                // 删除任务
+                await scheduler.DeleteJob(new JobKey(job.Id));
+            }
+
+            if (!string.IsNullOrEmpty(where))
+            {
+                bool bl = await iService.DeleteBatchWhereAsync(where).ConfigureAwait(false);
+                if (bl)
+                {
+                    result.ErrCode = ErrCode.successCode;
+                    result.ErrMsg = ErrCode.err0;
+                }
+                else
+                {
+                    result.ErrMsg = ErrCode.err43003;
+                    result.ErrCode = "43003";
+                }
+            }
             return ToJsonContent(result);
         }
 

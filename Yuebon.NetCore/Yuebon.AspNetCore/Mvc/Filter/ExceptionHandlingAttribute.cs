@@ -4,15 +4,22 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
 using System.Threading.Tasks;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Models;
+using Yuebon.Commons.Cache;
 using Yuebon.Commons.Helpers;
+using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Models;
+using Yuebon.Security.Dtos;
+using Yuebon.Security.IRepositories;
+using Yuebon.Security.Models;
+using Yuebon.Security.Repositories;
 
 namespace Yuebon.AspNetCore.Mvc.Filter
 {
@@ -21,6 +28,8 @@ namespace Yuebon.AspNetCore.Mvc.Filter
     /// </summary>
     public class ExceptionHandlingAttribute : ExceptionFilterAttribute
     {
+
+        private ILogRepository service = new LogRepository();
         /// <summary>
         /// 
         /// </summary>
@@ -28,7 +37,7 @@ namespace Yuebon.AspNetCore.Mvc.Filter
         public override void OnException(ExceptionContext context)
         {
             var exception = context.Exception;
-
+            YuebonCurrentUser currentUser = new YuebonCurrentUser();
             string requestHost = context.HttpContext.Request.Host.ToString();
             string requestPath = context.HttpContext.Request.Path.ToString();
             string queryString = context.HttpContext.Request.QueryString.ToString();
@@ -59,6 +68,32 @@ namespace Yuebon.AspNetCore.Mvc.Filter
             };
             options.Converters.Add(new DateTimeJsonConverter());
             context.Result = new JsonResult(result,options);
+            Log logEntity = new Log();
+            var identities = context.HttpContext.User.Identities;
+            var claimsIdentity = identities.First<ClaimsIdentity>();
+            if (claimsIdentity != null)
+            {
+                List<Claim> claimlist = claimsIdentity.Claims as List<Claim>;
+                if (claimlist.Count > 0)
+                {
+                    string userId = claimlist[0].Value;
+                    YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+                    var user = JsonSerializer.Deserialize<YuebonCurrentUser>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
+                    if (user != null)
+                    {
+                        currentUser = user;
+                    }
+                }
+            }
+            logEntity.Account = currentUser.Account;
+            logEntity.NickName = currentUser.NickName;
+            logEntity.Date = logEntity.CreatorTime = DateTime.Now;
+            logEntity.IPAddress = currentUser.CurrentLoginIP;
+            logEntity.IPAddressName = currentUser.IPAddressName;
+            logEntity.Result = false;
+            logEntity.Description = exception.ToJson();
+            logEntity.Type = "Exception";
+            service.Insert(logEntity);
         }
     }
 }

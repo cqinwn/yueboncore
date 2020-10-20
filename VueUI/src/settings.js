@@ -33,11 +33,6 @@ module.exports = {
    */
   addRouters: {},
 
-  // apiHostUrl: 'https://base.api.yuebon.com/api/', // 基础接口
-  // apiSecurityUrl: 'https://base.api.yuebon.com/api/Security/', // 权限管理系统接口
-  // fileUrl: 'https://base.api.yuebon.com/', // 文件访问路径
-  // fileUploadUrl: 'https://base.api.yuebon.com/api/Files/Upload'// 文件上传路径
-
   // apiHostUrl: 'http://netcoreapi.ts.yuebon.com/api/', // 基础接口
   // apiSecurityUrl: 'http://netcoreapi.ts.yuebon.com/api/Security/', // 权限管理系统接口
   // fileUrl: 'http://netcoreapi.ts.yuebon.com/', // 文件访问路径

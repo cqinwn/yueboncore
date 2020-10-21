@@ -138,6 +138,13 @@
             <param name="info"></param>
             <returns></returns>
         </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.DbBackupController.FindWithPagerAsync(Yuebon.AspNetCore.UI.SearchModel)">
+            <summary>
+            异步分页查询
+            </summary>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
         <member name="T:Yuebon.WebApi.Areas.Security.Controllers.FilterIPController">
             <summary>
             接口
@@ -480,6 +487,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.OrganizeController.FindWithPagerAsync(Yuebon.AspNetCore.UI.SearchModel)">
+            <summary>
+            异步分页查询
+            </summary>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
         <member name="T:Yuebon.WebApi.Areas.Security.Controllers.RoleAuthorizeController">
             <summary>
             接口
@@ -807,6 +821,12 @@
             文件管理
             </summary>
         </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.UploadFileController.DeleteBatchAsync(System.String)">
+            <summary>
+            异步批量物理删除
+            </summary>
+            <param name="ids">主键Id</param>
+        </member>
         <member name="M:Yuebon.WebApi.Areas.Security.Controllers.UploadFileController.FindWithPagerAsync(Yuebon.AspNetCore.UI.SearchModel)">
             <summary>
             异步分页查询
@@ -914,6 +934,12 @@
             <returns></returns>
         </member>
         <member name="M:Yuebon.WebApi.Areas.Security.SysSettingController.GetInfo">
+            <summary>
+            获取系统基本信息不完整信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.SysSettingController.GetAllInfo">
             <summary>
             获取系统基本信息
             </summary>

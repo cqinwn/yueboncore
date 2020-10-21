@@ -129,6 +129,11 @@
           <el-form-item label="文件上传类型" :label-width="formLabelWidth" prop="Fileextension">
             <el-input v-model="editFrom.Fileextension" placeholder="请输入文件上传类型" autocomplete="off" clearable />
           </el-form-item>
+          <el-form-item label="图片缩略大小" :label-width="formLabelWidth" prop="Thumbnailheight">
+            宽<el-input v-model="editFrom.Thumbnailwidth" placeholder="缩略图宽度" autocomplete="off" style="width:150px;" clearable />px
+            *高<el-input v-model="editFrom.Thumbnailheight" placeholder="缩略图高度" autocomplete="off" style="width:150px;" clearable />px
+
+          </el-form-item>
         </el-tab-pane>
       </el-tabs>
       <el-form-item>
@@ -138,7 +143,7 @@
   </div>
 </template>
 <script>
-import { getSysSetting, saveSysSetting } from '@/api/basebasic'
+import { getAllSysSetting, saveSysSetting } from '@/api/basebasic'
 import defaultSettings from '@/settings'
 import { getToken } from '@/utils/auth'
 export default {
@@ -206,7 +211,7 @@ export default {
       this.dialogVisible = true
     },
     loadSettingData: function () {
-      getSysSetting().then(res => {
+      getAllSysSetting().then(res => {
         this.editFrom = res.ResData
         this.editFrom.Webstatus = res.ResData.Webstatus + ''
         this.editFrom.Emailssl = res.ResData.Emailssl + ''

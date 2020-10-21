@@ -14,6 +14,7 @@ using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.Commons;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
@@ -103,7 +104,7 @@ namespace Yuebon.WebApi.Areas.Security
 
 
         /// <summary>
-        /// 获取系统基本信息
+        /// 获取系统基本信息不完整信息
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetInfo")]
@@ -116,14 +117,15 @@ namespace Yuebon.WebApi.Areas.Security
             SysSettingOutputDto sysSettingOutputDto = new SysSettingOutputDto();
             if (sysSetting != null)
             {
-                sysSettingOutputDto = sysSetting.MapTo<SysSettingOutputDto>();
-            }
-            else
-            {
                 sysSetting = XmlConverter.Deserialize<SysSetting>("xmlconfig/sys.config");
-                sysSettingOutputDto = sysSetting.MapTo<SysSettingOutputDto>();
-
             }
+            sysSetting.Email = "";
+            sysSetting.Emailsmtp = "";
+            sysSetting.Emailpassword = "";
+            sysSetting.Smspassword = "";
+            sysSetting.SmsSignName = "";
+            sysSetting.Smsusername = "";
+            sysSettingOutputDto = sysSetting.MapTo<SysSettingOutputDto>();
             if (sysSettingOutputDto != null)
             {
                 sysSettingOutputDto.CopyRight= UIConstants.CopyRight;
@@ -139,6 +141,49 @@ namespace Yuebon.WebApi.Areas.Security
             return ToJsonContent(result);
         }
 
+        /// <summary>
+        /// 获取系统基本信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetAllInfo")]
+        [YuebonAuthorize("GetSysInfo")]
+        public IActionResult GetAllInfo()
+        {
+            CommonResult result = new CommonResult();
+            YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+            SysSetting sysSetting = JsonSerializer.Deserialize<SysSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
+            SysSettingOutputDto sysSettingOutputDto = new SysSettingOutputDto();
+            if (sysSetting == null)
+            {
+                sysSetting = XmlConverter.Deserialize<SysSetting>("xmlconfig/sys.config");
+            }
+
+            //对关键信息解密
+            if (!string.IsNullOrEmpty(sysSetting.Email))
+                sysSetting.Email = DEncrypt.Decrypt(sysSetting.Email);
+            if (!string.IsNullOrEmpty(sysSetting.Emailsmtp))
+                sysSetting.Emailsmtp = DEncrypt.Decrypt(sysSetting.Emailsmtp);
+            if (!string.IsNullOrEmpty(sysSetting.Emailpassword))
+                sysSetting.Emailpassword = DEncrypt.Decrypt(sysSetting.Emailpassword);
+            if (!string.IsNullOrEmpty(sysSetting.Smspassword))
+                sysSetting.Smspassword = DEncrypt.Decrypt(sysSetting.Smspassword);
+            if (!string.IsNullOrEmpty(sysSetting.Smsusername))
+                sysSetting.Smsusername = DEncrypt.Decrypt(sysSetting.Smsusername);
+            sysSettingOutputDto = sysSetting.MapTo<SysSettingOutputDto>();
+            if (sysSettingOutputDto != null)
+            {
+                sysSettingOutputDto.CopyRight = UIConstants.CopyRight;
+                result.ResData = sysSettingOutputDto;
+                result.Success = true;
+                result.ErrCode = ErrCode.successCode;
+            }
+            else
+            {
+                result.ErrMsg = ErrCode.err60001;
+                result.ErrCode = "60001";
+            }
+            return ToJsonContent(result);
+        }
 
         /// <summary>
         /// 保存系统设置信息
@@ -153,6 +198,17 @@ namespace Yuebon.WebApi.Areas.Security
             info.LocalPath = _hostingEnvironment.WebRootPath;
             SysSetting sysSetting = XmlConverter.Deserialize<SysSetting>("xmlconfig/sys.config");
             sysSetting = info;
+            //对关键信息加密
+            if(!string.IsNullOrEmpty(info.Email))
+            sysSetting.Email = DEncrypt.Encrypt(info.Email);
+            if (!string.IsNullOrEmpty(info.Emailsmtp))
+                sysSetting.Emailsmtp = DEncrypt.Encrypt(info.Emailsmtp);
+            if (!string.IsNullOrEmpty(info.Emailpassword))
+                sysSetting.Emailpassword = DEncrypt.Encrypt(info.Emailpassword);
+            if (!string.IsNullOrEmpty(info.Smspassword))
+                sysSetting.Smspassword = DEncrypt.Encrypt(info.Smspassword);
+            if (!string.IsNullOrEmpty(info.Smsusername))
+                sysSetting.Smsusername = DEncrypt.Encrypt(info.Smsusername);
             string uploadPath = _hostingEnvironment.WebRootPath + "/" + sysSetting.Filepath;
             if (!Directory.Exists(uploadPath))
             {

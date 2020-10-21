@@ -59,7 +59,8 @@ namespace Yuebon.Quartz.Jobs
 
                 var jobId = context.MergedJobDataMap.GetString("OpenJob");
                 iJobLogService.DeleteBatchWhereAsync("");
-                iLogService.DeleteBatchWhereAsync("");
+                string where = "Type not in('Login','Exception')";
+                iLogService.DeleteBatchWhereAsync(where);
 
                 stopwatch.Stop();
                 string content = $"结束时间:{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss ffff")} 共耗时{stopwatch.ElapsedMilliseconds} 毫秒\r\n";

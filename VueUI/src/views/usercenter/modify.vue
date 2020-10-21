@@ -54,7 +54,6 @@ export default {
      * 新增/修改保存
      */
     saveEditForm () {
-      console.log(this.editFrom.RoleId)
       this.$refs['editFrom'].validate((valid) => {
         if (valid) {
           const data = {

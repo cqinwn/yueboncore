@@ -257,10 +257,13 @@ export default {
 }
 </script>
 <style>
-.yuebon-setting-form .el-input{
-width: 40%;
+.yuebon-setting-form .el-tab-pane{
+  width: 40%;
 }
-.yuebon-setting-form .el-select .el-input{
+.yuebon-setting-form .el-input{
+width: 100%;
+}
+.yuebon-setting-form .el-select .el-input,.yuebon-setting-form .el-cascader .el-input{
         width: 100%;
 }
 .yuebon-setting-form .btnset{

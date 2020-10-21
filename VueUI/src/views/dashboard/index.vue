@@ -59,14 +59,12 @@
         <el-card>
           <div slot="header" class="clearfix">
             <span class="iconfont icon-notice">系统公告</span>
-          </div> <div class="systeminfo">
-            <div>系统设置</div>
-            <div>系统设置</div>
-            <div>系统设置</div>
-            <div>系统设置</div>
-            <div>系统设置</div>
-            <div>系统设置</div>
-            <div>系统设置</div>
+          </div>
+          <div class="systeminfo">
+            <div>烦请各位大神不要修改test用户密码</div>
+            <div>数据库数据每小时会重置一次</div>
+            <div>官方文档：http://docs.v.yuebon.com</div>
+            <div>数据库数据每小时会重置一次</div>
           </div>
         </el-card>
       </el-col>
@@ -83,6 +81,7 @@
             <div class="lidiv">授权方式：按域名授权</div>
             <div class="lidiv">系统版本：{{ SysSetting.Version }}</div>
             <div class="lidiv">版本更新：<a :href="SysSetting.UpdateUrl" target="_blank">更新</a></div>
+            <div class="lidiv">官方文档：<a href="http://docs.v.yuebon.com" target="_blank">http://docs.v.yuebon.com</a></div>
           </div>
           <div class="systeminfo">
             <div class="lidiv">服务器名称：{{ SysSetting.MachineName }}</div>

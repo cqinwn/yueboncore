@@ -42,6 +42,16 @@ export function getSysSetting () {
 }
 
 /**
+ * 获取系统基础设置信息
+ */
+export function getAllSysSetting () {
+  return http({
+    url: 'Security/SysSetting/GetAllInfo',
+    method: 'get',
+    baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
+  })
+}
+/**
  * 获取系统信息
  */
 export function getSysInfo () {

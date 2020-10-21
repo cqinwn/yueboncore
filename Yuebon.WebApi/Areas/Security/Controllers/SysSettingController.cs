@@ -62,6 +62,7 @@ namespace Yuebon.WebApi.Areas.Security
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetSysInfo")]
+        [YuebonAuthorize("GetSysInfo")]
         public async Task<IActionResult> GetSysInfo()
         {
             CommonResult result = new CommonResult();
@@ -76,7 +77,8 @@ namespace Yuebon.WebApi.Areas.Security
                 dashboardOutModel.OSName = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? "Linux" : RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ? "OSX" : "Windows";
                 dashboardOutModel.OSDescription = RuntimeInformation.OSDescription + " " + RuntimeInformation.OSArchitecture;
                 dashboardOutModel.Directory = AppContext.BaseDirectory;
-                dashboardOutModel.SystemVersion = Environment.Version;
+                Version version = Environment.Version;
+                dashboardOutModel.SystemVersion = version.Major+"."+version.Minor+"."+version.Build;
                 dashboardOutModel.Version = AppVersionHelper.Version;
                 dashboardOutModel.Manufacturer = AppVersionHelper.Manufacturer;
                 dashboardOutModel.WebSite = AppVersionHelper.WebSite;

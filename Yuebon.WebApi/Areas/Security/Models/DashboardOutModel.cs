@@ -62,7 +62,7 @@ namespace Yuebon.WebApi.Areas.Security.Models
         /// <summary>
         /// 系统版本
         /// </summary>
-        public Version SystemVersion
+        public string SystemVersion
         {
             get;
             set;

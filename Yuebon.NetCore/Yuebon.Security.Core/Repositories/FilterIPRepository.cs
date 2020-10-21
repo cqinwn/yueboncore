@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Options;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
@@ -22,7 +23,8 @@ namespace Yuebon.Security.Repositories
         /// <returns></returns>
         public bool ValidateIP(string ip)
         {
-            string where = "(StartIP='" + ip + "' or EndIP='" + ip + "') and FilterType=0 and EnabledMark=1";
+            long ipv = ip.Replace(".", "").ToLong();
+            string where = " (cast(replace(StartIP,'.','') as bigint)>=" + ipv + " and cast(replace(EndIP,'.','') as bigint)<=" + ipv + ") and FilterType=0 and EnabledMark=1";
             int count = GetCountByWhere(where);
             return count > 0 ? true : false;
         }

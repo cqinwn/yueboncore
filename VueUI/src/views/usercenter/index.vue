@@ -55,7 +55,7 @@
             <el-checkbox v-model="editFrom.EnabledMark">启用</el-checkbox>
             <el-checkbox v-model="editFrom.IsAdministrator">管理员</el-checkbox>
           </el-form-item>
-          <el-form-item label="所属组织" :label-width="formLabelWidth" prop="DepartmentId">
+          <el-form-item label="所属组织" style="width:500px" :label-width="formLabelWidth" prop="DepartmentId">
             <el-cascader
               v-model="selectedOrganizeOptions"
               style="width:500px;"
@@ -198,7 +198,7 @@ export default {
         this.editFrom.EnabledMark = res.ResData.EnabledMark
         this.editFrom.RoleId = res.ResData.RoleId.split(',')
         this.editFrom.Description = res.ResData.Description
-        this.selectedOrganizeOptions = res.ResData.OrganizeId
+        this.selectedOrganizeOptions = res.ResData.DepartmentId
         this.currentId = res.ResData.Id
         this.editFrom.HeadIcon = res.ResData.HeadIcon
         this.filelist = [{ name: res.ResData.HeadIcon, url: res.ResData.HeadIcon }]

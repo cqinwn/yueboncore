@@ -48,7 +48,11 @@
         </el-table-column>
         <el-table-column prop="Birthday" label="生日" sortable="custom" width="120" align="center" :formatter="dateformatter" />
         <el-table-column prop="MobilePhone" label="手机号码" sortable="custom" width="120" align="center" />
-        <el-table-column prop="OrganizeName" label="所属组织" sortable="custom" width="260" align="center" />
+        <el-table-column prop="DepartmentName" label="所属组织" sortable="custom" width="260" align="center">
+          <template slot-scope="scope">
+            {{ scope.row.OrganizeName+"/"+ scope.row.DepartmentName }}
+          </template>
+        </el-table-column>
         <el-table-column prop="RoleName" label="岗位角色" sortable="custom" width="280" align="center" />
         <el-table-column label="可用" sortable="custom" width="90" prop="EnabledMark" align="center">
           <template slot-scope="scope">

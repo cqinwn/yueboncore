@@ -12,6 +12,8 @@ using Yuebon.Commons.Pages;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.Models;
 using Yuebon.Security.IServices;
+using Yuebon.AspNetCore.Mvc;
+using Yuebon.AspNetCore.UI;
 
 namespace Yuebon.WebApi.Areas.Security.Controllers
 {
@@ -74,6 +76,34 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.DeleteMark = true;
             info.DeleteTime = DateTime.Now;
             info.DeleteUserId = CurrentUser.UserId;
+        }
+        /// <summary>
+        /// 异步分页查询
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        [HttpGet("FindWithPagerAsync")]
+        [YuebonAuthorize("List")]
+        public override async Task<IActionResult> FindWithPagerAsync([FromQuery] SearchModel search)
+        {
+            CommonResult result = new CommonResult();
+            string orderByDir = string.IsNullOrEmpty(Request.Query["Order"].ToString()) ? "" : Request.Query["Order"].ToString();
+            string orderFlied = string.IsNullOrEmpty(Request.Query["Sort"].ToString()) ? "Id" : Request.Query["Sort"].ToString();
+            bool order = orderByDir == "asc" ? false : true;
+            string where = GetPagerCondition(false);
+            PagerInfo pagerInfo = GetPagerInfo();
+            List<DbBackup> list = await iService.FindWithPagerAsync(where, pagerInfo, orderFlied, order);
+            List<DbBackupOutputDto> resultList = list.MapTo<DbBackupOutputDto>();
+            PageResult<DbBackupOutputDto> pageResult = new PageResult<DbBackupOutputDto>
+            {
+                CurrentPage = pagerInfo.CurrenetPageIndex,
+                Items = resultList,
+                ItemsPerPage = pagerInfo.PageSize,
+                TotalItems = pagerInfo.RecordCount
+            };
+            result.ResData = pageResult;
+            result.ErrCode = ErrCode.successCode;
+            return ToJsonContent(result);
         }
     }
 }

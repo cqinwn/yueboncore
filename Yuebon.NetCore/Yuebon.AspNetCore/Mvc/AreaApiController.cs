@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Newtonsoft.Json;
+using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Models;
@@ -533,23 +534,28 @@ namespace Yuebon.AspNetCore.Controllers
             result.ErrCode = ErrCode.successCode;
             return ToJsonContent(result);
         }
-
         /// <summary>
         /// 获取分页操作的查询条件
         /// </summary>
+        /// <param name="blDeptCondition">是否开启数据权限条件</param>
         /// <returns></returns>
         protected virtual string GetPagerCondition(bool blDeptCondition = true)
         {
             string where = "1=1";
-            //if (blDeptCondition)
-            //{
-            //    //如果公司过滤条件不为空，那么需要进行过滤
-            //    string DataFilterCondition = Session["DataFilterCondition"].ToString();
-            //    if (!string.IsNullOrEmpty(DataFilterCondition))
-            //    {
-            //        where += string.Format(" {0}", DataFilterCondition);
-            //    }
-            //}
+            //开权限数据过滤
+            if (blDeptCondition)
+            {
+                YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+
+                //如果公司过滤条件不为空，那么需要进行过滤
+
+               List<String> list= JsonSerializer.Deserialize<List<String>>(yuebonCacheHelper.Get("User_RoleData_" + CurrentUser.UserId).ToJson());
+                string DataFilterCondition = String.Join(",", list.ToArray());
+                if (!string.IsNullOrEmpty(DataFilterCondition))
+                {
+                    where += string.Format(" and DeptId in ('{0}')", DataFilterCondition.Replace(",","','"));
+                }
+            }
             return where;
         }
 

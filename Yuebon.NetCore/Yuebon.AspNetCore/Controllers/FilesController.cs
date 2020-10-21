@@ -2,10 +2,10 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.Json;
 using Yuebon.AspNetCore.Controllers;
 using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc;
@@ -105,7 +105,7 @@ namespace Yuebon.AspNetCore.Controllers
                 UploadFile uploadFile = new UploadFileApp().Get(id);
 
                 YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                SysSetting sysSetting = JsonConvert.DeserializeObject<SysSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
+                SysSetting sysSetting = JsonSerializer.Deserialize<SysSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
                 if (uploadFile != null)
                 {
                     if (System.IO.File.Exists(sysSetting.LocalPath + "/" + uploadFile.FilePath))
@@ -173,7 +173,7 @@ namespace Yuebon.AspNetCore.Controllers
                     UploadFile(fileName, data);
 
                     YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                    SysSetting sysSetting = JsonConvert.DeserializeObject<SysSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
+                    SysSetting sysSetting = JsonSerializer.Deserialize<SysSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
                     UploadFile filedb = new UploadFile
                     {
                         Id = GuidUtils.CreateNo(),
@@ -221,7 +221,7 @@ namespace Yuebon.AspNetCore.Controllers
             }
 
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            SysSetting sysSetting = JsonConvert.DeserializeObject<SysSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
+            SysSetting sysSetting = JsonSerializer.Deserialize<SysSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
             string folder = DateTime.Now.ToString("yyyyMMdd");
             _filePath = sysSetting.LocalPath;
             var _tempfilepath = sysSetting.Filepath;

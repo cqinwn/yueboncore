@@ -40,6 +40,7 @@ namespace Yuebon.AspNetCore.Controllers
         private ISystemTypeService _systemTypeService;
         private IAPPService _appService;
         private IRoleService _roleService;
+        private IRoleDataService _roleDataService;
         private ILogService _logService;
         private IFilterIPService _filterIPService;
         /// <summary>
@@ -52,7 +53,8 @@ namespace Yuebon.AspNetCore.Controllers
         /// <param name="appService"></param>
         /// <param name="roleService"></param>
         /// <param name="filterIPService"></param>
-        public LoginController(IUserService iService, IUserLogOnService userLogOnService, ISystemTypeService systemTypeService,ILogService logService, IAPPService appService, IRoleService roleService, IFilterIPService filterIPService)
+        /// <param name="roleDataService"></param>
+        public LoginController(IUserService iService, IUserLogOnService userLogOnService, ISystemTypeService systemTypeService,ILogService logService, IAPPService appService, IRoleService roleService, IFilterIPService filterIPService, IRoleDataService roleDataService)
         {
             _userService = iService;
             _userLogOnService = userLogOnService;
@@ -61,6 +63,7 @@ namespace Yuebon.AspNetCore.Controllers
             _appService = appService;
             _roleService = roleService;
             _filterIPService = filterIPService;
+            _roleDataService = roleDataService;
         }
 
         /// <summary>
@@ -84,7 +87,7 @@ namespace Yuebon.AspNetCore.Controllers
             bool blIp=_filterIPService.ValidateIP(strIp);
             if (blIp)
             {
-                result.ErrMsg = strIp+"，IP已被管理员禁止登录！";
+                result.ErrMsg = strIp+"该IP已被管理员禁止登录！";
             }
             else
             {
@@ -181,10 +184,13 @@ namespace Yuebon.AspNetCore.Controllers
                                             listFunction = functionApp.GetFunctionsByUser(user.Id, systemType.Id);
                                         }
 
-                                        yuebonCacheHelper.Add("User_Function_" + user.Id, listFunction);
-                                        currentSession.Modules = listFunction;
                                         TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
+                                        yuebonCacheHelper.Add("User_Function_" + user.Id, listFunction,expiresSliding, true);
+                                        currentSession.Modules = listFunction;
                                         yuebonCacheHelper.Add("login_user_" + user.Id, currentSession, expiresSliding, true);
+                                        //该用户的数据权限
+                                        List<String> roleDateList = _roleDataService.GetListDeptByRole(user.RoleId);
+                                        yuebonCacheHelper.Add("User_RoleData_" + user.Id, roleDateList, expiresSliding, true);
 
                                         CurrentUser = currentSession;
                                         result.ResData = currentSession;

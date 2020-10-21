@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Yuebon.Commons.Services;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.IRepositories;
@@ -16,6 +17,15 @@ namespace Yuebon.Security.Services
 			_repository=repository;
 			_logService=logService;
             _repository.OnOperationLog += _logService.OnOperationLog;
+        }
+        /// <summary>
+        /// 根据角色返回授权访问部门数据
+        /// </summary>
+        /// <param name="roleIds"></param>
+        /// <returns></returns>
+        public List<string> GetListDeptByRole(string roleIds)
+        {
+            return _repository.GetListDeptByRole(roleIds);
         }
     }
 }

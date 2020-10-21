@@ -80,7 +80,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             string orderByDir = string.IsNullOrEmpty(Request.Query["Order"].ToString()) ? "desc" : Request.Query["Order"].ToString();
             string orderFlied = string.IsNullOrEmpty(Request.Query["Sort"].ToString()) ? " CreatorTime " : Request.Query["Sort"].ToString();
             bool order = orderByDir == "asc" ? false : true;
-            string where = GetPagerCondition();
+            string where = GetPagerCondition(false);
             if (!string.IsNullOrEmpty(search.Keywords))
             {
                 where += string.Format(" and (TaskId like '%{0}%' or  TaskName like '%{0}%')", search.Keywords);

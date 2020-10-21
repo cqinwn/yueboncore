@@ -235,7 +235,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             string orderByDir = string.IsNullOrEmpty(Request.Query["Order"].ToString()) ? "" : Request.Query["Order"].ToString();
             string orderFlied = string.IsNullOrEmpty(Request.Query["Sort"].ToString()) ? "Id" : Request.Query["Sort"].ToString();
             bool order = orderByDir == "asc" ? false : true;
-            string where = GetPagerCondition();
+            string where = GetPagerCondition(false);
 
             if (!string.IsNullOrEmpty(search.Keywords))
             {

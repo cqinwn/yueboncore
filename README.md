@@ -3,6 +3,18 @@
 
 ### 如果对您有帮助，您可以点右上角 "Star" 支持一下，这样我们才有继续免费下去的动力，谢谢！
 
+### 在线体验
+
+Vue版本体验地址：[http://netvue.ts.yuebon.com/](http://netvue.ts.yuebon.com)（用户名：test，密码：test123）
+
+测试账号未分配删除和重置密码操作，最近总有那么个别人闲得慌登陆上来修改密码和删除关键数据。
+
+WebApi接口地址：[http://netcoreapi.ts.yuebon.com](http://netcoreapi.ts.yuebon.com)
+
+文档地址：[http://docs.v.yuebon.com/](http://docs.v.yuebon.com/)
+
+交流QQ群：90311523
+
 ### 更新日志
 
 ##### 近期更新
@@ -64,15 +76,6 @@ YuebonCore是一套基于NetCore3.1 开发出来的框架，源代码完全开�
 
 适用范围：可以开发OA、ERP、BPM、CRM、WMS、TMS、MIS、BI、电商平台后台、物流管理系统、快递管理系统、教务管理系统等各类管理软件。
 
-### 在线体验
-
-Vue版本体验地址：[http://netvue.ts.yuebon.com/](http://netvue.ts.yuebon.com)（用户名：test，密码：test123）
-
-测试账号未分配删除和重置密码操作，最近总有那么个别人闲得慌登陆上来修改密码和删除关键数据。
-
-WebApi接口地址：[http://netcoreapi.ts.yuebon.com](http://netcoreapi.ts.yuebon.com)
-
-文档地址：[http://docs.v.yuebon.com/](http://docs.v.yuebon.com/)
 
 ### 技术介绍
 

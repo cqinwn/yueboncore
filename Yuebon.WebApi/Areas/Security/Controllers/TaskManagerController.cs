@@ -230,7 +230,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             return ToJsonContent(result);
         }
         //// <summary>
-        /// 异步批量设为数据有效性
+        /// 异步批量设为数据有效性，设置为禁用时会停止已在运行的任务
         /// </summary>
         /// <param name="ids">主键Id集合</param>
         /// <param name="bltag">有效标识，默认为1：即设为无效,0：有效</param>

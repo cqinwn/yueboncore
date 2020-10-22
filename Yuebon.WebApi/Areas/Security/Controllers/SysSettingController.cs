@@ -115,7 +115,7 @@ namespace Yuebon.WebApi.Areas.Security
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
             SysSetting sysSetting = JsonSerializer.Deserialize<SysSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
             SysSettingOutputDto sysSettingOutputDto = new SysSettingOutputDto();
-            if (sysSetting != null)
+            if (sysSetting == null)
             {
                 sysSetting = XmlConverter.Deserialize<SysSetting>("xmlconfig/sys.config");
             }

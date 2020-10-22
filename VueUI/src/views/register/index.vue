@@ -35,8 +35,10 @@
             <img :src="apiHostUrl" alt="看不清？点击更换" onclick="this.src = this.src + '?'">
           </div>
         </el-form-item>
-        <el-form-item>
-          <el-checkbox v-model="checked" false-label="false" true-label="true">我已阅读并同意</el-checkbox> 服务协议 和 隐私声明
+        <el-form-item prop="checkAgreement">
+          <el-checkbox-group v-model="editFrom.checkAgreement">
+            <el-checkbox label="true">我已阅读并同意<a href="#"> 服务协议</a> 、 <a href="#">隐私声明</a></el-checkbox>
+          </el-checkbox-group>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" style="width:200px;" @click="handleLogin()">同意协议并提交</el-button>
@@ -82,7 +84,7 @@ export default {
         callback()
       }
     }
-    const emailPassword = (rule, value, callback) => {
+    const validateemail = (rule, value, callback) => {
       const mailReg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/
       if (!value) {
         return callback(new Error('邮箱不能为空'))
@@ -104,13 +106,6 @@ export default {
         callback()
       }
     }
-    const validateCheck = (rule, value, callback) => {
-      if (value === 'false') {
-        callback(new Error('请勾选同意协议内容'))
-      } else {
-        callback()
-      }
-    }
     return {
       editFrom: {
         Account: '',
@@ -118,7 +113,7 @@ export default {
         Password: '',
         Password2: '',
         VerificationCode: '',
-        checked: false
+        checkAgreement: []
       },
       registerRules: {
         Account: [
@@ -131,14 +126,14 @@ export default {
           { required: true, trigger: 'blur', validator: validatePass2 }
         ],
         Email: [
-          { required: true, trigger: 'blur', validator: emailPassword }
+          { required: true, trigger: 'blur', validator: validateemail }
         ],
         VerificationCode: [
           { required: true, message: '请输入验证码', trigger: 'blur' },
           { min: 4, max: 4, message: '长度4字符', trigger: 'blur' }
         ],
-        checked: [
-          { required: true, trigger: 'blur', validator: validateCheck }]
+        checkAgreement: [
+          { type: 'array', required: true, trigger: 'change', message: '请勾选同意协议内容' }]
       },
       apiHostUrl: defaultSettings.apiHostUrl + 'Captcha',
       formLabelWidth: '100px',
@@ -168,6 +163,10 @@ export default {
     handleLogin () {
       this.$refs['registerForm'].validate((valid) => {
         if (valid) {
+          if (!this.editFrom.checkAgreement) {
+            new Error('请勾选同意协议内容')
+            return
+          }
           this.loading = true
           const data = this.editFrom
           registerUser(data).then(res => {
@@ -222,7 +221,7 @@ color: #000;
 
 .header{
   width: 100%;
-  height: 40px;
+  height: 60px;
   border-bottom: 1px solid #999;
   .logo-container{
 

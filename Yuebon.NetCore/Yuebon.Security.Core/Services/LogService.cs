@@ -47,44 +47,51 @@ namespace Yuebon.Security.Services
         /// <returns></returns>
         public bool OnOperationLog(string tableName, string operationType, string note)
         {
-            //虽然实现了这个事件，但是我们还需要判断该表是否在配置表里面，如果不在，则不记录操作日志。
-            var identities = _httpContextAccessor.HttpContext.User.Identities;
-            var claimsIdentity = identities.First<ClaimsIdentity>();
-            List<Claim> claimlist = claimsIdentity.Claims as List<Claim>;
-            string userId = claimlist[0].Value;
-            YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            YuebonCurrentUser CurrentUser = new YuebonCurrentUser();
-            var user = JsonSerializer.Deserialize<YuebonCurrentUser>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
-            if (user != null)
+            try
             {
-                CurrentUser = user;
-                bool insert = operationType == DbLogType.Create.ToString(); ;//&& settingInfo.InsertLog;
-                bool update = operationType == DbLogType.Update.ToString();// && settingInfo.UpdateLog;
-                bool delete = operationType == DbLogType.Delete.ToString();// && settingInfo.DeleteLog;
-                bool deletesoft = operationType == DbLogType.DeleteSoft.ToString();// && settingInfo.DeleteLog;
-                bool exception = operationType == DbLogType.Exception.ToString();// && settingInfo.DeleteLog;
-                bool sql = operationType == DbLogType.SQL.ToString();// && settingInfo.DeleteLog;
-
-                if (insert || update || delete || deletesoft || exception|| sql)
+                //虽然实现了这个事件，但是我们还需要判断该表是否在配置表里面，如果不在，则不记录操作日志。
+                var identities = _httpContextAccessor.HttpContext.User.Identities;
+                var claimsIdentity = identities.First<ClaimsIdentity>();
+                List<Claim> claimlist = claimsIdentity.Claims as List<Claim>;
+                string userId = claimlist[0].Value;
+                YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+                YuebonCurrentUser CurrentUser = new YuebonCurrentUser();
+                var user = JsonSerializer.Deserialize<YuebonCurrentUser>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
+                if (user != null)
                 {
-                    Log info = new Log();
-                    info.ModuleName = tableName;
-                    info.Type = operationType;
-                    info.Description = note;
-                    info.Date = info.CreatorTime = DateTime.Now;
-                    info.CreatorUserId = CurrentUser.UserId;
-                    info.Account = CurrentUser.Account;
-                    info.NickName = CurrentUser.NickName;
-                    info.OrganizeId = CurrentUser.OrganizeId;
-                    info.IPAddress = CurrentUser.CurrentLoginIP;
-                    info.IPAddressName = CurrentUser.IPAddressName;
-                    info.Result = true;
-                    long lg = _iLogRepository.Insert(info);
-                    if (lg > 0)
+                    CurrentUser = user;
+                    bool insert = operationType == DbLogType.Create.ToString(); ;//&& settingInfo.InsertLog;
+                    bool update = operationType == DbLogType.Update.ToString();// && settingInfo.UpdateLog;
+                    bool delete = operationType == DbLogType.Delete.ToString();// && settingInfo.DeleteLog;
+                    bool deletesoft = operationType == DbLogType.DeleteSoft.ToString();// && settingInfo.DeleteLog;
+                    bool exception = operationType == DbLogType.Exception.ToString();// && settingInfo.DeleteLog;
+                    bool sql = operationType == DbLogType.SQL.ToString();// && settingInfo.DeleteLog;
+
+                    if (insert || update || delete || deletesoft || exception || sql)
                     {
-                        return true;
+                        Log info = new Log();
+                        info.ModuleName = tableName;
+                        info.Type = operationType;
+                        info.Description = note;
+                        info.Date = info.CreatorTime = DateTime.Now;
+                        info.CreatorUserId = CurrentUser.UserId;
+                        info.Account = CurrentUser.Account;
+                        info.NickName = CurrentUser.NickName;
+                        info.OrganizeId = CurrentUser.OrganizeId;
+                        info.IPAddress = CurrentUser.CurrentLoginIP;
+                        info.IPAddressName = CurrentUser.IPAddressName;
+                        info.Result = true;
+                        long lg = _iLogRepository.Insert(info);
+                        if (lg > 0)
+                        {
+                            return true;
+                        }
                     }
                 }
+            }catch(Exception ex)
+            {
+                Log4NetHelper.Error("",ex);
+                return false;
             }
             return false;
         }

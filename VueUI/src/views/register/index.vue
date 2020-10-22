@@ -1,18 +1,21 @@
 <template>
   <div class="registWrapper">
-    <div class="register-container">
-      <div class="title-container">
-        <h3 class="title">欢迎注册{{ softName }}用户</h3>
-      </div>
+
+    <div class="header">
       <div class="logo-container">
         <img :src="companyLogo">
+      </div>
+    </div>
+    <div class="register-container">
+      <div class="title-container">
+        <h3 class="title">欢迎注册{{ softName }}</h3>
       </div>
       <el-form
         ref="registerForm"
         :model="editFrom"
         :rules="registerRules"
         label-position="right"
-        style="width:500px;"
+        class="registerForm"
       >
         <el-form-item prop="Account">
           <el-input v-model="editFrom.Account" placeholder="请输入登录系统账号" autocomplete="off" clearable />
@@ -43,13 +46,11 @@
           <router-link :to="{path:'/'}">登录已有账号</router-link>
         </el-form-item>
       </el-form>
-      <div id="footer" class="footer" role="contentinfo">
-        <div class="footerNodelf text-secondary">
-          <span>本软件使用权属于：{{ companyName }}</span>
-        </div>
-        <div class="footerNode text-secondary">
-          <span v-html="copyRight">{{ copyRight }}</span>
-        </div>
+    </div>
+
+    <div id="footer" class="footer" role="contentinfo">
+      <div class="footerNode text-secondary">
+        <span v-html="copyRight">{{ copyRight }}</span>
       </div>
     </div>
   </div>
@@ -184,7 +185,7 @@ export default {
 $bg: #283443;
 $light_gray: rgb(100, 95, 95);
 $cursor: #000000;
-.registWrapper{
+body{
   background: #f5f6f7;
 color: #000;
 }
@@ -193,11 +194,43 @@ color: #000;
     color: $cursor;
   }
 }
+.header{
+  width: 100%;
+  .logo-container{
+  margin-top: 10px;
+  float: left;
+  }
+}
+.registWrapper{
 
-/* reset element-ui css */
+.header{
+  width: 100%;
+  height: 40px;
+  border-bottom: 1px solid #999;
+  .logo-container{
+
+  margin-top: 10px;
+  float: left;
+  }
+}
+}
+
 .register-container {
  width: 800px;
- margin: 0 auto 0 auto;
+ margin: 30px auto 30px auto;
+ background: #ffffff;
+ padding: 20px;
+ .title-container{
+margin: 20px auto;
+  text-align: center;
+  .title{
+    font-size: 28px;
+  }
+ }
+ .registerForm{
+   width: 300px;
+   margin: 0 auto;
+ }
 }
 </style>
 
@@ -206,19 +239,12 @@ $dark_gray: #5e6163;
 $light_gray: #eee;
 
   .footer {
-    bottom: 0;
-    width: 100%;
-    overflow: visible;
-    z-index: 99;
-    clear: both;
+    text-align: center;
   }
   div.footerNodelf {
-    float: left;
   }
 
   div.footerNode {
-    margin: 0;
-    float: right;
   }
   .text-secondary {
     font-size: 13px;

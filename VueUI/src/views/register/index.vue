@@ -49,6 +49,9 @@
     </div>
 
     <div id="footer" class="footer" role="contentinfo">
+      <div class="footerNodelf text-secondary">
+        <span>本软件使用权属于：{{ companyName }}</span>
+      </div>
       <div class="footerNode text-secondary">
         <span v-html="copyRight">{{ copyRight }}</span>
       </div>
@@ -63,6 +66,7 @@ import { getToken, getSysSetting } from '@/api/basebasic'
 import { registerUser } from '@/api/security/userservice'
 
 export default {
+  name: 'Register',
   data () {
     const validateUsername = (rule, value, callback) => {
       if (value.length < 1) {
@@ -131,7 +135,7 @@ export default {
         ],
         VerificationCode: [
           { required: true, message: '请输入验证码', trigger: 'blur' },
-          { min: 4, max: 4, message: '长度在 4字符', trigger: 'blur' }
+          { min: 4, max: 4, message: '长度4字符', trigger: 'blur' }
         ],
         checked: [
           { required: true, trigger: 'blur', validator: validateCheck }]
@@ -167,7 +171,20 @@ export default {
           this.loading = true
           const data = this.editFrom
           registerUser(data).then(res => {
-            this.$router.push('/')
+            if (res.Success) {
+              this.$message({
+                message: '恭喜你，注册成功',
+                type: 'success'
+              })
+              setTimeout(
+                this.$router.push('/')
+                , 1000)
+            } else {
+              this.$message({
+                message: res.ErrMsg,
+                type: 'error'
+              })
+            }
             this.loading = false
           }).catch(res => {
             this.loading = false
@@ -240,11 +257,15 @@ $light_gray: #eee;
 
   .footer {
     text-align: center;
+ width: 800px;
+ margin: 30px auto 0 auto;
   }
   div.footerNodelf {
+    float: left;
   }
 
   div.footerNode {
+    float: right;
   }
   .text-secondary {
     font-size: 13px;

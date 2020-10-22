@@ -49,9 +49,9 @@ const mutations = {
 
 const actions = {
   userlogin ({ commit }, userInfo) {
-    const { username, password } = userInfo
+    const { username, password, vcode } = userInfo
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password, appId: 'system', systemCode: 'openauth' }).then(response => {
+      login({ username: username.trim(), password: password, vcode: vcode, appId: 'system', systemCode: 'openauth' }).then(response => {
         const data = response.ResData
         commit('SET_TOKEN', data.AccessToken)
         setToken(data.AccessToken)

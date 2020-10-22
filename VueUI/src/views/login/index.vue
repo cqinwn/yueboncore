@@ -17,7 +17,7 @@
       </div>
       <el-form-item prop="username">
         <span class="svg-container">
-          <svg-icon icon-class="user" />
+          <i class="el-icon-user" />
         </span>
         <el-input
           ref="username"
@@ -32,7 +32,7 @@
 
       <el-form-item prop="password">
         <span class="svg-container">
-          <svg-icon icon-class="password" />
+          <i class="iconfont icon-auth" />
         </span>
         <el-input
           :key="passwordType"
@@ -52,14 +52,33 @@
         </span>
       </el-form-item>
 
+      <el-form-item prop="vcode">
+        <span class="svg-container">
+          <i class="iconfont icon-approve" />
+        </span>
+        <el-input
+          ref="vcode"
+          v-model="loginForm.vcode"
+          placeholder="验证码"
+          name="vcode"
+          type="text"
+          tabindex="3"
+          maxlength="4"
+          auto-complete="on"
+          style="width:150px; "
+        />
+        <div style="margin-top:8px; display:inline; float:right;margin-right:10px;">
+          <img :src="apiHostUrl" alt="看不清？点击更换" onclick="this.src = this.src + '?'">
+        </div>
+      </el-form-item>
       <el-button
         :loading="loading"
         type="primary"
         style="width: 100%; margin-bottom: 30px"
         @click.native.prevent="handleLogin"
       >登录</el-button>
-      <div>
-        还没有账号，<router-link :to="{path:'/register'}">我要注册</router-link>
+      <div style="text-align:right;">
+        没有账号？<router-link :to="{name:'register'}">点此注册</router-link>
       </div>
       <div class="tips" />
     </el-form>
@@ -75,6 +94,7 @@
 </template>
 
 <script>
+import defaultSettings from '@/settings'
 import { setToken } from '@/utils/auth'
 import { getToken, getSysSetting } from '@/api/basebasic'
 
@@ -98,7 +118,8 @@ export default {
     return {
       loginForm: {
         username: '',
-        password: ''
+        password: '',
+        vcode: ''
       },
       loginRules: {
         username: [
@@ -106,11 +127,16 @@ export default {
         ],
         password: [
           { required: true, trigger: 'blur', validator: validatePassword }
+        ],
+        vcode: [
+          { required: true, message: '请输入验证码', trigger: 'blur' },
+          { min: 4, max: 4, message: '长度4字符', trigger: 'blur' }
         ]
       },
       loading: false,
       passwordType: 'password',
       redirect: undefined,
+      apiHostUrl: defaultSettings.apiHostUrl + 'Captcha',
       softName: '管理系统',
       companyLogo: '/assets/images/login-logo.png',
       companyName: '',

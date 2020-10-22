@@ -104,10 +104,10 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         public  async Task<IActionResult> RegisterAsync(RegisterViewModel tinfo)
         {
             CommonResult result = new CommonResult();
-
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            string code = yuebonCacheHelper.Get("LoginValidateCode").ToString();
-            if (code != tinfo.VerificationCode)
+            var vCode = yuebonCacheHelper.Get("LoginValidateCode");
+            string code = vCode != null? vCode.ToString():"11";
+            if (code.ToUpper() != tinfo.VerificationCode)
             {
                 result.ErrMsg = "验证码错误";
                 return ToJsonContent(result);
@@ -154,6 +154,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             result.Success = await iService.InsertAsync(info, userLogOn);
             if (result.Success)
             {
+                yuebonCacheHelper.Remove("LoginValidateCode");
                 result.ErrCode = ErrCode.successCode;
                 result.ErrMsg = ErrCode.err0;
             }

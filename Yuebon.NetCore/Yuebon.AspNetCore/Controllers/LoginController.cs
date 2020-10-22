@@ -70,16 +70,25 @@ namespace Yuebon.AspNetCore.Controllers
         /// </summary>
         /// <param name="username">用户名</param>
         /// <param name="password">密码</param>
+        /// <param name="vcode">验证码</param>
         /// <param name="appId">AppId</param>
         /// <param name="systemCode">systemCode</param>
         /// <returns>返回用户User对象</returns>
         [HttpGet("GetCheckUser")]
         [AllowAnonymous]
         [NoPermissionRequired]
-        public async Task<IActionResult> GetCheckUser(string username, string password,string appId,string systemCode)
+        public async Task<IActionResult> GetCheckUser(string username, string password, string vcode, string appId,string systemCode)
         {
 
             CommonResult result = new CommonResult();
+            YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+            var vCode = yuebonCacheHelper.Get("LoginValidateCode");
+            string code = vCode != null ? vCode.ToString() : "11";
+            if (vcode != code)
+            {
+                result.ErrMsg = "验证码错误,区分大小写";
+                return ToJsonContent(result);
+            }
             Log logEntity = new Log();
             RemoteIpParser remoteIpParser = new RemoteIpParser();
             string strIp = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
@@ -138,7 +147,6 @@ namespace Yuebon.AspNetCore.Controllers
                                         result.Success = true;
 
                                         User user = userLogin.Item1;
-                                        YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
 
                                         JwtOption jwtModel = IoCContainer.Resolve<JwtOption>();
                                         TokenProvider tokenProvider = new TokenProvider(jwtModel);
@@ -229,6 +237,7 @@ namespace Yuebon.AspNetCore.Controllers
                     }
                 }
             }
+            yuebonCacheHelper.Remove("LoginValidateCode");
             return ToJsonContent(result);
         }
 

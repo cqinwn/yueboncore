@@ -107,7 +107,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
             var vCode = yuebonCacheHelper.Get("LoginValidateCode");
             string code = vCode != null? vCode.ToString():"11";
-            if (code.ToUpper() != tinfo.VerificationCode)
+            if (code != tinfo.VerificationCode)
             {
                 result.ErrMsg = "验证码错误";
                 return ToJsonContent(result);

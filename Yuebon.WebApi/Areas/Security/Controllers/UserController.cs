@@ -16,6 +16,8 @@ using Yuebon.AspNetCore.UI;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.WebApi.Areas.Security.Models;
 using Yuebon.Commons.Encrypt;
+using Yuebon.AspNetCore.Mvc.Filter;
+using Yuebon.Commons.Cache;
 
 namespace Yuebon.WebApi.Areas.Security.Controllers
 {
@@ -93,6 +95,76 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
 
 
         /// <summary>
+        /// 用户注册
+        /// </summary>
+        /// <param name="tinfo"></param>
+        /// <returns></returns>
+        [HttpPost("Register")]
+        [NoPermissionRequired]
+        public  async Task<IActionResult> RegisterAsync(RegisterViewModel tinfo)
+        {
+            CommonResult result = new CommonResult();
+
+            YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+            string code = yuebonCacheHelper.Get("LoginValidateCode").ToString();
+            if (code != tinfo.VerificationCode)
+            {
+                result.ErrMsg = "验证码错误";
+                return ToJsonContent(result);
+            }
+            if (!string.IsNullOrEmpty(tinfo.Account))
+            {
+                if (string.IsNullOrEmpty(tinfo.Password) || tinfo.Password.Length < 6)
+                {
+                    result.ErrMsg = "密码不能为空或小于6位";
+                    return ToJsonContent(result);
+                }
+                User user =await iService.GetByUserName(tinfo.Account);
+                if (user != null)
+                {
+                    result.ErrMsg = "登录账号不能重复";
+                    return ToJsonContent(result);
+                }
+            }
+            else
+            {
+                result.ErrMsg = "登录账号不能为空";
+                return ToJsonContent(result);
+            }
+            User info = new User();
+            info.Id = GuidUtils.CreateNo();
+            info.Account = tinfo.Account;
+            info.Email = tinfo.Email;
+            info.CreatorTime = DateTime.Now;
+            info.CreatorUserId = info.Id;
+            info.OrganizeId = "";
+            info.EnabledMark = true;
+            info.IsAdministrator = false;
+            info.IsMember = true;
+            info.RoleId =roleService.GetRole("usermember").Id;
+            info.DeleteMark = false;
+            info.SortCode = 99;
+
+            UserLogOn userLogOn = new UserLogOn();
+            userLogOn.UserPassword = tinfo.Password;
+            userLogOn.AllowStartTime = userLogOn.LockEndDate = userLogOn.LockStartDate = userLogOn.ChangePasswordDate = DateTime.Now;
+            userLogOn.AllowEndTime = DateTime.Now.AddYears(100);
+            userLogOn.MultiUserLogin = userLogOn.CheckIPAddress = false;
+            userLogOn.LogOnCount = 0;
+            result.Success = await iService.InsertAsync(info, userLogOn);
+            if (result.Success)
+            {
+                result.ErrCode = ErrCode.successCode;
+                result.ErrMsg = ErrCode.err0;
+            }
+            else
+            {
+                result.ErrMsg = ErrCode.err43001;
+                result.ErrCode = "43001";
+            }
+            return ToJsonContent(result);
+        }
+        /// <summary>
         /// 异步新增数据
         /// </summary>
         /// <param name="tinfo"></param>
@@ -105,7 +177,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
 
             if (!string.IsNullOrEmpty(tinfo.Account))
             {
-                string where = string.Format("Account='{0}'", tinfo.Account);
+                string where = string.Format("Account='{0}' or Email='{0}' or MobilePhone='{0}'", tinfo.Account);
                 User user = iService.GetWhere(where);
                 if (user != null)
                 {

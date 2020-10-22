@@ -47,23 +47,24 @@ namespace Yuebon.AspNetCore.Controllers
         public IActionResult Upload([FromForm] IFormCollection formCollection)
         {
             CommonResult result = new CommonResult();
-           
-                FormFileCollection filelist = (FormFileCollection)formCollection.Files;
-                string belongApp = formCollection["belongApp"].ToString();
-                string belongAppId = formCollection["belongAppId"].ToString();
-                _fileName = filelist[0].FileName;
-                try
-                {
-                    result.ResData = Add(filelist[0], belongApp, belongAppId);
-                    result.ErrCode = ErrCode.successCode;
-                    result.Success = true;
-                }
-                catch (Exception ex)
-                {
-                    result.ErrCode = "500";
-                    result.ErrMsg = ex.Message;
-                    Log4NetHelper.Error("", ex);
-                }
+
+            FormFileCollection filelist = (FormFileCollection)formCollection.Files;
+            string belongApp = formCollection["belongApp"].ToString();
+            string belongAppId = formCollection["belongAppId"].ToString();
+            _fileName = filelist[0].FileName;
+            try
+            {
+                result.ResData = Add(filelist[0], belongApp, belongAppId);
+                result.ErrCode = ErrCode.successCode;
+                result.Success = true;
+            }
+            catch (Exception ex)
+            {
+                result.ErrCode = "500";
+                result.ErrMsg = ex.Message;
+                Log4NetHelper.Error("", ex);
+                throw ex;
+            }
             return ToJsonContent(result);
         }
         /// <summary>

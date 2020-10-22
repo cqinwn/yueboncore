@@ -58,7 +58,9 @@
         style="width: 100%; margin-bottom: 30px"
         @click.native.prevent="handleLogin"
       >登录</el-button>
-
+      <div>
+        还没有账号，<router-link :to="{path:'/register'}">我要注册</router-link>
+      </div>
       <div class="tips" />
     </el-form>
     <div id="footer" class="footer" role="contentinfo">
@@ -229,7 +231,7 @@ $light_gray: #eee;
     position: relative;
     width: 369px;
     max-width: 100%;
-    margin: 15% 10% 10% 65%;
+    margin: 15% auto;
     overflow: hidden;
     background: #fff;
     border-radius: 10px;

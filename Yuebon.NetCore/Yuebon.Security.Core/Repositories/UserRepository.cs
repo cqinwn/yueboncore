@@ -40,7 +40,7 @@ namespace Yuebon.Security.Repositories
             using (IDbConnection conn = OpenSharedConnection())
             {
                 string sql = @"SELECT * FROM Sys_User t WHERE t.Account = @UserName";
-                return await conn.QueryFirstOrDefaultAsync<User>(sql, new { UserName = userName });
+                return await conn.QueryFirstOrDefaultAsync<User>(sql, new { @UserName = userName });
             }
        }
 
@@ -54,7 +54,34 @@ namespace Yuebon.Security.Repositories
             using (IDbConnection conn = OpenSharedConnection())
             {
                 string sql = @"SELECT * FROM Sys_User t WHERE t.MobilePhone = @MobilePhone";
-                return await conn.QueryFirstOrDefaultAsync<User>(sql, new { MobilePhone = mobilephone });
+                return await conn.QueryFirstOrDefaultAsync<User>(sql, new { @MobilePhone = mobilephone });
+            }
+        }
+
+        /// <summary>
+        /// 根据Email查询用户信息
+        /// </summary>
+        /// <param name="email">email</param>
+        /// <returns></returns>
+        public async Task<User> GetUserByEmail(string email)
+        {
+            using (IDbConnection conn = OpenSharedConnection())
+            {
+                string sql = @"SELECT * FROM Sys_User t WHERE t.Email = @Email";
+                return await conn.QueryFirstOrDefaultAsync<User>(sql, new { @Email = email });
+            }
+        }
+        /// <summary>
+        /// 根据Email、Account、手机号查询用户信息
+        /// </summary>
+        /// <param name="account">登录账号</param>
+        /// <returns></returns>
+        public async Task<User> GetUserByLogin(string account)
+        {
+            using (IDbConnection conn = OpenSharedConnection())
+            {
+                string sql = @"SELECT * FROM Sys_User t WHERE (t.Account = @Account Or t.Email = @Account Or t.MobilePhone = @Account)";
+                return await conn.QueryFirstOrDefaultAsync<User>(sql, new {@Account = account });
             }
         }
         /// <summary>

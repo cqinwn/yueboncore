@@ -190,8 +190,7 @@ namespace Yuebon.WebApi.Areas.Security
         /// </summary>
         /// <returns></returns>
         [HttpPost("Save")]
-        [YuebonAuthorize("Save")]
-        [NoPermissionRequired]
+        [YuebonAuthorize("Edit")]
         public IActionResult Save(SysSetting info)
         {
             CommonResult result = new CommonResult();

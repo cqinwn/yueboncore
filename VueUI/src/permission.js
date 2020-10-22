@@ -10,7 +10,7 @@ import Layout from '@/layout'
 import { getListMeunFuntionBymeunCode } from '@/api/basebasic'
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
-const whiteList = ['/login'] // no redirect whitelist
+const whiteList = ['/login', '/register'] // no redirect whitelist
 var menuList = []
 let flag = 0// 刷新不空白
 router.beforeEach(async (to, from, next) => {
@@ -22,6 +22,9 @@ router.beforeEach(async (to, from, next) => {
   const hasToken = getToken()
   if (hasToken) {
     if (to.path === '/login') {
+      next({ path: '/' })
+      NProgress.done()
+    } else if (to.path === '/register') {
       next({ path: '/' })
       NProgress.done()
     } else {

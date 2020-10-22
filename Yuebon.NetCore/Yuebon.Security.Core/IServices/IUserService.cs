@@ -34,8 +34,12 @@ namespace Yuebon.Security.IServices
         /// <param name="mobilePhone">手机号码</param>
         /// <returns></returns>
         Task<User> GetUserByMobilePhone(string mobilePhone);
-
-
+        /// <summary>
+        /// 根据Email、Account、手机号查询用户信息
+        /// </summary>
+        /// <param name="account">登录账号</param>
+        /// <returns></returns>
+        Task<User> GetUserByLogin(string account);
         /// <summary>
         /// 注册用户
         /// </summary>

@@ -51,7 +51,7 @@ namespace Yuebon.Security.Services
         /// <returns>验证成功返回用户实体，验证失败返回null|提示消息</returns>
         public async Task<Tuple<User, string>> Validate(string userName, string password)
         {
-            var userEntity = await _userRepository.GetByUserName(userName);
+            var userEntity = await _userRepository.GetUserByLogin(userName);
 
             if (userEntity == null)
             {
@@ -115,6 +115,15 @@ namespace Yuebon.Security.Services
         public async Task<User> GetUserByMobilePhone(string mobilephone)
         {
             return await _userRepository.GetUserByMobilePhone(mobilephone);
+        }
+        /// <summary>
+        /// 根据Email、Account、手机号查询用户信息
+        /// </summary>
+        /// <param name="account">登录账号</param>
+        /// <returns></returns>
+        public async Task<User> GetUserByLogin(string account)
+        {
+            return await _userRepository.GetUserByLogin(account);
         }
         /// <summary>
         /// 注册用户

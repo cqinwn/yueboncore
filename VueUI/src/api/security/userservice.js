@@ -110,3 +110,16 @@ export function modifyPassword (data) {
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
+
+/**
+   * 注册新用户
+   * @param data
+   */
+export function registerUser (data, url) {
+  return http.request({
+    url: 'User/Register',
+    method: 'post',
+    data: data,
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
+  })
+}

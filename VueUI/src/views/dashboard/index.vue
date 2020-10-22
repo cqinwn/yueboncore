@@ -63,8 +63,8 @@
           <div class="systeminfo">
             <div>烦请各位大神不要修改test用户密码</div>
             <div>数据库数据每小时会重置一次</div>
-            <div>官方文档：http://docs.v.yuebon.com</div>
-            <div>数据库数据每小时会重置一次</div>
+            <div>开源地址:<a href="https://gitee.com/yuebon/YuebonNetCore" target="_blank">https://gitee.com/yuebon/YuebonNetCore</a></div>
+            <div>如果觉得不错欢迎给个“star”</div>
           </div>
         </el-card>
       </el-col>

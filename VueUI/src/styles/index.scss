@@ -59,7 +59,6 @@ div:focus {
     height: 0;
   }
 }
-
 // main-container global css
 .app-container {
   padding: 20px 10px;
@@ -304,3 +303,14 @@ div:focus {
 	z-index:2003;
 	border: 3px solid #478ad6;
 }
+
+
+input::-webkit-input-placeholder {
+    color: #ff0000;
+  }
+  input::-moz-input-placeholder {
+    color: #ff0000;
+  }
+  input::-ms-input-placeholder {
+    color: #ff0000;
+  }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using Yuebon.Commons.Models;
 using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Dtos
@@ -10,7 +11,7 @@ namespace Yuebon.Security.Dtos
     /// 输出对象模型
     /// </summary>
     [Serializable]
-    public class AppOutputDto
+    public class AppOutputDto: IOutputDto
     {
         /// <summary>
         /// 设置或获取 

@@ -30,7 +30,6 @@ namespace Yuebon.Commons.Json
                 //IgnoreNullValues = true,                              //可以有空值,转换json去除空值属性
                 IgnoreReadOnlyProperties = true,                        //忽略只读属性
                 PropertyNameCaseInsensitive = true,                     //忽略大小写
-                                                                        //PropertyNamingPolicy = JsonNamingPolicy.CamelCase     //命名方式是默认还是CamelCase
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
             }; 
             options.Converters.Add(new DateTimeJsonConverter());

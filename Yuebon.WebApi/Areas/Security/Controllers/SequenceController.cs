@@ -160,9 +160,9 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
         /// <returns></returns>
         [HttpGet("FindWithPagerAsync")]
         [YuebonAuthorize("List")]
-        public override async Task<IActionResult> FindWithPagerAsync([FromQuery] SearchModel search)
+        public override async Task<CommonResult<PageResult<SequenceOutputDto>>> FindWithPagerAsync([FromQuery] SearchModel search)
         {
-            CommonResult result = new CommonResult();
+            CommonResult<PageResult<SequenceOutputDto>> result = new CommonResult<PageResult<SequenceOutputDto>>();
             string orderByDir = string.IsNullOrEmpty(Request.Query["Order"].ToString()) ? "desc" : Request.Query["Order"].ToString();
             string orderFlied = string.IsNullOrEmpty(Request.Query["Sort"].ToString()) ? "CreatorTime " : Request.Query["Sort"].ToString();
             bool order = orderByDir == "asc" ? false : true;
@@ -183,7 +183,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
             };
             result.ResData = pageResult;
             result.ErrCode = ErrCode.successCode;
-            return ToJsonContent(result);
+            return result;
         }
     }
 }

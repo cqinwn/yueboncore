@@ -28,15 +28,15 @@ namespace Yuebon.AspNetCore.Controllers
     /// 基本控制器，增删改查
     /// </summary>
     /// <typeparam name="T">实体类型</typeparam>
-    /// <typeparam name="TDto">数据输出实体类型</typeparam>
+    /// <typeparam name="TODto">数据输出实体类型</typeparam>
     /// <typeparam name="TIDto">数据输入实体类型</typeparam>
     /// <typeparam name="TService">Service类型</typeparam>
     /// <typeparam name="TKey">主键数据类型</typeparam>
     [ApiController]
-    public abstract class AreaApiController<T,TDto, TIDto, TService, TKey> : ApiController
+    public abstract class AreaApiController<T,TODto, TIDto, TService, TKey> : ApiController
         where T : Entity
-        where TService : IService<T, TDto, TKey>
-        where TDto : class
+        where TService : IService<T, TODto, TKey>
+        where TODto : class
         where TIDto : class
         where TKey : IEquatable<TKey>
     {
@@ -448,22 +448,22 @@ namespace Yuebon.AspNetCore.Controllers
         [HttpGet("GetById")]
         [YuebonAuthorize("")]
         [NoPermissionRequired]
-        public virtual async Task<IActionResult> GetById(TKey id)
+        public virtual async Task<CommonResult<TODto>> GetById(TKey id)
         {
-            CommonResult result = new CommonResult();
-                TDto info =await iService.GetOutDtoAsync(id);
-               
-                if (info != null)
-                {
-                    result.ErrCode = ErrCode.successCode;
-                    result.ResData = info;
-                }
-                else
-                {
-                    result.ErrMsg = ErrCode.err50001;
-                    result.ErrCode = "50001";
-                }
-            return ToJsonContent(result);
+            CommonResult<TODto> result = new CommonResult<TODto>();
+            TODto info = await iService.GetOutDtoAsync(id);
+
+            if (info != null)
+            {
+                result.ErrCode = ErrCode.successCode;
+                result.ResData = info;
+            }
+            else
+            {
+                result.ErrMsg = ErrCode.err50001;
+                result.ErrCode = "50001";
+            }
+            return result;
         }
         #endregion
 
@@ -475,26 +475,28 @@ namespace Yuebon.AspNetCore.Controllers
         /// <returns>指定对象的集合</returns>
         [HttpGet("FindWithPager")]
         [YuebonAuthorize("List")]
-        public virtual IActionResult FindWithPager(T info)
+        public virtual CommonResult<PageResult<TODto>> FindWithPager(T info)
         {
-            CommonResult result = new CommonResult();
-                string keywords = Request.Query["search"].ToString() == null ? "" : Request.Query["search"].ToString();
-                string orderByDir = Request.Query["order"].ToString() == null ? "" : Request.Query["order"].ToString();
-                string orderFlied = string.IsNullOrEmpty(Request.Query["sort"].ToString()) ? "Id" : Request.Query["sort"].ToString();
+            CommonResult<PageResult<TODto>> result = new CommonResult<PageResult<TODto>>();
+            string keywords = Request.Query["search"].ToString() == null ? "" : Request.Query["search"].ToString();
+            string orderByDir = Request.Query["order"].ToString() == null ? "" : Request.Query["order"].ToString();
+            string orderFlied = string.IsNullOrEmpty(Request.Query["sort"].ToString()) ? "Id" : Request.Query["sort"].ToString();
 
-                bool order = orderByDir == "asc" ? false : true;
-                string where = GetPagerCondition();
-                PagerInfo pagerInfo =GetPagerInfo();
-                List<T> list = iService.FindWithPager(where, pagerInfo, orderFlied, order);
-                result.ErrCode = ErrCode.successCode;
-                //构造成Json的格式传递
-                result.ResData = new
-                {
-                    recordsTotal = pagerInfo.RecordCount,
-                    recordsFiltered = pagerInfo.RecordCount,
-                    data = list
-                };
-            return ToJsonContent(result);
+            bool order = orderByDir == "asc" ? false : true;
+            string where = GetPagerCondition();
+            PagerInfo pagerInfo = GetPagerInfo();
+            List<T> list = iService.FindWithPager(where, pagerInfo, orderFlied, order);
+            List<TODto> resultList = list.MapTo<TODto>();
+            PageResult<TODto> pageResult = new PageResult<TODto>
+            {
+                CurrentPage = pagerInfo.CurrenetPageIndex,
+                Items = resultList,
+                ItemsPerPage = pagerInfo.PageSize,
+                TotalItems = pagerInfo.RecordCount
+            };
+            result.ResData = pageResult;
+            result.ErrCode = ErrCode.successCode;
+            return result;
         }
 
 
@@ -506,9 +508,9 @@ namespace Yuebon.AspNetCore.Controllers
         /// <returns></returns>
         [HttpGet("FindWithPagerAsync")]
         [YuebonAuthorize("List")]
-        public virtual async Task<IActionResult> FindWithPagerAsync([FromQuery]SearchModel search)
+        public virtual async Task<CommonResult<PageResult<TODto>>> FindWithPagerAsync([FromQuery]SearchModel search)
         {
-            CommonResult result = new CommonResult();
+            CommonResult<PageResult<TODto>> result = new CommonResult<PageResult<TODto>>();
             string orderByDir = string.IsNullOrEmpty(Request.Query["Order"].ToString()) ? "" : Request.Query["Order"].ToString();
             string orderFlied = string.IsNullOrEmpty(Request.Query["Sort"].ToString()) ? "Id" : Request.Query["Sort"].ToString();
             bool order = orderByDir == "asc" ? false : true;
@@ -522,8 +524,8 @@ namespace Yuebon.AspNetCore.Controllers
             }
             PagerInfo pagerInfo = GetPagerInfo();
             List<T> list = await iService.FindWithPagerAsync(where, pagerInfo, orderFlied, order);
-            List<TDto> resultList = list.MapTo<TDto>();
-            PageResult<TDto> pageResult = new PageResult<TDto>
+            List<TODto> resultList = list.MapTo<TODto>();
+            PageResult<TODto> pageResult = new PageResult<TODto>
             {
                 CurrentPage = pagerInfo.CurrenetPageIndex,
                 Items = resultList,
@@ -532,12 +534,12 @@ namespace Yuebon.AspNetCore.Controllers
             };
             result.ResData = pageResult;
             result.ErrCode = ErrCode.successCode;
-            return ToJsonContent(result);
+            return result;
         }
         /// <summary>
         /// 获取分页操作的查询条件
         /// </summary>
-        /// <param name="blDeptCondition">是否开启数据权限条件</param>
+        /// <param name="blDeptCondition">是否开启数据权限条件，默认开启</param>
         /// <returns></returns>
         protected virtual string GetPagerCondition(bool blDeptCondition = true)
         {
@@ -548,12 +550,11 @@ namespace Yuebon.AspNetCore.Controllers
                 YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
 
                 //如果公司过滤条件不为空，那么需要进行过滤
-
-               List<String> list= JsonSerializer.Deserialize<List<String>>(yuebonCacheHelper.Get("User_RoleData_" + CurrentUser.UserId).ToJson());
+                List<String> list = JsonSerializer.Deserialize<List<String>>(yuebonCacheHelper.Get("User_RoleData_" + CurrentUser.UserId).ToJson());
                 string DataFilterCondition = String.Join(",", list.ToArray());
                 if (!string.IsNullOrEmpty(DataFilterCondition))
                 {
-                    where += string.Format(" and DeptId in ('{0}')", DataFilterCondition.Replace(",","','"));
+                    where += string.Format(" and DeptId in ('{0}')", DataFilterCondition.Replace(",", "','"));
                 }
             }
             return where;
@@ -566,16 +567,16 @@ namespace Yuebon.AspNetCore.Controllers
         /// <returns></returns>
         [HttpGet("GetAllEnable")]
         [YuebonAuthorize("List")]
-        public virtual async Task<IActionResult> GetAllEnable()
+        public virtual async Task<CommonResult<List<TODto>>> GetAllEnable()
         {
-            CommonResult result = new CommonResult();
+            CommonResult<List<TODto>> result = new CommonResult<List<TODto>>();
             IEnumerable<T> list = await iService.GetAllByIsNotDeleteAndEnabledMarkAsync();
-            List<TDto> resultList = list.MapTo<TDto>();
+            List<TODto> resultList = list.MapTo<TODto>();
             result.ResData = resultList;
             result.ErrCode = ErrCode.successCode;
             result.ErrMsg = ErrCode.err0;
 
-            return ToJsonContent(result);
+            return result;
         }
         #endregion
 

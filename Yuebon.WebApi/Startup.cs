@@ -16,6 +16,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Serialization;
 using Quartz;
 using Quartz.Impl;
 using Senparc.CO2NET;
@@ -36,6 +37,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
 using System.Text.Encodings.Web;
+using System.Text.Json;
 using System.Text.Unicode;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Mvc;
@@ -110,7 +112,7 @@ namespace Yuebon.WebApi
                 });
                 Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.xml").ToList().ForEach(file =>
                 {
-                    options.IncludeXmlComments(file);
+                    options.IncludeXmlComments(file,true);
                 });
                 options.DocumentFilter<HiddenApiFilter>(); // 在接口类、方法标记属性 [HiddenApi]，可以阻止【Swagger文档】生成
                 options.OperationFilter<AddResponseHeadersFilter>();
@@ -130,12 +132,17 @@ namespace Yuebon.WebApi
                 policy => policy.WithOrigins(Configuration.GetSection("AppSetting:AllowOrigins").Value.Split(',', StringSplitOptions.RemoveEmptyEntries)).AllowAnyHeader().AllowAnyMethod()));
             services.AddControllers().AddJsonOptions(options =>
             {
+                options.JsonSerializerOptions.WriteIndented = true;
+                options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
                 //设置时间格式
                 options.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter());
                 //设置bool获取格式
                 options.JsonSerializerOptions.Converters.Add(new BooleanJsonConverter());
                 //设置数字
                 options.JsonSerializerOptions.Converters.Add(new IntJsonConverter());
+                options.JsonSerializerOptions.PropertyNamingPolicy = new UpperFirstCaseNamingPolicy();
+                // options.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.CamelCase;
+                //options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
                 options.JsonSerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All);
             });
 

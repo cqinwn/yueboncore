@@ -9,6 +9,10 @@
     <DocumentationFile>D:\netcorespace\权限管理\Yuebon.WebApi\Yuebon.WebApi.xml</DocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\netcorespace\权限管理\Yuebon.WebApi\Yuebon.WebApi.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="Areas\Authorizer\**" />
     <Content Remove="Areas\Authorizer\**" />

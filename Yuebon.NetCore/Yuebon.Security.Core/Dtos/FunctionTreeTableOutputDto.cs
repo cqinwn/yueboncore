@@ -8,6 +8,7 @@ namespace Yuebon.Security.Dtos
     /// <summary>
     /// vue树形表
     /// </summary>
+    [Serializable]
     public class FunctionTreeTableOutputDto
     {
 

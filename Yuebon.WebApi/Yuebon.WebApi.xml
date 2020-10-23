@@ -57,7 +57,7 @@
             <param name="id">主键Id</param>
             <returns></returns>
         </member>
-        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.APPController.FindWithPagerAsync(Yuebon.AspNetCore.UI.SearchModel)">
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.APPController.FindWithPager11Async(Yuebon.AspNetCore.UI.SearchModel)">
             <summary>
             异步分页查询
             </summary>
@@ -868,6 +868,13 @@
             <param name="info"></param>
             <returns></returns>
         </member>
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.UserController.RegisterAsync(Yuebon.WebApi.Areas.Security.Models.RegisterViewModel)">
+            <summary>
+            用户注册
+            </summary>
+            <param name="tinfo"></param>
+            <returns></returns>
+        </member>
         <member name="M:Yuebon.WebApi.Areas.Security.Controllers.UserController.InsertAsync(Yuebon.Security.Dtos.UserInputDto)">
             <summary>
             异步新增数据
@@ -1054,6 +1061,31 @@
         <member name="P:Yuebon.WebApi.Areas.Security.Models.LocalTaskModel.FullName">
             <summary>
             类名
+            </summary>
+        </member>
+        <member name="T:Yuebon.WebApi.Areas.Security.Models.RegisterViewModel">
+            <summary>
+            注册信息
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Areas.Security.Models.RegisterViewModel.Account">
+            <summary>
+            设置账号
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Areas.Security.Models.RegisterViewModel.Email">
+            <summary>
+            设置邮箱
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Areas.Security.Models.RegisterViewModel.Password">
+            <summary>
+            设置密码
+            </summary>
+        </member>
+        <member name="P:Yuebon.WebApi.Areas.Security.Models.RegisterViewModel.VerificationCode">
+            <summary>
+            设置验证码
             </summary>
         </member>
         <member name="T:Yuebon.WebApi.Areas.Security.Models.SearchUserModel">

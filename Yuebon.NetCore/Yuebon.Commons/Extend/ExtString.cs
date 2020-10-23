@@ -448,7 +448,25 @@ namespace Yuebon.Commons.Extend
         {
             return JsonConvert.DeserializeObject(json, type);
         }
-
+        /// <summary>
+        /// Json×Ö·û´®Ê××ÖÄ¸×ª´óÐ´
+        /// </summary>
+        /// <param name="strJsonData">json×Ö·û´®</param>
+        /// <returns></returns>
+        public static string UpperFirst(this string strJsonData)
+        {
+            MatchCollection matchCollection = Regex.Matches(strJsonData, "\\\"[a-zA-Z0-9]+\\\"\\s*:");
+            foreach (Match item in matchCollection)
+            {
+                string res = Regex.Replace(item.Value, @"\b[a-z]\w+", delegate (Match match)
+                {
+                    string val = match.ToString();
+                    return char.ToUpper(val[0]) + val.Substring(1);
+                });
+                strJsonData = strJsonData.Replace(item.Value, res);
+            }
+            return strJsonData;
+        }
 
         #region Base64¼ÓÃÜ½âÃÜ
         /// <summary>

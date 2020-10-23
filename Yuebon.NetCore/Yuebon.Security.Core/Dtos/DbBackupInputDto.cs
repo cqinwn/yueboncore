@@ -18,42 +18,52 @@ namespace Yuebon.Security.Dtos
         /// 设置或获取 
         /// </summary>
         public string Id { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string BackupType { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string DbName { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string FileName { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string FileSize { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string FilePath { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public DateTime? BackupTime { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public int? SortCode { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public bool? EnabledMark { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string Description { get; set; }
-
+
+
     }
 }

@@ -248,16 +248,17 @@ $dark_gray: #5e6163;
 $light_gray: #eee;
 
 .login-container {
-  min-height: 100%;
+  height: 100%;
   width: 100%;
   background-image: url("~@/assets/images/convergedbg_v2.jpg");
   overflow: hidden;
+  background-size:100% 100%;
 
   .login-form {
     position: relative;
     width: 369px;
     max-width: 100%;
-    margin: 15% auto;
+    margin: 10% auto;
     overflow: hidden;
     background: #fff;
     border-radius: 10px;

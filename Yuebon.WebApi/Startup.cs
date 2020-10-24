@@ -247,6 +247,7 @@ namespace Yuebon.WebApi
         private IServiceProvider InitIoC(IServiceCollection services)
         {
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddHttpContextAccessor();
             services.AddMemoryCache();
             CacheProvider cacheProvider = new CacheProvider
             {

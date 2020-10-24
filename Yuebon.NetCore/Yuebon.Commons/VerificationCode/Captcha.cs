@@ -38,7 +38,7 @@ namespace Yuebon.Commons.VerificationCode
             g.Clear(Color.White);
 
             var random = new Random();
-
+            // 画图片的背景噪音线
             for (var i = 0; i < 100; i++)
             {
                 var x = random.Next(image.Width);
@@ -68,7 +68,20 @@ namespace Yuebon.Commons.VerificationCode
                 //绘制一个验证字符  
                 g.DrawString(captchaCode.Substring(i, 1), f, b, 17 + (i * 17), ii);
             }
+            //画图片的前景噪音点
+            for (var i = 0; i < 100; i++)
+            {
+                var x = random.Next(image.Width);
+                var x1 = random.Next(image.Width);
+                var y = random.Next(image.Height);
+                var y1 = random.Next(image.Height);
+                if (i % 11 == 0)
+                    g.DrawLine(new Pen(Color.Silver), x, y, x1, y1);
 
+                image.SetPixel(x, y, Color.FromArgb(random.Next()));
+            }
+            //画图片的边框线
+            //g.DrawRectangle(new Pen(Color.Silver), 0, 0, image.Width - 1, image.Height - 1);
             var ms = new MemoryStream();
             image.Save(ms, ImageFormat.Png);
 
@@ -83,9 +96,9 @@ namespace Yuebon.Commons.VerificationCode
             });
         }
         /// <summary>
-        /// 生成随机验证码
+        /// 生成随机验证码字符
         /// </summary>
-        /// <param name="codeLength"></param>
+        /// <param name="codeLength">验证码位数</param>
         /// <returns></returns>
         public async Task<string> GenerateRandomCaptchaAsync(int codeLength = 4)
         {

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.Net;
 using Yuebon.Commons.VerificationCode;
 
 namespace Yuebon.AspNetCore.Controllers
@@ -31,10 +32,11 @@ namespace Yuebon.AspNetCore.Controllers
             Captcha captcha = new Captcha();
             var code =await  captcha.GenerateRandomCaptchaAsync();
             var result =await  captcha.GenerateCaptchaImageAsync(code);
-            // HttpContext.Session.SetString("LoginValidateCode", code);
+            RemoteIpParser remoteIpParser = new RemoteIpParser();
+            string strIp = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            TimeSpan expiresSliding = DateTime.Now.AddMinutes(2) - DateTime.Now;
-            yuebonCacheHelper.Add("LoginValidateCode", code, expiresSliding,false);
+            TimeSpan expiresSliding = DateTime.Now.AddMinutes(1) - DateTime.Now;
+            yuebonCacheHelper.Add("ValidateCode"+ strIp, code, expiresSliding,false);
             return File(result.CaptchaMemoryStream.ToArray(), "image/png");
         }
     }

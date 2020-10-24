@@ -8,16 +8,12 @@ using Yuebon.Commons.Models;
 namespace Yuebon.Authorizer.Models
 {
     /// <summary>
-    /// ，数据实体对象
+    /// 软件注册，数据实体对象
     /// </summary>
     [Table("Yue_RegistryCode")]
     [Serializable]
     public class RegistryCode:BaseEntity<string>, ICreationAudited, IModificationAudited, IDeleteAudited
     {
-        /// <summary>
-        /// 设置或获取 
-        /// </summary>
-        public string Id { get; set; }
 
         /// <summary>
         /// 设置或获取公司名称

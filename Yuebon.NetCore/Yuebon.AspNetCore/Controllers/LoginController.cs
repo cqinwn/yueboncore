@@ -81,17 +81,17 @@ namespace Yuebon.AspNetCore.Controllers
         {
 
             CommonResult result = new CommonResult();
+            RemoteIpParser remoteIpParser = new RemoteIpParser();
+            string strIp = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            var vCode = yuebonCacheHelper.Get("LoginValidateCode");
+            var vCode = yuebonCacheHelper.Get("ValidateCode"+ strIp);
             string code = vCode != null ? vCode.ToString() : "11";
-            if (vcode != code)
+            if (vcode.ToUpper() != code)
             {
-                result.ErrMsg = "验证码错误,区分大小写";
+                result.ErrMsg = "验证码错误";
                 return ToJsonContent(result);
             }
             Log logEntity = new Log();
-            RemoteIpParser remoteIpParser = new RemoteIpParser();
-            string strIp = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
             bool blIp=_filterIPService.ValidateIP(strIp);
             if (blIp)
             {

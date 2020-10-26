@@ -9,7 +9,7 @@ namespace Yuebon.Security.Dtos
     /// 输出Dto:UploadFile
     /// </summary>
     [Serializable]
-    public class UploadFileOutputDto : IOutputDto
+    public class UploadFileOutputDto 
     {
 
         /// <summary>

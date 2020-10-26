@@ -68,7 +68,7 @@
           style="width:150px; "
         />
         <div style="margin-top:8px; display:inline; float:right;margin-right:10px;">
-          <img :src="apiHostUrl" alt="看不清？点击更换" onclick="this.src = this.src + '?'">
+          <img :src="verifyCodeUrl" style="cursor: pointer;vertical-align: middle;" alt="看不清？点击更换" @click="getLoginVerifyCode">
         </div>
       </el-form-item>
       <el-button
@@ -96,7 +96,7 @@
 <script>
 import defaultSettings from '@/settings'
 import { setToken } from '@/utils/auth'
-import { getToken, getSysSetting } from '@/api/basebasic'
+import { getToken, getSysSetting, getVerifyCode } from '@/api/basebasic'
 
 export default {
   name: 'Login',
@@ -119,7 +119,8 @@ export default {
       loginForm: {
         username: '',
         password: '',
-        vcode: ''
+        vcode: '',
+        verifyCodeKey: ''
       },
       loginRules: {
         username: [
@@ -135,6 +136,7 @@ export default {
       },
       loading: false,
       passwordType: 'password',
+      verifyCodeUrl: '',
       redirect: undefined,
       apiHostUrl: defaultSettings.apiHostUrl + 'Captcha',
       softName: '管理系统',
@@ -153,6 +155,7 @@ export default {
   },
   created () {
     this.loadToken()
+    this.getLoginVerifyCode()
   },
   methods: {
     loadToken () {
@@ -194,6 +197,16 @@ export default {
           return false
         }
       })
+    },
+    // 获取验证码
+    async getLoginVerifyCode () {
+      this.loginForm.vcode = ''
+      const res = await getVerifyCode()
+      console.log(JSON.stringify(res))
+      if (res.Success) {
+        this.verifyCodeUrl = 'data:image/png;base64,' + res.ResData.Img
+        this.loginForm.verifyCodeKey = res.ResData.Key
+      }
     }
   }
 }

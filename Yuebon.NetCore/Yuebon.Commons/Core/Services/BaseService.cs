@@ -2,9 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using System.Security.Claims;
+using System.Text.Json;
 using System.Threading.Tasks;
+using Yuebon.Commons.Cache;
+using Yuebon.Commons.Dtos;
+using Yuebon.Commons.Extensions;
+using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IRepositories;
 using Yuebon.Commons.IServices;
+using Yuebon.Commons.Json;
 using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Models;
 using Yuebon.Commons.Pages;
@@ -15,11 +23,11 @@ namespace Yuebon.Commons.Services
     /// 
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <typeparam name="TDto"></typeparam>
+    /// <typeparam name="TODto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public abstract class BaseService<T, TDto,TKey> : IService<T, TDto, TKey>
+    public abstract class BaseService<T, TODto,TKey> : IService<T, TODto, TKey>
         where T: Entity
-        where TDto : class
+        where TODto : class
         where TKey : IEquatable<TKey>
     {
         private IHttpContextAccessor _accessor;
@@ -208,9 +216,9 @@ namespace Yuebon.Commons.Services
         /// <param name="id">主键</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual TDto GetOutDto(TKey id, IDbTransaction trans = null)
+        public virtual TODto GetOutDto(TKey id, IDbTransaction trans = null)
         {
-            return repository.Get(id, trans).MapTo<TDto>();
+            return repository.Get(id, trans).MapTo<TODto>();
         }
 
         /// <summary>
@@ -229,9 +237,9 @@ namespace Yuebon.Commons.Services
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual TDto GetOutDtoWhere(string where, IDbTransaction trans = null)
+        public virtual TODto GetOutDtoWhere(string where, IDbTransaction trans = null)
         {
-            return repository.GetWhere(where, trans).MapTo<TDto>();
+            return repository.GetWhere(where, trans).MapTo<TODto>();
         }
 
         /// <summary>
@@ -251,10 +259,10 @@ namespace Yuebon.Commons.Services
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual async Task<TDto> GetOutDtoWhereAsync(string where, IDbTransaction trans = null)
+        public virtual async Task<TODto> GetOutDtoWhereAsync(string where, IDbTransaction trans = null)
         {
             T info = await repository.GetWhereAsync(where, trans);
-            return info.MapTo<TDto>();
+            return info.MapTo<TODto>();
         }
         /// <summary>
         /// 根据查询条件查询前多少条数据
@@ -315,10 +323,10 @@ namespace Yuebon.Commons.Services
         /// <param name="id">主键</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual async Task<TDto> GetOutDtoAsync(TKey id, IDbTransaction trans = null)
+        public virtual async Task<TODto> GetOutDtoAsync(TKey id, IDbTransaction trans = null)
         {
             T info=await repository.GetAsync(id, trans);
-            return info.MapTo<TDto>();
+            return info.MapTo<TODto>();
         }
         ///<summary>
         /// 根据查询条件查询数据
@@ -697,6 +705,32 @@ namespace Yuebon.Commons.Services
             return await repository.FindWithPagerAsync(condition, info, fieldToSort, desc, trans);
         }
 
+        /// <summary>
+        /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
+        /// 查询条件
+        /// </summary>
+        /// <param name="search">查询的条件</param>
+        /// <returns>指定对象的集合</returns>
+        public virtual async Task<PageResult<TODto>> FindWithPagerAsync(SearchInputDto<T> search)
+        {
+            bool order = search.Order == "asc" ? false : true;
+            string where = GetDataPrivilege();
+            PagerInfo pagerInfo = new PagerInfo
+            {
+                CurrenetPageIndex = search.CurrenetPageIndex,
+                PageSize = search.PageSize
+            };
+            List<T> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+            PageResult<TODto> pageResult = new PageResult<TODto>
+            {
+                CurrentPage = pagerInfo.CurrenetPageIndex,
+                Items = list.MapTo<TODto>(),
+                ItemsPerPage = pagerInfo.PageSize,
+                TotalItems = pagerInfo.RecordCount
+            };
+            return pageResult;
+        }
+
 
         /// <summary>
         /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
@@ -834,6 +868,37 @@ namespace Yuebon.Commons.Services
         public virtual Tuple<bool, string> ExecuteTransaction(List<Tuple<string, object>> trans, int? commandTimeout = null)
         {
             return  repository.ExecuteTransaction(trans, commandTimeout);
+        }
+        /// <summary>
+        /// 获取当前登录用户的数据访问权限
+        /// </summary>
+        /// <param name="blDeptCondition">是否开启，默认开启</param>
+        /// <returns></returns>
+        protected virtual string GetDataPrivilege(bool blDeptCondition=true)
+        {
+            string where = "1=1";
+            //开权限数据过滤
+            if (blDeptCondition)
+            {
+                var identities =HttpContextHelper.HttpContext.User.Identities;
+                var claimsIdentity = identities.First<ClaimsIdentity>();
+                List<Claim> claimlist = claimsIdentity.Claims as List<Claim>;
+                YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+
+                //如果公司过滤条件不为空，那么需要进行过滤
+                List<String> list = JsonSerializer.Deserialize<List<String>>(yuebonCacheHelper.Get("User_RoleData_" + claimlist[0].Value).ToJson());
+                string DataFilterCondition = String.Join(",", list.ToArray());
+                if (!string.IsNullOrEmpty(DataFilterCondition))
+                {
+                    where += string.Format(" and DeptId in ('{0}')", DataFilterCondition.Replace(",", "','"));
+                }
+                bool isMultiTenant = Configs.GetConfigurationValue("AppSetting", "IsMultiTenant").ToBool();
+                if (isMultiTenant)
+                {
+                    where += string.Format(" and TenantId='{0}'", claimlist[3].Value);
+                }
+            }
+            return where;
         }
         #region IDisposable Support
         private bool disposedValue = false; // 要检测冗余调用

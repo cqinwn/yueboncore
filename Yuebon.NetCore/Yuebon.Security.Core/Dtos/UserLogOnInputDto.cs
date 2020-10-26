@@ -12,84 +12,103 @@ namespace Yuebon.Security.Dtos
     /// </summary>
     [AutoMap(typeof(UserLogOn))]
     [Serializable]
-    public class UserLogOnInputDto: IInputDto<string>
+    public class UserLogOnInputDto
     {
         /// <summary>
         /// 设置或获取 
         /// </summary>
         public string Id { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string UserPassword { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string UserSecretkey { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public DateTime? AllowStartTime { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public DateTime? AllowEndTime { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public DateTime? LockStartDate { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public DateTime? LockEndDate { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public DateTime? FirstVisitTime { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public DateTime? PreviousVisitTime { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public DateTime? LastVisitTime { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public DateTime? ChangePasswordDate { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public bool? MultiUserLogin { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public int? LogOnCount { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public bool? UserOnLine { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string Question { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string AnswerQuestion { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public bool? CheckIPAddress { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string Language { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public string Theme { get; set; }
-
+
+
     }
 }

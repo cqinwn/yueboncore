@@ -1,4 +1,5 @@
 ﻿using System;
+using Yuebon.Commons.Dtos;
 using Yuebon.Commons.Models;
 
 namespace Yuebon.Messages.Dtos

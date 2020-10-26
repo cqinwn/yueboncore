@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Dapper.Contrib.Extensions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
@@ -10,6 +11,7 @@ using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -53,6 +55,9 @@ namespace Yuebon.Commons.Repositories
         /// 定义一个操作记录的事件处理
         /// </summary>
         public event OperationLogEventHandler OnOperationLog;
+        /// <summary>
+        /// 数据库连接
+        /// </summary>
         public DbConnection dbConnection;
         /// <summary>
         /// 上下文
@@ -205,7 +210,7 @@ namespace Yuebon.Commons.Repositories
         }
 
         /// <summary>
-        /// 数据库访问对象的外键约束
+        /// 是否开启多租户
         /// </summary>
         public bool IsMultiTenant
         {
@@ -390,7 +395,6 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual async Task<T> GetWhereAsync(string where, IDbTransaction trans=null)
         {
-            var type = MethodBase.GetCurrentMethod().DeclaringType;
             if (HasInjectionData(where))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
@@ -408,7 +412,7 @@ namespace Yuebon.Commons.Repositories
 
             using (DbConnection conn = OpenSharedConnection())
             {
-                return conn.QueryFirstOrDefault<T>(sql, trans);
+                return await conn.QueryFirstOrDefaultAsync<T>(sql, trans);
             }
         }
 
@@ -2260,8 +2264,7 @@ namespace Yuebon.Commons.Repositories
             try
             {
                 var entities = _dbContext.ChangeTracker.Entries()
-                    .Where(e => e.State == EntityState.Added
-                                || e.State == EntityState.Modified)
+                    .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified)
                     .Select(e => e.Entity);
 
                 foreach (var entity in entities)
@@ -2535,6 +2538,7 @@ namespace Yuebon.Commons.Repositories
 
             return str_Regex;
         }
+
 
         #endregion
 

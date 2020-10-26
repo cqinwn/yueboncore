@@ -57,8 +57,8 @@ export default {
         pageTotal: 0
       },
       sortableData: {
-        order: '',
-        sort: ''
+        order: 'desc',
+        sort: 'CreatorTime'
       },
       currentId: '', // 当前操作对象的ID值，主要用于修改
       currentSelected: []

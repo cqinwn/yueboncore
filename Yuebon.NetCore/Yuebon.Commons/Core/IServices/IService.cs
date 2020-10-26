@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
+using Yuebon.Commons.Dtos;
 using Yuebon.Commons.Models;
 using Yuebon.Commons.Pages;
 
@@ -11,10 +12,10 @@ namespace Yuebon.Commons.IServices
     /// 泛型应用服务接口
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <typeparam name="TDto"></typeparam>
+    /// <typeparam name="TODto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public interface IService<T,TDto, TKey> : IDisposable where T : Entity
-        where TDto : class
+    public interface IService<T,TODto, TKey> : IDisposable where T : Entity
+        where TODto : class
     {
         /// <summary>
         /// 同步查询单个实体。
@@ -29,7 +30,7 @@ namespace Yuebon.Commons.IServices
         /// <param name="id">主键</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        TDto GetOutDto(TKey id, IDbTransaction trans = null);
+        TODto GetOutDto(TKey id, IDbTransaction trans = null);
 
         /// <summary>
         /// 异步查询单个实体。
@@ -37,7 +38,7 @@ namespace Yuebon.Commons.IServices
         /// <param name="id">主键</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        Task<TDto> GetOutDtoAsync(TKey id, IDbTransaction trans = null);
+        Task<TODto> GetOutDtoAsync(TKey id, IDbTransaction trans = null);
 
         /// <summary>
         /// 异步查询单个实体。
@@ -59,7 +60,7 @@ namespace Yuebon.Commons.IServices
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        TDto GetOutDtoWhere(string where, IDbTransaction trans = null);
+        TODto GetOutDtoWhere(string where, IDbTransaction trans = null);
         /// <summary>
         /// 异步查询单个实体。
         /// </summary>
@@ -74,7 +75,7 @@ namespace Yuebon.Commons.IServices
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        Task<TDto> GetOutDtoWhereAsync(string where, IDbTransaction trans = null);
+        Task<TODto> GetOutDtoWhereAsync(string where, IDbTransaction trans = null);
         /// <summary>
         /// 查询对象，并返回关联的创建用户信息，
         /// 查询表别名为s，条件要s.字段名
@@ -497,7 +498,13 @@ namespace Yuebon.Commons.IServices
         /// <returns>指定对象的集合</returns>
         List<T> FindWithPager(string condition, PagerInfo info, IDbTransaction trans = null);
 
-
+        /// <summary>
+        /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
+        /// 查询条件
+        /// </summary>
+        /// <param name="search">查询的条件</param>
+        /// <returns>指定对象的集合</returns>
+        Task<PageResult<TODto>> FindWithPagerAsync(SearchInputDto<T> search);
         /// <summary>
         /// 分页查询，自行封装sql语句
         /// </summary>

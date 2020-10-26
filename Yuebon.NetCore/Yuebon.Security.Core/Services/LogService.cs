@@ -1,13 +1,19 @@
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Security.Claims;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.Dtos;
+using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
+using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Net;
+using Yuebon.Commons.Pages;
 using Yuebon.Commons.Services;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.IRepositories;
@@ -19,7 +25,7 @@ namespace Yuebon.Security.Services
     /// <summary>
     /// 
     /// </summary>
-    public class LogService: BaseService<Log, LogOutputDto, string>, ILogService
+    public class LogService : BaseService<Log, LogOutputDto, string>, ILogService
     {
         private readonly ILogRepository _iLogRepository;
         private readonly IUserRepository _iuserRepository;
@@ -37,6 +43,39 @@ namespace Yuebon.Security.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
+        /// <summary>
+        /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
+        /// 查询条件
+        /// </summary>
+        /// <param name="search">查询的条件</param>
+        /// <returns>指定对象的集合</returns>
+        public override async Task<PageResult<LogOutputDto>> FindWithPagerAsync(SearchInputDto<Log> search)
+        {
+            bool order = search.Order == "asc" ? false : true;
+            string where = GetDataPrivilege(false);
+            if (!string.IsNullOrEmpty(search.Keywords))
+            {
+                where += string.Format(" and (Account like '%{0}%' or ModuleName like '%{0}%' or IPAddress like '%{0}%' or IPAddressName like '%{0}%' or Description like '%{0}%')", search.Keywords);
+            };
+            if (!string.IsNullOrEmpty(search.EnCode))
+            {
+                where += " and Type in('" + search.EnCode.Replace(",", "','") + "')";
+            }
+            PagerInfo pagerInfo = new PagerInfo
+            {
+                CurrenetPageIndex = search.CurrenetPageIndex,
+                PageSize = search.PageSize
+            };
+            List<Log> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+            PageResult<LogOutputDto> pageResult = new PageResult<LogOutputDto>
+            {
+                CurrentPage = pagerInfo.CurrenetPageIndex,
+                Items = list.MapTo<LogOutputDto>(),
+                ItemsPerPage = pagerInfo.PageSize,
+                TotalItems = pagerInfo.RecordCount
+            };
+            return pageResult;
+        }
 
         /// <summary>
         /// 根据相关信息，写入用户的操作日志记录
@@ -50,7 +89,12 @@ namespace Yuebon.Security.Services
             try
             {
                 //虽然实现了这个事件，但是我们还需要判断该表是否在配置表里面，如果不在，则不记录操作日志。
-                var identities = _httpContextAccessor.HttpContext.User.Identities;
+                //var identities = _httpContextAccessor.HttpContext.User.Identities;
+                if (HttpContextHelper.HttpContext == null)
+                {
+                    return false;
+                }
+                var identities =HttpContextHelper.HttpContext.User.Identities;
                 var claimsIdentity = identities.First<ClaimsIdentity>();
                 List<Claim> claimlist = claimsIdentity.Claims as List<Claim>;
                 string userId = claimlist[0].Value;

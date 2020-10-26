@@ -1,8 +1,6 @@
 using AutoMapper;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Yuebon.Commons.Models;
+using Yuebon.Commons.Dtos;
 using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Dtos

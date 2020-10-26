@@ -44,7 +44,6 @@ namespace Yuebon.AspNetCore.Controllers
             CommonResult<AuthGetVerifyCodeOutputDto> commonResult = new CommonResult<AuthGetVerifyCodeOutputDto>();
             commonResult.ErrCode= ErrCode.successCode;
             commonResult.ResData = authGetVerifyCodeOutputDto;
-            commonResult.Result = authGetVerifyCodeOutputDto;
             return commonResult;
         }
     }

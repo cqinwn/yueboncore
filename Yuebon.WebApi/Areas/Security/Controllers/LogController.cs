@@ -87,47 +87,11 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// </summary>
         /// <param name="search"></param>
         /// <returns></returns>
-        [HttpGet("FindWithPager1Async")]
+        [HttpGet("FindWithPagerAsync")]
         [YuebonAuthorize("List")]
-        public async Task<CommonResult<PageResult<LogOutputDto>>> FindWithPager1Async([FromQuery]SearchInputDto<Log> search)
+        public override async Task<CommonResult<PageResult<LogOutputDto>>> FindWithPagerAsync([FromQuery]SearchInputDto<Log> search)
         {
             CommonResult<PageResult<LogOutputDto>> result = new CommonResult<PageResult<LogOutputDto>>();
-            //string orderByDir = string.IsNullOrEmpty(Request.Query["Order"].ToString()) ? "" : Request.Query["Order"].ToString();
-            //string orderFlied = string.IsNullOrEmpty(Request.Query["Sort"].ToString()) ? "Id" : Request.Query["Sort"].ToString();
-            //bool order = orderByDir == "asc" ? false : true;
-
-            //string where = GetPagerCondition(false);
-            //if (search != null)
-            //{
-            //    if (!string.IsNullOrEmpty(search.Keywords))
-            //    {
-            //        where += string.Format(" and (Account like '%{0}%' or ModuleName like '%{0}%' or IPAddress like '%{0}%' or IPAddressName like '%{0}%' or Description like '%{0}%')", search.Keywords);
-            //    };
-            //    if (!string.IsNullOrEmpty(search.EnCode))
-            //    {
-            //        where += " and Type in('" + search.EnCode.Replace(",","','") + "')";
-            //    }
-            //}
-            //PagerInfo pagerInfo = GetPagerInfo();
-            //List<Log> list = await iService.FindWithPagerAsync(where, pagerInfo, orderFlied, order);
-            //List<LogOutputDto> resultList = new List<LogOutputDto>();
-            //foreach (Log item in list)
-            //{
-            //    LogOutputDto roleOutputDto = new LogOutputDto();
-            //    roleOutputDto = item.MapTo<LogOutputDto>();
-            //    if (!string.IsNullOrEmpty(roleOutputDto.OrganizeId))
-            //    {
-            //        roleOutputDto.OrganizeId = organizeService.Get(item.OrganizeId).FullName;
-            //    }
-            //    resultList.Add(roleOutputDto);
-            //}
-            //PageResult<LogOutputDto> pageResult = new PageResult<LogOutputDto>
-            //{
-            //    CurrentPage = pagerInfo.CurrenetPageIndex,
-            //    Items = resultList,
-            //    ItemsPerPage = pagerInfo.PageSize,
-            //    TotalItems = pagerInfo.RecordCount
-            //};
             result.ResData = await iService.FindWithPagerAsync(search);
             result.ErrCode = ErrCode.successCode;
             return result;

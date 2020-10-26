@@ -150,40 +150,5 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
             }
             return ToJsonContent(result);
         }
-
-
-
-        /// <summary>
-        /// 分页查询
-        /// </summary>
-        /// <param name="search"></param>
-        /// <returns></returns>
-        [HttpGet("FindWithPagerAsync")]
-        [YuebonAuthorize("List")]
-        public override async Task<CommonResult<PageResult<SequenceRuleOutputDto>>> FindWithPagerAsync([FromQuery] SearchModel search)
-        {
-            CommonResult<PageResult<SequenceRuleOutputDto>> result = new CommonResult<PageResult<SequenceRuleOutputDto>>();
-            string orderByDir = string.IsNullOrEmpty(Request.Query["Order"].ToString()) ? "desc" : Request.Query["Order"].ToString();
-            string orderFlied = string.IsNullOrEmpty(Request.Query["Sort"].ToString()) ? " SequenceName desc,RuleOrder asc,CreatorTime " : Request.Query["Sort"].ToString();
-            bool order = orderByDir == "asc" ? false : true;
-            string where = GetPagerCondition();
-            if (!string.IsNullOrEmpty(search.Keywords))
-            {
-                where += string.Format(" and SequenceName like '%{0}%' ", search.Keywords);
-            }
-            PagerInfo pagerInfo = GetPagerInfo();
-            List<SequenceRule> list = await iService.FindWithPagerAsync(where, pagerInfo, orderFlied, order);
-            List<SequenceRuleOutputDto> resultList = list.MapTo<SequenceRuleOutputDto>();
-            PageResult<SequenceRuleOutputDto> pageResult = new PageResult<SequenceRuleOutputDto>
-            {
-                CurrentPage = pagerInfo.CurrenetPageIndex,
-                Items = resultList,
-                ItemsPerPage = pagerInfo.PageSize,
-                TotalItems = pagerInfo.RecordCount
-            };
-            result.ResData = pageResult;
-            result.ErrCode = ErrCode.successCode;
-            return result;
-        }
     }
 }

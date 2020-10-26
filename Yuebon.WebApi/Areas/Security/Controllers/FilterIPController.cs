@@ -14,6 +14,7 @@ using Yuebon.Security.Models;
 using Yuebon.Security.IServices;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.UI;
+using Yuebon.Commons.Dtos;
 
 namespace Yuebon.WebApi.Areas.Security.Controllers
 {
@@ -120,7 +121,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <returns></returns>
         [HttpGet("FindWithPagerAsync")]
         [YuebonAuthorize("List")]
-        public override async Task<CommonResult<PageResult<FilterIPOutputDto>>> FindWithPagerAsync([FromQuery]SearchModel search)
+        public override async Task<CommonResult<PageResult<FilterIPOutputDto>>> FindWithPagerAsync([FromQuery]SearchInputDto<FilterIP> search)
         {
             CommonResult<PageResult<FilterIPOutputDto>> result = new CommonResult<PageResult<FilterIPOutputDto>>();
             string orderByDir = string.IsNullOrEmpty(Request.Query["Order"].ToString()) ? "" : Request.Query["Order"].ToString();

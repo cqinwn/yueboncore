@@ -29,23 +29,19 @@ namespace Yuebon.Security.Services
     {
         private readonly ILogRepository _iLogRepository;
         private readonly IUserRepository _iuserRepository;
-        IHttpContextAccessor _httpContextAccessor;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="repository"></param>
         /// <param name="userRepository"></param>
-        /// <param name="httpContextAccessor"></param>
-        public LogService(ILogRepository repository, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor) : base(repository)
+        public LogService(ILogRepository repository, IUserRepository userRepository) : base(repository)
         {
             _iLogRepository = repository;
             _iuserRepository = userRepository;
-            _httpContextAccessor = httpContextAccessor;
         }
 
         /// <summary>
         /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
-        /// 查询条件
         /// </summary>
         /// <param name="search">查询的条件</param>
         /// <returns>指定对象的集合</returns>

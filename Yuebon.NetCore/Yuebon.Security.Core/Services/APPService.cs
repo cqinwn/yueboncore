@@ -1,5 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Yuebon.Commons.Dtos;
+using Yuebon.Commons.Mapping;
+using Yuebon.Commons.Pages;
 using Yuebon.Commons.Services;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.IRepositories;
@@ -43,6 +47,35 @@ namespace Yuebon.Security.Services
         public IList<AppOutputDto> SelectApp()
         {
             return _appRepository.SelectApp();
+        }
+
+        /// <summary>
+        /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
+        /// </summary>
+        /// <param name="search">查询的条件</param>
+        /// <returns>指定对象的集合</returns>
+        public override async Task<PageResult<AppOutputDto>> FindWithPagerAsync(SearchInputDto<APP> search)
+        {
+            bool order = search.Order == "asc" ? false : true;
+            string where = GetDataPrivilege(false);
+            if (!string.IsNullOrEmpty(search.Keywords))
+            {
+                where += string.Format(" and (AppId like '%{0}%' or RequestUrl like '%{0}%')", search.Keywords);
+            };
+            PagerInfo pagerInfo = new PagerInfo
+            {
+                CurrenetPageIndex = search.CurrenetPageIndex,
+                PageSize = search.PageSize
+            };
+            List<APP> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+            PageResult<AppOutputDto> pageResult = new PageResult<AppOutputDto>
+            {
+                CurrentPage = pagerInfo.CurrenetPageIndex,
+                Items = list.MapTo<AppOutputDto>(),
+                ItemsPerPage = pagerInfo.PageSize,
+                TotalItems = pagerInfo.RecordCount
+            };
+            return pageResult;
         }
     }
 }

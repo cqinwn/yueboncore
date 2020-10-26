@@ -27,7 +27,7 @@
           <el-button type="default" icon="el-icon-refresh" size="small" @click="loadTableData()">刷新</el-button>
         </el-button-group>
       </div>
-      <el-table ref="gridtable" v-loading="tableloading" :data="tableData" border stripe highlight-current-row style="width: 100%" :default-sort="{ prop: 'SortCode', order: 'ascending' }" @select="handleSelectChange" @select-all="handleSelectAllChange">
+      <el-table ref="gridtable" v-loading="tableloading" :data="tableData" border stripe highlight-current-row style="width: 100%" :default-sort="{ prop: 'CreatorTime', order: 'ascending' }" @select="handleSelectChange" @select-all="handleSelectAllChange">
         <el-table-column type="selection" width="30" />
         <el-table-column prop="TenantName" label="租户名称" sortable="custom" width="120" />
         <el-table-column prop="CompanyName" label="公司名称" sortable="custom" width="180" />
@@ -115,8 +115,8 @@ export default {
         pageTotal: 0
       },
       sortableData: {
-        order: '',
-        sort: ''
+        order: 'desc',
+        sort: 'CreatorTime'
       },
       dialogEditFormVisible: false,
       editFormTitle: '',
@@ -172,8 +172,8 @@ export default {
     loadTableData: function () {
       this.tableloading = true
       var seachdata = {
-        CurrentPage: this.pagination.currentPage,
-        length: this.pagination.pagesize,
+        CurrenetPageIndex: this.pagination.currentPage,
+        PageSize: this.pagination.pagesize,
         Keywords: this.searchform.name,
         Order: this.sortableData.order,
         Sort: this.sortableData.sort

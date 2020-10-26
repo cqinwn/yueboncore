@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Common;
 using System.Threading.Tasks;
 using Yuebon.Commons.IServices;
+using Yuebon.Commons.Pages;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.Models;
 
@@ -92,37 +93,6 @@ namespace Yuebon.Security.IServices
         bool UpdateUserByOpenId(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds, IDbTransaction trans = null);
 
         /// <summary>
-        /// 根据用户ID得到名片信息
-        /// </summary>
-        /// <param name="userid"></param>
-        /// <returns></returns>
-        //UserNameCardOutPutDto GetUserNameCardInfo(string userid);
-
-        /// <summary>
-        /// 保存名片
-        /// </summary>
-        /// <param name="userid"></param>
-        /// <param name="headicon"></param>
-        /// <param name="nickName"></param>
-        /// <param name="name"></param>
-        /// <param name="company"></param>
-        /// <param name="position"></param>
-        /// <param name="weburl"></param>
-        /// <param name="mobile"></param>
-        /// <param name="email"></param>
-        /// <param name="wx"></param>
-        /// <param name="wximg"></param>
-        /// <param name="industry"></param>
-        /// <param name="area"></param>
-        /// <param name="address"></param>
-        /// <param name="openflag"></param>
-        /// <returns></returns>
-        //bool SaveNameCard(string userid, string headicon, string nickName, string name, string company, string position,
-        //    string weburl, string mobile, string email, string wx, string wximg,
-        //    string industry, string area, string address, int openflag);
-
-
-        /// <summary>
         /// 所有用户信息用于关注
         /// </summary>
         /// <param name="currentpage"></param>
@@ -145,5 +115,12 @@ namespace Yuebon.Security.IServices
         /// <param name="userInPut"></param>
         /// <returns></returns>
         bool UpdateUserByOpenId(UserInputDto userInPut);
+
+        /// <summary>
+        /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
+        /// </summary>
+        /// <param name="search">查询的条件</param>
+        /// <returns>指定对象的集合</returns>
+        Task<PageResult<UserOutputDto>> FindWithPagerSearchAsync(SearchUserModel search);
     }
 }

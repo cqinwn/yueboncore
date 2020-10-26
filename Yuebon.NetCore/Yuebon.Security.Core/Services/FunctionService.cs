@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Yuebon.Commons.Dtos;
 using Yuebon.Commons.Mapping;
+using Yuebon.Commons.Pages;
 using Yuebon.Commons.Services;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.IRepositories;
@@ -119,6 +121,43 @@ namespace Yuebon.Security.Services
                 list.Add(menuTreeTableOutputDto);
             }
             return list;
+        }
+
+        /// <summary>
+        /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
+        /// </summary>
+        /// <param name="search">查询的条件</param>
+        /// <returns>指定对象的集合</returns>
+        public override async Task<PageResult<FunctionOutputDto>> FindWithPagerAsync(SearchInputDto<Function> search)
+        {
+            bool order = search.Order == "asc" ? false : true;
+            string where = GetDataPrivilege(false);
+            if (!string.IsNullOrEmpty(search.EnCode))
+            {
+                Function function = await repository.GetWhereAsync("EnCode='" + search.EnCode + "'");
+                if (function != null)
+                {
+                    where += " and ParentId='" + function.Id + "'";
+                }
+            }
+            if (!string.IsNullOrEmpty(search.Keywords))
+            {
+                where += " and (FullName like '%" + search.Keywords + "%' or EnCode like '%" + search.Keywords + "%')";
+            }
+            PagerInfo pagerInfo = new PagerInfo
+            {
+                CurrenetPageIndex = search.CurrenetPageIndex,
+                PageSize = search.PageSize
+            };
+            List<Function> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+            PageResult<FunctionOutputDto> pageResult = new PageResult<FunctionOutputDto>
+            {
+                CurrentPage = pagerInfo.CurrenetPageIndex,
+                Items = list.MapTo<FunctionOutputDto>(),
+                ItemsPerPage = pagerInfo.PageSize,
+                TotalItems = pagerInfo.RecordCount
+            };
+            return pageResult;
         }
     }
 }

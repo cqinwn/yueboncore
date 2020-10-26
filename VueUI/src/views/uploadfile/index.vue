@@ -42,7 +42,7 @@
         stripe
         highlight-current-row
         style="width: 100%"
-        :default-sort="{prop: 'SortCode', order: 'ascending'}"
+        :default-sort="{prop: 'CreatorTime', order: 'ascending'}"
         @select="handleSelectChange"
         @select-all="handleSelectAllChange"
         @sort-change="handleSortChange"
@@ -124,8 +124,8 @@ export default {
         pageTotal: 0
       },
       sortableData: {
-        order: '',
-        sort: ''
+        order: 'desc',
+        sort: 'CreatorTime'
       },
       currentId: '', // 当前操作对象的ID值，主要用于修改
       currentSelected: [],
@@ -150,11 +150,11 @@ export default {
     loadTableData: function () {
       this.tableloading = true
       var seachdata = {
-        'CurrentPage': this.pagination.currentPage,
-        'length': this.pagination.pagesize,
-        'Keywords': this.searchform.name,
-        'Order': this.sortableData.order,
-        'Sort': this.sortableData.sort
+        CurrenetPageIndex: this.pagination.currentPage,
+        PageSize: this.pagination.pagesize,
+        Keywords: this.searchform.name,
+        Order: this.sortableData.order,
+        Sort: this.sortableData.sort
       }
       getUploadFileListWithPager(seachdata).then(res => {
         this.tableData = res.ResData.Items

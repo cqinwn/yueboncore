@@ -119,49 +119,5 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             }
             return ToJsonContent(result);
         }
-        /// <summary>
-        /// 异步分页查询
-        /// </summary>
-        /// <param name="search"></param>
-        /// <returns></returns>
-        [HttpGet("FindWithPagerAsync")]
-        [YuebonAuthorize("List")]
-        public override async Task<CommonResult<PageResult<RoleOutputDto>>> FindWithPagerAsync([FromQuery]SearchModel search)
-        {
-            CommonResult<PageResult<RoleOutputDto>> result = new CommonResult<PageResult<RoleOutputDto>>();
-            string orderByDir = string.IsNullOrEmpty(Request.Query["Order"].ToString()) ? "" : Request.Query["Order"].ToString();
-            string orderFlied = string.IsNullOrEmpty(Request.Query["Sort"].ToString()) ? "Id" : Request.Query["Sort"].ToString();
-            bool order = orderByDir == "asc" ? false : true;
-            
-            string where = GetPagerCondition(false);
-            if (search != null)
-            {
-                if (!string.IsNullOrEmpty(search.Keywords))
-                {
-                    where += string.Format(" and (FullName like '%{0}%' or EnCode like '%{0}%')", search.Keywords);
-                };
-            }
-            where += " and Category=1";
-            PagerInfo pagerInfo = GetPagerInfo();
-            List<Role> list = await iService.FindWithPagerAsync(where, pagerInfo, orderFlied, order);
-            List<RoleOutputDto> resultList = new List<RoleOutputDto>();
-            foreach (Role item in list)
-            {
-                RoleOutputDto roleOutputDto = new RoleOutputDto();
-                roleOutputDto = item.MapTo<RoleOutputDto>();
-                roleOutputDto.OrganizeName = organizeService.Get(item.OrganizeId).FullName;
-                resultList.Add(roleOutputDto);
-            }
-            PageResult<RoleOutputDto> pageResult = new PageResult<RoleOutputDto>
-            {
-                CurrentPage = pagerInfo.CurrenetPageIndex,
-                Items = resultList,
-                ItemsPerPage = pagerInfo.PageSize,
-                TotalItems = pagerInfo.RecordCount
-            };
-            result.ResData = pageResult;
-            result.ErrCode = ErrCode.successCode;
-            return result;
-        }
     }
 }

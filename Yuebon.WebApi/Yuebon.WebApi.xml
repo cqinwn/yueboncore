@@ -57,13 +57,6 @@
             <param name="id">主键Id</param>
             <returns></returns>
         </member>
-        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.APPController.FindWithPager11Async(Yuebon.AspNetCore.UI.SearchModel)">
-            <summary>
-            异步分页查询
-            </summary>
-            <param name="search"></param>
-            <returns></returns>
-        </member>
         <member name="M:Yuebon.WebApi.Areas.Security.Controllers.APPController.ResetAppSecret(System.String)">
             <summary>
             重置AppSecret
@@ -138,13 +131,6 @@
             <param name="info"></param>
             <returns></returns>
         </member>
-        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.DbBackupController.FindWithPagerAsync(Yuebon.AspNetCore.UI.SearchModel)">
-            <summary>
-            异步分页查询
-            </summary>
-            <param name="search"></param>
-            <returns></returns>
-        </member>
         <member name="T:Yuebon.WebApi.Areas.Security.Controllers.FilterIPController">
             <summary>
             接口
@@ -184,7 +170,7 @@
             <param name="id">主键Id</param>
             <returns></returns>
         </member>
-        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.FilterIPController.FindWithPagerAsync(Yuebon.AspNetCore.UI.SearchModel)">
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.FilterIPController.FindWithPagerAsync(Yuebon.Commons.Dtos.SearchInputDto{Yuebon.Security.Models.FilterIP})">
             <summary>
             异步分页查询
             </summary>
@@ -242,13 +228,6 @@
             根据父级功能编码查询所有子集功能，主要用于页面操作按钮权限
             </summary>
             <param name="enCode">菜单功能编码</param>
-            <returns></returns>
-        </member>
-        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.FunctionController.FindWithPagerAsync(Yuebon.AspNetCore.UI.SearchModel)">
-            <summary>
-            异步分页查询
-            </summary>
-            <param name="search"></param>
             <returns></returns>
         </member>
         <member name="M:Yuebon.WebApi.Areas.Security.Controllers.FunctionController.GetAllFunctionTreeTable(System.String)">
@@ -383,7 +362,7 @@
             <param name="info"></param>
             <returns></returns>
         </member>
-        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.LogController.FindWithPager1Async(Yuebon.Commons.Dtos.SearchInputDto{Yuebon.Security.Models.Log})">
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.LogController.FindWithPagerAsync(Yuebon.Commons.Dtos.SearchInputDto{Yuebon.Security.Models.Log})">
             <summary>
             异步分页查询
             </summary>
@@ -487,13 +466,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.OrganizeController.FindWithPagerAsync(Yuebon.AspNetCore.UI.SearchModel)">
-            <summary>
-            异步分页查询
-            </summary>
-            <param name="search"></param>
-            <returns></returns>
-        </member>
         <member name="T:Yuebon.WebApi.Areas.Security.Controllers.RoleAuthorizeController">
             <summary>
             接口
@@ -591,13 +563,6 @@
             <param name="id">主键Id</param>
             <returns></returns>
         </member>
-        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.RoleController.FindWithPagerAsync(Yuebon.AspNetCore.UI.SearchModel)">
-            <summary>
-            异步分页查询
-            </summary>
-            <param name="search"></param>
-            <returns></returns>
-        </member>
         <member name="T:Yuebon.WebApi.Areas.Security.Controllers.RoleDataController">
             <summary>
             接口
@@ -675,13 +640,6 @@
             <param name="id">主键Id</param>
             <returns></returns>
         </member>
-        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.SystemTypeController.FindWithPagerAsync(Yuebon.AspNetCore.UI.SearchModel)">
-            <summary>
-            异步分页查询
-            </summary>
-            <param name="search"></param>
-            <returns></returns>
-        </member>
         <member name="M:Yuebon.WebApi.Areas.Security.Controllers.SystemTypeController.GetSubSystemList">
             <summary>
             获取所有子系统
@@ -725,13 +683,6 @@
             在软删除数据前对数据的修改操作
             </summary>
             <param name="info"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.TaskJobsLogController.FindWithPagerAsync(Yuebon.AspNetCore.UI.SearchModel)">
-            <summary>
-            分页查询
-            </summary>
-            <param name="search"></param>
             <returns></returns>
         </member>
         <member name="M:Yuebon.WebApi.Areas.Security.Controllers.TaskJobsLogController.FindWithByTaskIdAsync(Yuebon.AspNetCore.UI.SearchModel)">
@@ -809,13 +760,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.TaskManagerController.FindWithPagerAsync(Yuebon.AspNetCore.UI.SearchModel)">
-            <summary>
-            分页查询
-            </summary>
-            <param name="search"></param>
-            <returns></returns>
-        </member>
         <member name="T:Yuebon.WebApi.Areas.Security.Controllers.UploadFileController">
             <summary>
             文件管理
@@ -826,13 +770,6 @@
             异步批量物理删除
             </summary>
             <param name="ids">主键Id</param>
-        </member>
-        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.UploadFileController.FindWithPagerAsync(Yuebon.AspNetCore.UI.SearchModel)">
-            <summary>
-            异步分页查询
-            </summary>
-            <param name="search"></param>
-            <returns></returns>
         </member>
         <member name="T:Yuebon.WebApi.Areas.Security.Controllers.UserController">
             <summary>
@@ -897,7 +834,7 @@
             <param name="userName"></param>
             <returns></returns>
         </member>
-        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.UserController.FindWithPagerSearchAsync(Yuebon.WebApi.Areas.Security.Models.SearchUserModel)">
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.UserController.FindWithPagerSearchAsync(Yuebon.Security.Dtos.SearchUserModel)">
             <summary>
             异步分页查询
             </summary>
@@ -1421,13 +1358,6 @@
             <param name="info"></param>
             <returns></returns>
         </member>
-        <member name="M:Yuebon.SecurityApi.Areas.Security.Controllers.SequenceController.FindWithPagerAsync(Yuebon.AspNetCore.UI.SearchModel)">
-            <summary>
-            分页查询
-            </summary>
-            <param name="search"></param>
-            <returns></returns>
-        </member>
         <member name="T:Yuebon.SecurityApi.Areas.Security.Controllers.SequenceRuleController">
             <summary>
             序号编码规则表接口
@@ -1464,13 +1394,6 @@
             异步新增或修改数据
             </summary>
             <param name="info"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Yuebon.SecurityApi.Areas.Security.Controllers.SequenceRuleController.FindWithPagerAsync(Yuebon.AspNetCore.UI.SearchModel)">
-            <summary>
-            分页查询
-            </summary>
-            <param name="search"></param>
             <returns></returns>
         </member>
         <member name="T:Yuebon.SecurityApi.Areas.Security.Controllers.TenantController">
@@ -1510,13 +1433,6 @@
             </summary>
             <param name="tinfo"></param>
             <param name="id">主键Id</param>
-            <returns></returns>
-        </member>
-        <member name="M:Yuebon.SecurityApi.Areas.Security.Controllers.TenantController.FindWithPagerAsync(Yuebon.AspNetCore.UI.SearchModel)">
-            <summary>
-            异步分页查询
-            </summary>
-            <param name="search"></param>
             <returns></returns>
         </member>
     </members>

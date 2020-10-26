@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Yuebon.Commons.Dtos;
 using Yuebon.Commons.Mapping;
+using Yuebon.Commons.Pages;
 using Yuebon.Commons.Services;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.IRepositories;
@@ -72,6 +75,37 @@ namespace Yuebon.Security.Services
             }
             List<SystemTypeOutputDto> list = _repository.GetAllByIsNotDeleteAndEnabledMark(strWhere).OrderBy(t => t.SortCode).ToList().MapTo<SystemTypeOutputDto>();
             return list;        
+        }
+
+
+
+        /// <summary>
+        /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
+        /// </summary>
+        /// <param name="search">查询的条件</param>
+        /// <returns>指定对象的集合</returns>
+        public override async Task<PageResult<SystemTypeOutputDto>> FindWithPagerAsync(SearchInputDto<SystemType> search)
+        {
+            bool order = search.Order == "asc" ? false : true;
+            string where = GetDataPrivilege(false);
+            if (!string.IsNullOrEmpty(search.Keywords))
+            {
+                where += string.Format(" and (FullName like '%{0}%' or EnCode like '%{0}%')", search.Keywords);
+            };
+            PagerInfo pagerInfo = new PagerInfo
+            {
+                CurrenetPageIndex = search.CurrenetPageIndex,
+                PageSize = search.PageSize
+            };
+            List<SystemType> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+            PageResult<SystemTypeOutputDto> pageResult = new PageResult<SystemTypeOutputDto>
+            {
+                CurrentPage = pagerInfo.CurrenetPageIndex,
+                Items = list.MapTo<SystemTypeOutputDto>(),
+                ItemsPerPage = pagerInfo.PageSize,
+                TotalItems = pagerInfo.RecordCount
+            };
+            return pageResult;
         }
     }
 }

@@ -15,6 +15,7 @@ using Yuebon.Security.IServices;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.UI;
 using Yuebon.Commons.Encrypt;
+using Yuebon.Commons.Dtos;
 
 namespace Yuebon.WebApi.Areas.Security.Controllers
 {
@@ -118,42 +119,6 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         }
 
 
-        /// <summary>
-        /// 异步分页查询
-        /// </summary>
-        /// <param name="search"></param>
-        /// <returns></returns>
-        [HttpGet("FindWithPager11Async")]
-        [YuebonAuthorize("List")]
-        public  async Task<CommonResult<PageResult<AppOutputDto>>> FindWithPager11Async([FromQuery]SearchModel search)
-        {
-            CommonResult<PageResult<AppOutputDto>> result = new CommonResult<PageResult<AppOutputDto>>();
-            string orderByDir = string.IsNullOrEmpty(Request.Query["Order"].ToString()) ? "" : Request.Query["Order"].ToString();
-            string orderFlied = string.IsNullOrEmpty(Request.Query["Sort"].ToString()) ? "Id" : Request.Query["Sort"].ToString();
-            bool order = orderByDir == "asc" ? false : true;
-            string where = GetPagerCondition();
-
-            if (!string.IsNullOrEmpty(search.Keywords))
-            {
-                where += string.Format(" and (AppId like '%{0}%' or RequestUrl like '%{0}%')", search.Keywords);
-            }
-
-            PagerInfo pagerInfo = GetPagerInfo();
-            List<APP> list = await iService.FindWithPagerAsync(where, pagerInfo, orderFlied, order);
-            List<AppOutputDto> resultList = list.MapTo<AppOutputDto>();
-
-            PageResult<AppOutputDto> pageResult = new PageResult<AppOutputDto>
-            {
-                CurrentPage = pagerInfo.CurrenetPageIndex,
-                Items = resultList,
-                ItemsPerPage = pagerInfo.PageSize,
-                TotalItems = pagerInfo.RecordCount
-            };
-            result.ResData = pageResult;
-            result.ErrCode = ErrCode.successCode;
-            return result;
-            //return ToJsonContent(result);
-        }
 
         /// <summary>
         /// 重置AppSecret

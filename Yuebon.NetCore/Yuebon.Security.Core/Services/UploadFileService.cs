@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
+using System.Threading.Tasks;
+using Yuebon.Commons.Dtos;
+using Yuebon.Commons.Mapping;
+using Yuebon.Commons.Pages;
 using Yuebon.Commons.Services;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.IRepositories;
@@ -35,6 +39,35 @@ namespace Yuebon.Security.Services
         public bool UpdateByBeLongAppId(string beLongAppId, string oldBeLongAppId,string belongApp = null, IDbTransaction trans = null)
         {
            return _uploadFileRepository.UpdateByBeLongAppId(beLongAppId, oldBeLongAppId, belongApp,trans);
+        }
+
+        /// <summary>
+        /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
+        /// </summary>
+        /// <param name="search">查询的条件</param>
+        /// <returns>指定对象的集合</returns>
+        public override async Task<PageResult<UploadFileOutputDto>> FindWithPagerAsync(SearchInputDto<UploadFile> search)
+        {
+            bool order = search.Order == "asc" ? false : true;
+            string where = GetDataPrivilege(false);
+            if (!string.IsNullOrEmpty(search.Keywords))
+            {
+                where += string.Format(" and  FileName like '%{0}%' ", search.Keywords);
+            };
+            PagerInfo pagerInfo = new PagerInfo
+            {
+                CurrenetPageIndex = search.CurrenetPageIndex,
+                PageSize = search.PageSize
+            };
+            List<UploadFile> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+            PageResult<UploadFileOutputDto> pageResult = new PageResult<UploadFileOutputDto>
+            {
+                CurrentPage = pagerInfo.CurrenetPageIndex,
+                Items = list.MapTo<UploadFileOutputDto>(),
+                ItemsPerPage = pagerInfo.PageSize,
+                TotalItems = pagerInfo.RecordCount
+            };
+            return pageResult;
         }
     }
 }

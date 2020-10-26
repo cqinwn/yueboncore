@@ -327,8 +327,8 @@ export default {
         pageTotal: 0
       },
       sortableData: {
-        order: '',
-        sort: ''
+        order: 'desc',
+        sort: 'SortCode'
       },
       selectSystemTypeId: '',
       dialogMenuEditFormVisible: false,
@@ -881,12 +881,12 @@ export default {
     loadFunctionTableData: function () {
       this.tableloading = true
       var seachdata = {
-        'CurrentPage': this.pagination.currentPage,
-        'length': this.pagination.pagesize,
-        'Keywords': this.searchform.keywords,
-        'EnCode': this.searchform.code,
-        'Order': this.sortableData.order,
-        'Sort': this.sortableData.sort
+        CurrenetPageIndex: this.pagination.currentPage,
+        PageSize: this.pagination.pagesize,
+        Keywords: this.searchform.keywords,
+        EnCode: this.searchform.code,
+        Order: this.sortableData.order,
+        Sort: this.sortableData.sort
       }
       getFunctionListWithPager(seachdata).then(res => {
         this.tableData = res.ResData.Items

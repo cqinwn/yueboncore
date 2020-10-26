@@ -2,14 +2,18 @@ using Quartz;
 using Quartz.Impl;
 using Quartz.Impl.Triggers;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Yuebon.Commons.Dtos;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Log;
+using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Models;
 using Yuebon.Commons.Options;
+using Yuebon.Commons.Pages;
 using Yuebon.Commons.Services;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.IRepositories;
@@ -104,5 +108,33 @@ namespace Yuebon.Security.Services
             }); ;
         }
 
+        /// <summary>
+        /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
+        /// </summary>
+        /// <param name="search">查询的条件</param>
+        /// <returns>指定对象的集合</returns>
+        public override async Task<PageResult<TaskManagerOutputDto>> FindWithPagerAsync(SearchInputDto<TaskManager> search)
+        {
+            bool order = search.Order == "asc" ? false : true;
+            string where = GetDataPrivilege();
+            if (!string.IsNullOrEmpty(search.Keywords))
+            {
+                where += string.Format(" and (TaskName like '%{0}%' or  GroupName like '%{0}%')", search.Keywords);
+            };
+            PagerInfo pagerInfo = new PagerInfo
+            {
+                CurrenetPageIndex = search.CurrenetPageIndex,
+                PageSize = search.PageSize
+            };
+            List<TaskManager> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+            PageResult<TaskManagerOutputDto> pageResult = new PageResult<TaskManagerOutputDto>
+            {
+                CurrentPage = pagerInfo.CurrenetPageIndex,
+                Items = list.MapTo<TaskManagerOutputDto>(),
+                ItemsPerPage = pagerInfo.PageSize,
+                TotalItems = pagerInfo.RecordCount
+            };
+            return pageResult;
+        }
     }
 }

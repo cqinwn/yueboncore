@@ -13,6 +13,8 @@ using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Mapping;
 using System.Threading.Tasks;
 using Yuebon.Commons.Extend;
+using Yuebon.Commons.Pages;
+using Yuebon.Commons.Dtos;
 
 namespace Yuebon.Security.Services
 {
@@ -25,6 +27,8 @@ namespace Yuebon.Security.Services
         private readonly IUserLogOnRepository _userSigninRepository;
         private readonly ILogService _logService;
         private readonly IRoleService _roleService;
+        private IOrganizeService _organizeService;
+        private IUserLogOnService _userLogOnService;
         /// <summary>
         /// 
         /// </summary>
@@ -32,12 +36,14 @@ namespace Yuebon.Security.Services
         /// <param name="userLogOnRepository"></param>
         /// <param name="logService"></param>
         /// <param name="roleService"></param>
-        public UserService(IUserRepository repository, IUserLogOnRepository userLogOnRepository, ILogService logService, IRoleService roleService) : base(repository)
+        /// <param name="organizeService"></param>
+        public UserService(IUserRepository repository, IUserLogOnRepository userLogOnRepository, ILogService logService, IRoleService roleService, IOrganizeService organizeService) : base(repository)
         {
             _userRepository = repository;
             _userSigninRepository = userLogOnRepository;
             _logService = logService;
             _roleService = roleService;
+            _organizeService = organizeService;
             _userRepository.OnOperationLog += _logService.OnOperationLog;
         }
 
@@ -270,6 +276,72 @@ namespace Yuebon.Security.Services
             user.NickName = userInPut.NickName;
             user.UnionId = userInPut.UnionId;
             return _userRepository.Update(user, user.Id);
+        }
+
+
+        /// <summary>
+        /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
+        /// </summary>
+        /// <param name="search">查询的条件</param>
+        /// <returns>指定对象的集合</returns>
+        public  async Task<PageResult<UserOutputDto>> FindWithPagerSearchAsync(SearchUserModel search)
+        {
+            bool order = search.Order == "asc" ? false : true;
+            string where = GetDataPrivilege(false);
+
+            if (!string.IsNullOrEmpty(search.Keywords))
+            {
+                where += string.Format(" and (NickName like '%{0}%' or Account like '%{0}%' or RealName  like '%{0}%' or MobilePhone like '%{0}%')", search.Keywords);
+            }
+
+            if (!string.IsNullOrEmpty(search.RoleId))
+            {
+                where += string.Format(" and RoleId like '%{0}%'", search.RoleId);
+            }
+            if (!string.IsNullOrEmpty(search.CreatorTime1))
+            {
+                where += " and CreatorTime >='" + search.CreatorTime1 + " 00:00:00'";
+            }
+            if (!string.IsNullOrEmpty(search.CreatorTime2))
+            {
+                where += " and CreatorTime <'" + search.CreatorTime2 + " 23:59:59'";
+            }
+            PagerInfo pagerInfo = new PagerInfo
+            {
+                CurrenetPageIndex = search.CurrenetPageIndex,
+                PageSize = search.PageSize
+            };
+            List<User> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+            List<UserOutputDto> resultList = list.MapTo<UserOutputDto>();
+            List<UserOutputDto> listResult = new List<UserOutputDto>();
+            foreach (UserOutputDto item in resultList)
+            {
+                if (!string.IsNullOrEmpty(item.OrganizeId))
+                {
+                    item.OrganizeName = _organizeService.Get(item.OrganizeId).FullName;
+                }
+                if (!string.IsNullOrEmpty(item.RoleId))
+                {
+                    item.RoleName = _roleService.GetRoleNameStr(item.RoleId);
+                }
+                if (!string.IsNullOrEmpty(item.DepartmentId))
+                {
+                    item.DepartmentName = _organizeService.Get(item.DepartmentId).FullName;
+                }
+                if (!string.IsNullOrEmpty(item.DutyId))
+                {
+                    item.DutyName = _roleService.Get(item.DutyId).FullName;
+                }
+                listResult.Add(item);
+            }
+            PageResult<UserOutputDto> pageResult = new PageResult<UserOutputDto>
+            {
+                CurrentPage = pagerInfo.CurrenetPageIndex,
+                Items = list.MapTo<UserOutputDto>(),
+                ItemsPerPage = pagerInfo.PageSize,
+                TotalItems = pagerInfo.RecordCount
+            };
+            return pageResult;
         }
 
     }

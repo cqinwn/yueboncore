@@ -243,8 +243,8 @@ export default {
         pageTotal: 0
       },
       sortableData: {
-        order: '',
-        sort: ''
+        order: 'desc',
+        sort: 'AppId'
       },
       dialogEditFormVisible: false,
       editFormTitle: '',
@@ -291,11 +291,11 @@ export default {
     loadTableData: function () {
       this.tableloading = true
       var seachdata = {
-        'CurrentPage': this.pagination.currentPage,
-        'length': this.pagination.pagesize,
-        'Keywords': this.searchform.name,
-        'Order': this.sortableData.order,
-        'Sort': this.sortableData.sort
+        CurrenetPageIndex: this.pagination.currentPage,
+        PageSize: this.pagination.pagesize,
+        Keywords: this.searchform.name,
+        Order: this.sortableData.order,
+        Sort: this.sortableData.sort
       }
       getAPPListWithPager(seachdata).then(res => {
         this.tableData = res.ResData.Items

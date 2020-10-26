@@ -81,8 +81,8 @@ export default {
     loadTableData: function () {
       this.tableloading = true
       var seachdata = {
-        CurrentPage: this.pagination.currentPage,
-        length: this.pagination.pagesize,
+        CurrenetPageIndex: this.pagination.currentPage,
+        PageSize: this.pagination.pagesize,
         Keywords: this.searchform.name,
         Order: this.sortableData.order,
         Sort: this.sortableData.sort,

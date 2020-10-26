@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Yuebon.SMS.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Yuebon.SMS.AliYun.AliYunSMS">
+            <summary>
+            阿里云短信接口
+            </summary>
+        </member>
+        <member name="M:Yuebon.SMS.AliYun.AliYunSMS.Send(System.String[],System.String,System.String,System.String@,System.String,System.String)">
+            <summary>
+            群发
+            </summary>
+            <param name="phoneNumbers">必填:待发送手机号。支持JSON格式的批量调用，批量上限为100个手机号码</param>
+            <param name="TemplateCode">必填:短信模板</param>
+            <param name="message">必填:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为 "{\"name\":\"Tom\"， \"code\":\"123\"}"</param>
+            <param name="returnMsg"></param>
+            <param name="OutId">可选:outId为提供给业务方扩展字段,最终在短信回执消息中将此值带回给调用者</param>
+            <param name="speed"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.SMS.AliYun.AliYunSMS.Send(System.String,System.String,System.String,System.String@,System.String,System.String)">
+            <summary>
+            短信发送
+            </summary>
+            <param name="cellPhone">必填:待发送手机号。支持以逗号分隔的形式进行批量调用，批量上限为1000个手机号码,批量调用相对于单条调用及时性稍有延迟,验证码类型的短信推荐使用单条调用的方式，发送国际/港澳台消息时，接收号码格式为00+国际区号+号码，如“0085200000000”</param>
+            <param name="templateCode">模板code</param>
+            <param name="OutId">可选:outId为提供给业务方扩展字段,最终在短信回执消息中将此值带回给调用者</param>
+            <param name="message">可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为 "{\"name\":\"Tom\"， \"code\":\"123\"}"</param>
+            <param name="returnMsg"></param>
+            <param name="speed"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Yuebon.SMS.AliYun.AliYunSMS.Appkey">
+            <summary>
+            Appkey 应用Id
+            </summary>
+        </member>
+        <member name="P:Yuebon.SMS.AliYun.AliYunSMS.Appsecret">
+            <summary>
+            Appsecret应用密钥
+            </summary>
+        </member>
+        <member name="P:Yuebon.SMS.AliYun.AliYunSMS.SignName">
+            <summary>
+            签名
+            </summary>
+        </member>
+        <member name="P:Yuebon.SMS.AliYun.SMSResult.BizId">
+            <summary>
+            发送回执ID
+            </summary>
+        </member>
+        <member name="P:Yuebon.SMS.AliYun.SMSResult.Code">
+            <summary>
+            请求状态码。返回OK代表请求成功。
+            其他错误码详见错误码列表。
+            </summary>
+        </member>
+        <member name="P:Yuebon.SMS.AliYun.SMSResult.Message">
+            <summary>
+            状态码的描述。
+            </summary>
+        </member>
+        <member name="P:Yuebon.SMS.AliYun.SMSResult.RequestId">
+            <summary>
+            请求ID。
+            </summary>
+        </member>
+    </members>
+</doc>

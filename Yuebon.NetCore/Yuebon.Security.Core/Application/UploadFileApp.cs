@@ -48,7 +48,7 @@ namespace Yuebon.Security.Application
         public UploadFileApp(IOptions<AppSetting> setOptions, ILogger<UploadFileApp> logger)
         {
             _logger = logger;
-            _filePath = setOptions.Value.UploadPath;
+            _filePath = setOptions.Value.LocalPath;
             if (string.IsNullOrEmpty(_filePath))
             {
                 _filePath = AppContext.BaseDirectory;

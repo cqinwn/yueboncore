@@ -1,4 +1,4 @@
-﻿namespace Yuebon.Messages.SMS
+﻿namespace Yuebon.SMS.AliYun
 {
     using System;
     using System.Collections.Generic;

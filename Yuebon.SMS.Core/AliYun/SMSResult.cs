@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yuebon.Messages.SMS
+namespace Yuebon.SMS.AliYun
 {
     public class SMSResult
     {

@@ -15,7 +15,7 @@ using Yuebon.Commons.IoC;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Options;
-using Yuebon.Messages.Mail;
+using Yuebon.Email;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
 

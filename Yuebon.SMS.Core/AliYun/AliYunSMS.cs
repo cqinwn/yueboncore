@@ -9,11 +9,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
-using Yuebon.Security.Models;
+using Yuebon.Commons.Options;
 
-namespace Yuebon.Messages.SMS
+namespace Yuebon.SMS.AliYun
 {
     /// <summary>
     /// 阿里云短信接口
@@ -28,11 +29,11 @@ namespace Yuebon.Messages.SMS
         public AliYunSMS()
         {
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            SysSetting sysSetting = JsonConvert.DeserializeObject<SysSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
+            AppSetting sysSetting = JsonConvert.DeserializeObject<AppSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
             if (sysSetting != null)
             {
-                this.Appkey = sysSetting.Smsusername;
-                this.Appsecret = sysSetting.Smspassword;
+                this.Appkey = DEncrypt.Decrypt(sysSetting.Smsusername);
+                this.Appsecret = DEncrypt.Decrypt(sysSetting.Smspassword);
                 this.SignName = sysSetting.SmsSignName;
             }
         }

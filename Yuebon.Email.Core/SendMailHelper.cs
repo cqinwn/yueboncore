@@ -6,8 +6,10 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Json;
+using Yuebon.Commons.Options;
 
 namespace Yuebon.Email
 {
@@ -31,12 +33,12 @@ namespace Yuebon.Email
 
             SendServerConfigurationEntity sendServerConfiguration = new SendServerConfigurationEntity();
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            SysSetting sysSetting = JsonSerializer.Deserialize<SysSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
+            AppSetting sysSetting = JsonSerializer.Deserialize<AppSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
             if (sysSetting != null)
             {
-                sendServerConfiguration.SmtpHost = sysSetting.Emailsmtp;
+                sendServerConfiguration.SmtpHost = DEncrypt.Decrypt(sysSetting.Emailsmtp);
                 sendServerConfiguration.SenderAccount = sysSetting.Emailusername;
-                sendServerConfiguration.SenderPassword = sysSetting.Emailpassword;
+                sendServerConfiguration.SenderPassword = DEncrypt.Decrypt(sysSetting.Emailpassword);
                 sendServerConfiguration.SmtpPort = sysSetting.Emailport.ToInt();
                 sendServerConfiguration.IsSsl =sysSetting.Emailssl.ToBool();
                 sendServerConfiguration.MailEncoding ="utf-8";

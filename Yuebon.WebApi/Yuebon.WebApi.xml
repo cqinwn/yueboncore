@@ -170,13 +170,6 @@
             <param name="id">主键Id</param>
             <returns></returns>
         </member>
-        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.FilterIPController.FindWithPagerAsync(Yuebon.Commons.Dtos.SearchInputDto{Yuebon.Security.Models.FilterIP})">
-            <summary>
-            异步分页查询
-            </summary>
-            <param name="search"></param>
-            <returns></returns>
-        </member>
         <member name="T:Yuebon.WebApi.Areas.Security.Controllers.FunctionController">
             <summary>
             模块功能接口

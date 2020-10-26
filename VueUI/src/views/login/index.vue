@@ -94,7 +94,6 @@
 </template>
 
 <script>
-import defaultSettings from '@/settings'
 import { setToken } from '@/utils/auth'
 import { getToken, getSysSetting, getVerifyCode } from '@/api/basebasic'
 
@@ -138,7 +137,6 @@ export default {
       passwordType: 'password',
       verifyCodeUrl: '',
       redirect: undefined,
-      apiHostUrl: defaultSettings.apiHostUrl + 'Captcha',
       softName: '管理系统',
       companyLogo: '/assets/images/login-logo.png',
       companyName: '',

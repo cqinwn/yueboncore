@@ -14,6 +14,7 @@ using Yuebon.Security.Models;
 using Yuebon.Security.IServices;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.UI;
+using Yuebon.Commons.Dtos;
 
 namespace Yuebon.WebApi.Areas.Security.Controllers
 {
@@ -113,40 +114,5 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             return ToJsonContent(result);
         }
 
-        /// <summary>
-        /// 异步分页查询
-        /// </summary>
-        /// <param name="search"></param>
-        /// <returns></returns>
-        [HttpGet("FindWithPagerAsync")]
-        [YuebonAuthorize("List")]
-        public override async Task<CommonResult<PageResult<FilterIPOutputDto>>> FindWithPagerAsync([FromQuery]SearchModel search)
-        {
-            CommonResult<PageResult<FilterIPOutputDto>> result = new CommonResult<PageResult<FilterIPOutputDto>>();
-            string orderByDir = string.IsNullOrEmpty(Request.Query["Order"].ToString()) ? "" : Request.Query["Order"].ToString();
-            string orderFlied = string.IsNullOrEmpty(Request.Query["Sort"].ToString()) ? "Id" : Request.Query["Sort"].ToString();
-            bool order = orderByDir == "asc" ? false : true;
-            string where = GetPagerCondition(false);
-
-            if (!string.IsNullOrEmpty(search.Keywords))
-            {
-                where += string.Format(" and (StartIP like '%{0}%' or EndIP like '%{0}%')", search.Keywords);
-            }
-
-            PagerInfo pagerInfo = GetPagerInfo();
-            List<FilterIP> list = await iService.FindWithPagerAsync(where, pagerInfo, orderFlied, order);
-            List<FilterIPOutputDto> resultList = list.MapTo<FilterIPOutputDto>();
-
-            PageResult<FilterIPOutputDto> pageResult = new PageResult<FilterIPOutputDto>
-            {
-                CurrentPage = pagerInfo.CurrenetPageIndex,
-                Items = resultList,
-                ItemsPerPage = pagerInfo.PageSize,
-                TotalItems = pagerInfo.RecordCount
-            };
-            result.ResData = pageResult;
-            result.ErrCode = ErrCode.successCode;
-            return result;
-        }
     }
 }

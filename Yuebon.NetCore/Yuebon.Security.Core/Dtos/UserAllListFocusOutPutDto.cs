@@ -13,7 +13,7 @@ namespace Yuebon.Security.Dtos
     /// </summary>
     [Serializable]
     [AutoMap(typeof(User))]
-    public class UserAllListFocusOutPutDto : IOutputDto
+    public class UserAllListFocusOutPutDto
     {
 
         #region Property Members

@@ -350,39 +350,5 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             }
             return resulList;
         }
-
-
-        /// <summary>
-        /// 分页查询
-        /// </summary>
-        /// <param name="search"></param>
-        /// <returns></returns>
-        [HttpGet("FindWithPagerAsync")]
-        [YuebonAuthorize("List")]
-        public override async Task<CommonResult<PageResult<TaskManagerOutputDto>>> FindWithPagerAsync([FromQuery] SearchModel search)
-        {
-            CommonResult<PageResult<TaskManagerOutputDto>> result = new CommonResult<PageResult<TaskManagerOutputDto>>();
-            string orderByDir = string.IsNullOrEmpty(Request.Query["Order"].ToString()) ? "desc" : Request.Query["Order"].ToString();
-            string orderFlied = string.IsNullOrEmpty(Request.Query["Sort"].ToString()) ? " CreatorTime " : Request.Query["Sort"].ToString();
-            bool order = orderByDir == "asc" ? false : true;
-            string where = GetPagerCondition();
-            if (!string.IsNullOrEmpty(search.Keywords))
-            {
-                where += string.Format(" and (TaskName like '%{0}%' or  GroupName like '%{0}%')", search.Keywords);
-            }
-            PagerInfo pagerInfo = GetPagerInfo();
-            List<TaskManager> list = await iService.FindWithPagerAsync(where, pagerInfo, orderFlied, order);
-            List<TaskManagerOutputDto> resultList = list.MapTo<TaskManagerOutputDto>();
-            PageResult<TaskManagerOutputDto> pageResult = new PageResult<TaskManagerOutputDto>
-            {
-                CurrentPage = pagerInfo.CurrenetPageIndex,
-                Items = resultList,
-                ItemsPerPage = pagerInfo.PageSize,
-                TotalItems = pagerInfo.RecordCount
-            };
-            result.ResData = pageResult;
-            result.ErrCode = ErrCode.successCode;
-            return result;
-        }
     }
 }

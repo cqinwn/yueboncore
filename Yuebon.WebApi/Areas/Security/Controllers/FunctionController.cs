@@ -15,6 +15,7 @@ using Yuebon.Security.IServices;
 using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.UI;
+using Yuebon.Commons.Dtos;
 
 namespace Yuebon.WebApi.Areas.Security.Controllers
 {
@@ -272,50 +273,6 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             }
             return ToJsonContent(result);
         }
-
-
-        /// <summary>
-        /// 异步分页查询
-        /// </summary>
-        /// <param name="search"></param>
-        /// <returns></returns>
-        [HttpGet("FindWithPagerAsync")]
-        [YuebonAuthorize("List")]
-        public override async Task<CommonResult<PageResult<FunctionOutputDto>>> FindWithPagerAsync([FromQuery]SearchModel search)
-        {
-            CommonResult<PageResult<FunctionOutputDto>> result = new CommonResult<PageResult<FunctionOutputDto>>();
-            string orderByDir = string.IsNullOrEmpty(Request.Query["Order"].ToString()) ? "" : Request.Query["Order"].ToString();
-            string orderFlied = string.IsNullOrEmpty(Request.Query["Sort"].ToString()) ? "Id" : Request.Query["Sort"].ToString();
-            bool order = orderByDir == "asc" ? false : true;
-            string where = GetPagerCondition(false);
-            if (!string.IsNullOrEmpty(search.EnCode))
-            {
-                Function function = await iService.GetWhereAsync("EnCode='"+ search.EnCode + "'");
-                if (function != null)
-                {
-                    where += " and ParentId='" + function.Id + "'";
-                }
-            }
-            if (!string.IsNullOrEmpty(search.Keywords))
-            {
-                    where += " and (FullName like '%" + search.Keywords + "%' or EnCode like '%" + search.Keywords + "%')";
-            }
-            PagerInfo pagerInfo = GetPagerInfo();
-            List<Function> list = await iService.FindWithPagerAsync(where, pagerInfo, orderFlied, order);
-            List<FunctionOutputDto> resultList = list.MapTo<FunctionOutputDto>();
-            PageResult<FunctionOutputDto> pageResult = new PageResult<FunctionOutputDto>
-            {
-                CurrentPage = pagerInfo.CurrenetPageIndex,
-                Items = resultList,
-                ItemsPerPage = pagerInfo.PageSize,
-                TotalItems = pagerInfo.RecordCount
-            };
-            result.ResData = pageResult;
-            result.ErrCode = ErrCode.successCode;
-            return result;
-        }
-
-
         /// <summary>
         /// 获取功能菜单适用于Vue 树形列表
         /// </summary>

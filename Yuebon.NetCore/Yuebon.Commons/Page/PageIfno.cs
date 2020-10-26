@@ -11,6 +11,7 @@ namespace Yuebon.Commons.Pages
     /// </summary>
     /// <param name="info"></param>
     public delegate void PageInfoChanged(PagerInfo info);
+
     /// <summary>
     /// 分页实体
     /// </summary>

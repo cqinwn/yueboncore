@@ -71,20 +71,21 @@ namespace Yuebon.AspNetCore.Controllers
         /// <param name="username">用户名</param>
         /// <param name="password">密码</param>
         /// <param name="vcode">验证码</param>
+        /// <param name="vkey">验证码key</param>
         /// <param name="appId">AppId</param>
         /// <param name="systemCode">systemCode</param>
         /// <returns>返回用户User对象</returns>
         [HttpGet("GetCheckUser")]
         [AllowAnonymous]
         [NoPermissionRequired]
-        public async Task<IActionResult> GetCheckUser(string username, string password, string vcode, string appId,string systemCode)
+        public async Task<IActionResult> GetCheckUser(string username, string password, string vcode,string vkey, string appId,string systemCode)
         {
 
             CommonResult result = new CommonResult();
             RemoteIpParser remoteIpParser = new RemoteIpParser();
             string strIp = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            var vCode = yuebonCacheHelper.Get("ValidateCode"+ strIp);
+            var vCode = yuebonCacheHelper.Get("ValidateCode"+ vkey);
             string code = vCode != null ? vCode.ToString() : "11";
             if (vcode.ToUpper() != code)
             {
@@ -169,7 +170,8 @@ namespace Yuebon.AspNetCore.Controllers
                                             OrganizeId = user.OrganizeId,
                                             DeptId = user.DepartmentId,
                                             CurrentLoginIP = strIp,
-                                            IPAddressName = ipAddressName
+                                            IPAddressName = ipAddressName,
+                                            TenantId = ""
                                         };
                                         currentSession.ActiveSystem = systemType.FullName;
                                         currentSession.ActiveSystemUrl = systemType.Url;

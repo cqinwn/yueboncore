@@ -15,6 +15,7 @@ using Yuebon.Security.IServices;
 using Yuebon.AspNetCore.UI;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.Commons.Linq;
+using Yuebon.Commons.Dtos;
 
 namespace Yuebon.WebApi.Areas.Security.Controllers
 {
@@ -88,46 +89,10 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <returns></returns>
         [HttpGet("FindWithPagerAsync")]
         [YuebonAuthorize("List")]
-        public override async Task<CommonResult<PageResult<LogOutputDto>>> FindWithPagerAsync([FromQuery]SearchModel search)
+        public override async Task<CommonResult<PageResult<LogOutputDto>>> FindWithPagerAsync([FromQuery]SearchInputDto<Log> search)
         {
             CommonResult<PageResult<LogOutputDto>> result = new CommonResult<PageResult<LogOutputDto>>();
-            string orderByDir = string.IsNullOrEmpty(Request.Query["Order"].ToString()) ? "" : Request.Query["Order"].ToString();
-            string orderFlied = string.IsNullOrEmpty(Request.Query["Sort"].ToString()) ? "Id" : Request.Query["Sort"].ToString();
-            bool order = orderByDir == "asc" ? false : true;
-
-            string where = GetPagerCondition(false);
-            if (search != null)
-            {
-                if (!string.IsNullOrEmpty(search.Keywords))
-                {
-                    where += string.Format(" and (Account like '%{0}%' or ModuleName like '%{0}%' or IPAddress like '%{0}%' or IPAddressName like '%{0}%' or Description like '%{0}%')", search.Keywords);
-                };
-                if (!string.IsNullOrEmpty(search.EnCode))
-                {
-                    where += " and Type in('" + search.EnCode.Replace(",","','") + "')";
-                }
-            }
-            PagerInfo pagerInfo = GetPagerInfo();
-            List<Log> list = await iService.FindWithPagerAsync(where, pagerInfo, orderFlied, order);
-            List<LogOutputDto> resultList = new List<LogOutputDto>();
-            foreach (Log item in list)
-            {
-                LogOutputDto roleOutputDto = new LogOutputDto();
-                roleOutputDto = item.MapTo<LogOutputDto>();
-                if (!string.IsNullOrEmpty(roleOutputDto.OrganizeId))
-                {
-                    roleOutputDto.OrganizeId = organizeService.Get(item.OrganizeId).FullName;
-                }
-                resultList.Add(roleOutputDto);
-            }
-            PageResult<LogOutputDto> pageResult = new PageResult<LogOutputDto>
-            {
-                CurrentPage = pagerInfo.CurrenetPageIndex,
-                Items = resultList,
-                ItemsPerPage = pagerInfo.PageSize,
-                TotalItems = pagerInfo.RecordCount
-            };
-            result.ResData = pageResult;
+            result.ResData = await iService.FindWithPagerAsync(search);
             result.ErrCode = ErrCode.successCode;
             return result;
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Yuebon.Commons.Dtos;
 using Yuebon.Commons.Models;
 
 namespace Yuebon.Security.Dtos

@@ -16,37 +16,45 @@ namespace Yuebon.Security.Dtos
         /// </summary>
         [MaxLength(50)]
         public string Id { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public int? ItemType { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         [MaxLength(50)]
         public string ItemId { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public int? ObjectType { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         [MaxLength(50)]
         public string ObjectId { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public int? SortCode { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public DateTime? CreatorTime { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         [MaxLength(50)]
         public string CreatorUserId { get; set; }
-        public List<RoleAuthorizeOutputDto> Children { get; set; }
+
+        public List<RoleAuthorizeOutputDto> Children { get; set; }
     }
 }

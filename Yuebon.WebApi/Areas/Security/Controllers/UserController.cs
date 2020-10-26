@@ -302,63 +302,10 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <returns></returns>
         [HttpGet("FindWithPagerSearchAsync")]
         [YuebonAuthorize("List")]
-        public  async Task<IActionResult> FindWithPagerSearchAsync([FromQuery]SearchUserModel search)
+        public  async Task<IActionResult> FindWithPagerSearchAsync([FromQuery] Yuebon.Security.Dtos.SearchUserModel search)
         {
-            CommonResult result = new CommonResult();
-            string orderByDir = string.IsNullOrEmpty(Request.Query["Order"].ToString()) ? "" : Request.Query["Order"].ToString();
-            string orderFlied = string.IsNullOrEmpty(Request.Query["Sort"].ToString()) ? "Id" : Request.Query["Sort"].ToString();
-            bool order = orderByDir == "asc" ? false : true;
-            string where = GetPagerCondition(false);
-
-            if (!string.IsNullOrEmpty(search.Keywords))
-            {
-                where += string.Format(" and (NickName like '%{0}%' or Account like '%{0}%' or RealName  like '%{0}%' or MobilePhone like '%{0}%')", search.Keywords);
-            }
-
-            if (!string.IsNullOrEmpty(search.RoleId))
-            {
-                where += string.Format(" and RoleId like '%{0}%'", search.RoleId);
-            }
-            if (!string.IsNullOrEmpty(search.CreatorTime1))
-            {
-                where += " and CreatorTime >='" + search.CreatorTime1 + " 00:00:00'";
-            }
-            if (!string.IsNullOrEmpty(search.CreatorTime2))
-            {
-                where += " and CreatorTime <'" + search.CreatorTime2 + " 23:59:59'";
-            }
-            PagerInfo pagerInfo = GetPagerInfo();
-            List<User> list = await iService.FindWithPagerAsync(where, pagerInfo, orderFlied, order);
-            List<UserOutputDto> resultList = list.MapTo<UserOutputDto>();
-            List<UserOutputDto> listResult = new List<UserOutputDto>();
-            foreach (UserOutputDto item in resultList)
-            {
-                if (!string.IsNullOrEmpty(item.OrganizeId))
-                {
-                    item.OrganizeName = organizeService.Get(item.OrganizeId).FullName;
-                }
-                if (!string.IsNullOrEmpty(item.RoleId))
-                {
-                    item.RoleName = roleService.GetRoleNameStr(item.RoleId);
-                }
-                if (!string.IsNullOrEmpty(item.DepartmentId))
-                {
-                    item.DepartmentName = organizeService.Get(item.DepartmentId).FullName;
-                }
-                if (!string.IsNullOrEmpty(item.DutyId))
-                {
-                    item.DutyName = roleService.Get(item.DutyId).FullName;
-                }
-                listResult.Add(item);
-            }
-            PageResult<UserOutputDto> pageResult = new PageResult<UserOutputDto>
-            {
-                CurrentPage = pagerInfo.CurrenetPageIndex,
-                Items = listResult,
-                ItemsPerPage = pagerInfo.PageSize,
-                TotalItems = pagerInfo.RecordCount
-            };
-            result.ResData = pageResult;
+            CommonResult<PageResult<AppOutputDto>> result = new CommonResult<PageResult<AppOutputDto>>();
+            result.ResData = await iService.FindWithPagerSearchAsync(search);
             result.ErrCode = ErrCode.successCode;
             return ToJsonContent(result);
         }

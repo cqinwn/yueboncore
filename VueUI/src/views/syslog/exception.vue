@@ -57,8 +57,8 @@ export default {
         pageTotal: 0
       },
       sortableData: {
-        order: '',
-        sort: ''
+        order: 'desc',
+        sort: 'CreatorTime'
       },
       currentId: '', // 当前操作对象的ID值，主要用于修改
       currentSelected: []
@@ -81,8 +81,8 @@ export default {
     loadTableData: function () {
       this.tableloading = true
       var seachdata = {
-        CurrentPage: this.pagination.currentPage,
-        length: this.pagination.pagesize,
+        CurrenetPageIndex: this.pagination.currentPage,
+        PageSize: this.pagination.pagesize,
         Keywords: this.searchform.name,
         Order: this.sortableData.order,
         Sort: this.sortableData.sort,

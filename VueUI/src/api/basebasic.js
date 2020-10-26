@@ -176,3 +176,15 @@ export function getWxAppletQrCode (data) {
     baseURL: defaultSettings.apiHostUrl// 直接通过覆盖的方式
   })
 }
+
+/**
+   * 获取验证码
+   * @param {查询条件} data
+   */
+export function getVerifyCode () {
+  return http.request({
+    url: 'Captcha',
+    method: 'get',
+    baseURL: defaultSettings.apiHostUrl// 直接通过覆盖的方式
+  })
+}

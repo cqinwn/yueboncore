@@ -100,16 +100,9 @@ namespace Yuebon.AspNetCore.Mvc
                     {
                         List<Claim> claimlist = result.ResData as List<Claim>;
                         string userId = claimlist[3].Value;
-                        var claims = new[] {
-                           new Claim(YuebonClaimTypes.UserId,userId),
-                           new Claim(YuebonClaimTypes.UserName,claimlist[2].Value),
-                           new Claim(YuebonClaimTypes.Role,claimlist[4].Value)
-                        };
-                        var identity = new ClaimsIdentity(claims);
-                        var principal = new ClaimsPrincipal(identity);
-                        context.HttpContext.User = principal;
                         YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
                         var user = JsonSerializer.Deserialize<YuebonCurrentUser>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
+                       
                         if (user == null)
                         {
                             result.ErrCode = "40008";
@@ -117,6 +110,15 @@ namespace Yuebon.AspNetCore.Mvc
                             context.Result = new JsonResult(result, options);
                             return;
                         }
+                        var claims = new[] {
+                           new Claim(YuebonClaimTypes.UserId,userId),
+                           new Claim(YuebonClaimTypes.UserName,claimlist[2].Value),
+                           new Claim(YuebonClaimTypes.Role,claimlist[4].Value),
+                           new Claim(YuebonClaimTypes.TenantId,user.TenantId)
+                        };
+                        var identity = new ClaimsIdentity(claims);
+                        var principal = new ClaimsPrincipal(identity);
+                        context.HttpContext.User = principal;
                         bool isAdmin = Permission.IsAdmin(user);
                         if (!isAdmin)
                         {

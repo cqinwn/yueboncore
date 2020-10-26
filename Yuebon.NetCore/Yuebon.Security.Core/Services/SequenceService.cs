@@ -10,6 +10,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
+using Yuebon.Commons.Pages;
+using Yuebon.Commons.Dtos;
+using Yuebon.Commons.Mapping;
 
 namespace Yuebon.Security.Services
 {
@@ -314,6 +317,36 @@ namespace Yuebon.Security.Services
                 str += code.ToString().PadRight(seqRule.PaddingWidth, seqRule.PaddingChar.ToChar());
             }
             return str;
+        }
+
+
+        /// <summary>
+        /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
+        /// </summary>
+        /// <param name="search">查询的条件</param>
+        /// <returns>指定对象的集合</returns>
+        public override async Task<PageResult<SequenceOutputDto>> FindWithPagerAsync(SearchInputDto<Sequence> search)
+        {
+            bool order = search.Order == "asc" ? false : true;
+            string where = GetDataPrivilege();
+            if (!string.IsNullOrEmpty(search.Keywords))
+            {
+                where += string.Format(" and SequenceName like '%{0}%' ", search.Keywords);
+            };
+            PagerInfo pagerInfo = new PagerInfo
+            {
+                CurrenetPageIndex = search.CurrenetPageIndex,
+                PageSize = search.PageSize
+            };
+            List<Sequence> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+            PageResult<SequenceOutputDto> pageResult = new PageResult<SequenceOutputDto>
+            {
+                CurrentPage = pagerInfo.CurrenetPageIndex,
+                Items = list.MapTo<SequenceOutputDto>(),
+                ItemsPerPage = pagerInfo.PageSize,
+                TotalItems = pagerInfo.RecordCount
+            };
+            return pageResult;
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
@@ -17,7 +18,7 @@ namespace Yuebon.Commons.Net
     public class IpAddressUtil
     {
         /// <summary>
-        /// 
+        /// Ip地址段是否包含另外一个IP地址
         /// </summary>
         /// <param name="rule"></param>
         /// <param name="clientIp"></param>
@@ -35,9 +36,9 @@ namespace Yuebon.Commons.Net
             return false;
         }
         /// <summary>
-        /// 
+        /// Ip地址集合是否包含另外一个IP地址
         /// </summary>
-        /// <param name="ipRules"></param>
+        /// <param name="ipRules">Ip地址集合List</param>
         /// <param name="clientIp"></param>
         /// <returns></returns>
         public static bool ContainsIp(List<string> ipRules, string clientIp)
@@ -58,7 +59,7 @@ namespace Yuebon.Commons.Net
             return false;
         }
         /// <summary>
-        /// 
+        /// Ip地址集合是否包含另外一个IP地址
         /// </summary>
         /// <param name="ipRules"></param>
         /// <param name="clientIp"></param>
@@ -91,6 +92,16 @@ namespace Yuebon.Commons.Net
         public static IPAddress ParseIp(string ipAddress)
         {
             return IPAddress.Parse(ipAddress);
+        }
+
+        /// <summary>
+        /// 是否为ip
+        /// </summary>
+        /// <param name="ip"></param>
+        /// <returns></returns>
+        public static bool IsIP(string ip)
+        {
+            return Regex.IsMatch(ip, @"^((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$");
         }
         /// <summary>
         /// 根据腾讯地图接口查询IP所属地区

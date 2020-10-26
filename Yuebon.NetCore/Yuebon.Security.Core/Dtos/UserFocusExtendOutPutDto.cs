@@ -5,6 +5,7 @@ using System.Text;
 using Yuebon.Commons.Models;
 using Yuebon.Commons.Mapping;
 using Yuebon.Security.Models;
+using Yuebon.Commons.Dtos;
 
 namespace Yuebon.Security.Dtos
 {

@@ -141,6 +141,7 @@ namespace Yuebon.Commons.Pages
 
         #endregion
 
+        #region 各种数据库Sql分页查询，不依赖于存储过程
         /// <summary>
         /// 不依赖于存储过程的分页(Oracle)
         /// </summary>
@@ -177,8 +178,9 @@ namespace Yuebon.Commons.Pages
         /// 不依赖于存储过程的分页(SqlServer)
         /// </summary>
         /// <param name="isDoCount">如果isDoCount为True，返回总数统计Sql；否则返回分页语句Sql</param>
+        /// <param name="isSql2008">是否是Sql server2008及低版本，默认为false</param>
         /// <returns></returns>
-        private string GetSqlServerSql(bool isDoCount)
+        private string GetSqlServerSql(bool isDoCount,bool isSql2008=false)
         {
             string sql = "";
             if (string.IsNullOrEmpty(this.strwhere))
@@ -195,11 +197,17 @@ namespace Yuebon.Commons.Pages
                 string strOrder = string.Format(" order by {0} {1}", this.fieldNameToSort, this.isDescending ? "DESC" : "ASC");
                 int minRow = pageSize * (pageIndex - 1) + 1;
                 int maxRow = pageSize * pageIndex;
-
-                sql = string.Format(@"With Paging AS
+                if (isSql2008)
+                {
+                    sql = string.Format("SELECT * FROM ( SELECT ROW_NUMBER() OVER (order by {0}) AS rows ,{1} FROM {2} where {3}) AS main_temp where rows BETWEEN {4} and {5}", strOrder, fieldsToReturn, TableOrSqlWrapper, strwhere, minRow, maxRow);
+                }
+                else
+                {
+                    sql = string.Format(@"With Paging AS
                 ( SELECT ROW_NUMBER() OVER ({0}) as RowNumber, {1} FROM {2} Where {3})
                 SELECT * FROM Paging WHERE RowNumber Between {4} and {5}", strOrder, this.fieldsToReturn, this.TableOrSqlWrapper, this.strwhere,
-                minRow, maxRow);
+                    minRow, maxRow);
+                }
             }
 
             return sql;
@@ -384,7 +392,11 @@ namespace Yuebon.Commons.Pages
             DatabaseType dbType = GetDataBaseType(databaseType);
             return GetPagingSql(dbType, isDoCount);
         }
-
+        /// <summary>
+        /// 数据库类型
+        /// </summary>
+        /// <param name="databaseType"></param>
+        /// <returns></returns>
         private DatabaseType GetDataBaseType(string databaseType)
         {
             DatabaseType returnValue = DatabaseType.SqlServer;
@@ -398,7 +410,9 @@ namespace Yuebon.Commons.Pages
             }
             return returnValue;
         }
+        #endregion
     }
+
 
     /// <summary>
     /// 数据库类型

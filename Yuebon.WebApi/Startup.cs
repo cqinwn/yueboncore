@@ -141,8 +141,6 @@ namespace Yuebon.WebApi
                 //设置数字
                 options.JsonSerializerOptions.Converters.Add(new IntJsonConverter());
                 options.JsonSerializerOptions.PropertyNamingPolicy = new UpperFirstCaseNamingPolicy();
-                // options.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.CamelCase;
-                //options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
                 options.JsonSerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All);
             });
 
@@ -182,6 +180,7 @@ namespace Yuebon.WebApi
         {
             if (app != null)
             {
+                app.UseStaticHttpContextAccessor();
                 IServiceProvider provider = app.ApplicationServices;
                 AutoMapperService.UsePack(provider);
                 //IRegisterService register = RegisterService.Start(env, senparcSetting.Value).UseSenparcGlobal();// 启动 CO2NET 全局注册，必须！
@@ -196,7 +195,6 @@ namespace Yuebon.WebApi
                     app.UseExceptionHandler("/Home/Error");
                     app.UseHsts();
                 }
-
                 app.UseStaticFiles();
                 app.UseRouting();
 
@@ -373,8 +371,6 @@ namespace Yuebon.WebApi
             services.AddAutoMapper(myAssembly);
             services.AddScoped<IMapper, Mapper>();
 
-            ////注册数据库基础操作和工作单元
-            //services.AddScoped(typeof(IRepository<,>), typeof(BaseRepository<,>));
             //设置定时启动的任务
             services.AddHostedService<QuartzService>();
 

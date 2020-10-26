@@ -8,7 +8,7 @@ using System.Text;
 using Yuebon.Commons.Data;
 using Yuebon.Commons.Extensions;
 
-namespace Yuebon.Commons.Models
+namespace Yuebon.Commons.Dtos
 {
     /// <summary>
     /// <see cref="IInputDto{TKey}"/>验证扩展 

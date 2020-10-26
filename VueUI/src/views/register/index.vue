@@ -31,8 +31,8 @@
         </el-form-item>
         <el-form-item prop="VerificationCode">
           <el-input v-model="editFrom.VerificationCode" placeholder="请输入验证码" style="width:150px; float:left;" maxlength="4" autocomplete="off" clearable />
-          <div style="margin-top:5px; float:left;">
-            <img :src="apiHostUrl" alt="看不清？点击更换" onclick="this.src = this.src + '?'">
+          <div style="float:left;">
+            <img :src="verifyCodeUrl" style="cursor: pointer;vertical-align: middle;" alt="看不清？点击更换" @click="getLoginVerifyCode">
           </div>
         </el-form-item>
         <el-form-item prop="checkAgreement">
@@ -62,9 +62,8 @@
 </template>
 
 <script>
-import defaultSettings from '@/settings'
 import { setToken } from '@/utils/auth'
-import { getToken, getSysSetting } from '@/api/basebasic'
+import { getToken, getSysSetting, getVerifyCode } from '@/api/basebasic'
 import { registerUser } from '@/api/security/userservice'
 
 export default {
@@ -113,6 +112,7 @@ export default {
         Password: '',
         Password2: '',
         VerificationCode: '',
+        verifyCodeKey: '',
         checkAgreement: []
       },
       registerRules: {
@@ -135,7 +135,7 @@ export default {
         checkAgreement: [
           { type: 'array', required: true, trigger: 'change', message: '请勾选同意协议内容' }]
       },
-      apiHostUrl: defaultSettings.apiHostUrl + 'Captcha',
+      verifyCodeUrl: '',
       formLabelWidth: '100px',
       loading: false,
       softName: '管理系统',
@@ -146,6 +146,7 @@ export default {
   },
   created () {
     this.loadToken()
+    this.getLoginVerifyCode()
   },
   methods: {
 
@@ -192,6 +193,15 @@ export default {
           return false
         }
       })
+    },
+    // 获取验证码
+    async getLoginVerifyCode () {
+      this.editFrom.VerificationCode = ''
+      const res = await getVerifyCode()
+      if (res.Success) {
+        this.verifyCodeUrl = 'data:image/png;base64,' + res.ResData.Img
+        this.editFrom.verifyCodeKey = res.ResData.Key
+      }
     }
   }
 }

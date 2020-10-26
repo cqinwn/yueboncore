@@ -884,18 +884,20 @@ namespace Yuebon.Commons.Services
                 var claimsIdentity = identities.First<ClaimsIdentity>();
                 List<Claim> claimlist = claimsIdentity.Claims as List<Claim>;
                 YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-
-                //如果公司过滤条件不为空，那么需要进行过滤
-                List<String> list = JsonSerializer.Deserialize<List<String>>(yuebonCacheHelper.Get("User_RoleData_" + claimlist[0].Value).ToJson());
-                string DataFilterCondition = String.Join(",", list.ToArray());
-                if (!string.IsNullOrEmpty(DataFilterCondition))
+                if (claimlist[1].Value != "admin")
                 {
-                    where += string.Format(" and DeptId in ('{0}')", DataFilterCondition.Replace(",", "','"));
-                }
-                bool isMultiTenant = Configs.GetConfigurationValue("AppSetting", "IsMultiTenant").ToBool();
-                if (isMultiTenant)
-                {
-                    where += string.Format(" and TenantId='{0}'", claimlist[3].Value);
+                    //如果公司过滤条件不为空，那么需要进行过滤
+                    List<String> list = JsonSerializer.Deserialize<List<String>>(yuebonCacheHelper.Get("User_RoleData_" + claimlist[0].Value).ToJson());
+                    string DataFilterCondition = String.Join(",", list.ToArray());
+                    if (!string.IsNullOrEmpty(DataFilterCondition))
+                    {
+                        where += string.Format(" and DeptId in ('{0}')", DataFilterCondition.Replace(",", "','"));
+                    }
+                    bool isMultiTenant = Configs.GetConfigurationValue("AppSetting", "IsMultiTenant").ToBool();
+                    if (isMultiTenant)
+                    {
+                        where += string.Format(" and TenantId='{0}'", claimlist[3].Value);
+                    }
                 }
             }
             return where;

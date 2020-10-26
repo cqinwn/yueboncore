@@ -9,4 +9,12 @@
     <DocumentationFile>D:\netcorespace\权限管理\Yuebon.SMS.Core\Yuebon.SMS.Core.xml</DocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="aliyun-net-sdk-core" Version="1.5.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Yuebon.NetCore\Yuebon.Commons\Yuebon.Commons.csproj" />
+  </ItemGroup>
+
 </Project>

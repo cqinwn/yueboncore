@@ -16,7 +16,7 @@ using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IoC;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Options;
-using Yuebon.Messages.Mail;
+using Yuebon.Email;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
 
@@ -78,7 +78,7 @@ namespace Yuebon.Quartz.Jobs
                 stopwatch.Stop();
                 string content = $"结束时间:{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss ffff")} 共耗时{stopwatch.ElapsedMilliseconds} 毫秒,消息:{httpMessage??"OK"}\r\n";
                 iService.RecordRun(taskManager.Id, JobAction.结束,true, content);
-                if (taskManager.SendMail == MsgTypeOption.All.ToInt())
+                if ((MsgTypeOption)taskManager.SendMail == MsgTypeOption.All)
                 {
                     string emailAddress = sysSetting.Email;
                     if (!string.IsNullOrEmpty(taskManager.EmailAddress))
@@ -104,7 +104,7 @@ namespace Yuebon.Quartz.Jobs
                 string content = $"结束时间:{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss ffff")} 共耗时{stopwatch.ElapsedMilliseconds} 毫秒\r\n";
                 iService.RecordRun(taskManager.Id, JobAction.结束, false, content+ex.Message);
                 FileQuartz.WriteErrorLog(ex.Message); 
-                if (taskManager.SendMail== MsgTypeOption.Error.ToInt()|| taskManager.SendMail == MsgTypeOption.All.ToInt())
+                if ((MsgTypeOption)taskManager.SendMail== MsgTypeOption.Error|| (MsgTypeOption)taskManager.SendMail == MsgTypeOption.All)
                 {
                     string emailAddress = sysSetting.Email;
                     if (!string.IsNullOrEmpty(taskManager.EmailAddress))

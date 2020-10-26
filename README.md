@@ -11,7 +11,7 @@ Vue版本体验地址：[http://netvue.ts.yuebon.com/](http://netvue.ts.yuebon.c
 
 WebApi接口地址：[http://netcoreapi.ts.yuebon.com](http://netcoreapi.ts.yuebon.com)
 
-文档地址：[http://docs.v.yuebon.com/](http://docs.v.yuebon.com/)
+官方文档：[http://docs.v.yuebon.com/](http://docs.v.yuebon.com/)
 
 交流QQ群：90311523
 

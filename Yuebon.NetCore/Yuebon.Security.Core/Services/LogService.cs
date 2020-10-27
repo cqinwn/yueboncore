@@ -8,6 +8,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Dtos;
+using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
@@ -47,6 +48,7 @@ namespace Yuebon.Security.Services
         /// <returns>指定对象的集合</returns>
         public override async Task<PageResult<LogOutputDto>> FindWithPagerAsync(SearchInputDto<Log> search)
         {
+
             bool order = search.Order == "asc" ? false : true;
             string where = GetDataPrivilege(false);
             if (!string.IsNullOrEmpty(search.Keywords))

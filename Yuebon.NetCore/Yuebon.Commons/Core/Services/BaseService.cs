@@ -227,7 +227,7 @@ namespace Yuebon.Commons.Services
         /// <returns></returns>
         public virtual T GetWhere(string where, IDbTransaction trans = null)
         {
-            return repository.GetWhere(where, trans);
+            return repository.GetWhere(where);
         }
         /// <summary>
         /// 同步查询单个实体。
@@ -237,7 +237,7 @@ namespace Yuebon.Commons.Services
         /// <returns></returns>
         public virtual TODto GetOutDtoWhere(string where, IDbTransaction trans = null)
         {
-            return repository.GetWhere(where, trans).MapTo<TODto>();
+            return repository.GetWhere(where).MapTo<TODto>();
         }
 
         /// <summary>
@@ -248,7 +248,7 @@ namespace Yuebon.Commons.Services
         /// <returns></returns>
         public virtual async Task<T> GetWhereAsync(string where, IDbTransaction trans = null)
         {
-            return await repository.GetWhereAsync(where, trans);
+            return await repository.GetWhereAsync(where);
         }
 
         /// <summary>
@@ -259,7 +259,7 @@ namespace Yuebon.Commons.Services
         /// <returns></returns>
         public virtual async Task<TODto> GetOutDtoWhereAsync(string where, IDbTransaction trans = null)
         {
-            T info = await repository.GetWhereAsync(where, trans);
+            T info = await repository.GetWhereAsync(where);
             return info.MapTo<TODto>();
         }
         /// <summary>

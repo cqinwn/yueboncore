@@ -15,5 +15,12 @@ namespace Yuebon.Security.IServices
         /// </summary>
         /// <returns></returns>
         Task<List<ItemsOutputDto>> GetAllItemsTreeTable();
+
+        /// <summary>
+        /// 根据编码查询字典分类
+        /// </summary>
+        /// <param name="enCode"></param>
+        /// <returns></returns>
+        Task<Items> GetByEnCodAsynce(string enCode);
     }
 }

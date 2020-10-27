@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Yuebon.Commons.EfDbContext;
 using Yuebon.Commons.Options;
 using Yuebon.Commons.Repositories;
@@ -16,5 +17,6 @@ namespace Yuebon.Security.Repositories
         public ItemsDetailRepository(BaseDbContext dbContext) : base(dbContext)
         {
         }
+
     }
 }

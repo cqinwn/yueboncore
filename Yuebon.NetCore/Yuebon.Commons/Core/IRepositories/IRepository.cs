@@ -39,17 +39,15 @@ namespace Yuebon.Commons.IRepositories
         /// 同步查询单个实体。
         /// </summary>
         /// <param name="where">查询条件</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        T GetWhere(string where, IDbTransaction trans=null);
+        T GetWhere(string where);
 
         /// <summary>
         /// 异步查询单个实体。
         /// </summary>
         /// <param name="where">查询条件</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        Task<T> GetWhereAsync(string where, IDbTransaction trans=null);
+        Task<T> GetWhereAsync(string where);
 
         /// <summary>
         /// 查询对象，并返回关联的创建用户信息，

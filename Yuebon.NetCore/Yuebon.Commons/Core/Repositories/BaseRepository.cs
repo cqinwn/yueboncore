@@ -326,9 +326,8 @@ namespace Yuebon.Commons.Repositories
         /// 根据条件获取一个对象
         /// </summary>
         /// <param name="where">查询条件</param>
-        /// <param name="trans">事务</param>
         /// <returns></returns>
-        public virtual T GetWhere(string where, IDbTransaction trans =null)
+        public virtual T GetWhere(string where)
         {
             if (HasInjectionData(where))
             {
@@ -344,19 +343,28 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += " where " + where;
             }
-
+            var sb = new StringBuilder(" GetWhere： ");
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            _dbContext.Database.ExecuteSqlRaw(sql);
+            stopwatch.Stop();
+            sb.Append("EF耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
             return Execute((conn, trans) =>
             {
-                return conn.QueryFirstOrDefault<T>(sql, trans);
+                stopwatch.Start();
+                T newT = conn.QueryFirstOrDefault<T>(sql);
+                stopwatch.Stop();
+                sb.Append("Dapper耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
+                Log4NetHelper.Info(sb.ToString());
+                return newT;
             });
         }
         /// <summary>
         /// 根据条件异步获取一个对象
         /// </summary>
         /// <param name="where">查询条件</param>
-        /// <param name="trans">事务</param>
         /// <returns></returns>
-        public virtual async Task<T> GetWhereAsync(string where, IDbTransaction trans=null)
+        public virtual async Task<T> GetWhereAsync(string where)
         {
             if (HasInjectionData(where))
             {
@@ -367,21 +375,21 @@ namespace Yuebon.Commons.Repositories
             {
                 where = "1=1";
             }
-            string sql = $"select * from { tableName} ";
+            string  sql = $"select * from { tableName} ";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sql += " where " + where;
+                sql += " where "+where;
             }
-            var sb = new StringBuilder("ExecuteTransaction 事务： ");
+            var sb = new StringBuilder(" GetWhereAsync： ");
             Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-           // _dbContext.FromSqlRaw(sql);
-            stopwatch.Stop();
-            sb.Append("耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
-            Log4NetHelper.Info(sb.ToString());
             using (DbConnection conn = OpenSharedConnection())
             {
-                return await conn.QueryFirstOrDefaultAsync<T>(sql, trans);
+                stopwatch.Start();
+                T newT = await conn.QueryFirstOrDefaultAsync<T>(sql.ToString());
+                stopwatch.Stop();
+                sb.Append("Dapper耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
+                Log4NetHelper.Info(sb.ToString());
+                return newT;
             }
         }
 
@@ -1997,12 +2005,14 @@ namespace Yuebon.Commons.Repositories
                             exeSqlLog.Append("SQL语句:" + tran.Item1 + "  \n SQL参数: " + JsonConvert.SerializeObject(tran.Item2) + " \n");
                            await conn.ExecuteAsync(tran.Item1, tran.Item2, transaction, commandTimeout);
                         }
+                        //提交事务
                         Stopwatch stopwatch = new Stopwatch();
                         stopwatch.Start();
-                        //提交事务
                         transaction.Commit();
                         stopwatch.Stop();
                         exeSqlLog.Append("耗时:" + stopwatch.ElapsedMilliseconds + "  毫秒\n");
+
+                        Log4NetHelper.Info(exeSqlLog.ToString());
                         OperationLogOfSQL(exeSqlLog.ToString());
                         return new Tuple<bool, string>(true, string.Empty);
                     }
@@ -2214,11 +2224,11 @@ namespace Yuebon.Commons.Repositories
                     .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified)
                     .Select(e => e.Entity);
 
-                foreach (var entity in entities)
-                {
-                    var validationContext = new ValidationContext(entity);
-                    Validator.ValidateObject(entity, validationContext, validateAllProperties: true);
-                }
+                //foreach (var entity in entities)
+                //{
+                //    var validationContext = new ValidationContext(entity);
+                //    Validator.ValidateObject(entity, validationContext, validateAllProperties: true);
+                //}
                 return _dbContext.SaveChanges();
             }
             catch (ValidationException exc)

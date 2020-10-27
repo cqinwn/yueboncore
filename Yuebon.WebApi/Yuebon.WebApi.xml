@@ -355,13 +355,6 @@
             <param name="info"></param>
             <returns></returns>
         </member>
-        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.LogController.FindWithPagerAsync(Yuebon.Commons.Dtos.SearchInputDto{Yuebon.Security.Models.Log})">
-            <summary>
-            异步分页查询
-            </summary>
-            <param name="search"></param>
-            <returns></returns>
-        </member>
         <member name="T:Yuebon.WebApi.Areas.Security.Controllers.MenuController">
             <summary>
             接口

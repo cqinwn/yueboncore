@@ -40,17 +40,16 @@ namespace Yuebon.Security.Services
         public async Task<List<ItemsDetailOutputDto>> GetItemDetailsByItemCode(string itemCode)
         {
             string where = string.Empty;
-
             if (!string.IsNullOrEmpty(itemCode))
             {
-                where = string.Format("EnCode='{0}'",itemCode);
+                where = string.Format("EnCode='{0}'", itemCode);
             }
-            Items items =await itemsService.GetWhereAsync(where);
+            Items items = await itemsService.GetByEnCodAsynce(itemCode);
             List<ItemsDetailOutputDto> resultList = new List<ItemsDetailOutputDto>();
             if (items != null)
             {
                 where = string.Format("ItemId='{0}'", items.Id);
-               IEnumerable<ItemsDetail> list = _repository.GetAllByIsNotDeleteAndEnabledMark(where);
+                IEnumerable<ItemsDetail> list = _repository.GetAllByIsNotDeleteAndEnabledMark(where);
                 resultList = list.OrderBy(t => t.SortCode).MapTo<ItemsDetailOutputDto>();
             }
             return resultList;

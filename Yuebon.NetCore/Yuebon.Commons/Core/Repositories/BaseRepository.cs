@@ -343,21 +343,8 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += " where " + where;
             }
-            var sb = new StringBuilder(" GetWhere： ");
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-            _dbContext.Database.ExecuteSqlRaw(sql);
-            stopwatch.Stop();
-            sb.Append("EF耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
-            return Execute((conn, trans) =>
-            {
-                stopwatch.Start();
-                T newT = conn.QueryFirstOrDefault<T>(sql);
-                stopwatch.Stop();
-                sb.Append("Dapper耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
-                Log4NetHelper.Info(sb.ToString());
-                return newT;
-            });
+            return _dbContext.Set<T>().FromSqlRaw<T>(sql).FirstOrDefault<T>();
+           
         }
         /// <summary>
         /// 根据条件异步获取一个对象
@@ -380,17 +367,7 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += " where "+where;
             }
-            var sb = new StringBuilder(" GetWhereAsync： ");
-            Stopwatch stopwatch = new Stopwatch();
-            using (DbConnection conn = OpenSharedConnection())
-            {
-                stopwatch.Start();
-                T newT = await conn.QueryFirstOrDefaultAsync<T>(sql.ToString());
-                stopwatch.Stop();
-                sb.Append("Dapper耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
-                Log4NetHelper.Info(sb.ToString());
-                return newT;
-            }
+            return await _dbContext.Set<T>().FromSqlRaw<T>(sql).FirstOrDefaultAsync<T>();
         }
 
 

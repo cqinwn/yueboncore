@@ -17,6 +17,7 @@ using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Options;
 using Yuebon.Email;
+using Yuebon.Security.IRepositories;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
 
@@ -29,6 +30,7 @@ namespace Yuebon.Quartz.Jobs
     public class TestJob : IJob
     {
         ITaskManagerService iService = IoCContainer.Resolve<ITaskManagerService>();
+        ILogRepository iLogService = IoCContainer.Resolve<ILogRepository>();
 
         public Task Execute(IJobExecutionContext context)
         { 
@@ -55,6 +57,8 @@ namespace Yuebon.Quartz.Jobs
                 var jobId = context.MergedJobDataMap.GetString("OpenJob");
                 //todo:这里可以加入自己的自动任务逻辑
                 Log4NetHelper.Info(DateTime.Now.ToString() + "执行任务");
+
+               iLogService.InsertTset(1000);
 
 
                 stopwatch.Stop();

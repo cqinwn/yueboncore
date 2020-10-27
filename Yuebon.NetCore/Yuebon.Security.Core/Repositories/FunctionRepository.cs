@@ -2,6 +2,7 @@ using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using Yuebon.Commons.EfDbContext;
 using Yuebon.Commons.Options;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
@@ -13,9 +14,12 @@ namespace Yuebon.Security.Repositories
     {
         public FunctionRepository()
         {
-            this.tableName = "Sys_Function";
-            this.primaryKey = "Id";
         }
+
+        public FunctionRepository(BaseDbContext dbContext) : base(dbContext)
+        {
+        }
+
         /// <summary>
         /// 根据角色ID字符串（逗号分开)和系统类型ID，获取对应的操作功能列表
         /// </summary>

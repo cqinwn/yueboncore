@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Text;
+using Yuebon.Commons.EfDbContext;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
 using Yuebon.Security.Models;
@@ -15,8 +16,10 @@ namespace Yuebon.Security.Repositories
     {
         public UploadFileRepository()
         {
-            this.tableName = "Sys_UploadFile";
-            this.primaryKey = "Id";
+        }
+
+        public UploadFileRepository(BaseDbContext dbContext) : base(dbContext)
+        {
         }
 
         /// <summary>

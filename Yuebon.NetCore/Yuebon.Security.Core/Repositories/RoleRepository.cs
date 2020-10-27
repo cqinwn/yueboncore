@@ -1,5 +1,7 @@
 using System;
-
+using System.Collections.Generic;
+using System.Linq;
+using Yuebon.Commons.EfDbContext;
 using Yuebon.Commons.Options;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
@@ -11,8 +13,15 @@ namespace Yuebon.Security.Repositories
     {
         public RoleRepository()
         {
-            this.tableName = "Sys_Role";
-            this.primaryKey = "Id";
         }
+
+        public RoleRepository(BaseDbContext dbContext) : base(dbContext)
+        {
+        }
+
+        //public IEnumerable<Role> GetWhere()
+        //{
+        //    _dbContext.Set<Role>().fr().Where()
+        //}
     }
 }

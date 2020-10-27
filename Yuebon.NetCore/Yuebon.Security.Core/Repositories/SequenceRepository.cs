@@ -1,5 +1,5 @@
 using System;
-
+using Yuebon.Commons.EfDbContext;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
 using Yuebon.Security.Models;
@@ -13,8 +13,10 @@ namespace Yuebon.Security.Repositories
     {
 		public SequenceRepository()
         {
-            this.tableName = "Sys_Sequence";
-            this.primaryKey = "Id";
+        }
+
+        public SequenceRepository(BaseDbContext dbContext) : base(dbContext)
+        {
         }
     }
 }

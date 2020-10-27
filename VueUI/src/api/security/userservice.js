@@ -8,8 +8,8 @@ import defaultSettings from '@/settings'
 export function getUserListWithPager (data) {
   return http.request({
     url: 'User/FindWithPagerSearchAsync',
-    method: 'get',
-    params: data,
+    method: 'post',
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

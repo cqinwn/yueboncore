@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Yuebon.Commons.EfDbContext;
 using Yuebon.Commons.Options;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
@@ -11,8 +12,10 @@ namespace Yuebon.Security.Repositories
     {
         public MenuRepository()
         {
-            this.tableName = "Sys_Menu";
-            this.primaryKey = "Id";
+        }
+
+        public MenuRepository(BaseDbContext dbContext) : base(dbContext)
+        {
         }
     }
 }

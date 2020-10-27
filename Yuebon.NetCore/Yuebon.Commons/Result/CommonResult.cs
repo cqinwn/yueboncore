@@ -72,10 +72,12 @@ namespace Yuebon.Commons.Models
                 m_ErrCode = value;
                 if (value == "0")
                 {
+                    ErrMsg = m_ErrMsg = "成功";
                     Success= m_Success = true;
                 }
                 else
                 {
+                    ErrMsg = m_ErrMsg = "失败";
                     Success = m_Success = false;
                 }
             }
@@ -87,7 +89,9 @@ namespace Yuebon.Commons.Models
         [DataMember]
         public string ErrMsg
         {
-            get { return m_ErrMsg; }
+            get {
+                return m_ErrMsg;
+            }
             set { m_ErrMsg = value; }
         }
         /// <summary>

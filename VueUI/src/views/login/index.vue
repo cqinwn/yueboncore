@@ -200,7 +200,6 @@ export default {
     async getLoginVerifyCode () {
       this.loginForm.vcode = ''
       const res = await getVerifyCode()
-      console.log(JSON.stringify(res))
       if (res.Success) {
         this.verifyCodeUrl = 'data:image/png;base64,' + res.ResData.Img
         this.loginForm.verifyCodeKey = res.ResData.Key

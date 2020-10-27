@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Yuebon.Commons.EfDbContext;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Options;
 using Yuebon.Commons.Repositories;
@@ -12,8 +13,10 @@ namespace Yuebon.Security.Repositories
     {
         public FilterIPRepository()
         {
-            this.tableName = "Sys_FilterIP";
-            this.primaryKey = "Id";
+        }
+
+        public FilterIPRepository(BaseDbContext dbContext) : base(dbContext)
+        {
         }
 
         /// <summary>

@@ -91,7 +91,7 @@ namespace Yuebon.AspNetCore.Mvc.Filter
             logEntity.IPAddress = currentUser.CurrentLoginIP;
             logEntity.IPAddressName = currentUser.IPAddressName;
             logEntity.Result = false;
-            logEntity.Description = exception.ToJson();
+            logEntity.Description = exception.Message;
             logEntity.Type = "Exception";
             service.Insert(logEntity);
         }

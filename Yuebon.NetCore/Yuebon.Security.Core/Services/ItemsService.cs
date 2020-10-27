@@ -45,6 +45,16 @@ namespace Yuebon.Security.Services
             return reslist;
         }
 
+        /// <summary>
+        /// 根据编码查询字典分类
+        /// </summary>
+        /// <param name="enCode"></param>
+        /// <returns></returns>
+        public async Task<Items> GetByEnCodAsynce(string enCode)
+        {
+            return await _repository.GetByEnCodAsynce(enCode);
+        }
+
 
         /// <summary>
         /// 获取子菜单，递归调用

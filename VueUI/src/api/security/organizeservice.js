@@ -18,8 +18,8 @@ export function getAllOrganizeTreeTable () {
 export function getOrganizeListWithPager (data) {
   return http.request({
     url: 'Organize/FindWithPagerAsync',
-    method: 'get',
-    params: data,
+    method: 'post',
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

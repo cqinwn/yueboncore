@@ -1,5 +1,5 @@
 using System;
-
+using Yuebon.Commons.EfDbContext;
 using Yuebon.Commons.Options;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
@@ -11,8 +11,10 @@ namespace Yuebon.Security.Repositories
     {
         public DbBackupRepository()
         {
-            this.tableName = "Sys_DbBackup";
-            this.primaryKey = "Id";
         }
-}
+
+        public DbBackupRepository(BaseDbContext dbContext) : base(dbContext)
+        {
+        }
+    }
 }

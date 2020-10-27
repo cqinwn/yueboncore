@@ -63,7 +63,7 @@ namespace Yuebon.Commons.EfDbContext
 
         }
         /// <summary>
-        /// 配置
+        /// 配置，初始化数据库引擎
         /// </summary>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -106,7 +106,7 @@ namespace Yuebon.Commons.EfDbContext
             base.OnConfiguring(optionsBuilder);
         }
         /// <summary>
-        /// 
+        /// 模型创建
         /// </summary>
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)

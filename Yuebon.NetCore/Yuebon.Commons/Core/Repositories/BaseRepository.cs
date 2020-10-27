@@ -7,8 +7,10 @@ using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using Npgsql;
+using NPOI.SS.Formula.Functions;
 using Oracle.ManagedDataAccess.Client;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -73,7 +75,8 @@ namespace Yuebon.Commons.Repositories
         /// <summary>
         /// 需要初始化的对象表名
         /// </summary>
-        protected string tableName;
+        protected string tableName= typeof(T).GetCustomAttribute<TableAttribute>(false)?.Name
+                ?? (typeof(T).GetCustomAttributes(false).FirstOrDefault(attr => attr.GetType().Name == "TableAttribute") as dynamic)?.Name;
         /// <summary>
         /// 数据库参数化访问的占位符
         /// </summary>
@@ -83,9 +86,9 @@ namespace Yuebon.Commons.Repositories
         /// </summary>
         protected string safeFieldFormat = "[{0}]";
         /// <summary>
-        /// 数据库的主键字段名
+        /// 数据库的主键字段名,若主键不是Id请重载BaseRepository设置
         /// </summary>
-        protected string primaryKey;
+        protected string primaryKey="Id";
         /// <summary>
         /// 排序字段
         /// </summary>
@@ -103,7 +106,7 @@ namespace Yuebon.Commons.Repositories
         /// </summary>
         protected bool isMultiTenant = false;
         /// <summary>
-        /// 是否开启多租户
+        /// 租户Id
         /// </summary>
         protected string tenantId = "";
 
@@ -221,14 +224,14 @@ namespace Yuebon.Commons.Repositories
         }
 
         /// <summary>
-        /// 
+        /// 构造方法
         /// </summary>
         public BaseRepository()
         {
         }
 
         /// <summary>
-        /// 指定上下文
+        /// 构造方法，指定上下文
         /// </summary>
         /// <param name="dbContext">上下文</param>
         public BaseRepository(BaseDbContext dbContext)
@@ -238,37 +241,6 @@ namespace Yuebon.Commons.Repositories
             _dbContext.Database.EnsureCreated();
             _dbSet = dbContext.Set<T>();
         }
-        /// <summary>
-        /// 指定数据库连接配置
-        /// </summary>
-        /// <param name="_dbConfigName">数据库连接配置名称</param>
-        public BaseRepository(string _dbConfigName) : this()
-        {
-            SetDbConfigName(_dbConfigName);
-        }
-        /// <summary>
-		/// 指定表名以及主键,对基类进构造
-		/// </summary>
-		/// <param name="_tableName">表名</param>
-		/// <param name="_primaryKey">表主键</param>
-        public BaseRepository(string _tableName, string _primaryKey) : this()
-        {
-            this.tableName = _tableName;
-            this.primaryKey = _primaryKey;
-        }
-        /// <summary>
-		/// 指定数据库连接配置、表名以及主键,对基类进构造
-		/// </summary>
-		/// <param name="_dbConfigName">数据库连接配置名称</param>
-		/// <param name="_tableName">表名</param>
-		/// <param name="_primaryKey">表主键</param>
-        public BaseRepository(string _dbConfigName,string _tableName,string _primaryKey) : this()
-        {
-            SetDbConfigName(_dbConfigName);
-            this.tableName = _tableName;
-            this.primaryKey = _primaryKey;
-        }
-
 
         /// <summary>
         /// 数据库连接,根据数据库类型自动识别，类型区分用配置名称是否包含主要关键字
@@ -335,38 +307,28 @@ namespace Yuebon.Commons.Repositories
         /// 根据id获取一个对象
         /// </summary>
         /// <param name="primaryKey">主键</param>
-        /// <param name="trans">事务</param>
         /// <returns></returns>
-        public virtual T Get(TKey primaryKey, IDbTransaction trans=null)
+        public virtual T Get(TKey primaryKey)
         {
-            using (DbConnection conn = OpenSharedConnection())
-            {
-                return conn.Get<T>(primaryKey, trans);
-            }
+            return _dbContext.Find<T>(primaryKey);
         }
         /// <summary>
         /// 异步根据id获取一个对象
         /// </summary>
         /// <param name="primaryKey">主键</param>
-        /// <param name="trans">事务</param>
         /// <returns></returns>
-        public virtual async Task<T> GetAsync(TKey primaryKey, IDbTransaction trans=null)
+        public virtual async Task<T> GetAsync(TKey primaryKey)
         {
-            using (DbConnection conn = OpenSharedConnection())
-            {
-                return await conn.GetAsync<T>(primaryKey, trans);
-            }
+            return await _dbContext.FindAsync<T>(primaryKey);
         }
 
         /// <summary>
         /// 根据条件获取一个对象
         /// </summary>
         /// <param name="where">查询条件</param>
-        /// <param name="trans">事务</param>
         /// <returns></returns>
-        public virtual T GetWhere(string where, IDbTransaction trans =null)
+        public virtual T GetWhere(string where)
         {
-            var type = MethodBase.GetCurrentMethod().DeclaringType;
             if (HasInjectionData(where))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
@@ -381,19 +343,28 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += " where " + where;
             }
-
+            var sb = new StringBuilder(" GetWhere： ");
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            _dbContext.Database.ExecuteSqlRaw(sql);
+            stopwatch.Stop();
+            sb.Append("EF耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
             return Execute((conn, trans) =>
             {
-                return conn.QueryFirstOrDefault<T>(sql, trans);
+                stopwatch.Start();
+                T newT = conn.QueryFirstOrDefault<T>(sql);
+                stopwatch.Stop();
+                sb.Append("Dapper耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
+                Log4NetHelper.Info(sb.ToString());
+                return newT;
             });
         }
         /// <summary>
         /// 根据条件异步获取一个对象
         /// </summary>
         /// <param name="where">查询条件</param>
-        /// <param name="trans">事务</param>
         /// <returns></returns>
-        public virtual async Task<T> GetWhereAsync(string where, IDbTransaction trans=null)
+        public virtual async Task<T> GetWhereAsync(string where)
         {
             if (HasInjectionData(where))
             {
@@ -404,15 +375,21 @@ namespace Yuebon.Commons.Repositories
             {
                 where = "1=1";
             }
-            string sql = $"select * from { tableName} ";
+            string  sql = $"select * from { tableName} ";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sql += " where " + where;
+                sql += " where "+where;
             }
-
+            var sb = new StringBuilder(" GetWhereAsync： ");
+            Stopwatch stopwatch = new Stopwatch();
             using (DbConnection conn = OpenSharedConnection())
             {
-                return await conn.QueryFirstOrDefaultAsync<T>(sql, trans);
+                stopwatch.Start();
+                T newT = await conn.QueryFirstOrDefaultAsync<T>(sql.ToString());
+                stopwatch.Stop();
+                sb.Append("Dapper耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
+                Log4NetHelper.Info(sb.ToString());
+                return newT;
             }
         }
 
@@ -2028,12 +2005,14 @@ namespace Yuebon.Commons.Repositories
                             exeSqlLog.Append("SQL语句:" + tran.Item1 + "  \n SQL参数: " + JsonConvert.SerializeObject(tran.Item2) + " \n");
                            await conn.ExecuteAsync(tran.Item1, tran.Item2, transaction, commandTimeout);
                         }
+                        //提交事务
                         Stopwatch stopwatch = new Stopwatch();
                         stopwatch.Start();
-                        //提交事务
                         transaction.Commit();
                         stopwatch.Stop();
                         exeSqlLog.Append("耗时:" + stopwatch.ElapsedMilliseconds + "  毫秒\n");
+
+                        Log4NetHelper.Info(exeSqlLog.ToString());
                         OperationLogOfSQL(exeSqlLog.ToString());
                         return new Tuple<bool, string>(true, string.Empty);
                     }
@@ -2199,9 +2178,8 @@ namespace Yuebon.Commons.Repositories
         /// 新增
         /// </summary>
         /// <param name="entity"></param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual long InsertEF(T entity, IDbTransaction trans = null)
+        public virtual long InsertEF(T entity)
         {
             if (entity.KeyIsNull())
             {
@@ -2233,27 +2211,6 @@ namespace Yuebon.Commons.Repositories
             return n;
         }
 
-        /// <summary>
-        /// 根据id获取一个对象
-        /// </summary>
-        /// <param name="primaryKey">主键</param>
-        /// <param name="trans">事务</param>
-        /// <returns></returns>
-        public virtual T GetEF(TKey primaryKey, IDbTransaction trans = null)
-        {
-          return  _dbContext.Find<T>(primaryKey);
-        }
-        /// <summary>
-        /// 异步根据id获取一个对象
-        /// </summary>
-        /// <param name="primaryKey">主键</param>
-        /// <param name="trans">事务</param>
-        /// <returns></returns>
-        public virtual async Task<T> GetEFAsync(TKey primaryKey, IDbTransaction trans = null)
-        {
-            return await _dbContext.FindAsync<T>(primaryKey);
-        }
-
 
         /// <summary>
         /// 保存
@@ -2267,11 +2224,11 @@ namespace Yuebon.Commons.Repositories
                     .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified)
                     .Select(e => e.Entity);
 
-                foreach (var entity in entities)
-                {
-                    var validationContext = new ValidationContext(entity);
-                    Validator.ValidateObject(entity, validationContext, validateAllProperties: true);
-                }
+                //foreach (var entity in entities)
+                //{
+                //    var validationContext = new ValidationContext(entity);
+                //    Validator.ValidateObject(entity, validationContext, validateAllProperties: true);
+                //}
                 return _dbContext.SaveChanges();
             }
             catch (ValidationException exc)

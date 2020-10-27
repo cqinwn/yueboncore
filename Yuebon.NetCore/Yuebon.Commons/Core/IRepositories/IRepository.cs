@@ -19,37 +19,35 @@ namespace Yuebon.Commons.IRepositories
         /// 定义一个操作记录的事件处理
         /// </summary>
         event OperationLogEventHandler OnOperationLog;
+
+        #region 单个实体
         /// <summary>
         /// 同步查询单个实体。
         /// </summary>
         /// <param name="primaryKey">主键</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        T Get(TKey primaryKey,IDbTransaction trans=null);
+        T Get(TKey primaryKey);
 
         /// <summary>
         /// 异步查询单个实体。
         /// </summary>
         /// <param name="primaryKey">主键</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        Task<T> GetAsync(TKey primaryKey, IDbTransaction trans=null);
+        Task<T> GetAsync(TKey primaryKey);
 
         /// <summary>
         /// 同步查询单个实体。
         /// </summary>
         /// <param name="where">查询条件</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        T GetWhere(string where, IDbTransaction trans=null);
+        T GetWhere(string where);
 
         /// <summary>
         /// 异步查询单个实体。
         /// </summary>
         /// <param name="where">查询条件</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        Task<T> GetWhereAsync(string where, IDbTransaction trans=null);
+        Task<T> GetWhereAsync(string where);
 
         /// <summary>
         /// 查询对象，并返回关联的创建用户信息，
@@ -59,6 +57,7 @@ namespace Yuebon.Commons.IRepositories
         /// <param name="trans"></param>
         /// <returns></returns>
         T GetByIdRelationUser(TKey primaryKey, IDbTransaction trans = null);
+        #endregion
 
         /// <summary>
         /// 同步查询所有实体。

@@ -96,7 +96,7 @@
           "dependencies": {
             "AutoMapper": {
               "target": "Package",
-              "version": "[10.1.0, )"
+              "version": "[10.1.1, )"
             },
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
@@ -120,7 +120,7 @@
             },
             "HtmlAgilityPack": {
               "target": "Package",
-              "version": "[1.11.24, )"
+              "version": "[1.11.25, )"
             },
             "Microsoft.AspNetCore.Mvc": {
               "target": "Package",
@@ -168,11 +168,11 @@
             },
             "MySql.Data": {
               "target": "Package",
-              "version": "[8.0.21, )"
+              "version": "[8.0.22, )"
             },
             "MySql.Data.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[8.0.21, )"
+              "version": "[8.0.22, )"
             },
             "NPinyin.Core": {
               "target": "Package",
@@ -188,7 +188,7 @@
             },
             "Oracle.ManagedDataAccess.Core": {
               "target": "Package",
-              "version": "[2.19.90, )"
+              "version": "[2.19.91, )"
             },
             "QRCoder": {
               "target": "Package",
@@ -196,7 +196,7 @@
             },
             "Quartz": {
               "target": "Package",
-              "version": "[3.2.0, )"
+              "version": "[3.2.2, )"
             },
             "SgmlReader.NetCore": {
               "target": "Package",
@@ -216,7 +216,7 @@
             },
             "log4net": {
               "target": "Package",
-              "version": "[2.0.11, )"
+              "version": "[2.0.12, )"
             }
           },
           "imports": [

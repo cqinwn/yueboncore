@@ -161,7 +161,7 @@ namespace Yuebon.Commons.Application
         /// <returns></returns>
         public T Get(Tkey id)
         {
-            return service.Get(id, null);
+            return service.Get(id);
         }
         /// <summary>
         /// 同步查询单个实体。
@@ -217,7 +217,7 @@ namespace Yuebon.Commons.Application
         /// <returns></returns>
         public Task<T> GetAsync(Tkey id)
         {
-            return service.GetAsync(id, null);
+            return service.GetAsync(id);
         }
         ///<summary>
         /// 根据查询条件查询数据

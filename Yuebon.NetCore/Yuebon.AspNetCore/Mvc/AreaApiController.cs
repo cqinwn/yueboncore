@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Security.Claims;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Yuebon.AspNetCore.Common;
@@ -71,7 +73,7 @@ namespace Yuebon.AspNetCore.Controllers
 
         #endregion
 
-        #region 公共添加、修改、删除、查询接口
+        #region 公共添加、修改、删除、软删除接口
 
 
         /// <summary>
@@ -440,7 +442,8 @@ namespace Yuebon.AspNetCore.Controllers
             }
             return ToJsonContent(result);
         }
-
+        #endregion
+        #region 查询单个实体
         /// <summary>
         /// 根据主键Id获取一个对象信息
         /// </summary>
@@ -453,7 +456,6 @@ namespace Yuebon.AspNetCore.Controllers
         {
             CommonResult<TODto> result = new CommonResult<TODto>();
             TODto info = await iService.GetOutDtoAsync(id);
-
             if (info != null)
             {
                 result.ErrCode = ErrCode.successCode;
@@ -472,30 +474,14 @@ namespace Yuebon.AspNetCore.Controllers
         /// <summary>
         /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
         /// </summary>
-        /// <param name="info">info</param>
+        /// <param name="search">查询条件</param>
         /// <returns>指定对象的集合</returns>
-        [HttpGet("FindWithPager")]
+        [HttpPost("FindWithPager")]
         [YuebonAuthorize("List")]
-        public virtual CommonResult<PageResult<TODto>> FindWithPager(T info)
+        public virtual CommonResult<PageResult<TODto>> FindWithPager(SearchInputDto<T> search)
         {
             CommonResult<PageResult<TODto>> result = new CommonResult<PageResult<TODto>>();
-            string keywords = Request.Query["search"].ToString() == null ? "" : Request.Query["search"].ToString();
-            string orderByDir = Request.Query["order"].ToString() == null ? "" : Request.Query["order"].ToString();
-            string orderFlied = string.IsNullOrEmpty(Request.Query["sort"].ToString()) ? "Id" : Request.Query["sort"].ToString();
-
-            bool order = orderByDir == "asc" ? false : true;
-            string where = GetPagerCondition();
-            PagerInfo pagerInfo = GetPagerInfo();
-            List<T> list = iService.FindWithPager(where, pagerInfo, orderFlied, order);
-            List<TODto> resultList = list.MapTo<TODto>();
-            PageResult<TODto> pageResult = new PageResult<TODto>
-            {
-                CurrentPage = pagerInfo.CurrenetPageIndex,
-                Items = resultList,
-                ItemsPerPage = pagerInfo.PageSize,
-                TotalItems = pagerInfo.RecordCount
-            };
-            result.ResData = pageResult;
+            result.ResData = iService.FindWithPager(search);
             result.ErrCode = ErrCode.successCode;
             return result;
         }
@@ -503,13 +489,13 @@ namespace Yuebon.AspNetCore.Controllers
 
 
         /// <summary>
-        /// 异步分页查询
+        /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
         /// </summary>
         /// <param name="search"></param>
         /// <returns></returns>
-        [HttpGet("FindWithPagerAsync")]
+        [HttpPost("FindWithPagerAsync")]
         [YuebonAuthorize("List")]
-        public virtual async Task<CommonResult<PageResult<TODto>>> FindWithPagerAsync([FromQuery]SearchInputDto<T> search)
+        public virtual async Task<CommonResult<PageResult<TODto>>> FindWithPagerAsync(SearchInputDto<T> search)
         {
             CommonResult<PageResult<TODto>> result = new CommonResult<PageResult<TODto>>();
             result.ResData = await iService.FindWithPagerAsync(search);

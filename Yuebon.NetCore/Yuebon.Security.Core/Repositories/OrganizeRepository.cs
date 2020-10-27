@@ -1,6 +1,7 @@
 using Dapper;
 using System;
 using System.Text;
+using Yuebon.Commons.EfDbContext;
 using Yuebon.Commons.Options;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
@@ -12,9 +13,12 @@ namespace Yuebon.Security.Repositories
     {
         public OrganizeRepository()
         {
-            this.tableName = "Sys_Organize";
-            this.primaryKey = "Id";
         }
+
+        public OrganizeRepository(BaseDbContext dbContext) : base(dbContext)
+        {
+        }
+
         /// <summary>
         /// 获取根节点组织
         /// </summary>

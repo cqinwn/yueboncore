@@ -17,13 +17,9 @@ namespace Yuebon.Security.Repositories
     {
 		public TaskManagerRepository()
         {
-            this.tableName = "Sys_TaskManager";
-            this.primaryKey = "Id";
         }
         public TaskManagerRepository(BaseDbContext context) : base(context)
         {
-            this.tableName = "Sys_TaskManager";
-            this.primaryKey = "Id";
         }
 
 

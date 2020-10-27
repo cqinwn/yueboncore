@@ -8,8 +8,8 @@ import defaultSettings from '@/settings'
 export function getLogListWithPager (data) {
   return http.request({
     url: 'Log/FindWithPagerAsync',
-    method: 'get',
-    params: data,
+    method: 'post',
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

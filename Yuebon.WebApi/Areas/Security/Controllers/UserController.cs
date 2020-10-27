@@ -300,9 +300,9 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// </summary>
         /// <param name="search"></param>
         /// <returns></returns>
-        [HttpGet("FindWithPagerSearchAsync")]
+        [HttpPost("FindWithPagerSearchAsync")]
         [YuebonAuthorize("List")]
-        public  async Task<IActionResult> FindWithPagerSearchAsync([FromQuery] Yuebon.Security.Dtos.SearchUserModel search)
+        public  async Task<IActionResult> FindWithPagerSearchAsync(SearchUserModel search)
         {
             CommonResult<PageResult<AppOutputDto>> result = new CommonResult<PageResult<AppOutputDto>>();
             result.ResData = await iService.FindWithPagerSearchAsync(search);

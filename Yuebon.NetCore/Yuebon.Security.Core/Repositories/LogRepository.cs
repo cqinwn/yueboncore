@@ -3,6 +3,7 @@ using Dapper.Contrib.Extensions;
 using System;
 using System.Data;
 using System.Data.Common;
+using Yuebon.Commons.EfDbContext;
 using Yuebon.Commons.Options;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
@@ -20,9 +21,12 @@ namespace Yuebon.Security.Repositories
         /// </summary>
         public LogRepository()
         {
-            this.tableName = "Sys_Log";
-            this.primaryKey = "Id";
         }
+
+        public LogRepository(BaseDbContext dbContext) : base(dbContext)
+        {
+        }
+
         /// <summary>
         /// 
         /// </summary>

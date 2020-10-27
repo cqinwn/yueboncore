@@ -28,8 +28,7 @@ namespace Yuebon.Commons.Models
         /// 获取或设置 编号
         /// </summary>
         [DisplayName("编号")]
-        [ExplicitKey]
-        [System.ComponentModel.DataAnnotations.Key]
+        [Key]
         public  TKey Id { get; set; }
 
 

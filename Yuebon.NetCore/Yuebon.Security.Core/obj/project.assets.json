@@ -27,7 +27,7 @@
           "lib/netstandard2.1/Autofac.Extensions.DependencyInjection.dll": {}
         }
       },
-      "AutoMapper/10.1.0": {
+      "AutoMapper/10.1.1": {
         "type": "package",
         "dependencies": {
           "Microsoft.CSharp": "4.7.0",
@@ -132,19 +132,19 @@
           "lib/netstandard2.0/NPOI.OpenXmlFormats.dll": {}
         }
       },
-      "Google.Protobuf/3.6.1": {
+      "Google.Protobuf/3.11.4": {
         "type": "package",
         "dependencies": {
-          "NETStandard.Library": "1.6.1"
+          "System.Memory": "4.5.2"
         },
         "compile": {
-          "lib/netstandard1.0/Google.Protobuf.dll": {}
+          "lib/netstandard2.0/Google.Protobuf.dll": {}
         },
         "runtime": {
-          "lib/netstandard1.0/Google.Protobuf.dll": {}
+          "lib/netstandard2.0/Google.Protobuf.dll": {}
         }
       },
-      "HtmlAgilityPack/1.11.24": {
+      "HtmlAgilityPack/1.11.25": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/HtmlAgilityPack.dll": {}
@@ -190,7 +190,7 @@
           "lib/netstandard2.0/K4os.Hash.xxHash.dll": {}
         }
       },
-      "log4net/2.0.11": {
+      "log4net/2.0.12": {
         "type": "package",
         "dependencies": {
           "System.Configuration.ConfigurationManager": "4.5.0"
@@ -1447,19 +1447,18 @@
           }
         }
       },
-      "MySql.Data/8.0.21": {
+      "MySql.Data/8.0.22": {
         "type": "package",
         "dependencies": {
           "BouncyCastle.NetCore": "1.8.3",
-          "Google.Protobuf": "3.6.1",
+          "Google.Protobuf": "3.11.4",
           "K4os.Compression.LZ4": "1.1.11",
           "K4os.Compression.LZ4.Streams": "1.1.11",
           "K4os.Hash.xxHash": "1.0.6",
           "SSH.NET": "2016.1.0",
-          "System.Buffers": "4.5.0",
+          "System.Buffers": "4.5.1",
           "System.Configuration.ConfigurationManager": "4.4.1",
-          "System.Runtime.CompilerServices.Unsafe": "4.6.0",
-          "System.Security.Permissions": "4.6.0",
+          "System.Security.Permissions": "4.7.0",
           "System.Text.Encoding.CodePages": "4.4.0"
         },
         "compile": {
@@ -1473,17 +1472,17 @@
           "lib/netstandard2.1/Zstandard.Net.dll": {}
         }
       },
-      "MySql.Data.EntityFrameworkCore/8.0.21": {
+      "MySql.Data.EntityFrameworkCore/8.0.22": {
         "type": "package",
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Relational": "3.1.1",
-          "MySql.Data": "8.0.21"
+          "MySql.Data": "8.0.22"
         },
         "compile": {
-          "lib/netstandard2.0/MySql.Data.EntityFrameworkCore.dll": {}
+          "lib/netstandard2.1/MySql.Data.EntityFrameworkCore.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.0/MySql.Data.EntityFrameworkCore.dll": {}
+          "lib/netstandard2.1/MySql.Data.EntityFrameworkCore.dll": {}
         }
       },
       "NETStandard.Library/1.6.1": {
@@ -1591,7 +1590,7 @@
           "lib/netstandard2.0/Oracle.EntityFrameworkCore.dll": {}
         }
       },
-      "Oracle.ManagedDataAccess.Core/2.19.90": {
+      "Oracle.ManagedDataAccess.Core/2.19.91": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Oracle.ManagedDataAccess.dll": {}
@@ -1626,7 +1625,7 @@
           "lib/netstandard2.0/QRCoder.dll": {}
         }
       },
-      "Quartz/3.2.0": {
+      "Quartz/3.2.2": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.Logging.Abstractions": "2.1.1",
@@ -2036,7 +2035,7 @@
           "lib/netstandard1.6/System.AppContext.dll": {}
         }
       },
-      "System.Buffers/4.5.0": {
+      "System.Buffers/4.5.1": {
         "type": "package",
         "compile": {
           "ref/netcoreapp2.0/_._": {}
@@ -3787,13 +3786,13 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
-          "AutoMapper": "10.1.0",
+          "AutoMapper": "10.1.1",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "8.1.0",
           "Autofac": "6.0.0",
           "Autofac.Extensions.DependencyInjection": "7.0.2",
           "Dapper": "2.0.35",
           "DotNetCore.NPOI": "1.2.2",
-          "HtmlAgilityPack": "1.11.24",
+          "HtmlAgilityPack": "1.11.25",
           "Microsoft.AspNetCore.Mvc": "2.2.0",
           "Microsoft.Data.Sqlite": "3.1.9",
           "Microsoft.EntityFrameworkCore": "3.1.9",
@@ -3805,19 +3804,19 @@
           "Microsoft.Extensions.DependencyInjection": "3.1.9",
           "Microsoft.Extensions.DependencyModel": "3.1.6",
           "Microsoft.Extensions.Logging": "3.1.9",
-          "MySql.Data": "8.0.21",
-          "MySql.Data.EntityFrameworkCore": "8.0.21",
+          "MySql.Data": "8.0.22",
+          "MySql.Data.EntityFrameworkCore": "8.0.22",
           "NPinyin.Core": "3.0.0",
           "Npgsql": "4.1.5",
           "Oracle.EntityFrameworkCore": "3.19.80",
-          "Oracle.ManagedDataAccess.Core": "2.19.90",
+          "Oracle.ManagedDataAccess.Core": "2.19.91",
           "QRCoder": "1.3.9",
-          "Quartz": "3.2.0",
+          "Quartz": "3.2.2",
           "SgmlReader.NetCore": "1.0.0",
           "System.Data.SqlClient": "4.8.2",
           "System.Drawing.Common": "4.7.0",
           "System.Management": "4.7.0",
-          "log4net": "2.0.11"
+          "log4net": "2.0.12"
         },
         "compile": {
           "bin/placeholder/Yuebon.Commons.dll": {}
@@ -3865,14 +3864,14 @@
         "lib/netstandard2.1/Autofac.Extensions.DependencyInjection.xml"
       ]
     },
-    "AutoMapper/10.1.0": {
-      "sha512": "qxn9+PpQJD53PAUHGXW3HTcq6Rxbv3Pyq/jTcc60ZYwOygyqUfHIY3HBChKbDwtTHdlwlQqJeJ1ckVcaoytxxw==",
+    "AutoMapper/10.1.1": {
+      "sha512": "uMgbqOdu9ZG5cIOty0C85hzzayBH2i9BthnS5FlMqKtMSHDv4ts81a2jS1VFaDBVhlBeIqJ/kQKjQY95BZde9w==",
       "type": "package",
-      "path": "automapper/10.1.0",
+      "path": "automapper/10.1.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "automapper.10.1.0.nupkg.sha512",
+        "automapper.10.1.1.nupkg.sha512",
         "automapper.nuspec",
         "icon.png",
         "lib/net461/AutoMapper.dll",
@@ -3988,29 +3987,34 @@
         "lib/netstandard2.0/NPOI.OpenXmlFormats.dll"
       ]
     },
-    "Google.Protobuf/3.6.1": {
-      "sha512": "741fGeDQjixBJaU2j+0CbrmZXsNJkTn/hWbOh4fLVXndHsCclJmWznCPWrJmPoZKvajBvAz3e8ECJOUvRtwjNQ==",
+    "Google.Protobuf/3.11.4": {
+      "sha512": "dajCxjDCiPyZuqwZCkFJTwhn/0TJ5VesIs4fXvs56ez1VUi68JjhYMMsPjnJ9gcPqJwTMtXMU1WqUdXYiG1x4w==",
       "type": "package",
-      "path": "google.protobuf/3.6.1",
+      "path": "google.protobuf/3.11.4",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "google.protobuf.3.6.1.nupkg.sha512",
+        "google.protobuf.3.11.4.nupkg.sha512",
         "google.protobuf.nuspec",
         "lib/net45/Google.Protobuf.dll",
+        "lib/net45/Google.Protobuf.pdb",
         "lib/net45/Google.Protobuf.xml",
         "lib/netstandard1.0/Google.Protobuf.dll",
-        "lib/netstandard1.0/Google.Protobuf.xml"
+        "lib/netstandard1.0/Google.Protobuf.pdb",
+        "lib/netstandard1.0/Google.Protobuf.xml",
+        "lib/netstandard2.0/Google.Protobuf.dll",
+        "lib/netstandard2.0/Google.Protobuf.pdb",
+        "lib/netstandard2.0/Google.Protobuf.xml"
       ]
     },
-    "HtmlAgilityPack/1.11.24": {
-      "sha512": "DLcytINO8EfCdBgMGsaz8Tvdgu2Aewoo2XX7WfZuRG9cBQRtbm8JZ4/sMRtFvzehjdIDqubdlQb8TqNfjRMEWg==",
+    "HtmlAgilityPack/1.11.25": {
+      "sha512": "UO02+QzWpKDhz2XApSZ74S+9fylNrK9npqvO4NgtW9LiFLHVRqXQmdI+1tn7JRzGnATkCCbtyIeqbJZl3pSRJQ==",
       "type": "package",
-      "path": "htmlagilitypack/1.11.24",
+      "path": "htmlagilitypack/1.11.25",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "htmlagilitypack.1.11.24.nupkg.sha512",
+        "htmlagilitypack.1.11.25.nupkg.sha512",
         "htmlagilitypack.nuspec",
         "lib/Net35/HtmlAgilityPack.dll",
         "lib/Net35/HtmlAgilityPack.pdb",
@@ -4108,10 +4112,10 @@
         "lib/netstandard2.0/K4os.Hash.xxHash.xml"
       ]
     },
-    "log4net/2.0.11": {
-      "sha512": "4MEfp6dSN/Cl4XHRqBo8eOkhlH9AOt/ydmPRaj/FHuKHTNoPuKjbaT97aACmePpkW5QHQ+YudhYYvVStabOZmQ==",
+    "log4net/2.0.12": {
+      "sha512": "9P67BCftJ7KG+B7rNOM1A9KczUwyEDed6zbAddy5Cj/73xVkzi+rEAHeOgUnW5wDqy1JFlY8+oTP0m1PgJ03Tg==",
       "type": "package",
-      "path": "log4net/2.0.11",
+      "path": "log4net/2.0.12",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -4131,7 +4135,7 @@
         "lib/netstandard1.3/log4net.xml",
         "lib/netstandard2.0/log4net.dll",
         "lib/netstandard2.0/log4net.xml",
-        "log4net.2.0.11.nupkg.sha512",
+        "log4net.2.0.12.nupkg.sha512",
         "log4net.nuspec",
         "package-icon.png"
       ]
@@ -5685,10 +5689,10 @@
         "version.txt"
       ]
     },
-    "MySql.Data/8.0.21": {
-      "sha512": "mKARhpOOn4rQ6PPdY98UVHq00v/4vDCfluR2Xrr5VNQgtyVzjzorcvQjYArHLRwKLEkBRxgHWRfg0+hS96FI3Q==",
+    "MySql.Data/8.0.22": {
+      "sha512": "DTKXORgTwQLbAjl8g5+YhvrAB+peQLfAZQ7gbm5Ejma37f/vBtZqP5aTnqZoJUzaQQgj4Psgdcnlo6IwYedyCg==",
       "type": "package",
-      "path": "mysql.data/8.0.21",
+      "path": "mysql.data/8.0.22",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5700,6 +5704,10 @@
         "lib/net48/MySql.Data.xml",
         "lib/net48/Ubiety.Dns.Core.dll",
         "lib/net48/Zstandard.Net.dll",
+        "lib/net5.0/MySql.Data.dll",
+        "lib/net5.0/MySql.Data.xml",
+        "lib/net5.0/Ubiety.Dns.Core.dll",
+        "lib/net5.0/Zstandard.Net.dll",
         "lib/netstandard2.0/MySql.Data.dll",
         "lib/netstandard2.0/MySql.Data.xml",
         "lib/netstandard2.0/Ubiety.Dns.Core.dll",
@@ -5708,20 +5716,22 @@
         "lib/netstandard2.1/MySql.Data.xml",
         "lib/netstandard2.1/Ubiety.Dns.Core.dll",
         "lib/netstandard2.1/Zstandard.Net.dll",
-        "mysql.data.8.0.21.nupkg.sha512",
+        "mysql.data.8.0.22.nupkg.sha512",
         "mysql.data.nuspec"
       ]
     },
-    "MySql.Data.EntityFrameworkCore/8.0.21": {
-      "sha512": "jjPV4BInmT593yCU2ejSOOG/kgjNu9srZDxgkN/eckXp7xk7pFrXvLg6pa96y6il+L9eGx13iI74DbwzVpvtzw==",
+    "MySql.Data.EntityFrameworkCore/8.0.22": {
+      "sha512": "o/+OMqQ0fw4f6COfRrbwqP0CKcqoFkCfb1Rl3mfgUcae3XqAkiA6t8rsjA1wnkxUvwfNYX+YM2w2Xa6u4QEUkA==",
       "type": "package",
-      "path": "mysql.data.entityframeworkcore/8.0.21",
+      "path": "mysql.data.entityframeworkcore/8.0.22",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.0/MySql.Data.EntityFrameworkCore.dll",
         "lib/netstandard2.0/MySql.Data.EntityFrameworkCore.xml",
-        "mysql.data.entityframeworkcore.8.0.21.nupkg.sha512",
+        "lib/netstandard2.1/MySql.Data.EntityFrameworkCore.dll",
+        "lib/netstandard2.1/MySql.Data.EntityFrameworkCore.xml",
+        "mysql.data.entityframeworkcore.8.0.22.nupkg.sha512",
         "mysql.data.entityframeworkcore.nuspec"
       ]
     },
@@ -5840,10 +5850,10 @@
         "readme.txt"
       ]
     },
-    "Oracle.ManagedDataAccess.Core/2.19.90": {
-      "sha512": "LJubyJGhnAJl4aoZfVva3QMnagOW7k0W5ma1b4Th42l80wx9+h3/jsfTpj6sXCph3VZGZbIsp294z9UNBfkb0Q==",
+    "Oracle.ManagedDataAccess.Core/2.19.91": {
+      "sha512": "Jgrn+kEbB9kWloFfxiP9Agzq8qK3tanbRDZJinICY0t94gmqkC/OwyzlQLJf8SLymBH8urBMopkqpAIyD564ww==",
       "type": "package",
-      "path": "oracle.manageddataaccess.core/2.19.90",
+      "path": "oracle.manageddataaccess.core/2.19.91",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5851,7 +5861,7 @@
         "PerfCounters/unregister_odpc_perfmon_counters.ps1",
         "info.txt",
         "lib/netstandard2.0/Oracle.ManagedDataAccess.dll",
-        "oracle.manageddataaccess.core.2.19.90.nupkg.sha512",
+        "oracle.manageddataaccess.core.2.19.91.nupkg.sha512",
         "oracle.manageddataaccess.core.nuspec",
         "readme.txt"
       ]
@@ -5894,10 +5904,10 @@
         "qrcoder.nuspec"
       ]
     },
-    "Quartz/3.2.0": {
-      "sha512": "OFB90wB6zzuhNY0HkyRg0nCGQmzclaxjgGkcTzJCWnnoJqmCsjjszc01CW2cdve04hstv9QDPtcyqdXG32GrFg==",
+    "Quartz/3.2.2": {
+      "sha512": "SZmyLsTvoTP7CDQiH1gpZgfKu8CM0xoJmOCfrm7hr5B4pYdqldUyjm9HjfSJxTcXxLJmheulnkVOiaWaDRBTCA==",
       "type": "package",
-      "path": "quartz/3.2.0",
+      "path": "quartz/3.2.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5906,7 +5916,7 @@
         "lib/netstandard2.0/Quartz.dll",
         "lib/netstandard2.0/Quartz.xml",
         "quartz-logo-small.png",
-        "quartz.3.2.0.nupkg.sha512",
+        "quartz.3.2.2.nupkg.sha512",
         "quartz.nuspec"
       ]
     },
@@ -6430,15 +6440,17 @@
         "system.appcontext.nuspec"
       ]
     },
-    "System.Buffers/4.5.0": {
-      "sha512": "pL2ChpaRRWI/p4LXyy4RgeWlYF2sgfj/pnVMvBqwNFr5cXg7CXNnWZWxrOONLg8VGdFB8oB+EG2Qw4MLgTOe+A==",
+    "System.Buffers/4.5.1": {
+      "sha512": "Rw7ijyl1qqRS0YQD/WycNst8hUUMgrMH4FCn1nNm27M4VxchZ1js3fVjQaANHO5f3sN4isvP4a+Met9Y4YomAg==",
       "type": "package",
-      "path": "system.buffers/4.5.0",
+      "path": "system.buffers/4.5.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/System.Buffers.dll",
+        "lib/net461/System.Buffers.xml",
         "lib/netcoreapp2.0/_._",
         "lib/netstandard1.1/System.Buffers.dll",
         "lib/netstandard1.1/System.Buffers.xml",
@@ -6453,7 +6465,7 @@
         "ref/netstandard2.0/System.Buffers.dll",
         "ref/netstandard2.0/System.Buffers.xml",
         "ref/uap10.0.16299/_._",
-        "system.buffers.4.5.0.nupkg.sha512",
+        "system.buffers.4.5.1.nupkg.sha512",
         "system.buffers.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"

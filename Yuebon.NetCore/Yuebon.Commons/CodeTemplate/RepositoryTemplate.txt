@@ -13,8 +13,6 @@ namespace {RepositoriesNamespace}
     {
 		public {ModelTypeName}Repository()
         {
-            this.tableName = "{TableName}";
-            this.primaryKey = "Id";
         }
     }
 }

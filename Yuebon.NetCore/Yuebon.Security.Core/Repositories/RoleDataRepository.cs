@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Yuebon.Commons.EfDbContext;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
 using Yuebon.Security.Models;
@@ -13,8 +14,10 @@ namespace Yuebon.Security.Repositories
     {
 		public RoleDataRepository()
         {
-            this.tableName = "Sys_RoleData";
-            this.primaryKey = "Id";
+        }
+
+        public RoleDataRepository(BaseDbContext dbContext) : base(dbContext)
+        {
         }
 
         /// <summary>

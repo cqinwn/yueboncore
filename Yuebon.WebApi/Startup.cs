@@ -92,10 +92,15 @@ namespace Yuebon.WebApi
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
 
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddHttpContextAccessor();
             //如果部署在linux系统上，需要加上下面的配置：
             //services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
             //如果部署在IIS上，需要加上下面的配置：
             services.Configure<IISServerOptions>(options => options.AllowSynchronousIO = true);
+
+
+            #region Swagger Api文档
             services.AddSwaggerGen(options =>
             {
                 string contactName = Configuration.GetSection("SwaggerDoc:ContactName").Value;
@@ -127,9 +132,23 @@ namespace Yuebon.WebApi
                     Type = SecuritySchemeType.ApiKey
                 });
             });
-            //全局设置跨域访问
+
+
+            // Api配置版本信息
+            services.AddApiVersioning(o =>
+            {
+                o.ReportApiVersions = true;
+                o.AssumeDefaultVersionWhenUnspecified = true;
+                o.DefaultApiVersion = new ApiVersion(1, 0);
+            });
+            #endregion
+
+            #region 全局设置跨域访问
             services.AddCors(options => options.AddPolicy("yuebonCors",
                 policy => policy.WithOrigins(Configuration.GetSection("AppSetting:AllowOrigins").Value.Split(',', StringSplitOptions.RemoveEmptyEntries)).AllowAnyHeader().AllowAnyMethod()));
+            #endregion
+
+            #region 控制器
             services.AddControllers().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.WriteIndented = true;
@@ -144,7 +163,6 @@ namespace Yuebon.WebApi
                 options.JsonSerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All);
             });
 
-            services.AddSignalR();//使用 SignalR
             mvcBuilder = services.AddMvc(option =>
             {
                 option.Filters.Add<YuebonAuthorizationFilter>();
@@ -153,18 +171,9 @@ namespace Yuebon.WebApi
 
             services.AddMvcCore()
                 .AddAuthorization().AddApiExplorer();
+            #endregion
 
-            // Api配置版本信息
-            services.AddApiVersioning(o =>
-            {
-                o.ReportApiVersions = true;
-                o.AssumeDefaultVersionWhenUnspecified = true;
-                o.DefaultApiVersion = new ApiVersion(1, 0);
-            });
-            
-
-            services.AddSenparcGlobalServices(Configuration)
-                .AddSenparcWeixinServices(Configuration); //Senparc.Weixin 注册（必须）;
+            services.AddSignalR();//使用 SignalR
             return InitIoC(services);
         }
 
@@ -183,7 +192,6 @@ namespace Yuebon.WebApi
                 app.UseStaticHttpContextAccessor();
                 IServiceProvider provider = app.ApplicationServices;
                 AutoMapperService.UsePack(provider);
-                //IRegisterService register = RegisterService.Start(env, senparcSetting.Value).UseSenparcGlobal();// 启动 CO2NET 全局注册，必须！
                 //加载插件应用
                 LoadMoudleApps(env);
                 if (env.IsDevelopment())
@@ -197,22 +205,6 @@ namespace Yuebon.WebApi
                 }
                 app.UseStaticFiles();
                 app.UseRouting();
-
-                var registerService = app.UseSenparcGlobal(env, senparcSetting.Value, globalRegister =>
-                {
-                    globalRegister.ChangeDefaultCacheNamespace("DefaultCO2NETCache");
-
-                }).UseSenparcWeixin(senparcWeixinSetting.Value, weixinRegister =>
-                {
-                    //微信的 Redis 缓存，如果不使用则注释掉（开启前必须保证配置有效，否则会抛错）         -- DPBMARK Redis
-
-                    //weixinRegister.UseSenparcWeixinCacheCsRedis();//CsRedis，两选一
-                    weixinRegister.UseSenparcWeixinCacheRedis();//StackExchange.Redis，两选一
-
-                    //注册多个公众号或小程序（可注册多个）                                        -- DPBMARK MiniProgram
-                    weixinRegister
-                            .RegisterWxOpenAccount(senparcWeixinSetting.Value, "东方快车");// DPBMARK_END
-                });
                 app.UseAuthentication();
                 app.UseAuthorization();
                 app.UseMiddleware<CorsMiddleware>();
@@ -230,9 +222,6 @@ namespace Yuebon.WebApi
                     options.RoutePrefix = string.Empty;//这里主要是不需要再输入swagger这个默认前缀
                 });
             }
-
-            //定时任务调度
-            // YuebonScheduler.Start().GetAwaiter().GetResult();
         }
 
 
@@ -244,16 +233,13 @@ namespace Yuebon.WebApi
         /// <returns></returns>
         private IServiceProvider InitIoC(IServiceCollection services)
         {
-            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddHttpContextAccessor();
-            services.AddMemoryCache();
+            #region 缓存
             CacheProvider cacheProvider = new CacheProvider
             {
                 IsUseRedis = Configuration.GetSection("CacheProvider:UseRedis").Value.ToBool(false),
                 ConnectionString = Configuration.GetSection("CacheProvider:Redis_ConnectionString").Value,
                 InstanceName = Configuration.GetSection("CacheProvider:Redis_InstanceName").Value
             };
-
             //判断是否使用Redis，如果不使用 Redis就默认使用 MemoryCache
             if (cacheProvider.IsUseRedis)
             {
@@ -268,12 +254,10 @@ namespace Yuebon.WebApi
                     Configuration = cacheProvider.ConnectionString,
                     InstanceName = cacheProvider.InstanceName
                 }, 0));
-
-                Senparc.CO2NET.Cache.Redis.Register.SetConfigurationOption(cacheProvider.ConnectionString);
-                Senparc.CO2NET.Cache.Redis.Register.UseKeyValueRedisNow();//键值对缓存策略（推荐）
             }
             else
             {
+                services.AddMemoryCache();
                 //Use MemoryCache
                 services.AddSingleton<IMemoryCache>(factory =>
                 {
@@ -281,21 +265,10 @@ namespace Yuebon.WebApi
                     return cache;
                 });
                 services.AddSingleton<ICacheService, MemoryCacheService>();
-                string memcachedConfigurationStr = "";
-                /* 说明：
-                        * 1、Memcached 的连接字符串信息会从 Config.SenparcSetting.Cache_Memcached_Configuration 自动获取并注册，如不需要修改，下方方法可以忽略
-                    /* 2、如需手动修改，可以通过下方 SetConfigurationOption 方法手动设置 Memcached 链接信息（仅修改配置，不立即启用）
-                        */
-                Senparc.CO2NET.Cache.Memcached.Register.SetConfigurationOption(memcachedConfigurationStr);
-
-                //以下会立即将全局缓存设置为 Memcached
-                Senparc.CO2NET.Cache.Memcached.Register.UseMemcachedNow();
-
-                //也可以通过以下方式自定义当前需要启用的缓存策略
-                CacheStrategyFactory.RegisterObjectCacheStrategy(() => MemcachedObjectCacheStrategy.Instance);
-
             }
-            services.AddDbContext<BaseDbContext>();
+            #endregion
+
+            #region 身份认证授权
 
             var jwtConfig = Configuration.GetSection("Jwt");
             var jwtOption = new JwtOption
@@ -306,34 +279,6 @@ namespace Yuebon.WebApi
                 Audience = jwtConfig["Audience"],
                 refreshJwtTime = Convert.ToInt16(jwtConfig["refreshJwtTime"])
             };
-
-            var senparcSettingConfig = Configuration.GetSection("SenparcSetting");
-            var senparcSetting = new SenparcSetting
-            {
-                IsDebug = senparcSettingConfig["IsDebug"].ToBool(),
-                DefaultCacheNamespace = senparcSettingConfig["DefaultCacheNamespace"],
-                Cache_Redis_Configuration = cacheProvider.ConnectionString,
-                Cache_Memcached_Configuration = senparcSettingConfig["Cache_Memcached_Configuration"],
-                SenparcUnionAgentKey = senparcSettingConfig["SenparcUnionAgentKey"]
-            };
-            var weixinConfig = Configuration.GetSection("SenparcWeixinSetting");
-            var senparcWeixinSettingItem = new SenparcWeixinSettingItem
-            {
-                Component_Appid = weixinConfig["OpenWebsiteAppId"],
-                Component_Secret = weixinConfig["OpenWebsiteAppSecret"]
-            };
-            SenparcWeixinSettingItemCollection items = new SenparcWeixinSettingItemCollection();
-            items.Add("OpenWebAdmin", senparcWeixinSettingItem);
-            var senparcWeixinSetting = new SenparcWeixinSetting
-            {
-                WxOpenAppId = weixinConfig["WxOpenAppId"],
-                WxOpenAppSecret = weixinConfig["WxOpenAppSecret"],
-                WxOpenToken = weixinConfig["WxOpenToken"],
-                WxOpenEncodingAESKey = weixinConfig["WxOpenEncodingAESKey"],
-                Items = items
-            };
-            Senparc.CO2NET.Config.SenparcSetting = senparcSetting;
-
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -353,13 +298,12 @@ namespace Yuebon.WebApi
                     ClockSkew = TimeSpan.FromMinutes(5)
                 };
             });
+            #endregion
+            services.AddDbContext<BaseDbContext>();
             services.AddScoped(typeof(SSOAuthHelper));
-            services.AddTransient<HttpResultfulJob>();
-            services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
             IoCContainer.Register(cacheProvider);//注册缓存配置
             IoCContainer.Register(Configuration);//注册配置
             IoCContainer.Register(jwtOption);//注册配置
-            IoCContainer.Register(typeof(SenparcWeixinSetting));//注册配置
             IoCContainer.Register("Yuebon.Commons");
             IoCContainer.Register("Yuebon.AspNetCore");
             IoCContainer.Register("Yuebon.Security.Core");
@@ -371,14 +315,13 @@ namespace Yuebon.WebApi
             services.AddAutoMapper(myAssembly);
             services.AddScoped<IMapper, Mapper>();
 
+            #region 定时任务
+            services.AddTransient<HttpResultfulJob>();
+            services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
             //设置定时启动的任务
             services.AddHostedService<QuartzService>();
+            #endregion
 
-            //开始注册微信信息，必须！
-
-            //IRegisterService registerService = RegisterService.Start(senparcSetting).UseSenparcGlobal();
-            //registerService.UseSenparcWeixin(senparcWeixinSetting, senparcSetting)
-            //    .RegisterWxOpenAccount(senparcWeixinSetting, "东方快车");
             return IoCContainer.Build(services);
         }
 

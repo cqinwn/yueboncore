@@ -85,17 +85,9 @@ namespace Yuebon.AspNetCore.Mvc
             {
                 try
                 {
-                    #if DEBUG
-                    Log4NetHelper.Debug(token);
-                    #endif
-
                     JwtSecurityToken jwtToken = new JwtSecurityTokenHandler().ReadJwtToken(token);
                     if (jwtToken!=null)
                     {
-                        #if DEBUG
-                        Log4NetHelper.Debug(jwtToken.ToJson());
-                        #endif
-
                         #region 检查令牌对象内容
                         DateTime now = DateTime.UtcNow;
                         DateTime refreshTime = jwtToken.ValidFrom;

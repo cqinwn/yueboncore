@@ -121,6 +121,10 @@ namespace Yuebon.Security.Services
             {
                 where += string.Format(" and (TaskName like '%{0}%' or  GroupName like '%{0}%')", search.Keywords);
             };
+            if (!string.IsNullOrEmpty(search.Filter?.Cron))
+            {
+                where += string.Format(" and Cron like '%{0}%' ", search.Filter.Cron);
+            };
             PagerInfo pagerInfo = new PagerInfo
             {
                 CurrenetPageIndex = search.CurrenetPageIndex,

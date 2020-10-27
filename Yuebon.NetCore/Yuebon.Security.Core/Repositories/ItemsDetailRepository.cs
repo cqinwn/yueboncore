@@ -1,5 +1,5 @@
 using System;
-
+using Yuebon.Commons.EfDbContext;
 using Yuebon.Commons.Options;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
@@ -11,8 +11,10 @@ namespace Yuebon.Security.Repositories
     {
         public ItemsDetailRepository()
         {
-            this.tableName = "Sys_ItemsDetail";
-            this.primaryKey = "Id";
+        }
+
+        public ItemsDetailRepository(BaseDbContext dbContext) : base(dbContext)
+        {
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Yuebon.Commons.EfDbContext;
 using Yuebon.Commons.Options;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
@@ -14,8 +15,10 @@ namespace Yuebon.Security.Repositories
     {
         public RoleAuthorizeRepository()
         {
-            this.tableName = "Sys_RoleAuthorize";
-            this.primaryKey = "Id";
+        }
+
+        public RoleAuthorizeRepository(BaseDbContext dbContext) : base(dbContext)
+        {
         }
 
         /// <summary>

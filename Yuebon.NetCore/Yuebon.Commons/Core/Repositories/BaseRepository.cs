@@ -7,8 +7,10 @@ using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using Npgsql;
+using NPOI.SS.Formula.Functions;
 using Oracle.ManagedDataAccess.Client;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -73,7 +75,8 @@ namespace Yuebon.Commons.Repositories
         /// <summary>
         /// 需要初始化的对象表名
         /// </summary>
-        protected string tableName;
+        protected string tableName= typeof(T).GetCustomAttribute<TableAttribute>(false)?.Name
+                ?? (typeof(T).GetCustomAttributes(false).FirstOrDefault(attr => attr.GetType().Name == "TableAttribute") as dynamic)?.Name;
         /// <summary>
         /// 数据库参数化访问的占位符
         /// </summary>
@@ -83,9 +86,9 @@ namespace Yuebon.Commons.Repositories
         /// </summary>
         protected string safeFieldFormat = "[{0}]";
         /// <summary>
-        /// 数据库的主键字段名
+        /// 数据库的主键字段名,若主键不是Id请重载BaseRepository设置
         /// </summary>
-        protected string primaryKey;
+        protected string primaryKey="Id";
         /// <summary>
         /// 排序字段
         /// </summary>
@@ -103,7 +106,7 @@ namespace Yuebon.Commons.Repositories
         /// </summary>
         protected bool isMultiTenant = false;
         /// <summary>
-        /// 是否开启多租户
+        /// 租户Id
         /// </summary>
         protected string tenantId = "";
 
@@ -221,14 +224,14 @@ namespace Yuebon.Commons.Repositories
         }
 
         /// <summary>
-        /// 
+        /// 构造方法
         /// </summary>
         public BaseRepository()
         {
         }
 
         /// <summary>
-        /// 指定上下文
+        /// 构造方法，指定上下文
         /// </summary>
         /// <param name="dbContext">上下文</param>
         public BaseRepository(BaseDbContext dbContext)
@@ -238,37 +241,6 @@ namespace Yuebon.Commons.Repositories
             _dbContext.Database.EnsureCreated();
             _dbSet = dbContext.Set<T>();
         }
-        /// <summary>
-        /// 指定数据库连接配置
-        /// </summary>
-        /// <param name="_dbConfigName">数据库连接配置名称</param>
-        public BaseRepository(string _dbConfigName) : this()
-        {
-            SetDbConfigName(_dbConfigName);
-        }
-        /// <summary>
-		/// 指定表名以及主键,对基类进构造
-		/// </summary>
-		/// <param name="_tableName">表名</param>
-		/// <param name="_primaryKey">表主键</param>
-        public BaseRepository(string _tableName, string _primaryKey) : this()
-        {
-            this.tableName = _tableName;
-            this.primaryKey = _primaryKey;
-        }
-        /// <summary>
-		/// 指定数据库连接配置、表名以及主键,对基类进构造
-		/// </summary>
-		/// <param name="_dbConfigName">数据库连接配置名称</param>
-		/// <param name="_tableName">表名</param>
-		/// <param name="_primaryKey">表主键</param>
-        public BaseRepository(string _dbConfigName,string _tableName,string _primaryKey) : this()
-        {
-            SetDbConfigName(_dbConfigName);
-            this.tableName = _tableName;
-            this.primaryKey = _primaryKey;
-        }
-
 
         /// <summary>
         /// 数据库连接,根据数据库类型自动识别，类型区分用配置名称是否包含主要关键字
@@ -335,27 +307,19 @@ namespace Yuebon.Commons.Repositories
         /// 根据id获取一个对象
         /// </summary>
         /// <param name="primaryKey">主键</param>
-        /// <param name="trans">事务</param>
         /// <returns></returns>
-        public virtual T Get(TKey primaryKey, IDbTransaction trans=null)
+        public virtual T Get(TKey primaryKey)
         {
-            using (DbConnection conn = OpenSharedConnection())
-            {
-                return conn.Get<T>(primaryKey, trans);
-            }
+            return _dbContext.Find<T>(primaryKey);
         }
         /// <summary>
         /// 异步根据id获取一个对象
         /// </summary>
         /// <param name="primaryKey">主键</param>
-        /// <param name="trans">事务</param>
         /// <returns></returns>
-        public virtual async Task<T> GetAsync(TKey primaryKey, IDbTransaction trans=null)
+        public virtual async Task<T> GetAsync(TKey primaryKey)
         {
-            using (DbConnection conn = OpenSharedConnection())
-            {
-                return await conn.GetAsync<T>(primaryKey, trans);
-            }
+            return await _dbContext.FindAsync<T>(primaryKey);
         }
 
         /// <summary>
@@ -366,7 +330,6 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual T GetWhere(string where, IDbTransaction trans =null)
         {
-            var type = MethodBase.GetCurrentMethod().DeclaringType;
             if (HasInjectionData(where))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
@@ -409,7 +372,13 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += " where " + where;
             }
-
+            var sb = new StringBuilder("ExecuteTransaction 事务： ");
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+           // _dbContext.FromSqlRaw(sql);
+            stopwatch.Stop();
+            sb.Append("耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
+            Log4NetHelper.Info(sb.ToString());
             using (DbConnection conn = OpenSharedConnection())
             {
                 return await conn.QueryFirstOrDefaultAsync<T>(sql, trans);
@@ -2199,9 +2168,8 @@ namespace Yuebon.Commons.Repositories
         /// 新增
         /// </summary>
         /// <param name="entity"></param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual long InsertEF(T entity, IDbTransaction trans = null)
+        public virtual long InsertEF(T entity)
         {
             if (entity.KeyIsNull())
             {
@@ -2231,27 +2199,6 @@ namespace Yuebon.Commons.Repositories
             int n = Save();
             _dbContext.Entry(entity).State = EntityState.Detached;
             return n;
-        }
-
-        /// <summary>
-        /// 根据id获取一个对象
-        /// </summary>
-        /// <param name="primaryKey">主键</param>
-        /// <param name="trans">事务</param>
-        /// <returns></returns>
-        public virtual T GetEF(TKey primaryKey, IDbTransaction trans = null)
-        {
-          return  _dbContext.Find<T>(primaryKey);
-        }
-        /// <summary>
-        /// 异步根据id获取一个对象
-        /// </summary>
-        /// <param name="primaryKey">主键</param>
-        /// <param name="trans">事务</param>
-        /// <returns></returns>
-        public virtual async Task<T> GetEFAsync(TKey primaryKey, IDbTransaction trans = null)
-        {
-            return await _dbContext.FindAsync<T>(primaryKey);
         }
 
 

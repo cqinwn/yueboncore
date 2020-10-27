@@ -1,5 +1,5 @@
 using System;
-
+using Yuebon.Commons.EfDbContext;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
 using Yuebon.Security.Models;
@@ -13,8 +13,10 @@ namespace Yuebon.Security.Repositories
     {
 		public TaskJobsLogRepository()
         {
-            this.tableName = "Sys_TaskJobsLog";
-            this.primaryKey = "Id";
+        }
+
+        public TaskJobsLogRepository(BaseDbContext dbContext) : base(dbContext)
+        {
         }
     }
 }

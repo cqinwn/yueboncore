@@ -21,32 +21,27 @@ namespace Yuebon.Commons.IServices
         /// 同步查询单个实体。
         /// </summary>
         /// <param name="id">主键</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        T Get(TKey id, IDbTransaction trans = null);
+        T Get(TKey id);
         /// <summary>
         /// 同步查询单个实体。
         /// </summary>
         /// <param name="id">主键</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        TODto GetOutDto(TKey id, IDbTransaction trans = null);
+        TODto GetOutDto(TKey id);
 
         /// <summary>
         /// 异步查询单个实体。
         /// </summary>
         /// <param name="id">主键</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        Task<TODto> GetOutDtoAsync(TKey id, IDbTransaction trans = null);
-
+        Task<TODto> GetOutDtoAsync(TKey id);
         /// <summary>
         /// 异步查询单个实体。
         /// </summary>
         /// <param name="id">主键</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        Task<T> GetAsync(TKey id, IDbTransaction trans = null);
+        Task<T> GetAsync(TKey id);
         /// <summary>
         /// 同步查询单个实体。
         /// </summary>
@@ -500,7 +495,12 @@ namespace Yuebon.Commons.IServices
 
         /// <summary>
         /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
-        /// 查询条件
+        /// </summary>
+        /// <param name="search">查询的条件</param>
+        /// <returns>指定对象的集合</returns>
+        PageResult<TODto> FindWithPager(SearchInputDto<T> search);
+        /// <summary>
+        /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
         /// </summary>
         /// <param name="search">查询的条件</param>
         /// <returns>指定对象的集合</returns>

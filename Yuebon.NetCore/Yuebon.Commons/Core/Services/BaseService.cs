@@ -203,22 +203,20 @@ namespace Yuebon.Commons.Services
         /// 同步查询单个实体。
         /// </summary>
         /// <param name="id">主键</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual T Get(TKey id, IDbTransaction trans = null)
+        public virtual T Get(TKey id)
         {
-            return repository.Get(id, trans);
+            return repository.Get(id);
         }
 
         /// <summary>
         /// 同步查询单个实体。
         /// </summary>
         /// <param name="id">主键</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual TODto GetOutDto(TKey id, IDbTransaction trans = null)
+        public virtual TODto GetOutDto(TKey id)
         {
-            return repository.Get(id, trans).MapTo<TODto>();
+            return repository.Get(id).MapTo<TODto>();
         }
 
         /// <summary>
@@ -313,9 +311,9 @@ namespace Yuebon.Commons.Services
         /// <param name="id">主键</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual async Task<T> GetAsync(TKey id, IDbTransaction trans = null)
+        public virtual async Task<T> GetAsync(TKey id)
         {
-            return await repository.GetAsync(id, trans);
+            return await repository.GetAsync(id);
         }
         /// <summary>
         /// 异步查询单个实体。
@@ -323,9 +321,9 @@ namespace Yuebon.Commons.Services
         /// <param name="id">主键</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual async Task<TODto> GetOutDtoAsync(TKey id, IDbTransaction trans = null)
+        public virtual async Task<TODto> GetOutDtoAsync(TKey id)
         {
-            T info=await repository.GetAsync(id, trans);
+            T info=await repository.GetAsync(id);
             return info.MapTo<TODto>();
         }
         ///<summary>
@@ -707,7 +705,34 @@ namespace Yuebon.Commons.Services
 
         /// <summary>
         /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
-        /// 查询条件
+        /// 查询条件变换时请重写该方法。
+        /// </summary>
+        /// <param name="search">查询的条件</param>
+        /// <returns>指定对象的集合</returns>
+        public virtual PageResult<TODto> FindWithPager(SearchInputDto<T> search)
+        {
+            bool order = search.Order == "asc" ? false : true;
+            string where = GetDataPrivilege();
+            PagerInfo pagerInfo = new PagerInfo
+            {
+                CurrenetPageIndex = search.CurrenetPageIndex,
+                PageSize = search.PageSize
+            };
+            List<T> list =repository.FindWithPager(where, pagerInfo, search.Sort, order);
+            PageResult<TODto> pageResult = new PageResult<TODto>
+            {
+                CurrentPage = pagerInfo.CurrenetPageIndex,
+                Items = list.MapTo<TODto>(),
+                ItemsPerPage = pagerInfo.PageSize,
+                TotalItems = pagerInfo.RecordCount
+            };
+            return pageResult;
+        }
+
+
+        /// <summary>
+        /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
+        /// 查询条件变换时请重写该方法。
         /// </summary>
         /// <param name="search">查询的条件</param>
         /// <returns>指定对象的集合</returns>
@@ -730,7 +755,6 @@ namespace Yuebon.Commons.Services
             };
             return pageResult;
         }
-
 
         /// <summary>
         /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)

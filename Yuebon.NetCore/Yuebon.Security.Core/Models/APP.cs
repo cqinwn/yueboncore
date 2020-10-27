@@ -123,6 +123,7 @@ namespace Yuebon.Security.Models
         /// </summary>
         [Write(false)]
         [Computed]
+        [NotMapped]
         public virtual User UserInfo { get; set; }
         #endregion
 

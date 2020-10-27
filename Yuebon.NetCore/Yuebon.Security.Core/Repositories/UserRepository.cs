@@ -13,6 +13,7 @@ using Dapper.Contrib.Extensions;
 using Yuebon.Security.Dtos;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Yuebon.Commons.EfDbContext;
 
 namespace Yuebon.Security.Repositories
 {
@@ -26,8 +27,10 @@ namespace Yuebon.Security.Repositories
         /// </summary>
         public UserRepository()
         {
-            this.tableName = "Sys_User";
-            this.primaryKey = "Id";
+        }
+
+        public UserRepository(BaseDbContext dbContext) : base(dbContext)
+        {
         }
 
         /// <summary>

@@ -80,21 +80,5 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.DeleteTime = DateTime.Now;
             info.DeleteUserId = CurrentUser.UserId;
         }
-
-
-        /// <summary>
-        /// 异步分页查询
-        /// </summary>
-        /// <param name="search"></param>
-        /// <returns></returns>
-        [HttpGet("FindWithPagerAsync")]
-        [YuebonAuthorize("List")]
-        public override async Task<CommonResult<PageResult<LogOutputDto>>> FindWithPagerAsync([FromQuery]SearchInputDto<Log> search)
-        {
-            CommonResult<PageResult<LogOutputDto>> result = new CommonResult<PageResult<LogOutputDto>>();
-            result.ResData = await iService.FindWithPagerAsync(search);
-            result.ErrCode = ErrCode.successCode;
-            return result;
-        }
     }
 }

@@ -3,18 +3,24 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
+using Yuebon.Commons.EfDbContext;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
 using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Repositories
 {
+    /// <summary>
+    /// 系统类型，也是子系统
+    /// </summary>
     public class SystemTypeRepository : BaseRepository<SystemType, string>, ISystemTypeRepository
     {
         public SystemTypeRepository()
         {
-            this.tableName = "Sys_SystemType";
-            this.primaryKey = "Id";
+        }
+
+        public SystemTypeRepository(BaseDbContext dbContext) : base(dbContext)
+        {
         }
 
         /// <summary>

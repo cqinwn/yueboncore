@@ -93,8 +93,8 @@ export function getMenuAllEnable () {
 export function getFunctionListWithPager (data) {
   return http.request({
     url: 'Function/FindWithPagerAsync',
-    method: 'get',
-    params: data,
+    method: 'post',
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

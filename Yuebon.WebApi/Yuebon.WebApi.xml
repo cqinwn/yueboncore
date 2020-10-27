@@ -1018,26 +1018,6 @@
             设置验证码
             </summary>
         </member>
-        <member name="T:Yuebon.WebApi.Areas.Security.Models.SearchUserModel">
-            <summary>
-            用户搜索条件
-            </summary>
-        </member>
-        <member name="P:Yuebon.WebApi.Areas.Security.Models.SearchUserModel.RoleId">
-            <summary>
-            角色Id
-            </summary>
-        </member>
-        <member name="P:Yuebon.WebApi.Areas.Security.Models.SearchUserModel.CreatorTime1">
-            <summary>
-            注册或添加时间 开始
-            </summary>
-        </member>
-        <member name="P:Yuebon.WebApi.Areas.Security.Models.SearchUserModel.CreatorTime2">
-            <summary>
-            注册或添加时间 结束
-            </summary>
-        </member>
         <member name="T:Yuebon.WebApi.Areas.Weixin.Controllers.WxOpenController">
             <summary>
             微信接口

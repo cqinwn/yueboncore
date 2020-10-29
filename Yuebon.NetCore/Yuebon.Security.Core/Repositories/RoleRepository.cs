@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Yuebon.Commons.EfDbContext;
-using Yuebon.Commons.Options;
+using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
 using Yuebon.Security.Models;
@@ -15,7 +11,7 @@ namespace Yuebon.Security.Repositories
         {
         }
 
-        public RoleRepository(BaseDbContext dbContext) : base(dbContext)
+        public RoleRepository(IDbContextCore dbContext) : base(dbContext)
         {
         }
 

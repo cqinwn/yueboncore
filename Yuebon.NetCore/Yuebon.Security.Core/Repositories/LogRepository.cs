@@ -7,14 +7,18 @@ using System.Data;
 using System.Data.Common;
 using System.Diagnostics;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using Yuebon.Commons.EfDbContext;
+using Yuebon.Commons.IDbContext;
+using Yuebon.Commons.IDbContext;
+using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Options;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
 using Yuebon.Security.Models;
+using Yuebon.Commons.DbContextCore;
 
 namespace Yuebon.Security.Repositories
 {
@@ -29,36 +33,89 @@ namespace Yuebon.Security.Repositories
         public LogRepository()
         {
         }
-
-        public LogRepository(BaseDbContext dbContext) : base(dbContext)
-        {
-        }
-
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="entity"></param>
-        /// <param name="trans"></param>
-        /// <returns></returns>
-        public override long Insert(Log entity, IDbTransaction trans = null)
+        /// <param name="dbContext"></param>
+        public LogRepository(IDbContextCore dbContext) : base(dbContext)
         {
-
-            using (IDbConnection conn = OpenSharedConnection())
-            {
-                return conn.Insert(entity, trans);
-            }
+            this.dbConfigName = "MsSqlServerCode";
         }
-
         /// <summary>
         /// 测试性能，建议删除
         /// </summary>
         /// <param name="len"></param>
         /// <returns></returns>
-        public async Task<long> InsertTset(int len)
+        public long InsertTset(int len)
         {
+           
             int n = 0;
+
+            var sb = new StringBuilder(n + " 条数据插入 ： \n");
             List<Log> logList = new List<Log>();
-            while (n < len)
+
+            Log logEntity1 = new Log()
+            {
+                Id = GuidUtils.GuId(),
+                Date = DateTime.Now,
+                Account = "admin",
+                NickName = "超级管理员",
+                OrganizeId = "2020101619392209546893",
+                Type = "SQL",
+                IPAddress = "171.110.40.191",
+                IPAddressName = "中国广西壮族自治区玉林市",
+                ModuleName = "Log",
+                Result = true,
+                Description = "SQL语句:update Sys_Role set EnabledMark=1 ,LastModifyUserId='2020100517554098226223',LastModifyTime=@LastModifyTime where id in ('2019091721053342871332')",
+                DeleteMark = false,
+                EnabledMark = true,
+                CreatorTime = DateTime.Now,
+                CreatorUserId = "9f2ec079-7d0f-4fe2-90ab-8b09a8302aba"
+            };
+            Log logEntity2 = new Log()
+            {
+                Id = GuidUtils.GuId(),
+                Date = DateTime.Now,
+                Account = "admin",
+                NickName = "超级管理员",
+                OrganizeId = "2020101619392209546893",
+                Type = "SQL",
+                IPAddress = "171.110.40.191",
+                IPAddressName = "中国广西壮族自治区玉林市",
+                ModuleName = "Log",
+                Result = true,
+                Description = "SQL语句:update Sys_Role set EnabledMark=1 ,LastModifyUserId='2020100517554098226223',LastModifyTime=@LastModifyTime where id in ('2019091721053342871332')",
+                DeleteMark = false,
+                EnabledMark = true,
+                CreatorTime = DateTime.Now,
+                CreatorUserId = "9f2ec079-7d0f-4fe2-90ab-8b09a8302aba"
+            };
+            Stopwatch stopwatch = new Stopwatch();
+
+            stopwatch.Start();
+           Insert(logEntity1);
+            stopwatch.Stop();
+            sb.Append("Dapper Insert耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
+            stopwatch.Start();
+           Add(logEntity2);
+            stopwatch.Stop();
+            sb.Append("EF Add耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
+
+            logEntity1.DeleteMark = false;
+            logEntity1.LastModifyTime = DateTime.Now;
+
+            logEntity2.DeleteMark = false;
+            logEntity2.LastModifyTime = DateTime.Now;
+            stopwatch.Start();
+            Update(logEntity1);
+            stopwatch.Stop();
+            sb.Append("Dapper Update耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
+            stopwatch.Start();
+            Edit(logEntity2);
+            stopwatch.Stop();
+            sb.Append("EF Edit耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
+
+            while (n < len.ToInt())
             {
                 Log logEntity = new Log()
                 {
@@ -73,60 +130,53 @@ namespace Yuebon.Security.Repositories
                     ModuleName = "Log",
                     Result = true,
                     Description = "SQL语句:update Sys_Role set EnabledMark=1 ,LastModifyUserId='2020100517554098226223',LastModifyTime=@LastModifyTime where id in ('2019091721053342871332')",
-                    DeleteMark=false,
-                    EnabledMark=true,
+                    DeleteMark = false,
+                    EnabledMark = true,
                     CreatorTime = DateTime.Now,
-                    CreatorUserId= "9f2ec079-7d0f-4fe2-90ab-8b09a8302aba"
+                    CreatorUserId = "9f2ec079-7d0f-4fe2-90ab-8b09a8302aba"
                 };
                 logList.Add(logEntity);
                 n++;
             }
 
-            //string sql = "insert into Sys_Log ([Date], [Account], [NickName], [OrganizeId], [Type], [IPAddress], [IPAddressName], [ModuleId], [ModuleName], [Result], [Description], [DeleteMark], [EnabledMark], [CreatorTime], [CreatorUserId], [LastModifyTime], [LastModifyUserId], [DeleteTime], [DeleteUserId], [Id]) values (@Date, @Account, @NickName, @OrganizeId, @Type, @IPAddress, @IPAddressName, @ModuleId, @ModuleName, @Result, @Description, @DeleteMark, @EnabledMark, @CreatorTime, @CreatorUserId, @LastModifyTime, @LastModifyUserId, @DeleteTime, @DeleteUserId, @Id)";
+            string sql = "insert into Sys_Log ([Date], [Account], [NickName], [OrganizeId], [Type], [IPAddress], [IPAddressName], [ModuleId], [ModuleName], [Result], [Description], [DeleteMark], [EnabledMark], [CreatorTime], [CreatorUserId], [LastModifyTime], [LastModifyUserId], [DeleteTime], [DeleteUserId], [Id]) values (@Date, @Account, @NickName, @OrganizeId, @Type, @IPAddress, @IPAddressName, @ModuleId, @ModuleName, @Result, @Description, @DeleteMark, @EnabledMark, @CreatorTime, @CreatorUserId, @LastModifyTime, @LastModifyUserId, @DeleteTime, @DeleteUserId, @Id)";
 
-            var sb = new StringBuilder(n+" 条数据插入 ： \n");
-            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            _dbContext.BulkInsert<Log>(logList);
+            stopwatch.Stop();
+            sb.Append("EF BulkInsert耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
+
+            stopwatch.Start();
+            _dbContext.EditRange<Log>(logList);
+            stopwatch.Stop();
+            sb.Append("EF EditRange批量耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
+            stopwatch.Start();
+            _dbContext.AddRange<Log>(logList);
+            stopwatch.Stop();
+            sb.Append("EF AddRange批量耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
             using (IDbConnection conn = OpenSharedConnection())
             {
+               
                 stopwatch.Start();
-                await conn.InsertAsync(logList);
+                conn.Insert(logList);
                 stopwatch.Stop();
-                sb.Append("Dapper InsertAsync耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
-                //using (var transaction = conn.BeginTransaction())
-                //{
-                //    stopwatch.Start();
-                //    await conn.InsertAsync(logList, transaction);
-                //    transaction.Commit();
-                //    stopwatch.Stop();
-                //    sb.Append("Dapper InsertAsync 事务提交耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
-                //}
+                sb.Append("Dapper Insert批量耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
 
-                //stopwatch.Start();
-                //await conn.ExecuteAsync(sql, logList);
-                //stopwatch.Stop();
-                //sb.Append("Dapper ExecuteAsync耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
+                stopwatch.Start();
+                conn.Execute(sql, logList);
+                stopwatch.Stop();
+                sb.Append("Dapper ExecuteAsync耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
             }
-            //var param = new List<Tuple<string, object>>();
-            //Tuple<string, object> tupel = new Tuple<string, object>(sql, logList);
-            //param.Add(tupel);
-            //stopwatch.Start();
-            //await ExecuteTransactionAsync(param);
-            //stopwatch.Stop();
-            //sb.Append("Dapper ExecuteTransactionAsync耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
-
-            //stopwatch.Start();
-            //_dbContext.Set<Log>().AddRange(logList);
-            //Save();
-            //stopwatch.Stop();
-            //sb.Append("Ef Core AddRange耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
-            //stopwatch.Start();
-            //_dbContext.Set<Log>().FromSqlRaw(sql,logList);
-            //Save();
-            //stopwatch.Stop();
-            //sb.Append("Ef Core FromSqlRaw耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
+            stopwatch.Start();
+            Get(logEntity1.Id);
+            stopwatch.Stop();
+            sb.Append("Dapper Get耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
+            stopwatch.Start();
+            _dbContext.GetDbSet<Log>().Find(logEntity1.Id);
+            stopwatch.Stop();
+            sb.Append("Ef Core Find耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
             Log4NetHelper.Info(sb.ToString());
-
-            return 100;
+            return 1;
         }
 
         /// <summary>

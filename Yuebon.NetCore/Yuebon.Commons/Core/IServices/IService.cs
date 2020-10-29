@@ -126,8 +126,6 @@ namespace Yuebon.Commons.IServices
         /// <returns></returns>
         Task<IEnumerable<T>> GetListTopWhereAsync(int top, string where = null, IDbTransaction trans = null);
 
-
-
         /// <summary>
         /// 同步新增实体。
         /// </summary>
@@ -150,7 +148,7 @@ namespace Yuebon.Commons.IServices
         /// <param name="entities">实体集合</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        long Insert(List<T> entities, IDbTransaction trans = null);
+        void Insert(List<T> entities);
 
         /// <summary>
         /// 异步批量新增实体。
@@ -158,7 +156,7 @@ namespace Yuebon.Commons.IServices
         /// <param name="entities">实体集合</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        Task<long> InsertAsync(List<T> entities, IDbTransaction trans = null);
+        //Task<long> InsertAsync(List<T> entities, IDbTransaction trans = null);
 
         /// <summary>
         /// 同步更新实体。
@@ -357,8 +355,6 @@ namespace Yuebon.Commons.IServices
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
         Task<bool> DeleteAllAsync(IDbTransaction trans = null);
-
-
 
         /// <summary>
         /// 查询软删除的数据，如果查询条件为空，即查询所有软删除的数据
@@ -565,7 +561,6 @@ namespace Yuebon.Commons.IServices
         /// <param name="condition">查询条件</param>
         /// <returns></returns>
         Task<int> GetCountByWhereAsync(string condition);
-
 
         /// <summary>
         /// 根据条件查询获取某个字段的最大值

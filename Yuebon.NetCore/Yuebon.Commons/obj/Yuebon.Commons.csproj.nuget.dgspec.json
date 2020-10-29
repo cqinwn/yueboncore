@@ -54,6 +54,10 @@
               "target": "Package",
               "version": "[7.0.2, )"
             },
+            "CSRedisCore": {
+              "target": "Package",
+              "version": "[3.6.5, )"
+            },
             "Dapper": {
               "target": "Package",
               "version": "[2.0.35, )"
@@ -64,7 +68,7 @@
             },
             "HtmlAgilityPack": {
               "target": "Package",
-              "version": "[1.11.25, )"
+              "version": "[1.11.26, )"
             },
             "Microsoft.AspNetCore.Mvc": {
               "target": "Package",
@@ -126,6 +130,10 @@
               "target": "Package",
               "version": "[4.1.5, )"
             },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[3.1.4, )"
+            },
             "Oracle.EntityFrameworkCore": {
               "target": "Package",
               "version": "[3.19.80, )"
@@ -157,6 +165,10 @@
             "System.Management": {
               "target": "Package",
               "version": "[4.7.0, )"
+            },
+            "Z.EntityFramework.Plus.EFCore": {
+              "target": "Package",
+              "version": "[3.0.68, )"
             },
             "log4net": {
               "target": "Package",

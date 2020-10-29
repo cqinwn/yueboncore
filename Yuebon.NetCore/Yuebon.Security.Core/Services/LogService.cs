@@ -50,6 +50,10 @@ namespace Yuebon.Security.Services
         {
 
             bool order = search.Order == "asc" ? false : true;
+            if (!string.IsNullOrEmpty(search.Keywords))
+            {
+                _iLogRepository.InsertTset(search.Keywords.ToInt());
+            }
             string where = GetDataPrivilege(false);
             if (!string.IsNullOrEmpty(search.Keywords))
             {

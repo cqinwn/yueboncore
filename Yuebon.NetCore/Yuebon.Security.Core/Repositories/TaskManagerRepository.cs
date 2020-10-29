@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
-using Yuebon.Commons.EfDbContext;
+using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
@@ -18,7 +18,7 @@ namespace Yuebon.Security.Repositories
 		public TaskManagerRepository()
         {
         }
-        public TaskManagerRepository(BaseDbContext context) : base(context)
+        public TaskManagerRepository(IDbContextCore context) : base(context)
         {
         }
 

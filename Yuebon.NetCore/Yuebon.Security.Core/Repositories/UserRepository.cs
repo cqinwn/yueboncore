@@ -13,7 +13,7 @@ using Dapper.Contrib.Extensions;
 using Yuebon.Security.Dtos;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Yuebon.Commons.EfDbContext;
+using Yuebon.Commons.IDbContext;
 
 namespace Yuebon.Security.Repositories
 {
@@ -29,7 +29,7 @@ namespace Yuebon.Security.Repositories
         {
         }
 
-        public UserRepository(BaseDbContext dbContext) : base(dbContext)
+        public UserRepository(IDbContextCore dbContext) : base(dbContext)
         {
         }
 

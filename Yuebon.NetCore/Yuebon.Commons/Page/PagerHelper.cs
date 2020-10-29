@@ -437,6 +437,10 @@ namespace Yuebon.Commons.Pages
         /// <summary>
         /// SQLite数据库
         /// </summary>
-        SQLite
+        SQLite,
+        /// <summary>
+        /// PostgreSQL数据库
+        /// </summary>
+        PostgreSQL
     }
 }

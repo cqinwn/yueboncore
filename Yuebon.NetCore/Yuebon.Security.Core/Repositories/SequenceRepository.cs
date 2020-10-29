@@ -1,5 +1,5 @@
 using System;
-using Yuebon.Commons.EfDbContext;
+using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
 using Yuebon.Security.Models;
@@ -15,7 +15,7 @@ namespace Yuebon.Security.Repositories
         {
         }
 
-        public SequenceRepository(BaseDbContext dbContext) : base(dbContext)
+        public SequenceRepository(IDbContextCore dbContext) : base(dbContext)
         {
         }
     }

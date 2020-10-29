@@ -1,8 +1,6 @@
 using Dapper;
-using System;
 using System.Text;
-using Yuebon.Commons.EfDbContext;
-using Yuebon.Commons.Options;
+using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
 using Yuebon.Security.Models;
@@ -15,7 +13,7 @@ namespace Yuebon.Security.Repositories
         {
         }
 
-        public OrganizeRepository(BaseDbContext dbContext) : base(dbContext)
+        public OrganizeRepository(IDbContextCore dbContext) : base(dbContext)
         {
         }
 

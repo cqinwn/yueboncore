@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Text;
-using Yuebon.Commons.EfDbContext;
+using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
 using Yuebon.Security.Models;
@@ -18,7 +18,7 @@ namespace Yuebon.Security.Repositories
         {
         }
 
-        public UploadFileRepository(BaseDbContext dbContext) : base(dbContext)
+        public UploadFileRepository(IDbContextCore dbContext) : base(dbContext)
         {
         }
 

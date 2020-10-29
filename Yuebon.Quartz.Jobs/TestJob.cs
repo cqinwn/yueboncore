@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Extend;
@@ -57,8 +58,6 @@ namespace Yuebon.Quartz.Jobs
                 var jobId = context.MergedJobDataMap.GetString("OpenJob");
                 //todo:这里可以加入自己的自动任务逻辑
                 Log4NetHelper.Info(DateTime.Now.ToString() + "执行任务");
-
-               iLogService.InsertTset(1000);
 
 
                 stopwatch.Stop();

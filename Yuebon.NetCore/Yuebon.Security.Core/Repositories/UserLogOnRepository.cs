@@ -1,7 +1,7 @@
 using Dapper;
 using System;
 using System.Data;
-using Yuebon.Commons.EfDbContext;
+using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.Options;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
@@ -15,7 +15,7 @@ namespace Yuebon.Security.Repositories
         {
         }
 
-        public UserLogOnRepository(BaseDbContext dbContext) : base(dbContext)
+        public UserLogOnRepository(IDbContextCore dbContext) : base(dbContext)
         {
         }
 

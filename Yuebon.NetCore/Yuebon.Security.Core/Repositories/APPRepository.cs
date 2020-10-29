@@ -1,15 +1,12 @@
 using Dapper;
-using System;
+using System.Collections.Generic;
 using System.Data;
-using Yuebon.Commons.Options;
+using System.Linq;
+using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.Repositories;
+using Yuebon.Security.Dtos;
 using Yuebon.Security.IRepositories;
 using Yuebon.Security.Models;
-using System.Collections.Generic;
-using Yuebon.Security.Dtos;
-using Yuebon.Commons.Extend;
-using System.Linq;
-using Yuebon.Commons.EfDbContext;
 
 namespace Yuebon.Security.Repositories
 {
@@ -22,7 +19,7 @@ namespace Yuebon.Security.Repositories
         {
         }
 
-        public APPRepository(BaseDbContext context) : base(context)
+        public APPRepository(IDbContextCore context) : base(context)
         {
         }
         /// <summary>

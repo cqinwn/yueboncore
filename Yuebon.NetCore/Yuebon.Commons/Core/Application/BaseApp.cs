@@ -262,19 +262,19 @@ namespace Yuebon.Commons.Application
         /// </summary>
         /// <param name="entities">实体集合</param>
         /// <returns></returns>
-        public long Insert(List<T> entities)
-        {
-            return service.Insert(entities, null);
-        }
+        //public long Insert(List<T> entities)
+        //{
+        //    return service.Insert(entities, null);
+        //}
         /// <summary>
         /// 异步批量新增实体。
         /// </summary>
         /// <param name="entities">实体集合</param>
         /// <returns></returns>
-        public Task<long> InsertAsync(List<T> entities)
-        {
-            return service.InsertAsync(entities, null);
-        }
+        //public Task<long> InsertAsync(List<T> entities)
+        //{
+        //    return service.InsertAsync(entities, null);
+        //}
 
         /// <summary>
         /// 同步更新实体。

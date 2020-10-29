@@ -177,13 +177,12 @@ namespace Yuebon.Commons.IoC
         {
             _builder.RegisterInstance(instance).SingleInstance();
         }
-
         /// <summary>
         /// 构建IOC容器，需在各种Register后调用。
         /// </summary>
         public static IServiceProvider Build(IServiceCollection services)
         {
-
+            if (services == null) throw new ArgumentNullException(nameof(services));
             if (_otherAssembly != null)
             {
                 foreach (var item in _otherAssembly)

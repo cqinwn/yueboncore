@@ -1,12 +1,5 @@
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Yuebon.Commons.EfDbContext;
-using Yuebon.Commons.Log;
-using Yuebon.Commons.Options;
+using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
 using Yuebon.Security.Models;
@@ -19,7 +12,7 @@ namespace Yuebon.Security.Repositories
         {
         }
 
-        public ItemsRepository(BaseDbContext dbContext) : base(dbContext)
+        public ItemsRepository(IDbContextCore dbContext) : base(dbContext)
         {
         }
 
@@ -30,7 +23,7 @@ namespace Yuebon.Security.Repositories
         /// <returns></returns>
         public async Task<Items> GetByEnCodAsynce(string enCode)
         {
-            return await _dbContext.Set<Items>().SingleOrDefaultAsync<Items>(u => u.EnCode == enCode);
+            return await _dbContext.GetSingleOrDefaultAsync<Items>(u => u.EnCode == enCode);
         }
     }
 }

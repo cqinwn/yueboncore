@@ -1,8 +1,5 @@
-using System;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Yuebon.Commons.EfDbContext;
 using Yuebon.Commons.Extensions;
-using Yuebon.Commons.Options;
+using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
 using Yuebon.Security.Models;
@@ -15,7 +12,7 @@ namespace Yuebon.Security.Repositories
         {
         }
 
-        public FilterIPRepository(BaseDbContext dbContext) : base(dbContext)
+        public FilterIPRepository(IDbContextCore dbContext) : base(dbContext)
         {
         }
 

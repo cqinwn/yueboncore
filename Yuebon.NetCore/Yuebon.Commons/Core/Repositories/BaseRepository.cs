@@ -19,13 +19,16 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Yuebon.Commons.DbContextCore;
 using Yuebon.Commons.EfDbContext;
 using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Extensions;
+using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.IRepositories;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
@@ -64,9 +67,11 @@ namespace Yuebon.Commons.Repositories
         /// <summary>
         /// 上下文
         /// </summary>
-        protected BaseDbContext _dbContext;
-
-        private DbSet<T> _dbSet;
+        protected  IDbContextCore _dbContext;
+        /// <summary>
+        /// 
+        /// </summary>
+        protected DbSet<T> DbSet => _dbContext.GetDbSet<T>();
 
         /// <summary>
         /// 数据库配置名称
@@ -234,12 +239,11 @@ namespace Yuebon.Commons.Repositories
         /// 构造方法，指定上下文
         /// </summary>
         /// <param name="dbContext">上下文</param>
-        public BaseRepository(BaseDbContext dbContext)
+        public BaseRepository(IDbContextCore dbContext)
         {
             if (dbContext == null) throw new ArgumentNullException(nameof(dbContext));
             _dbContext = dbContext;
-            _dbContext.Database.EnsureCreated();
-            _dbSet = dbContext.Set<T>();
+            _dbContext.EnsureCreated();
         }
 
         /// <summary>
@@ -343,7 +347,7 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += " where " + where;
             }
-            return _dbContext.Set<T>().FromSqlRaw<T>(sql).FirstOrDefault<T>();
+            return _dbContext.GetDbSet<T>().FromSqlRaw<T>(sql).FirstOrDefault<T>();
            
         }
         /// <summary>
@@ -367,7 +371,7 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += " where "+where;
             }
-            return await _dbContext.Set<T>().FromSqlRaw<T>(sql).FirstOrDefaultAsync<T>();
+            return await _dbContext.GetDbSet<T>().FromSqlRaw<T>(sql).FirstOrDefaultAsync<T>();
         }
 
 
@@ -1210,7 +1214,7 @@ namespace Yuebon.Commons.Repositories
                     entity.GenerateDefaultKeyVal();
                 }
                 long row = conn.Insert(entity, trans);
-                OperationLogOfInsert(entity); 
+                //OperationLogOfInsert(entity); 
                 return row;
             }
         }
@@ -1231,7 +1235,7 @@ namespace Yuebon.Commons.Repositories
                     entity.GenerateDefaultKeyVal();
                 }
                 long row = await conn.InsertAsync(entity, trans);
-                OperationLogOfInsert(entity);
+                //OperationLogOfInsert(entity);
                 return row;
             }
         }
@@ -1240,65 +1244,33 @@ namespace Yuebon.Commons.Repositories
         /// 批量插入数据
         /// </summary>
         /// <param name="entities"></param>
-        /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual long Insert(List<T> entities, IDbTransaction trans=null)
+        public virtual void Insert(List<T> entities)
         {
-            using (DbConnection conn = OpenSharedConnection())
-            {
-                try
-                {
-                    foreach (var entity in entities)
-                    {
-                        if (entity.KeyIsNull())
-                        {
-                            entity.GenerateDefaultKeyVal();
-                        }
-                    }
-                    trans = conn.BeginTransaction();
-                    long row = conn.Insert(entities, trans);
-                    trans.Commit();
-                    OperationLogOfInsert(entities);
-                    return row;
-                }
-                catch (Exception)
-                {
-                    trans.Rollback();
-                    throw;
-                }
-            }
-        }
-        /// <summary>
-        /// 异步批量插入数据
-        /// </summary>
-        /// <param name="entities"></param>
-        /// <param name="trans">事务对象</param>
-        /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual async Task<long> InsertAsync(List<T> entities, IDbTransaction trans=null)
-        {
-            using (DbConnection conn = OpenSharedConnection())
-            {
-                trans = conn.BeginTransaction();
-                try
-                {
-                    foreach (var entity in entities)
-                    {
-                        if (entity.KeyIsNull())
-                        {
-                            entity.GenerateDefaultKeyVal();
-                        }
-                    }
-                    long row = await conn.InsertAsync(entities, trans);
-                    trans.Commit();
-                    OperationLogOfInsert(entities);
-                    return row;
-                }
-                catch (Exception)
-                {
-                    trans.Rollback();
-                    throw;
-                }
-            }
+             _dbContext.GetDbSet<T>().BulkInsert(entities);
+            //using (DbConnection conn = OpenSharedConnection())
+            //{
+            //    try
+            //    {
+            //        foreach (var entity in entities)
+            //        {
+            //            if (entity.KeyIsNull())
+            //            {
+            //                entity.GenerateDefaultKeyVal();
+            //            }
+            //        }
+            //        trans = conn.BeginTransaction();
+            //        long row = conn.Insert(entities, trans);
+            //        trans.Commit();
+            //        OperationLogOfInsert(entities);
+            //        return row;
+            //    }
+            //    catch (Exception)
+            //    {
+            //        trans.Rollback();
+            //        throw;
+            //    }
+            //}
         }
         /// <summary>
         /// 更新
@@ -2150,43 +2122,237 @@ namespace Yuebon.Commons.Repositories
 
         #region EF操作
 
+        #region 新增
 
-        /// <summary>
-        /// 新增
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        public virtual long InsertEF(T entity)
+        public virtual int Add(T entity)
         {
-            if (entity.KeyIsNull())
-            {
-                entity.GenerateDefaultKeyVal();
-            }
-            this._dbContext.Add(entity);
+            return _dbContext.Add<T>(entity);
+        }
 
-            OperationLogOfInsert(entity);
-            int n = Save();
-            _dbContext.Entry(entity).State = EntityState.Detached;
-            return n;
+        public virtual async Task<int> AddAsync(T entity)
+        {
+            return await _dbContext.AddAsync(entity);
+        }
+
+        public virtual int AddRange(ICollection<T> entities)
+        {
+            return _dbContext.AddRange(entities);
+        }
+
+        public virtual async Task<int> AddRangeAsync(ICollection<T> entities)
+        {
+            return await _dbContext.AddRangeAsync(entities);
+        }
+
+        public virtual void BulkInsert(IList<T> entities, string destinationTableName = null)
+        {
+            _dbContext.BulkInsert<T>(entities, destinationTableName);
+        }
+
+        public int AddBySql(string sql)
+        {
+            return _dbContext.ExecuteSqlWithNonQuery(sql);
+        }
+
+        #endregion
+
+        #region Update
+
+        public int DeleteBySql(string sql)
+        {
+            return _dbContext.ExecuteSqlWithNonQuery(sql);
+        }
+
+        public virtual int Edit(T entity)
+        {
+            return _dbContext.Edit<T>(entity);
+        }
+
+        public virtual int EditRange(ICollection<T> entities)
+        {
+            return _dbContext.EditRange(entities);
         }
         /// <summary>
-        /// 异步新增
+        /// update query datas by columns.
         /// </summary>
-        /// <param name="entity"></param>
-        /// <param name="trans">事务对象</param>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="where"></param>
+        /// <param name="updateExp"></param>
         /// <returns></returns>
-        public virtual async Task<long> InsertEFAsync(T entity, IDbTransaction trans = null)
+        public virtual int BatchUpdate(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateExp)
         {
-            if (entity.KeyIsNull())
-            {
-                entity.GenerateDefaultKeyVal();
-            }
-            await _dbContext.AddAsync(entity);
-            OperationLogOfInsert(entity);
-            int n = Save();
-            _dbContext.Entry(entity).State = EntityState.Detached;
-            return n;
+            return _dbContext.Update(where, updateExp);
         }
+
+        public virtual async Task<int> BatchUpdateAsync(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateExp)
+        {
+            return await _dbContext.UpdateAsync(@where, updateExp);
+        }
+        public virtual int Update(T model, params string[] updateColumns)
+        {
+            _dbContext.Update(model, updateColumns);
+            return _dbContext.SaveChanges();
+        }
+
+        public virtual int Update(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateFactory)
+        {
+            return _dbContext.Update(where, updateFactory);
+        }
+
+        public virtual async Task<int> UpdateAsync(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateFactory)
+        {
+            return await _dbContext.UpdateAsync(where, updateFactory);
+        }
+
+        public int UpdateBySql(string sql)
+        {
+            return _dbContext.ExecuteSqlWithNonQuery(sql);
+        }
+
+        #endregion
+
+        #region Delete
+
+        public virtual int Delete(TKey key)
+        {
+            return _dbContext.Delete<T, TKey>(key);
+        }
+
+        public virtual int Delete(Expression<Func<T, bool>> @where)
+        {
+            return _dbContext.Delete(where);
+        }
+
+        public virtual async Task<int> DeleteAsync(Expression<Func<T, bool>> @where)
+        {
+            return await _dbContext.DeleteAsync(where);
+        }
+
+
+        #endregion
+
+        #region Query
+
+        public virtual int Count(Expression<Func<T, bool>> @where = null)
+        {
+            return _dbContext.Count(where);
+        }
+
+        public virtual async Task<int> CountAsync(Expression<Func<T, bool>> @where = null)
+        {
+            return await _dbContext.CountAsync(where);
+        }
+
+
+        public virtual bool Exist(Expression<Func<T, bool>> @where = null)
+        {
+            return _dbContext.Exist(where);
+        }
+
+        public virtual async Task<bool> ExistAsync(Expression<Func<T, bool>> @where = null)
+        {
+            return await _dbContext.ExistAsync(where);
+        }
+
+        /// <summary>
+        /// 根据主键获取实体。建议：如需使用Include和ThenInclude请重载此方法。
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public virtual T GetSingle(TKey key)
+        {
+            return _dbContext.Find<T, TKey>(key);
+        }
+
+        //public T GetSingle(TKey key, Func<IQueryable<T>, IQueryable<T>> includeFunc)
+        //{
+        //    if (includeFunc == null) return GetSingle(key);
+        //    return includeFunc(DbSet.Where(m => m.Id.Equal(key))).AsNoTracking().FirstOrDefault();
+        //}
+
+        /// <summary>
+        /// 根据主键获取实体。建议：如需使用Include和ThenInclude请重载此方法。
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public virtual async Task<T> GetSingleAsync(TKey key)
+        {
+            return await _dbContext.FindAsync<T, TKey>(key);
+        }
+
+        /// <summary>
+        /// 获取单个实体。建议：如需使用Include和ThenInclude请重载此方法。
+        /// </summary>
+        public virtual T GetSingleOrDefault(Expression<Func<T, bool>> @where = null)
+        {
+            return _dbContext.GetSingleOrDefault(@where);
+        }
+
+        /// <summary>
+        /// 获取单个实体。建议：如需使用Include和ThenInclude请重载此方法。
+        /// </summary>
+        public virtual async Task<T> GetSingleOrDefaultAsync(Expression<Func<T, bool>> @where = null)
+        {
+            return await _dbContext.GetSingleOrDefaultAsync(where);
+        }
+
+        /// <summary>
+        /// 获取实体列表。建议：如需使用Include和ThenInclude请重载此方法。
+        /// </summary>
+        public virtual IList<T> Get(Expression<Func<T, bool>> @where = null)
+        {
+            return _dbContext.GetByCompileQuery(where);
+        }
+
+        /// <summary>
+        /// 获取实体列表。建议：如需使用Include和ThenInclude请重载此方法。
+        /// </summary>
+        public virtual async Task<List<T>> GetAsync(Expression<Func<T, bool>> @where = null)
+        {
+            return await _dbContext.GetByCompileQueryAsync(where);
+        }
+
+        /// <summary>
+        /// 分页获取实体列表。建议：如需使用Include和ThenInclude请重载此方法。
+        /// </summary>
+        public virtual IEnumerable<T> GetByPagination(Expression<Func<T, bool>> @where, int pageSize, int pageIndex, bool asc = true, params Expression<Func<T, object>>[] @orderby)
+        {
+            var filter = _dbContext.Get(where);
+            if (orderby != null)
+            {
+                foreach (var func in orderby)
+                {
+                    filter = asc ? filter.OrderBy(func).AsQueryable() : filter.OrderByDescending(func).AsQueryable();
+                }
+            }
+            return filter.Skip(pageSize * (pageIndex - 1)).Take(pageSize);
+        }
+
+        public List<T> GetBySql(string sql)
+        {
+            return _dbContext.SqlQuery<T, T>(sql);
+        }
+
+        public List<TView> GetViews<TView>(string sql)
+        {
+            var list = _dbContext.SqlQuery<T, TView>(sql);
+            return list;
+        }
+
+        public List<TView> GetViews<TView>(string viewName, Func<TView, bool> @where)
+        {
+            var list = _dbContext.SqlQuery<T, TView>($"select * from {viewName}");
+            if (where != null)
+            {
+                return list.Where(where).ToList();
+            }
+
+            return list;
+        }
+
+        #endregion
+
+
 
 
         /// <summary>
@@ -2197,10 +2363,6 @@ namespace Yuebon.Commons.Repositories
         {
             try
             {
-                var entities = _dbContext.ChangeTracker.Entries()
-                    .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified)
-                    .Select(e => e.Entity);
-
                 //foreach (var entity in entities)
                 //{
                 //    var validationContext = new ValidationContext(entity);
@@ -2515,10 +2677,11 @@ namespace Yuebon.Commons.Repositories
         {
             // 请勿更改此代码。将清理代码放入以上 Dispose(bool disposing) 中。
             Dispose(true);
+
+            _dbContext?.Dispose();
             // TODO: 如果在以上内容中替代了终结器，则取消注释以下行。
             // GC.SuppressFinalize(this);
         }
-
         #endregion
     }
 }

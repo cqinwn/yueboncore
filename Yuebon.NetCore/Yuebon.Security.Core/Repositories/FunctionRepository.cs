@@ -2,7 +2,8 @@ using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using Yuebon.Commons.EfDbContext;
+using Yuebon.Commons.IDbContext;
+using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.Options;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
@@ -16,7 +17,7 @@ namespace Yuebon.Security.Repositories
         {
         }
 
-        public FunctionRepository(BaseDbContext dbContext) : base(dbContext)
+        public FunctionRepository(IDbContextCore dbContext) : base(dbContext)
         {
         }
 

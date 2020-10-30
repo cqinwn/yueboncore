@@ -62,13 +62,16 @@ namespace Yuebon.Commons.CodeGenerator
                 List<DbFieldInfo> listField = mssqlExtractor.GetAllColumns(dbTableInfo.TableName);
                 GenerateSingle(listField, dbTableInfo, ifExsitedCovered);
 
-                string tableName = dbTableInfo.TableName.Substring(0,1).ToUpper() + dbTableInfo.TableName.Substring(1);// System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(dbTableInfo.TableName);
-                string[] rel = _option.ReplaceTableNameStr.Split(';');
-                for (int i = 0; i < rel.Length; i++)
+                string tableName = dbTableInfo.TableName.Substring(0,1).ToUpper() + dbTableInfo.TableName.Substring(1);// 
+                if (!string.IsNullOrEmpty(_option.ReplaceTableNameStr))
                 {
-                    if (!string.IsNullOrEmpty(rel[i].ToString()))
+                    string[] rel = _option.ReplaceTableNameStr.Split(';');
+                    for (int i = 0; i < rel.Length; i++)
                     {
-                        tableName = tableName.Replace(rel[i].ToString(), "");
+                        if (!string.IsNullOrEmpty(rel[i].ToString()))
+                        {
+                            tableName = tableName.Replace(rel[i].ToString(), "");
+                        }
                     }
                 }
                 profileContent += string.Format("           CreateMap<{0}, {0}OutputDto>();\n", tableName);

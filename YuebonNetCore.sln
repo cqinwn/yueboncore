@@ -11,15 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.AspNetCore", "Yuebon
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.UEditorNetCore", "Yuebon.NetCore\Yuebon.UEditorNetCore\Yuebon.UEditorNetCore.csproj", "{B5BAFC71-24B8-4C19-A243-B301344EE669}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.CMS.Core", "Yuebon.Cms.Core\Yuebon.CMS.Core.csproj", "{3C119187-DCBA-4C39-9A09-38059ADEFD70}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.Messages.Core", "Yuebon.Messages\Yuebon.Messages.Core\Yuebon.Messages.Core.csproj", "{B0290EA2-C5AB-4AB8-883B-4423DCEBC01E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.WeChat.Core", "Yuebon.WeChat.Core\Yuebon.WeChat.Core.csproj", "{CCF54E71-A953-4874-87C5-75478242C00D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.WebApi", "Yuebon.WebApi\Yuebon.WebApi.csproj", "{64C6211F-C371-471F-A3B6-9F6258621AE4}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.Authorizer", "Yuebon.Authorizer\Yuebon.Authorizer.csproj", "{7E43D172-58A9-4F0E-BBF6-7AA16B3D2D6F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.Quartz.Jobs", "Yuebon.Quartz.Jobs\Yuebon.Quartz.Jobs.csproj", "{ECFAA586-2375-43F9-A86A-E6AE027C3202}"
 EndProject
@@ -29,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.SMS.Core", "Yuebon.S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.Tenants.Core", "Yuebon.Tenants.Core\Yuebon.Tenants.Core.csproj", "{A99022D9-5450-446E-86FD-0A11C16B2BBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yuebon.UnitTest", "Yuebon.UnitTest\Yuebon.UnitTest.csproj", "{9A2C45BB-39FA-4D86-948E-7AF2FF686984}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.UnitTest", "Yuebon.UnitTest\Yuebon.UnitTest.csproj", "{9A2C45BB-39FA-4D86-948E-7AF2FF686984}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,10 +49,6 @@ Global
 		{B5BAFC71-24B8-4C19-A243-B301344EE669}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5BAFC71-24B8-4C19-A243-B301344EE669}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5BAFC71-24B8-4C19-A243-B301344EE669}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3C119187-DCBA-4C39-9A09-38059ADEFD70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3C119187-DCBA-4C39-9A09-38059ADEFD70}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3C119187-DCBA-4C39-9A09-38059ADEFD70}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3C119187-DCBA-4C39-9A09-38059ADEFD70}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B0290EA2-C5AB-4AB8-883B-4423DCEBC01E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B0290EA2-C5AB-4AB8-883B-4423DCEBC01E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0290EA2-C5AB-4AB8-883B-4423DCEBC01E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -69,10 +61,6 @@ Global
 		{64C6211F-C371-471F-A3B6-9F6258621AE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64C6211F-C371-471F-A3B6-9F6258621AE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64C6211F-C371-471F-A3B6-9F6258621AE4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7E43D172-58A9-4F0E-BBF6-7AA16B3D2D6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7E43D172-58A9-4F0E-BBF6-7AA16B3D2D6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7E43D172-58A9-4F0E-BBF6-7AA16B3D2D6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7E43D172-58A9-4F0E-BBF6-7AA16B3D2D6F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ECFAA586-2375-43F9-A86A-E6AE027C3202}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ECFAA586-2375-43F9-A86A-E6AE027C3202}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECFAA586-2375-43F9-A86A-E6AE027C3202}.Release|Any CPU.ActiveCfg = Release|Any CPU

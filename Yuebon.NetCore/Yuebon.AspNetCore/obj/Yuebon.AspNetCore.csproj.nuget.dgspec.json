@@ -261,10 +261,6 @@
               "target": "Package",
               "version": "[4.7.0, )"
             },
-            "Z.EntityFramework.Plus.EFCore": {
-              "target": "Package",
-              "version": "[3.0.68, )"
-            },
             "log4net": {
               "target": "Package",
               "version": "[2.0.12, )"

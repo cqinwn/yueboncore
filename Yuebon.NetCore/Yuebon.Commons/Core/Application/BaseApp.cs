@@ -87,19 +87,19 @@ namespace Yuebon.Commons.Application
         /// 同步物理删除所有实体。
         /// </summary>
         /// <returns></returns>
-        public bool DeleteAll()
-        {
-            return service.DeleteAll(null);
-        }
+        //public bool DeleteAll()
+        //{
+        //    return service.DeleteAll(null);
+        //}
 
         /// <summary>
         /// 异步物理删除所有实体。
         /// </summary>
         /// <returns></returns>
-        public Task<bool> DeleteAllAsync()
-        {
-            return service.DeleteAllAsync(null);
-        }
+        //public Task<bool> DeleteAllAsync()
+        //{
+        //    return service.DeleteAllAsync(null);
+        //}
 
         /// <summary>
         /// 异步物理删除实体。

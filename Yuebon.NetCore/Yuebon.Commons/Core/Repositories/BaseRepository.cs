@@ -1,16 +1,11 @@
 ﻿using Dapper;
-using Dapper.Contrib.Extensions;
-using Microsoft.AspNetCore.Http;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using Npgsql;
-using NPOI.SS.Formula.Functions;
 using Oracle.ManagedDataAccess.Client;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -24,8 +19,8 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Yuebon.Commons.DbContextCore;
-using Yuebon.Commons.EfDbContext;
+using Yuebon.Commons.Core.DataManager;
+using Yuebon.Commons.Dapper;
 using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.IDbContext;
@@ -65,9 +60,9 @@ namespace Yuebon.Commons.Repositories
         /// </summary>
         public DbConnection dbConnection;
         /// <summary>
-        /// 上下文
+        ///  EF DBContext
         /// </summary>
-        protected  IDbContextCore _dbContext;
+        private IDbContextCore _dbContext;
         /// <summary>
         /// 
         /// </summary>
@@ -80,8 +75,7 @@ namespace Yuebon.Commons.Repositories
         /// <summary>
         /// 需要初始化的对象表名
         /// </summary>
-        protected string tableName= typeof(T).GetCustomAttribute<TableAttribute>(false)?.Name
-                ?? (typeof(T).GetCustomAttributes(false).FirstOrDefault(attr => attr.GetType().Name == "TableAttribute") as dynamic)?.Name;
+        protected string tableName= typeof(T).GetCustomAttribute<TableAttribute>(false)?.Name;
         /// <summary>
         /// 数据库参数化访问的占位符
         /// </summary>
@@ -246,6 +240,25 @@ namespace Yuebon.Commons.Repositories
             _dbContext.EnsureCreated();
         }
 
+        private IDbContextCore EFContext
+        {
+            get
+            {
+                DBServerProvider.GetDbContextConnection<T>(_dbContext);
+                return _dbContext;
+            }
+        }
+        public virtual IDbContextCore DbContext
+        {
+            get { return _dbContext; }
+        }
+        /// <summary>
+        /// Dapper数据库
+        /// </summary>
+        public ISqlDapper DapperContext
+        {
+            get { return DBServerProvider.GetSqlDapper<T>(); }
+        }
         /// <summary>
         /// 数据库连接,根据数据库类型自动识别，类型区分用配置名称是否包含主要关键字
         /// MSSQL、MYSQL、ORACLE、SQLITE、MEMORY、NPGSQL
@@ -253,55 +266,56 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public DbConnection OpenSharedConnection()
         {
-            string conStringEncrypt = Configs.GetConfigurationValue("AppSetting", "ConStringEncrypt");
-            this.isMultiTenant = Configs.GetConfigurationValue("AppSetting", "IsMultiTenant").ToBool();
-            if (string.IsNullOrEmpty(dbConfigName))
-            {
-                dbConfigName= Configs.GetConfigurationValue("AppSetting", "DefaultDataBase");
-            }
-            // 数据库连接配置
-            string defaultSqlConnectionString = Configs.GetConnectionString(dbConfigName);
-            if (IsMultiTenant)
-            {
-                defaultSqlConnectionString= Configs.GetConnectionString(dbConfigName);
-            }
-            if (conStringEncrypt == "true")
-            {
-                defaultSqlConnectionString = DEncrypt.Decrypt(defaultSqlConnectionString);
-            }
-            string dbType = dbConfigName.ToUpper();
-            if (dbType.Contains("MSSQL"))
-            {
-                dbConnection = new SqlConnection(defaultSqlConnectionString);
-            }
-            else if (dbType.Contains("MYSQL"))
-            {
-                dbConnection = new MySqlConnection(defaultSqlConnectionString);
-            }
-            else if (dbType.Contains("ORACLE"))
-            {
-                dbConnection = new OracleConnection(defaultSqlConnectionString);
-            }
-            else if (dbType.Contains("SQLITE"))
-            {
-                dbConnection = new SqliteConnection(defaultSqlConnectionString);
-            }
-            else if (dbType.Contains("MEMORY"))
-            {
-                throw new NotSupportedException("In Memory Dapper Database Provider is not yet available.");
-            }
-            else if (dbType.Contains("NPGSQL"))
-            {
-                dbConnection = new NpgsqlConnection(defaultSqlConnectionString);
-            }
-            else
-            {
-                throw new NotSupportedException("The database is not supported");
-            }
-            if (dbConnection.State != ConnectionState.Open)
-            {
-                dbConnection.Open();
-            }
+            //string conStringEncrypt = Configs.GetConfigurationValue("AppSetting", "ConStringEncrypt");
+            //this.isMultiTenant = Configs.GetConfigurationValue("AppSetting", "IsMultiTenant").ToBool();
+            //if (string.IsNullOrEmpty(dbConfigName))
+            //{
+            //    dbConfigName= Configs.GetConfigurationValue("AppSetting", "DefaultDataBase");
+            //}
+            //// 数据库连接配置
+            //string defaultSqlConnectionString = Configs.GetConnectionString(dbConfigName);
+            //if (IsMultiTenant)
+            //{
+            //    defaultSqlConnectionString= Configs.GetConnectionString(dbConfigName);
+            //}
+            //if (conStringEncrypt == "true")
+            //{
+            //    defaultSqlConnectionString = DEncrypt.Decrypt(defaultSqlConnectionString);
+            //}
+            //string dbType = dbConfigName.ToUpper();
+            //if (dbType.Contains("MSSQL"))
+            //{
+            //    dbConnection = new SqlConnection(defaultSqlConnectionString);
+            //}
+            //else if (dbType.Contains("MYSQL"))
+            //{
+            //    dbConnection = new MySqlConnection(defaultSqlConnectionString);
+            //}
+            //else if (dbType.Contains("ORACLE"))
+            //{
+            //    dbConnection = new OracleConnection(defaultSqlConnectionString);
+            //}
+            //else if (dbType.Contains("SQLITE"))
+            //{
+            //    dbConnection = new SqliteConnection(defaultSqlConnectionString);
+            //}
+            //else if (dbType.Contains("MEMORY"))
+            //{
+            //    throw new NotSupportedException("In Memory Dapper Database Provider is not yet available.");
+            //}
+            //else if (dbType.Contains("NPGSQL"))
+            //{
+            //    dbConnection = new NpgsqlConnection(defaultSqlConnectionString);
+            //}
+            //else
+            //{
+            //    throw new NotSupportedException("The database is not supported");
+            //}
+            //if (dbConnection.State != ConnectionState.Open)
+            //{
+            //    dbConnection.Open();
+            //}
+            dbConnection= DBServerProvider.GetDBConnection();
             return dbConnection;
         }
         #endregion
@@ -401,10 +415,11 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual IEnumerable<T> GetAll(IDbTransaction trans=null)
         {
-            using (DbConnection conn = OpenSharedConnection())
-            {
-                return conn.GetAll<T>(trans);
-            }
+            return GetListWhere();
+            //using (DbConnection conn = OpenSharedConnection())
+            //{
+            //    return conn.GetAll<T>(trans);
+            //}
         }
         /// <summary>
         /// 获取所有数据，谨慎使用
@@ -413,10 +428,11 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual async Task<IEnumerable<T>> GetAllAsync( IDbTransaction trans=null)
         {
-            using (DbConnection conn = OpenSharedConnection())
-            {
-                return await conn.GetAllAsync<T>(trans);
-            }
+            return await GetListWhereAsync();
+            //using (DbConnection conn = OpenSharedConnection())
+            //{
+            //    return await conn.GetAllAsync<T>(trans);
+            //}
         }
 
 
@@ -443,10 +459,7 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += " where " + where;
             }
-            return Execute((conn, trans) =>
-            {
-                return conn.Query<T>(sql, trans);
-            });
+            return _dbContext.GetDbSet<T>().FromSqlRaw<T>(sql, trans);
         }
 
         /// <summary>
@@ -472,10 +485,8 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += " where " + where;
             }
-            return Execute((conn, trans) =>
-            {
-                return conn.Query<T>(sql, trans);
-            });
+
+            return _dbContext.GetDbSet<T>().FromSqlRaw<T>(sql, trans);
         }
 
         /// <summary>
@@ -1207,16 +1218,20 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual long Insert(T entity, IDbTransaction trans=null)
         {
-            using (DbConnection conn = OpenSharedConnection())
+            if (entity.KeyIsNull())
             {
-                if (entity.KeyIsNull())
-                {
-                    entity.GenerateDefaultKeyVal();
-                }
-                long row = conn.Insert(entity, trans);
-                //OperationLogOfInsert(entity); 
-                return row;
+                entity.GenerateDefaultKeyVal();
             }
+            return DapperContext.Add<T>(entity);
+            //return _dbContext.Add<T>(entity);
+            //using (DbConnection conn = OpenSharedConnection())
+            //{
+                
+            //    long row = conn.
+            //        (entity, trans);
+            //    //OperationLogOfInsert(entity); 
+            //    return row;
+            //}
         }
 
 
@@ -1228,16 +1243,21 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual async Task<long> InsertAsync(T entity, IDbTransaction trans=null)
         {
-            using (DbConnection conn = OpenSharedConnection())
+            if (entity.KeyIsNull())
             {
-                if (entity.KeyIsNull())
-                {
-                    entity.GenerateDefaultKeyVal();
-                }
-                long row = await conn.InsertAsync(entity, trans);
-                //OperationLogOfInsert(entity);
-                return row;
+                entity.GenerateDefaultKeyVal();
             }
+            return await _dbContext.AddAsync<T>(entity);
+            //using (DbConnection conn = OpenSharedConnection())
+            //{
+            //    if (entity.KeyIsNull())
+            //    {
+            //        entity.GenerateDefaultKeyVal();
+            //    }
+            //    long row = await conn.InsertAsync(entity, trans);
+            //    //OperationLogOfInsert(entity);
+            //    return row;
+            //}
         }
         
         /// <summary>
@@ -1247,30 +1267,7 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual void Insert(List<T> entities)
         {
-             _dbContext.GetDbSet<T>().BulkInsert(entities);
-            //using (DbConnection conn = OpenSharedConnection())
-            //{
-            //    try
-            //    {
-            //        foreach (var entity in entities)
-            //        {
-            //            if (entity.KeyIsNull())
-            //            {
-            //                entity.GenerateDefaultKeyVal();
-            //            }
-            //        }
-            //        trans = conn.BeginTransaction();
-            //        long row = conn.Insert(entities, trans);
-            //        trans.Commit();
-            //        OperationLogOfInsert(entities);
-            //        return row;
-            //    }
-            //    catch (Exception)
-            //    {
-            //        trans.Rollback();
-            //        throw;
-            //    }
-            //}
+             _dbContext.BulkInsert<T>(entities);
         }
         /// <summary>
         /// 更新
@@ -1281,15 +1278,15 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual bool Update(T entity, TKey primaryKey, IDbTransaction trans=null)
         {
-            //_dbContext.Update(entity);
+           return _dbContext.Update<T>(entity)>0;
             //OperationLogOfUpdate(entity, primaryKey);
             //int n = Save();
             //return n>0;
-            using (DbConnection conn = OpenSharedConnection())
-            {
-                OperationLogOfUpdate(entity);
-                return conn.Update(entity, trans);
-            }
+            //using (DbConnection conn = OpenSharedConnection())
+            //{
+            //    OperationLogOfUpdate(entity);
+            //    return conn.Update(entity, trans);
+            //}
         }
         /// <summary>
         /// 更新
@@ -1299,15 +1296,15 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual bool Update(T entity, IDbTransaction trans = null)
         {
-            //_dbContext.Update(entity);
+            return _dbContext.Update(entity)>0;
             //OperationLogOfUpdate(entity);
             //int n = Save();
             //return n > 0;
-            using (DbConnection conn = OpenSharedConnection())
-            {
-                OperationLogOfUpdate(entity);
-                return conn.Update(entity, trans);
-            }
+            //using (DbConnection conn = OpenSharedConnection())
+            //{
+            //    OperationLogOfUpdate(entity);
+            //    return conn.Update(entity, trans);
+            //}
         }
         /// <summary>
         /// 
@@ -1318,15 +1315,15 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual async Task<bool> UpdateAsync(T entity, TKey primaryKey, IDbTransaction trans=null)
         {
-            //_dbContext.Update(entity);
+          return   _dbContext.Update(entity)>0;
             //OperationLogOfUpdate(entity);
             //int n = Save();
             //return n > 0;
-            using (DbConnection conn = OpenSharedConnection())
-            {
-                OperationLogOfUpdate(entity);
-                return await  conn.UpdateAsync(entity, trans);
-            }
+            //using (DbConnection conn = OpenSharedConnection())
+            //{
+            //    OperationLogOfUpdate(entity);
+            //    return await  conn.UpdateAsync(entity, trans);
+            //}
         }
         /// <summary>
         /// 批量更新数据
@@ -1336,22 +1333,23 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual bool Update(List<T> entities, IDbTransaction trans=null)
         {
-            using (DbConnection conn = OpenSharedConnection())
-            {
-                try
-                {
-                    trans = conn.BeginTransaction();
-                    bool bl=conn.Update(entities, trans);
-                    trans.Commit();
-                    OperationLogOfUpdate(entities);
-                    return bl;
-                }
-                catch (Exception)
-                {
-                    trans.Rollback();
-                    throw;
-                }
-            }
+            return _dbContext.EditRange<T>(entities)>0;
+            //using (DbConnection conn = OpenSharedConnection())
+            //{
+            //    try
+            //    {
+            //        trans = conn.BeginTransaction();
+            //        bool bl=conn.Update(entities, trans);
+            //        trans.Commit();
+            //        OperationLogOfUpdate(entities);
+            //        return bl;
+            //    }
+            //    catch (Exception)
+            //    {
+            //        trans.Rollback();
+            //        throw;
+            //    }
+            //}
         }
         /// <summary>
         /// 异步批量更新数据
@@ -1361,47 +1359,49 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual async Task<bool> UpdateAsync(List<T> entities,IDbTransaction trans=null)
         {
-            using (DbConnection conn =OpenSharedConnection())
-            {
-                trans = conn.BeginTransaction();
-                try
-                {
-                    bool isSuccess = await conn.UpdateAsync(entities, trans);
-                    trans.Commit();
-                    OperationLogOfUpdate(entities);
-                    return isSuccess;
-                }
-                catch (Exception)
-                {
-                    trans.Rollback();
-                    throw;
-                }
-            }
+            return _dbContext.EditRange<T>(entities) > 0;
+            //using (DbConnection conn =OpenSharedConnection())
+            //{
+            //    trans = conn.BeginTransaction();
+            //    try
+            //    {
+            //        bool isSuccess = await conn.UpdateAsync(entities, trans);
+            //        trans.Commit();
+            //        OperationLogOfUpdate(entities);
+            //        return isSuccess;
+            //    }
+            //    catch (Exception)
+            //    {
+            //        trans.Rollback();
+            //        throw;
+            //    }
+            //}
         }
 
         /// <summary>
         /// 同步物理删除实体。
         /// </summary>
         /// <param name="entity">实体</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual bool Delete(T entity, IDbTransaction trans = null)
+        public virtual bool Delete(T entity)
         {
-            using (DbConnection conn = OpenSharedConnection())
-            {
-                trans = conn.BeginTransaction();
-                try
-                {
-                    bool isSuccess =  conn.Delete<T>(entity, trans);
-                    trans.Commit();
-                    return isSuccess;
-                }
-                catch (Exception)
-                {
-                    trans.Rollback();
-                    throw;
-                }
-            }
+            _dbContext.GetDbSet<T>().Remove(entity);
+            return _dbContext.SaveChanges()>0;
+            //using (DbConnection conn = OpenSharedConnection())
+            //{
+            //    trans = conn.BeginTransaction();
+            //    try
+            //    {
+            //        bool isSuccess =  conn.Delete<T>(entity, trans);
+            //        trans.Commit();
+            //        return isSuccess;
+            //    }
+            //    catch (Exception)
+            //    {
+            //        trans.Rollback();
+            //        throw;
+            //    }
+            //}
         }
 
         /// <summary>
@@ -1412,47 +1412,25 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual async Task<bool> DeleteAsync(T entity, IDbTransaction trans = null)
         {
-            using (DbConnection conn = OpenSharedConnection())
-            {
-                trans = conn.BeginTransaction();
-                try
-                {
-                    bool isSuccess = await conn.DeleteAsync<T>(entity, trans);
-                    trans.Commit();
-                    return isSuccess;
-                }
-                catch (Exception)
-                {
-                    trans.Rollback();
-                    throw;
-                }
-            }
+            _dbContext.GetDbSet<T>().Remove(entity);
+            return _dbContext.SaveChanges() > 0;
+            //using (DbConnection conn = OpenSharedConnection())
+            //{
+            //    trans = conn.BeginTransaction();
+            //    try
+            //    {
+            //        bool isSuccess = await conn.DeleteAsync<T>(entity, trans);
+            //        trans.Commit();
+            //        return isSuccess;
+            //    }
+            //    catch (Exception)
+            //    {
+            //        trans.Rollback();
+            //        throw;
+            //    }
+            //}
         }
 
-        /// <summary>
-        /// 物理删除所有数据
-        /// </summary>
-        /// <param name="trans">事务对象</param>
-        /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual bool DeleteAll(IDbTransaction trans=null)
-        {
-            using (DbConnection conn =OpenSharedConnection())
-            {
-                return conn.DeleteAll<T>(trans);
-            }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="trans">事务对象</param>
-        /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual async Task<bool> DeleteAllAsync(IDbTransaction trans=null)
-        {
-            using (DbConnection conn =OpenSharedConnection())
-            {
-                return await conn.DeleteAllAsync<T>(trans);
-            }
-        }
         /// <summary>
         /// 物理删除信息
         /// </summary>
@@ -2123,32 +2101,56 @@ namespace Yuebon.Commons.Repositories
         #region EF操作
 
         #region 新增
-
+        /// <summary>
+        /// 新增实体
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public virtual int Add(T entity)
         {
-            return _dbContext.Add<T>(entity);
+            return DbContext.Add<T>(entity);
         }
-
+        /// <summary>
+        /// 新增实体
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public virtual async Task<int> AddAsync(T entity)
         {
             return await _dbContext.AddAsync(entity);
         }
-
+        /// <summary>
+        /// 批量新增实体，数量量较多是推荐使用BulkInsert()
+        /// </summary>
+        /// <param name="entities"></param>
+        /// <returns></returns>
         public virtual int AddRange(ICollection<T> entities)
         {
             return _dbContext.AddRange(entities);
         }
-
+        /// <summary>
+        /// 批量新增实体，数量量较多是推荐使用BulkInsert()
+        /// </summary>
+        /// <param name="entities"></param>
+        /// <returns></returns>
         public virtual async Task<int> AddRangeAsync(ICollection<T> entities)
         {
             return await _dbContext.AddRangeAsync(entities);
         }
-
+        /// <summary>
+        /// 批量新增SqlBulk方式，效率最高
+        /// </summary>
+        /// <param name="entities">数据实体集合</param>
+        /// <param name="destinationTableName">数据库表名称，默认为实体名称</param>
         public virtual void BulkInsert(IList<T> entities, string destinationTableName = null)
         {
             _dbContext.BulkInsert<T>(entities, destinationTableName);
         }
-
+        /// <summary>
+        /// 执行新增的sql语句
+        /// </summary>
+        /// <param name="sql">新增Sql语句</param>
+        /// <returns></returns>
         public int AddBySql(string sql)
         {
             return _dbContext.ExecuteSqlWithNonQuery(sql);
@@ -2158,52 +2160,81 @@ namespace Yuebon.Commons.Repositories
 
         #region Update
 
-        public int DeleteBySql(string sql)
-        {
-            return _dbContext.ExecuteSqlWithNonQuery(sql);
-        }
-
+        /// <summary>
+        /// 更新数据实体
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public virtual int Edit(T entity)
         {
             return _dbContext.Edit<T>(entity);
         }
-
+        /// <summary>
+        /// 批量更新数据实体
+        /// </summary>
+        /// <param name="entities"></param>
+        /// <returns></returns>
         public virtual int EditRange(ICollection<T> entities)
         {
             return _dbContext.EditRange(entities);
         }
         /// <summary>
-        /// update query datas by columns.
+        /// 根据条件更新数据
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="where"></param>
+        /// <param name="where">条件</param>
         /// <param name="updateExp"></param>
         /// <returns></returns>
-        public virtual int BatchUpdate(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateExp)
-        {
-            return _dbContext.Update(where, updateExp);
-        }
-
-        public virtual async Task<int> BatchUpdateAsync(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateExp)
-        {
-            return await _dbContext.UpdateAsync(@where, updateExp);
-        }
+        //public virtual int BatchUpdate(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateExp)
+        //{
+        //    return _dbContext.Update(where, updateExp);
+        //}
+        /// <summary>
+        /// 根据条件更新数据
+        /// </summary>
+        /// <param name="where">条件</param>
+        /// <param name="updateExp"></param>
+        /// <returns></returns>
+        //public virtual async Task<int> BatchUpdateAsync(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateExp)
+        //{
+        //    return await _dbContext.UpdateAsync(@where, updateExp);
+        //}
+        /// <summary>
+        /// 更新指定字段的值
+        /// </summary>
+        /// <param name="model">数据实体</param>
+        /// <param name="updateColumns">指定字段</param>
+        /// <returns></returns>
         public virtual int Update(T model, params string[] updateColumns)
         {
             _dbContext.Update(model, updateColumns);
             return _dbContext.SaveChanges();
         }
+        /// <summary>
+        /// 按条件更新
+        /// </summary>
+        /// <param name="where">条件</param>
+        /// <param name="updateFactory"></param>
+        /// <returns></returns>
 
-        public virtual int Update(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateFactory)
-        {
-            return _dbContext.Update(where, updateFactory);
-        }
-
-        public virtual async Task<int> UpdateAsync(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateFactory)
-        {
-            return await _dbContext.UpdateAsync(where, updateFactory);
-        }
-
+        //public virtual int Update(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateFactory)
+        //{
+        //    return _dbContext.Update(where, updateFactory);
+        //}
+        /// <summary>
+        /// 按条件更新
+        /// </summary>
+        /// <param name="where">条件</param>
+        /// <param name="updateFactory"></param>
+        /// <returns></returns>
+        //public virtual async Task<int> UpdateAsync(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateFactory)
+        //{
+        //    return await _dbContext.UpdateAsync(where, updateFactory);
+        //}
+        /// <summary>
+        /// 执行更新数据的Sql语句
+        /// </summary>
+        /// <param name="sql">更新数据的Sql语句</param>
+        /// <returns></returns>
         public int UpdateBySql(string sql)
         {
             return _dbContext.ExecuteSqlWithNonQuery(sql);
@@ -2213,42 +2244,82 @@ namespace Yuebon.Commons.Repositories
 
         #region Delete
 
+        /// <summary>
+        /// 根据主键删除数据
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public virtual int Delete(TKey key)
         {
             return _dbContext.Delete<T, TKey>(key);
         }
-
-        public virtual int Delete(Expression<Func<T, bool>> @where)
+        /// <summary>
+        /// 
+        /// 根据条件删除数据
+        /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
+        //public virtual int Delete(Expression<Func<T, bool>> @where)
+        //{
+        //    return _dbContext.Delete(where);
+        //}
+        /// <summary>
+        /// 
+        /// 根据条件删除数据
+        /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
+        //public virtual async Task<int> DeleteAsync(Expression<Func<T, bool>> @where)
+        //{
+        //    return await _dbContext.DeleteAsync(where);
+        //}
+        ///// <summary>
+        /// 执行删除数据Sql语句
+        /// </summary>
+        /// <param name="sql">删除的Sql语句</param>
+        /// <returns></returns>
+        public int DeleteBySql(string sql)
         {
-            return _dbContext.Delete(where);
+            return _dbContext.ExecuteSqlWithNonQuery(sql);
         }
-
-        public virtual async Task<int> DeleteAsync(Expression<Func<T, bool>> @where)
-        {
-            return await _dbContext.DeleteAsync(where);
-        }
-
 
         #endregion
 
         #region Query
-
+        /// <summary>
+        /// 根据条件统计数量Count()
+        /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
         public virtual int Count(Expression<Func<T, bool>> @where = null)
         {
             return _dbContext.Count(where);
         }
 
+        /// <summary>
+        /// 根据条件统计数量Count()
+        /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
         public virtual async Task<int> CountAsync(Expression<Func<T, bool>> @where = null)
         {
             return await _dbContext.CountAsync(where);
         }
-
+        /// <summary>
+        /// 是否存在,存在返回true，不存在返回false
+        /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
 
         public virtual bool Exist(Expression<Func<T, bool>> @where = null)
         {
             return _dbContext.Exist(where);
         }
-
+        /// <summary>
+        /// 是否存在,存在返回true，不存在返回false
+        /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
         public virtual async Task<bool> ExistAsync(Expression<Func<T, bool>> @where = null)
         {
             return await _dbContext.ExistAsync(where);
@@ -2283,6 +2354,8 @@ namespace Yuebon.Commons.Repositories
         /// <summary>
         /// 获取单个实体。建议：如需使用Include和ThenInclude请重载此方法。
         /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
         public virtual T GetSingleOrDefault(Expression<Func<T, bool>> @where = null)
         {
             return _dbContext.GetSingleOrDefault(@where);
@@ -2291,6 +2364,8 @@ namespace Yuebon.Commons.Repositories
         /// <summary>
         /// 获取单个实体。建议：如需使用Include和ThenInclude请重载此方法。
         /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
         public virtual async Task<T> GetSingleOrDefaultAsync(Expression<Func<T, bool>> @where = null)
         {
             return await _dbContext.GetSingleOrDefaultAsync(where);
@@ -2299,23 +2374,31 @@ namespace Yuebon.Commons.Repositories
         /// <summary>
         /// 获取实体列表。建议：如需使用Include和ThenInclude请重载此方法。
         /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
         public virtual IList<T> Get(Expression<Func<T, bool>> @where = null)
         {
             return _dbContext.GetByCompileQuery(where);
         }
-
         /// <summary>
         /// 获取实体列表。建议：如需使用Include和ThenInclude请重载此方法。
         /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
         public virtual async Task<List<T>> GetAsync(Expression<Func<T, bool>> @where = null)
         {
             return await _dbContext.GetByCompileQueryAsync(where);
         }
 
         /// <summary>
-        /// 分页获取实体列表。建议：如需使用Include和ThenInclude请重载此方法。
+        ///  分页获取实体列表。建议：如需使用Include和ThenInclude请重载此方法。
         /// </summary>
-        public virtual IEnumerable<T> GetByPagination(Expression<Func<T, bool>> @where, int pageSize, int pageIndex, bool asc = true, params Expression<Func<T, object>>[] @orderby)
+        /// <param name="where">查询条件</param>
+        /// <param name="pagerInfo">分页信息</param>
+        /// <param name="asc">排序方式</param>
+        /// <param name="orderby">排序字段</param>
+        /// <returns></returns>
+        public virtual IEnumerable<T> GetByPagination(Expression<Func<T, bool>> @where, PagerInfo pagerInfo,  bool asc = true, params Expression<Func<T, object>>[] @orderby)
         {
             var filter = _dbContext.Get(where);
             if (orderby != null)
@@ -2325,20 +2408,36 @@ namespace Yuebon.Commons.Repositories
                     filter = asc ? filter.OrderBy(func).AsQueryable() : filter.OrderByDescending(func).AsQueryable();
                 }
             }
-            return filter.Skip(pageSize * (pageIndex - 1)).Take(pageSize);
+            pagerInfo.RecordCount = filter.Count();
+            return filter.Skip(pagerInfo.PageSize * (pagerInfo.CurrenetPageIndex - 1)).Take(pagerInfo.PageSize);
         }
-
+        /// <summary>
+        /// sql语句查询数据集
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
         public List<T> GetBySql(string sql)
         {
             return _dbContext.SqlQuery<T, T>(sql);
         }
-
+        /// <summary>
+        /// sql语句查询数据集，返回输出Dto实体
+        /// </summary>
+        /// <typeparam name="TView"></typeparam>
+        /// <param name="sql"></param>
+        /// <returns></returns>
         public List<TView> GetViews<TView>(string sql)
         {
             var list = _dbContext.SqlQuery<T, TView>(sql);
             return list;
         }
-
+        /// <summary>
+        /// 查询视图
+        /// </summary>
+        /// <typeparam name="TView">返回结果对象</typeparam>
+        /// <param name="viewName">视图名称</param>
+        /// <param name="where">查询条件</param>
+        /// <returns></returns>
         public List<TView> GetViews<TView>(string viewName, Func<TView, bool> @where)
         {
             var list = _dbContext.SqlQuery<T, TView>($"select * from {viewName}");

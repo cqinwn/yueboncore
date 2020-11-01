@@ -1,6 +1,4 @@
-﻿
-using Dapper.Contrib.Extensions;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Yuebon.Commons.Models;
@@ -118,13 +116,6 @@ namespace Yuebon.Security.Models
         /// </summary>
         [MaxLength(50)]
         public virtual string DeleteUserId { get; set; }
-        /// <summary>
-        /// 获取用户信息
-        /// </summary>
-        [Write(false)]
-        [Computed]
-        [NotMapped]
-        public virtual User UserInfo { get; set; }
         #endregion
 
     }

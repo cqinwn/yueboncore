@@ -9,7 +9,7 @@ using Yuebon.Commons.Options;
 using System.Data.Common;
 using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Helpers;
-using Dapper.Contrib.Extensions;
+
 using Yuebon.Security.Dtos;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -95,30 +95,37 @@ namespace Yuebon.Security.Repositories
         /// <param name="trans"></param>
         public  bool Insert(User entity, UserLogOn userLogOnEntity, IDbTransaction trans = null)
         {
-            using (IDbConnection conn = OpenSharedConnection())
-            {
-                try
-                {
-                    trans = conn.BeginTransaction();
-                    //OperationLogOfInsert(entity);
-                    long row = 0;
-                    userLogOnEntity.Id = GuidUtils.CreateNo();
-                    userLogOnEntity.UserId = entity.Id;
-                    userLogOnEntity.UserSecretkey = MD5Util.GetMD5_16(GuidUtils.NewGuidFormatN()).ToLower();
-                    userLogOnEntity.UserPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(userLogOnEntity.UserPassword).ToLower(), userLogOnEntity.UserSecretkey).ToLower()).ToLower();
-                    row = conn.Insert(entity, trans);
-                    long row1=conn.Insert(userLogOnEntity, trans);
+            userLogOnEntity.Id = GuidUtils.CreateNo();
+            userLogOnEntity.UserId = entity.Id;
+            userLogOnEntity.UserSecretkey = MD5Util.GetMD5_16(GuidUtils.NewGuidFormatN()).ToLower();
+            userLogOnEntity.UserPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(userLogOnEntity.UserPassword).ToLower(), userLogOnEntity.UserSecretkey).ToLower()).ToLower();
+            _dbContext.GetDbSet<User>().Add(entity);
+            _dbContext.GetDbSet<UserLogOn>().Add(userLogOnEntity);
+            return _dbContext.SaveChanges()>0;
+            //using (IDbConnection conn = OpenSharedConnection())
+            //{
+            //    try
+            //    {
+            //        trans = conn.BeginTransaction();
+            //        //OperationLogOfInsert(entity);
+            //        long row = 0;
+            //        userLogOnEntity.Id = GuidUtils.CreateNo();
+            //        userLogOnEntity.UserId = entity.Id;
+            //        userLogOnEntity.UserSecretkey = MD5Util.GetMD5_16(GuidUtils.NewGuidFormatN()).ToLower();
+            //        userLogOnEntity.UserPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(userLogOnEntity.UserPassword).ToLower(), userLogOnEntity.UserSecretkey).ToLower()).ToLower();
+            //        row = conn.Insert(entity, trans);
+            //        long row1=conn.Insert(userLogOnEntity, trans);
                    
-                    trans.Commit();
-                    return (row + row1)>=2;
-                }
-                catch (Exception)
-                {
-                    trans.Rollback();
-                    throw;
-                }
+            //        trans.Commit();
+            //        return (row + row1)>=2;
+            //    }
+            //    catch (Exception)
+            //    {
+            //        trans.Rollback();
+            //        throw;
+            //    }
                 
-            }
+            //}
         }
 
         /// <summary>
@@ -129,29 +136,37 @@ namespace Yuebon.Security.Repositories
         /// <param name="trans"></param>
         public async Task<bool> InsertAsync(User entity, UserLogOn userLogOnEntity, IDbTransaction trans = null)
         {
-            using (IDbConnection conn = OpenSharedConnection())
-            {
-                try
-                {
-                    trans = conn.BeginTransaction();
-                    long row = 0;
-                    userLogOnEntity.Id = GuidUtils.CreateNo();
-                    userLogOnEntity.UserId = entity.Id;
-                    userLogOnEntity.UserSecretkey = MD5Util.GetMD5_16(GuidUtils.NewGuidFormatN()).ToLower();
-                    userLogOnEntity.UserPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(userLogOnEntity.UserPassword).ToLower(), userLogOnEntity.UserSecretkey).ToLower()).ToLower();
-                    row = await conn.InsertAsync(entity, trans);
-                    long row1 = await conn.InsertAsync(userLogOnEntity, trans);
+            userLogOnEntity.Id = GuidUtils.CreateNo();
+            userLogOnEntity.UserId = entity.Id;
+            userLogOnEntity.UserSecretkey = MD5Util.GetMD5_16(GuidUtils.NewGuidFormatN()).ToLower();
+            userLogOnEntity.UserPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(userLogOnEntity.UserPassword).ToLower(), userLogOnEntity.UserSecretkey).ToLower()).ToLower();
+            _dbContext.GetDbSet<User>().Add(entity);
+            _dbContext.GetDbSet<UserLogOn>().Add(userLogOnEntity);
+            return await _dbContext.SaveChangesAsync() > 0;
 
-                    trans.Commit();
-                    return (row + row1) >= 2;
-                }
-                catch (Exception)
-                {
-                    trans.Rollback();
-                    throw;
-                }
+            //using (IDbConnection conn = OpenSharedConnection())
+            //{
+            //    try
+            //    {
+            //        trans = conn.BeginTransaction();
+            //        long row = 0;
+            //        userLogOnEntity.Id = GuidUtils.CreateNo();
+            //        userLogOnEntity.UserId = entity.Id;
+            //        userLogOnEntity.UserSecretkey = MD5Util.GetMD5_16(GuidUtils.NewGuidFormatN()).ToLower();
+            //        userLogOnEntity.UserPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(userLogOnEntity.UserPassword).ToLower(), userLogOnEntity.UserSecretkey).ToLower()).ToLower();
+            //        row = await conn.InsertAsync(entity, trans);
+            //        long row1 = await conn.InsertAsync(userLogOnEntity, trans);
 
-            }
+            //        trans.Commit();
+            //        return (row + row1) >= 2;
+            //    }
+            //    catch (Exception)
+            //    {
+            //        trans.Rollback();
+            //        throw;
+            //    }
+
+            //}
         }
         /// <summary>
         /// 注册用户,第三方平台
@@ -162,29 +177,39 @@ namespace Yuebon.Security.Repositories
         /// <param name="trans"></param>
         public bool Insert(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds, IDbTransaction trans = null)
         {
-            using (IDbConnection conn = OpenSharedConnection())
-            {
-                try
-                {
-                    trans = conn.BeginTransaction();
-                    //OperationLogOfInsert(entity);
-                    userLogOnEntity.Id = GuidUtils.CreateNo();
-                    userLogOnEntity.UserId = entity.Id;
-                    userLogOnEntity.UserSecretkey = MD5Util.GetMD5_16(GuidUtils.NewGuidFormatN()).ToLower();
-                    userLogOnEntity.UserPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(userLogOnEntity.UserPassword).ToLower(), userLogOnEntity.UserSecretkey).ToLower()).ToLower();
-                    long row= conn.Insert(entity, trans);
-                    long row1 = conn.Insert(userLogOnEntity, trans);
-                    long row2 = conn.Insert(userOpenIds, trans);
-                    trans.Commit();
 
-                    return (row + row1+ row2) >= 3;
-                }
-                catch (Exception)
-                {
-                    trans.Rollback();
-                    throw;
-                }
-            }
+            _dbContext.GetDbSet<User>().Add(entity);
+            _dbContext.GetDbSet<UserLogOn>().Add(userLogOnEntity); userLogOnEntity.Id = GuidUtils.CreateNo();
+            userLogOnEntity.UserId = entity.Id;
+            userLogOnEntity.UserSecretkey = MD5Util.GetMD5_16(GuidUtils.NewGuidFormatN()).ToLower();
+            userLogOnEntity.UserPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(userLogOnEntity.UserPassword).ToLower(), userLogOnEntity.UserSecretkey).ToLower()).ToLower();
+            _dbContext.GetDbSet<User>().Add(entity);
+            _dbContext.GetDbSet<UserLogOn>().Add(userLogOnEntity);
+            _dbContext.GetDbSet<UserOpenIds>().Add(userOpenIds);
+            return  _dbContext.SaveChanges() > 0;
+            //using (IDbConnection conn = OpenSharedConnection())
+            //{
+            //    try
+            //    {
+            //        trans = conn.BeginTransaction();
+            //        //OperationLogOfInsert(entity);
+            //        userLogOnEntity.Id = GuidUtils.CreateNo();
+            //        userLogOnEntity.UserId = entity.Id;
+            //        userLogOnEntity.UserSecretkey = MD5Util.GetMD5_16(GuidUtils.NewGuidFormatN()).ToLower();
+            //        userLogOnEntity.UserPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(userLogOnEntity.UserPassword).ToLower(), userLogOnEntity.UserSecretkey).ToLower()).ToLower();
+            //        long row= conn.Insert(entity, trans);
+            //        long row1 = conn.Insert(userLogOnEntity, trans);
+            //        long row2 = conn.Insert(userOpenIds, trans);
+            //        trans.Commit();
+
+            //        return (row + row1+ row2) >= 3;
+            //    }
+            //    catch (Exception)
+            //    {
+            //        trans.Rollback();
+            //        throw;
+            //    }
+            //}
         }
 
         /// <summary>
@@ -238,24 +263,27 @@ namespace Yuebon.Security.Repositories
         /// <param name="trans"></param>
         public bool UpdateUserByOpenId(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds, IDbTransaction trans = null)
         {
-            using (IDbConnection conn = OpenSharedConnection())
-            {
-                try
-                {
-                    trans = conn.BeginTransaction();
-                    //OperationLogOfInsert(entity);
-                    bool row = conn.Update<User>(entity, trans);
-                    bool row1 = conn.Update<UserLogOn>(userLogOnEntity, trans);
-                    trans.Commit();
+            _dbContext.GetDbSet<User>().Add(entity);
+            _dbContext.GetDbSet<UserOpenIds>().Add(userOpenIds);
+            return _dbContext.SaveChanges() > 0;
+            //using (IDbConnection conn = OpenSharedConnection())
+            //{
+            //    try
+            //    {
+            //        trans = conn.BeginTransaction();
+            //        //OperationLogOfInsert(entity);
+            //        bool row = conn.Update<User>(entity, trans);
+            //        bool row1 = conn.Update<UserLogOn>(userLogOnEntity, trans);
+            //        trans.Commit();
 
-                    return row&&row&&row?true:false;
-                }
-                catch (Exception)
-                {
-                    trans.Rollback();
-                    throw;
-                }
-            }
+            //        return row&&row&&row?true:false;
+            //    }
+            //    catch (Exception)
+            //    {
+            //        trans.Rollback();
+            //        throw;
+            //    }
+            //}
         }
 
         /// <summary>
@@ -273,114 +301,6 @@ namespace Yuebon.Security.Repositories
         //}
 
 
-        /// <summary>
-        /// 保存名片
-        /// </summary>
-        /// <param name="userid"></param>
-        /// <param name="headicon"></param>
-        /// <param name="nickName"></param>
-        /// <param name="name"></param>
-        /// <param name="company"></param>
-        /// <param name="position"></param>
-        /// <param name="weburl"></param>
-        /// <param name="mobile"></param>
-        /// <param name="email"></param>
-        /// <param name="wx"></param>
-        /// <param name="wximg"></param>
-        /// <param name="industry"></param>
-        /// <param name="area"></param>
-        /// <param name="address"></param>
-        /// <param name="openflag"></param>
-        /// <returns></returns>
-        public bool SaveNameCard(string userid, string headicon, string nickName, string name, string company, string position,
-            string weburl, string mobile, string email, string wx, string wximg,
-            string industry, string area, string address, int openflag)
-        {
-            using (IDbConnection conn = OpenSharedConnection())
-            {
-                //先查主表信息
-                User user = conn.Get<User>(userid);
-                if (user != null)
-                {
-                    user.RealName = String.IsNullOrEmpty(name)?"":name;
-                    user.NickName = String.IsNullOrEmpty(nickName) ? "" : nickName;
-                    user.HeadIcon = String.IsNullOrEmpty(headicon) ? "" : headicon;
-                    user.MobilePhone = String.IsNullOrEmpty(mobile) ? "" : mobile;
-                    user.Email = String.IsNullOrEmpty(email) ? "" : email;
-                    user.WeChat = String.IsNullOrEmpty(wx) ? "" : wx;
-                    user.Province = String.IsNullOrEmpty(area) ? "" : area.Split('-')[0];
-                    user.City = String.IsNullOrEmpty(area) ? "" : area.Split('-')[1];
-                    user.District = String.IsNullOrEmpty(area) ? "" : area.Split('-')[2];
-                    user.LastModifyTime = DateTime.Now;
-                    user.LastModifyUserId = userid;
-
-                    bool mainUpdateFlag = conn.Update<User>(user);
-                    //更新成功，检查从表
-                    if (mainUpdateFlag)
-                    {
-                        string sql = @"select * from Sys_UserExtend where UserId='" + userid + "' ";
-                        UserExtend userExtend = conn.QueryFirstOrDefault<UserExtend>(sql);
-                        if (userExtend != null)
-                        {
-                            userExtend.Telphone = String.IsNullOrEmpty(mobile) ? "" : mobile;
-                            userExtend.Address = String.IsNullOrEmpty(address) ? "" : address;
-                            userExtend.CompanyName = String.IsNullOrEmpty(company) ? "" : company;
-                            userExtend.PositionTitle = String.IsNullOrEmpty(position) ? "" : position;
-                            userExtend.WeChatQrCode = String.IsNullOrEmpty(wximg) ? "" : wximg;
-                            userExtend.IndustryId = String.IsNullOrEmpty(industry) ? "" : industry;
-                            userExtend.OpenType = openflag;
-                            userExtend.WebUrl = String.IsNullOrEmpty(weburl) ? "" : weburl;
-                            userExtend.LastModifyTime = DateTime.Now;
-                            userExtend.LastModifyUserId = userid;
-                            
-
-                            bool subUpdateFlag = conn.Update<UserExtend>(userExtend);
-                            if (subUpdateFlag)
-                            {
-                                return true;
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
-                        else
-                        {
-                            userExtend = new UserExtend();
-                            userExtend.UserId = userid;
-                            userExtend.Telphone = String.IsNullOrEmpty(mobile) ? "" : mobile;
-                            userExtend.Address = String.IsNullOrEmpty(address) ? "" : address;
-                            userExtend.CompanyName = String.IsNullOrEmpty(company) ? "" : company;
-                            userExtend.PositionTitle = String.IsNullOrEmpty(position) ? "" : position;
-                            userExtend.WeChatQrCode = String.IsNullOrEmpty(wximg) ? "" : wximg;
-                            userExtend.IndustryId = String.IsNullOrEmpty(industry) ? "" : industry;
-                            userExtend.OpenType = openflag;
-                            userExtend.WebUrl = String.IsNullOrEmpty(weburl) ? "" : weburl;
-                            userExtend.CreatorTime = DateTime.Now;
-                            userExtend.CreatorUserId = userid;
-
-                            long subUpdateResult = conn.Insert<UserExtend>(userExtend);
-                            if (subUpdateResult>0)
-                            {
-                                return true;
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
-                    }
-                    
-
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-                
-            }
-        }
 
 
         /// <summary>

@@ -68,7 +68,11 @@ namespace Yuebon.Security.Services
                 CurrenetPageIndex = search.CurrenetPageIndex,
                 PageSize = search.PageSize
             };
-            List<Log> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+            if (!string.IsNullOrEmpty(search.EnCode))
+            {
+                where += " and Type in('" + search.EnCode.Replace(",", "','") + "')";
+            }
+            List<Log> list = _iLogRepository.GetByPagination(m =>m.Account.StartsWith(search.Keywords), pagerInfo, true).ToList<Log>();
             PageResult<LogOutputDto> pageResult = new PageResult<LogOutputDto>
             {
                 CurrentPage = pagerInfo.CurrenetPageIndex,

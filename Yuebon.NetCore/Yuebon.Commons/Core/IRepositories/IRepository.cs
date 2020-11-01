@@ -4,6 +4,8 @@ using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Yuebon.Commons.Dapper;
+using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.IRepositories;
 using Yuebon.Commons.Models;
 using Yuebon.Commons.Pages;
@@ -22,6 +24,10 @@ namespace Yuebon.Commons.IRepositories
         /// </summary>
         event OperationLogEventHandler OnOperationLog;
 
+        /// <summary>
+        /// Dapper DBContext
+        /// </summary>
+        ISqlDapper DapperContext { get; }
         #region 单个实体
         /// <summary>
         /// 同步查询单个实体。
@@ -217,7 +223,7 @@ namespace Yuebon.Commons.IRepositories
         /// <param name="entity">实体</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        bool Delete(T entity, IDbTransaction trans=null);
+        bool Delete(T entity);
 
         /// <summary>
         /// 异步物理删除实体。
@@ -329,14 +335,14 @@ namespace Yuebon.Commons.IRepositories
         /// </summary>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        bool DeleteAll(IDbTransaction trans=null);
+        //bool DeleteAll(IDbTransaction trans=null);
 
         /// <summary>
         /// 异步物理删除所有实体。
         /// </summary>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        Task<bool> DeleteAllAsync(IDbTransaction trans=null);
+        //Task<bool> DeleteAllAsync(IDbTransaction trans=null);
 
 
 
@@ -572,56 +578,225 @@ namespace Yuebon.Commons.IRepositories
         #region EF
 
         #region Insert
-
+        /// <summary>
+        /// 新增实体
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         int Add(T entity);
+        /// <summary>
+        /// 新增实体
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         Task<int> AddAsync(T entity);
+        /// <summary>
+        /// 批量新增，数量量较多是推荐使用BulkInsert()
+        /// </summary>
+        /// <param name="entities"></param>
+        /// <returns></returns>
         int AddRange(ICollection<T> entities);
+        /// <summary>
+        /// 批量新增，数量量较多是推荐使用BulkInsert()
+        /// </summary>
+        /// <param name="entities"></param>
+        /// <returns></returns>
         Task<int> AddRangeAsync(ICollection<T> entities);
+        /// <summary>
+        /// 批量新增SqlBulk方式，效率最高
+        /// </summary>
+        /// <param name="entities"></param>
+        /// <param name="destinationTableName"></param>
         void BulkInsert(IList<T> entities, string destinationTableName = null);
+        /// <summary>
+        /// 执行新增的sql语句
+        /// </summary>
+        /// <param name="sql">新增Sql语句</param>
+        /// <returns></returns>
         int AddBySql(string sql);
 
         #endregion
 
         #region Delete
-
+        /// <summary>
+        /// 根据主键删除数据
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         int Delete(TKey key);
-        int Delete(Expression<Func<T, bool>> @where);
-        Task<int> DeleteAsync(Expression<Func<T, bool>> @where);
+        /// <summary>
+        /// 根据条件删除数据
+        /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
+        //int Delete(Expression<Func<T, bool>> @where);
+        /// <summary>
+        /// 
+        /// 根据条件删除数据
+        /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
+        //Task<int> DeleteAsync(Expression<Func<T, bool>> @where);
+        /// <summary>
+        /// 执行删除数据Sql语句
+        /// </summary>
+        /// <param name="sql">删除的Sql语句</param>
+        /// <returns></returns>
         int DeleteBySql(string sql);
         #endregion
 
         #region Update
-
+        /// <summary>
+        /// 更新一个实体数据
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         int Edit(T entity);
+        /// <summary>
+        /// 批量更新数据实体
+        /// </summary>
+        /// <param name="entities"></param>
+        /// <returns></returns>
         int EditRange(ICollection<T> entities);
-        int BatchUpdate(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateExp);
-        Task<int> BatchUpdateAsync(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateExp);
+        /// <summary>
+        /// 根据条件更新数据
+        /// </summary>
+        /// <param name="where">条件</param>
+        /// <param name="updateExp"></param>
+        /// <returns></returns>
+        //int BatchUpdate(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateExp);
+        /// <summary>
+        /// 根据条件更新数据
+        /// </summary>
+        /// <param name="where">条件</param>
+        /// <param name="updateExp"></param>
+        /// <returns></returns>
+       // Task<int> BatchUpdateAsync(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateExp);
+        /// <summary>
+        /// 更新指定字段的值
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="model">数据实体</param>
+        /// <param name="updateColumns">指定字段</param>
+        /// <returns></returns>
         int Update(T model, params string[] updateColumns);
-        int Update(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateFactory);
-        Task<int> UpdateAsync(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateFactory);
+        /// <summary>
+        /// 按条件更新，
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="where">条件</param>
+        /// <param name="updateFactory"></param>
+        /// <returns></returns>
+       // int Update(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateFactory);
+        /// <summary>
+        /// 按条件更新
+        /// </summary>
+        /// <param name="where">条件</param>
+        /// <param name="updateFactory"></param>
+        /// <returns></returns>
+        //Task<int> UpdateAsync(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateFactory);
+        /// <summary>
+        /// 执行更新数据的Sql语句
+        /// </summary>
+        /// <param name="sql">更新数据的Sql语句</param>
+        /// <returns></returns>
         int UpdateBySql(string sql);
 
         #endregion
 
         #region Query
 
+        /// <summary>
+        /// 根据条件统计数量Count()
+        /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
         int Count(Expression<Func<T, bool>> @where = null);
+        /// <summary>
+        /// 根据条件统计数量Count()
+        /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
         Task<int> CountAsync(Expression<Func<T, bool>> @where = null);
+        /// <summary>
+        /// 是否存在,存在返回true，不存在返回false
+        /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
         bool Exist(Expression<Func<T, bool>> @where = null);
+        /// <summary>
+        /// 是否存在,存在返回true，不存在返回false
+        /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
         Task<bool> ExistAsync(Expression<Func<T, bool>> @where = null);
+        /// <summary>
+        ///  根据主键获取实体。建议：如需使用Include和ThenInclude请重载此方法。
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         T GetSingle(TKey key);
         //T GetSingle(TKey key, Func<IQueryable<T>, IQueryable<T>> includeFunc);
+        /// <summary>
+        ///  根据主键获取实体。建议：如需使用Include和ThenInclude请重载此方法。
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         Task<T> GetSingleAsync(TKey key);
+        /// <summary>
+        /// 获取单个实体。建议：如需使用Include和ThenInclude请重载此方法。
+        /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
         T GetSingleOrDefault(Expression<Func<T, bool>> @where = null);
+        /// <summary>
+        /// 获取单个实体。建议：如需使用Include和ThenInclude请重载此方法。
+        /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
         Task<T> GetSingleOrDefaultAsync(Expression<Func<T, bool>> @where = null);
+        /// <summary>
+        /// 获取实体列表。建议：如需使用Include和ThenInclude请重载此方法。
+        /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
         IList<T> Get(Expression<Func<T, bool>> @where = null);
+        /// <summary>
+        /// 获取实体列表。建议：如需使用Include和ThenInclude请重载此方法。
+        /// </summary>
+        /// <param name="where"></param>
+        /// <returns></returns>
         Task<List<T>> GetAsync(Expression<Func<T, bool>> @where = null);
-        IEnumerable<T> GetByPagination(Expression<Func<T, bool>> @where, int pageSize, int pageIndex, bool asc = true,
+        /// <summary>
+        ///  分页获取实体列表。建议：如需使用Include和ThenInclude请重载此方法。
+        /// </summary>
+        /// <param name="where">查询条件</param>
+        /// <param name="pagerInfo">分页信息</param>
+        /// <param name="asc">排序方式</param>
+        /// <param name="orderby">排序字段</param>
+        /// <returns></returns>
+        IEnumerable<T> GetByPagination(Expression<Func<T, bool>> @where,PagerInfo pagerInfo, bool asc = true,
             params Expression<Func<T, object>>[] @orderby);
-
+        /// <summary>
+        /// sql语句查询数据集
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
         List<T> GetBySql(string sql);
-
+        /// <summary>
+        /// sql语句查询数据集，返回输出Dto实体
+        /// </summary>
+        /// <typeparam name="TView">返回结果对象</typeparam>
+        /// <param name="sql"></param>
+        /// <returns></returns>
         List<TView> GetViews<TView>(string sql);
+        /// <summary>
+        /// 查询视图
+        /// </summary>
+        /// <typeparam name="TView">返回结果对象</typeparam>
+        /// <param name="viewName">视图名称</param>
+        /// <param name="where">查询条件</param>
+        /// <returns></returns>
         List<TView> GetViews<TView>(string viewName, Func<TView, bool> where);
 
         #endregion

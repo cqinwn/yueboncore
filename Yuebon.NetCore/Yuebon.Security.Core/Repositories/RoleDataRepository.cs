@@ -1,6 +1,7 @@
 using Dapper;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using Yuebon.Commons.IDbContext;
@@ -34,11 +35,11 @@ namespace Yuebon.Security.Repositories
             {
                 sql += " where " + where;
             }
-            return Execute((conn, trans) =>
+            using (DbConnection conn = OpenSharedConnection())
             {
-                IEnumerable<String> list =conn.Query<String>(sql, trans);
-                return list.ToList();
-            });
+                IEnumerable<String> resultList= conn.Query<String>(sql);
+                return resultList.ToList();
+            }
         }
 
     }

@@ -92,15 +92,7 @@ namespace Yuebon.Security.IServices
         /// <param name="trans"></param>
         bool UpdateUserByOpenId(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds, IDbTransaction trans = null);
 
-        /// <summary>
-        /// 所有用户信息用于关注
-        /// </summary>
-        /// <param name="currentpage"></param>
-        /// <param name="pagesize"></param>
-        /// <param name="userid"></param>
-        /// <returns></returns>
-        IEnumerable<UserAllListFocusOutPutDto> GetUserAllListFocusByPage(string currentpage,
-            string pagesize, string userid);
+        
 
 
         /// <summary>

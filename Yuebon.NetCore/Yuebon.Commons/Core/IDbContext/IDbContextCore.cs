@@ -24,6 +24,7 @@ namespace Yuebon.Commons.IDbContext
         /// </summary>
         /// <returns></returns>
         DatabaseFacade GetDatabase();
+        #region 新增
         /// <summary>
         /// 新增实体
         /// </summary>
@@ -52,20 +53,8 @@ namespace Yuebon.Commons.IDbContext
         /// <param name="entities"></param>
         /// <returns></returns>
         Task<int> AddRangeAsync<T>(ICollection<T> entities) where T : class;
-        /// <summary>
-        /// 统计数量Count()
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="where">查询条件</param>
-        /// <returns></returns>
-        int Count<T>(Expression<Func<T, bool>> @where = null) where T : class;
-        /// <summary>
-        /// 异步统计数量Count()
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="where">查询条件</param>
-        /// <returns></returns>
-        Task<int> CountAsync<T>(Expression<Func<T, bool>> @where = null) where T : class;
+        #endregion
+        #region 删除
         /// <summary>
         /// 物理删除数据
         /// </summary>
@@ -74,6 +63,23 @@ namespace Yuebon.Commons.IDbContext
         /// <param name="key">主键</param>
         /// <returns></returns>
         int Delete<T,TKey>(TKey key) where T : Entity;
+
+        /// <summary>
+        /// 根据条件删除一个实体，返回影响记录行数
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="where">条件</param>
+        /// <returns></returns>
+        ////int Delete<T>(Expression<Func<T, bool>> @where) where T : class;
+        /// <summary>
+        /// 根据条件删除一个实体，返回影响记录行数
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="where">条件</param>
+        /// <returns></returns>
+        //Task<int> DeleteAsync<T>(Expression<Func<T, bool>> @where) where T : class;
+        #endregion
+
         /// <summary>
         /// 创建数据表
         /// </summary>
@@ -98,6 +104,7 @@ namespace Yuebon.Commons.IDbContext
         /// <param name="parameters"></param>
         /// <returns></returns>
         Task<int> ExecuteSqlWithNonQueryAsync(string sql, params object[] parameters);
+        #region 更新
         /// <summary>
         /// 更新保存实体
         /// </summary>
@@ -112,6 +119,50 @@ namespace Yuebon.Commons.IDbContext
         /// <param name="entities"></param>
         /// <returns></returns>
         int EditRange<T>(ICollection<T> entities) where T : class;
+
+        /// <summary>
+        /// 更新指定字段的值
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="model">数据实体</param>
+        /// <param name="updateColumns">指定字段</param>
+        /// <returns></returns>
+        int Update<T>(T model, params string[] updateColumns) where T : class;
+
+        /// <summary>
+        /// 按条件更新，
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="where">条件</param>
+        /// <param name="updateFactory"></param>
+        /// <returns></returns>
+        //int Update<T>(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateFactory) where T : class;
+
+        /// <summary>
+        /// 按条件更新，
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="where">条件</param>
+        /// <param name="updateFactory"></param>
+        /// <returns></returns>
+       // Task<int> UpdateAsync<T>(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateFactory)
+        //    where T : class;
+        #endregion
+        #region 查询
+        /// <summary>
+        /// 根据条件统计数量Count()
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="where">查询条件</param>
+        /// <returns></returns>
+        int Count<T>(Expression<Func<T, bool>> @where = null) where T : class;
+        /// <summary>
+        /// 根据条件异步统计数量Count()
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="where">查询条件</param>
+        /// <returns></returns>
+        Task<int> CountAsync<T>(Expression<Func<T, bool>> @where = null) where T : class;
         /// <summary>
         /// 是否存在,存在返回true，不存在返回false
         /// </summary>
@@ -202,59 +253,18 @@ namespace Yuebon.Commons.IDbContext
         /// <param name="where">查询条件</param>
         /// <returns></returns>
         Task<T> GetSingleOrDefaultAsync<T>(Expression<Func<T, bool>> @where = null) where T : class;
-
-        /// <summary>
-        /// 更新指定字段的值
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="model">数据实体</param>
-        /// <param name="updateColumns">指定字段</param>
-        /// <returns></returns>
-        int Update<T>(T model, params string[] updateColumns) where T : class;
-
-        /// <summary>
-        /// 按条件更新，
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="where">条件</param>
-        /// <param name="updateFactory"></param>
-        /// <returns></returns>
-        int Update<T>(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateFactory) where T : class;
-
-        /// <summary>
-        /// 按条件更新，
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="where">条件</param>
-        /// <param name="updateFactory"></param>
-        /// <returns></returns>
-        Task<int> UpdateAsync<T>(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateFactory)
-            where T : class;
-        /// <summary>
-        /// 根据条件删除一个实体，返回影响记录行数
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="where">条件</param>
-        /// <returns></returns>
-        int Delete<T>(Expression<Func<T, bool>> @where) where T : class;
-        /// <summary>
-        /// 根据条件删除一个实体，返回影响记录行数
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="where">条件</param>
-        /// <returns></returns>
-        Task<int> DeleteAsync<T>(Expression<Func<T, bool>> @where) where T : class;
+        #endregion
         /// <summary>
         /// 批量插入
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="entities">数据实体集合</param>
-        /// <param name="destinationTableName">数据库表名称</param>
+        /// <param name="destinationTableName">数据库表名称，默认为实体名称</param>
         /// <returns></returns>
         void BulkInsert<T>(IList<T> entities, string destinationTableName = null)
             where T : class ;
         /// <summary>
-        /// Sql查询，并返回实体
+        /// Sql查询，并返回实体集合
         /// </summary>
         /// <typeparam name="T">查询对象实体</typeparam>
         /// <typeparam name="TView">返回/输出实体</typeparam>
@@ -264,7 +274,7 @@ namespace Yuebon.Commons.IDbContext
         List<TView> SqlQuery<T, TView>(string sql, params object[] parameters) 
             where T : class;
         /// <summary>
-        /// Sql查询，并返回实体
+        /// Sql查询，并返回实体集合
         /// </summary>
         /// <typeparam name="T">查询对象实体</typeparam>
         /// <typeparam name="TView">返回/输出实体</typeparam>

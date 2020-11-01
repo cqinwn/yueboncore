@@ -110,18 +110,6 @@ namespace Yuebon.Security.Application
             return service.GetUserOpenIdByuserId(openIdType,userId);
         }
         /// <summary>
-        /// 分页得到所有用户用于关注
-        /// </summary>
-        /// <param name="currentpage"></param>
-        /// <param name="pagesize"></param>
-        /// <param name="userid"></param>
-        /// <returns></returns>
-        public IEnumerable<UserAllListFocusOutPutDto> GetUserAllListFocusByPage(string currentpage,
-            string pagesize, string userid)
-        {
-            return service.GetUserAllListFocusByPage(currentpage, pagesize, userid);
-        }
-        /// <summary>
         /// 根据微信统一ID（UnionID）查询用户
         /// </summary>
         /// <param name="unionId">UnionID</param>

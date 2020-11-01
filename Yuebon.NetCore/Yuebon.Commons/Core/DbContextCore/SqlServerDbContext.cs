@@ -27,7 +27,7 @@ namespace Yuebon.Commons.DbContextCore
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="entities">数据实体集合</param>
-        /// <param name="destinationTableName">数据库表名称</param>
+        /// <param name="destinationTableName">如果为 null，则使用 TModel 名称作为 destinationTableName</param>
         /// <returns></returns>
         public override void BulkInsert<T>(IList<T> entities, string destinationTableName = null)
         {
@@ -44,7 +44,7 @@ namespace Yuebon.Commons.DbContextCore
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="entities">数据实体集合</param>
-        /// <param name="destinationTableName">数据库表名称</param>
+        /// <param name="destinationTableName">如果为 null，则使用 TModel 名称作为 destinationTableName</param>
         /// <returns></returns>
         private void SqlBulkInsert<T>(IList<T> entities, string destinationTableName = null) where T : class 
         {

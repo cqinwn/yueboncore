@@ -347,14 +347,14 @@ namespace Yuebon.Commons.IServices
         /// </summary>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        bool DeleteAll(IDbTransaction trans = null);
+       // bool DeleteAll(IDbTransaction trans = null);
 
         /// <summary>
         /// 异步物理删除所有实体。
         /// </summary>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        Task<bool> DeleteAllAsync(IDbTransaction trans = null);
+        //Task<bool> DeleteAllAsync(IDbTransaction trans = null);
 
         /// <summary>
         /// 查询软删除的数据，如果查询条件为空，即查询所有软删除的数据

@@ -6,7 +6,7 @@ using System.Text;
 namespace Yuebon.Commons.Attributes
 {
     /// <summary>
-    /// 分表
+    /// 数据库分表特性
     /// </summary>
     public class ShardingTableAttribute : TableAttribute
     {

@@ -99,9 +99,9 @@ namespace Yuebon.Security.Repositories
             userLogOnEntity.UserId = entity.Id;
             userLogOnEntity.UserSecretkey = MD5Util.GetMD5_16(GuidUtils.NewGuidFormatN()).ToLower();
             userLogOnEntity.UserPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(userLogOnEntity.UserPassword).ToLower(), userLogOnEntity.UserSecretkey).ToLower()).ToLower();
-            _dbContext.GetDbSet<User>().Add(entity);
-            _dbContext.GetDbSet<UserLogOn>().Add(userLogOnEntity);
-            return _dbContext.SaveChanges()>0;
+            DbContext.GetDbSet<User>().Add(entity);
+            DbContext.GetDbSet<UserLogOn>().Add(userLogOnEntity);
+            return DbContext.SaveChanges()>0;
             //using (IDbConnection conn = OpenSharedConnection())
             //{
             //    try
@@ -140,9 +140,9 @@ namespace Yuebon.Security.Repositories
             userLogOnEntity.UserId = entity.Id;
             userLogOnEntity.UserSecretkey = MD5Util.GetMD5_16(GuidUtils.NewGuidFormatN()).ToLower();
             userLogOnEntity.UserPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(userLogOnEntity.UserPassword).ToLower(), userLogOnEntity.UserSecretkey).ToLower()).ToLower();
-            _dbContext.GetDbSet<User>().Add(entity);
-            _dbContext.GetDbSet<UserLogOn>().Add(userLogOnEntity);
-            return await _dbContext.SaveChangesAsync() > 0;
+            DbContext.GetDbSet<User>().Add(entity);
+            DbContext.GetDbSet<UserLogOn>().Add(userLogOnEntity);
+            return await DbContext.SaveChangesAsync() > 0;
 
             //using (IDbConnection conn = OpenSharedConnection())
             //{
@@ -178,15 +178,15 @@ namespace Yuebon.Security.Repositories
         public bool Insert(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds, IDbTransaction trans = null)
         {
 
-            _dbContext.GetDbSet<User>().Add(entity);
-            _dbContext.GetDbSet<UserLogOn>().Add(userLogOnEntity); userLogOnEntity.Id = GuidUtils.CreateNo();
+            DbContext.GetDbSet<User>().Add(entity);
+            DbContext.GetDbSet<UserLogOn>().Add(userLogOnEntity); userLogOnEntity.Id = GuidUtils.CreateNo();
             userLogOnEntity.UserId = entity.Id;
             userLogOnEntity.UserSecretkey = MD5Util.GetMD5_16(GuidUtils.NewGuidFormatN()).ToLower();
             userLogOnEntity.UserPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(userLogOnEntity.UserPassword).ToLower(), userLogOnEntity.UserSecretkey).ToLower()).ToLower();
-            _dbContext.GetDbSet<User>().Add(entity);
-            _dbContext.GetDbSet<UserLogOn>().Add(userLogOnEntity);
-            _dbContext.GetDbSet<UserOpenIds>().Add(userOpenIds);
-            return  _dbContext.SaveChanges() > 0;
+            DbContext.GetDbSet<User>().Add(entity);
+            DbContext.GetDbSet<UserLogOn>().Add(userLogOnEntity);
+            DbContext.GetDbSet<UserOpenIds>().Add(userOpenIds);
+            return  DbContext.SaveChanges() > 0;
             //using (IDbConnection conn = OpenSharedConnection())
             //{
             //    try
@@ -263,9 +263,9 @@ namespace Yuebon.Security.Repositories
         /// <param name="trans"></param>
         public bool UpdateUserByOpenId(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds, IDbTransaction trans = null)
         {
-            _dbContext.GetDbSet<User>().Add(entity);
-            _dbContext.GetDbSet<UserOpenIds>().Add(userOpenIds);
-            return _dbContext.SaveChanges() > 0;
+            DbContext.GetDbSet<User>().Add(entity);
+            DbContext.GetDbSet<UserOpenIds>().Add(userOpenIds);
+            return DbContext.SaveChanges() > 0;
             //using (IDbConnection conn = OpenSharedConnection())
             //{
             //    try

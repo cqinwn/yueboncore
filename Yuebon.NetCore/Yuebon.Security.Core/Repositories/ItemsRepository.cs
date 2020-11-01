@@ -23,7 +23,7 @@ namespace Yuebon.Security.Repositories
         /// <returns></returns>
         public async Task<Items> GetByEnCodAsynce(string enCode)
         {
-            return await _dbContext.GetSingleOrDefaultAsync<Items>(u => u.EnCode == enCode);
+            return await DbContext.GetSingleOrDefaultAsync<Items>(u => u.EnCode == enCode);
         }
     }
 }

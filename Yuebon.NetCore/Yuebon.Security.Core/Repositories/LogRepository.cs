@@ -233,12 +233,12 @@ namespace Yuebon.Security.Repositories
             string sql = "insert into Sys_Log ([Date], [Account], [NickName], [OrganizeId], [Type], [IPAddress], [IPAddressName], [ModuleId], [ModuleName], [Result], [Description], [DeleteMark], [EnabledMark], [CreatorTime], [CreatorUserId], [LastModifyTime], [LastModifyUserId], [DeleteTime], [DeleteUserId], [Id]) values (@Date, @Account, @NickName, @OrganizeId, @Type, @IPAddress, @IPAddressName, @ModuleId, @ModuleName, @Result, @Description, @DeleteMark, @EnabledMark, @CreatorTime, @CreatorUserId, @LastModifyTime, @LastModifyUserId, @DeleteTime, @DeleteUserId, @Id)";
 
             stopwatch4.Start();
-            _dbContext.BulkInsert<Log>(logList);
+            DbContext.BulkInsert<Log>(logList);
             stopwatch4.Stop();
             sb.Append("使用BulkInsert批量插入"+n+"条数据耗时:" + (stopwatch4.ElapsedMilliseconds + "  毫秒\n"));
 
             stopwatch5.Start();
-            _dbContext.AddRange<Log>(logList3);
+            DbContext.AddRange<Log>(logList3);
             stopwatch5.Stop();
             sb.Append("EF 批量插入" + n + "条数据AddRange耗时:" + (stopwatch5.ElapsedMilliseconds + "  毫秒\n"));
             using (IDbConnection conn = OpenSharedConnection())
@@ -269,7 +269,7 @@ namespace Yuebon.Security.Repositories
             stopwatch15.Stop();
             sb.Append("Dapper批量更新" + n + "条数据Update耗时:" + (stopwatch15.ElapsedMilliseconds + "  毫秒\n"));
             stopwatch8.Start();
-            _dbContext.EditRange<Log>(newlogList);
+            DbContext.EditRange<Log>(newlogList);
             stopwatch8.Stop();
             sb.Append("EF 批量更新" + n + "条数据EditRange耗时:" + (stopwatch8.ElapsedMilliseconds + "  毫秒\n"));
             stopwatch9.Start();
@@ -277,12 +277,12 @@ namespace Yuebon.Security.Repositories
             stopwatch9.Stop();
             sb.Append("Dapper 查询单个实体Get耗时:" + (stopwatch9.ElapsedMilliseconds + "  毫秒\n"));
             stopwatch10.Start();
-            _dbContext.GetDbSet<Log>().Find(logEntity1.Id);
+            DbContext.GetDbSet<Log>().Find(logEntity1.Id);
             stopwatch10.Stop();
             sb.Append("Ef查询单个实体Find耗时:" + (stopwatch10.ElapsedMilliseconds + "  毫秒\n"));
             sql = $"select * from sys_Log where Id='" + logEntity1.Id + "'";
             stopwatch11.Start();
-            _dbContext.GetDbSet<Log>().FromSqlRaw<Log>(sql).FirstOrDefaultAsync<Log>();
+            DbContext.GetDbSet<Log>().FromSqlRaw<Log>(sql).FirstOrDefaultAsync<Log>();
             stopwatch11.Stop();
             sb.Append("Ef查询单个实体FromSqlRaw FirstOrDefaultAsync耗时:" + (stopwatch11.ElapsedMilliseconds + "  毫秒\n"));
             PagerInfo pagerInfo = new PagerInfo
@@ -317,7 +317,7 @@ namespace Yuebon.Security.Repositories
             sql = $"select * from Sys_log";
             string[] orderBys = { "CreatorTime desc" };
             stopwatch14.Start();
-            PageResult<Log> list3 =_dbContext.SqlQueryByPagination<Log>(sql, orderBys, 1,50);
+            PageResult<Log> list3 =DbContext.SqlQueryByPagination<Log>(sql, orderBys, 1,50);
             //PageResult<LogOutputDto> pageResult2 = new PageResult<LogOutputDto>
             //{
             //    CurrentPage = pagerInfo.CurrenetPageIndex,

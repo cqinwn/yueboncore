@@ -1599,41 +1599,44 @@ namespace Yuebon.Commons.Repositories
         public async Task<Tuple<bool, string>> ExecuteTransactionAsync(List<Tuple<string, object>> trans, int? commandTimeout = null)
         {
             if (!trans.Any()) return new Tuple<bool, string>(false, "执行事务SQL语句不能为空！");
-            using (var transaction = DapperConn.BeginTransaction())
+            using (DbConnection connection = DapperConn)
             {
-                try
+                using (var transaction = await connection.BeginTransactionAsync())
                 {
-                    StringBuilder exeSqlLog = new StringBuilder();
-                    foreach (var tran in trans)
+                    try
                     {
-                        exeSqlLog.Append("SQL语句:" + tran.Item1 + "  \n SQL参数: " + JsonConvert.SerializeObject(tran.Item2) + " \n");
-                        await DapperConn.ExecuteAsync(tran.Item1, tran.Item2, transaction, commandTimeout);
-                    }
-                    //提交事务
-                    Stopwatch stopwatch = new Stopwatch();
-                    stopwatch.Start();
-                    transaction.Commit();
-                    stopwatch.Stop();
-                    exeSqlLog.Append("耗时:" + stopwatch.ElapsedMilliseconds + "  毫秒\n");
+                        StringBuilder exeSqlLog = new StringBuilder();
+                        foreach (var tran in trans)
+                        {
+                            exeSqlLog.Append("SQL语句:" + tran.Item1 + "  \n SQL参数: " + JsonConvert.SerializeObject(tran.Item2) + " \n");
+                            await connection.ExecuteAsync(tran.Item1, tran.Item2, transaction, commandTimeout);
+                        }
+                        //提交事务
+                        Stopwatch stopwatch = new Stopwatch();
+                        stopwatch.Start();
+                        transaction.Commit();
+                        stopwatch.Stop();
+                        exeSqlLog.Append("耗时:" + stopwatch.ElapsedMilliseconds + "  毫秒\n");
 
-                    Log4NetHelper.Info(exeSqlLog.ToString());
-                    OperationLogOfSQL(exeSqlLog.ToString());
-                    return new Tuple<bool, string>(true, string.Empty);
-                }
-                catch (Exception ex)
-                {
-                    //回滚事务
-                    OperationLogOfException(ex);
-                    Log4NetHelper.Error("", ex);
-                    transaction.Rollback();
-                    DapperConn.Close();
-                    DapperConn.Dispose();
-                    return new Tuple<bool, string>(false, ex.ToString());
-                }
-                finally
-                {
-                    DapperConn.Close();
-                    DapperConn.Dispose();
+                        Log4NetHelper.Info(exeSqlLog.ToString());
+                        OperationLogOfSQL(exeSqlLog.ToString());
+                        return new Tuple<bool, string>(true, string.Empty);
+                    }
+                    catch (Exception ex)
+                    {
+                        //回滚事务
+                        OperationLogOfException(ex);
+                        Log4NetHelper.Error("", ex);
+                        transaction.Rollback();
+                        connection.Close();
+                        connection.Dispose();
+                        return new Tuple<bool, string>(false, ex.ToString());
+                    }
+                    finally
+                    {
+                        connection.Close();
+                        connection.Dispose();
+                    }
                 }
             }
         }
@@ -1648,41 +1651,43 @@ namespace Yuebon.Commons.Repositories
         public Tuple<bool, string> ExecuteTransaction(List<Tuple<string, object>> trans, int? commandTimeout = null)
         {
             if (!trans.Any()) return new Tuple<bool, string>(false, "执行事务SQL语句不能为空！");
-
-            //开启事务
-            using (var transaction = DapperConn.BeginTransaction())
+            using (DbConnection connection = DapperConn)
             {
-                try
+                //开启事务
+                using (var transaction = DapperConn.BeginTransaction())
                 {
-                    StringBuilder exeSqlLog = new StringBuilder();
-                    foreach (var tran in trans)
+                    try
                     {
-                        exeSqlLog.Append("SQL语句:" + tran.Item1 + "  \n SQL参数: " + JsonConvert.SerializeObject(tran.Item2) + " \n");
-                        DapperConn.Execute(tran.Item1, tran.Item2, transaction, commandTimeout);
+                        StringBuilder exeSqlLog = new StringBuilder();
+                        foreach (var tran in trans)
+                        {
+                            exeSqlLog.Append("SQL语句:" + tran.Item1 + "  \n SQL参数: " + JsonConvert.SerializeObject(tran.Item2) + " \n");
+                            DapperConn.Execute(tran.Item1, tran.Item2, transaction, commandTimeout);
+                        }
+                        Stopwatch stopwatch = new Stopwatch();
+                        stopwatch.Start();
+                        //提交事务
+                        transaction.Commit();
+                        stopwatch.Stop();
+                        exeSqlLog.Append("耗时:" + stopwatch.ElapsedMilliseconds + "  毫秒\n");
+                        OperationLogOfSQL(exeSqlLog.ToString());
+                        return new Tuple<bool, string>(true, string.Empty);
                     }
-                    Stopwatch stopwatch = new Stopwatch();
-                    stopwatch.Start();
-                    //提交事务
-                    transaction.Commit();
-                    stopwatch.Stop();
-                    exeSqlLog.Append("耗时:" + stopwatch.ElapsedMilliseconds + "  毫秒\n");
-                    OperationLogOfSQL(exeSqlLog.ToString());
-                    return new Tuple<bool, string>(true, string.Empty);
-                }
-                catch (Exception ex)
-                {
-                    //回滚事务
-                    OperationLogOfException(ex);
-                    Log4NetHelper.Error("", ex);
-                    transaction.Rollback();
-                    DapperConn.Close();
-                    DapperConn.Dispose();
-                    return new Tuple<bool, string>(false, ex.ToString());
-                }
-                finally
-                {
-                    DapperConn.Close();
-                    DapperConn.Dispose();
+                    catch (Exception ex)
+                    {
+                        //回滚事务
+                        OperationLogOfException(ex);
+                        Log4NetHelper.Error("", ex);
+                        transaction.Rollback();
+                        DapperConn.Close();
+                        DapperConn.Dispose();
+                        return new Tuple<bool, string>(false, ex.ToString());
+                    }
+                    finally
+                    {
+                        DapperConn.Close();
+                        DapperConn.Dispose();
+                    }
                 }
             }
         }
@@ -1694,33 +1699,36 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public T Execute<T>(Func<DbConnection, DbTransaction, T> func)
         {
-            using (var transaction = DapperConn.BeginTransaction())
+            using (DbConnection connection = DapperConn)
             {
-                try
+                using (var transaction = DapperConn.BeginTransaction())
                 {
-                    var sb = new StringBuilder("ExecuteTransaction 事务： ");
-                    Stopwatch stopwatch = new Stopwatch();
-                    stopwatch.Start();
-                    //提交事务
-                    transaction.Commit();
-                    stopwatch.Stop();
-                    sb.Append("耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
-                    Log4NetHelper.Info(sb.ToString());
-                    return func(DapperConn, transaction);
-                }
-                catch (Exception ex)
-                {
-                    //回滚事务
-                    Log4NetHelper.Error("", ex);
-                    transaction.Rollback();
-                    DapperConn.Close();
-                    DapperConn.Dispose();
-                    return func(DapperConn, transaction);
-                }
-                finally
-                {
-                    DapperConn.Close();
-                    DapperConn.Dispose();
+                    try
+                    {
+                        var sb = new StringBuilder("ExecuteTransaction 事务： ");
+                        Stopwatch stopwatch = new Stopwatch();
+                        stopwatch.Start();
+                        //提交事务
+                        transaction.Commit();
+                        stopwatch.Stop();
+                        sb.Append("耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
+                        Log4NetHelper.Info(sb.ToString());
+                        return func(DapperConn, transaction);
+                    }
+                    catch (Exception ex)
+                    {
+                        //回滚事务
+                        Log4NetHelper.Error("", ex);
+                        transaction.Rollback();
+                        DapperConn.Close();
+                        DapperConn.Dispose();
+                        return func(DapperConn, transaction);
+                    }
+                    finally
+                    {
+                        DapperConn.Close();
+                        DapperConn.Dispose();
+                    }
                 }
             }
         }

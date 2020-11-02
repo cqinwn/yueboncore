@@ -110,9 +110,9 @@ Yuebon.Security.Core[权限管理类库]：以Security为基础实现以角色-�
 
 Yuebon.AspNetCore[AspNetCore类库]，提供AspNetCore的服务端功能的封装，支持webapi和webmvc模式，同时支持插件式开发；
 
-Yuebon.Manager[管理后台]：基于aspnet core mvc实现了权限管理和CMS部分管理后台；
+Yuebon.WebApp[管理后台]：基于aspnet core mvc实现了权限管理和CMS部分管理后台；参考MVC分支，不在提供升级和服务。
 
-Yuebon.Cms.Core[CMS基础类库]，包含文章管理、广告管理等内容，以此做案例给大家开发参考
+Yuebon.Cms.Core[CMS基础类库]，包含文章管理、广告管理等内容，以此做案例给大家开发参考。
 
 Yuebon.WebApi[webapi接口]：为Vue版或其他三方系统提供接口服务。
 

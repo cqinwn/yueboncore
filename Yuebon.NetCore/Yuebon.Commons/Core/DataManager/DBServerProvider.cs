@@ -27,6 +27,10 @@ namespace Yuebon.Commons.Core.DataManager
         /// 数据库配置名称
         /// </summary>
         private static string dbConfigName = "MsSqlServer";
+        /// <summary>
+        /// 数据库连接
+        /// </summary>
+        private static DbConnection dbConnection;
         #region Dapper Context
         /// <summary>
         /// 获取默认数据库连接
@@ -44,6 +48,66 @@ namespace Yuebon.Commons.Core.DataManager
         public static string GetConnectionString(string key)
         {
           return  dbConfigName = key?? dbConfigName;
+        }
+
+        /// <summary>
+        /// 获取数据库连接
+        /// </summary>
+        /// <returns></returns>
+        public static DbConnection GetDBConnection<TEntity>()
+        {
+            string conStringEncrypt = Configs.GetConfigurationValue("AppSetting", "ConStringEncrypt");
+            bool isMultiTenant = Configs.GetConfigurationValue("AppSetting", "IsMultiTenant").ToBool();
+            //获取实体真实的数据库连接池对象名，如果不存在则用默认数据连接池名
+            dbConfigName = typeof(TEntity).GetCustomAttribute<AppDBContextAttribute>(false)?.DbConfigName ?? dbConfigName;
+            if (string.IsNullOrEmpty(dbConfigName))
+            {
+                dbConfigName = Configs.GetConfigurationValue("AppSetting", "DefaultDataBase");
+            }
+            // 数据库连接配置
+            string defaultSqlConnectionString = Configs.GetConnectionString(dbConfigName);
+            if (isMultiTenant)
+            {
+                defaultSqlConnectionString = Configs.GetConnectionString(dbConfigName);
+            }
+            if (conStringEncrypt == "true")
+            {
+                defaultSqlConnectionString = DEncrypt.Decrypt(defaultSqlConnectionString);
+            }
+            string dbType = dbConfigName.ToUpper();
+            if (dbType.Contains("MSSQL"))
+            {
+                dbConnection=new SqlConnection(defaultSqlConnectionString);
+            }
+            else if (dbType.Contains("MYSQL"))
+            {
+                dbConnection =new MySqlConnection(defaultSqlConnectionString);
+            }
+            else if (dbType.Contains("ORACLE"))
+            {
+                dbConnection = new OracleConnection(defaultSqlConnectionString);
+            }
+            else if (dbType.Contains("SQLITE"))
+            {
+                dbConnection = new SqliteConnection(defaultSqlConnectionString);
+            }
+            else if (dbType.Contains("NPGSQL"))
+            {
+                dbConnection = new NpgsqlConnection(defaultSqlConnectionString);
+            }
+            else if (dbType.Contains("MEMORY"))
+            {
+                throw new NotSupportedException("In Memory Dapper Database Provider is not yet available.");
+            }
+            else
+            {
+                throw new NotSupportedException("The database is not supported");
+            }
+            if (dbConnection.State != ConnectionState.Open)
+            {
+                dbConnection.Open();
+            }
+            return dbConnection;
         }
 
         /// <summary>
@@ -71,32 +135,37 @@ namespace Yuebon.Commons.Core.DataManager
             string dbType = dbConfigName.ToUpper();
             if (dbType.Contains("MSSQL"))
             {
-                return new SqlConnection(defaultSqlConnectionString);
+                dbConnection = new SqlConnection(defaultSqlConnectionString);
             }
             else if (dbType.Contains("MYSQL"))
             {
-                return new MySqlConnection(defaultSqlConnectionString);
+                dbConnection = new MySqlConnection(defaultSqlConnectionString);
             }
             else if (dbType.Contains("ORACLE"))
             {
-                return new OracleConnection(defaultSqlConnectionString);
+                dbConnection = new OracleConnection(defaultSqlConnectionString);
             }
             else if (dbType.Contains("SQLITE"))
             {
-                return new SqliteConnection(defaultSqlConnectionString);
+                dbConnection = new SqliteConnection(defaultSqlConnectionString);
+            }
+            else if (dbType.Contains("NPGSQL"))
+            {
+                dbConnection = new NpgsqlConnection(defaultSqlConnectionString);
             }
             else if (dbType.Contains("MEMORY"))
             {
                 throw new NotSupportedException("In Memory Dapper Database Provider is not yet available.");
             }
-            else if (dbType.Contains("NPGSQL"))
-            {
-                return new NpgsqlConnection(defaultSqlConnectionString);
-            }
             else
             {
                 throw new NotSupportedException("The database is not supported");
             }
+            if (dbConnection.State != ConnectionState.Open)
+            {
+                dbConnection.Open();
+            }
+            return dbConnection;
         }
         /// <summary>
         /// 默认数据库连接
@@ -139,14 +208,7 @@ namespace Yuebon.Commons.Core.DataManager
         /// <returns></returns>
         public static void GetDbContextConnection<TEntity>(IDbContextCore defaultDbContext)
         {
-
             dbConfigName = typeof(TEntity).GetCustomAttribute<AppDBContextAttribute>(false)?.DbConfigName ?? dbConfigName;
-            //defaultDbContext.GetDatabase().ConnectionString = ConnectionPool[dbName];
-            //string connstr= defaultDbContext.Database.GetDbConnection().ConnectionString;
-            // if (connstr != ConnectionPool[DefaultConnName])
-            // {
-            //     defaultDbContext.Database.GetDbConnection().ConnectionString = ConnectionPool[DefaultConnName];
-            // };
         }
         #endregion
     }

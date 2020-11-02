@@ -105,9 +105,9 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         {
             CommonResult result = new CommonResult();
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            var vCode = yuebonCacheHelper.Get("LoginValidateCode");
-            string code = vCode != null? vCode.ToString():"11";
-            if (code != tinfo.VerificationCode)
+            var vCode = yuebonCacheHelper.Get("ValidateCode" + tinfo.VerifyCodeKey);
+            string code = vCode != null ? vCode.ToString() : "11";
+            if (code!= tinfo.VerificationCode.ToUpper())
             {
                 result.ErrMsg = "验证码错误";
                 return ToJsonContent(result);

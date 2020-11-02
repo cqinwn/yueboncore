@@ -1011,6 +1011,11 @@
             设置验证码
             </summary>
         </member>
+        <member name="P:Yuebon.WebApi.Areas.Security.Models.RegisterViewModel.VerifyCodeKey">
+            <summary>
+            设置验证码Key
+            </summary>
+        </member>
         <member name="T:Yuebon.WebApi.Areas.Weixin.Controllers.WxOpenController">
             <summary>
             微信接口

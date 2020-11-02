@@ -11,7 +11,7 @@ namespace Yuebon.Commons.Models
     /// </summary>
 
     [Serializable]
-    public  class BaseEntity<TKey> :Entity where TKey : IEquatable<TKey>
+    public abstract class BaseEntity<TKey> :Entity
     {
         /// <summary>
         /// 

@@ -137,15 +137,6 @@ namespace Yuebon.Commons.IRepositories
         /// <param name="entities">实体集合</param>
         /// <returns></returns>
         void  Insert(List<T> entities);
-
-        /// <summary>
-        /// 异步批量新增实体。
-        /// </summary>
-        /// <param name="entities">实体集合</param>
-        /// <param name="trans">事务对象</param>
-        /// <returns></returns>
-        //Task<long> InsertAsync(List<T> entities, IDbTransaction trans=null);
-
         /// <summary>
         /// 同步更新实体。
         /// </summary>
@@ -221,7 +212,6 @@ namespace Yuebon.Commons.IRepositories
         /// 同步物理删除实体。
         /// </summary>
         /// <param name="entity">实体</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
         bool Delete(T entity);
 
@@ -330,22 +320,6 @@ namespace Yuebon.Commons.IRepositories
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
         Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, string userId = null, IDbTransaction trans = null);
-        /// <summary>
-        /// 同步物理删除所有实体。
-        /// </summary>
-        /// <param name="trans">事务对象</param>
-        /// <returns></returns>
-        //bool DeleteAll(IDbTransaction trans=null);
-
-        /// <summary>
-        /// 异步物理删除所有实体。
-        /// </summary>
-        /// <param name="trans">事务对象</param>
-        /// <returns></returns>
-        //Task<bool> DeleteAllAsync(IDbTransaction trans=null);
-
-
-
         /// <summary>
         /// 查询软删除的数据，如果查询条件为空，即查询所有软删除的数据
         /// </summary>
@@ -625,19 +599,6 @@ namespace Yuebon.Commons.IRepositories
         /// <returns></returns>
         int Delete(TKey key);
         /// <summary>
-        /// 根据条件删除数据
-        /// </summary>
-        /// <param name="where"></param>
-        /// <returns></returns>
-        //int Delete(Expression<Func<T, bool>> @where);
-        /// <summary>
-        /// 
-        /// 根据条件删除数据
-        /// </summary>
-        /// <param name="where"></param>
-        /// <returns></returns>
-        //Task<int> DeleteAsync(Expression<Func<T, bool>> @where);
-        /// <summary>
         /// 执行删除数据Sql语句
         /// </summary>
         /// <param name="sql">删除的Sql语句</param>
@@ -659,20 +620,6 @@ namespace Yuebon.Commons.IRepositories
         /// <returns></returns>
         int EditRange(ICollection<T> entities);
         /// <summary>
-        /// 根据条件更新数据
-        /// </summary>
-        /// <param name="where">条件</param>
-        /// <param name="updateExp"></param>
-        /// <returns></returns>
-        //int BatchUpdate(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateExp);
-        /// <summary>
-        /// 根据条件更新数据
-        /// </summary>
-        /// <param name="where">条件</param>
-        /// <param name="updateExp"></param>
-        /// <returns></returns>
-       // Task<int> BatchUpdateAsync(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateExp);
-        /// <summary>
         /// 更新指定字段的值
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -680,21 +627,6 @@ namespace Yuebon.Commons.IRepositories
         /// <param name="updateColumns">指定字段</param>
         /// <returns></returns>
         int Update(T model, params string[] updateColumns);
-        /// <summary>
-        /// 按条件更新，
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="where">条件</param>
-        /// <param name="updateFactory"></param>
-        /// <returns></returns>
-       // int Update(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateFactory);
-        /// <summary>
-        /// 按条件更新
-        /// </summary>
-        /// <param name="where">条件</param>
-        /// <param name="updateFactory"></param>
-        /// <returns></returns>
-        //Task<int> UpdateAsync(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateFactory);
         /// <summary>
         /// 执行更新数据的Sql语句
         /// </summary>
@@ -736,7 +668,6 @@ namespace Yuebon.Commons.IRepositories
         /// <param name="key"></param>
         /// <returns></returns>
         T GetSingle(TKey key);
-        //T GetSingle(TKey key, Func<IQueryable<T>, IQueryable<T>> includeFunc);
         /// <summary>
         ///  根据主键获取实体。建议：如需使用Include和ThenInclude请重载此方法。
         /// </summary>

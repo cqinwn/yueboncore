@@ -48,12 +48,7 @@ namespace Yuebon.Security.Services
         /// <returns>指定对象的集合</returns>
         public override async Task<PageResult<LogOutputDto>> FindWithPagerAsync(SearchInputDto<Log> search)
         {
-
             bool order = search.Order == "asc" ? false : true;
-            if (!string.IsNullOrEmpty(search.Keywords))
-            {
-                _iLogRepository.InsertTset(search.Keywords.ToInt());
-            }
             string where = GetDataPrivilege(false);
             if (!string.IsNullOrEmpty(search.Keywords))
             {
@@ -68,11 +63,7 @@ namespace Yuebon.Security.Services
                 CurrenetPageIndex = search.CurrenetPageIndex,
                 PageSize = search.PageSize
             };
-            if (!string.IsNullOrEmpty(search.EnCode))
-            {
-                where += " and Type in('" + search.EnCode.Replace(",", "','") + "')";
-            }
-            List<Log> list = _iLogRepository.GetByPagination(m =>m.Account.StartsWith(search.Keywords), pagerInfo, true).ToList<Log>();
+            List<Log> list =await _iLogRepository.FindWithPagerAsync(where,pagerInfo,search.Sort,order);
             PageResult<LogOutputDto> pageResult = new PageResult<LogOutputDto>
             {
                 CurrentPage = pagerInfo.CurrenetPageIndex,

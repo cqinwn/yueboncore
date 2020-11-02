@@ -200,7 +200,7 @@ namespace Yuebon.Commons.IDbContext
         /// <typeparam name="TKey">主键类型</typeparam>
         /// <param name="key">主键值</param>
         /// <returns></returns>
-        T Find<T,TKey>(TKey key) where T : Entity;
+        T Find<T, TKey>(TKey key) where T : Entity;
         /// <summary>
         /// 根据主键查询实体
         /// </summary>

@@ -35,11 +35,9 @@ namespace Yuebon.Security.Repositories
             {
                 sql += " where " + where;
             }
-            using (DbConnection conn = OpenSharedConnection())
-            {
-                IEnumerable<String> resultList= conn.Query<String>(sql);
-                return resultList.ToList();
-            }
+
+            IEnumerable<String> resultList = DapperConn.Query<String>(sql);
+            return resultList.ToList();
         }
 
     }

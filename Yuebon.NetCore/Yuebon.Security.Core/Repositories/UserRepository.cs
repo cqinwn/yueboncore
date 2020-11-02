@@ -39,13 +39,10 @@ namespace Yuebon.Security.Repositories
         /// <param name="userName"></param>
         /// <returns></returns>
         public async Task<User> GetByUserName(string userName)
-       {
-            using (IDbConnection conn = OpenSharedConnection())
-            {
-                string sql = @"SELECT * FROM Sys_User t WHERE t.Account = @UserName";
-                return await conn.QueryFirstOrDefaultAsync<User>(sql, new { @UserName = userName });
-            }
-       }
+        {
+            string sql = @"SELECT * FROM Sys_User t WHERE t.Account = @UserName";
+            return await DapperConn.QueryFirstOrDefaultAsync<User>(sql, new { @UserName = userName });
+        }
 
         /// <summary>
         /// 根据用户手机号码查询用户信息
@@ -54,11 +51,8 @@ namespace Yuebon.Security.Repositories
         /// <returns></returns>
         public async Task<User> GetUserByMobilePhone(string mobilephone)
         {
-            using (IDbConnection conn = OpenSharedConnection())
-            {
-                string sql = @"SELECT * FROM Sys_User t WHERE t.MobilePhone = @MobilePhone";
-                return await conn.QueryFirstOrDefaultAsync<User>(sql, new { @MobilePhone = mobilephone });
-            }
+            string sql = @"SELECT * FROM Sys_User t WHERE t.MobilePhone = @MobilePhone";
+            return await DapperConn.QueryFirstOrDefaultAsync<User>(sql, new { @MobilePhone = mobilephone });
         }
 
         /// <summary>
@@ -68,11 +62,8 @@ namespace Yuebon.Security.Repositories
         /// <returns></returns>
         public async Task<User> GetUserByEmail(string email)
         {
-            using (IDbConnection conn = OpenSharedConnection())
-            {
-                string sql = @"SELECT * FROM Sys_User t WHERE t.Email = @Email";
-                return await conn.QueryFirstOrDefaultAsync<User>(sql, new { @Email = email });
-            }
+            string sql = @"SELECT * FROM Sys_User t WHERE t.Email = @Email";
+            return await DapperConn.QueryFirstOrDefaultAsync<User>(sql, new { @Email = email });
         }
         /// <summary>
         /// 根据Email、Account、手机号查询用户信息
@@ -81,11 +72,8 @@ namespace Yuebon.Security.Repositories
         /// <returns></returns>
         public async Task<User> GetUserByLogin(string account)
         {
-            using (IDbConnection conn = OpenSharedConnection())
-            {
-                string sql = @"SELECT * FROM Sys_User t WHERE (t.Account = @Account Or t.Email = @Account Or t.MobilePhone = @Account)";
-                return await conn.QueryFirstOrDefaultAsync<User>(sql, new {@Account = account });
-            }
+            string sql = @"SELECT * FROM Sys_User t WHERE (t.Account = @Account Or t.Email = @Account Or t.MobilePhone = @Account)";
+            return await DapperConn.QueryFirstOrDefaultAsync<User>(sql, new { @Account = account });
         }
         /// <summary>
         /// 注册用户
@@ -102,30 +90,7 @@ namespace Yuebon.Security.Repositories
             DbContext.GetDbSet<User>().Add(entity);
             DbContext.GetDbSet<UserLogOn>().Add(userLogOnEntity);
             return DbContext.SaveChanges()>0;
-            //using (IDbConnection conn = OpenSharedConnection())
-            //{
-            //    try
-            //    {
-            //        trans = conn.BeginTransaction();
-            //        //OperationLogOfInsert(entity);
-            //        long row = 0;
-            //        userLogOnEntity.Id = GuidUtils.CreateNo();
-            //        userLogOnEntity.UserId = entity.Id;
-            //        userLogOnEntity.UserSecretkey = MD5Util.GetMD5_16(GuidUtils.NewGuidFormatN()).ToLower();
-            //        userLogOnEntity.UserPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(userLogOnEntity.UserPassword).ToLower(), userLogOnEntity.UserSecretkey).ToLower()).ToLower();
-            //        row = conn.Insert(entity, trans);
-            //        long row1=conn.Insert(userLogOnEntity, trans);
-                   
-            //        trans.Commit();
-            //        return (row + row1)>=2;
-            //    }
-            //    catch (Exception)
-            //    {
-            //        trans.Rollback();
-            //        throw;
-            //    }
-                
-            //}
+            
         }
 
         /// <summary>
@@ -143,30 +108,6 @@ namespace Yuebon.Security.Repositories
             DbContext.GetDbSet<User>().Add(entity);
             DbContext.GetDbSet<UserLogOn>().Add(userLogOnEntity);
             return await DbContext.SaveChangesAsync() > 0;
-
-            //using (IDbConnection conn = OpenSharedConnection())
-            //{
-            //    try
-            //    {
-            //        trans = conn.BeginTransaction();
-            //        long row = 0;
-            //        userLogOnEntity.Id = GuidUtils.CreateNo();
-            //        userLogOnEntity.UserId = entity.Id;
-            //        userLogOnEntity.UserSecretkey = MD5Util.GetMD5_16(GuidUtils.NewGuidFormatN()).ToLower();
-            //        userLogOnEntity.UserPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(userLogOnEntity.UserPassword).ToLower(), userLogOnEntity.UserSecretkey).ToLower()).ToLower();
-            //        row = await conn.InsertAsync(entity, trans);
-            //        long row1 = await conn.InsertAsync(userLogOnEntity, trans);
-
-            //        trans.Commit();
-            //        return (row + row1) >= 2;
-            //    }
-            //    catch (Exception)
-            //    {
-            //        trans.Rollback();
-            //        throw;
-            //    }
-
-            //}
         }
         /// <summary>
         /// 注册用户,第三方平台
@@ -187,29 +128,6 @@ namespace Yuebon.Security.Repositories
             DbContext.GetDbSet<UserLogOn>().Add(userLogOnEntity);
             DbContext.GetDbSet<UserOpenIds>().Add(userOpenIds);
             return  DbContext.SaveChanges() > 0;
-            //using (IDbConnection conn = OpenSharedConnection())
-            //{
-            //    try
-            //    {
-            //        trans = conn.BeginTransaction();
-            //        //OperationLogOfInsert(entity);
-            //        userLogOnEntity.Id = GuidUtils.CreateNo();
-            //        userLogOnEntity.UserId = entity.Id;
-            //        userLogOnEntity.UserSecretkey = MD5Util.GetMD5_16(GuidUtils.NewGuidFormatN()).ToLower();
-            //        userLogOnEntity.UserPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(userLogOnEntity.UserPassword).ToLower(), userLogOnEntity.UserSecretkey).ToLower()).ToLower();
-            //        long row= conn.Insert(entity, trans);
-            //        long row1 = conn.Insert(userLogOnEntity, trans);
-            //        long row2 = conn.Insert(userOpenIds, trans);
-            //        trans.Commit();
-
-            //        return (row + row1+ row2) >= 3;
-            //    }
-            //    catch (Exception)
-            //    {
-            //        trans.Rollback();
-            //        throw;
-            //    }
-            //}
         }
 
         /// <summary>
@@ -219,11 +137,8 @@ namespace Yuebon.Security.Repositories
         /// <returns></returns>
         public User GetUserByUnionId(string unionId)
         {
-            using (IDbConnection conn = OpenSharedConnection())
-            {
-                string sql = string.Format("select * from dbo.Sys_User where UnionId = '{0}'", unionId);
-                return conn.QueryFirstOrDefault<User>(sql);
-            }
+            string sql = string.Format("select * from dbo.Sys_User where UnionId = '{0}'", unionId);
+            return DapperConn.QueryFirstOrDefault<User>(sql);
         }
         /// <summary>
         /// 根据第三方OpenId查询用户信息
@@ -233,11 +148,8 @@ namespace Yuebon.Security.Repositories
         /// <returns></returns>
         public User GetUserByOpenId(string openIdType, string openId)
         {
-            using (IDbConnection conn = OpenSharedConnection())
-            {
-                string sql =string.Format("select * from dbo.Sys_User as u join dbo.Sys_UserOpenIds as o on u.Id = o.UserId and  o.OpenIdType = '{0}' and o.OpenId = '{1}'",openIdType,openId);
-                return conn.QueryFirstOrDefault<User>(sql);
-            }
+            string sql = string.Format("select * from dbo.Sys_User as u join dbo.Sys_UserOpenIds as o on u.Id = o.UserId and  o.OpenIdType = '{0}' and o.OpenId = '{1}'", openIdType, openId);
+            return DapperConn.QueryFirstOrDefault<User>(sql);
         }
 
         /// <summary>
@@ -248,11 +160,8 @@ namespace Yuebon.Security.Repositories
         /// <returns></returns>
         public UserOpenIds GetUserOpenIdByuserId(string openIdType, string userId)
         {
-            using (IDbConnection conn = OpenSharedConnection())
-            {
-                string sql = string.Format("select * from dbo.Sys_UserOpenIds  where OpenIdType = '{0}' and UserId = '{1}'", openIdType, userId);
-                return conn.QueryFirstOrDefault<UserOpenIds>(sql);
-            }
+            string sql = string.Format("select * from dbo.Sys_UserOpenIds  where OpenIdType = '{0}' and UserId = '{1}'", openIdType, userId);
+            return DapperConn.QueryFirstOrDefault<UserOpenIds>(sql);
         }
 
         /// <summary>
@@ -266,39 +175,8 @@ namespace Yuebon.Security.Repositories
             DbContext.GetDbSet<User>().Add(entity);
             DbContext.GetDbSet<UserOpenIds>().Add(userOpenIds);
             return DbContext.SaveChanges() > 0;
-            //using (IDbConnection conn = OpenSharedConnection())
-            //{
-            //    try
-            //    {
-            //        trans = conn.BeginTransaction();
-            //        //OperationLogOfInsert(entity);
-            //        bool row = conn.Update<User>(entity, trans);
-            //        bool row1 = conn.Update<UserLogOn>(userLogOnEntity, trans);
-            //        trans.Commit();
-
-            //        return row&&row&&row?true:false;
-            //    }
-            //    catch (Exception)
-            //    {
-            //        trans.Rollback();
-            //        throw;
-            //    }
-            //}
         }
 
-        /// <summary>
-        /// 根据用户ID得到名片信息
-        /// </summary>
-        /// <param name="userid"></param>
-        /// <returns></returns>
-        //public UserNameCardOutPutDto GetUserNameCardInfo(string userid)
-        //{
-        //    using (IDbConnection conn = OpenSharedConnection())
-        //    {
-        //        string sql = @"select * from dbo.Vw_NameCard where MUserId='" + userid + "' ";
-        //        return conn.QueryFirstOrDefault<UserNameCardOutPutDto>(sql);
-        //    }
-        //}
 
 
 
@@ -366,20 +244,17 @@ order by t3.totalFocus desc";
 
             List<UserAllListFocusOutPutDto> list = new List<UserAllListFocusOutPutDto>();
 
-            using (DbConnection conn = OpenSharedConnection())
+            IEnumerable<UserAllListFocusOutPutDto> infoOutputDto = DapperConn.Query<UserAllListFocusOutPutDto>(sql);
+
+            //得到总记录数
+            List<UserAllListFocusOutPutDto> recordCountList = DapperConn.Query<UserAllListFocusOutPutDto>(sqlRecord).AsList();
+
+            list = infoOutputDto.AsList();
+            for (int i = 0; i < list.Count; i++)
             {
-                IEnumerable<UserAllListFocusOutPutDto> infoOutputDto = conn.Query<UserAllListFocusOutPutDto>(sql);
-
-                //得到总记录数
-                List<UserAllListFocusOutPutDto> recordCountList = conn.Query<UserAllListFocusOutPutDto>(sqlRecord).AsList();
-
-                list = infoOutputDto.AsList();
-                for (int i = 0; i < list.Count; i++)
-                {
-                    list[i].RecordCount = recordCountList.Count;
-                }
-                return list;
+                list[i].RecordCount = recordCountList.Count;
             }
+            return list;
         }
     }
 }

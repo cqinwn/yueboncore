@@ -30,10 +30,7 @@ namespace Yuebon.Messages.Repositories
         {
             string sqlStr = @"select a.*,b.Id as MemberSubscribeMsgId,b.SubscribeStatus as SubscribeStatus,b.SubscribeType as SubscribeType  from Sys_MessageTemplates as a 
 LEFT join Sys_MemberSubscribeMsg as b on a.Id = b.MessageTemplateId where a.UseInWxApplet =1 and a.WxAppletSubscribeTemplateId is not null and a.messageType = '" + messageType + "' and b.SubscribeUserId='" + userId + "'";
-            using (DbConnection conn = OpenSharedConnection())
-            {
-                return conn.QueryFirstOrDefault<MemberMessageTemplatesOuputDto>(sqlStr);
-            }
+            return DapperConn.QueryFirstOrDefault<MemberMessageTemplatesOuputDto>(sqlStr);
         }
         /// <summary>
         /// 按用户、订阅类型和消息模板主键查询
@@ -45,10 +42,7 @@ LEFT join Sys_MemberSubscribeMsg as b on a.Id = b.MessageTemplateId where a.UseI
         public MemberMessageTemplatesOuputDto GetByWithUser(string subscribeType, string userId, string messageTemplateId)
         {
             string sqlStr = @"select * from [dbo].[Sys_MemberSubscribeMsg]   where SubscribeUserId = '" + userId + "' and SubscribeType='" + subscribeType + "' and MessageTemplateId='" + messageTemplateId + "'";
-            using (DbConnection conn = OpenSharedConnection())
-            {
-                return conn.QueryFirstOrDefault<MemberMessageTemplatesOuputDto>(sqlStr);
-            }
+            return DapperConn.QueryFirstOrDefault<MemberMessageTemplatesOuputDto>(sqlStr);
         }
     }
 }

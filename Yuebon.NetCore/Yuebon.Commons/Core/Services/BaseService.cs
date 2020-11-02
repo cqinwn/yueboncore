@@ -98,25 +98,6 @@ namespace Yuebon.Commons.Services
             return repository.DeleteAsync(id, trans);
         }
 
-        /// <summary>
-        /// 同步物理删除所有实体。
-        /// </summary>
-        /// <param name="trans">事务对象</param>
-        /// <returns></returns>
-        //public virtual bool DeleteAll(IDbTransaction trans = null)
-        //{
-        //    return repository.DeleteAll(trans);
-        //}
-
-        /// <summary>
-        /// 异步物理删除所有实体。
-        /// </summary>
-        /// <param name="trans">事务对象</param>
-        /// <returns></returns>
-        //public virtual Task<bool> DeleteAllAsync(IDbTransaction trans = null)
-        //{
-        //    return repository.DeleteAllAsync(trans);
-        //}
 
         /// <summary>
         /// 异步物理删除实体。
@@ -377,17 +358,6 @@ namespace Yuebon.Commons.Services
         {
             repository.Insert(entities);
         }
-        /// <summary>
-        /// 异步批量新增实体。
-        /// </summary>
-        /// <param name="entities">实体集合</param>
-        /// <param name="trans">事务对象</param>
-        /// <returns></returns>
-        //public virtual Task<long> InsertAsync(List<T> entities, IDbTransaction trans = null)
-        //{
-        //    return repository.InsertAsync(entities, trans);
-        //}
-
         /// <summary>
         /// 同步更新实体。
         /// </summary>

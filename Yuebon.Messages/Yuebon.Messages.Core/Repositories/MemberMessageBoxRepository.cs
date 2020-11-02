@@ -39,11 +39,8 @@ namespace Yuebon.Messages.Repositories
                 sql += sql + " where " + strwhere;
             }
 
-            using (DbConnection conn = OpenSharedConnection())
-            {
-                return conn.Execute(sql) > 0 ? true : false;
+            return DapperConn.Execute(sql) > 0 ? true : false;
 
-            }
         }
 
         /// <summary>
@@ -66,19 +63,15 @@ namespace Yuebon.Messages.Repositories
                 sql = sql + " where " + strwhere;
             }
 
-            using (DbConnection conn = OpenSharedConnection())
+            IEnumerable<MemberMessageBox> list = DapperConn.Query<MemberMessageBox>(sql);
+
+            if (list != null)
             {
-                IEnumerable<MemberMessageBox> list = conn.Query<MemberMessageBox>(sql);
-
-                if (list != null)
-                {
-                    return list.AsList().Count;
-                }
-                else
-                {
-                    return 0;
-                }
-
+                return list.AsList().Count;
+            }
+            else
+            {
+                return 0;
             }
         }
     }

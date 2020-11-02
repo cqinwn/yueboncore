@@ -184,17 +184,6 @@ namespace Yuebon.Commons.Repositories
         {
             get { return DBServerProvider.GetDBConnection<T>(); }
         }
-        /// <summary>
-        /// [弃用]数据库连接,根据数据库类型自动识别，类型区分用配置名称是否包含主要关键字
-        /// MSSQL、MYSQL、ORACLE、SQLITE、MEMORY、NPGSQL
-        /// 推荐使用DapperConn
-        /// </summary>
-        /// <returns></returns>
-        public DbConnection OpenSharedConnection()
-        {
-            dbConnection = DBServerProvider.GetDBConnection<T>();
-            return dbConnection;
-        }
         #endregion
 
         #region Dapper 操作
@@ -361,7 +350,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual IEnumerable<T> GetListTopWhere(int top,string where = null, IDbTransaction trans = null)
+        public virtual IEnumerable<T> GetListTopWhere(int top, string where = null, IDbTransaction trans = null)
         {
             var type = MethodBase.GetCurrentMethod().DeclaringType;
             if (HasInjectionData(where))
@@ -378,10 +367,7 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += " where " + where;
             }
-            using (DbConnection conn = OpenSharedConnection())
-            {
-                return conn.Query<T>(sql, trans);
-            }
+            return DapperConn.Query<T>(sql, trans);
         }
 
 

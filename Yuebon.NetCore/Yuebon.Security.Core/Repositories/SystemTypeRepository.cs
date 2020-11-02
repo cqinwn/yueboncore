@@ -30,11 +30,8 @@ namespace Yuebon.Security.Repositories
         /// <returns></returns>
         public SystemType GetByCode(string appkey)
         {
-            using (IDbConnection conn = OpenSharedConnection())
-            {
-                string sql = @"SELECT * FROM "+this.tableName+" t WHERE t.EnCode = @EnCode";
-                return conn.QueryFirstOrDefault<SystemType>(sql, new { EnCode = appkey });
-            }
+            string sql = @"SELECT * FROM " + this.tableName + " t WHERE t.EnCode = @EnCode";
+            return DapperConn.QueryFirstOrDefault<SystemType>(sql, new { EnCode = appkey });
         }
     }
 }

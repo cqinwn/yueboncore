@@ -241,19 +241,17 @@ namespace Yuebon.Security.Repositories
             DbContext.AddRange<Log>(logList3);
             stopwatch5.Stop();
             sb.Append("EF 批量插入" + n + "条数据AddRange耗时:" + (stopwatch5.ElapsedMilliseconds + "  毫秒\n"));
-            using (IDbConnection conn = OpenSharedConnection())
-            {
-               
+           
                 //stopwatch6.Start();
                 //conn.Insert(logList4);
                 //stopwatch6.Stop();
                 //sb.Append("Dapper 批量插入" + n + "条数据Insert批量耗时:" + (stopwatch6.ElapsedMilliseconds + "  毫秒\n"));
 
                 stopwatch7.Start();
-                conn.Execute(sql, logList5);
+                DapperConn.Execute(sql, logList5);
                 stopwatch7.Stop();
                 sb.Append("Dapper 批量插入" + n + "条数据ExecuteAsync耗时:" + (stopwatch7.ElapsedMilliseconds + "  毫秒\n"));
-            }
+           
             List<Log> newlogList = new List<Log>();
             foreach(Log item in logList)
             {
@@ -338,11 +336,8 @@ namespace Yuebon.Security.Repositories
         /// <returns></returns>
         public override bool Delete(string id, IDbTransaction trans = null)
         {
-            using (IDbConnection conn = OpenSharedConnection())
-            {
-                int row = conn.Execute($"delete from {tableName} where Id=@id", new { @id = id }, trans);
-                return row > 0 ? true : false;
-            }
+            int row = DapperConn.Execute($"delete from {tableName} where Id=@id", new { @id = id }, trans);
+            return row > 0 ? true : false;
         }
     }
 }

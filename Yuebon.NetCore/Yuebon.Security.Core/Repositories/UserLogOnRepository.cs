@@ -28,11 +28,8 @@ namespace Yuebon.Security.Repositories
         /// <returns></returns>
         public UserLogOn GetByUserId(string userId)
         {
-            using (IDbConnection conn = OpenSharedConnection())
-            {
-                string sql = @"SELECT * FROM Sys_UserLogOn t WHERE t.UserId = @UserId";
-                return conn.QueryFirst<UserLogOn>(sql, new { UserId = userId });
-            }
+            string sql = @"SELECT * FROM Sys_UserLogOn t WHERE t.UserId = @UserId";
+            return DapperConn.QueryFirst<UserLogOn>(sql, new { UserId = userId });
         }
     }
 }

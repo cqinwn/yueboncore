@@ -146,17 +146,9 @@ namespace Yuebon.Commons.IServices
         /// 同步批量新增实体。
         /// </summary>
         /// <param name="entities">实体集合</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
         void Insert(List<T> entities);
 
-        /// <summary>
-        /// 异步批量新增实体。
-        /// </summary>
-        /// <param name="entities">实体集合</param>
-        /// <param name="trans">事务对象</param>
-        /// <returns></returns>
-        //Task<long> InsertAsync(List<T> entities, IDbTransaction trans = null);
 
         /// <summary>
         /// 同步更新实体。
@@ -342,19 +334,7 @@ namespace Yuebon.Commons.IServices
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
         Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, string userId = null, IDbTransaction trans = null);
-        /// <summary>
-        /// 同步物理删除所有实体。
-        /// </summary>
-        /// <param name="trans">事务对象</param>
-        /// <returns></returns>
-       // bool DeleteAll(IDbTransaction trans = null);
-
-        /// <summary>
-        /// 异步物理删除所有实体。
-        /// </summary>
-        /// <param name="trans">事务对象</param>
-        /// <returns></returns>
-        //Task<bool> DeleteAllAsync(IDbTransaction trans = null);
+       
 
         /// <summary>
         /// 查询软删除的数据，如果查询条件为空，即查询所有软删除的数据

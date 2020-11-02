@@ -29,15 +29,12 @@ namespace Yuebon.Security.Repositories
         /// <returns></returns>
         public IEnumerable<Function> GetFunctions(string roleIds, string typeID)
         {
-            string sql = $"SELECT DISTINCT b.* FROM Sys_Function as b INNER JOIN Sys_RoleAuthorize as a On b.Id = a.ItemId  WHERE ObjectId IN (" +roleIds+")";
+            string sql = $"SELECT DISTINCT b.* FROM Sys_Function as b INNER JOIN Sys_RoleAuthorize as a On b.Id = a.ItemId  WHERE ObjectId IN (" + roleIds + ")";
             if (!string.IsNullOrEmpty(typeID))
             {
                 sql = sql + string.Format(" AND SystemTypeId='{0}' ", typeID);
             }
-            using (IDbConnection conn = OpenSharedConnection())
-            {
-                return conn.Query<Function>(sql);
-            }
+            return DapperConn.Query<Function>(sql);
         }
 
 
@@ -53,10 +50,7 @@ namespace Yuebon.Security.Repositories
             {
                 sql = sql + string.Format(" Where SystemTypeId='{0}' ", typeID);
             }
-            using (IDbConnection conn = OpenSharedConnection())
-            {
-                return conn.Query<Function>(sql);
-            }
+            return DapperConn.Query<Function>(sql);
         }
     }
 }

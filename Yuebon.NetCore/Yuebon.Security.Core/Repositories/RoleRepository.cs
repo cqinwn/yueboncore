@@ -14,10 +14,5 @@ namespace Yuebon.Security.Repositories
         public RoleRepository(IDbContextCore dbContext) : base(dbContext)
         {
         }
-
-        //public IEnumerable<Role> GetWhere()
-        //{
-        //    _dbContext.Set<Role>().fr().Where()
-        //}
     }
 }

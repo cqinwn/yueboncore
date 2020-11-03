@@ -103,10 +103,6 @@ namespace Yuebon.Commons.Repositories
         /// 是否开启多租户
         /// </summary>
         protected bool isMultiTenant = false;
-        /// <summary>
-        /// 租户Id
-        /// </summary>
-        protected string tenantId = "";
 
 
         /// <summary>
@@ -153,7 +149,9 @@ namespace Yuebon.Commons.Repositories
             _dbContext = dbContext;
             _dbContext.EnsureCreated();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         private IDbContextCore EFContext
         {
             get
@@ -163,7 +161,7 @@ namespace Yuebon.Commons.Repositories
             }
         }
         /// <summary>
-        /// EF 上线文接口
+        /// EF 上下文接口
         /// </summary>
         public virtual IDbContextCore DbContext
         {
@@ -352,7 +350,7 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual IEnumerable<T> GetListTopWhere(int top, string where = null, IDbTransaction trans = null)
         {
-            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            
             if (HasInjectionData(where))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
@@ -380,7 +378,7 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual async Task<IEnumerable<T>> GetListTopWhereAsync(int top, string where = null, IDbTransaction trans = null)
         {
-            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            
             if (HasInjectionData(where))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
@@ -410,16 +408,13 @@ namespace Yuebon.Commons.Repositories
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
-            if (string.IsNullOrEmpty(where))
-            {
-                where = "1=1";
-            }
-            string sql = $"select {selectedFields}  from { tableName} where DeleteMark=1 ";
+
+            string sqlWhere = " DeleteMark=1 ";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sql += sql + " and " + where;
+                sqlWhere += sqlWhere + " and " + where;
             }
-            return DapperConn.Query<T>(sql, trans);
+            return GetListWhere(sqlWhere,trans);
         }
 
         /// <summary>
@@ -430,22 +425,17 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual IEnumerable<T> GetAllByIsNotDeleteMark(string where = null, IDbTransaction trans=null)
         {
-            var type = MethodBase.GetCurrentMethod().DeclaringType;
             if (HasInjectionData(where))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
-            if (string.IsNullOrEmpty(where))
-            {
-                where = "1=1";
-            }
-            string sql = $"select {selectedFields} from { tableName} where DeleteMark=0";
+            string sqlWhere = " DeleteMark=0 ";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sql += sql + " and " + where;
+                sqlWhere += sqlWhere + " and " + where;
             }
-            return DapperConn.Query<T>(sql, trans);
+            return GetListWhere(sqlWhere, trans);
         }
 
         /// <summary>
@@ -456,22 +446,18 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual IEnumerable<T> GetAllByIsEnabledMark(string where = null, IDbTransaction trans=null)
         {
-            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            
             if (HasInjectionData(where))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
-            if (string.IsNullOrEmpty(where))
-            {
-                where = "1=1";
-            }
-            string sql = $"select {selectedFields} from {tableName} where EnabledMark=1";
+            string sqlWhere = " EnabledMark=1 ";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sql += sql + " and " + where;
+                sqlWhere += sqlWhere + " and " + where;
             }
-            return DapperConn.Query<T>(sql, trans);
+            return GetListWhere(sqlWhere, trans);
         }
 
         /// <summary>
@@ -482,22 +468,18 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual IEnumerable<T> GetAllByIsNotEnabledMark(string where = null, IDbTransaction trans = null)
         {
-            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            
             if (HasInjectionData(where))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
-            if (string.IsNullOrEmpty(where))
-            {
-                where = "1=1";
-            }
-            string sql = $"select {selectedFields} from {tableName} where EnabledMark=0";
+            string sqlWhere = " EnabledMark=0 ";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sql += sql + " and " + where;
+                sqlWhere += sqlWhere + " and " + where;
             }
-            return DapperConn.Query<T>(sql, trans);
+            return GetListWhere(sqlWhere, trans);
         }
         /// <summary>
         /// 查询未软删除且有效的数据，如果查询条件为空，即查询所有数据
@@ -507,22 +489,18 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual IEnumerable<T> GetAllByIsNotDeleteAndEnabledMark(string where = null, IDbTransaction trans = null)
         {
-            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            
             if (HasInjectionData(where))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
-            if (string.IsNullOrEmpty(where))
-            {
-                where = "1=1";
-            }
-            string sql = $"select {selectedFields} from {tableName} where DeleteMark=0 and EnabledMark=1";
+            string sqlWhere = " DeleteMark=0 and EnabledMark=1 ";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sql = sql + " and " + where;
+                sqlWhere += sqlWhere + " and " + where;
             }
-            return DapperConn.Query<T>(sql, trans);
+            return GetListWhere(sqlWhere, trans);
         }
 
         /// <summary>
@@ -533,22 +511,18 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual async Task<IEnumerable<T>> GetAllByIsDeleteMarkAsync(string where = null, IDbTransaction trans = null)
         {
-            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            
             if (HasInjectionData(where))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
-            if (string.IsNullOrEmpty(where))
-            {
-                where = "1=1";
-            }
-            string sql = $"select {selectedFields} from {tableName} where DeleteMark=1 ";
+            string sqlWhere = " DeleteMark=1";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sql = sql + " and " + where;
+                sqlWhere += sqlWhere + " and " + where;
             }
-            return await DapperConn.QueryAsync<T>(sql, trans);
+            return await GetListWhereAsync(sqlWhere, trans);
         }
 
         /// <summary>
@@ -559,22 +533,19 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual async Task<IEnumerable<T>> GetAllByIsNotDeleteMarkAsync(string where = null, IDbTransaction trans = null)
         {
-            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            
             if (HasInjectionData(where))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
-            if (string.IsNullOrEmpty(where))
-            {
-                where = "1=1";
-            }
-            string sql = $"select {selectedFields} from {tableName} where DeleteMark=0";
+
+            string sqlWhere = " DeleteMark=0 ";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sql = sql + " and " + where;
+                sqlWhere += sqlWhere + " and " + where;
             }
-            return await DapperConn.QueryAsync<T>(sql, trans);
+            return await GetListWhereAsync(sqlWhere, trans);
         }
 
         /// <summary>
@@ -585,22 +556,19 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual async Task<IEnumerable<T>> GetAllByIsEnabledMarkAsync(string where = null, IDbTransaction trans = null)
         {
-            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            
             if (HasInjectionData(where))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
-            if (string.IsNullOrEmpty(where))
-            {
-                where = "1=1";
-            }
-            string sql = $"select {selectedFields} from {tableName} where EnabledMark=1";
+
+            string sqlWhere = " EnabledMark=1 ";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sql = sql + " and " + where;
+                sqlWhere += sqlWhere + " and " + where;
             }
-            return await DapperConn.QueryAsync<T>(sql, trans);
+            return await GetListWhereAsync(sqlWhere, trans);
         }
 
         /// <summary>
@@ -617,16 +585,12 @@ namespace Yuebon.Commons.Repositories
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
-            if (string.IsNullOrEmpty(where))
-            {
-                where = "1=1";
-            }
-            string sql = $"select {selectedFields} from {tableName} where EnabledMark=0";
+            string sqlWhere = " EnabledMark=0";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sql = sql + " and " + where;
+                sqlWhere += sqlWhere + " and " + where;
             }
-            return await DapperConn.QueryAsync<T>(sql, trans);
+            return await GetListWhereAsync(sqlWhere, trans);
         }
         /// <summary>
         /// 查询未软删除且有效的数据，如果查询条件为空，即查询所有数据
@@ -636,22 +600,17 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual async Task<IEnumerable<T>> GetAllByIsNotDeleteAndEnabledMarkAsync(string where = null, IDbTransaction trans=null)
         {
-            var type = MethodBase.GetCurrentMethod().DeclaringType;
             if (HasInjectionData(where))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
-            if (string.IsNullOrEmpty(where))
-            {
-                where = "1=1";
-            }
-            string sql = $"select {selectedFields} from {tableName} where DeleteMark=0 and EnabledMark=1";
+            string sqlWhere = " DeleteMark=0 and EnabledMark=1";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sql = sql + " and " + where;
+                sqlWhere += sqlWhere + " and " + where;
             }
-            return await DapperConn.QueryAsync<T>(sql, trans);
+            return await GetListWhereAsync(sqlWhere, trans);
         }
 
         /// <summary>
@@ -690,7 +649,7 @@ namespace Yuebon.Commons.Repositories
         public virtual List<T> FindWithPager(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
         {
             List<T> list = new List<T>();
-            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            
             if (HasInjectionData(condition))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", condition));
@@ -724,7 +683,7 @@ namespace Yuebon.Commons.Repositories
         {
 
             List<T> list = new List<T>();
-            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            
             if (HasInjectionData(condition))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", condition));
@@ -814,7 +773,6 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual async Task<List<T>> FindWithPagerSqlAsync(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
         {
-            List<T> list = new List<T>();
             if (HasInjectionData(condition))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", condition));
@@ -832,7 +790,7 @@ namespace Yuebon.Commons.Repositories
             sb.AppendFormat("SELECT * FROM ( SELECT ROW_NUMBER() OVER (order by {0}) AS rows ,{1} FROM {2} where {3}) AS main_temp where rows BETWEEN {4} and {5}", strOrder, selectedFields, tableName, condition, startRows, endNum);
             var reader = await DapperConn.QueryMultipleAsync(sb.ToString());
             info.RecordCount = reader.ReadFirst<int>();
-            list = reader.Read<T>().AsList();
+            List<T> list  = reader.Read<T>().AsList();
             return list;
         }
         /// <summary>
@@ -849,7 +807,7 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual List<object> FindWithPagerRelationUser(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
         {
-            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            
             if (HasInjectionData(condition))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", condition));
@@ -888,7 +846,7 @@ namespace Yuebon.Commons.Repositories
         public virtual async Task<List<object>> FindWithPagerRelationUserAsync(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
         {
 
-            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            
             if (HasInjectionData(condition))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", condition));
@@ -942,7 +900,7 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual async Task<int> GetCountByWhereAsync(string condition)
         {
-            var type = MethodBase.GetCurrentMethod().DeclaringType;
+            
             if (HasInjectionData(condition))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", condition));
@@ -1112,7 +1070,7 @@ namespace Yuebon.Commons.Repositories
         public virtual async Task<bool> DeleteAsync(T entity, IDbTransaction trans = null)
         {
             DbContext.GetDbSet<T>().Remove(entity);
-            return DbContext.SaveChanges() > 0;
+            return await DbContext.SaveChangesAsync() > 0;
         }
 
         /// <summary>
@@ -1703,16 +1661,7 @@ namespace Yuebon.Commons.Repositories
             {
                 using (var transaction = DapperConn.BeginTransaction())
                 {
-                    try
-                    {
-                        var sb = new StringBuilder("ExecuteTransaction 事务： ");
-                        Stopwatch stopwatch = new Stopwatch();
-                        stopwatch.Start();
-                        //提交事务
-                        transaction.Commit();
-                        stopwatch.Stop();
-                        sb.Append("耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
-                        Log4NetHelper.Info(sb.ToString());
+                    try { 
                         return func(DapperConn, transaction);
                     }
                     catch (Exception ex)

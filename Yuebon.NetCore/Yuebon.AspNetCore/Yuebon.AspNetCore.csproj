@@ -21,6 +21,7 @@
     <AssemblyName>Yuebon.AspNetCore</AssemblyName>
     <RepositoryUrl>https://gitee.com/yuebon/YuebonNetCore</RepositoryUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageIcon>logo.png</PackageIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -42,6 +43,10 @@
     <EmbeddedResource Remove="SSO\**" />
     <None Remove="Controllers\**" />
     <None Remove="SSO\**" />
+    <None Include="..\..\logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

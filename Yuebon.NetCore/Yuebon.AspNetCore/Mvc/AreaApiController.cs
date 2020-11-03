@@ -124,7 +124,8 @@ namespace Yuebon.AspNetCore.Controllers
 
 
         /// <summary>
-        /// 异步更新数据
+        /// 异步更新数据，需要在业务模块控制器重写该方法
+        /// 否则更新无效
         /// </summary>
         /// <param name="tinfo"></param>
         /// <param name="id">主键Id</param>
@@ -134,19 +135,6 @@ namespace Yuebon.AspNetCore.Controllers
         public virtual async Task<IActionResult> UpdateAsync(TIDto tinfo, TKey id)
         {
             CommonResult result = new CommonResult();
-            T info = tinfo.MapTo<T>();
-            OnBeforeUpdate(info);
-            bool bl = await iService.UpdateAsync(info, id).ConfigureAwait(false);
-            if (bl)
-            {
-                result.ErrCode = ErrCode.successCode;
-                result.ErrMsg = ErrCode.err0;
-            }
-            else
-            {
-                result.ErrMsg = ErrCode.err43002;
-                result.ErrCode = "43002";
-            }
             return ToJsonContent(result);
         }
 
@@ -491,29 +479,6 @@ namespace Yuebon.AspNetCore.Controllers
             result.ResData = await iService.FindWithPagerAsync(search);
             result.ErrCode = ErrCode.successCode;
             return result;
-        }
-        /// <summary>
-        /// 获取分页操作的查询条件
-        /// </summary>
-        /// <param name="blDeptCondition">是否开启数据权限条件，默认开启</param>
-        /// <returns></returns>
-        protected virtual string GetPagerCondition(bool blDeptCondition = true)
-        {
-            string where = "1=1";
-            //开权限数据过滤
-            if (blDeptCondition)
-            {
-                YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-
-                //如果公司过滤条件不为空，那么需要进行过滤
-                List<String> list = JsonSerializer.Deserialize<List<String>>(yuebonCacheHelper.Get("User_RoleData_" + CurrentUser.UserId).ToJson());
-                string DataFilterCondition = String.Join(",", list.ToArray());
-                if (!string.IsNullOrEmpty(DataFilterCondition))
-                {
-                    where += string.Format(" and DeptId in ('{0}')", DataFilterCondition.Replace(",", "','"));
-                }
-            }
-            return where;
         }
 
 

@@ -20,8 +20,6 @@ namespace Yuebon.Security.Models
         /// </summary>
 	    public Organize()
 		{
-            //this.Id= System.Guid.NewGuid().ToString();
-
  		}
 
         #region Property Members

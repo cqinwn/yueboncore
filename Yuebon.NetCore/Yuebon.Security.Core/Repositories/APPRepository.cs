@@ -47,7 +47,7 @@ namespace Yuebon.Security.Repositories
         }
         public IList<AppOutputDto> SelectApp()
         {
-            const string query = @"select a.*,u.id as Id,u.NickName,u.Account,u.HeadIcon from [dbo].[Sys_APP] a,Sys_User u where a.CreatorUserId=u.Id ";
+            const string query = @"select a.*,u.id as Id,u.NickName,u.Account,u.HeadIcon from Sys_APP a,Sys_User u where a.CreatorUserId=u.Id ";
             return DapperConn.Query<AppOutputDto, User, AppOutputDto>(query, (app, user) => { app.UserInfo = user; return app; }, null, splitOn: "Id").ToList<AppOutputDto>();
         }
     }

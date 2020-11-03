@@ -20,7 +20,7 @@
     <PackageLicenseExpression></PackageLicenseExpression>
     <RepositoryUrl>https://gitee.com/yuebon/YuebonNetCore</RepositoryUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageIcon>logo越邦科技.png</PackageIcon>
+    <PackageIcon>logo.png</PackageIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -48,7 +48,7 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-    <None Include="..\..\logo越邦科技.png">
+    <None Include="..\..\logo.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>

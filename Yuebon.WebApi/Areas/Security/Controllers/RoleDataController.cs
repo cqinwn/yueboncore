@@ -17,7 +17,7 @@ using Yuebon.AspNetCore.Mvc;
 namespace Yuebon.WebApi.Areas.Security.Controllers
 {
     /// <summary>
-    /// 接口
+    /// 角色数据权限接口
     /// </summary>
     [ApiController]
     [Route("api/Security/[controller]")]

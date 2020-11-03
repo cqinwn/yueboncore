@@ -16,7 +16,7 @@ using Yuebon.Security.IServices;
 namespace Yuebon.WebApi.Areas.Security.Controllers
 {
     /// <summary>
-    /// 接口
+    /// 地区接口
     /// </summary>
     [ApiController]
     [Route("api/Security/[controller]")]

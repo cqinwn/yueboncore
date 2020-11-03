@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
@@ -17,19 +16,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json.Serialization;
 using Quartz;
 using Quartz.Impl;
 using Senparc.CO2NET;
-using Senparc.CO2NET.AspNet;
-using Senparc.CO2NET.Cache;
-using Senparc.CO2NET.Cache.Memcached;
-using Senparc.CO2NET.RegisterServices;
-using Senparc.Weixin;
-using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.RegisterServices;
-using Senparc.Weixin.WxOpen;
 using Swashbuckle.AspNetCore.Filters;
 using System;
 using System.Collections.Generic;
@@ -43,11 +33,8 @@ using System.Text.Unicode;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.Mvc.Filter;
-using Yuebon.AspNetCore.SSO;
-using Yuebon.Commons;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.DbContextCore;
-using Yuebon.Commons.EfDbContext;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IDbContext;
@@ -159,6 +146,7 @@ namespace Yuebon.WebApi
                 options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
                 //设置时间格式
                 options.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter());
+                options.JsonSerializerOptions.Converters.Add(new DateTimeNullableConverter());
                 //设置bool获取格式
                 options.JsonSerializerOptions.Converters.Add(new BooleanJsonConverter());
                 //设置数字
@@ -308,7 +296,6 @@ namespace Yuebon.WebApi
             });
             #endregion
             services.AddTransient<IDbContextCore, SqlServerDbContext>(); //注入EF上下文
-            services.AddScoped(typeof(SSOAuthHelper));
             IoCContainer.Register(cacheProvider);//注册缓存配置
             IoCContainer.Register(Configuration);//注册配置
             IoCContainer.Register(jwtOption);//注册配置

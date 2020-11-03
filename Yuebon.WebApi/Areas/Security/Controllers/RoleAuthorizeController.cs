@@ -1,29 +1,23 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Yuebon.AspNetCore.Controllers;
 using Yuebon.AspNetCore.Models;
-using Yuebon.Commons.Helpers;
-using Yuebon.Commons.Log;
-using Yuebon.Commons.Mapping;
-using Yuebon.Commons.Models;
-using Yuebon.Commons.Pages;
-using Yuebon.Security.Dtos;
-using Yuebon.Security.Models;
-using Yuebon.Security.IServices;
-using Yuebon.Commons.Cache;
-using Yuebon.Commons.Json;
-using Newtonsoft.Json;
 using Yuebon.AspNetCore.Mvc;
-using Yuebon.Security.Application;
-using System.Linq;
-using Yuebon.AspNetCore.UI;
+using Yuebon.Commons.Helpers;
+using Yuebon.Commons.Json;
+using Yuebon.Commons.Log;
+using Yuebon.Commons.Models;
+using Yuebon.Security.Dtos;
+using Yuebon.Security.IServices;
+using Yuebon.Security.Models;
 
 namespace Yuebon.WebApi.Areas.Security.Controllers
 {
     /// <summary>
-    /// 接口
+    /// 角色权限接口
     /// </summary>
     [ApiController]
     [Route("api/Security/[controller]")]

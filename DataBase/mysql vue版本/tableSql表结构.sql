@@ -393,6 +393,29 @@ CREATE TABLE `sys_taskmanager` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='定时任务';
 
+CREATE TABLE `sys_tenant` (
+  `Id` varchar(50) NOT NULL,
+  `TenantName` varchar(200) NOT NULL,
+  `CompanyName` varchar(200) DEFAULT NULL,
+  `HostDomain` varchar(200) DEFAULT NULL,
+  `LinkMan` varchar(200) DEFAULT NULL,
+  `Telphone` varchar(45) DEFAULT NULL,
+  `DataSource` varchar(200) DEFAULT NULL,
+  `Description` varchar(500) DEFAULT NULL,
+  `EnabledMark` tinyint(1) NOT NULL DEFAULT '1',
+  `DeleteMark` tinyint(1) DEFAULT '0',
+  `CreatorTime` datetime NOT NULL,
+  `CreatorUserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `CompanyId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `DeptId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `LastModifyTime` datetime DEFAULT NULL,
+  `LastModifyUserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `DeleteTime` datetime DEFAULT NULL,
+  `DeleteUserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='租户';
+
+
 CREATE TABLE `sys_uploadfile` (
   `Id` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `FileName` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,

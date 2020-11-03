@@ -47,11 +47,13 @@ WebApi接口地址：[http://netcoreapi.ts.yuebon.com](http://netcoreapi.ts.yueb
 更多更新日志 [点击查看](https://gitee.com/yuebon/YuebonNetCore/commits/master)
 
 ##### 新计划
-1、完善软件注册授权模块
+1、11月份发布支持.net5.0版本，同时更新名称为YBNF（YueBon Net Framework）
 
-2、完善mysql的支持
+2、集成工作流
 
-3、11月份发布支持.net5.0版本，同时更新名称为YBNF（YueBon Net Framework）
+3、实现表单
+
+2、3项预计11月底完成
 
 有任何疑问可以在文尾添加作者微信咨询。
 

@@ -33,6 +33,7 @@
     <Compile Remove="AutoMapper\**" />
     <Compile Remove="Dependency\**" />
     <Compile Remove="Entity\**" />
+    <Compile Remove="Exceptions\**" />
     <Compile Remove="Filter\**" />
     <Compile Remove="Finders\**" />
     <Compile Remove="Middlewares\**" />
@@ -40,6 +41,7 @@
     <EmbeddedResource Remove="AutoMapper\**" />
     <EmbeddedResource Remove="Dependency\**" />
     <EmbeddedResource Remove="Entity\**" />
+    <EmbeddedResource Remove="Exceptions\**" />
     <EmbeddedResource Remove="Filter\**" />
     <EmbeddedResource Remove="Finders\**" />
     <EmbeddedResource Remove="Middlewares\**" />
@@ -47,6 +49,7 @@
     <None Remove="AutoMapper\**" />
     <None Remove="Dependency\**" />
     <None Remove="Entity\**" />
+    <None Remove="Exceptions\**" />
     <None Remove="Filter\**" />
     <None Remove="Finders\**" />
     <None Remove="Middlewares\**" />

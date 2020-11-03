@@ -39,16 +39,6 @@ namespace Yuebon.Commons.Application
         }
 
         /// <summary>
-        /// 查询对象，并返回关联的创建用户信息，
-        /// 查询表别名为s，条件要s.字段名
-        /// </summary>
-        /// <param name="id">主键Id</param>
-        /// <returns></returns>
-        public T GetByIdRelationUser(Tkey id)
-        {
-            return service.GetByIdRelationUser(id);
-        }
-        /// <summary>
         /// 同步物理删除实体。
         /// </summary>
         /// <param name="entity">实体</param>

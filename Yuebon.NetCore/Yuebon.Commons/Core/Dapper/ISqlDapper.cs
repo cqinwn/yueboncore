@@ -25,7 +25,7 @@ namespace Yuebon.Commons.Dapper
         /// 新增实体
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="entity"></param
+        /// <param name="entity"></param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
         long Add<T>(T entity, IDbTransaction trans = null) where T : Entity;

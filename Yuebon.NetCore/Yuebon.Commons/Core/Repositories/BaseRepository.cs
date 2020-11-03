@@ -253,23 +253,6 @@ namespace Yuebon.Commons.Repositories
             return await DbContext.GetDbSet<T>().FromSqlRaw<T>(sql).FirstOrDefaultAsync<T>();
         }
 
-
-        /// <summary>
-        /// 查询对象，并返回关联的创建用户信息，
-        /// 查询表别名为s，条件要s.字段名
-        /// </summary>
-        /// <param name="primaryKey">主键Id</param>
-        /// <param name="trans">事务</param>
-        /// <returns></returns>
-        public virtual T GetByIdRelationUser(TKey primaryKey, IDbTransaction trans = null)
-        {
-            string sql = $"select s.* ,u.RealName as RealName,u.NickName as NickName,u.HeadIcon as HeadIcon from { tableName} s left join sys_user u on s.CreatorUserId=u.Id";
-            if (!string.IsNullOrWhiteSpace(primaryKey.ToString()))
-            {
-                sql += " where s." + primaryKey + "='" + primaryKey + "'";
-            }
-            return DapperConn.QueryFirstOrDefault<T>(sql, trans);
-        }
         /// <summary>
         /// 获取所有数据，谨慎使用
         /// </summary>
@@ -303,10 +286,6 @@ namespace Yuebon.Commons.Repositories
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
-            if (string.IsNullOrEmpty(where))
-            {
-                where = "1=1";
-            }
             string sql = $"select {selectedFields} from { tableName} ";
             if (!string.IsNullOrWhiteSpace(where))
             {
@@ -328,17 +307,12 @@ namespace Yuebon.Commons.Repositories
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
-            if (string.IsNullOrEmpty(where))
-            {
-                where = "1=1";
-            }
             string sql = $"select {selectedFields}  from { tableName} ";
             if (!string.IsNullOrWhiteSpace(where))
             {
                 sql += " where " + where;
             }
-
-            return DbContext.GetDbSet<T>().FromSqlRaw<T>(sql);
+            return await DapperConn.QueryAsync<T>(sql, trans);
         }
 
         /// <summary>
@@ -350,15 +324,10 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual IEnumerable<T> GetListTopWhere(int top, string where = null, IDbTransaction trans = null)
         {
-            
             if (HasInjectionData(where))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
-            }
-            if (string.IsNullOrEmpty(where))
-            {
-                where = "1=1";
             }
             string sql = $"select top {top} {selectedFields} from " + tableName;
             if (!string.IsNullOrWhiteSpace(where))
@@ -378,15 +347,10 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual async Task<IEnumerable<T>> GetListTopWhereAsync(int top, string where = null, IDbTransaction trans = null)
         {
-            
             if (HasInjectionData(where))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
-            }
-            if (string.IsNullOrEmpty(where))
-            {
-                where = "1=1";
             }
             string sql = $"select top {top} {selectedFields}  from " + tableName;
             if (!string.IsNullOrWhiteSpace(where))
@@ -408,7 +372,6 @@ namespace Yuebon.Commons.Repositories
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
-
             string sqlWhere = " DeleteMark=1 ";
             if (!string.IsNullOrWhiteSpace(where))
             {
@@ -845,8 +808,6 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual async Task<List<object>> FindWithPagerRelationUserAsync(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
         {
-
-            
             if (HasInjectionData(condition))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", condition));
@@ -900,7 +861,6 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual async Task<int> GetCountByWhereAsync(string condition)
         {
-            
             if (HasInjectionData(condition))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", condition));
@@ -915,8 +875,7 @@ namespace Yuebon.Commons.Repositories
             {
                 sql = sql + condition;
             }
-            IEnumerable<int> lit = await DapperConn.QueryAsync<int>(sql);
-            return lit.FirstOrDefault();
+            return await DapperConn.QueryFirstAsync<int>(sql);
         }
 
         /// <summary>
@@ -934,8 +893,7 @@ namespace Yuebon.Commons.Repositories
                 sql += " where " + where;
             }
 
-            IEnumerable<int> lit = await DapperConn.QueryAsync<int>(sql);
-            return lit.FirstOrDefault();
+            return await DapperConn.QueryFirstAsync<int>(sql);
         }
         /// <summary>
         /// 根据条件统计某个字段之和,sum(字段)
@@ -951,8 +909,7 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += " where " + where;
             }
-            IEnumerable<int> lit = await DapperConn.QueryAsync<int>(sql);
-            return lit.FirstOrDefault();
+            return await DapperConn.QueryFirstAsync<int>(sql);
         }
         #endregion
         #region 新增、修改和删除
@@ -1027,7 +984,7 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual async Task<bool> UpdateAsync(T entity, TKey primaryKey, IDbTransaction trans=null)
         {
-          return   DbContext.Update(entity)>0;
+          return DbContext.Update(entity)>0;
         }
         /// <summary>
         /// 批量更新数据
@@ -1140,7 +1097,6 @@ namespace Yuebon.Commons.Repositories
             {
                 where = "1=1";
             }
-
             var param = new List<Tuple<string, object>>();
             string sql = $"delete from {tableName} where " + where;
             Tuple<string, object> tupel = new Tuple<string, object>(sql, null);
@@ -1183,7 +1139,6 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual bool DeleteByUser(TKey primaryKey, string userId, IDbTransaction trans=null)
         {
-
             var param = new List<Tuple<string, object>>();
             string sql = $"delete from {tableName} where " + PrimaryKey + " = @PrimaryKey";
             Tuple<string, object> tupel = new Tuple<string, object>(sql, new { @PrimaryKey = primaryKey });
@@ -2097,14 +2052,10 @@ namespace Yuebon.Commons.Repositories
             if (OnOperationLog != null)
             {
                 string operationType = DbLogType.Delete.ToString();
-
-
                 T objInDb = Get(primaryKey);
                 if (objInDb != null) 
                 {
-
                     string note = "删除数据：\n\r"+ JsonHelper.ToJson(objInDb);
-
                     OnOperationLog(this.tableName, operationType, note);
                 }
             }
@@ -2126,7 +2077,6 @@ namespace Yuebon.Commons.Repositories
                     StringBuilder sb = new StringBuilder();
                     sb.AppendFormat("Id：{0},软删除", primaryKey);
                     sb.AppendLine("\r\n");
-
                     string note = sb.ToString();
                     OnOperationLog(this.tableName, operationType, note);
                 }

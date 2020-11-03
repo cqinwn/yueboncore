@@ -56,17 +56,6 @@ namespace Yuebon.Commons.Services
 
         }
         /// <summary>
-        /// 查询对象，并返回关联的创建用户信息，
-        /// 查询表别名为s，条件要s.字段名
-        /// </summary>
-        /// <param name="id">主键Id</param>
-        /// <param name="trans"></param>
-        /// <returns></returns>
-        public virtual T GetByIdRelationUser(TKey id, IDbTransaction trans = null)
-        {
-            return repository.GetByIdRelationUser(id, trans);
-        }
-        /// <summary>
         /// 同步物理删除实体。
         /// </summary>
         /// <param name="entity">实体</param>

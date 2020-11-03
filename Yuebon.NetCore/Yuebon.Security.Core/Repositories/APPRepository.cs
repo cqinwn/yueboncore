@@ -1,6 +1,5 @@
 using Dapper;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.Repositories;

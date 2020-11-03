@@ -70,7 +70,7 @@ namespace Yuebon.Commons.Repositories
         /// <summary>
         /// 
         /// </summary>
-        protected string dbConfigName=typeof(T).GetCustomAttribute<AppDBContextAttribute>(false)?.DbConfigName?? "SqlServer";
+        protected string dbConfigName=typeof(T).GetCustomAttribute<AppDBContextAttribute>(false)?.DbConfigName?? Configs.GetConfigurationValue("AppSetting", "DefaultDataBase");
         /// <summary>
         /// 需要初始化的对象表名
         /// </summary>

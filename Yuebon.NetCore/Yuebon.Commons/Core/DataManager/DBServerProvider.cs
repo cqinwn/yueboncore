@@ -26,7 +26,7 @@ namespace Yuebon.Commons.Core.DataManager
         /// <summary>
         /// 数据库配置名称
         /// </summary>
-        private static string dbConfigName = "MsSqlServer";
+        private static string dbConfigName = "";
         /// <summary>
         /// 数据库连接
         /// </summary>

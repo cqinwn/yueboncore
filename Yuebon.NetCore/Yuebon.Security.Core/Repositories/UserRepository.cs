@@ -137,7 +137,7 @@ namespace Yuebon.Security.Repositories
         /// <returns></returns>
         public User GetUserByUnionId(string unionId)
         {
-            string sql = string.Format("select * from dbo.Sys_User where UnionId = '{0}'", unionId);
+            string sql = string.Format("select * from Sys_User where UnionId = '{0}'", unionId);
             return DapperConn.QueryFirstOrDefault<User>(sql);
         }
         /// <summary>
@@ -148,7 +148,7 @@ namespace Yuebon.Security.Repositories
         /// <returns></returns>
         public User GetUserByOpenId(string openIdType, string openId)
         {
-            string sql = string.Format("select * from dbo.Sys_User as u join dbo.Sys_UserOpenIds as o on u.Id = o.UserId and  o.OpenIdType = '{0}' and o.OpenId = '{1}'", openIdType, openId);
+            string sql = string.Format("select * from Sys_User as u join Sys_UserOpenIds as o on u.Id = o.UserId and  o.OpenIdType = '{0}' and o.OpenId = '{1}'", openIdType, openId);
             return DapperConn.QueryFirstOrDefault<User>(sql);
         }
 
@@ -160,7 +160,7 @@ namespace Yuebon.Security.Repositories
         /// <returns></returns>
         public UserOpenIds GetUserOpenIdByuserId(string openIdType, string userId)
         {
-            string sql = string.Format("select * from dbo.Sys_UserOpenIds  where OpenIdType = '{0}' and UserId = '{1}'", openIdType, userId);
+            string sql = string.Format("select * from Sys_UserOpenIds  where OpenIdType = '{0}' and UserId = '{1}'", openIdType, userId);
             return DapperConn.QueryFirstOrDefault<UserOpenIds>(sql);
         }
 
@@ -215,7 +215,7 @@ left join
 (select * from Sys_UserFocus where creatorUserid='" + userid + @"') t2 
 on t1.id=t2.focususerid 
 left join 
-(select  top 100 percent focusUserID,count(*) as totalFocus from dbo.Sys_UserFocus group by focusUserID order by totalfocus desc) t3
+(select  top 100 percent focusUserID,count(*) as totalFocus from Sys_UserFocus group by focusUserID order by totalfocus desc) t3
 on t1.Id=t3.focusUserID 
 
 where t1.Id not in 
@@ -233,7 +233,7 @@ left join
 (select * from Sys_UserFocus where creatorUserid='" + userid + @"') tt2
 on tt1.id=tt2.focususerid 
 left join 
-(select  top 100 percent focusUserID,count(*) as totalFocus from dbo.Sys_UserFocus group by focusUserID order by totalfocus desc) tt3
+(select  top 100 percent focusUserID,count(*) as totalFocus from Sys_UserFocus group by focusUserID order by totalfocus desc) tt3
 on tt1.Id=tt3.focusUserID 
 
 order by tt3.totalFocus desc

@@ -14,7 +14,6 @@ namespace Yuebon.Security.Models
     /// <summary>
     /// 系统日志，数据实体对象
     /// </summary>
-    [AppDBContext("MsSqlServerCode")]
     [Table("Sys_Log")]
     [Serializable]
     public class Log: BaseEntity<string>, ICreationAudited, IModificationAudited, IDeleteAudited

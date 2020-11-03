@@ -34,7 +34,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\DictionaryController.cs" />
+    <Compile Remove="Controllers\**" />
+    <Compile Remove="SSO\**" />
+    <Content Remove="Controllers\**" />
+    <Content Remove="SSO\**" />
+    <EmbeddedResource Remove="Controllers\**" />
+    <EmbeddedResource Remove="SSO\**" />
+    <None Remove="Controllers\**" />
+    <None Remove="SSO\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Mvc\AuthorizeMiddleware.cs" />
     <Compile Remove="Mvc\Filter\PermissionRequiredFilter.cs" />
   </ItemGroup>

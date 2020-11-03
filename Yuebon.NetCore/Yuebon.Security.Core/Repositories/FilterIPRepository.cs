@@ -24,7 +24,7 @@ namespace Yuebon.Security.Repositories
         public bool ValidateIP(string ip)
         {
             long ipv = ip.Replace(".", "").ToLong();
-            string where = " (cast(replace(StartIP,'.','') as bigint)>=" + ipv + " and cast(replace(EndIP,'.','') as bigint)<=" + ipv + ") and FilterType=0 and EnabledMark=1";
+            string where = " replace(StartIP,'.','')>=" + ipv + " and replace(EndIP,'.','')<=" + ipv + " and FilterType=0 and EnabledMark=1";
             int count = GetCountByWhere(where);
             return count > 0 ? true : false;
         }

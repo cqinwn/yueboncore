@@ -34,21 +34,21 @@ namespace Yuebon.Security.Repositories
         {
             var param = new List<Tuple<string, object>>();
             Tuple<string, object> tupel;
-            tupel = new Tuple<string, object>(@"delete Sys_RoleAuthorize where ObjectId=@RoleId", new { RoleId = roleId } );
+            tupel = new Tuple<string, object>(@"delete from Sys_RoleAuthorize where ObjectId=@RoleId", new { RoleId = roleId } );
             param.Add(tupel);
-            tupel = new Tuple<string, object>(@"delete Sys_RoleData where RoleId=@RoleId", new { RoleId = roleId });
+            tupel = new Tuple<string, object>(@"delete from Sys_RoleData where RoleId=@RoleId", new { RoleId = roleId });
             param.Add(tupel);
             foreach (RoleAuthorize item in roleAuthorizesList)
             {
-                tupel = new Tuple<string, object>(@" INSERT INTO [dbo].[Sys_RoleAuthorize]
-           ([Id]
-           ,[ItemType]
-           ,[ItemId]
-           ,[ObjectType]
-           ,[ObjectId]
-           ,[SortCode]
-           ,[CreatorTime]
-           ,[CreatorUserId])
+                tupel = new Tuple<string, object>(@" INSERT INTO Sys_RoleAuthorize
+           (Id
+           ,ItemType
+           ,ItemId
+           ,ObjectType
+           ,ObjectId
+           ,SortCode
+           ,CreatorTime
+           ,CreatorUserId)
      VALUES(@Id
            ,@ItemType
            ,@ItemId
@@ -71,11 +71,11 @@ namespace Yuebon.Security.Repositories
             }
             foreach (RoleData roleData in roleDataList)
             {
-                tupel = new Tuple<string, object>(@" INSERT INTO [dbo].[Sys_RoleData]
-           ([Id]
-           ,[RoleId]
-           ,[AuthorizeData]
-           ,[DType])
+                tupel = new Tuple<string, object>(@" INSERT INTO Sys_RoleData
+           (Id
+           ,RoleId
+           ,AuthorizeData
+           ,DType)
      VALUES
            (@Id
            ,@RoleId

@@ -36,7 +36,6 @@ namespace Yuebon.Security.Repositories
         /// <param name="dbContext"></param>
         public LogRepository(IDbContextCore dbContext) : base(dbContext)
         {
-            this.dbConfigName = "MsSqlServerCode";
         }
         /// <summary>
         /// 测试性能，建议删除

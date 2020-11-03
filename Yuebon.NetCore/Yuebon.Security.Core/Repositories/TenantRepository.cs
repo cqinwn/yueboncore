@@ -2,7 +2,7 @@ using System;
 using System.Data;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Yuebon.Commons.EfDbContext;
+using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
 using Yuebon.Security.Models;
@@ -18,7 +18,7 @@ namespace Yuebon.Security.Repositories
         {
         }
 
-        public TenantRepository(BaseDbContext context) : base(context)
+        public TenantRepository(IDbContextCore context) : base(context)
         {
         }
     }

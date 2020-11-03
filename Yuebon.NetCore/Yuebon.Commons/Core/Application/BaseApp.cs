@@ -30,12 +30,6 @@ namespace Yuebon.Commons.Application
         protected IService<T,TDto, Tkey> service;
 
         /// <summary>
-        /// 用于事务操作
-        /// </summary>
-        /// <value>The unit work.</value>
-        //protected IUnitOfWork unitOfWork;
-
-        /// <summary>
         /// 
         /// </summary>
         /// <param name="_service"></param>
@@ -83,23 +77,6 @@ namespace Yuebon.Commons.Application
             return service.DeleteAsync(id, null);
         }
 
-        /// <summary>
-        /// 同步物理删除所有实体。
-        /// </summary>
-        /// <returns></returns>
-        public bool DeleteAll()
-        {
-            return service.DeleteAll(null);
-        }
-
-        /// <summary>
-        /// 异步物理删除所有实体。
-        /// </summary>
-        /// <returns></returns>
-        public Task<bool> DeleteAllAsync()
-        {
-            return service.DeleteAllAsync(null);
-        }
 
         /// <summary>
         /// 异步物理删除实体。
@@ -257,25 +234,6 @@ namespace Yuebon.Commons.Application
         {
             return service.InsertAsync(entity, null);
         }
-        /// <summary>
-        /// 同步批量新增实体。
-        /// </summary>
-        /// <param name="entities">实体集合</param>
-        /// <returns></returns>
-        public long Insert(List<T> entities)
-        {
-            return service.Insert(entities, null);
-        }
-        /// <summary>
-        /// 异步批量新增实体。
-        /// </summary>
-        /// <param name="entities">实体集合</param>
-        /// <returns></returns>
-        public Task<long> InsertAsync(List<T> entities)
-        {
-            return service.InsertAsync(entities, null);
-        }
-
         /// <summary>
         /// 同步更新实体。
         /// </summary>

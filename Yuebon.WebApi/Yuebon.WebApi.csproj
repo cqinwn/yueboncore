@@ -21,14 +21,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\SSOController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Yuebon.Messages\Yuebon.Messages.Core\Yuebon.Messages.Core.csproj" />
     <ProjectReference Include="..\Yuebon.NetCore\Yuebon.AspNetCore\Yuebon.AspNetCore.csproj" />
     <ProjectReference Include="..\Yuebon.NetCore\Yuebon.Security.Core\Yuebon.Security.Core.csproj" />
     <ProjectReference Include="..\Yuebon.Quartz.Jobs\Yuebon.Quartz.Jobs.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
   <ItemGroup>

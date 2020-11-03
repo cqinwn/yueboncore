@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
-using Yuebon.Commons.EfDbContext;
+using Yuebon.Commons.DbContextCore;
 using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.IRepositories;

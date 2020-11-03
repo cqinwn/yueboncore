@@ -31,7 +31,8 @@
         </el-form-item>
         <el-form-item prop="VerificationCode">
           <el-input v-model="editFrom.VerificationCode" placeholder="请输入验证码" style="width:150px; float:left;" maxlength="4" autocomplete="off" clearable />
-          <div style="float:left;">
+
+          <div style="margin-top:8px; display:inline; float:left;margin-right:10px;">
             <img :src="verifyCodeUrl" style="cursor: pointer;vertical-align: middle;" alt="看不清？点击更换" @click="getLoginVerifyCode">
           </div>
         </el-form-item>
@@ -112,7 +113,7 @@ export default {
         Password: '',
         Password2: '',
         VerificationCode: '',
-        verifyCodeKey: '',
+        VerifyCodeKey: '',
         checkAgreement: []
       },
       registerRules: {
@@ -200,7 +201,7 @@ export default {
       const res = await getVerifyCode()
       if (res.Success) {
         this.verifyCodeUrl = 'data:image/png;base64,' + res.ResData.Img
-        this.editFrom.verifyCodeKey = res.ResData.Key
+        this.editFrom.VerifyCodeKey = res.ResData.Key
       }
     }
   }

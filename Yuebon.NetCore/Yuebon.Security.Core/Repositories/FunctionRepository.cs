@@ -2,7 +2,8 @@ using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using Yuebon.Commons.EfDbContext;
+using Yuebon.Commons.IDbContext;
+using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.Options;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
@@ -16,7 +17,7 @@ namespace Yuebon.Security.Repositories
         {
         }
 
-        public FunctionRepository(BaseDbContext dbContext) : base(dbContext)
+        public FunctionRepository(IDbContextCore dbContext) : base(dbContext)
         {
         }
 
@@ -28,15 +29,12 @@ namespace Yuebon.Security.Repositories
         /// <returns></returns>
         public IEnumerable<Function> GetFunctions(string roleIds, string typeID)
         {
-            string sql = $"SELECT DISTINCT b.* FROM Sys_Function as b INNER JOIN Sys_RoleAuthorize as a On b.Id = a.ItemId  WHERE ObjectId IN (" +roleIds+")";
+            string sql = $"SELECT DISTINCT b.* FROM Sys_Function as b INNER JOIN Sys_RoleAuthorize as a On b.Id = a.ItemId  WHERE ObjectId IN (" + roleIds + ")";
             if (!string.IsNullOrEmpty(typeID))
             {
                 sql = sql + string.Format(" AND SystemTypeId='{0}' ", typeID);
             }
-            using (IDbConnection conn = OpenSharedConnection())
-            {
-                return conn.Query<Function>(sql);
-            }
+            return DapperConn.Query<Function>(sql);
         }
 
 
@@ -52,10 +50,7 @@ namespace Yuebon.Security.Repositories
             {
                 sql = sql + string.Format(" Where SystemTypeId='{0}' ", typeID);
             }
-            using (IDbConnection conn = OpenSharedConnection())
-            {
-                return conn.Query<Function>(sql);
-            }
+            return DapperConn.Query<Function>(sql);
         }
     }
 }

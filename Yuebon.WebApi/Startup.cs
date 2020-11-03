@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.Configuration;
@@ -16,19 +16,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json.Serialization;
 using Quartz;
 using Quartz.Impl;
 using Senparc.CO2NET;
-using Senparc.CO2NET.AspNet;
-using Senparc.CO2NET.Cache;
-using Senparc.CO2NET.Cache.Memcached;
-using Senparc.CO2NET.RegisterServices;
-using Senparc.Weixin;
-using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.RegisterServices;
-using Senparc.Weixin.WxOpen;
 using Swashbuckle.AspNetCore.Filters;
 using System;
 using System.Collections.Generic;
@@ -42,12 +33,11 @@ using System.Text.Unicode;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.Mvc.Filter;
-using Yuebon.AspNetCore.SSO;
-using Yuebon.Commons;
 using Yuebon.Commons.Cache;
-using Yuebon.Commons.EfDbContext;
+using Yuebon.Commons.DbContextCore;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
+using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.IoC;
 using Yuebon.Commons.Linq;
 using Yuebon.Commons.Log;
@@ -94,6 +84,7 @@ namespace Yuebon.WebApi
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddHttpContextAccessor();
+            services.AddSingleton(Configuration);
             //如果部署在linux系统上，需要加上下面的配置：
             //services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
             //如果部署在IIS上，需要加上下面的配置：
@@ -155,6 +146,7 @@ namespace Yuebon.WebApi
                 options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
                 //设置时间格式
                 options.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter());
+                options.JsonSerializerOptions.Converters.Add(new DateTimeNullableConverter());
                 //设置bool获取格式
                 options.JsonSerializerOptions.Converters.Add(new BooleanJsonConverter());
                 //设置数字
@@ -234,6 +226,8 @@ namespace Yuebon.WebApi
         private IServiceProvider InitIoC(IServiceCollection services)
         {
             #region 缓存
+
+            services.AddMemoryCache();// 启用MemoryCache
             CacheProvider cacheProvider = new CacheProvider
             {
                 IsUseRedis = Configuration.GetSection("CacheProvider:UseRedis").Value.ToBool(false),
@@ -254,10 +248,10 @@ namespace Yuebon.WebApi
                     Configuration = cacheProvider.ConnectionString,
                     InstanceName = cacheProvider.InstanceName
                 }, 0));
+                services.Configure<DistributedCacheEntryOptions>(option => option.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5));//设置Redis缓存有效时间为5分钟。
             }
             else
             {
-                services.AddMemoryCache();
                 //Use MemoryCache
                 services.AddSingleton<IMemoryCache>(factory =>
                 {
@@ -265,6 +259,8 @@ namespace Yuebon.WebApi
                     return cache;
                 });
                 services.AddSingleton<ICacheService, MemoryCacheService>();
+                services.Configure<MemoryCacheEntryOptions>(
+                    options => options.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5)); //设置MemoryCache缓存有效时间为5分钟
             }
             #endregion
 
@@ -299,8 +295,7 @@ namespace Yuebon.WebApi
                 };
             });
             #endregion
-            services.AddDbContext<BaseDbContext>();
-            services.AddScoped(typeof(SSOAuthHelper));
+            services.AddTransient<IDbContextCore, SqlServerDbContext>(); //注入EF上下文
             IoCContainer.Register(cacheProvider);//注册缓存配置
             IoCContainer.Register(Configuration);//注册配置
             IoCContainer.Register(jwtOption);//注册配置

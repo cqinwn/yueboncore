@@ -78,7 +78,7 @@ namespace Yuebon.AspNetCore.Mvc.Filter
                 {
                     string userId = claimlist[0].Value;
                     YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                    var user = JsonSerializer.Deserialize<YuebonCurrentUser>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
+                    var user = (YuebonCurrentUser)(yuebonCacheHelper.Get("login_user_" + userId));
                     if (user != null)
                     {
                         currentUser = user;

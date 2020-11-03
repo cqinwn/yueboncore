@@ -1,28 +1,26 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Yuebon.AspNetCore.Controllers;
 using Yuebon.AspNetCore.Models;
+using Yuebon.AspNetCore.Mvc;
+using Yuebon.AspNetCore.Mvc.Filter;
+using Yuebon.Commons.Cache;
+using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Models;
 using Yuebon.Commons.Pages;
 using Yuebon.Security.Dtos;
-using Yuebon.Security.Models;
 using Yuebon.Security.IServices;
-using Yuebon.AspNetCore.UI;
-using Yuebon.AspNetCore.Mvc;
+using Yuebon.Security.Models;
 using Yuebon.WebApi.Areas.Security.Models;
-using Yuebon.Commons.Encrypt;
-using Yuebon.AspNetCore.Mvc.Filter;
-using Yuebon.Commons.Cache;
 
 namespace Yuebon.WebApi.Areas.Security.Controllers
 {
     /// <summary>
-    /// 接口
+    /// 用户接口
     /// </summary>
     [ApiController]
     [Route("api/Security/[controller]")]
@@ -105,9 +103,9 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         {
             CommonResult result = new CommonResult();
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            var vCode = yuebonCacheHelper.Get("LoginValidateCode");
-            string code = vCode != null? vCode.ToString():"11";
-            if (code != tinfo.VerificationCode)
+            var vCode = yuebonCacheHelper.Get("ValidateCode" + tinfo.VerifyCodeKey);
+            string code = vCode != null ? vCode.ToString() : "11";
+            if (code!= tinfo.VerificationCode.ToUpper())
             {
                 result.ErrMsg = "验证码错误";
                 return ToJsonContent(result);

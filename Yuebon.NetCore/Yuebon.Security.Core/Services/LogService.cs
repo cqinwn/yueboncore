@@ -48,7 +48,6 @@ namespace Yuebon.Security.Services
         /// <returns>指定对象的集合</returns>
         public override async Task<PageResult<LogOutputDto>> FindWithPagerAsync(SearchInputDto<Log> search)
         {
-
             bool order = search.Order == "asc" ? false : true;
             string where = GetDataPrivilege(false);
             if (!string.IsNullOrEmpty(search.Keywords))
@@ -64,7 +63,7 @@ namespace Yuebon.Security.Services
                 CurrenetPageIndex = search.CurrenetPageIndex,
                 PageSize = search.PageSize
             };
-            List<Log> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+            List<Log> list =await _iLogRepository.FindWithPagerAsync(where,pagerInfo,search.Sort,order);
             PageResult<LogOutputDto> pageResult = new PageResult<LogOutputDto>
             {
                 CurrentPage = pagerInfo.CurrenetPageIndex,
@@ -98,7 +97,7 @@ namespace Yuebon.Security.Services
                 string userId = claimlist[0].Value;
                 YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
                 YuebonCurrentUser CurrentUser = new YuebonCurrentUser();
-                var user = JsonSerializer.Deserialize<YuebonCurrentUser>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
+                var user = (YuebonCurrentUser)(yuebonCacheHelper.Get("login_user_" + userId));
                 if (user != null)
                 {
                     CurrentUser = user;

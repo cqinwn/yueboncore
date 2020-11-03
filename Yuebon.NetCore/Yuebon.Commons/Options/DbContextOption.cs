@@ -17,6 +17,8 @@
         /// 数据库类型
         /// </summary>
         public DbType DbType { get; set; } = DbType.MSSQLSERVER;
+
+        public bool IsOutputSql;
     }
 
     /// <summary>

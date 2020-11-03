@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Yuebon.Commons.EfDbContext;
+using Yuebon.Commons.IDbContext;
+using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.Options;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
@@ -14,7 +15,7 @@ namespace Yuebon.Security.Repositories
         {
         }
 
-        public MenuRepository(BaseDbContext dbContext) : base(dbContext)
+        public MenuRepository(IDbContextCore dbContext) : base(dbContext)
         {
         }
     }

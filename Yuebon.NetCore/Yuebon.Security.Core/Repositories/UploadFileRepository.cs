@@ -1,11 +1,11 @@
 ﻿using Dapper;
-using Dapper.Contrib.Extensions;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Text;
-using Yuebon.Commons.EfDbContext;
+using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
 using Yuebon.Security.Models;
@@ -18,7 +18,7 @@ namespace Yuebon.Security.Repositories
         {
         }
 
-        public UploadFileRepository(BaseDbContext dbContext) : base(dbContext)
+        public UploadFileRepository(IDbContextCore dbContext) : base(dbContext)
         {
         }
 
@@ -30,27 +30,24 @@ namespace Yuebon.Security.Repositories
         /// <param name="belongApp">应用标识</param>
         /// <param name="trans"></param>
         /// <returns></returns>
-        public bool UpdateByBeLongAppId(string beLongAppId,string oldBeLongAppId, string belongApp=null, IDbTransaction trans = null)
+        public bool UpdateByBeLongAppId(string beLongAppId, string oldBeLongAppId, string belongApp = null, IDbTransaction trans = null)
         {
-            using (DbConnection conn = OpenSharedConnection())
+            try
             {
-                try
+                trans = DapperConn.BeginTransaction();
+                string sqlStr = string.Format("update {0} set beLongAppId='{1}' where beLongAppId='{2}'", this.tableName, beLongAppId, oldBeLongAppId);
+                if (!string.IsNullOrEmpty(belongApp))
                 {
-                    trans = conn.BeginTransaction();
-                    string sqlStr = string.Format("update {0} set beLongAppId='{1}' where beLongAppId='{2}'",this.tableName,beLongAppId, oldBeLongAppId);
-                    if (!string.IsNullOrEmpty(belongApp))
-                    {
-                        sqlStr = string.Format(" and BelongApp='{0}'",belongApp);
-                    }
-                    int num = conn.Execute(sqlStr, null, trans);
-                    trans.Commit();
-                    return num>=0;
+                    sqlStr = string.Format(" and BelongApp='{0}'", belongApp);
                 }
-                catch (Exception)
-                {
-                    trans.Rollback();
-                    throw;
-                }
+                int num = DapperConn.Execute(sqlStr, null, trans);
+                trans.Commit();
+                return num >= 0;
+            }
+            catch (Exception)
+            {
+                trans.Rollback();
+                throw;
             }
         }
     } 

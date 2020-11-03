@@ -32,7 +32,7 @@ namespace Yuebon.Commons.Json
                 PropertyNameCaseInsensitive = true,                     //忽略大小写
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
             }; 
-            options.Converters.Add(new DateTimeJsonConverter());
+            options.Converters.Add(new DateTimeJsonConverter("yyyy-MM-dd HH:mm:ss"));
             return JsonSerializer.Serialize(obj,options);
         }
 

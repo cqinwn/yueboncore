@@ -2,16 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Yuebon.AspNetCore.SSO;
 using Yuebon.Commons.Cache;
-using Yuebon.Commons.Helpers;
-using Yuebon.Commons.IoC;
 using Yuebon.Commons.Json;
-using Yuebon.Security.Application;
 using Yuebon.Security.Dtos;
-using Yuebon.Security.IServices;
-using Yuebon.Security.Models;
 
 namespace Yuebon.AspNetCore.Common
 {

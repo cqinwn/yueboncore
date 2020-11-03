@@ -150,7 +150,8 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
                     {
                         user = userService.GetUserByOpenId("yuebon.openid.wxapplet", jsonResult.openid);
                     }
-                    var currentSession = JsonConvert.DeserializeObject<YuebonCurrentUser>(yuebonCacheHelper.Get("login_user_" + user.Id).ToJson());
+
+                    var currentSession = (YuebonCurrentUser)(yuebonCacheHelper.Get("login_user_" + userId));
                     if (currentSession == null || string.IsNullOrWhiteSpace(currentSession.AccessToken))
                     {
                         JwtOption jwtModel = IoCContainer.Resolve<JwtOption>();
@@ -782,7 +783,7 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
                 {
                     user = userService.GetUserByOpenId("yuebon.openid.wxapplet", openId);
                 }
-                var currentSession = JsonConvert.DeserializeObject<YuebonCurrentUser>(yuebonCacheHelper.Get("login_user_" + user.Id).ToJson());
+                var currentSession =(YuebonCurrentUser)yuebonCacheHelper.Get("login_user_" + user.Id);
                 if (currentSession == null || string.IsNullOrWhiteSpace(currentSession.AccessToken))
                 {
                     JwtOption jwtModel = IoCContainer.Resolve<JwtOption>();

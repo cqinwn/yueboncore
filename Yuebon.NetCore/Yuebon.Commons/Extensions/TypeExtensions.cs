@@ -266,6 +266,28 @@ namespace Yuebon.Commons.Extensions
             return sb.ToString();
         }
 
+
+        /// <summary>
+        /// 获取主键字段
+        /// </summary>
+        /// <param name="propertyInfo"></param>
+        /// <returns></returns>
+        public static PropertyInfo GetKeyProperty(this Type entity)
+        {
+            return entity.GetProperties().GetKeyProperty();
+        }
+        public static PropertyInfo GetKeyProperty(this PropertyInfo[] properties)
+        {
+            return properties.Where(c => c.IsKey()).FirstOrDefault();
+        }
+        public static bool IsKey(this PropertyInfo propertyInfo)
+        {
+            object[] keyAttributes = propertyInfo.GetCustomAttributes(typeof(KeyAttribute), false);
+            if (keyAttributes.Length > 0)
+                return true;
+            return false;
+        }
+
         #region 私有方法
 
         private static readonly Dictionary<Type, string> _builtInTypeNames = new Dictionary<Type, string>

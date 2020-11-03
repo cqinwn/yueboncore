@@ -207,20 +207,6 @@ namespace Yuebon.Security.Services
 
 
         /// <summary>
-        /// 分页得到所有用户用于关注
-        /// </summary>
-        /// <param name="currentpage"></param>
-        /// <param name="pagesize"></param>
-        /// <param name="userid"></param>
-        /// <returns></returns>
-        public IEnumerable<UserAllListFocusOutPutDto> GetUserAllListFocusByPage(string currentpage,
-            string pagesize, string userid)
-        {
-            return _userRepository.GetUserAllListFocusByPage(currentpage, pagesize, userid);
-        }
-
-
-        /// <summary>
         /// 微信注册普通会员用户
         /// </summary>
         /// <param name="userInPut">第三方类型</param>

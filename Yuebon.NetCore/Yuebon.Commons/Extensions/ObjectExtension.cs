@@ -11,6 +11,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -1185,6 +1186,84 @@ namespace Yuebon.Commons.Extensions
             {
                 return defaultValue;
             }
+        }
+        /// <summary>
+        /// 将对象保存为csv
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="csvFullName">文件名称</param>
+        /// <param name="separator">分隔符，默认逗号</param>
+        public static void SaveToCsv<T>(this IEnumerable<T> source, string csvFullName, string separator = ",")
+        {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+            if (string.IsNullOrEmpty(separator))
+                separator = ",";
+            var csv = string.Join(separator, source);
+            using (var sw = new StreamWriter(csvFullName, false))
+            {
+                sw.Write(csv);
+                sw.Close();
+            }
+        }
+
+        /// <summary>
+        /// 将对象转为DataTable
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static DataTable ToDataTable<T>(this IEnumerable<T> source)
+        {
+            DataTable dtReturn = new DataTable();
+
+
+            if (source == null) return dtReturn;
+            // column names 
+            PropertyInfo[] oProps = null;
+
+            foreach (var rec in source)
+            {
+                // Use reflection to get property names, to create table, Only first time, others will follow 
+                if (oProps == null)
+                {
+                    oProps = rec.GetType().GetProperties();
+                    foreach (var pi in oProps)
+                    {
+                        var colType = pi.PropertyType;
+
+                        if (colType.IsNullableType())
+                        {
+                            colType = colType.GetGenericArguments()[0];
+                        }
+                        if (colType == typeof(Boolean))
+                        {
+                            colType = typeof(int);
+                        }
+
+                        dtReturn.Columns.Add(new DataColumn(pi.Name, colType));
+                    }
+                }
+
+                var dr = dtReturn.NewRow();
+
+                foreach (var pi in oProps)
+                {
+                    var value = pi.GetValue(rec, null) ?? DBNull.Value;
+                    if (value is bool)
+                    {
+                        dr[pi.Name] = (bool)value ? 1 : 0;
+                    }
+                    else
+                    {
+                        dr[pi.Name] = value;
+                    }
+                }
+
+                dtReturn.Rows.Add(dr);
+            }
+            return dtReturn;
         }
     }
 

@@ -20,7 +20,7 @@
         </member>
         <member name="T:Yuebon.WebApi.Areas.Security.Controllers.APPController">
             <summary>
-            接口
+            应用管理接口
             </summary>
         </member>
         <member name="M:Yuebon.WebApi.Areas.Security.Controllers.APPController.#ctor(Yuebon.Security.IServices.IAPPService)">
@@ -71,7 +71,7 @@
         </member>
         <member name="T:Yuebon.WebApi.Areas.Security.Controllers.AreaController">
             <summary>
-            接口
+            地区接口
             </summary>
         </member>
         <member name="M:Yuebon.WebApi.Areas.Security.Controllers.AreaController.#ctor(Yuebon.Security.IServices.IAreaService)">
@@ -102,7 +102,7 @@
         </member>
         <member name="T:Yuebon.WebApi.Areas.Security.Controllers.DbBackupController">
             <summary>
-            接口
+            数据库备份接口
             </summary>
         </member>
         <member name="M:Yuebon.WebApi.Areas.Security.Controllers.DbBackupController.#ctor(Yuebon.Security.IServices.IDbBackupService)">
@@ -133,7 +133,7 @@
         </member>
         <member name="T:Yuebon.WebApi.Areas.Security.Controllers.FilterIPController">
             <summary>
-            接口
+            IP地址禁用/可用接口
             </summary>
         </member>
         <member name="M:Yuebon.WebApi.Areas.Security.Controllers.FilterIPController.#ctor(Yuebon.Security.IServices.IFilterIPService)">
@@ -203,7 +203,7 @@
         </member>
         <member name="M:Yuebon.WebApi.Areas.Security.Controllers.FunctionController.InsertAsync(Yuebon.Security.Dtos.FunctionInputDto)">
             <summary>
-            
+            新增
             </summary>
             <param name="info"></param>
             <returns></returns>
@@ -325,7 +325,7 @@
         </member>
         <member name="T:Yuebon.WebApi.Areas.Security.Controllers.LogController">
             <summary>
-            接口
+            日志接口
             </summary>
         </member>
         <member name="M:Yuebon.WebApi.Areas.Security.Controllers.LogController.#ctor(Yuebon.Security.IServices.ILogService,Yuebon.Security.IServices.IOrganizeService)">
@@ -357,7 +357,7 @@
         </member>
         <member name="T:Yuebon.WebApi.Areas.Security.Controllers.MenuController">
             <summary>
-            接口
+            功能菜单接口
             </summary>
         </member>
         <member name="M:Yuebon.WebApi.Areas.Security.Controllers.MenuController.#ctor(Yuebon.Security.IServices.IMenuService)">
@@ -403,7 +403,7 @@
         </member>
         <member name="T:Yuebon.WebApi.Areas.Security.Controllers.OrganizeController">
             <summary>
-            接口
+            组织机构接口
             </summary>
         </member>
         <member name="M:Yuebon.WebApi.Areas.Security.Controllers.OrganizeController.#ctor(Yuebon.Security.IServices.IOrganizeService)">
@@ -454,7 +454,7 @@
         </member>
         <member name="T:Yuebon.WebApi.Areas.Security.Controllers.RoleAuthorizeController">
             <summary>
-            接口
+            角色权限接口
             </summary>
         </member>
         <member name="M:Yuebon.WebApi.Areas.Security.Controllers.RoleAuthorizeController.#ctor(Yuebon.Security.IServices.IRoleAuthorizeService,Yuebon.Security.IServices.IMenuService,Yuebon.Security.IServices.IFunctionService,Yuebon.Security.IServices.IRoleDataService,Yuebon.Security.IServices.IOrganizeService)">
@@ -517,7 +517,7 @@
         </member>
         <member name="T:Yuebon.WebApi.Areas.Security.Controllers.RoleController">
             <summary>
-            接口
+            角色接口
             </summary>
         </member>
         <!-- Badly formed XML comment ignored for member "M:Yuebon.WebApi.Areas.Security.Controllers.RoleController.#ctor(Yuebon.Security.IServices.IRoleService,Yuebon.Security.IServices.IOrganizeService)" -->
@@ -551,7 +551,7 @@
         </member>
         <member name="T:Yuebon.WebApi.Areas.Security.Controllers.RoleDataController">
             <summary>
-            接口
+            角色数据权限接口
             </summary>
         </member>
         <member name="M:Yuebon.WebApi.Areas.Security.Controllers.RoleDataController.#ctor(Yuebon.Security.IServices.IRoleDataService)">
@@ -589,7 +589,7 @@
         </member>
         <member name="T:Yuebon.WebApi.Areas.Security.Controllers.SystemTypeController">
             <summary>
-            接口
+            子系统接口
             </summary>
         </member>
         <member name="M:Yuebon.WebApi.Areas.Security.Controllers.SystemTypeController.#ctor(Yuebon.Security.IServices.ISystemTypeService)">
@@ -671,7 +671,7 @@
             <param name="info"></param>
             <returns></returns>
         </member>
-        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.TaskJobsLogController.FindWithByTaskIdAsync(Yuebon.AspNetCore.UI.SearchModel)">
+        <member name="M:Yuebon.WebApi.Areas.Security.Controllers.TaskJobsLogController.FindWithByTaskIdAsync(Yuebon.AspNetCore.ViewModel.SearchModel)">
             <summary>
             根据任务Id查询最新的30条日志
             </summary>
@@ -759,7 +759,7 @@
         </member>
         <member name="T:Yuebon.WebApi.Areas.Security.Controllers.UserController">
             <summary>
-            接口
+            用户接口
             </summary>
         </member>
         <member name="M:Yuebon.WebApi.Areas.Security.Controllers.UserController.#ctor(Yuebon.Security.IServices.IUserService,Yuebon.Security.IServices.IOrganizeService,Yuebon.Security.IServices.IRoleService,Yuebon.Security.IServices.IUserLogOnService)">
@@ -1011,6 +1011,11 @@
             设置验证码
             </summary>
         </member>
+        <member name="P:Yuebon.WebApi.Areas.Security.Models.RegisterViewModel.VerifyCodeKey">
+            <summary>
+            设置验证码Key
+            </summary>
+        </member>
         <member name="T:Yuebon.WebApi.Areas.Weixin.Controllers.WxOpenController">
             <summary>
             微信接口
@@ -1217,6 +1222,204 @@
             <summary>
             二维码的宽度，单位 px。最小 280px，最大 1280px，默认480px
             </summary>
+        </member>
+        <member name="T:Yuebon.WebApi.Controllers.CaptchaController">
+            <summary>
+            验证码接口
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Controllers.CaptchaController.CaptchaAsync">
+            <summary>
+            获取验证码
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Yuebon.WebApi.Controllers.CodeGeneratorController">
+            <summary>
+            代码生成器
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Controllers.CodeGeneratorController.GetListTable(Yuebon.AspNetCore.ViewModel.SearchModel)">
+            <summary>
+            获取数据库的所有表信息
+            </summary>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Controllers.CodeGeneratorController.GetGenerate(System.String,System.String,System.String)">
+            <summary>
+            代码生成器
+            </summary>
+            <param name="tables">要生成代码的表</param>
+            <param name="baseSpace">项目命名空间</param>
+            <param name="replaceTableNameStr">要删除表名的字符串用英文逗号","隔开</param>
+            <returns></returns>
+        </member>
+        <member name="T:Yuebon.WebApi.Controllers.DbToolsController">
+            <summary>
+            数据库连接加解密
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Controllers.DbToolsController.ConnStrEncrypt(Yuebon.AspNetCore.ViewModel.DbConnInfo)">
+            <summary>
+            连接字符串加密
+            </summary>
+            <param name="dbConnInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Controllers.DbToolsController.ConnStrDecrypt(System.String)">
+            <summary>
+            连接字符串解密
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Yuebon.WebApi.Controllers.FilesController">
+            <summary>
+            文件上传
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Controllers.FilesController.Upload(Microsoft.AspNetCore.Http.IFormCollection)">
+            <summary>
+             单文件上传接口
+            </summary>
+            <param name="formCollection"></param>
+            <returns>服务器存储的文件信息</returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Controllers.FilesController.Uploads(Microsoft.AspNetCore.Http.IFormCollection)">
+            <summary>
+             批量上传文件接口
+            </summary>
+            <param name="formCollection"></param>
+            <returns>服务器存储的文件信息</returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Controllers.FilesController.DeleteFile(System.String)">
+            <summary>
+            删除文件
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Controllers.FilesController.Adds(Microsoft.AspNetCore.Http.IFormFileCollection,System.String,System.String)">
+            <summary>
+            批量上传文件
+            </summary>
+            <param name="files">文件</param>
+            <param name="belongApp">所属应用，如文章article</param>
+            <param name="belongAppId">所属应用ID，如文章id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Controllers.FilesController.Add(Microsoft.AspNetCore.Http.IFormFile,System.String,System.String)">
+            <summary>
+            单个上传文件
+            </summary>
+            <param name="file"></param>
+            <param name="belongApp"></param>
+            <param name="belongAppId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Controllers.FilesController.UploadFile(System.String,System.Byte[])">
+            <summary>
+            实现文件上传到服务器保存，并生成缩略图
+            </summary>
+            <param name="fileName">文件名称</param>
+            <param name="fileBuffers">文件字节流</param>
+        </member>
+        <member name="T:Yuebon.WebApi.Controllers.FunctionController">
+            <summary>
+            功能模块接口
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Controllers.FunctionController.#ctor(Yuebon.Security.IServices.IFunctionService)">
+            <summary>
+            
+            </summary>
+            <param name="_iService"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Controllers.FunctionController.GetListByParentEnCode(System.String)">
+            <summary>
+            根据父级功能编码查询所有子集功能，主要用于页面操作按钮权限
+            </summary>
+            <param name="enCode">菜单功能编码</param>
+            <returns></returns>
+        </member>
+        <member name="T:Yuebon.WebApi.Controllers.LoginController">
+            <summary>
+            用户登录接口控制器
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Controllers.LoginController.#ctor(Yuebon.Security.IServices.IUserService,Yuebon.Security.IServices.IUserLogOnService,Yuebon.Security.IServices.ISystemTypeService,Yuebon.Security.IServices.ILogService,Yuebon.Security.IServices.IAPPService,Yuebon.Security.IServices.IRoleService,Yuebon.Security.IServices.IFilterIPService,Yuebon.Security.IServices.IRoleDataService)">
+            <summary>
+            构造函数注入服务
+            </summary>
+            <param name="iService"></param>
+            <param name="userLogOnService"></param>
+            <param name="systemTypeService"></param>
+            <param name="logService"></param>
+            <param name="appService"></param>
+            <param name="roleService"></param>
+            <param name="filterIPService"></param>
+            <param name="roleDataService"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Controllers.LoginController.GetCheckUser(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            登录验证用户
+            </summary>
+            <param name="username">用户名</param>
+            <param name="password">密码</param>
+            <param name="vcode">验证码</param>
+            <param name="vkey">验证码key</param>
+            <param name="appId">AppId</param>
+            <param name="systemCode">systemCode</param>
+            <returns>返回用户User对象</returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Controllers.LoginController.Logout">
+            <summary>
+            退出登录
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Yuebon.WebApi.Controllers.TokenController">
+            <summary>
+            Token令牌接口控制器
+            </summary>
+        </member>
+        <member name="M:Yuebon.WebApi.Controllers.TokenController.#ctor(Yuebon.Security.IServices.IAPPService,Yuebon.Security.IServices.IUserService,Yuebon.Commons.Options.JwtOption)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="iAPPService"></param>
+            <param name="_userService"></param>
+            <param name="jwtModel"></param>
+        </member>
+        <member name="M:Yuebon.WebApi.Controllers.TokenController.Get(System.String,System.String,System.String)">
+            <summary>
+            根据应用信息获得token令牌
+            </summary>
+            <param name="grant_type">获取access_token填写client_credential</param>
+            <param name="appid">用户唯一凭证，应用AppId</param>
+            <param name="secret">应用密钥AppSecret</param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Controllers.TokenController.CheckToken(System.String)">
+            <summary>
+            验证token的合法性。
+            </summary>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Controllers.TokenController.RefreshToken(System.String)">
+            <summary>
+            刷新token。
+            </summary>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yuebon.WebApi.Controllers.TokenController.ToJsonContent(System.Object)">
+            <summary>
+            把object对象转换为ContentResult
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
         </member>
         <member name="T:Yuebon.WebApi.Program">
             <summary>

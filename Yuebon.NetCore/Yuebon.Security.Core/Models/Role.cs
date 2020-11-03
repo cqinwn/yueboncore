@@ -1,4 +1,4 @@
-﻿using Dapper.Contrib.Extensions;
+﻿
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using Yuebon.Commons.Models;

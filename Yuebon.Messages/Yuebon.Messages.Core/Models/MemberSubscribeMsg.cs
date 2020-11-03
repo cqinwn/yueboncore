@@ -1,10 +1,6 @@
-using AutoMapper;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Dapper.Contrib.Extensions;
-using Yuebon.Commons.Models;
 using System.ComponentModel.DataAnnotations.Schema;
+using Yuebon.Commons.Models;
 
 namespace Yuebon.Messages.Models
 {

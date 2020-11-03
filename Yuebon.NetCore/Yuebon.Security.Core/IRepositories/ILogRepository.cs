@@ -7,6 +7,6 @@ namespace Yuebon.Security.IRepositories
 {
     public interface ILogRepository:IRepository<Log, string>
     {
-        Task<long> InsertTset(int len);
+        long InsertTset(int len);
     }
 }

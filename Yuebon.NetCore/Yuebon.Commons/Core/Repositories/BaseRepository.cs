@@ -408,16 +408,13 @@ namespace Yuebon.Commons.Repositories
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
-            if (string.IsNullOrEmpty(where))
-            {
-                where = "1=1";
-            }
-            string sql = $"select {selectedFields}  from { tableName} where DeleteMark=1 ";
+
+            string sqlWhere = " DeleteMark=1 ";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sql += sql + " and " + where;
+                sqlWhere += sqlWhere + " and " + where;
             }
-            return DapperConn.Query<T>(sql, trans);
+            return GetListWhere(sqlWhere,trans);
         }
 
         /// <summary>
@@ -428,22 +425,17 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual IEnumerable<T> GetAllByIsNotDeleteMark(string where = null, IDbTransaction trans=null)
         {
-            
             if (HasInjectionData(where))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
-            if (string.IsNullOrEmpty(where))
-            {
-                where = "1=1";
-            }
-            string sql = $"select {selectedFields} from { tableName} where DeleteMark=0";
+            string sqlWhere = " DeleteMark=0 ";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sql += sql + " and " + where;
+                sqlWhere += sqlWhere + " and " + where;
             }
-            return DapperConn.Query<T>(sql, trans);
+            return GetListWhere(sqlWhere, trans);
         }
 
         /// <summary>
@@ -460,16 +452,12 @@ namespace Yuebon.Commons.Repositories
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
-            if (string.IsNullOrEmpty(where))
-            {
-                where = "1=1";
-            }
-            string sql = $"select {selectedFields} from {tableName} where EnabledMark=1";
+            string sqlWhere = " EnabledMark=1 ";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sql += sql + " and " + where;
+                sqlWhere += sqlWhere + " and " + where;
             }
-            return DapperConn.Query<T>(sql, trans);
+            return GetListWhere(sqlWhere, trans);
         }
 
         /// <summary>
@@ -486,16 +474,12 @@ namespace Yuebon.Commons.Repositories
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
-            if (string.IsNullOrEmpty(where))
-            {
-                where = "1=1";
-            }
-            string sql = $"select {selectedFields} from {tableName} where EnabledMark=0";
+            string sqlWhere = " EnabledMark=0 ";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sql += sql + " and " + where;
+                sqlWhere += sqlWhere + " and " + where;
             }
-            return DapperConn.Query<T>(sql, trans);
+            return GetListWhere(sqlWhere, trans);
         }
         /// <summary>
         /// 查询未软删除且有效的数据，如果查询条件为空，即查询所有数据
@@ -511,16 +495,12 @@ namespace Yuebon.Commons.Repositories
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
-            if (string.IsNullOrEmpty(where))
-            {
-                where = "1=1";
-            }
-            string sql = $"select {selectedFields} from {tableName} where DeleteMark=0 and EnabledMark=1";
+            string sqlWhere = " DeleteMark=0 and EnabledMark=1 ";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sql = sql + " and " + where;
+                sqlWhere += sqlWhere + " and " + where;
             }
-            return DapperConn.Query<T>(sql, trans);
+            return GetListWhere(sqlWhere, trans);
         }
 
         /// <summary>
@@ -537,16 +517,12 @@ namespace Yuebon.Commons.Repositories
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
-            if (string.IsNullOrEmpty(where))
-            {
-                where = "1=1";
-            }
-            string sql = $"select {selectedFields} from {tableName} where DeleteMark=1 ";
+            string sqlWhere = " DeleteMark=1";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sql = sql + " and " + where;
+                sqlWhere += sqlWhere + " and " + where;
             }
-            return await DapperConn.QueryAsync<T>(sql, trans);
+            return await GetListWhereAsync(sqlWhere, trans);
         }
 
         /// <summary>
@@ -563,16 +539,13 @@ namespace Yuebon.Commons.Repositories
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
-            if (string.IsNullOrEmpty(where))
-            {
-                where = "1=1";
-            }
-            string sql = $"select {selectedFields} from {tableName} where DeleteMark=0";
+
+            string sqlWhere = " DeleteMark=0 ";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sql = sql + " and " + where;
+                sqlWhere += sqlWhere + " and " + where;
             }
-            return await DapperConn.QueryAsync<T>(sql, trans);
+            return await GetListWhereAsync(sqlWhere, trans);
         }
 
         /// <summary>
@@ -589,16 +562,13 @@ namespace Yuebon.Commons.Repositories
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
-            if (string.IsNullOrEmpty(where))
-            {
-                where = "1=1";
-            }
-            string sql = $"select {selectedFields} from {tableName} where EnabledMark=1";
+
+            string sqlWhere = " EnabledMark=1 ";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sql = sql + " and " + where;
+                sqlWhere += sqlWhere + " and " + where;
             }
-            return await DapperConn.QueryAsync<T>(sql, trans);
+            return await GetListWhereAsync(sqlWhere, trans);
         }
 
         /// <summary>
@@ -615,16 +585,12 @@ namespace Yuebon.Commons.Repositories
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
-            if (string.IsNullOrEmpty(where))
-            {
-                where = "1=1";
-            }
-            string sql = $"select {selectedFields} from {tableName} where EnabledMark=0";
+            string sqlWhere = " EnabledMark=0";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sql = sql + " and " + where;
+                sqlWhere += sqlWhere + " and " + where;
             }
-            return await DapperConn.QueryAsync<T>(sql, trans);
+            return await GetListWhereAsync(sqlWhere, trans);
         }
         /// <summary>
         /// 查询未软删除且有效的数据，如果查询条件为空，即查询所有数据
@@ -634,22 +600,17 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual async Task<IEnumerable<T>> GetAllByIsNotDeleteAndEnabledMarkAsync(string where = null, IDbTransaction trans=null)
         {
-            
             if (HasInjectionData(where))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
-            if (string.IsNullOrEmpty(where))
-            {
-                where = "1=1";
-            }
-            string sql = $"select {selectedFields} from {tableName} where DeleteMark=0 and EnabledMark=1";
+            string sqlWhere = " DeleteMark=0 and EnabledMark=1";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sql = sql + " and " + where;
+                sqlWhere += sqlWhere + " and " + where;
             }
-            return await DapperConn.QueryAsync<T>(sql, trans);
+            return await GetListWhereAsync(sqlWhere, trans);
         }
 
         /// <summary>

@@ -32,10 +32,6 @@ namespace Yuebon.Commons.Dapper
                 {
                     dbConnection = DBServerProvider.GetDBConnection();
                 }
-                //if (dbConnection.State != ConnectionState.Open)
-                //{
-                //    dbConnection.Open();
-                //}
                 return dbConnection;
             }
         }

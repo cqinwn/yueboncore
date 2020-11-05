@@ -30,7 +30,7 @@ namespace Yuebon.Commons.Core.DataManager
         /// <summary>
         /// 数据库连接
         /// </summary>
-        private static DbConnection dbConnection;
+        private static IDbConnection dbConnection;
         #region Dapper Context
         /// <summary>
         /// 获取默认数据库连接
@@ -54,7 +54,7 @@ namespace Yuebon.Commons.Core.DataManager
         /// 获取数据库连接
         /// </summary>
         /// <returns></returns>
-        public static DbConnection GetDBConnection<TEntity>()
+        public static IDbConnection GetDBConnection<TEntity>()
         {
             string conStringEncrypt = Configs.GetConfigurationValue("AppSetting", "ConStringEncrypt");
             bool isMultiTenant = Configs.GetConfigurationValue("AppSetting", "IsMultiTenant").ToBool();
@@ -114,7 +114,7 @@ namespace Yuebon.Commons.Core.DataManager
         /// 获取数据库连接
         /// </summary>
         /// <returns></returns>
-        public static DbConnection GetDBConnection()
+        public static IDbConnection GetDBConnection()
         {
             string conStringEncrypt = Configs.GetConfigurationValue("AppSetting", "ConStringEncrypt");
             bool isMultiTenant = Configs.GetConfigurationValue("AppSetting", "IsMultiTenant").ToBool();
@@ -160,10 +160,6 @@ namespace Yuebon.Commons.Core.DataManager
             else
             {
                 throw new NotSupportedException("The database is not supported");
-            }
-            if (dbConnection.State != ConnectionState.Open)
-            {
-                dbConnection.Open();
             }
             return dbConnection;
         }

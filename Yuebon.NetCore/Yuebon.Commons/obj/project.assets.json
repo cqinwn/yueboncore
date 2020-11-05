@@ -14,7 +14,7 @@
           "lib/netstandard2.1/Autofac.dll": {}
         }
       },
-      "Autofac.Extensions.DependencyInjection/7.0.2": {
+      "Autofac.Extensions.DependencyInjection/7.1.0": {
         "type": "package",
         "dependencies": {
           "Autofac": "6.0.0",
@@ -66,6 +66,27 @@
         },
         "runtime": {
           "lib/netstandard2.0/BouncyCastle.Crypto.dll": {}
+        }
+      },
+      "Castle.Core/4.4.1": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.1",
+          "System.Collections.Specialized": "4.3.0",
+          "System.ComponentModel": "4.3.0",
+          "System.ComponentModel.TypeConverter": "4.3.0",
+          "System.Diagnostics.TraceSource": "4.3.0",
+          "System.Dynamic.Runtime": "4.3.0",
+          "System.Reflection": "4.3.0",
+          "System.Reflection.Emit": "4.3.0",
+          "System.Reflection.TypeExtensions": "4.3.0",
+          "System.Xml.XmlDocument": "4.3.0"
+        },
+        "compile": {
+          "lib/netstandard1.5/Castle.Core.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.5/Castle.Core.dll": {}
         }
       },
       "CSRedisCore/3.6.5": {
@@ -1654,7 +1675,7 @@
           "lib/netstandard2.0/QRCoder.dll": {}
         }
       },
-      "Quartz/3.2.2": {
+      "Quartz/3.2.3": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.Logging.Abstractions": "2.1.1",
@@ -2134,7 +2155,7 @@
           "System.Threading": "4.3.0"
         },
         "compile": {
-          "ref/netstandard1.3/_._": {}
+          "ref/netstandard1.3/System.Collections.NonGeneric.dll": {}
         },
         "runtime": {
           "lib/netstandard1.3/System.Collections.NonGeneric.dll": {}
@@ -2152,7 +2173,7 @@
           "System.Threading": "4.3.0"
         },
         "compile": {
-          "ref/netstandard1.3/_._": {}
+          "ref/netstandard1.3/System.Collections.Specialized.dll": {}
         },
         "runtime": {
           "lib/netstandard1.3/System.Collections.Specialized.dll": {}
@@ -2164,7 +2185,7 @@
           "System.Runtime": "4.3.0"
         },
         "compile": {
-          "ref/netstandard1.0/_._": {}
+          "ref/netstandard1.0/System.ComponentModel.dll": {}
         },
         "runtime": {
           "lib/netstandard1.3/System.ComponentModel.dll": {}
@@ -2187,7 +2208,7 @@
           "System.Runtime": "4.3.0"
         },
         "compile": {
-          "ref/netstandard1.0/_._": {}
+          "ref/netstandard1.0/System.ComponentModel.Primitives.dll": {}
         },
         "runtime": {
           "lib/netstandard1.0/System.ComponentModel.Primitives.dll": {}
@@ -2213,7 +2234,7 @@
           "System.Threading": "4.3.0"
         },
         "compile": {
-          "ref/netstandard1.5/_._": {}
+          "ref/netstandard1.5/System.ComponentModel.TypeConverter.dll": {}
         },
         "runtime": {
           "lib/netstandard1.5/System.ComponentModel.TypeConverter.dll": {}
@@ -2363,18 +2384,18 @@
           "ref/netstandard1.0/System.Diagnostics.Tools.dll": {}
         }
       },
-      "System.Diagnostics.TraceSource/4.0.0": {
+      "System.Diagnostics.TraceSource/4.3.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.0.1",
-          "System.Collections": "4.0.11",
-          "System.Diagnostics.Debug": "4.0.11",
-          "System.Globalization": "4.0.11",
-          "System.Resources.ResourceManager": "4.0.1",
-          "System.Runtime": "4.1.0",
-          "System.Runtime.Extensions": "4.1.0",
-          "System.Threading": "4.0.11",
-          "runtime.native.System": "4.0.0"
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "System.Collections": "4.3.0",
+          "System.Diagnostics.Debug": "4.3.0",
+          "System.Globalization": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Threading": "4.3.0",
+          "runtime.native.System": "4.3.0"
         },
         "compile": {
           "ref/netstandard1.3/System.Diagnostics.TraceSource.dll": {}
@@ -3827,14 +3848,14 @@
         "lib/netstandard2.1/Autofac.xml"
       ]
     },
-    "Autofac.Extensions.DependencyInjection/7.0.2": {
-      "sha512": "fmgI7fW6YMoB9gEeGVCm3gJ3NEykFxdRj4goBzKL4CmIvHDCYtHLVNHxp5sdBkIrTugrcFOZl34jmOCG8l2eTA==",
+    "Autofac.Extensions.DependencyInjection/7.1.0": {
+      "sha512": "nm6rZREZ9tjdKXu9cmT69zHkZODagjCPlRRCOhiS1VqFFis9LQnMl18L4OYr8yfCW1WAQkFDD2CNaK/kF5Eqeg==",
       "type": "package",
-      "path": "autofac.extensions.dependencyinjection/7.0.2",
+      "path": "autofac.extensions.dependencyinjection/7.1.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "autofac.extensions.dependencyinjection.7.0.2.nupkg.sha512",
+        "autofac.extensions.dependencyinjection.7.1.0.nupkg.sha512",
         "autofac.extensions.dependencyinjection.nuspec",
         "icon.png",
         "lib/netstandard2.0/Autofac.Extensions.DependencyInjection.dll",
@@ -3899,6 +3920,31 @@
         "lib/netstandard2.0/BouncyCastle.Crypto.xml",
         "lib/xamarinios/BouncyCastle.Crypto.dll",
         "lib/xamarinios/BouncyCastle.Crypto.xml"
+      ]
+    },
+    "Castle.Core/4.4.1": {
+      "sha512": "zanbjWC0Y05gbx4eGXkzVycOQqVOFVeCjVsDSyuao9P4mtN1w3WxxTo193NGC7j3o2u3AJRswaoC6hEbnGACnQ==",
+      "type": "package",
+      "path": "castle.core/4.4.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ASL - Apache Software Foundation License.txt",
+        "CHANGELOG.md",
+        "LICENSE",
+        "castle.core.4.4.1.nupkg.sha512",
+        "castle.core.nuspec",
+        "lib/net35/Castle.Core.dll",
+        "lib/net35/Castle.Core.xml",
+        "lib/net40/Castle.Core.dll",
+        "lib/net40/Castle.Core.xml",
+        "lib/net45/Castle.Core.dll",
+        "lib/net45/Castle.Core.xml",
+        "lib/netstandard1.3/Castle.Core.dll",
+        "lib/netstandard1.3/Castle.Core.xml",
+        "lib/netstandard1.5/Castle.Core.dll",
+        "lib/netstandard1.5/Castle.Core.xml",
+        "readme.txt"
       ]
     },
     "CSRedisCore/3.6.5": {
@@ -5916,10 +5962,10 @@
         "qrcoder.nuspec"
       ]
     },
-    "Quartz/3.2.2": {
-      "sha512": "SZmyLsTvoTP7CDQiH1gpZgfKu8CM0xoJmOCfrm7hr5B4pYdqldUyjm9HjfSJxTcXxLJmheulnkVOiaWaDRBTCA==",
+    "Quartz/3.2.3": {
+      "sha512": "AWybQvHH/eI69NEiqe4x4jgCGYOCxHfsbrK7IdZJU35MC+85wneNtY4xd9CkUiLlYJvV7YsU0uBMzJV00HKtWg==",
       "type": "package",
-      "path": "quartz/3.2.2",
+      "path": "quartz/3.2.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5928,7 +5974,7 @@
         "lib/netstandard2.0/Quartz.dll",
         "lib/netstandard2.0/Quartz.xml",
         "quartz-logo-small.png",
-        "quartz.3.2.2.nupkg.sha512",
+        "quartz.3.2.3.nupkg.sha512",
         "quartz.nuspec"
       ]
     },
@@ -7400,10 +7446,10 @@
         "system.diagnostics.tools.nuspec"
       ]
     },
-    "System.Diagnostics.TraceSource/4.0.0": {
-      "sha512": "6WVCczFZKXwpWpzd/iJkYnsmWTSFFiU24Xx/YdHXBcu+nFI/ehTgeqdJQFbtRPzbrO3KtRNjvkhtj4t5/WwWsA==",
+    "System.Diagnostics.TraceSource/4.3.0": {
+      "sha512": "VnYp1NxGx8Ww731y2LJ1vpfb/DKVNKEZ8Jsh5SgQTZREL/YpWRArgh9pI8CDLmgHspZmLL697CaLvH85qQpRiw==",
       "type": "package",
-      "path": "system.diagnostics.tracesource/4.0.0",
+      "path": "system.diagnostics.tracesource/4.3.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -7437,7 +7483,7 @@
         "runtimes/unix/lib/netstandard1.3/System.Diagnostics.TraceSource.dll",
         "runtimes/win/lib/net46/System.Diagnostics.TraceSource.dll",
         "runtimes/win/lib/netstandard1.3/System.Diagnostics.TraceSource.dll",
-        "system.diagnostics.tracesource.4.0.0.nupkg.sha512",
+        "system.diagnostics.tracesource.4.3.0.nupkg.sha512",
         "system.diagnostics.tracesource.nuspec"
       ]
     },
@@ -11406,8 +11452,9 @@
       "AutoMapper >= 10.1.1",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 8.1.0",
       "Autofac >= 6.0.0",
-      "Autofac.Extensions.DependencyInjection >= 7.0.2",
+      "Autofac.Extensions.DependencyInjection >= 7.1.0",
       "CSRedisCore >= 3.6.5",
+      "Castle.Core >= 4.4.1",
       "Dapper >= 2.0.35",
       "DotNetCore.NPOI >= 1.2.2",
       "HtmlAgilityPack >= 1.11.26",
@@ -11430,7 +11477,7 @@
       "Oracle.EntityFrameworkCore >= 3.19.80",
       "Oracle.ManagedDataAccess.Core >= 2.19.91",
       "QRCoder >= 1.3.9",
-      "Quartz >= 3.2.2",
+      "Quartz >= 3.2.3",
       "SgmlReader.NetCore >= 1.0.0",
       "System.Data.SqlClient >= 4.8.2",
       "System.Drawing.Common >= 4.7.0",
@@ -11489,11 +11536,15 @@
           },
           "Autofac.Extensions.DependencyInjection": {
             "target": "Package",
-            "version": "[7.0.2, )"
+            "version": "[7.1.0, )"
           },
           "CSRedisCore": {
             "target": "Package",
             "version": "[3.6.5, )"
+          },
+          "Castle.Core": {
+            "target": "Package",
+            "version": "[4.4.1, )"
           },
           "Dapper": {
             "target": "Package",
@@ -11585,7 +11636,7 @@
           },
           "Quartz": {
             "target": "Package",
-            "version": "[3.2.2, )"
+            "version": "[3.2.3, )"
           },
           "SgmlReader.NetCore": {
             "target": "Package",

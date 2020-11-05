@@ -147,11 +147,15 @@
             },
             "Autofac.Extensions.DependencyInjection": {
               "target": "Package",
-              "version": "[7.0.2, )"
+              "version": "[7.1.0, )"
             },
             "CSRedisCore": {
               "target": "Package",
               "version": "[3.6.5, )"
+            },
+            "Castle.Core": {
+              "target": "Package",
+              "version": "[4.4.1, )"
             },
             "Dapper": {
               "target": "Package",
@@ -243,7 +247,7 @@
             },
             "Quartz": {
               "target": "Package",
-              "version": "[3.2.2, )"
+              "version": "[3.2.3, )"
             },
             "SgmlReader.NetCore": {
               "target": "Package",

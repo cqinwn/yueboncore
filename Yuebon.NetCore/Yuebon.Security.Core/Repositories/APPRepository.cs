@@ -1,6 +1,7 @@
 using Dapper;
 using System.Collections.Generic;
 using System.Linq;
+using Yuebon.Commons.DbContextCore;
 using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.Dtos;
@@ -17,7 +18,6 @@ namespace Yuebon.Security.Repositories
         public APPRepository()
         {
         }
-
         public APPRepository(IDbContextCore context) : base(context)
         {
         }
@@ -29,6 +29,7 @@ namespace Yuebon.Security.Repositories
         /// <returns></returns>
         public APP GetAPP(string appid, string secret)
         {
+
             string sql = @"SELECT * FROM Sys_APP t WHERE t.AppId = @AppId and AppSecret=@AppSecret and EnabledMark=1";
             return DapperConn.QueryFirst<APP>(sql, new { AppId = appid, AppSecret = secret });
         }

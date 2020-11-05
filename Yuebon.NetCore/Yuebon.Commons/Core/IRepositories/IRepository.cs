@@ -24,10 +24,6 @@ namespace Yuebon.Commons.IRepositories
         /// </summary>
         event OperationLogEventHandler OnOperationLog;
 
-        /// <summary>
-        /// Dapper DBContext
-        /// </summary>
-        ISqlDapper DapperContext { get; }
         #region 单个实体
         /// <summary>
         /// 同步查询单个实体。

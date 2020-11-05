@@ -70,7 +70,6 @@ namespace Yuebon.WebApi.Controllers
         /// <param name="systemCode">systemCode</param>
         /// <returns>返回用户User对象</returns>
         [HttpGet("GetCheckUser")]
-        [AllowAnonymous]
         [NoPermissionRequired]
         public async Task<IActionResult> GetCheckUser(string username, string password, string vcode,string vkey, string appId,string systemCode)
         {

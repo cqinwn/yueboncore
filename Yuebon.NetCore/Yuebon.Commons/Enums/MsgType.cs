@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Yuebon.Commons.Options
+namespace Yuebon.Commons.Enums
 {
     /// <summary>
     /// 通知操作类型
     /// </summary>
-    public enum MsgTypeOption
+    public enum MsgType
     {
         /// <summary>
         /// 不通知

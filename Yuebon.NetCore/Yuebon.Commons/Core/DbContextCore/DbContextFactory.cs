@@ -1,5 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Yuebon.Commons.Extensions;
 using Yuebon.Commons.IDbContext;
+using Yuebon.Commons.Options;
 
 namespace Yuebon.Commons.DbContextCore
 {
@@ -17,30 +20,22 @@ namespace Yuebon.Commons.DbContextCore
         /// </summary>
         public IServiceCollection ServiceCollection { get; set; }
         /// <summary>
-        /// 构造方法
+        /// 构造函数
         /// </summary>
         public DbContextFactory()
         {
         }
-        /// <summary>
-        /// 注入上下文服务
-        /// </summary>
-        /// <typeparam name="TContext">上下文实现类</typeparam>
-        public void AddDbContext<TContext>()
+        public void AddDbContext<TContext>(DbContextOption option)
             where TContext : BaseDbContext, IDbContextCore
         {
-            ServiceCollection.AddDbContext<IDbContextCore,TContext>();
+            ServiceCollection.AddDbContext<IDbContextCore, TContext>(option);
         }
-        /// <summary>
-        /// 注入上下文服务
-        /// </summary>
-        /// <typeparam name="ITContext">上下文接口</typeparam>
-        /// <typeparam name="TContext">上下文实现类</typeparam>
-        public void AddDbContext<ITContext, TContext>()
+
+        public void AddDbContext<ITContext, TContext>(DbContextOption option)
             where ITContext : IDbContextCore
             where TContext : BaseDbContext, ITContext
         {
-            ServiceCollection.AddDbContext<ITContext, TContext>();
+            ServiceCollection.AddDbContext<ITContext, TContext>(option);
         }
     }
 }

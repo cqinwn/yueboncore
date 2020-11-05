@@ -13,9 +13,11 @@ using System.Reflection;
 using System.Text;
 using Yuebon.Commons.DbContextCore;
 using Yuebon.Commons.Helpers;
+using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.IoC;
 using Yuebon.Commons.IRepositories;
 using Yuebon.Commons.Models;
+using Yuebon.Commons.Options;
 using Yuebon.Commons.Repositories;
 
 namespace Yuebon.Commons.Extensions
@@ -315,11 +317,6 @@ namespace Yuebon.Commons.Extensions
             return ServiceLocator.ServiceProvider = IoCContainer.Build(services);
         }
 
-        //public static IServiceProvider BuildAspectCoreServiceProvider(this IServiceCollection services)
-        //{
-            
-        //    return ServiceLocator.ServiceProvider = IoCContainer.BuildServiceProvider(services, configure);
-        //}
         /// <summary>
         /// 注册数据库上下文工厂
         /// </summary>
@@ -336,6 +333,51 @@ namespace Yuebon.Commons.Extensions
             return factory.ServiceCollection;
         }
 
+        /// <summary>
+        /// 注入数据库上下文
+        /// </summary>
+        /// <typeparam name="IT"></typeparam>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="services"></param>
+        /// <param name="option"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddDbContext<IT, T>(this IServiceCollection services, DbContextOption option) where IT : IDbContextCore where T : BaseDbContext, IT
+        {
+            if (services == null) throw new ArgumentNullException(nameof(services));
+            if (option == null) throw new ArgumentNullException(nameof(option));
+            services.AddSingleton(option);
+            return services.AddDbContext<IT, T>(option);
+        }
+
+        /// <summary>
+        /// 注入数据库上下文
+        /// </summary>
+        /// <typeparam name="IT"></typeparam>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddDbContext<IT, T>(this IServiceCollection services) where IT : IDbContextCore where T : BaseDbContext, IT
+        {
+            if (services == null) throw new ArgumentNullException(nameof(services));
+            return services.AddDbContext<IT, T>();
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="provider"></param>
+        /// <param name="dbContextTagName"></param>
+        /// <param name="serviceType"></param>
+        /// <returns></returns>
+        public static object GetDbContext(this IServiceProvider provider, string dbContextTagName, Type serviceType)
+        {
+            if (provider == null) throw new ArgumentNullException(nameof(provider));
+            var implService = provider.GetRequiredService(serviceType);
+            var option = provider.GetServices<DbContextOption>().FirstOrDefault(m => m.dbConfigName == dbContextTagName);
+
+            var context = Activator.CreateInstance(implService.GetType(), option);
+
+            return context;
+        }
         /// <summary>
         /// 注册仓储Repositories
         /// </summary>

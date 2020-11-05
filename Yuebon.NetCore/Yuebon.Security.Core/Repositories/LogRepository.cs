@@ -1,4 +1,5 @@
 using Dapper;
+using Dapper.Contrib.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using Yuebon.Commons.DbContextCore;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IDbContext;
@@ -30,6 +32,11 @@ namespace Yuebon.Security.Repositories
         public LogRepository()
         {
         }
+        public LogRepository(DbContextFactory factory)
+        {
+
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -66,24 +73,28 @@ namespace Yuebon.Security.Repositories
                 CreatorTime = DateTime.Now,
                 CreatorUserId = "9f2ec079-7d0f-4fe2-90ab-8b09a8302aba"
             };
-            Log logEntity2 = new Log()
+            using (var content=new MySqlDbContext())
             {
-                Id = GuidUtils.GuId(),
-                Date = DateTime.Now,
-                Account = "admin",
-                NickName = "超级管理员",
-                OrganizeId = "2020101619392209546893",
-                Type = "SQL",
-                IPAddress = "171.110.40.191",
-                IPAddressName = "中国广西壮族自治区玉林市",
-                ModuleName = "Log",
-                Result = true,
-                Description = "SQL语句:update Sys_Role set EnabledMark=1 ,LastModifyUserId='2020100517554098226223',LastModifyTime=@LastModifyTime where id in ('2019091721053342871332')",
-                DeleteMark = false,
-                EnabledMark = true,
-                CreatorTime = DateTime.Now,
-                CreatorUserId = "9f2ec079-7d0f-4fe2-90ab-8b09a8302aba"
-            };
+                content.Add<Log>(logEntity1); ;
+            }
+                Log logEntity2 = new Log()
+                {
+                    Id = GuidUtils.GuId(),
+                    Date = DateTime.Now,
+                    Account = "admin",
+                    NickName = "超级管理员",
+                    OrganizeId = "2020101619392209546893",
+                    Type = "SQL",
+                    IPAddress = "171.110.40.191",
+                    IPAddressName = "中国广西壮族自治区玉林市",
+                    ModuleName = "Log",
+                    Result = true,
+                    Description = "SQL语句:update Sys_Role set EnabledMark=1 ,LastModifyUserId='2020100517554098226223',LastModifyTime=@LastModifyTime where id in ('2019091721053342871332')",
+                    DeleteMark = false,
+                    EnabledMark = true,
+                    CreatorTime = DateTime.Now,
+                    CreatorUserId = "9f2ec079-7d0f-4fe2-90ab-8b09a8302aba"
+                };
             Stopwatch stopwatch = new Stopwatch();
             Stopwatch stopwatch1 = new Stopwatch();
             Stopwatch stopwatch2 = new Stopwatch();
@@ -101,7 +112,8 @@ namespace Yuebon.Security.Repositories
             Stopwatch stopwatch14 = new Stopwatch();
 
             stopwatch.Start();
-            DapperContext.Add<Log>(logEntity1);
+
+            DapperConn.Insert<Log>(logEntity1);
             stopwatch.Stop();
             sb.Append("Dapper 单条数据插入Insert耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
             stopwatch1.Start();

@@ -93,6 +93,58 @@ namespace Yuebon.Commons.Extensions
             return xmlDocument;
         }
 
+
+        public static object ChangeType(this object convertibleValue, Type type)
+        {
+            if (null == convertibleValue) return null;
+
+            try
+            {
+                if (type == typeof(Guid) || type == typeof(Guid?))
+                {
+                    string value = convertibleValue.ToString();
+                    if (value == "") return null;
+                    return Guid.Parse(value);
+                }
+
+                if (!type.IsGenericType) return Convert.ChangeType(convertibleValue, type);
+                if (type.ToString() == "System.Nullable`1[System.Boolean]" || type.ToString() == "System.Boolean")
+                {
+                    if (convertibleValue.ToString() == "0")
+                        return false;
+                    return true;
+                }
+                Type genericTypeDefinition = type.GetGenericTypeDefinition();
+                if (genericTypeDefinition == typeof(Nullable<>))
+                {
+                    return Convert.ChangeType(convertibleValue, Nullable.GetUnderlyingType(type));
+                }
+            }
+            catch
+            {
+                return null;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 获取对象里指定成员名称
+        /// </summary>
+        /// <typeparam name="TEntity"></typeparam>
+        /// <param name="properties"> 格式 Expression<Func<entityt, object>> exp = x => new { x.字段1, x.字段2 };或x=>x.Name</param>
+        /// <returns></returns>
+        public static string[] GetExpressionProperty<TEntity>(this Expression<Func<TEntity, object>> properties)
+        {
+            if (properties == null)
+                return new string[] { };
+            if (properties.Body is NewExpression)
+                return ((NewExpression)properties.Body).Members.Select(x => x.Name).ToArray();
+            if (properties.Body is MemberExpression)
+                return new string[] { ((MemberExpression)properties.Body).Member.Name };
+            if (properties.Body is UnaryExpression)
+                return new string[] { ((properties.Body as UnaryExpression).Operand as MemberExpression).Member.Name };
+            throw new Exception("未实现的表达式");
+        }
         /// <summary>
         /// 将集合转换为数据集。
         /// </summary>

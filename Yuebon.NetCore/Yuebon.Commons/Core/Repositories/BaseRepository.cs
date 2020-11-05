@@ -20,6 +20,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Yuebon.Commons.Core.Dapper;
 using Yuebon.Commons.Core.DataManager;
 using Yuebon.Commons.Dapper;
 using Yuebon.Commons.Encrypt;
@@ -170,17 +171,17 @@ namespace Yuebon.Commons.Repositories
         /// <summary>
         /// 用自定义Dapper封装方法操作数据
         /// </summary>
-        public ISqlDapper DapperContext
-        {
-            get { return DBServerProvider.GetSqlDapper<T>(); }
-        }
+        //public ISqlDapper DapperContext
+        //{
+        //    get { return DBServerProvider.GetSqlDapper<T>(); }
+        //}
 
         /// <summary>
         /// 用Dapper原生方法操作数据
         /// </summary>
-        public DbConnection DapperConn
+        public IDbConnection DapperConn
         {
-            get { return DBServerProvider.GetDBConnection<T>(); }
+            get { return new DapperDbContext().GetConnection<T>(); }
         }
         #endregion
 
@@ -200,7 +201,7 @@ namespace Yuebon.Commons.Repositories
         /// </summary>
         /// <param name="primaryKey">主键</param>
         /// <returns></returns>
-        public virtual async Task<T> GetAsync(TKey primaryKey)
+        public virtual async  Task<T> GetAsync(TKey primaryKey)
         {
             return await DapperConn.GetAsync<T>(primaryKey);
         }
@@ -375,7 +376,7 @@ namespace Yuebon.Commons.Repositories
             string sqlWhere = " DeleteMark=1 ";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sqlWhere += sqlWhere + " and " + where;
+                sqlWhere += " and " + where;
             }
             return GetListWhere(sqlWhere,trans);
         }
@@ -396,7 +397,7 @@ namespace Yuebon.Commons.Repositories
             string sqlWhere = " DeleteMark=0 ";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sqlWhere += sqlWhere + " and " + where;
+                sqlWhere += " and " + where;
             }
             return GetListWhere(sqlWhere, trans);
         }
@@ -418,7 +419,7 @@ namespace Yuebon.Commons.Repositories
             string sqlWhere = " EnabledMark=1 ";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sqlWhere += sqlWhere + " and " + where;
+                sqlWhere += " and " + where;
             }
             return GetListWhere(sqlWhere, trans);
         }
@@ -440,7 +441,7 @@ namespace Yuebon.Commons.Repositories
             string sqlWhere = " EnabledMark=0 ";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sqlWhere += sqlWhere + " and " + where;
+                sqlWhere += " and " + where;
             }
             return GetListWhere(sqlWhere, trans);
         }
@@ -461,7 +462,7 @@ namespace Yuebon.Commons.Repositories
             string sqlWhere = " DeleteMark=0 and EnabledMark=1 ";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sqlWhere += sqlWhere + " and " + where;
+                sqlWhere += " and " + where;
             }
             return GetListWhere(sqlWhere, trans);
         }
@@ -483,7 +484,7 @@ namespace Yuebon.Commons.Repositories
             string sqlWhere = " DeleteMark=1";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sqlWhere += sqlWhere + " and " + where;
+                sqlWhere += " and " + where;
             }
             return await GetListWhereAsync(sqlWhere, trans);
         }
@@ -506,7 +507,7 @@ namespace Yuebon.Commons.Repositories
             string sqlWhere = " DeleteMark=0 ";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sqlWhere += sqlWhere + " and " + where;
+                sqlWhere += " and " + where;
             }
             return await GetListWhereAsync(sqlWhere, trans);
         }
@@ -529,7 +530,7 @@ namespace Yuebon.Commons.Repositories
             string sqlWhere = " EnabledMark=1 ";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sqlWhere += sqlWhere + " and " + where;
+                sqlWhere += " and " + where;
             }
             return await GetListWhereAsync(sqlWhere, trans);
         }
@@ -551,7 +552,7 @@ namespace Yuebon.Commons.Repositories
             string sqlWhere = " EnabledMark=0";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sqlWhere += sqlWhere + " and " + where;
+                sqlWhere += " and " + where;
             }
             return await GetListWhereAsync(sqlWhere, trans);
         }
@@ -571,7 +572,7 @@ namespace Yuebon.Commons.Repositories
             string sqlWhere = " DeleteMark=0 and EnabledMark=1";
             if (!string.IsNullOrWhiteSpace(where))
             {
-                sqlWhere += sqlWhere + " and " + where;
+                sqlWhere += " and " + where;
             }
             return await GetListWhereAsync(sqlWhere, trans);
         }
@@ -926,7 +927,7 @@ namespace Yuebon.Commons.Repositories
             {
                 entity.GenerateDefaultKeyVal();
             }
-            return DapperContext.Add<T>(entity);
+            return DapperConn.Insert<T>(entity);
         }
 
 
@@ -1512,9 +1513,9 @@ namespace Yuebon.Commons.Repositories
         public async Task<Tuple<bool, string>> ExecuteTransactionAsync(List<Tuple<string, object>> trans, int? commandTimeout = null)
         {
             if (!trans.Any()) return new Tuple<bool, string>(false, "执行事务SQL语句不能为空！");
-            using (DbConnection connection = DapperConn)
+            using (IDbConnection connection = DapperConn)
             {
-                using (var transaction = await connection.BeginTransactionAsync())
+                using (var transaction =  connection.BeginTransaction())
                 {
                     try
                     {
@@ -1564,7 +1565,7 @@ namespace Yuebon.Commons.Repositories
         public Tuple<bool, string> ExecuteTransaction(List<Tuple<string, object>> trans, int? commandTimeout = null)
         {
             if (!trans.Any()) return new Tuple<bool, string>(false, "执行事务SQL语句不能为空！");
-            using (DbConnection connection = DapperConn)
+            using (IDbConnection connection = DapperConn)
             {
                 //开启事务
                 using (var transaction = DapperConn.BeginTransaction())
@@ -1604,38 +1605,52 @@ namespace Yuebon.Commons.Repositories
                 }
             }
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="func"></param>
-        /// <returns></returns>
-        public T Execute<T>(Func<DbConnection, DbTransaction, T> func)
+
+        IDbTransaction dbTransaction = null;
+        private T Execute<T>(Func<IDbConnection, IDbTransaction, T> func, bool beginTransaction = false, bool disposeConn = true)
         {
-            using (DbConnection connection = DapperConn)
+            if (beginTransaction)
             {
-                using (var transaction = DapperConn.BeginTransaction())
+                if(DapperConn.State!=ConnectionState.Open)
+                DapperConn.Open();
+                dbTransaction = DapperConn.BeginTransaction();
+            }
+            using (IDbConnection connection = DapperConn)
+            {
+                try
                 {
-                    try { 
-                        return func(DapperConn, transaction);
-                    }
-                    catch (Exception ex)
+                    T reslutT = func(connection, dbTransaction);
+                    if (dbTransaction != null)
                     {
-                        //回滚事务
-                        Log4NetHelper.Error("", ex);
-                        transaction.Rollback();
-                        DapperConn.Close();
-                        DapperConn.Dispose();
-                        return func(DapperConn, transaction);
+                        dbTransaction.Commit();
                     }
-                    finally
+                    return reslutT;
+                }
+                catch (Exception ex)
+                {
+                    Log4NetHelper.Error("", ex);
+                    if (dbTransaction != null)
                     {
                         DapperConn.Close();
                         DapperConn.Dispose();
+                        connection.Dispose();
+                        dbTransaction.Rollback();
                     }
+                    throw ex;
+                }
+                finally
+                {
+                    if (disposeConn)
+                    {
+                        DapperConn.Close();
+                        DapperConn.Dispose();
+                        connection.Dispose();
+                    }
+                    dbTransaction?.Dispose();
                 }
             }
         }
+
         #endregion
         #endregion
 

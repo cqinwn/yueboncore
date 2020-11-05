@@ -102,7 +102,7 @@ namespace Yuebon.WebApi.Controllers
                 UploadFile uploadFile = new UploadFileApp().Get(id);
 
                 YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                SysSetting sysSetting = JsonSerializer.Deserialize<SysSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
+                SysSetting sysSetting = (SysSetting)yuebonCacheHelper.Get("SysSetting");
                 if (uploadFile != null)
                 {
                     if (System.IO.File.Exists(sysSetting.LocalPath + "/" + uploadFile.FilePath))
@@ -170,7 +170,7 @@ namespace Yuebon.WebApi.Controllers
                     UploadFile(fileName, data);
 
                     YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                    SysSetting sysSetting = JsonSerializer.Deserialize<SysSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
+                    SysSetting sysSetting = (SysSetting)yuebonCacheHelper.Get("SysSetting");
                     UploadFile filedb = new UploadFile
                     {
                         Id = GuidUtils.CreateNo(),
@@ -218,7 +218,7 @@ namespace Yuebon.WebApi.Controllers
             }
 
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            SysSetting sysSetting = JsonSerializer.Deserialize<SysSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
+            SysSetting sysSetting = (SysSetting)yuebonCacheHelper.Get("SysSetting");
             string folder = DateTime.Now.ToString("yyyyMMdd");
             _filePath = sysSetting.LocalPath;
             var _tempfilepath = sysSetting.Filepath;

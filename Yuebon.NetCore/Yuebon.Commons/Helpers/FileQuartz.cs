@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using Yuebon.Commons.Enums;
 using Yuebon.Commons.Extend;
 using Yuebon.Commons.Options;
 

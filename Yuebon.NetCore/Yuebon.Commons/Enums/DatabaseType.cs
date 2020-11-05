@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Yuebon.Commons.Options
+namespace Yuebon.Commons.Enums
 {
 
     /// <summary>
-    /// 数据库类型
+    /// 数据库类型枚举
     /// </summary>
     public enum DatabaseType
     {
         /// <summary>
         /// SqlServer数据库
         /// </summary>
-        SqlServer,
+        SqlServer=0,
         /// <summary>
         /// Oracle数据库
         /// </summary>

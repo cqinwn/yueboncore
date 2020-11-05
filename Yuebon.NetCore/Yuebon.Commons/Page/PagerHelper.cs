@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Yuebon.Commons.Options;
+using Yuebon.Commons.Enums;
 
 namespace Yuebon.Commons.Pages
 {

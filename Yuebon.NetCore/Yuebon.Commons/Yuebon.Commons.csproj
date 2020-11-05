@@ -33,6 +33,7 @@
     <Compile Remove="AutoMapper\**" />
     <Compile Remove="Dependency\**" />
     <Compile Remove="Entity\**" />
+    <Compile Remove="Exceptions\**" />
     <Compile Remove="Filter\**" />
     <Compile Remove="Finders\**" />
     <Compile Remove="Middlewares\**" />
@@ -40,6 +41,7 @@
     <EmbeddedResource Remove="AutoMapper\**" />
     <EmbeddedResource Remove="Dependency\**" />
     <EmbeddedResource Remove="Entity\**" />
+    <EmbeddedResource Remove="Exceptions\**" />
     <EmbeddedResource Remove="Filter\**" />
     <EmbeddedResource Remove="Finders\**" />
     <EmbeddedResource Remove="Middlewares\**" />
@@ -47,6 +49,7 @@
     <None Remove="AutoMapper\**" />
     <None Remove="Dependency\**" />
     <None Remove="Entity\**" />
+    <None Remove="Exceptions\**" />
     <None Remove="Filter\**" />
     <None Remove="Finders\**" />
     <None Remove="Middlewares\**" />
@@ -153,9 +156,11 @@
 
   <ItemGroup>
 
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.0.2" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
 
     <PackageReference Include="AutoMapper" Version="10.1.1" />
+
+    <PackageReference Include="Castle.Core" Version="4.4.1" />
 
     <PackageReference Include="CSRedisCore" Version="3.6.5" />
     <PackageReference Include="Dapper" Version="2.0.35" />
@@ -183,7 +188,7 @@
     <PackageReference Include="Oracle.EntityFrameworkCore" Version="3.19.80" />
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="2.19.91" />
     <PackageReference Include="QRCoder" Version="1.3.9" />
-    <PackageReference Include="Quartz" Version="3.2.2" />
+    <PackageReference Include="Quartz" Version="3.2.3" />
     <PackageReference Include="SgmlReader.NetCore" Version="1.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />

@@ -153,23 +153,6 @@ namespace Yuebon.Commons.Extensions
         {
             var tables = context.GetCurrentDatabaseAllTables().ToList<DbTable>();
             var db = context.GetDatabase();
-            DatabaseType dbType;
-            if (db.IsSqlServer())
-                dbType = DatabaseType.SqlServer;
-            else if (db.IsMySql())
-                dbType = DatabaseType.MySql;
-            else if (db.IsNpgsql())
-            {
-                dbType = DatabaseType.PostgreSQL;
-            }
-            else if (db.IsOracle())
-            {
-                dbType = DatabaseType.Oracle;
-            }
-            else
-            {
-                throw new NotImplementedException("This method does not support current database yet.");
-            }
             var columns = context.GetTableColumns(tables.Select(m => m.TableName).ToArray()).ToList<DbTableColumn>();
             tables.ForEach(item =>
             {

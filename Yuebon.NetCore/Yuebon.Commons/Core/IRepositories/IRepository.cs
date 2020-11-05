@@ -24,10 +24,6 @@ namespace Yuebon.Commons.IRepositories
         /// </summary>
         event OperationLogEventHandler OnOperationLog;
 
-        /// <summary>
-        /// Dapper DBContext
-        /// </summary>
-        ISqlDapper DapperContext { get; }
         #region 单个实体
         /// <summary>
         /// 同步查询单个实体。
@@ -57,14 +53,6 @@ namespace Yuebon.Commons.IRepositories
         /// <returns></returns>
         Task<T> GetWhereAsync(string where);
 
-        /// <summary>
-        /// 查询对象，并返回关联的创建用户信息，
-        /// 查询表别名为s，条件要s.字段名
-        /// </summary>
-        /// <param name="primaryKey">主键Id</param>
-        /// <param name="trans"></param>
-        /// <returns></returns>
-        T GetByIdRelationUser(TKey primaryKey, IDbTransaction trans = null);
         #endregion
 
         /// <summary>

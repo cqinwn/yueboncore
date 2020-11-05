@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ using Yuebon.Commons.Json;
 using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Models;
 using Yuebon.Commons.Pages;
+using Zxw.Framework.NetCore.Extensions;
 
 namespace Yuebon.Commons.Services
 {
@@ -54,17 +56,6 @@ namespace Yuebon.Commons.Services
             _accessor = accessor;
             repository = iRepository ?? throw new ArgumentNullException(nameof(repository));
 
-        }
-        /// <summary>
-        /// 查询对象，并返回关联的创建用户信息，
-        /// 查询表别名为s，条件要s.字段名
-        /// </summary>
-        /// <param name="id">主键Id</param>
-        /// <param name="trans"></param>
-        /// <returns></returns>
-        public virtual T GetByIdRelationUser(TKey id, IDbTransaction trans = null)
-        {
-            return repository.GetByIdRelationUser(id, trans);
         }
         /// <summary>
         /// 同步物理删除实体。

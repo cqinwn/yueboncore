@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Yuebon.Commons.Options
+namespace Yuebon.Commons.Enums
 {
-
     /// <summary>
-    /// 任务操作
+    /// 
     /// </summary>
-    public enum JobAction
+    public enum JobRunResult
     {
         新增 = 1,
         删除 = 2,
@@ -17,8 +16,7 @@ namespace Yuebon.Commons.Options
         停止 = 5,
         开启 = 6,
         立即执行 = 7,
-        执行中 = 8,
-        开始,
-        结束
+        开始 = 8,
+        结束 = 9
     }
 }

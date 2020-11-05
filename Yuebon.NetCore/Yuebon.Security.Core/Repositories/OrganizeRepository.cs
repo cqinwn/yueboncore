@@ -30,11 +30,7 @@ namespace Yuebon.Security.Repositories
             sb.AppendFormat(" WHERE Id = '{0}'",id);
             sb.Append(" UNION ALL ");
             sb.Append(" SELECT A.Id, A.ParentId, A.FullName, A.Layers FROM Sys_Organize AS A JOIN T AS B ON A.Id = B.ParentId ) SELECT* FROM T ORDER BY Layers");
-
-            return Execute((conn, trans) =>
-            {
-                return conn.QueryFirstOrDefault<Organize>(sb.ToString(), trans);
-            });
+            return  DapperConn.QueryFirstOrDefault<Organize>(sb.ToString());
         }
     }
 }

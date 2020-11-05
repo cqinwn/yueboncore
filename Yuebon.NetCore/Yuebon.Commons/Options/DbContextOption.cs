@@ -1,14 +1,16 @@
-﻿namespace Yuebon.Commons.Options
+﻿using Yuebon.Commons.Enums;
+
+namespace Yuebon.Commons.Options
 {
     /// <summary>
-    /// 上线文配置
+    /// 数据库上下文配置
     /// </summary>
     public class DbContextOption
     {
         /// <summary>
         /// 数据库连接字符串
         /// </summary>
-        public string ConnectionString { get; set; }
+        public string dbConfigName { get; set; }
         /// <summary>
         /// 实体程序集名称
         /// </summary>
@@ -16,39 +18,11 @@
         /// <summary>
         /// 数据库类型
         /// </summary>
-        public DbType DbType { get; set; } = DbType.MSSQLSERVER;
-
+        public DatabaseType DbType { get; set; } = DatabaseType.SqlServer;
+        /// <summary>
+        /// 是否输出Sql日志
+        /// </summary>
         public bool IsOutputSql;
     }
 
-    /// <summary>
-    /// 数据库类型枚举
-    /// </summary>
-    public enum DbType
-    {
-        /// <summary>
-        /// MS SQL Server
-        /// </summary>
-        MSSQLSERVER=0,
-        /// <summary>
-        /// Oracle
-        /// </summary>
-        ORACLE,
-        /// <summary>
-        /// MySQL
-        /// </summary>
-        MYSQL,
-        /// <summary>
-        /// Sqlite
-        /// </summary>
-        SQLITE,
-        /// <summary>
-        /// in-memory database
-        /// </summary>
-        MEMORY,
-        /// <summary>
-        /// PostgreSQL
-        /// </summary>
-        NPGSQL
-    }
 }

@@ -18,6 +18,7 @@ using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.Models;
+using Yuebon.Commons.Options;
 using Yuebon.Commons.Pages;
 
 namespace Yuebon.Commons.DbContextCore
@@ -503,51 +504,6 @@ namespace Yuebon.Commons.DbContextCore
             }
             return SaveChanges();
         }
-        /// <summary>
-        /// 按条件更新，
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="where">条件</param>
-        /// <param name="updateFactory"></param>
-        /// <returns></returns>
-        //public virtual int Update<T>(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateFactory) where T : class
-        //{
-        //    return GetDbSet<T>().Where(where).Update(updateFactory);
-        //}
-
-        /// <summary>
-        /// 按条件更新，
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="where">条件</param>
-        /// <param name="updateFactory"></param>
-        /// <returns></returns>
-        //public virtual async Task<int> UpdateAsync<T>(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateFactory) where T : class
-        //{
-        //    return await GetDbSet<T>().Where(where).UpdateAsync(updateFactory);
-        //}
-
-        /// <summary>
-        /// 根据条件删除一个实体，返回影响记录行数
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="where">条件</param>
-        /// <returns></returns>
-        //public virtual int Delete<T>(Expression<Func<T, bool>> @where) where T : class
-        //{
-        //    return GetDbSet<T>().Where(@where)();
-        //}
-        /// <summary>
-        /// 根据条件删除一个实体，返回影响记录行数
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="where">条件</param>
-        /// <returns></returns>
-        //public virtual async Task<int> DeleteAsync<T>(Expression<Func<T, bool>> @where) where T : class
-        //{
-        //    return await GetDbSet<T>().Where(@where).DeleteAsync();
-        //}
-
         /// <summary>
         /// 批量插入
         /// </summary>

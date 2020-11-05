@@ -1,16 +1,14 @@
-using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
-using System.Data;
+using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Security.Claims;
-using System.Text.Json;
+using System.Text;
 using System.Threading.Tasks;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Dtos;
-using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
-using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Net;
@@ -20,6 +18,7 @@ using Yuebon.Security.Dtos;
 using Yuebon.Security.IRepositories;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
+using Zxw.Framework.NetCore.Extensions;
 
 namespace Yuebon.Security.Services
 {
@@ -52,7 +51,7 @@ namespace Yuebon.Security.Services
             string where = GetDataPrivilege(false);
             if (!string.IsNullOrEmpty(search.Keywords))
             {
-                where += string.Format(" and (Account like '%{0}%' or ModuleName like '%{0}%' or IPAddress like '%{0}%' or IPAddressName like '%{0}%' or Description like '%{0}%')", search.Keywords);
+                where += string.Format(" and (Account like '{0}%' or ModuleName like '{0}%' or IPAddress like '{0}%' or IPAddressName like '{0}%' or Description like '{0}%')", search.Keywords);
             };
             if (!string.IsNullOrEmpty(search.EnCode))
             {
@@ -63,7 +62,30 @@ namespace Yuebon.Security.Services
                 CurrenetPageIndex = search.CurrenetPageIndex,
                 PageSize = search.PageSize
             };
+
+            Expression<Func<Log, bool>> filter = log => true;
+            if (!string.IsNullOrEmpty(search.Keywords))
+            {
+                filter = filter.And(log => log.Account.StartsWith(search.Keywords) || log.ModuleName.StartsWith(search.Keywords) || log.IPAddress.StartsWith(search.Keywords)
+             || log.IPAddressName.StartsWith(search.Keywords) || log.Description.StartsWith(search.Keywords));
+            }
+            if (!string.IsNullOrEmpty(search.EnCode))
+            {
+                filter = filter.And(log=>search.EnCode.Contains(log.Type));
+            }
+
+            Stopwatch stopwatch = new Stopwatch();
+            var sb = new StringBuilder(" EF Linq与Dapper Sql分页方法性能分析 ： \n");
+            stopwatch.Start();
             List<Log> list =await _iLogRepository.FindWithPagerAsync(where,pagerInfo,search.Sort,order);
+            stopwatch.Stop();
+            sb.Append("Dapper耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
+            Stopwatch stopwatch1 = new Stopwatch();
+            stopwatch1.Start();
+            IEnumerable<Log> ilist= _iLogRepository.GetByPagination(filter, pagerInfo,order, log=>search.Sort);
+            stopwatch1.Stop();
+            sb.Append("EF耗时:" + (stopwatch1.ElapsedMilliseconds + "  毫秒\n"));
+            Log4NetHelper.Info(sb.ToString());
             PageResult<LogOutputDto> pageResult = new PageResult<LogOutputDto>
             {
                 CurrentPage = pagerInfo.CurrenetPageIndex,

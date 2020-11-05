@@ -72,15 +72,6 @@ namespace Yuebon.Commons.IServices
         /// <returns></returns>
         Task<TODto> GetOutDtoWhereAsync(string where, IDbTransaction trans = null);
         /// <summary>
-        /// 查询对象，并返回关联的创建用户信息，
-        /// 查询表别名为s，条件要s.字段名
-        /// </summary>
-        /// <param name="id">主键Id</param>
-        /// <param name="trans"></param>
-        /// <returns></returns>
-        T GetByIdRelationUser(TKey id, IDbTransaction trans = null);
-
-        /// <summary>
         /// 同步查询所有实体。
         /// </summary>
         /// <param name="trans">事务对象</param>

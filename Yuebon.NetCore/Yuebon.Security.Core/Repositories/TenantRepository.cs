@@ -1,7 +1,3 @@
-using System;
-using System.Data;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
 using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;

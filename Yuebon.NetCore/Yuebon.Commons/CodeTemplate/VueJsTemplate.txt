@@ -9,7 +9,7 @@ export function get{ModelTypeName}ListWithPager(data) {
   return http.request({
     url: '{ModelTypeName}/FindWithPagerAsync',
     method: 'get',
-    params: data,
+    data: data,
     baseURL: defaultSettings.api{fileClassName}Url // 直接通过覆盖的方式
   })
 }/**
@@ -53,7 +53,7 @@ export function set{ModelTypeName}Enable(data) {
   return http({
     url: '{ModelTypeName}/SetEnabledMarktBatchAsync',
     method: 'post',
-    params: data,
+    data: data,
     baseURL: defaultSettings.api{fileClassName}Url // 直接通过覆盖的方式
   })
 }
@@ -65,7 +65,7 @@ export function deleteSoft{ModelTypeName}(data) {
   return http({
     url: '{ModelTypeName}/DeleteSoftBatchAsync',
     method: 'post',
-    params: data,
+    data: data,
     baseURL: defaultSettings.api{fileClassName}Url // 直接通过覆盖的方式
   })
 }
@@ -78,7 +78,7 @@ export function delete{ModelTypeName}(data) {
   return http({
     url: '{ModelTypeName}/DeleteBatchAsync',
     method: 'delete',
-    params: data,
+    data: data,
     baseURL: defaultSettings.api{fileClassName}Url // 直接通过覆盖的方式
   })
 }

@@ -53,7 +53,7 @@ export function setSystemTypeEnable (data) {
   return http({
     url: 'SystemType/SetEnabledMarktBatchAsync',
     method: 'post',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
@@ -65,7 +65,7 @@ export function deleteSoftSystemType (data) {
   return http({
     url: 'SystemType/DeleteSoftBatchAsync',
     method: 'post',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
@@ -78,7 +78,7 @@ export function deleteSystemType (data) {
   return http({
     url: 'SystemType/DeleteBatchAsync',
     method: 'delete',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

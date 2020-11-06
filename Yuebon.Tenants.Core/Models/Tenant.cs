@@ -1,12 +1,8 @@
-using AutoMapper;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Dapper.Contrib.Extensions;
-using Yuebon.Commons.Models;
 using System.ComponentModel.DataAnnotations.Schema;
+using Yuebon.Commons.Models;
 
-namespace Yuebon.Security.Models
+namespace Yuebon.Tenants.Models
 {
     /// <summary>
     /// 租户，数据实体对象
@@ -15,6 +11,10 @@ namespace Yuebon.Security.Models
     [Serializable]
     public class Tenant:BaseEntity<string>, ICreationAudited, IModificationAudited, IDeleteAudited
     {
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        public string Id { get; set; }
 
         /// <summary>
         /// 设置或获取租户名称

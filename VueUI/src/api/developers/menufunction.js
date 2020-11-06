@@ -44,7 +44,7 @@ export function setMenuEnable (data) {
   return http({
     url: 'Menu/SetEnabledMarktBatchAsync',
     method: 'post',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
@@ -56,7 +56,7 @@ export function deleteSoftMenu (data) {
   return http({
     url: 'Menu/DeleteSoftBatchAsync',
     method: 'post',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
@@ -69,7 +69,7 @@ export function deleteMenu (data) {
   return http({
     url: 'Menu/DeleteBatchAsync',
     method: 'delete',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
@@ -129,7 +129,7 @@ export function setFunctionEnable (data) {
   return http({
     url: 'Function/SetEnabledMarktBatchAsync',
     method: 'post',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
@@ -141,7 +141,7 @@ export function deleteSoftFunction (data) {
   return http({
     url: 'Function/DeleteSoftBatchAsync',
     method: 'post',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
@@ -154,7 +154,7 @@ export function deleteFunction (data) {
   return http({
     url: 'Function/DeleteBatchAsync',
     method: 'delete',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

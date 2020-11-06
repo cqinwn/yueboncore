@@ -389,7 +389,6 @@ export default {
         this.editItemsFormTitle = '新增'
         this.currentItemsId = ''
         this.dialogItemsEditFormVisible = true
-        this.$refs['editItemsFrom'].resetFields()
       }
     },
     bindItemsEditInfo: function () {
@@ -451,9 +450,10 @@ export default {
         this.$alert('请先选择要操作的数据', '提示')
         return false
       } else {
+        var currentIds = [this.currentItemsId]
         const data = {
-          ids: this.currentItemsId,
-          bltag: val
+          Ids: currentIds,
+          Flag: val
         }
         setItemsEnable(data).then(res => {
           if (res.Success) {
@@ -477,9 +477,10 @@ export default {
         this.$alert('请先选择要操作的数据', '提示')
         return false
       } else {
+        var currentIds = [this.currentItemsId]
         const data = {
-          ids: this.currentItemsId,
-          bltag: val
+          Ids: currentIds,
+          Flag: val
         }
         deleteSoftItems(data).then(res => {
           if (res.Success) {
@@ -503,8 +504,9 @@ export default {
         this.$alert('请先选择要操作的数据', '提示')
         return false
       } else {
+        var currentIds = [this.currentItemsId]
         const data = {
-          ids: this.currentItemsId
+          Ids: currentIds
         }
         deleteItems(data).then(res => {
           if (res.Success) {
@@ -540,7 +542,6 @@ export default {
         this.editItemsDetailFormTitle = '新增'
         this.currentId = ''
         this.dialogItemsDetailEditFormVisible = true
-        this.$refs['editItemsDetailFrom'].resetFields()
       }
     },
     bindItemsDetailEditInfo: function () {
@@ -607,13 +608,13 @@ export default {
         this.$alert('请先选择要操作的数据', '提示')
         return false
       } else {
-        var currentIds = ''
+        var currentIds = []
         this.currentSelected.forEach(element => {
-          currentIds += element.Id + ','
+          currentIds.push(element.Id)
         })
         const data = {
-          ids: currentIds,
-          bltag: val
+          Ids: currentIds,
+          Flag: val
         }
         setItemsDetailEnable(data).then(res => {
           if (res.Success) {
@@ -637,13 +638,13 @@ export default {
         this.$alert('请先选择要操作的数据', '提示')
         return false
       } else {
-        var currentIds = ''
+        var currentIds = []
         this.currentSelected.forEach(element => {
-          currentIds += element.Id + ','
+          currentIds.push(element.Id)
         })
         const data = {
-          ids: currentIds,
-          bltag: val
+          Ids: currentIds,
+          Flag: val
         }
         deleteSoftItemsDetail(data).then(res => {
           if (res.Success) {
@@ -667,12 +668,12 @@ export default {
         this.$alert('请先选择要操作的数据', '提示')
         return false
       } else {
-        var currentIds = ''
+        var currentIds = []
         this.currentSelected.forEach(element => {
-          currentIds += element.Id + ','
+          currentIds.push(element.Id)
         })
         const data = {
-          ids: currentIds
+          Ids: currentIds
         }
         deleteItemsDetail(data).then(res => {
           if (res.Success) {

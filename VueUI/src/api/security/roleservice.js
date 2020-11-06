@@ -53,7 +53,7 @@ export function setRoleEnable (data) {
   return http({
     url: 'Role/SetEnabledMarktBatchAsync',
     method: 'post',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
@@ -65,7 +65,7 @@ export function deleteSoftRole (data) {
   return http({
     url: 'Role/DeleteSoftBatchAsync',
     method: 'post',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
@@ -78,7 +78,7 @@ export function deleteRole (data) {
   return http({
     url: 'Role/DeleteBatchAsync',
     method: 'delete',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

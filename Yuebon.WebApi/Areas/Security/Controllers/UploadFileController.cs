@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Internal;
+using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Yuebon.AspNetCore.Controllers;
 using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc;
+using Yuebon.AspNetCore.ViewModel;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Models;
@@ -33,19 +36,18 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <param name="ids">主键Id</param>
         [HttpDelete("DeleteBatchAsync")]
         [YuebonAuthorize("Delete")]
-        public override async Task<IActionResult> DeleteBatchAsync(string ids)
+        public override async Task<IActionResult> DeleteBatchAsync(UpdateEnableViewModel info)
         {
             CommonResult result = new CommonResult();
             string where = string.Empty;
-            string newIds = ids.ToString();
-            where = "id in ('" + newIds.Trim(',').Replace(",", "','") + "')";
+            where = "id in ('" + info.Ids.Join(",").Trim(',').Replace(",", "','") + "')";
 
             if (!string.IsNullOrEmpty(where))
             {
-                string[] jobsId = ids.Split(",");
+                dynamic[] jobsId = info.Ids;
                 foreach (var item in jobsId)
                 {
-                    if (string.IsNullOrEmpty(item)) continue;
+                    if (string.IsNullOrEmpty(item.ToString())) continue;
                     UploadFile uploadFile = new UploadFileApp().Get(item.ToString());
                     YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
                     SysSetting sysSetting = (SysSetting)yuebonCacheHelper.Get("SysSetting");

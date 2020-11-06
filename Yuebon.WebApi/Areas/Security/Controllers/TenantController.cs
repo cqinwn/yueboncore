@@ -7,9 +7,9 @@ using Yuebon.AspNetCore.Mvc;
 using Yuebon.Commons.Extend;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Models;
-using Yuebon.Security.Dtos;
-using Yuebon.Security.IServices;
-using Yuebon.Security.Models;
+using Yuebon.Tenants.Dtos;
+using Yuebon.Tenants.IServices;
+using Yuebon.Tenants.Models;
 
 namespace Yuebon.SecurityApi.Areas.Security.Controllers
 {
@@ -17,7 +17,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
     /// 租户接口
     /// </summary>
     [ApiController]
-    [Route("api/Security/[controller]")]
+    [Route("api/Tenants/[controller]")]
     public class TenantController : AreaApiController<Tenant, TenantOutputDto,TenantInputDto,ITenantService,string>
     {
         /// <summary>

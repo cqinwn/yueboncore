@@ -1,11 +1,9 @@
 using AutoMapper;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Yuebon.Commons.Models;
-using Yuebon.Security.Models;
+using Yuebon.Commons.Dtos;
+using Yuebon.Tenants.Models;
 
-namespace Yuebon.Security.Dtos
+namespace Yuebon.Tenants.Dtos
 {
     /// <summary>
     /// 租户输入对象模型

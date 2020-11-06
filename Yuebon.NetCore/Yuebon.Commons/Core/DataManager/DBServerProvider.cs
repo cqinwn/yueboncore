@@ -103,10 +103,6 @@ namespace Yuebon.Commons.Core.DataManager
             {
                 throw new NotSupportedException("The database is not supported");
             }
-            if (dbConnection.State != ConnectionState.Open)
-            {
-                dbConnection.Open();
-            }
             return dbConnection;
         }
 

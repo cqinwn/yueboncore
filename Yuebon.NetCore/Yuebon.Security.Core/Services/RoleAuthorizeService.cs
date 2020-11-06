@@ -38,7 +38,6 @@ namespace Yuebon.Security.Services
             menuRepository = _menuRepository;
             systemTypeRepository = _systemTypeRepository;
             _logService = logService;
-            _repository.OnOperationLog += _logService.OnOperationLog;
         }
 
 

@@ -1,19 +1,11 @@
 ﻿using Dapper;
 using Dapper.Contrib.Extensions;
-using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using MySql.Data.MySqlClient;
-using Newtonsoft.Json;
-using Npgsql;
-using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
-using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -22,8 +14,6 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Yuebon.Commons.Core.Dapper;
 using Yuebon.Commons.Core.DataManager;
-using Yuebon.Commons.Dapper;
-using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.IRepositories;
@@ -52,14 +42,6 @@ namespace Yuebon.Commons.Repositories
         where T :Entity
     {
         #region 构造函数及基本配置
-        /// <summary>
-        /// 定义一个操作记录的事件处理
-        /// </summary>
-        public event OperationLogEventHandler OnOperationLog;
-        /// <summary>
-        /// 数据库连接
-        /// </summary>
-        public DbConnection dbConnection;
         /// <summary>
         ///  EF DBContext
         /// </summary>
@@ -168,13 +150,6 @@ namespace Yuebon.Commons.Repositories
         {
             get { return _dbContext; }
         }
-        /// <summary>
-        /// 用自定义Dapper封装方法操作数据
-        /// </summary>
-        //public ISqlDapper DapperContext
-        //{
-        //    get { return DBServerProvider.GetSqlDapper<T>(); }
-        //}
 
         /// <summary>
         /// 用Dapper原生方法操作数据
@@ -1045,7 +1020,6 @@ namespace Yuebon.Commons.Repositories
 
             param.Add(tupel);
             Tuple<bool, string> result= ExecuteTransaction(param);
-            OperationLogOfDelete(primaryKey);
             return result.Item1;
         }
         /// <summary>
@@ -1061,7 +1035,6 @@ namespace Yuebon.Commons.Repositories
             Tuple<string, object> tupel = new Tuple<string, object>(sql, new { @PrimaryKey = primaryKey });
             param.Add(tupel);
             Tuple<bool, string> result =await ExecuteTransactionAsync(param);
-            OperationLogOfDelete(primaryKey);
             return result.Item1;
         }
 
@@ -1174,7 +1147,6 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual bool DeleteSoft(bool bl, TKey primaryKey, string userId = null, IDbTransaction trans = null)
         {
-            OperationLogOfDeleteSoft(primaryKey, userId);
             string sql = $"update {tableName} set ";
             if (bl)
             {
@@ -1207,7 +1179,6 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual async Task<bool> DeleteSoftAsync(bool bl, TKey primaryKey, string userId = null, IDbTransaction trans = null)
         {
-            OperationLogOfDeleteSoft(primaryKey, userId);
             string sql = $"update {tableName} set ";
             if (bl)
             {
@@ -1281,7 +1252,6 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual bool SetEnabledMark(bool bl, TKey primaryKey, string userId = null, IDbTransaction trans = null)
         {
-            OperationLogOfSetEnable(primaryKey, userId, bl);
             string sql = $"update {tableName} set ";
             if (bl)
             {
@@ -1315,7 +1285,6 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual async Task<bool> SetEnabledMarkAsync(bool bl, TKey primaryKey, string userId = null, IDbTransaction trans = null)
         {
-            OperationLogOfSetEnable(primaryKey, userId, bl);
             string sql = $"update {tableName} set ";
             if (bl)
             {
@@ -1375,7 +1344,41 @@ namespace Yuebon.Commons.Repositories
             sql += ",LastModifyTime=@LastModifyTime where " + where;
 
             var param = new List<Tuple<string, object>>();
-            Tuple<string, object> tupel = new Tuple<string, object>(sql, new { @LastModifyTime = lastModifyTime });
+            Tuple<string, object> tupel = new Tuple<string, object>(sql, new { LastModifyTime = lastModifyTime });
+            param.Add(tupel);
+            Tuple<bool, string> result = await ExecuteTransactionAsync(param);
+            return result.Item1;
+        }
+
+        public virtual async Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, object paramparameters = null, string userId = null, IDbTransaction trans = null)
+        {
+            if (HasInjectionData(where))
+            {
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
+                throw new Exception("检测出SQL注入的恶意数据");
+            }
+            if (string.IsNullOrEmpty(where))
+            {
+                where = "1=1";
+            }
+            string sql = $"update {tableName} set ";
+            if (bl)
+            {
+                sql += "EnabledMark=1 ";
+            }
+            else
+            {
+                sql += "EnabledMark=0 ";
+            }
+            if (!string.IsNullOrEmpty(userId))
+            {
+                sql += ",LastModifyUserId='" + userId + "'";
+            }
+            DateTime lastModifyTime = DateTime.Now;
+            sql += ",LastModifyTime=@LastModifyTime  " + where;
+
+            var param = new List<Tuple<string, object>>();
+            Tuple<string, object> tupel = new Tuple<string, object>(sql, new { LastModifyTime = lastModifyTime, paramparameters });
             param.Add(tupel);
             Tuple<bool, string> result = await ExecuteTransactionAsync(param);
             return result.Item1;
@@ -1515,41 +1518,37 @@ namespace Yuebon.Commons.Repositories
             if (!trans.Any()) return new Tuple<bool, string>(false, "执行事务SQL语句不能为空！");
             using (IDbConnection connection = DapperConn)
             {
+                bool isClosed = connection.State == ConnectionState.Closed;
+                if (isClosed) connection.Open();
                 using (var transaction =  connection.BeginTransaction())
                 {
                     try
                     {
-                        StringBuilder exeSqlLog = new StringBuilder();
                         foreach (var tran in trans)
                         {
-                            exeSqlLog.Append("SQL语句:" + tran.Item1 + "  \n SQL参数: " + JsonConvert.SerializeObject(tran.Item2) + " \n");
                             await connection.ExecuteAsync(tran.Item1, tran.Item2, transaction, commandTimeout);
                         }
                         //提交事务
-                        Stopwatch stopwatch = new Stopwatch();
-                        stopwatch.Start();
                         transaction.Commit();
-                        stopwatch.Stop();
-                        exeSqlLog.Append("耗时:" + stopwatch.ElapsedMilliseconds + "  毫秒\n");
-
-                        Log4NetHelper.Info(exeSqlLog.ToString());
-                        OperationLogOfSQL(exeSqlLog.ToString());
                         return new Tuple<bool, string>(true, string.Empty);
                     }
                     catch (Exception ex)
                     {
                         //回滚事务
-                        OperationLogOfException(ex);
                         Log4NetHelper.Error("", ex);
                         transaction.Rollback();
                         connection.Close();
                         connection.Dispose();
-                        return new Tuple<bool, string>(false, ex.ToString());
+                        DapperConn.Close();
+                        DapperConn.Dispose();
+                        throw ex;
                     }
                     finally
                     {
                         connection.Close();
                         connection.Dispose();
+                        DapperConn.Close();
+                        DapperConn.Dispose();
                     }
                 }
             }
@@ -1567,38 +1566,37 @@ namespace Yuebon.Commons.Repositories
             if (!trans.Any()) return new Tuple<bool, string>(false, "执行事务SQL语句不能为空！");
             using (IDbConnection connection = DapperConn)
             {
+                bool isClosed = connection.State == ConnectionState.Closed;
+                if (isClosed) connection.Open();
                 //开启事务
                 using (var transaction = DapperConn.BeginTransaction())
                 {
                     try
                     {
-                        StringBuilder exeSqlLog = new StringBuilder();
                         foreach (var tran in trans)
                         {
-                            exeSqlLog.Append("SQL语句:" + tran.Item1 + "  \n SQL参数: " + JsonConvert.SerializeObject(tran.Item2) + " \n");
                             DapperConn.Execute(tran.Item1, tran.Item2, transaction, commandTimeout);
                         }
-                        Stopwatch stopwatch = new Stopwatch();
-                        stopwatch.Start();
                         //提交事务
                         transaction.Commit();
-                        stopwatch.Stop();
-                        exeSqlLog.Append("耗时:" + stopwatch.ElapsedMilliseconds + "  毫秒\n");
-                        OperationLogOfSQL(exeSqlLog.ToString());
                         return new Tuple<bool, string>(true, string.Empty);
                     }
                     catch (Exception ex)
                     {
                         //回滚事务
-                        OperationLogOfException(ex);
                         Log4NetHelper.Error("", ex);
                         transaction.Rollback();
+                        connection.Close();
+                        connection.Dispose();
                         DapperConn.Close();
                         DapperConn.Dispose();
-                        return new Tuple<bool, string>(false, ex.ToString());
+                        throw ex;
+                        //return new Tuple<bool, string>(false, ex.ToString());
                     }
                     finally
                     {
+                        connection.Close();
+                        connection.Dispose();
                         DapperConn.Close();
                         DapperConn.Dispose();
                     }
@@ -1887,7 +1885,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="asc">排序方式</param>
         /// <param name="orderby">排序字段</param>
         /// <returns></returns>
-        public virtual IEnumerable<T> GetByPagination(Expression<Func<T, bool>> @where, PagerInfo pagerInfo,  bool asc = true, params Expression<Func<T, object>>[] @orderby)
+        public virtual IEnumerable<T> GetByPagination(Expression<Func<T, bool>> @where, PagerInfo pagerInfo,  bool asc = false, params Expression<Func<T, object>>[] @orderby)
         {
             var filter = DbContext.Get(where);
             if (orderby != null)
@@ -1939,194 +1937,6 @@ namespace Yuebon.Commons.Repositories
         }
 
         #endregion
-
-
-
-        #endregion
-
-
-        #region 用户操作记录的实现
-        /// <summary>
-        /// 插入操作的日志记录
-        /// </summary>
-        /// <param name="obj">数据对象</param>
-        /// <param name="trans">事务对象</param>
-        protected virtual void OperationLogOfInsert(T obj, IDbTransaction trans = null)
-        {
-            if (OnOperationLog != null)
-            {
-                string operationType = DbLogType.Create.ToString();
-                string note = JsonHelper.ToJson(obj);
-                OnOperationLog(this.tableName, operationType, note);
-            }
-        }
-
-        /// <summary>
-        /// 插入操作的日志记录
-        /// </summary>
-        /// <param name="obj">数据对象</param>
-        /// <param name="trans">事务对象</param>
-        protected virtual void OperationLogOfInsert(List<T> obj, IDbTransaction trans = null)
-        {
-            if (OnOperationLog != null)
-            {
-                string operationType = DbLogType.Create.ToString();
-                string note = JsonHelper.ToJson(obj);
-                OnOperationLog(this.tableName, operationType, note);
-            }
-        }
-        /// <summary>
-        /// 修改操作的日志记录
-        /// </summary>
-        /// <param name="primaryKey">记录ID</param>
-        /// <param name="obj">数据对象</param>
-        /// <param name="trans">事务对象</param>
-        protected virtual void OperationLogOfUpdate(T obj, TKey primaryKey, IDbTransaction trans = null)
-        {
-            if (OnOperationLog != null)
-            {
-                T objInDb = Get(primaryKey);
-                if (objInDb != null)
-                {
-                    string operationType = DbLogType.Update.ToString();
-                    string note = "更新前的数据：\n\r" + JsonHelper.ToJson(objInDb);
-                    note += "\n\r更新后的数据：\n\r" + JsonHelper.ToJson(obj);
-                    OnOperationLog(this.tableName, operationType, note);
-                }
-
-            }
-        }
-        /// <summary>
-        /// 修改操作的日志记录
-        /// </summary>
-        /// <param name="obj">数据对象</param>
-        /// <param name="trans">事务对象</param>
-        protected virtual void OperationLogOfUpdate(T obj,  IDbTransaction trans = null)
-        {
-            if (OnOperationLog != null)
-            {
-                string operationType = DbLogType.Update.ToString();
-                string note = "\n\r更新后的数据：\n\r" + JsonHelper.ToJson(obj);
-                OnOperationLog(this.tableName, operationType, note);
-            }
-        }
-        /// <summary>
-        /// 修改操作的日志记录
-        /// </summary>
-        /// <param name="obj">数据对象</param>
-        /// <param name="trans">事务对象</param>
-        protected virtual void OperationLogOfUpdate(List<T> obj, IDbTransaction trans = null)
-        {
-            if (OnOperationLog != null)
-            {
-                string operationType = DbLogType.Update.ToString();
-                string note = "批量更新的数据：\n\r" + JsonHelper.ToJson(obj);
-                OnOperationLog(this.tableName, operationType, note);
-
-            }
-        }
-        /// <summary>
-        /// 禁用或启用操作的日志记录
-        /// </summary>
-        /// <param name="primaryKey">记录ID</param>
-        /// <param name="userId">用户ID</param>
-        /// <param name="bltag">事务对象</param>
-        protected virtual void OperationLogOfSetEnable(TKey primaryKey, string userId,bool bltag)
-        {
-            if (OnOperationLog != null)
-            {
-                string operationType = DbLogType.Update.ToString();
-
-
-                if (primaryKey != null)
-                {
-                    StringBuilder sb = new StringBuilder();
-                    sb.AppendFormat("Id：{0}", primaryKey);
-                    sb.AppendLine();
-                    if (bltag)
-                    {
-                        sb.Append("状态：启用");
-                    }
-                    else
-                    {
-                        sb.Append("状态：禁用");
-                    }
-                    string note = sb.ToString();
-
-                    OnOperationLog(this.tableName, operationType, note);
-                }
-            }
-        }
-
-        /// <summary>
-        /// 删除操作的日志记录
-        /// </summary>
-        /// <param name="primaryKey">记录ID</param>
-        protected virtual void OperationLogOfDelete(TKey primaryKey)
-        {
-            if (OnOperationLog != null)
-            {
-                string operationType = DbLogType.Delete.ToString();
-                T objInDb = Get(primaryKey);
-                if (objInDb != null) 
-                {
-                    string note = "删除数据：\n\r"+ JsonHelper.ToJson(objInDb);
-                    OnOperationLog(this.tableName, operationType, note);
-                }
-            }
-        }
-
-        /// <summary>
-        /// 软删除操作的日志记录
-        /// </summary>
-        /// <param name="primaryKey">记录ID</param>
-        /// <param name="userId">用户ID</param>
-        /// <param name="trans">事务对象</param>
-        protected virtual void OperationLogOfDeleteSoft(TKey primaryKey, string userId, IDbTransaction trans = null)
-        {
-            if (OnOperationLog != null)
-            {
-                string operationType = DbLogType.DeleteSoft.ToString();
-                if (primaryKey != null)
-                {
-                    StringBuilder sb = new StringBuilder();
-                    sb.AppendFormat("Id：{0},软删除", primaryKey);
-                    sb.AppendLine("\r\n");
-                    string note = sb.ToString();
-                    OnOperationLog(this.tableName, operationType, note);
-                }
-            }
-        }
-
-
-        /// <summary>
-        /// 插入Sql的日志记录
-        /// </summary>
-        /// <param name="strSql">SQL 语句</param>
-        /// <param name="trans">事务对象</param>
-        protected virtual void OperationLogOfSQL(string strSql, IDbTransaction trans = null)
-        {
-            if (OnOperationLog != null)
-            {
-                string operationType = DbLogType.SQL.ToString();
-                OnOperationLog(this.tableName, operationType, strSql);
-            }
-        }
-        /// <summary>
-        /// 插入异常记录
-        /// </summary>
-        /// <param name="ex">异常</param>
-        /// <param name="trans">事务对象</param>
-        protected virtual void OperationLogOfException(Exception ex, IDbTransaction trans = null)
-        {
-            if (OnOperationLog != null)
-            {
-                string operationType = DbLogType.Exception.ToString();
-                var message =
-                   $" 异常类型：{ex.GetType().Name} \r\n异常信息：{ex.Message} \r\n堆栈调用：\r\n{ex.StackTrace}";
-                OnOperationLog(this.tableName, operationType, message);
-            }
-        }
         #endregion
 
         #region 辅助类方法
@@ -2220,6 +2030,10 @@ namespace Yuebon.Commons.Repositories
             {
                 DbContext.Dispose();
             }
+            if (DapperConn != null)
+            {
+                DapperConn?.Dispose();
+            }
         }
 
         // TODO: 仅当以上 Dispose(bool disposing) 拥有用于释放未托管资源的代码时才替代终结器。
@@ -2237,6 +2051,7 @@ namespace Yuebon.Commons.Repositories
             Dispose(true);
 
             DbContext?.Dispose();
+            DapperConn?.Dispose();
             // TODO: 如果在以上内容中替代了终结器，则取消注释以下行。
             // GC.SuppressFinalize(this);
         }

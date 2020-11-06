@@ -24,6 +24,9 @@ namespace Yuebon.Security.Models
 	    public Log()
 		{
             this.Id = GuidUtils.CreateNo();
+            this.EnabledMark = true;
+            this.DeleteMark = false;
+            this.CreatorTime = DateTime.Now;
  		}
 
         #region Property Members

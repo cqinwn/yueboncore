@@ -85,6 +85,7 @@
     <Compile Remove="Extensions\IoCContainerExtensions.cs" />
     <Compile Remove="Extensions\MiddlewareExtensions.cs" />
     <Compile Remove="Extensions\ServiceCollectionExtension.cs" />
+    <Compile Remove="Extensions\SqlBuilder.cs" />
     <Compile Remove="Helpers\BoolNullableConverter.cs" />
     <Compile Remove="Helpers\CacheKey.cs" />
     <Compile Remove="Helpers\RegistryHelper.cs" />
@@ -164,6 +165,7 @@
 
     <PackageReference Include="CSRedisCore" Version="3.6.5" />
     <PackageReference Include="Dapper" Version="2.0.35" />
+    <PackageReference Include="Dapper.SqlBuilder" Version="2.0.35" />
     <PackageReference Include="DotNetCore.NPOI" Version="1.2.2" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.26" />
     <PackageReference Include="log4net" Version="2.0.12" />
@@ -178,6 +180,9 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.9" />
     <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="3.1.6" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.9" />
+    <PackageReference Include="MiniProfiler.AspNetCore" Version="4.2.1" />
+    <PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.2.1" />
+    <PackageReference Include="MiniProfiler.EntityFrameworkCore" Version="4.2.1" />
     <PackageReference Include="MySql.Data" Version="8.0.22" />
     <PackageReference Include="Autofac" Version="6.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
@@ -214,6 +219,10 @@
     <None Update="CodeTemplate\ApplicationTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Filters\" />
   </ItemGroup>
 
 </Project>

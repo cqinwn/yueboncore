@@ -24,7 +24,6 @@ namespace Yuebon.Security.Services
             functionRepository = repository;
             systemTypeRepository = _systemTypeRepository;
             _logService = logService;
-            functionRepository.OnOperationLog += _logService.OnOperationLog;
         }
 
         /// <summary>

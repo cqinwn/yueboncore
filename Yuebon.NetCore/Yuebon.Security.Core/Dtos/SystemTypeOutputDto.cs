@@ -16,73 +16,89 @@ namespace Yuebon.Security.Dtos
         /// </summary>
         [MaxLength(50)]
         public string Id { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         [MaxLength(50)]
         public string EnCode { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         [MaxLength(50)]
         public string FullName { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         [MaxLength(250)]
         public string Url { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public bool? AllowEdit { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public bool? AllowDelete { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public int? SortCode { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public bool? DeleteMark { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public bool? EnabledMark { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         [MaxLength(500)]
         public string Description { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public DateTime? CreatorTime { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         [MaxLength(50)]
         public string CreatorUserId { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public DateTime? LastModifyTime { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         [MaxLength(50)]
         public string LastModifyUserId { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         public DateTime? DeleteTime { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         [MaxLength(50)]
         public string DeleteUserId { get; set; }
-
+
+
     }
 }

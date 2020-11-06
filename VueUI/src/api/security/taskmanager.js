@@ -53,7 +53,7 @@ export function setTaskManagerEnable (data) {
   return http({
     url: 'TaskManager/SetEnabledMarktBatchAsync',
     method: 'post',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
@@ -65,7 +65,7 @@ export function deleteSoftTaskManager (data) {
   return http({
     url: 'TaskManager/DeleteSoftBatchAsync',
     method: 'post',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
@@ -78,7 +78,7 @@ export function deleteTaskManager (data) {
   return http({
     url: 'TaskManager/DeleteBatchAsync',
     method: 'delete',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

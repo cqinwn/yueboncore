@@ -594,7 +594,10 @@ namespace Yuebon.Commons.Services
         {
             return await this.repository.SetEnabledMarkByWhereAsync(bl, where, userId, trans);
         }
-
+        public virtual async Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, object paramparameters = null, string userId = null, IDbTransaction trans = null)
+        {
+            return await this.repository.SetEnabledMarkByWhereAsync(bl, where, paramparameters, userId, trans);
+        }
 
         /// <summary>
         /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
@@ -875,7 +878,7 @@ namespace Yuebon.Commons.Services
                     string DataFilterCondition = String.Join(",", list.ToArray());
                     if (!string.IsNullOrEmpty(DataFilterCondition))
                     {
-                        where += string.Format(" and DeptId in ('{0}')", DataFilterCondition.Replace(",", "','"));
+                        where += string.Format(" and (DeptId in ('{0}') or CreatorUserId='{1}')", DataFilterCondition.Replace(",", "','"), claimlist[0].Value);
                     }
                     bool isMultiTenant = Configs.GetConfigurationValue("AppSetting", "IsMultiTenant").ToBool();
                     if (isMultiTenant)

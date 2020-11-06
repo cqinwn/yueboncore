@@ -114,6 +114,19 @@
           "lib/netstandard2.0/Dapper.dll": {}
         }
       },
+      "Dapper.SqlBuilder/2.0.35": {
+        "type": "package",
+        "dependencies": {
+          "Dapper": "2.0.35",
+          "Microsoft.CSharp": "4.7.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Dapper.SqlBuilder.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Dapper.SqlBuilder.dll": {}
+        }
+      },
       "DotNetCore.NPOI/1.2.2": {
         "type": "package",
         "dependencies": {
@@ -1481,6 +1494,72 @@
           }
         }
       },
+      "MiniProfiler.AspNetCore/4.2.1": {
+        "type": "package",
+        "dependencies": {
+          "MiniProfiler.Shared": "4.2.1",
+          "System.Text.Json": "4.6.0"
+        },
+        "compile": {
+          "lib/netcoreapp3.0/MiniProfiler.AspNetCore.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/MiniProfiler.AspNetCore.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
+      "MiniProfiler.AspNetCore.Mvc/4.2.1": {
+        "type": "package",
+        "dependencies": {
+          "MiniProfiler.AspNetCore": "4.2.1"
+        },
+        "compile": {
+          "lib/netcoreapp3.0/MiniProfiler.AspNetCore.Mvc.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/MiniProfiler.AspNetCore.Mvc.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
+      "MiniProfiler.EntityFrameworkCore/4.2.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Relational": "2.0.0",
+          "MiniProfiler.Shared": "4.2.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/MiniProfiler.EntityFrameworkCore.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/MiniProfiler.EntityFrameworkCore.dll": {}
+        }
+      },
+      "MiniProfiler.Shared/4.2.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.0.0",
+          "Newtonsoft.Json": "10.0.3",
+          "System.ComponentModel.Primitives": "4.3.0",
+          "System.Data.Common": "4.3.0",
+          "System.Diagnostics.DiagnosticSource": "4.4.1",
+          "System.Diagnostics.StackTrace": "4.3.0",
+          "System.Dynamic.Runtime": "4.3.0",
+          "System.Reflection.Emit.Lightweight": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Runtime.Serialization.Primitives": "4.3.0",
+          "System.Threading.Tasks.Parallel": "4.3.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/MiniProfiler.Shared.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/MiniProfiler.Shared.dll": {}
+        }
+      },
       "MySql.Data/8.0.22": {
         "type": "package",
         "dependencies": {
@@ -2265,6 +2344,25 @@
           "ref/netstandard1.3/System.Console.dll": {}
         }
       },
+      "System.Data.Common/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Collections": "4.3.0",
+          "System.Globalization": "4.3.0",
+          "System.IO": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Text.RegularExpressions": "4.3.0",
+          "System.Threading.Tasks": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard1.2/System.Data.Common.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.2/System.Data.Common.dll": {}
+        }
+      },
       "System.Data.SqlClient/4.8.2": {
         "type": "package",
         "dependencies": {
@@ -2366,7 +2464,7 @@
           "System.Runtime": "4.3.0"
         },
         "compile": {
-          "ref/netstandard1.3/_._": {}
+          "ref/netstandard1.3/System.Diagnostics.StackTrace.dll": {}
         },
         "runtime": {
           "lib/netstandard1.3/System.Diagnostics.StackTrace.dll": {}
@@ -3139,7 +3237,7 @@
           "System.Runtime": "4.3.0"
         },
         "compile": {
-          "ref/netstandard1.3/_._": {}
+          "ref/netstandard1.3/System.Runtime.Serialization.Primitives.dll": {}
         },
         "runtime": {
           "lib/netstandard1.3/System.Runtime.Serialization.Primitives.dll": {}
@@ -3837,6 +3935,7 @@
           "CSRedisCore": "3.6.5",
           "Castle.Core": "4.4.1",
           "Dapper": "2.0.35",
+          "Dapper.SqlBuilder": "2.0.35",
           "DotNetCore.NPOI": "1.2.2",
           "HtmlAgilityPack": "1.11.26",
           "Microsoft.AspNetCore.Mvc": "2.2.0",
@@ -3850,6 +3949,9 @@
           "Microsoft.Extensions.DependencyInjection": "3.1.9",
           "Microsoft.Extensions.DependencyModel": "3.1.6",
           "Microsoft.Extensions.Logging": "3.1.9",
+          "MiniProfiler.AspNetCore": "4.2.1",
+          "MiniProfiler.AspNetCore.Mvc": "4.2.1",
+          "MiniProfiler.EntityFrameworkCore": "4.2.1",
           "MySql.Data": "8.0.22",
           "MySql.Data.EntityFrameworkCore": "8.0.22",
           "NPinyin.Core": "3.0.0",
@@ -3870,7 +3972,10 @@
         },
         "runtime": {
           "bin/placeholder/Yuebon.Commons.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       }
     }
   },
@@ -4022,6 +4127,19 @@
         "lib/net461/Dapper.xml",
         "lib/netstandard2.0/Dapper.dll",
         "lib/netstandard2.0/Dapper.xml"
+      ]
+    },
+    "Dapper.SqlBuilder/2.0.35": {
+      "sha512": "NDeGEj+xM4K2Y3puQtczabU6VYAYvI/ZFIoKSMDySCjyYXQbfWSwDuS/l5YmsGePosXaoJS0iwtnEnoaXPmAkw==",
+      "type": "package",
+      "path": "dapper.sqlbuilder/2.0.35",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "dapper.sqlbuilder.2.0.35.nupkg.sha512",
+        "dapper.sqlbuilder.nuspec",
+        "lib/net461/Dapper.SqlBuilder.dll",
+        "lib/netstandard2.0/Dapper.SqlBuilder.dll"
       ]
     },
     "DotNetCore.NPOI/1.2.2": {
@@ -5778,6 +5896,72 @@
         "version.txt"
       ]
     },
+    "MiniProfiler.AspNetCore/4.2.1": {
+      "sha512": "AfVJg/dSgXE94O5X+hMueTijVLrg2g3vbKqusUQRMX5UQoi7ql/kWkDmsUOgnnO8SqlhfOq6SohgeaJT1HRLsw==",
+      "type": "package",
+      "path": "miniprofiler.aspnetcore/4.2.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "lib/net461/MiniProfiler.AspNetCore.dll",
+        "lib/net461/MiniProfiler.AspNetCore.xml",
+        "lib/netcoreapp3.0/MiniProfiler.AspNetCore.dll",
+        "lib/netcoreapp3.0/MiniProfiler.AspNetCore.xml",
+        "lib/netstandard2.0/MiniProfiler.AspNetCore.dll",
+        "lib/netstandard2.0/MiniProfiler.AspNetCore.xml",
+        "miniprofiler.aspnetcore.4.2.1.nupkg.sha512",
+        "miniprofiler.aspnetcore.nuspec"
+      ]
+    },
+    "MiniProfiler.AspNetCore.Mvc/4.2.1": {
+      "sha512": "bWJT+t6BlrCDmR3TKopZ9sgEXX5kOIQqTznseKylkfnKmBKyYdFus1OmPZ0+2wp1XHrhS2uFOZtX6kbTLuveQg==",
+      "type": "package",
+      "path": "miniprofiler.aspnetcore.mvc/4.2.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "lib/net461/MiniProfiler.AspNetCore.Mvc.dll",
+        "lib/net461/MiniProfiler.AspNetCore.Mvc.xml",
+        "lib/netcoreapp3.0/MiniProfiler.AspNetCore.Mvc.dll",
+        "lib/netcoreapp3.0/MiniProfiler.AspNetCore.Mvc.xml",
+        "lib/netstandard2.0/MiniProfiler.AspNetCore.Mvc.dll",
+        "lib/netstandard2.0/MiniProfiler.AspNetCore.Mvc.xml",
+        "miniprofiler.aspnetcore.mvc.4.2.1.nupkg.sha512",
+        "miniprofiler.aspnetcore.mvc.nuspec"
+      ]
+    },
+    "MiniProfiler.EntityFrameworkCore/4.2.1": {
+      "sha512": "Bo1/j1K4NRnKWv8I9QDrgeeTvsRHM0B1hx5+XWBpD5PxGzevNcefEvt9UqMqRrdKtRzlDz+gHtq80rlyBMRH6Q==",
+      "type": "package",
+      "path": "miniprofiler.entityframeworkcore/4.2.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "lib/netstandard2.0/MiniProfiler.EntityFrameworkCore.dll",
+        "lib/netstandard2.0/MiniProfiler.EntityFrameworkCore.xml",
+        "miniprofiler.entityframeworkcore.4.2.1.nupkg.sha512",
+        "miniprofiler.entityframeworkcore.nuspec"
+      ]
+    },
+    "MiniProfiler.Shared/4.2.1": {
+      "sha512": "IRfZWkix/ZXBJHbr1A8QXN092UxQ/W4Xfr047WAZS5fPmO1ANg35g8/OeZngLICJjG/MVVUO9KHL3yHdikMyFA==",
+      "type": "package",
+      "path": "miniprofiler.shared/4.2.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "lib/net461/MiniProfiler.Shared.dll",
+        "lib/net461/MiniProfiler.Shared.xml",
+        "lib/netstandard2.0/MiniProfiler.Shared.dll",
+        "lib/netstandard2.0/MiniProfiler.Shared.xml",
+        "miniprofiler.shared.4.2.1.nupkg.sha512",
+        "miniprofiler.shared.nuspec"
+      ]
+    },
     "MySql.Data/8.0.22": {
       "sha512": "DTKXORgTwQLbAjl8g5+YhvrAB+peQLfAZQ7gbm5Ejma37f/vBtZqP5aTnqZoJUzaQQgj4Psgdcnlo6IwYedyCg==",
       "type": "package",
@@ -7136,6 +7320,57 @@
         "ref/xamarinwatchos10/_._",
         "system.console.4.3.0.nupkg.sha512",
         "system.console.nuspec"
+      ]
+    },
+    "System.Data.Common/4.3.0": {
+      "sha512": "lm6E3T5u7BOuEH0u18JpbJHxBfOJPuCyl4Kg1RH10ktYLp5uEEE1xKrHW56/We4SnZpGAuCc9N0MJpSDhTHZGQ==",
+      "type": "package",
+      "path": "system.data.common/4.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ThirdPartyNotices.txt",
+        "dotnet_library_license.txt",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net451/System.Data.Common.dll",
+        "lib/netstandard1.2/System.Data.Common.dll",
+        "lib/portable-net451+win8+wp8+wpa81/System.Data.Common.dll",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net451/System.Data.Common.dll",
+        "ref/netstandard1.2/System.Data.Common.dll",
+        "ref/netstandard1.2/System.Data.Common.xml",
+        "ref/netstandard1.2/de/System.Data.Common.xml",
+        "ref/netstandard1.2/es/System.Data.Common.xml",
+        "ref/netstandard1.2/fr/System.Data.Common.xml",
+        "ref/netstandard1.2/it/System.Data.Common.xml",
+        "ref/netstandard1.2/ja/System.Data.Common.xml",
+        "ref/netstandard1.2/ko/System.Data.Common.xml",
+        "ref/netstandard1.2/ru/System.Data.Common.xml",
+        "ref/netstandard1.2/zh-hans/System.Data.Common.xml",
+        "ref/netstandard1.2/zh-hant/System.Data.Common.xml",
+        "ref/portable-net451+win8+wp8+wpa81/System.Data.Common.dll",
+        "ref/portable-net451+win8+wp8+wpa81/System.Data.Common.xml",
+        "ref/portable-net451+win8+wp8+wpa81/de/System.Data.Common.xml",
+        "ref/portable-net451+win8+wp8+wpa81/es/System.Data.Common.xml",
+        "ref/portable-net451+win8+wp8+wpa81/fr/System.Data.Common.xml",
+        "ref/portable-net451+win8+wp8+wpa81/it/System.Data.Common.xml",
+        "ref/portable-net451+win8+wp8+wpa81/ja/System.Data.Common.xml",
+        "ref/portable-net451+win8+wp8+wpa81/ko/System.Data.Common.xml",
+        "ref/portable-net451+win8+wp8+wpa81/ru/System.Data.Common.xml",
+        "ref/portable-net451+win8+wp8+wpa81/zh-hans/System.Data.Common.xml",
+        "ref/portable-net451+win8+wp8+wpa81/zh-hant/System.Data.Common.xml",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "system.data.common.4.3.0.nupkg.sha512",
+        "system.data.common.nuspec"
       ]
     },
     "System.Data.SqlClient/4.8.2": {
@@ -11553,6 +11788,9 @@
         "assetTargetFallback": true,
         "warn": true,
         "frameworkReferences": {
+          "Microsoft.AspNetCore.App": {
+            "privateAssets": "none"
+          },
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }

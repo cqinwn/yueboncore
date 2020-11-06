@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Autofac;
+using AutoMapper;
 using log4net;
 using log4net.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -33,6 +34,7 @@ using System.Text.Unicode;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.Mvc.Filter;
+using Yuebon.Commons.Attributes;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.DbContextCore;
 using Yuebon.Commons.Extensions;
@@ -159,12 +161,13 @@ namespace Yuebon.WebApi
             {
                 option.Filters.Add<YuebonAuthorizationFilter>();
                 option.Filters.Add(new ExceptionHandlingAttribute());
+                option.Filters.Add<ActionFilter>();
             }).SetCompatibilityVersion(CompatibilityVersion.Latest).AddRazorRuntimeCompilation();
 
             services.AddMvcCore()
                 .AddAuthorization().AddApiExplorer();
             #endregion
-
+            services.AddMiniProfiler().AddEntityFramework();
             services.AddSignalR();//使用 SignalR
             return InitIoC(services);
         }
@@ -207,6 +210,7 @@ namespace Yuebon.WebApi
                     endpoints.MapControllerRoute("default", "api/{controller=Home}/{action=Index}/{id?}");
                 });
                 app.UseStatusCodePages();
+                app.UseMiniProfiler();
                 app.UseSwagger();
                 app.UseSwaggerUI(options =>
                 {
@@ -264,6 +268,7 @@ namespace Yuebon.WebApi
             }
             #endregion
 
+
             #region 身份认证授权
 
             var jwtConfig = Configuration.GetSection("Jwt");
@@ -299,14 +304,26 @@ namespace Yuebon.WebApi
             IoCContainer.Register(cacheProvider);//注册缓存配置
             IoCContainer.Register(Configuration);//注册配置
             IoCContainer.Register(jwtOption);//注册配置
+            var codeGenerateOption = new CodeGenerateOption
+            {
+                ModelsNamespace = "",
+                IRepositoriesNamespace = "",
+                RepositoriesNamespace = "",
+                IServicsNamespace = "",
+                ServicesNamespace = ""
+            };
+            IoCContainer.Register(codeGenerateOption);//注册代码生成器相关配置信息
             IoCContainer.Register("Yuebon.Commons");
             IoCContainer.Register("Yuebon.AspNetCore");
             IoCContainer.Register("Yuebon.Security.Core");
             IoCContainer.RegisterNew("Yuebon.Security.Core", "Yuebon.Security");
             IoCContainer.Register("Yuebon.Messages.Core");
             IoCContainer.RegisterNew("Yuebon.Messages.Core", "Yuebon.Messages");
+            IoCContainer.Register("Yuebon.Tenants.Core");
+            IoCContainer.RegisterNew("Yuebon.Tenants.Core", "Yuebon.Tenants");
             List<Assembly> myAssembly = new List<Assembly>();
             myAssembly.Add(Assembly.Load("Yuebon.Security.Core"));
+            myAssembly.Add(Assembly.Load("Yuebon.Tenants.Core"));
             services.AddAutoMapper(myAssembly);
             services.AddScoped<IMapper, Mapper>();
 
@@ -320,6 +337,36 @@ namespace Yuebon.WebApi
             return IoCContainer.Build(services);
         }
 
+
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            #region AutoFac IOC容器
+            try
+            {
+                #region SingleInstance
+                //无接口注入单例
+
+                //有接口注入单例
+                #endregion
+
+                #region Aop
+                var interceptorServiceTypes = new List<Type>();
+                builder.RegisterType<UnitOfWorkIInterceptor>();
+                interceptorServiceTypes.Add(typeof(UnitOfWorkIInterceptor));
+                #endregion
+
+                #region Repository
+                #endregion
+
+                #region Service
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message + "\n" + ex.InnerException);
+            }
+            #endregion
+        }
         /// <summary>
         /// 加载模块应用
         /// </summary>

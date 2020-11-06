@@ -40,7 +40,13 @@
     <Compile Remove="Application\RoleApp.cs" />
     <Compile Remove="Application\RoleAuthorizeApp.cs" />
     <Compile Remove="Application\RoleDataApp.cs" />
+    <Compile Remove="Dtos\TenantInputDto.cs" />
+    <Compile Remove="Dtos\TenantOutputDto.cs" />
+    <Compile Remove="IRepositories\ITenantRepository.cs" />
+    <Compile Remove="IServices\ITenantService.cs" />
+    <Compile Remove="Models\Tenant.cs" />
     <Compile Remove="SecurityDBContent.cs" />
+    <Compile Remove="Services\TenantService.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -161,6 +161,10 @@
               "target": "Package",
               "version": "[2.0.35, )"
             },
+            "Dapper.SqlBuilder": {
+              "target": "Package",
+              "version": "[2.0.35, )"
+            },
             "DotNetCore.NPOI": {
               "target": "Package",
               "version": "[1.2.2, )"
@@ -212,6 +216,18 @@
             "Microsoft.Extensions.Logging": {
               "target": "Package",
               "version": "[3.1.9, )"
+            },
+            "MiniProfiler.AspNetCore": {
+              "target": "Package",
+              "version": "[4.2.1, )"
+            },
+            "MiniProfiler.AspNetCore.Mvc": {
+              "target": "Package",
+              "version": "[4.2.1, )"
+            },
+            "MiniProfiler.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[4.2.1, )"
             },
             "MySql.Data": {
               "target": "Package",
@@ -281,6 +297,9 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
@@ -337,6 +356,9 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

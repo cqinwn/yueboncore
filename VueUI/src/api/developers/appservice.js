@@ -53,7 +53,7 @@ export function setAPPEnable (data) {
   return http({
     url: 'APP/SetEnabledMarktBatchAsync',
     method: 'post',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
@@ -65,7 +65,7 @@ export function deleteSoftAPP (data) {
   return http({
     url: 'APP/DeleteSoftBatchAsync',
     method: 'post',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
@@ -78,7 +78,7 @@ export function deleteAPP (data) {
   return http({
     url: 'APP/DeleteBatchAsync',
     method: 'delete',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

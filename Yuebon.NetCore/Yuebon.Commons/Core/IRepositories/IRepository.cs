@@ -19,10 +19,6 @@ namespace Yuebon.Commons.IRepositories
     /// <typeparam name="TKey">主键类型</typeparam>
     public interface IRepository<T, TKey>:IDisposable where T : Entity
     {
-        /// <summary>
-        /// 定义一个操作记录的事件处理
-        /// </summary>
-        event OperationLogEventHandler OnOperationLog;
 
         #region 单个实体
         /// <summary>
@@ -308,6 +304,7 @@ namespace Yuebon.Commons.IRepositories
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
         Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, string userId = null, IDbTransaction trans = null);
+        Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, object paramparameters = null, string userId = null, IDbTransaction trans = null);
         /// <summary>
         /// 查询软删除的数据，如果查询条件为空，即查询所有软删除的数据
         /// </summary>

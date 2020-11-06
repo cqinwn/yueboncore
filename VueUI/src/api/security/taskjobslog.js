@@ -53,7 +53,7 @@ export function setTaskJobsLogEnable (data) {
   return http({
     url: 'TaskJobsLog/SetEnabledMarktBatchAsync',
     method: 'post',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
@@ -65,7 +65,7 @@ export function deleteSoftTaskJobsLog (data) {
   return http({
     url: 'TaskJobsLog/DeleteSoftBatchAsync',
     method: 'post',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
@@ -78,7 +78,7 @@ export function deleteTaskJobsLog (data) {
   return http({
     url: 'TaskJobsLog/DeleteBatchAsync',
     method: 'delete',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

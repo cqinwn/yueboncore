@@ -514,7 +514,6 @@ export default {
         this.editMenuFormTitle = '新增'
         this.currentMenuId = ''
         this.dialogMenuEditFormVisible = true
-        this.$refs['editMenuFrom'].resetFields()
       }
     },
     bindMenuEditInfo: function () {
@@ -585,9 +584,10 @@ export default {
         this.$alert('请先选择要操作的数据', '提示')
         return false
       } else {
+        var currentIds = [this.currentMenuId]
         const data = {
-          ids: this.currentMenuId,
-          bltag: val
+          Ids: currentIds,
+          Flag: val
         }
         setMenuEnable(data).then(res => {
           if (res.Success) {
@@ -611,9 +611,10 @@ export default {
         this.$alert('请先选择要操作的数据', '提示')
         return false
       } else {
+        var currentIds = [this.currentMenuId]
         const data = {
-          ids: this.currentMenuId,
-          bltag: val
+          Ids: currentIds,
+          Flag: val
         }
         deleteSoftMenu(data).then(res => {
           if (res.Success) {
@@ -637,8 +638,9 @@ export default {
         this.$alert('请先选择要操作的数据', '提示')
         return false
       } else {
+        var currentIds = [this.currentMenuId]
         const data = {
-          ids: this.currentMenuId
+          Ids: currentIds
         }
         deleteMenu(data).then(res => {
           if (res.Success) {
@@ -674,7 +676,6 @@ export default {
         this.editFunctionFormTitle = '新增'
         this.currentId = ''
         this.dialogFunctionEditFormVisible = true
-        this.$refs['editFunctionFrom'].resetFields()
       }
     },
     bindFunctionEditInfo: function () {
@@ -745,13 +746,13 @@ export default {
         this.$alert('请先选择要操作的数据', '提示')
         return false
       } else {
-        var currentIds = ''
+        var currentIds = []
         this.currentSelected.forEach(element => {
-          currentIds += element.Id + ','
+          currentIds.push(element.Id)
         })
         const data = {
-          ids: currentIds,
-          bltag: val
+          Ids: currentIds,
+          Flag: val
         }
         setFunctionEnable(data).then(res => {
           if (res.Success) {
@@ -775,13 +776,13 @@ export default {
         this.$alert('请先选择要操作的数据', '提示')
         return false
       } else {
-        var currentIds = ''
+        var currentIds = []
         this.currentSelected.forEach(element => {
-          currentIds += element.Id + ','
+          currentIds.push(element.Id)
         })
         const data = {
-          ids: currentIds,
-          bltag: val
+          Ids: currentIds,
+          Flag: val
         }
         deleteSoftFunction(data).then(res => {
           if (res.Success) {
@@ -805,12 +806,12 @@ export default {
         this.$alert('请先选择要操作的数据', '提示')
         return false
       } else {
-        var currentIds = ''
+        var currentIds = []
         this.currentSelected.forEach(element => {
-          currentIds += element.Id + ','
+          currentIds.push(element.Id)
         })
         const data = {
-          ids: currentIds
+          Ids: currentIds
         }
         deleteFunction(data).then(res => {
           if (res.Success) {

@@ -20,7 +20,6 @@ namespace Yuebon.Messages.Services
         {
 			_repository=repository;
 			_logService=logService;
-            _repository.OnOperationLog += _logService.OnOperationLog;
         }
 
         /// <summary>

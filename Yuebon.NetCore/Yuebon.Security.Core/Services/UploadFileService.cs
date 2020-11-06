@@ -25,7 +25,6 @@ namespace Yuebon.Security.Services
         {
             _uploadFileRepository = repository;
             _logService = logService;
-            _uploadFileRepository.OnOperationLog += _logService.OnOperationLog;
         }
 
         /// <summary>

@@ -213,6 +213,18 @@
               "target": "Package",
               "version": "[3.1.9, )"
             },
+            "MiniProfiler.AspNetCore": {
+              "target": "Package",
+              "version": "[4.2.1, )"
+            },
+            "MiniProfiler.AspNetCore.Mvc": {
+              "target": "Package",
+              "version": "[4.2.1, )"
+            },
+            "MiniProfiler.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[4.2.1, )"
+            },
             "MySql.Data": {
               "target": "Package",
               "version": "[8.0.22, )"
@@ -281,6 +293,9 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
@@ -337,6 +352,9 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

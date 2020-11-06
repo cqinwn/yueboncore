@@ -875,7 +875,7 @@ namespace Yuebon.Commons.Services
                     string DataFilterCondition = String.Join(",", list.ToArray());
                     if (!string.IsNullOrEmpty(DataFilterCondition))
                     {
-                        where += string.Format(" and DeptId in ('{0}')", DataFilterCondition.Replace(",", "','"));
+                        where += string.Format(" and (DeptId in ('{0}') or CreatorUserId='{1}')", DataFilterCondition.Replace(",", "','"), claimlist[0].Value);
                     }
                     bool isMultiTenant = Configs.GetConfigurationValue("AppSetting", "IsMultiTenant").ToBool();
                     if (isMultiTenant)

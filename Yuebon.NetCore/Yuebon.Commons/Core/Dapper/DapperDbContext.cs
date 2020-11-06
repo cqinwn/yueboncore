@@ -1,6 +1,8 @@
-﻿using System;
+﻿using StackExchange.Profiling;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Text;
 using Yuebon.Commons.Core.DataManager;
 
@@ -24,6 +26,11 @@ namespace Yuebon.Commons.Core.Dapper
                 if (dbConnection == null || dbConnection.State == ConnectionState.Closed)
                 {
                     dbConnection = DBServerProvider.GetDBConnection();
+
+                    if (MiniProfiler.Current != null)
+                    {
+                        dbConnection = new StackExchange.Profiling.Data.ProfiledDbConnection((DbConnection)dbConnection, MiniProfiler.Current);
+                    }
                 }
                 return dbConnection;
             }
@@ -33,6 +40,11 @@ namespace Yuebon.Commons.Core.Dapper
             if (dbConnection == null || dbConnection.State == ConnectionState.Closed)
             {
                 dbConnection = DBServerProvider.GetDBConnection<T>();
+
+                if (MiniProfiler.Current != null)
+                {
+                    dbConnection = new StackExchange.Profiling.Data.ProfiledDbConnection((DbConnection)dbConnection, MiniProfiler.Current);
+                }
             }
             return dbConnection;
         }

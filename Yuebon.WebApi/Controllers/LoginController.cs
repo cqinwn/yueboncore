@@ -93,7 +93,7 @@ namespace Yuebon.WebApi.Controllers
             }
             else
             {
-                string ipAddressName = IpAddressUtil.GetCityByIp(strIp);
+                string ipAddressName =IpAddressUtil.GetCityByIp(strIp);
 
                 if (string.IsNullOrEmpty(username))
                 {
@@ -208,6 +208,7 @@ namespace Yuebon.WebApi.Controllers
                                         logEntity.ModuleName = "登录";
                                         logEntity.Description = "登录成功";
                                         logEntity.Type = "Login";
+
                                         _logService.Insert(logEntity);
                                     }
                                     else

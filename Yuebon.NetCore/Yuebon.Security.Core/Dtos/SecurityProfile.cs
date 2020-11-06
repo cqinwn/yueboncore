@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using System.Collections.Generic;
 using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Dtos
@@ -73,8 +72,6 @@ namespace Yuebon.Security.Dtos
                 .ForMember(s => s.Description, s => s.MapFrom(o => o.Description))
                 .ForMember(s => s.CreatorTime, s => s.MapFrom(o => o.CreatorTime))
                 .ForMember(s => s.Color, s => s.MapFrom(o => (o.Status? "#e4e7ed" : "#ff0000")));
-            CreateMap<Tenant, TenantOutputDto>();
-            CreateMap<TenantInputDto, Tenant>();
         }
     }
 }

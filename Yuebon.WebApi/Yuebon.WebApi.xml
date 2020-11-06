@@ -1570,33 +1570,33 @@
             租户接口
             </summary>
         </member>
-        <member name="M:Yuebon.SecurityApi.Areas.Security.Controllers.TenantController.#ctor(Yuebon.Security.IServices.ITenantService)">
+        <member name="M:Yuebon.SecurityApi.Areas.Security.Controllers.TenantController.#ctor(Yuebon.Tenants.IServices.ITenantService)">
             <summary>
             构造函数
             </summary>
             <param name="_iService"></param>
         </member>
-        <member name="M:Yuebon.SecurityApi.Areas.Security.Controllers.TenantController.OnBeforeInsert(Yuebon.Security.Models.Tenant)">
+        <member name="M:Yuebon.SecurityApi.Areas.Security.Controllers.TenantController.OnBeforeInsert(Yuebon.Tenants.Models.Tenant)">
             <summary>
             新增前处理数据
             </summary>
             <param name="info"></param>
         </member>
-        <member name="M:Yuebon.SecurityApi.Areas.Security.Controllers.TenantController.OnBeforeUpdate(Yuebon.Security.Models.Tenant)">
+        <member name="M:Yuebon.SecurityApi.Areas.Security.Controllers.TenantController.OnBeforeUpdate(Yuebon.Tenants.Models.Tenant)">
             <summary>
             在更新数据前对数据的修改操作
             </summary>
             <param name="info"></param>
             <returns></returns>
         </member>
-        <member name="M:Yuebon.SecurityApi.Areas.Security.Controllers.TenantController.OnBeforeSoftDelete(Yuebon.Security.Models.Tenant)">
+        <member name="M:Yuebon.SecurityApi.Areas.Security.Controllers.TenantController.OnBeforeSoftDelete(Yuebon.Tenants.Models.Tenant)">
             <summary>
             在软删除数据前对数据的修改操作
             </summary>
             <param name="info"></param>
             <returns></returns>
         </member>
-        <member name="M:Yuebon.SecurityApi.Areas.Security.Controllers.TenantController.UpdateAsync(Yuebon.Security.Dtos.TenantInputDto,System.String)">
+        <member name="M:Yuebon.SecurityApi.Areas.Security.Controllers.TenantController.UpdateAsync(Yuebon.Tenants.Dtos.TenantInputDto,System.String)">
             <summary>
             异步更新数据
             </summary>

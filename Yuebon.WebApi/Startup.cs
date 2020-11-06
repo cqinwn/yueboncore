@@ -159,12 +159,13 @@ namespace Yuebon.WebApi
             {
                 option.Filters.Add<YuebonAuthorizationFilter>();
                 option.Filters.Add(new ExceptionHandlingAttribute());
+                option.Filters.Add<ActionFilter>();
             }).SetCompatibilityVersion(CompatibilityVersion.Latest).AddRazorRuntimeCompilation();
 
             services.AddMvcCore()
                 .AddAuthorization().AddApiExplorer();
             #endregion
-
+            services.AddMiniProfiler().AddEntityFramework();
             services.AddSignalR();//使用 SignalR
             return InitIoC(services);
         }
@@ -207,6 +208,7 @@ namespace Yuebon.WebApi
                     endpoints.MapControllerRoute("default", "api/{controller=Home}/{action=Index}/{id?}");
                 });
                 app.UseStatusCodePages();
+                app.UseMiniProfiler();
                 app.UseSwagger();
                 app.UseSwaggerUI(options =>
                 {

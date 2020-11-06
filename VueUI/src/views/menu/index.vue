@@ -514,7 +514,6 @@ export default {
         this.editMenuFormTitle = '新增'
         this.currentMenuId = ''
         this.dialogMenuEditFormVisible = true
-        this.$refs['editMenuFrom'].resetFields()
       }
     },
     bindMenuEditInfo: function () {

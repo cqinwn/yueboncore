@@ -23,14 +23,14 @@
       </div>
       <el-table ref="gridtable" v-loading="tableloading" :data="tableData" border stripe highlight-current-row style="width: 100%" :default-sort="{ prop: 'CreatorTime', order: 'descending' }" @select="handleSelectChange" @select-all="handleSelectAllChange" @sort-change="handleSortChange">
         <el-table-column type="selection" width="30" />
-        <el-table-column prop="CreatorTime" label="操作时间" sortable="custom" width="180" />
+        <el-table-column prop="CreatorTime" label="操作时间" sortable="custom" width="160" />
         <el-table-column prop="Account" label="操作账号" sortable="custom" width="120" />
         <el-table-column prop="NickName" label="操作人" sortable="custom" width="120" />
-        <el-table-column prop="ModuleName" label="操作模块" sortable="custom" width="180" />
+        <el-table-column prop="ModuleName" label="操作模块" sortable="custom" width="130" />
         <el-table-column prop="Type" label="类型" sortable="custom" width="90" />
         <el-table-column prop="IPAddress" label="IP地址" sortable="custom" width="150" />
         <el-table-column prop="IPAddressName" label="IP城市" sortable="custom" width="220" />
-        <el-table-column prop="Description" label="详情" width="560" />
+        <el-table-column prop="Description" label="详情" />
       </el-table>
       <div class="pagination-container">
         <el-pagination background :current-page="pagination.currentPage" :page-sizes="[5, 10, 20, 50, 100, 200, 300, 400]" :page-size="pagination.pagesize" layout="total, sizes, prev, pager, next, jumper" :total="pagination.pageTotal" @size-change="handleSizeChange" @current-change="handleCurrentChange" />

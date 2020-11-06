@@ -674,7 +674,6 @@ export default {
         this.editFunctionFormTitle = '新增'
         this.currentId = ''
         this.dialogFunctionEditFormVisible = true
-        this.$refs['editFunctionFrom'].resetFields()
       }
     },
     bindFunctionEditInfo: function () {

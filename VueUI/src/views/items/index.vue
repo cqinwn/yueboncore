@@ -389,7 +389,6 @@ export default {
         this.editItemsFormTitle = '新增'
         this.currentItemsId = ''
         this.dialogItemsEditFormVisible = true
-        this.$refs['editItemsFrom'].resetFields()
       }
     },
     bindItemsEditInfo: function () {
@@ -540,7 +539,6 @@ export default {
         this.editItemsDetailFormTitle = '新增'
         this.currentId = ''
         this.dialogItemsDetailEditFormVisible = true
-        this.$refs['editItemsDetailFrom'].resetFields()
       }
     },
     bindItemsDetailEditInfo: function () {

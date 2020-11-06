@@ -322,7 +322,6 @@ export default {
         this.currentId = ''
         this.selectedOrganizeOptions = ''
         this.dialogEditFormVisible = true
-        this.$refs['editFrom'].resetFields()
       }
     },
     bindEditInfo: function () {

@@ -44,7 +44,6 @@ namespace Yuebon.Security.Services
             _logService = logService;
             _roleService = roleService;
             _organizeService = organizeService;
-            _userRepository.OnOperationLog += _logService.OnOperationLog;
         }
 
 

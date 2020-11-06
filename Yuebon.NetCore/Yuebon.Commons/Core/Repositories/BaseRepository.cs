@@ -43,14 +43,6 @@ namespace Yuebon.Commons.Repositories
     {
         #region 构造函数及基本配置
         /// <summary>
-        /// 定义一个操作记录的事件处理
-        /// </summary>
-        public event OperationLogEventHandler OnOperationLog;
-        /// <summary>
-        /// 数据库连接
-        /// </summary>
-        public DbConnection dbConnection;
-        /// <summary>
         ///  EF DBContext
         /// </summary>
         private IDbContextCore _dbContext;

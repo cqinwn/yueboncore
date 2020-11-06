@@ -19,10 +19,6 @@ namespace Yuebon.Commons.IRepositories
     /// <typeparam name="TKey">主键类型</typeparam>
     public interface IRepository<T, TKey>:IDisposable where T : Entity
     {
-        /// <summary>
-        /// 定义一个操作记录的事件处理
-        /// </summary>
-        event OperationLogEventHandler OnOperationLog;
 
         #region 单个实体
         /// <summary>

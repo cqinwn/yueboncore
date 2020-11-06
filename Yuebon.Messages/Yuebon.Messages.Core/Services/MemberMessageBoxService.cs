@@ -19,7 +19,6 @@ namespace Yuebon.Messages.Services
         {
 			_repository=repository;
 			_logService=logService;
-            _repository.OnOperationLog += _logService.OnOperationLog;
         }
 
         public int GetTotalCounts(int isread, string userid)

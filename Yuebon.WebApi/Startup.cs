@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Autofac;
+using AutoMapper;
 using log4net;
 using log4net.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -336,6 +337,36 @@ namespace Yuebon.WebApi
             return IoCContainer.Build(services);
         }
 
+
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            #region AutoFac IOC容器
+            try
+            {
+                #region SingleInstance
+                //无接口注入单例
+
+                //有接口注入单例
+                #endregion
+
+                #region Aop
+                var interceptorServiceTypes = new List<Type>();
+                builder.RegisterType<UnitOfWorkIInterceptor>();
+                interceptorServiceTypes.Add(typeof(UnitOfWorkIInterceptor));
+                #endregion
+
+                #region Repository
+                #endregion
+
+                #region Service
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message + "\n" + ex.InnerException);
+            }
+            #endregion
+        }
         /// <summary>
         /// 加载模块应用
         /// </summary>

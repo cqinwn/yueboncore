@@ -16,7 +16,6 @@ namespace Yuebon.Security.Services
         {
 			_repository=repository;
 			_logService=logService;
-            _repository.OnOperationLog += _logService.OnOperationLog;
         }
         /// <summary>
         /// 根据角色返回授权访问部门数据

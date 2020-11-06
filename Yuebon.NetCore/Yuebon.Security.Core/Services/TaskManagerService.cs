@@ -40,7 +40,6 @@ namespace Yuebon.Security.Services
 			_logService=logService;
             _taskJobsLogService = taskJobsLogService;
             schedulerFactory = _schedulerFactory;
-            _repository.OnOperationLog += _logService.OnOperationLog;
         }
 
         /// <summary>

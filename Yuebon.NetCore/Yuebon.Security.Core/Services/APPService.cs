@@ -23,7 +23,6 @@ namespace Yuebon.Security.Services
         {
             _appRepository = repository;
             _logService = logService;
-            _appRepository.OnOperationLog += _logService.OnOperationLog;
         }
         /// <summary>
         /// 获取app对象

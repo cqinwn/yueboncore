@@ -31,7 +31,6 @@ namespace Yuebon.Security.Services
             _repository = repository;
             _logService = logService;
             roleAuthorizeService = _roleAuthorizeService;
-            _repository.OnOperationLog += _logService.OnOperationLog;
         }
 
         /// <summary>

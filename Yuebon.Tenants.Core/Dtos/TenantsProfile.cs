@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using System.Collections.Generic;
-using Yuebon.Security.Models;
+using Yuebon.Tenants.Models;
 
-namespace Yuebon.Security.Dtos
+namespace Yuebon.Tenants.Dtos
 {
     /// <summary>
     /// 

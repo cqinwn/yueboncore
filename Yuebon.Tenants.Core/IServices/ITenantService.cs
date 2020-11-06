@@ -1,9 +1,8 @@
-using System;
 using Yuebon.Commons.IServices;
-using Yuebon.Security.Dtos;
-using Yuebon.Security.Models;
+using Yuebon.Tenants.Dtos;
+using Yuebon.Tenants.Models;
 
-namespace Yuebon.Security.IServices
+namespace Yuebon.Tenants.IServices
 {
     /// <summary>
     /// 定义租户服务接口

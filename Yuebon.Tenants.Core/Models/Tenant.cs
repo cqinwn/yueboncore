@@ -6,7 +6,7 @@ using Dapper.Contrib.Extensions;
 using Yuebon.Commons.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Yuebon.Security.Models
+namespace Yuebon.Tenants.Models
 {
     /// <summary>
     /// 租户，数据实体对象

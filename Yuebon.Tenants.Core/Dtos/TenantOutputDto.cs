@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Yuebon.Security.Dtos
+namespace Yuebon.Tenants.Dtos
 {
     /// <summary>
     /// 租户输出对象模型

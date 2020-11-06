@@ -1,8 +1,7 @@
-using System;
 using Yuebon.Commons.IRepositories;
-using Yuebon.Security.Models;
+using Yuebon.Tenants.Models;
 
-namespace Yuebon.Security.IRepositories
+namespace Yuebon.Tenants.IRepositories
 {
     /// <summary>
     /// 定义租户仓储接口

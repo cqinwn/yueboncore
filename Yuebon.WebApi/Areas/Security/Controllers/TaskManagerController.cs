@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Internal;
 using Quartz;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 using Yuebon.AspNetCore.Controllers;
 using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc;
+using Yuebon.AspNetCore.ViewModel;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Models;
@@ -232,23 +234,22 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <param name="bltag">有效标识，默认为1：即设为无效,0：有效</param>
         [HttpPost("SetEnabledMarktBatchAsync")]
         [YuebonAuthorize("Enable")]
-        public override async Task<IActionResult> SetEnabledMarktBatchAsync(string ids, string bltag = "1")
+        public override async Task<IActionResult> SetEnabledMarktBatchAsync(UpdateEnableViewModel info)
         {
             CommonResult result = new CommonResult();
             bool bl = false;
-            if (bltag == "1")
+            if (info.Flag == "1")
             {
                 bl = true;
             }
             string where = string.Empty;
-            string newIds = ids.ToString();
-            where = "id in ('" + newIds.Trim(',').Replace(",", "','") + "')";
-            string[] jobsId = ids.Split(",");
+            where = "id in ('" + info.Ids.Join(",").Replace(",", "','") + "')";
+            dynamic[] jobsId = info.Ids;
             if (!bl)
             {
                 foreach (var item in jobsId)
                 {
-                    if (string.IsNullOrEmpty(item)) continue;
+                    if (string.IsNullOrEmpty(item.ToString())) continue;
                     TaskManager job = iService.Get(item);
                     if (job == null)
                     {
@@ -286,17 +287,16 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <param name="ids">主键Id</param>
         [HttpDelete("DeleteBatchAsync")]
         [YuebonAuthorize("Delete")]
-        public override async Task<IActionResult> DeleteBatchAsync(string ids)
+        public override async Task<IActionResult> DeleteBatchAsync(UpdateEnableViewModel info)
         {
             CommonResult result = new CommonResult();
             string where = string.Empty;
-            string newIds = ids.ToString();
-            where = "id in ('" + newIds.Trim(',').Replace(",", "','") + "')";
-            string[] jobsId = ids.Split(",");
+            where = "id in ('" + info.Ids.Join(",").Trim(',').Replace(",", "','") + "')";
+            dynamic[] jobsId = info.Ids;
             foreach (var item in jobsId)
             {
-                if (string.IsNullOrEmpty(item)) continue;
-                TaskManager job = iService.Get(item);
+                if (string.IsNullOrEmpty(item.ToString())) continue;
+                TaskManager job = iService.Get(item.ToString());
                 if (job == null)
                 {
                     throw new Exception("任务不存在");

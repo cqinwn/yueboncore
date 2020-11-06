@@ -33,11 +33,6 @@ service.interceptors.response.use(
     const res = response.data
     console.log('返回结果：' + JSON.stringify(res))
     if (res.ErrCode !== '0') {
-      Message({
-        message: res.ErrMsg || 'Error',
-        type: 'error',
-        duration: 5 * 1000
-      })
       if (res.ErrCode === '40000' || res.ErrCode === '40001' || res.ErrCode === '40002' || res.ErrCode === '40004' || res.ErrCode === '40005' || res.ErrCode === '40008') {
         // to re-login
         MessageBox.confirm('登录超时，请重新登录', '退出提示', {
@@ -48,6 +43,12 @@ service.interceptors.response.use(
           store.dispatch('user/resetToken').then((res) => {
             location.reload()
           })
+        })
+      } else {
+        Message({
+          message: res.ErrMsg || 'Error',
+          type: 'error',
+          duration: 5 * 1000
         })
       }
       return Promise.reject(new Error(res.ErrMsg || 'Error'))

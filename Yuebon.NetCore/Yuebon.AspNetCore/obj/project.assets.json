@@ -114,6 +114,19 @@
           "lib/netstandard2.0/Dapper.dll": {}
         }
       },
+      "Dapper.SqlBuilder/2.0.35": {
+        "type": "package",
+        "dependencies": {
+          "Dapper": "2.0.35",
+          "Microsoft.CSharp": "4.7.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Dapper.SqlBuilder.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Dapper.SqlBuilder.dll": {}
+        }
+      },
       "DotNetCore.NPOI/1.2.2": {
         "type": "package",
         "dependencies": {
@@ -4074,6 +4087,7 @@
           "CSRedisCore": "3.6.5",
           "Castle.Core": "4.4.1",
           "Dapper": "2.0.35",
+          "Dapper.SqlBuilder": "2.0.35",
           "DotNetCore.NPOI": "1.2.2",
           "HtmlAgilityPack": "1.11.26",
           "Microsoft.AspNetCore.Mvc": "2.2.0",
@@ -4281,6 +4295,19 @@
         "lib/net461/Dapper.xml",
         "lib/netstandard2.0/Dapper.dll",
         "lib/netstandard2.0/Dapper.xml"
+      ]
+    },
+    "Dapper.SqlBuilder/2.0.35": {
+      "sha512": "NDeGEj+xM4K2Y3puQtczabU6VYAYvI/ZFIoKSMDySCjyYXQbfWSwDuS/l5YmsGePosXaoJS0iwtnEnoaXPmAkw==",
+      "type": "package",
+      "path": "dapper.sqlbuilder/2.0.35",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "dapper.sqlbuilder.2.0.35.nupkg.sha512",
+        "dapper.sqlbuilder.nuspec",
+        "lib/net461/Dapper.SqlBuilder.dll",
+        "lib/netstandard2.0/Dapper.SqlBuilder.dll"
       ]
     },
     "DotNetCore.NPOI/1.2.2": {

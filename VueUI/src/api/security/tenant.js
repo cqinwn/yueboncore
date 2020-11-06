@@ -7,19 +7,19 @@ import defaultSettings from '@/settings'
    */
 export function getTenantListWithPager (data) {
   return http.request({
-    url: 'Tenant/FindWithPagerAsync',
+    url: 'Tenants/Tenant/FindWithPagerAsync',
     method: 'post',
     data: data,
-    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
   })
 }/**
    * 获取所有可用的租户
    */
 export function getAllTenantList () {
   return http.request({
-    url: 'Tenant/GetAllEnable',
+    url: 'Tenants/Tenant/GetAllEnable',
     method: 'get',
-    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -31,7 +31,7 @@ export function saveTenant (data, url) {
     url: url,
     method: 'post',
     data: data,
-    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -40,9 +40,9 @@ export function saveTenant (data, url) {
    */
 export function getTenantDetail (id) {
   return http({
-    url: 'Tenant/GetById?id=' + id,
+    url: 'Tenants/Tenant/GetById?id=' + id,
     method: 'get',
-    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
+    baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -51,10 +51,10 @@ export function getTenantDetail (id) {
    */
 export function setTenantEnable (data) {
   return http({
-    url: 'Tenant/SetEnabledMarktBatchAsync',
+    url: 'Tenants/Tenant/SetEnabledMarktBatchAsync',
     method: 'post',
-    params: data,
-    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
+    data: data,
+    baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
   })
 }
 /**
@@ -63,10 +63,10 @@ export function setTenantEnable (data) {
    */
 export function deleteSoftTenant (data) {
   return http({
-    url: 'Tenant/DeleteSoftBatchAsync',
+    url: 'Tenants/Tenant/DeleteSoftBatchAsync',
     method: 'post',
-    params: data,
-    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
+    data: data,
+    baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
   })
 }
 
@@ -76,9 +76,9 @@ export function deleteSoftTenant (data) {
    */
 export function deleteTenant (data) {
   return http({
-    url: 'Tenant/DeleteBatchAsync',
+    url: 'Tenants/Tenant/DeleteBatchAsync',
     method: 'delete',
-    params: data,
-    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
+    data: data,
+    baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
   })
 }

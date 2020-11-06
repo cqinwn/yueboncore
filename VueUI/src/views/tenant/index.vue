@@ -212,7 +212,6 @@ export default {
         this.editFormTitle = '新增'
         this.currentId = ''
         this.dialogEditFormVisible = true
-        this.$refs['editFrom'].resetFields()
       }
     },
     bindEditInfo: function () {
@@ -276,13 +275,13 @@ export default {
         this.$alert('请先选择要操作的数据', '提示')
         return false
       } else {
-        var currentIds = ''
-        this.currentSelected.forEach((element) => {
-          currentIds += element.Id + ','
+        var currentIds = []
+        this.currentSelected.forEach(element => {
+          currentIds.push(element.Id)
         })
         const data = {
-          ids: currentIds,
-          bltag: val
+          Ids: currentIds,
+          Flag: val
         }
         setTenantEnable(data).then((res) => {
           if (res.Success) {
@@ -306,13 +305,13 @@ export default {
         this.$alert('请先选择要操作的数据', '提示')
         return false
       } else {
-        var currentIds = ''
-        this.currentSelected.forEach((element) => {
-          currentIds += element.Id + ','
+        var currentIds = []
+        this.currentSelected.forEach(element => {
+          currentIds.push(element.Id)
         })
         const data = {
-          ids: currentIds,
-          bltag: val
+          Ids: currentIds,
+          Flag: val
         }
         deleteSoftTenant(data).then((res) => {
           if (res.Success) {
@@ -336,12 +335,12 @@ export default {
         this.$alert('请先选择要操作的数据', '提示')
         return false
       } else {
-        var currentIds = ''
-        this.currentSelected.forEach((element) => {
-          currentIds += element.Id + ','
+        var currentIds = []
+        this.currentSelected.forEach(element => {
+          currentIds.push(element.Id)
         })
         const data = {
-          ids: currentIds
+          Ids: currentIds
         }
         deleteTenant(data).then((res) => {
           if (res.Success) {

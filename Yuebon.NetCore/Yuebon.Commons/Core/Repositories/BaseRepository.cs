@@ -1,19 +1,11 @@
 ﻿using Dapper;
 using Dapper.Contrib.Extensions;
-using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using MySql.Data.MySqlClient;
-using Newtonsoft.Json;
-using Npgsql;
-using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
-using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -22,8 +14,6 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Yuebon.Commons.Core.Dapper;
 using Yuebon.Commons.Core.DataManager;
-using Yuebon.Commons.Dapper;
-using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.IRepositories;
@@ -168,13 +158,6 @@ namespace Yuebon.Commons.Repositories
         {
             get { return _dbContext; }
         }
-        /// <summary>
-        /// 用自定义Dapper封装方法操作数据
-        /// </summary>
-        //public ISqlDapper DapperContext
-        //{
-        //    get { return DBServerProvider.GetSqlDapper<T>(); }
-        //}
 
         /// <summary>
         /// 用Dapper原生方法操作数据
@@ -1369,7 +1352,41 @@ namespace Yuebon.Commons.Repositories
             sql += ",LastModifyTime=@LastModifyTime where " + where;
 
             var param = new List<Tuple<string, object>>();
-            Tuple<string, object> tupel = new Tuple<string, object>(sql, new { @LastModifyTime = lastModifyTime });
+            Tuple<string, object> tupel = new Tuple<string, object>(sql, new { LastModifyTime = lastModifyTime });
+            param.Add(tupel);
+            Tuple<bool, string> result = await ExecuteTransactionAsync(param);
+            return result.Item1;
+        }
+
+        public virtual async Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, object paramparameters = null, string userId = null, IDbTransaction trans = null)
+        {
+            if (HasInjectionData(where))
+            {
+                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
+                throw new Exception("检测出SQL注入的恶意数据");
+            }
+            if (string.IsNullOrEmpty(where))
+            {
+                where = "1=1";
+            }
+            string sql = $"update {tableName} set ";
+            if (bl)
+            {
+                sql += "EnabledMark=1 ";
+            }
+            else
+            {
+                sql += "EnabledMark=0 ";
+            }
+            if (!string.IsNullOrEmpty(userId))
+            {
+                sql += ",LastModifyUserId='" + userId + "'";
+            }
+            DateTime lastModifyTime = DateTime.Now;
+            sql += ",LastModifyTime=@LastModifyTime  " + where;
+
+            var param = new List<Tuple<string, object>>();
+            Tuple<string, object> tupel = new Tuple<string, object>(sql, new { LastModifyTime = lastModifyTime, paramparameters });
             param.Add(tupel);
             Tuple<bool, string> result = await ExecuteTransactionAsync(param);
             return result.Item1;

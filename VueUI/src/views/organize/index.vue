@@ -304,13 +304,13 @@ export default {
         this.$alert('请先选择要操作的数据', '提示')
         return false
       } else {
-        var currentIds = ''
+        var currentIds = []
         this.currentSelected.forEach(element => {
-          currentIds += element.Id + ','
+          currentIds.push(element.Id)
         })
         const data = {
-          ids: currentIds,
-          bltag: val
+          Ids: currentIds,
+          Flag: val
         }
         setOrganizeEnable(data).then(res => {
           if (res.Success) {
@@ -334,13 +334,13 @@ export default {
         this.$alert('请先选择要操作的数据', '提示')
         return false
       } else {
-        var currentIds = ''
+        var currentIds = []
         this.currentSelected.forEach(element => {
-          currentIds += element.Id + ','
+          currentIds.push(element.Id)
         })
         const data = {
-          ids: currentIds,
-          bltag: val
+          Ids: currentIds,
+          Flag: val
         }
         deleteSoftOrganize(data).then(res => {
           if (res.Success) {
@@ -364,12 +364,12 @@ export default {
         this.$alert('请先选择要操作的数据', '提示')
         return false
       } else {
-        var currentIds = ''
+        var currentIds = []
         this.currentSelected.forEach(element => {
-          currentIds += element.Id + ','
+          currentIds.push(element.Id)
         })
         const data = {
-          ids: currentIds
+          Ids: currentIds
         }
         try {
           deleteOrganize(data).then(res => {

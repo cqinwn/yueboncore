@@ -54,7 +54,7 @@ export function setOrganizeEnable (data) {
   return http({
     url: 'Organize/SetEnabledMarktBatchAsync',
     method: 'post',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
@@ -66,7 +66,7 @@ export function deleteSoftOrganize (data) {
   return http({
     url: 'Organize/DeleteSoftBatchAsync',
     method: 'post',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
@@ -79,7 +79,7 @@ export function deleteOrganize (data) {
   return http({
     url: 'Organize/DeleteBatchAsync',
     method: 'delete',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

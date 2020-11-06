@@ -55,7 +55,7 @@ export function setUserEnable (data) {
   return http({
     url: 'User/SetEnabledMarktBatchAsync',
     method: 'post',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
@@ -67,7 +67,7 @@ export function deleteSoftUser (data) {
   return http({
     url: 'User/DeleteSoftBatchAsync',
     method: 'post',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
@@ -80,7 +80,7 @@ export function deleteUser (data) {
   return http({
     url: 'User/DeleteBatchAsync',
     method: 'delete',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

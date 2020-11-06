@@ -17,7 +17,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
     /// 租户接口
     /// </summary>
     [ApiController]
-    [Route("api/Security/[controller]")]
+    [Route("api/Tenants/[controller]")]
     public class TenantController : AreaApiController<Tenant, TenantOutputDto,TenantInputDto,ITenantService,string>
     {
         /// <summary>

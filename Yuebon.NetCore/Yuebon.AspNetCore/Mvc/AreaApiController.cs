@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Dapper;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
@@ -7,6 +9,7 @@ using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.Mvc.Filter;
+using Yuebon.AspNetCore.ViewModel;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Dtos;
 using Yuebon.Commons.IServices;
@@ -186,21 +189,20 @@ namespace Yuebon.AspNetCore.Controllers
         /// <summary>
         /// 异步批量物理删除
         /// </summary>
-        /// <param name="ids">主键Id</param>
+        /// <param name="info"></param>
         [HttpDelete("DeleteBatchAsync")]
         [YuebonAuthorize("Delete")]
-        public virtual async Task<IActionResult> DeleteBatchAsync(TKey ids)
+        public virtual async Task<IActionResult> DeleteBatchAsync(UpdateEnableViewModel info)
         {
             CommonResult result = new CommonResult();
             string where = string.Empty;
             if (typeof(TKey) == typeof(string))
             {
-                string newIds = ids.ToString();
-                where = "id in ('" + newIds.Trim(',').Replace(",", "','") + "')";
+                where = "id in ('" + info.Ids.Join(",").Trim(',').Replace(",", "','") + "')";
             }
             else if (typeof(TKey) == typeof(int))
             {
-                where = "id in ("+ids+")";
+                where = "id in (" + info.Ids.Join(",") + ")";
             }
             if (!string.IsNullOrEmpty(where))
             {
@@ -277,31 +279,29 @@ namespace Yuebon.AspNetCore.Controllers
             return ToJsonContent(result);
         }
 
-
         /// <summary>
         /// 异步批量软删除信息
         /// </summary>
-        /// <param name="ids">主键Id</param>
-        /// <param name="bltag">删除标识，默认为1：即设为删除,0：未删除</param>
+        /// <param name="info"></param>
+        /// <returns></returns>
         [HttpPost("DeleteSoftBatchAsync")]
         [YuebonAuthorize("DeleteSoft")]
-        public virtual async Task<IActionResult> DeleteSoftBatchAsync(TKey ids, string bltag = "1")
+        public virtual async Task<IActionResult> DeleteSoftBatchAsync(UpdateEnableViewModel info)
         {
             CommonResult result = new CommonResult();
             string where = string.Empty;
             if (typeof(TKey) == typeof(string))
             {
-                string newIds = ids.ToString();
-                where = "id in ('" + newIds.Trim(',').Replace(",", "','") + "')";
+                where = "id in ('" + info.Ids.Join(",").Trim(',').Replace(",", "','") + "')";
             }
             else if (typeof(TKey) == typeof(int))
             {
-                where = "id in (" + ids + ")";
+                where = "id in (" + info.Ids.Join(",") + ")";
             }
             if (!string.IsNullOrEmpty(where))
             {
                 bool bl = false;
-                if (bltag == "1")
+                if (info.Flag == "1")
                 {
                     bl = true;
                 }
@@ -382,31 +382,31 @@ namespace Yuebon.AspNetCore.Controllers
         /// <summary>
         /// 异步批量设为数据有效性
         /// </summary>
-        /// <param name="ids">主键Id集合</param>
-        /// <param name="bltag">有效标识，默认为1：即设为无效,0：有效</param>
+        /// <param name="info"></param>
         [HttpPost("SetEnabledMarktBatchAsync")]
         [YuebonAuthorize("Enable")]
-        public virtual async Task<IActionResult> SetEnabledMarktBatchAsync(TKey ids, string bltag = "1")
+        public virtual async Task<IActionResult> SetEnabledMarktBatchAsync(UpdateEnableViewModel info)
         {
             CommonResult result = new CommonResult();
             bool bl = false;
-            if (bltag == "1")
+            if (info.Flag == "1")
             {
                 bl = true;
             }
             string where = string.Empty;
+            var sb = new SqlBuilder();
+
             if (typeof(TKey) == typeof(string))
             {
-                string newIds = ids.ToString();
-                where = "id in ('" + newIds.Trim(',').Replace(",", "','") + "')";
+                where = "id in ('" + info.Ids.Join(",").Replace(",", "','") + "')";
             }
             else if (typeof(TKey) == typeof(int))
             {
-                where = "id in (" + ids + ")";
+                where = "id in (" + info.Ids.Join(",") + ")";
             }
             if (!string.IsNullOrEmpty(where))
             {
-                bool blresut = await iService.SetEnabledMarkByWhereAsync(bl, where, CurrentUser.UserId);
+                bool blresut = await iService.SetEnabledMarkByWhereAsync(bl,where,CurrentUser.UserId);
                 if (blresut)
                 {
                     result.ErrCode = ErrCode.successCode;
@@ -420,6 +420,7 @@ namespace Yuebon.AspNetCore.Controllers
             }
             return ToJsonContent(result);
         }
+
         #endregion
         #region 查询单个实体
         /// <summary>

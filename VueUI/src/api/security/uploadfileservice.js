@@ -22,7 +22,7 @@ export function deleteUploadFile (data) {
   return http({
     url: 'UploadFile/DeleteBatchAsync',
     method: 'delete',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

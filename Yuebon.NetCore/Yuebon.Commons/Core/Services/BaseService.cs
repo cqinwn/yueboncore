@@ -594,7 +594,10 @@ namespace Yuebon.Commons.Services
         {
             return await this.repository.SetEnabledMarkByWhereAsync(bl, where, userId, trans);
         }
-
+        public virtual async Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, object paramparameters = null, string userId = null, IDbTransaction trans = null)
+        {
+            return await this.repository.SetEnabledMarkByWhereAsync(bl, where, paramparameters, userId, trans);
+        }
 
         /// <summary>
         /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)

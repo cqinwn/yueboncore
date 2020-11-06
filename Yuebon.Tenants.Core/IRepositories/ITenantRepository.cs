@@ -1,3 +1,4 @@
+using System;
 using Yuebon.Commons.IRepositories;
 using Yuebon.Tenants.Models;
 

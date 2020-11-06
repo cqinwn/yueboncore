@@ -85,6 +85,7 @@
     <Compile Remove="Extensions\IoCContainerExtensions.cs" />
     <Compile Remove="Extensions\MiddlewareExtensions.cs" />
     <Compile Remove="Extensions\ServiceCollectionExtension.cs" />
+    <Compile Remove="Extensions\SqlBuilder.cs" />
     <Compile Remove="Helpers\BoolNullableConverter.cs" />
     <Compile Remove="Helpers\CacheKey.cs" />
     <Compile Remove="Helpers\RegistryHelper.cs" />
@@ -164,6 +165,7 @@
 
     <PackageReference Include="CSRedisCore" Version="3.6.5" />
     <PackageReference Include="Dapper" Version="2.0.35" />
+    <PackageReference Include="Dapper.SqlBuilder" Version="2.0.35" />
     <PackageReference Include="DotNetCore.NPOI" Version="1.2.2" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.26" />
     <PackageReference Include="log4net" Version="2.0.12" />

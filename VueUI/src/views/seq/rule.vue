@@ -387,7 +387,6 @@ export default {
         this.editFormTitle = '新增'
         this.currentId = ''
         this.dialogEditFormVisible = true
-        this.$refs['editFrom'].resetFields()
       }
     },
     bindEditInfo: function () {
@@ -449,13 +448,13 @@ export default {
         this.$alert('请先选择要操作的数据', '提示')
         return false
       } else {
-        var currentIds = ''
+        var currentIds = []
         this.currentSelected.forEach(element => {
-          currentIds += element.Id + ','
+          currentIds.push(element.Id)
         })
         const data = {
-          ids: currentIds,
-          bltag: val
+          Ids: currentIds,
+          Flag: val
         }
         setSequenceRuleEnable(data).then(res => {
           if (res.Success) {
@@ -479,13 +478,13 @@ export default {
         this.$alert('请先选择要操作的数据', '提示')
         return false
       } else {
-        var currentIds = ''
+        var currentIds = []
         this.currentSelected.forEach(element => {
-          currentIds += element.Id + ','
+          currentIds.push(element.Id)
         })
         const data = {
-          ids: currentIds,
-          bltag: val
+          Ids: currentIds,
+          Flag: val
         }
         deleteSoftSequenceRule(data).then(res => {
           if (res.Success) {
@@ -509,12 +508,12 @@ export default {
         this.$alert('请先选择要操作的数据', '提示')
         return false
       } else {
-        var currentIds = ''
+        var currentIds = []
         this.currentSelected.forEach(element => {
-          currentIds += element.Id + ','
+          currentIds.push(element.Id)
         })
         const data = {
-          ids: currentIds
+          Ids: currentIds
         }
         deleteSequenceRule(data).then(res => {
           if (res.Success) {

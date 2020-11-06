@@ -32,7 +32,7 @@ export function deleteLog (data) {
   return http({
     url: 'Log/DeleteBatchAsync',
     method: 'delete',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

@@ -1,4 +1,3 @@
-using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.Repositories;
 using Yuebon.Tenants.IRepositories;
 using Yuebon.Tenants.Models;
@@ -11,10 +10,6 @@ namespace Yuebon.Tenants.Repositories
     public class TenantRepository : BaseRepository<Tenant, string>, ITenantRepository
     {
 		public TenantRepository()
-        {
-        }
-
-        public TenantRepository(IDbContextCore context) : base(context)
         {
         }
     }

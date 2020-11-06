@@ -301,14 +301,26 @@ namespace Yuebon.WebApi
             IoCContainer.Register(cacheProvider);//注册缓存配置
             IoCContainer.Register(Configuration);//注册配置
             IoCContainer.Register(jwtOption);//注册配置
+            var codeGenerateOption = new CodeGenerateOption
+            {
+                ModelsNamespace = "",
+                IRepositoriesNamespace = "",
+                RepositoriesNamespace = "",
+                IServicsNamespace = "",
+                ServicesNamespace = ""
+            };
+            IoCContainer.Register(codeGenerateOption);//注册代码生成器相关配置信息
             IoCContainer.Register("Yuebon.Commons");
             IoCContainer.Register("Yuebon.AspNetCore");
             IoCContainer.Register("Yuebon.Security.Core");
             IoCContainer.RegisterNew("Yuebon.Security.Core", "Yuebon.Security");
             IoCContainer.Register("Yuebon.Messages.Core");
             IoCContainer.RegisterNew("Yuebon.Messages.Core", "Yuebon.Messages");
+            IoCContainer.Register("Yuebon.Tenants.Core");
+            IoCContainer.RegisterNew("Yuebon.Tenants.Core", "Yuebon.Tenants");
             List<Assembly> myAssembly = new List<Assembly>();
             myAssembly.Add(Assembly.Load("Yuebon.Security.Core"));
+            myAssembly.Add(Assembly.Load("Yuebon.Tenants.Core"));
             services.AddAutoMapper(myAssembly);
             services.AddScoped<IMapper, Mapper>();
 

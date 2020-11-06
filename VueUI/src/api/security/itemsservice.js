@@ -43,7 +43,7 @@ export function setItemsEnable (data) {
   return http({
     url: 'Items/SetEnabledMarktBatchAsync',
     method: 'post',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
@@ -55,7 +55,7 @@ export function deleteSoftItems (data) {
   return http({
     url: 'Items/DeleteSoftBatchAsync',
     method: 'post',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
@@ -68,7 +68,7 @@ export function deleteItems (data) {
   return http({
     url: 'Items/DeleteBatchAsync',
     method: 'delete',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
@@ -128,7 +128,7 @@ export function setItemsDetailEnable (data) {
   return http({
     url: 'ItemsDetail/SetEnabledMarktBatchAsync',
     method: 'post',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
@@ -140,7 +140,7 @@ export function deleteSoftItemsDetail (data) {
   return http({
     url: 'ItemsDetail/DeleteSoftBatchAsync',
     method: 'post',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
@@ -153,7 +153,7 @@ export function deleteItemsDetail (data) {
   return http({
     url: 'ItemsDetail/DeleteBatchAsync',
     method: 'delete',
-    params: data,
+    data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

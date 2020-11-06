@@ -325,8 +325,8 @@ namespace Yuebon.Commons.IServices
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
         Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, string userId = null, IDbTransaction trans = null);
-       
 
+        Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, object paramparameters = null, string userId = null, IDbTransaction trans = null);
         /// <summary>
         /// 查询软删除的数据，如果查询条件为空，即查询所有软删除的数据
         /// </summary>

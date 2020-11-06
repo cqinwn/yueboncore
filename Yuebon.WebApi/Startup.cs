@@ -33,6 +33,7 @@ using System.Text.Unicode;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.Mvc.Filter;
+using Yuebon.Commons.Attributes;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.DbContextCore;
 using Yuebon.Commons.Extensions;
@@ -265,6 +266,7 @@ namespace Yuebon.WebApi
                     options => options.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5)); //设置MemoryCache缓存有效时间为5分钟
             }
             #endregion
+
 
             #region 身份认证授权
 

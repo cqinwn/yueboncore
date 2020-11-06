@@ -9,7 +9,7 @@ using Yuebon.Commons.Core.Dapper;
 namespace Yuebon.Commons.Attributes
 {
     /// <summary>
-    /// 工作单元事务提交接收器
+    /// 工作单元事务提交拦截器
     /// </summary>
     public class UnitOfWorkIInterceptor : IInterceptor
     {

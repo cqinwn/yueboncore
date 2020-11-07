@@ -30,8 +30,8 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>bin\Debug\netcoreapp3.0\</OutputPath>
-    <DocumentationFile>bin\Debug\netcoreapp3.0\Yuebon.AspNetCore.xml</DocumentationFile>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>bin\Debug\Yuebon.AspNetCore.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

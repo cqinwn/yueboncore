@@ -15,37 +15,6 @@ WebApi接口地址：[http://netcoreapi.ts.yuebon.com](http://netcoreapi.ts.yueb
 
 交流QQ群：90311523
 
-### 更新日志
-
-##### 近期更新
-1、新增业务单据编码规则，实现单据编码自定义规则
-
-2、优化批量处理方法
-
-3、升级到最新SDK 3.1.403,ASP.NET Core Runtime 3.1.9
-
-4、实现定时任务模块，支持本地任务和远程接口任务，详情参考[定时任务帮助](https://gitee.com/yuebon/YuebonNetCore/wikis/%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1?sort_id=2926976)
-
-5、实现邮件发送功能
-
-6、修复角色新增必填字段验证
-
-7、修复组织机构新增必填字段验证
-
-8、优化登录返回页面到主页，不在返回登录前页面
-
-9、json序列化和反序列化采用system.text.json，Newtonsoft.Json。
-
-10、定时任务可以设置任务开始和结束时间，通知节点。
-
-11、支持自定义主键，详见[主键设置](https://gitee.com/yuebon/YuebonNetCore/wikis/%E4%B8%BB%E9%94%AE%E8%AE%BE%E7%BD%AE?sort_id=2990249)。
-
-12、支持EF Core，推荐单个数据新增、修改使用，查询使用dapper的方法，详见[EF与Dapper混合使用](https://gitee.com/yuebon/YuebonNetCore/wikis/EF%E4%B8%8EDapper%E6%B7%B7%E5%90%88%E4%BD%BF%E7%94%A8?sort_id=3000217)
-
-13、支持多租户（saas）模式，详见[多租户](https://gitee.com/yuebon/YuebonNetCore/wikis/%E5%A4%9A%E7%A7%9F%E6%88%B7?sort_id=3000208)
-
-更多更新日志 [点击查看](https://gitee.com/yuebon/YuebonNetCore/commits/master)
-
 ##### 新计划
 1、11月份发布支持.net5.0版本，同时更新名称为YBNF（YueBon Net Framework）
 
@@ -56,6 +25,10 @@ WebApi接口地址：[http://netcoreapi.ts.yuebon.com](http://netcoreapi.ts.yueb
 2、3项预计11月底完成
 
 有任何疑问可以在文尾添加作者微信咨询。
+
+### 更新日志
+
+更新日志 [点击查看](https://gitee.com/yuebon/YuebonNetCore/commits/master)
 
 ### 概述
 YuebonCore是基于.NetCore3.1开发的权限管理及快速开发框架，整合应用最新技术包括Asp.NetCore MVC、Dapper、AutoFac、WebAPI、Swagger、EF、Vue等，核心模块包括：组织机构、角色用户、权限授权、多系统、多应用管理、定时任务、业务单据编码规则、代码生成器等。它的架构易于扩展，规范了一套业务实现的代码结构与操作流程，使 YuebonCore框架更易于应用到实际项目开发中。
@@ -102,6 +75,8 @@ Vue版前端技术栈 ：基于vue、vuex、vue-router 、vue-cli 、axios 和 e
 日志管理：Log4net、登录日志、操作日志
 
 工具类：NPOI、验证码、丰富公共功能
+
+性能分析：MiniProfiler组件
 
 ### 项目结构
 Yuebon.NetCore解决方案包含：

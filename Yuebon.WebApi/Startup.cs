@@ -141,6 +141,13 @@ namespace Yuebon.WebApi
                 policy => policy.WithOrigins(Configuration.GetSection("AppSetting:AllowOrigins").Value.Split(',', StringSplitOptions.RemoveEmptyEntries)).AllowAnyHeader().AllowAnyMethod()));
             #endregion
 
+
+            #region MiniProfiler
+            services.AddMiniProfiler(options => {
+                options.RouteBasePath = "/profiler";
+            }).AddEntityFramework();
+            #endregion
+
             #region 控制器
             services.AddControllers().AddJsonOptions(options =>
             {
@@ -167,7 +174,6 @@ namespace Yuebon.WebApi
             services.AddMvcCore()
                 .AddAuthorization().AddApiExplorer();
             #endregion
-            services.AddMiniProfiler().AddEntityFramework();
             services.AddSignalR();//使用 SignalR
             return InitIoC(services);
         }
@@ -189,6 +195,8 @@ namespace Yuebon.WebApi
                 AutoMapperService.UsePack(provider);
                 //加载插件应用
                 LoadMoudleApps(env);
+
+                app.UseMiniProfiler();
                 if (env.IsDevelopment())
                 {
                     app.UseDeveloperExceptionPage();
@@ -204,13 +212,13 @@ namespace Yuebon.WebApi
                 app.UseAuthorization();
                 app.UseMiddleware<CorsMiddleware>();
                 app.UseCors("yuebonCors");
+
                 app.UseEndpoints(endpoints =>
                 {
                     endpoints.MapControllers();
                     endpoints.MapControllerRoute("default", "api/{controller=Home}/{action=Index}/{id?}");
                 });
                 app.UseStatusCodePages();
-                app.UseMiniProfiler();
                 app.UseSwagger();
                 app.UseSwaggerUI(options =>
                 {

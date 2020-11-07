@@ -6,12 +6,13 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>D:\netcorespace\权限管理\Yuebon.WebApi\Yuebon.WebApi.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\Yuebon.WebApi.xml</DocumentationFile>
+    <OutputPath>bin\Release\</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Yuebon.WebApi.xml</DocumentationFile>
-    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>bin\Debug\Yuebon.WebApi.xml</DocumentationFile>
+    <OutputPath>bin\Debug\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,6 +24,10 @@
 
   <ItemGroup>
     <Compile Remove="Controllers\SSOController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="index.html" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,6 +43,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="4.1.1" />
     <PackageReference Include="Quartz.AspNetCore" Version="3.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="wwwroot\swagger\ui\index.html" />
   </ItemGroup>
 
   <ItemGroup>

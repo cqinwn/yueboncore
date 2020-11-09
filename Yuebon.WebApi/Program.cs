@@ -29,11 +29,11 @@ namespace Yuebon.WebApi
         /// <returns></returns>
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-            .ConfigureAppConfiguration(options=> {
+            .ConfigureAppConfiguration(options => {
                 options.AddJsonFile("appsettings.json");
             }).ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+            {
+                webBuilder.UseStartup<Startup>();
+            });
     }
 }

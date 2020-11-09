@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Text;
+using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IoC;
 using Yuebon.Commons.Log;
@@ -139,7 +140,7 @@ namespace Yuebon.Security.Application
                         FilePath = _dbFilePath,
                         Thumbnail = _dbThumbnail,
                         FileName = fileName,
-                        FileSize = file.Length,
+                        FileSize = file.Length.ToInt(),
                         FileType = Path.GetExtension(fileName),
                         Extension = Path.GetExtension(fileName),
                         BelongApp=_belongApp,

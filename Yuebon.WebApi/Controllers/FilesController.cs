@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Text.Json;
 using Yuebon.AspNetCore.Controllers;
 using Yuebon.AspNetCore.Models;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.Extend;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Json;
@@ -33,6 +35,12 @@ namespace Yuebon.WebApi.Controllers
         private string _belongApp;//所属应用
         private string _belongAppId;//所属应用ID 
         private string _fileName;//文件名称
+        private readonly IWebHostEnvironment _hostingEnvironment;
+
+        public FilesController(IWebHostEnvironment hostingEnvironment)
+        {
+            _hostingEnvironment = hostingEnvironment;
+        }
 
         /// <summary>
         ///  单文件上传接口
@@ -103,12 +111,15 @@ namespace Yuebon.WebApi.Controllers
 
                 YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
                 SysSetting sysSetting = (SysSetting)yuebonCacheHelper.Get("SysSetting");
+                string localpath = _hostingEnvironment.WebRootPath;
                 if (uploadFile != null)
                 {
-                    if (System.IO.File.Exists(sysSetting.LocalPath + "/" + uploadFile.FilePath))
-                        System.IO.File.Delete(sysSetting.LocalPath + "/" + uploadFile.FilePath);
-                    if (System.IO.File.Exists(sysSetting.LocalPath + "/" + uploadFile.Thumbnail))
-                        System.IO.File.Delete(sysSetting.LocalPath + "/" + uploadFile.Thumbnail);
+                    string filepath = (localpath + "/" + uploadFile.FilePath).ToFilePath();
+                    if (System.IO.File.Exists(filepath))
+                        System.IO.File.Delete(filepath);
+                    string filepathThu = (localpath + "/" + uploadFile.Thumbnail).ToFilePath();
+                    if (System.IO.File.Exists(filepathThu))
+                        System.IO.File.Delete(filepathThu);
 
                     result.ErrCode = ErrCode.successCode;
                     result.Success = true;
@@ -168,16 +179,14 @@ namespace Yuebon.WebApi.Controllers
                     
                     var data = binaryReader.ReadBytes((int)file.Length);
                     UploadFile(fileName, data);
-
-                    YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                    SysSetting sysSetting = (SysSetting)yuebonCacheHelper.Get("SysSetting");
+                    ;
                     UploadFile filedb = new UploadFile
                     {
                         Id = GuidUtils.CreateNo(),
                         FilePath = _dbFilePath,
                         Thumbnail = _dbThumbnail,
                         FileName = fileName,
-                        FileSize = file.Length,
+                        FileSize = file.Length.ToInt(),
                         FileType = Path.GetExtension(fileName),
                         Extension = Path.GetExtension(fileName),
                         BelongApp = _belongApp,
@@ -185,7 +194,7 @@ namespace Yuebon.WebApi.Controllers
                     };
                     new UploadFileApp().Insert(filedb);
                     UploadFileResultOuputDto uploadFileResultOuputDto = filedb.MapTo<UploadFileResultOuputDto>();
-                    uploadFileResultOuputDto.PhysicsFilePath = sysSetting.LocalPath+"/"+ _dbThumbnail;
+                    uploadFileResultOuputDto.PhysicsFilePath = (_hostingEnvironment.WebRootPath + "/"+ _dbThumbnail).ToFilePath(); ;
                     return uploadFileResultOuputDto;
                 }
             }
@@ -220,7 +229,7 @@ namespace Yuebon.WebApi.Controllers
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
             SysSetting sysSetting = (SysSetting)yuebonCacheHelper.Get("SysSetting");
             string folder = DateTime.Now.ToString("yyyyMMdd");
-            _filePath = sysSetting.LocalPath;
+            _filePath = _hostingEnvironment.WebRootPath;
             var _tempfilepath = sysSetting.Filepath;
 
             if (!string.IsNullOrEmpty(_belongApp))
@@ -262,7 +271,7 @@ namespace Yuebon.WebApi.Controllers
                 {
                     string thumbnailName = newName + "_" + sysSetting.Thumbnailwidth + "x" + sysSetting.Thumbnailheight + ext;
                     ImgHelper.MakeThumbnail(uploadPath + newfileName, uploadPath + thumbnailName, sysSetting.Thumbnailwidth.ToInt(), sysSetting.Thumbnailheight.ToInt());
-                    _dbThumbnail = _tempfilepath + "/" + thumbnailName;
+                    _dbThumbnail = _tempfilepath +  thumbnailName;
                 }
                 _dbFilePath = _tempfilepath + newfileName;
             }

@@ -8,7 +8,7 @@ namespace Yuebon.Commons.Models
     /// 数据模型接口
     /// </summary>
     /// <typeparam name="TKey">实体主键类型</typeparam>
-    public interface IBaseEntity<out TKey>
+    public interface IBaseEntity<out TKey>: IEntity
     {
         /// <summary>
         /// 获取 实体唯一标识，主键

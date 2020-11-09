@@ -1260,6 +1260,11 @@ namespace Yuebon.Commons.Extensions
             }
         }
 
+        public static bool IsImplement(this Type entityType, Type interfaceType)
+        {
+            return /*entityType.IsClass && !entityType.IsAbstract &&*/ entityType.GetTypeInfo().GetInterfaces().Any(t =>
+                t.GetTypeInfo().IsGenericType && t.GetGenericTypeDefinition() == interfaceType);
+        }
         /// <summary>
         /// 将对象转为DataTable
         /// </summary>

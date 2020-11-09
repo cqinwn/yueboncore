@@ -194,7 +194,9 @@ namespace Yuebon.Commons.IoC
             {
                 foreach (var item in _otherAssemblyFrom)
                 {
-                    _builder.RegisterAssemblyTypes(Assembly.LoadFrom(item));
+                    _builder.RegisterAssemblyTypes(Assembly.LoadFrom(item))
+                        .AsImplementedInterfaces()
+                        .InstancePerDependency();
                 }
             }
             if (_types != null)

@@ -101,7 +101,7 @@ namespace Yuebon.WebApi
                 string contactUrl = Configuration.GetSection("SwaggerDoc:ContactUrl").Value;
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    
+
                     Version = Configuration.GetSection("SwaggerDoc:Version").Value,
                     Title = Configuration.GetSection("SwaggerDoc:Title").Value,
                     Description = Configuration.GetSection("SwaggerDoc:Description").Value,
@@ -110,7 +110,7 @@ namespace Yuebon.WebApi
                 });
                 Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.xml").ToList().ForEach(file =>
                 {
-                    options.IncludeXmlComments(file,true);
+                    options.IncludeXmlComments(file, true);
                 });
                 options.DocumentFilter<HiddenApiFilter>(); // 在接口类、方法标记属性 [HiddenApi]，可以阻止【Swagger文档】生成
                 options.OperationFilter<AddResponseHeadersFilter>();
@@ -308,7 +308,7 @@ namespace Yuebon.WebApi
                 };
             });
             #endregion
-            services.AddTransient<IDbContextCore, SqlServerDbContext>(); //注入EF上下文
+            services.AddTransient<IDbContextCore, MySqlDbContext>(); //注入EF上下文
             IoCContainer.Register(cacheProvider);//注册缓存配置
             IoCContainer.Register(Configuration);//注册配置
             IoCContainer.Register(jwtOption);//注册配置
@@ -422,7 +422,7 @@ namespace Yuebon.WebApi
                     catch (Exception ex)
                     {
                         //非.net程序集类型的dll关联load时会报错，这里忽略就可以
-                       Log4NetHelper.Error(ex.Message);
+                        Log4NetHelper.Error(ex.Message);
                     }
                 }
                 // 从 Shadow Copy 目录加载 Assembly 并注册到 Mvc 中

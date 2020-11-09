@@ -1,5 +1,4 @@
 using Dapper;
-using Dapper.Contrib.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -31,10 +30,6 @@ namespace Yuebon.Security.Repositories
         /// </summary>
         public LogRepository()
         {
-        }
-        public LogRepository(DbContextFactory factory)
-        {
-
         }
 
         /// <summary>
@@ -113,7 +108,7 @@ namespace Yuebon.Security.Repositories
 
             stopwatch.Start();
 
-            DapperConn.Insert<Log>(logEntity1);
+            //DapperConn.Insert<Log>(logEntity1);
             stopwatch.Stop();
             sb.Append("Dapper 单条数据插入Insert耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
             stopwatch1.Start();

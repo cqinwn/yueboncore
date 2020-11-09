@@ -26,14 +26,6 @@ using static Dapper.SqlMapper;
 namespace Yuebon.Commons.Repositories
 {
     /// <summary>
-    /// 定义一个记录操作日志的事件处理
-    /// </summary>
-    /// <param name="tableName">操作表名称</param>
-    /// <param name="operationType">操作类型：增加、修改、删除、软删除</param>
-    /// <param name="note">操作的详细记录信息</param>
-    /// <returns></returns>
-    public delegate bool OperationLogEventHandler(string tableName, string operationType, string note);
-    /// <summary>
     /// 泛型仓储，实现泛型仓储接口
     /// </summary>
     /// <typeparam name="T">实体类型</typeparam>
@@ -169,7 +161,8 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual T Get(TKey primaryKey)
         {
-            return DapperConn.Get<T>(primaryKey);
+            //return DapperConn.Get<T>(primaryKey);
+            return DbContext.Find<T>(primaryKey);
         }
         /// <summary>
         /// 异步根据id获取一个对象
@@ -178,7 +171,8 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual async  Task<T> GetAsync(TKey primaryKey)
         {
-            return await DapperConn.GetAsync<T>(primaryKey);
+            //return await DapperConn.GetAsync<T>(primaryKey);
+            return DbContext.Find<T>(primaryKey);
         }
 
         /// <summary>
@@ -918,7 +912,7 @@ namespace Yuebon.Commons.Repositories
             {
                 entity.GenerateDefaultKeyVal();
             }
-            return await DbContext.AddAsync<T>(entity);
+            return await DapperConn.InsertAsync<T>(entity);
         }
         
         /// <summary>

@@ -164,7 +164,7 @@ namespace Yuebon.Commons.DbContextCore
                     .Where(type => !string.IsNullOrWhiteSpace(type.Namespace))
                     .Where(type => type.IsClass)
                     .Where(type => type.BaseType != null)
-                    .Where(type => typeof(Entity).IsAssignableFrom(type));
+                    .Where(type => typeof(Entity).IsAssignableFrom(type) || type.IsSubclassOf(typeof(BaseViewModel)));
 
                 foreach (var entityType in entityTypes)
                 {

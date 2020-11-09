@@ -16,89 +16,108 @@ namespace Yuebon.Security.Dtos
         /// </summary>
         [MaxLength(50)]
         public string Id { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取名称
         /// </summary>
         [MaxLength(50)]
         public string SequenceName { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取分隔符
         /// </summary>
         [MaxLength(50)]
         public string SequenceDelimiter { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取序号重置规则
         /// </summary>
         [MaxLength(50)]
         public string SequenceReset { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取步长
         /// </summary>
         public int Step { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取当前值
         /// </summary>
         public int CurrentNo { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取当前编码
         /// </summary>
         [MaxLength(200)]
         public string CurrentCode { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取当前重置依赖
         /// </summary>
         [MaxLength(50)]
         public string CurrentReset { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取 
         /// </summary>
         [MaxLength(200)]
         public string Description { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取是否可用
         /// </summary>
         public bool? EnabledMark { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取删除标记
         /// </summary>
         public bool? DeleteMark { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取创建时间
         /// </summary>
         public DateTime? CreatorTime { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取创建人
         /// </summary>
         [MaxLength(50)]
         public string CreatorUserId { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取创建人组织
         /// </summary>
         [MaxLength(50)]
         public string CompanyId { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取部门
         /// </summary>
         [MaxLength(50)]
         public string DeptId { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取修改时间
         /// </summary>
         public DateTime? LastModifyTime { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取修改人
         /// </summary>
         [MaxLength(50)]
         public string LastModifyUserId { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取删除时间
         /// </summary>
         public DateTime? DeleteTime { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取删除人
         /// </summary>
         [MaxLength(50)]
         public string DeleteUserId { get; set; }
-
+
+
     }
 }

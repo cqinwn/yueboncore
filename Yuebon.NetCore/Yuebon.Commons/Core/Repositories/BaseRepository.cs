@@ -162,7 +162,7 @@ namespace Yuebon.Commons.Repositories
         public virtual T Get(TKey primaryKey)
         {
             //return DapperConn.Get<T>(primaryKey);
-            return DbContext.Find<T>(primaryKey);
+            return DbContext.Find<T,TKey>(primaryKey);
         }
         /// <summary>
         /// 异步根据id获取一个对象

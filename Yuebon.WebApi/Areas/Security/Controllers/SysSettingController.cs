@@ -70,6 +70,8 @@ namespace Yuebon.WebApi.Areas.Security
             try
             {
                 SysSetting sysSetting = XmlConverter.Deserialize<SysSetting>("xmlconfig/sys.config");
+                YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+                yuebonCacheHelper.Add("SysSetting", sysSetting);
                 DashboardOutModel dashboardOutModel = new DashboardOutModel();
                 dashboardOutModel.CertificatedCompany = sysSetting.CompanyName;
                 dashboardOutModel.WebUrl = sysSetting.WebUrl;

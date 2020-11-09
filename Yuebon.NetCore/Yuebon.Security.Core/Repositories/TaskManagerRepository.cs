@@ -18,6 +18,10 @@ namespace Yuebon.Security.Repositories
 		public TaskManagerRepository()
         {
         }
+        /// <summary>
+        /// EF 数据操作注入
+        /// </summary>
+        /// <param name="context"></param>
         public TaskManagerRepository(IDbContextCore context) : base(context)
         {
         }

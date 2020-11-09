@@ -10,6 +10,7 @@ using System.Threading;
 using Dapper;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using StackExchange.Profiling.Data;
 #if NETSTANDARD1_3
 using DataException = System.InvalidOperationException;
 #endif
@@ -549,14 +550,25 @@ namespace Dapper.Contrib.Extensions
         /// </summary>
         public static GetDatabaseTypeDelegate GetDatabaseType;
 
+        /// <summary>
+        /// 适配数据类型
+        /// 2020-11-09 集成MiniProfiler
+        /// </summary>
+        /// <param name="connection"></param>
+        /// <returns></returns>
         private static ISqlAdapter GetFormatter(IDbConnection connection)
         {
             var name = GetDatabaseType?.Invoke(connection).ToLower()
                        ?? connection.GetType().Name.ToLower();
-
+            if (name == "profileddbconnection")
+            {
+                ProfiledDbConnection pconn = (ProfiledDbConnection)connection;
+                name = pconn.WrappedConnection.GetType().Name.ToLower();
+            }
             return !AdapterDictionary.ContainsKey(name)
                 ? DefaultAdapter
                 : AdapterDictionary[name];
+
         }
 
         private static class ProxyGenerator
@@ -885,6 +897,8 @@ public partial class MySqlAdapter : ISqlAdapter
 {
     /// <summary>
     /// Inserts <paramref name="entityToInsert"/> into the database, returning the Id of the row created.
+    /// 
+    /// 2020-11-09 影响行数改为Select ROW_COUNT()
     /// </summary>
     /// <param name="connection">The connection to use.</param>
     /// <param name="transaction">The transaction to use.</param>
@@ -899,7 +913,7 @@ public partial class MySqlAdapter : ISqlAdapter
     {
         var cmd = $"insert into {tableName} ({columnList}) values ({parameterList})";
         connection.Execute(cmd, entityToInsert, transaction, commandTimeout);
-        var r = connection.Query("Select LAST_INSERT_ID() id", transaction: transaction, commandTimeout: commandTimeout);
+        var r = connection.Query("Select ROW_COUNT() id", transaction: transaction, commandTimeout: commandTimeout);
 
         var id = r.First().id;
         if (id == null) return 0;

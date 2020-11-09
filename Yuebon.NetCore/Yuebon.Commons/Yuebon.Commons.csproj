@@ -90,6 +90,7 @@
     <Compile Remove="Helpers\CacheKey.cs" />
     <Compile Remove="Helpers\RegistryHelper.cs" />
     <Compile Remove="IoC\AspectCoreContainer.cs" />
+    <Compile Remove="IoC\AutofacModuleRegister.cs" />
     <Compile Remove="Mapping\AutoMapperModule.cs" />
     <Compile Remove="Mapping\IAutoMapperConfiguration.cs" />
     <Compile Remove="Mapping\IMapFromAttributeTypeFinder.cs" />
@@ -159,6 +160,8 @@
 
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
 
+    <PackageReference Include="Autofac.Extras.DynamicProxy" Version="6.0.0" />
+
     <PackageReference Include="AutoMapper" Version="10.1.1" />
 
     <PackageReference Include="Castle.Core" Version="4.4.1" />
@@ -167,7 +170,7 @@
     <PackageReference Include="Dapper" Version="2.0.35" />
     <PackageReference Include="Dapper.SqlBuilder" Version="2.0.35" />
     <PackageReference Include="DotNetCore.NPOI" Version="1.2.2" />
-    <PackageReference Include="HtmlAgilityPack" Version="1.11.26" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.27" />
     <PackageReference Include="log4net" Version="2.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="3.1.9" />

@@ -27,6 +27,19 @@
           "lib/netstandard2.1/Autofac.Extensions.DependencyInjection.dll": {}
         }
       },
+      "Autofac.Extras.DynamicProxy/6.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Autofac": "6.0.0",
+          "Castle.Core": "4.4.0"
+        },
+        "compile": {
+          "lib/netstandard2.1/Autofac.Extras.DynamicProxy.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Autofac.Extras.DynamicProxy.dll": {}
+        }
+      },
       "AutoMapper/10.1.1": {
         "type": "package",
         "dependencies": {
@@ -191,7 +204,7 @@
           "lib/netstandard2.0/Google.Protobuf.dll": {}
         }
       },
-      "HtmlAgilityPack/1.11.26": {
+      "HtmlAgilityPack/1.11.27": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/HtmlAgilityPack.dll": {}
@@ -3964,6 +3977,24 @@
         "lib/netstandard2.1/Autofac.Extensions.DependencyInjection.xml"
       ]
     },
+    "Autofac.Extras.DynamicProxy/6.0.0": {
+      "sha512": "Z86ZX33qYZ09xhdnYEyD/xilGUQBiITSAdHVZw59Qb+bN+tN/WFVDBZGQZZnI3+l8+hdjM2zWdcK4sgUEavRzw==",
+      "type": "package",
+      "path": "autofac.extras.dynamicproxy/6.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "autofac.extras.dynamicproxy.6.0.0.nupkg.sha512",
+        "autofac.extras.dynamicproxy.nuspec",
+        "icon.png",
+        "lib/netstandard2.0/Autofac.Extras.DynamicProxy.dll",
+        "lib/netstandard2.0/Autofac.Extras.DynamicProxy.pdb",
+        "lib/netstandard2.0/Autofac.Extras.DynamicProxy.xml",
+        "lib/netstandard2.1/Autofac.Extras.DynamicProxy.dll",
+        "lib/netstandard2.1/Autofac.Extras.DynamicProxy.pdb",
+        "lib/netstandard2.1/Autofac.Extras.DynamicProxy.xml"
+      ]
+    },
     "AutoMapper/10.1.1": {
       "sha512": "uMgbqOdu9ZG5cIOty0C85hzzayBH2i9BthnS5FlMqKtMSHDv4ts81a2jS1VFaDBVhlBeIqJ/kQKjQY95BZde9w==",
       "type": "package",
@@ -4162,14 +4193,14 @@
         "lib/netstandard2.0/Google.Protobuf.xml"
       ]
     },
-    "HtmlAgilityPack/1.11.26": {
-      "sha512": "e0L7s+cj4MapB8hpL8sakwTSwX/cngBCcNfCT8/2v1IRXoly/hrt3FjkzGmgsjMHlO50whSGmRbDhEiUudd3tQ==",
+    "HtmlAgilityPack/1.11.27": {
+      "sha512": "FfOBqhAkiwfA4/3OYDQ+ecZRzeZpXNlInw6IopGPBMVhX2EzemGxO+ay4B2NYIrt+7bthYWkyRpX3vljDXZKbg==",
       "type": "package",
-      "path": "htmlagilitypack/1.11.26",
+      "path": "htmlagilitypack/1.11.27",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "htmlagilitypack.1.11.26.nupkg.sha512",
+        "htmlagilitypack.1.11.27.nupkg.sha512",
         "htmlagilitypack.nuspec",
         "lib/Net35/HtmlAgilityPack.dll",
         "lib/Net35/HtmlAgilityPack.pdb",
@@ -11681,12 +11712,13 @@
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 8.1.0",
       "Autofac >= 6.0.0",
       "Autofac.Extensions.DependencyInjection >= 7.1.0",
+      "Autofac.Extras.DynamicProxy >= 6.0.0",
       "CSRedisCore >= 3.6.5",
       "Castle.Core >= 4.4.1",
       "Dapper >= 2.0.35",
       "Dapper.SqlBuilder >= 2.0.35",
       "DotNetCore.NPOI >= 1.2.2",
-      "HtmlAgilityPack >= 1.11.26",
+      "HtmlAgilityPack >= 1.11.27",
       "Microsoft.AspNetCore.Mvc >= 2.2.0",
       "Microsoft.Data.Sqlite >= 3.1.9",
       "Microsoft.EntityFrameworkCore >= 3.1.9",
@@ -11770,6 +11802,10 @@
             "target": "Package",
             "version": "[7.1.0, )"
           },
+          "Autofac.Extras.DynamicProxy": {
+            "target": "Package",
+            "version": "[6.0.0, )"
+          },
           "CSRedisCore": {
             "target": "Package",
             "version": "[3.6.5, )"
@@ -11792,7 +11828,7 @@
           },
           "HtmlAgilityPack": {
             "target": "Package",
-            "version": "[1.11.26, )"
+            "version": "[1.11.27, )"
           },
           "Microsoft.AspNetCore.Mvc": {
             "target": "Package",

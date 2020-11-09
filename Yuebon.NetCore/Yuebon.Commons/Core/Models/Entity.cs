@@ -7,7 +7,7 @@ namespace Yuebon.Commons.Models
     /// <summary>
     /// 实体基类
     /// </summary>
-    public abstract class Entity
+    public abstract class Entity:IEntity
     {
         /// <summary>
         /// 判断主键是否为空

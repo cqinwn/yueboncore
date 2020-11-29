@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Yuebon.AspNetCore.Controllers;
 using Yuebon.AspNetCore.Models;
@@ -6,6 +7,7 @@ using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.ViewModel;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Extensions;
+using Yuebon.Commons.Json;
 using Yuebon.Commons.Models;
 using Yuebon.Security.Application;
 using Yuebon.Security.Dtos;
@@ -47,7 +49,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                     if (string.IsNullOrEmpty(item.ToString())) continue;
                     UploadFile uploadFile = new UploadFileApp().Get(item.ToString());
                     YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                    SysSetting sysSetting = (SysSetting)yuebonCacheHelper.Get("SysSetting");
+                    SysSetting sysSetting = JsonSerializer.Deserialize<SysSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
                     if (uploadFile != null)
                     {
                         if (System.IO.File.Exists(sysSetting.LocalPath + "/" + uploadFile.FilePath))

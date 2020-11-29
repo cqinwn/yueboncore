@@ -16,13 +16,13 @@ WebApi接口地址：[http://netcoreapi.ts.yuebon.com](http://netcoreapi.ts.yueb
 交流QQ群：90311523
 
 ##### 新计划
-1、11月份发布支持.net5.0版本，同时更新名称为YBNF（YueBon Net Framework）
+1、12月份更名，大家一起来想一个响亮的名字
 
 2、集成工作流
 
 3、实现表单
 
-2、3项预计11月底完成
+2、3项预计12月完成
 
 有任何疑问可以在文尾添加作者微信咨询。
 
@@ -31,13 +31,13 @@ WebApi接口地址：[http://netcoreapi.ts.yuebon.com](http://netcoreapi.ts.yueb
 更新日志 [点击查看](https://gitee.com/yuebon/YuebonNetCore/commits/master)
 
 ### 概述
-YuebonCore是基于.NetCore3.1开发的权限管理及快速开发框架，整合应用最新技术包括Asp.NetCore MVC、Dapper、AutoFac、WebAPI、Swagger、EF、Vue等，核心模块包括：组织机构、角色用户、权限授权、多系统、多应用管理、定时任务、业务单据编码规则、代码生成器等。它的架构易于扩展，规范了一套业务实现的代码结构与操作流程，使 YuebonCore框架更易于应用到实际项目开发中。
+YuebonCore是基于.Net5.0开发的权限管理及快速开发框架，整合应用最新技术包括Asp.NetCore MVC、Dapper、AutoFac、WebAPI、Swagger、EF、Vue等，核心模块包括：组织机构、角色用户、权限授权、多系统、多应用管理、定时任务、业务单据编码规则、代码生成器等。它的架构易于扩展，规范了一套业务实现的代码结构与操作流程，使 YuebonCore框架更易于应用到实际项目开发中。
 
 YuebonCore FW其核心设计目标是开发迅速、代码量少、学习简单、功能强大、轻量级、易扩展，让Web开发更快速、简单，解决70%重复工作。轻松开发，专注您的业务，从YuebonCore FW开始！
 
 ### 项目简介
 
-YuebonCore是一套基于NetCore3.1 开发出来的框架，源代码完全开源！目前发布了Vue单页面版和mvc版两个版本，开发者可以根据自己的喜好选择。
+YuebonCore是一套基于Net5.0 开发出来的框架，源代码完全开源！目前发布了Vue单页面版和mvc版两个版本，开发者可以根据自己的喜好选择。
 
 使用 MIT 协议，采用主流框架，容易上手，简单易学，学习成本低。可完全实现二次开发、基本满足80%项目需求。
 
@@ -62,7 +62,7 @@ Vue版前端技术栈 ：基于vue、vuex、vue-router 、vue-cli 、axios 和 e
 
 #### 后端技术
 
-核心框架：.NetCore3.1 + Web API + Dapper + EF + autofac + AutoMapper+swagger
+核心框架：.Net5.0 + Web API + Dapper + EF + autofac + AutoMapper+swagger
 
 定时计划任务：Quartz.Net组件
 

@@ -101,8 +101,8 @@ namespace Yuebon.AspNetCore.Mvc
                         List<Claim> claimlist = result.ResData as List<Claim>;
                         string userId = claimlist[3].Value;
                         YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                        var user = (YuebonCurrentUser)(yuebonCacheHelper.Get("login_user_" + userId));
-                       
+                        var user = JsonSerializer.Deserialize<YuebonCurrentUser>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
+
                         if (user == null)
                         {
                             result.ErrCode = "40008";

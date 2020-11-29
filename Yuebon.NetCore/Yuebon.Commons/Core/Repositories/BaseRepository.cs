@@ -196,8 +196,10 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += " where " + where;
             }
-            return DbContext.GetDbSet<T>().FromSqlRaw<T>(sql).FirstOrDefault<T>();
-           
+            // return DbContext.GetDbSet<T>().FromSqlRaw<T>(sql).FirstOrDefault<T>();
+
+            return DapperConn.QueryFirstOrDefault<T>(sql);
+
         }
         /// <summary>
         /// 根据条件异步获取一个对象

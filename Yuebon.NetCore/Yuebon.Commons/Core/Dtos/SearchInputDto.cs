@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 using Yuebon.Commons.Pages;
 
@@ -9,6 +10,7 @@ namespace Yuebon.Commons.Dtos
     /// 查询条件公共实体类
     /// </summary>
     [Serializable]
+    [DataContract]
     public class SearchInputDto<T> : PagerInfo
     {
         /// <summary>

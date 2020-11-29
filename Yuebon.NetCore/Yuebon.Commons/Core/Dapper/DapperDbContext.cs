@@ -119,15 +119,8 @@ namespace Yuebon.Commons.Core.Dapper
                 Connection.Dispose();
             }
         }
-
-        // TODO: 仅当以上 Dispose(bool disposing) 拥有用于释放未托管资源的代码时才替代终结器。
-        // ~BaseRepository() {
-        //   // 请勿更改此代码。将清理代码放入以上 Dispose(bool disposing) 中。
-        //   Dispose(false);
-        // }
-
         /// <summary>
-        /// 
+        /// 仅当以上 Dispose(bool disposing) 拥有用于释放未托管资源的代码时才替代终结器。
         /// </summary>
         public void Dispose()
         {

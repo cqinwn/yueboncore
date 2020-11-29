@@ -1,6 +1,7 @@
 using Dapper;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Text;
@@ -35,9 +36,13 @@ namespace Yuebon.Security.Repositories
             {
                 sql += " where " + where;
             }
-
-            IEnumerable<String> resultList = DapperConn.Query<String>(sql);
-            return resultList.ToList();
+            using (IDbConnection connection = DapperConn)
+            {
+                bool isClosed = connection.State == ConnectionState.Closed;
+                if (isClosed) connection.Open();
+                IEnumerable<String> resultList = connection.Query<String>(sql);
+                return resultList.ToList();
+            }
         }
 
     }

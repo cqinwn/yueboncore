@@ -139,6 +139,8 @@ namespace Yuebon.WebApi
             #region 全局设置跨域访问
             services.AddCors(options => options.AddPolicy("yuebonCors",
                 policy => policy.WithOrigins(Configuration.GetSection("AppSetting:AllowOrigins").Value.Split(',', StringSplitOptions.RemoveEmptyEntries)).AllowAnyHeader().AllowAnyMethod()));
+
+
             #endregion
 
 
@@ -183,10 +185,7 @@ namespace Yuebon.WebApi
         /// </summary>
         /// <param name="app"></param>
         /// <param name="env"></param>
-        /// <param name="senparcSetting"></param>
-        /// <param name="senparcWeixinSetting"></param>
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
-                IOptions<SenparcSetting> senparcSetting, IOptions<SenparcWeixinSetting> senparcWeixinSetting)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (app != null)
             {

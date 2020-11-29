@@ -5,10 +5,12 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Dtos;
 using Yuebon.Commons.Helpers;
+using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Net;
@@ -119,7 +121,7 @@ namespace Yuebon.Security.Services
                 string userId = claimlist[0].Value;
                 YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
                 YuebonCurrentUser CurrentUser = new YuebonCurrentUser();
-                var user = (YuebonCurrentUser)(yuebonCacheHelper.Get("login_user_" + userId));
+                var user = JsonSerializer.Deserialize<YuebonCurrentUser>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
                 if (user != null)
                 {
                     CurrentUser = user;

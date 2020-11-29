@@ -1152,6 +1152,10 @@ namespace Yuebon.Commons.Extensions
             return timeStamp.Substring(0, timeStamp.Length - 7);
         }
 
+        public static string Join(this IEnumerable<object> source, string separator)
+        {
+            return string.Join(separator, source);
+        }
         private static Regex MobileRegex = new Regex("^1[3|4|5|7|8][0-9]\\d{4,8}$");
         private static Regex EmailRegex = new Regex("^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\\.[a-zA-Z0-9_-]{2,3}){1,2})$");
 

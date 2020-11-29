@@ -71,6 +71,7 @@ namespace Yuebon.WebApi.Controllers
         /// <returns>返回用户User对象</returns>
         [HttpGet("GetCheckUser")]
         [NoPermissionRequired]
+        [AllowAnonymous]
         public async Task<IActionResult> GetCheckUser(string username, string password, string vcode,string vkey, string appId,string systemCode)
         {
 

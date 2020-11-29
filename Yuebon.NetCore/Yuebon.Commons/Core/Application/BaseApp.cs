@@ -43,7 +43,7 @@ namespace Yuebon.Commons.Application
         /// </summary>
         /// <param name="entity">实体</param>
         /// <returns></returns>
-        public bool Delete(T entity)
+        public virtual bool Delete(T entity)
         {
             return service.Delete(entity, null);
         }
@@ -52,7 +52,7 @@ namespace Yuebon.Commons.Application
         /// </summary>
         /// <param name="id">主键</param>
         /// <returns></returns>
-        public bool Delete(Tkey id)
+        public virtual bool Delete(Tkey id)
         {
             return service.Delete(id, null);
         }
@@ -62,7 +62,7 @@ namespace Yuebon.Commons.Application
         /// </summary>
         /// <param name="id">主键</param>
         /// <returns></returns>
-        public Task<bool> DeleteAsync(Tkey id)
+        public virtual Task<bool> DeleteAsync(Tkey id)
         {
             return service.DeleteAsync(id, null);
         }
@@ -73,7 +73,7 @@ namespace Yuebon.Commons.Application
         /// </summary>
         /// <param name="entity">实体</param>
         /// <returns></returns>
-        public Task<bool> DeleteAsync(T entity)
+        public virtual Task<bool> DeleteAsync(T entity)
         {
             return service.DeleteAsync(entity, null);
         }
@@ -83,7 +83,7 @@ namespace Yuebon.Commons.Application
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public bool DeleteBatch(IList<dynamic> ids)
+        public virtual bool DeleteBatch(IList<dynamic> ids)
         {
             return service.DeleteBatch(ids, null);
         }
@@ -94,7 +94,7 @@ namespace Yuebon.Commons.Application
         /// </summary>
         /// <param name="where">条件</param>
         /// <returns></returns>
-        public bool DeleteBatchWhere(string where)
+        public virtual bool DeleteBatchWhere(string where)
         {
             return service.DeleteBatchWhere(where, null);
         }
@@ -105,7 +105,7 @@ namespace Yuebon.Commons.Application
         /// <param name="id">主键ID</param>
         /// <param name="userId">操作用户</param>
         /// <returns></returns>
-        public bool DeleteSoft(bool bl, Tkey id, string userId)
+        public virtual bool DeleteSoft(bool bl, Tkey id, string userId)
         {
             return service.DeleteSoft(bl, id, userId, null);
         }
@@ -117,7 +117,7 @@ namespace Yuebon.Commons.Application
         /// <param name="id">主键ID</param>
         /// <param name="userId">操作用户</param>
         /// <returns></returns>
-        public Task<bool> DeleteSoftAsync(bool bl, Tkey id, string userId)
+        public virtual Task<bool> DeleteSoftAsync(bool bl, Tkey id, string userId)
         {
             return service.DeleteSoftAsync(bl, id, userId, null);
         }
@@ -126,7 +126,7 @@ namespace Yuebon.Commons.Application
         /// </summary>
         /// <param name="id">主键</param>
         /// <returns></returns>
-        public T Get(Tkey id)
+        public virtual T Get(Tkey id)
         {
             return service.Get(id);
         }
@@ -135,7 +135,7 @@ namespace Yuebon.Commons.Application
         /// </summary>
         /// <param name="where">查询条件</param>
         /// <returns></returns>
-        public T GetWhere(string where)
+        public virtual T GetWhere(string where)
         {
             return service.GetWhere(where, null);
         }
@@ -145,7 +145,7 @@ namespace Yuebon.Commons.Application
         /// </summary>
         /// <param name="where">查询条件</param>
         /// <returns></returns>
-        public async Task<T> GetWhereAsync(string where)
+        public virtual async Task<T> GetWhereAsync(string where)
         {
             return await service.GetWhereAsync(where, null);
         }
@@ -156,7 +156,7 @@ namespace Yuebon.Commons.Application
         /// <param name="top">多少条数据</param>
         /// <param name="where">查询条件</param>
         /// <returns></returns>
-        public IEnumerable<T> GetListTopWhere(int top, string where = null)
+        public virtual IEnumerable<T> GetListTopWhere(int top, string where = null)
         {
             return service.GetListTopWhere(top, where);
         }
@@ -164,7 +164,7 @@ namespace Yuebon.Commons.Application
         /// 同步查询所有实体。
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             return service.GetAll(null);
         }
@@ -173,7 +173,7 @@ namespace Yuebon.Commons.Application
         /// 异步步查询所有实体。
         /// </summary>
         /// <returns></returns>
-        public Task<IEnumerable<T>> GetAllAsync()
+        public virtual Task<IEnumerable<T>> GetAllAsync()
         {
             return service.GetAllAsync(null);
         }
@@ -182,7 +182,7 @@ namespace Yuebon.Commons.Application
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Task<T> GetAsync(Tkey id)
+        public virtual Task<T> GetAsync(Tkey id)
         {
             return service.GetAsync(id);
         }
@@ -192,7 +192,7 @@ namespace Yuebon.Commons.Application
         /// <param name="where">查询条件</param>
         /// <returns></returns>
 
-        public IEnumerable<T> GetListWhere(string where = null)
+        public virtual IEnumerable<T> GetListWhere(string where = null)
         {
             return service.GetListWhere(where, null);
         }
@@ -201,7 +201,7 @@ namespace Yuebon.Commons.Application
         /// </summary>
         /// <param name="where">查询条件</param>
         /// <returns></returns>
-        public async Task<IEnumerable<T>> GetListWhereAsync(string where = null)
+        public virtual async Task<IEnumerable<T>> GetListWhereAsync(string where = null)
         {
             return await service.GetListWhereAsync(where, null);
         }
@@ -210,7 +210,7 @@ namespace Yuebon.Commons.Application
         /// </summary>
         /// <param name="entity">实体</param>
         /// <returns></returns>
-        public long Insert(T entity)
+        public virtual long Insert(T entity)
         {
             return service.Insert(entity, null);
         }
@@ -220,7 +220,7 @@ namespace Yuebon.Commons.Application
         /// </summary>
         /// <param name="entity">实体</param>
         /// <returns></returns>
-        public Task<long> InsertAsync(T entity)
+        public virtual Task<long> InsertAsync(T entity)
         {
             return service.InsertAsync(entity, null);
         }
@@ -230,7 +230,7 @@ namespace Yuebon.Commons.Application
         /// <param name="entity">实体</param>
         /// <param name="id">主键ID</param>
         /// <returns></returns>
-        public bool Update(T entity, Tkey id)
+        public virtual bool Update(T entity, Tkey id)
         {
             return service.Update(entity, id, null);
         }
@@ -240,7 +240,7 @@ namespace Yuebon.Commons.Application
         /// </summary>
         /// <param name="entities">实体集合</param>
         /// <returns></returns>
-        public bool Update(List<T> entities)
+        public virtual bool Update(List<T> entities)
         {
             return service.Update(entities, null);
         }
@@ -251,7 +251,7 @@ namespace Yuebon.Commons.Application
         /// <param name="entity">实体</param>
         /// <param name="id">主键ID</param>
         /// <returns></returns>
-        public Task<bool> UpdateAsync(T entity, Tkey id)
+        public virtual Task<bool> UpdateAsync(T entity, Tkey id)
         {
             return service.UpdateAsync(entity, id, null);
         }
@@ -261,7 +261,7 @@ namespace Yuebon.Commons.Application
         /// </summary>
         /// <param name="entities">实体集合</param>
         /// <returns></returns>
-        public Task<bool> UpdateAsync(List<T> entities)
+        public virtual Task<bool> UpdateAsync(List<T> entities)
         {
             return service.UpdateAsync(entities, null);
         }
@@ -274,7 +274,7 @@ namespace Yuebon.Commons.Application
         /// <param name="fieldValue">字段值</param>
         /// <param name="where">条件,为空更新所有内容</param>
         /// <returns></returns>
-        public bool UpdateTableField(string strField, string fieldValue, string where)
+        public virtual bool UpdateTableField(string strField, string fieldValue, string where)
         {
 
             return service.UpdateTableField(strField, fieldValue, where, null);
@@ -285,7 +285,7 @@ namespace Yuebon.Commons.Application
         /// </summary>
         /// <param name="where">查询条件</param>
         /// <returns></returns>
-        public IEnumerable<T> GetAllByIsDeleteMark(string where = null)
+        public virtual IEnumerable<T> GetAllByIsDeleteMark(string where = null)
         {
             return service.GetAllByIsDeleteMark(where, null);
         }
@@ -295,7 +295,7 @@ namespace Yuebon.Commons.Application
         /// </summary>
         /// <param name="where">查询条件</param>
         /// <returns></returns>
-        public IEnumerable<T> GetAllByIsNotDeleteMark(string where = null)
+        public virtual IEnumerable<T> GetAllByIsNotDeleteMark(string where = null)
         {
             return service.GetAllByIsNotDeleteMark(where, null);
         }
@@ -305,7 +305,7 @@ namespace Yuebon.Commons.Application
         /// </summary>
         /// <param name="where">查询条件</param>
         /// <returns></returns>
-        public IEnumerable<T> GetAllByIsEnabledMark(string where = null)
+        public virtual IEnumerable<T> GetAllByIsEnabledMark(string where = null)
         {
             return service.GetAllByIsEnabledMark(where, null);
         }
@@ -315,7 +315,7 @@ namespace Yuebon.Commons.Application
         /// </summary>
         /// <param name="where">查询条件</param>
         /// <returns></returns>
-        public IEnumerable<T> GetAllByIsNotEnabledMark(string where = null)
+        public virtual IEnumerable<T> GetAllByIsNotEnabledMark(string where = null)
         {
             return service.GetAllByIsNotEnabledMark(where, null);
         }
@@ -324,7 +324,7 @@ namespace Yuebon.Commons.Application
         /// </summary>
         /// <param name="where">查询条件</param>
         /// <returns></returns>
-        public IEnumerable<T> GetAllByIsNotDeleteAndEnabledMark(string where = null)
+        public virtual IEnumerable<T> GetAllByIsNotDeleteAndEnabledMark(string where = null)
         {
             return service.GetAllByIsNotDeleteAndEnabledMark(where, null);
         }
@@ -334,7 +334,7 @@ namespace Yuebon.Commons.Application
         /// </summary>
         /// <param name="where">查询条件</param>
         /// <returns></returns>
-        public async Task<IEnumerable<T>> GetAllByIsDeleteMarkAsync(string where = null)
+        public virtual async Task<IEnumerable<T>> GetAllByIsDeleteMarkAsync(string where = null)
         {
             return await service.GetAllByIsDeleteMarkAsync(where, null);
         }
@@ -344,7 +344,7 @@ namespace Yuebon.Commons.Application
         /// </summary>
         /// <param name="where">查询条件</param>
         /// <returns></returns>
-        public async Task<IEnumerable<T>> GetAllByIsNotDeleteMarkAsync(string where = null)
+        public virtual async Task<IEnumerable<T>> GetAllByIsNotDeleteMarkAsync(string where = null)
         {
             return await service.GetAllByIsNotDeleteMarkAsync(where, null);
         }
@@ -354,7 +354,7 @@ namespace Yuebon.Commons.Application
         /// </summary>
         /// <param name="where">查询条件</param>
         /// <returns></returns>
-        public async Task<IEnumerable<T>> GetAllByIsEnabledMarkAsync(string where = null)
+        public virtual  async Task<IEnumerable<T>> GetAllByIsEnabledMarkAsync(string where = null)
         {
             return await service.GetAllByIsEnabledMarkAsync(where, null);
         }
@@ -364,7 +364,7 @@ namespace Yuebon.Commons.Application
         /// </summary>
         /// <param name="where">查询条件</param>
         /// <returns></returns>
-        public async Task<IEnumerable<T>> GetAllByIsNotEnabledMarkAsync(string where = null)
+        public virtual async Task<IEnumerable<T>> GetAllByIsNotEnabledMarkAsync(string where = null)
         {
             return await service.GetAllByIsNotEnabledMarkAsync(where, null);
         }
@@ -374,7 +374,7 @@ namespace Yuebon.Commons.Application
         /// </summary>
         /// <param name="where">查询条件</param>
         /// <returns></returns>
-        public async Task<IEnumerable<T>> GetAllByIsNotDeleteAndEnabledMarkAsync(string where = null)
+        public virtual async Task<IEnumerable<T>> GetAllByIsNotDeleteAndEnabledMarkAsync(string where = null)
         {
             return await service.GetAllByIsNotDeleteAndEnabledMarkAsync(where, null);
         }
@@ -387,7 +387,7 @@ namespace Yuebon.Commons.Application
         /// <param name="id">主键ID</param>
         /// <param name="userId">操作用户</param>
         /// <returns></returns>
-        public bool SetEnabledMark(bool bl, Tkey id, string userId = null)
+        public virtual bool SetEnabledMark(bool bl, Tkey id, string userId = null)
         {
             return service.SetEnabledMark(bl, id, userId, null);
         }
@@ -399,7 +399,7 @@ namespace Yuebon.Commons.Application
         /// <param name="id">主键ID</param>
         /// <param name="userId">操作用户</param>
         /// <returns></returns>
-        public async Task<bool> SetEnabledMarkAsync(bool bl, Tkey id, string userId = null)
+        public virtual async Task<bool> SetEnabledMarkAsync(bool bl, Tkey id, string userId = null)
         {
             return await service.SetEnabledMarkAsync(bl, id, userId, null);
         }

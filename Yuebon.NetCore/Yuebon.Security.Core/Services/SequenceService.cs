@@ -246,8 +246,7 @@ namespace Yuebon.Security.Services
             switch (seq.SequenceReset)
             {
                 case "D"://每天重置
-                    string resetDate1 = seq.CurrentReset;
-                    if (!string.IsNullOrEmpty(resetDate1) && !resetDate1.Equals(DateTime.Now.ToString("yyyyMMdd")))
+                    if (!string.IsNullOrEmpty(seq.CurrentReset) && seq.CurrentReset != DateTime.Now.ToString("yyyyMMdd"))
                     {
                         newNo = 1;
                     }

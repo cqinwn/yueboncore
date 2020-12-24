@@ -140,7 +140,7 @@ DataBase是最新数据库备份文件，目前支持MS SQL Server和MySql。
 
 
 ### 如何用起来
-1、系统基于Netcore SDK 3.1.402开发、Runtime 3.1.8版本，请务必安装sdk版本3.1.402 及以上；
+1、系统基于.Net5.0开发版本，请务必安装sdk版本.Net5.0及以上；
 
 2、安装Redis并启动，下载地址：https://github.com/MicrosoftArchive/redis/releases；
 如果不用redis缓存可以将UseRedis设置为false。
@@ -149,7 +149,7 @@ DataBase是最新数据库备份文件，目前支持MS SQL Server和MySql。
 
 4、修改数据库连接MsSqlServer，根据自己的数据库服务填写。
 
-### vue版如何用起来，[请点击进入专题](https://gitee.com/yuebon/YuebonNetCore/wikis/%E5%85%B3%E4%BA%8EVue%E7%89%88%E6%9C%AC%E7%9A%84%E4%BD%BF%E7%94%A8?sort_id=2148244)
+### vue版如何用起来，[请点击进入专题](http://docs.v.yuebon.com/guide/start.html)
 
 
 ### 部分应用案例

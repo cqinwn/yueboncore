@@ -1565,13 +1565,13 @@ namespace Yuebon.Commons.Repositories
                 bool isClosed = connection.State == ConnectionState.Closed;
                 if (isClosed) connection.Open();
                 //开启事务
-                using (var transaction = DapperConn.BeginTransaction())
+                using (var transaction = connection.BeginTransaction())
                 {
                     try
                     {
                         foreach (var tran in trans)
                         {
-                            DapperConn.Execute(tran.Item1, tran.Item2, transaction, commandTimeout);
+                            connection.Execute(tran.Item1, tran.Item2, transaction, commandTimeout);
                         }
                         //提交事务
                         transaction.Commit();
@@ -1586,8 +1586,7 @@ namespace Yuebon.Commons.Repositories
                         connection.Dispose();
                         DapperConn.Close();
                         DapperConn.Dispose();
-                        throw ex;
-                        //return new Tuple<bool, string>(false, ex.ToString());
+                        return new Tuple<bool, string>(false, ex.ToString());
                     }
                     finally
                     {
@@ -1625,10 +1624,10 @@ namespace Yuebon.Commons.Repositories
                     Log4NetHelper.Error("", ex);
                     if (dbTransaction != null)
                     {
+                        dbTransaction.Rollback();
+                        connection.Dispose();
                         DapperConn.Close();
                         DapperConn.Dispose();
-                        connection.Dispose();
-                        dbTransaction.Rollback();
                     }
                     throw ex;
                 }
@@ -1636,9 +1635,9 @@ namespace Yuebon.Commons.Repositories
                 {
                     if (disposeConn)
                     {
+                        connection.Dispose();
                         DapperConn.Close();
                         DapperConn.Dispose();
-                        connection.Dispose();
                     }
                     dbTransaction?.Dispose();
                 }

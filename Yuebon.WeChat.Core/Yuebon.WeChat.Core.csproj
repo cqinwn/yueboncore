@@ -31,14 +31,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.WebSocket" Version="0.10.600" />
-    <PackageReference Include="Senparc.Weixin" Version="6.7.600" />
-    <PackageReference Include="Senparc.Weixin.Cache.Memcached" Version="2.6.600" />
-    <PackageReference Include="Senparc.Weixin.Cache.Redis" Version="2.8.600" />
-    <PackageReference Include="Senparc.Weixin.MP" Version="16.10.600" />
-    <PackageReference Include="Senparc.Weixin.Open" Version="4.7.600" />
-    <PackageReference Include="Senparc.Weixin.TenPay" Version="1.5.600" />
-    <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.8.601" />
+    <PackageReference Include="Senparc.WebSocket" Version="0.11.101" />
+    <PackageReference Include="Senparc.Weixin" Version="6.8.101" />
+    <PackageReference Include="Senparc.Weixin.Cache.Memcached" Version="2.7.101" />
+    <PackageReference Include="Senparc.Weixin.Cache.Redis" Version="2.9.101" />
+    <PackageReference Include="Senparc.Weixin.MP" Version="16.11.101" />
+    <PackageReference Include="Senparc.Weixin.Open" Version="4.8.101" />
+    <PackageReference Include="Senparc.Weixin.TenPay" Version="1.6.101.1" />
+    <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.9.101" />
   </ItemGroup>
 
   <ItemGroup>

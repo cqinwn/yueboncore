@@ -137,7 +137,7 @@ export function yuebonConnecSys (data) {
    */
 export function sysConnect (data) {
   return http({
-    url: 'SSO/SysConnect',
+    url: 'Login/SysConnect',
     method: 'get',
     params: data,
     baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式

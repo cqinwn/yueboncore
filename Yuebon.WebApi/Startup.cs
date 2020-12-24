@@ -14,13 +14,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Quartz;
 using Quartz.Impl;
-using Senparc.CO2NET;
-using Senparc.Weixin.Entities;
 using Swashbuckle.AspNetCore.Filters;
 using System;
 using System.Collections.Generic;
@@ -137,10 +134,11 @@ namespace Yuebon.WebApi
             #endregion
 
             #region 全局设置跨域访问
+            //services.AddCors(options => options.AddPolicy("yuebonCors",
+            //    policy => policy.WithOrigins(Configuration.GetSection("AppSetting:AllowOrigins").Value.Split(',', StringSplitOptions.RemoveEmptyEntries)).AllowAnyHeader().AllowAnyMethod()));
+
             services.AddCors(options => options.AddPolicy("yuebonCors",
-                policy => policy.WithOrigins(Configuration.GetSection("AppSetting:AllowOrigins").Value.Split(',', StringSplitOptions.RemoveEmptyEntries)).AllowAnyHeader().AllowAnyMethod()));
-
-
+                policy => policy.WithOrigins("*").AllowAnyHeader().AllowAnyMethod()));
             #endregion
 
 
@@ -209,6 +207,7 @@ namespace Yuebon.WebApi
                 app.UseRouting();
                 app.UseAuthentication();
                 app.UseAuthorization();
+                //跨域
                 app.UseMiddleware<CorsMiddleware>();
                 app.UseCors("yuebonCors");
 

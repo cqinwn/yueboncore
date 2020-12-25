@@ -48,10 +48,10 @@ router.beforeEach(async (to, from, next) => {
           next()
         }
       } catch (error) {
-        console.log('error:' + JSON.stringify(error))
-        // remove token and go to login page to re-login
         await store.dispatch('user/resetToken')
-        Message.error(error || 'Has Error')
+        Message.error({
+          message: error || '出现错误，请稍后再试'
+        })
         next(`/login?redirect=${to.path}`)
         NProgress.done()
       }
@@ -91,20 +91,22 @@ function convertTree (routers) {
 function initMenuRoutes () {
   menuList = store.getters.menus
   const menuRouters = [] // 定义一个空数组，这个是用来装真正路由数据的
-  // 先取出根节点，没有父id的就是根节点
-  menuList.forEach((m, i) => {
-    if (m.ParentId === '') {
-      const module = {
-        path: m.UrlAddress,
-        name: m.EnCode,
-        component: Layout,
-        redirect: m.UrlAddress + '/index',
-        meta: { id: m.Id, title: m.FullName, icon: m.Icon, funcode: m.EnCode, noCache: false }
+  if (menuList != null) {
+    // 先取出根节点，没有父id的就是根节点
+    menuList.forEach((m, i) => {
+      if (m.ParentId === '') {
+        const module = {
+          path: m.UrlAddress,
+          name: m.EnCode,
+          component: Layout,
+          redirect: m.UrlAddress + '/index',
+          meta: { id: m.Id, title: m.FullName, icon: m.Icon, funcode: m.EnCode, noCache: false }
+        }
+        menuRouters.push(module)
       }
-      menuRouters.push(module)
-    }
-  })
-  convertTree(menuRouters) // 用递归填充
+    })
+    convertTree(menuRouters) // 用递归填充
+  }
   const unfound = { path: '*', redirect: '/404', hidden: true }
   menuRouters.push(unfound)
   router.addRoutes(menuRouters) // 2.动态添加路由

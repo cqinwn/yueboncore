@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.DependencyModel;
-using MySql.Data.EntityFrameworkCore.Extensions;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,7 +18,6 @@ using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.Models;
-using Yuebon.Commons.Options;
 using Yuebon.Commons.Pages;
 
 namespace Yuebon.Commons.DbContextCore
@@ -95,7 +94,9 @@ namespace Yuebon.Commons.DbContextCore
             }
             else if (dbType.Contains("MYSQL"))
             {
-                optionsBuilder.UseMySQL(defaultSqlConnectionString);
+                optionsBuilder.UseMySql(defaultSqlConnectionString, new MySqlServerVersion(new Version(8, 0, 21)), // use MariaDbServerVersion for MariaDB
+                        mySqlOptions => mySqlOptions
+                            .CharSetBehavior(CharSetBehavior.NeverAppend));
             }
             else if (dbType.Contains("ORACLE"))
             {

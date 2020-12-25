@@ -148,10 +148,6 @@
               "target": "Package",
               "version": "[8.0.22, )"
             },
-            "MySql.Data.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[8.0.22, )"
-            },
             "NPinyin.Core": {
               "target": "Package",
               "version": "[3.0.0, )"
@@ -171,6 +167,10 @@
             "Oracle.ManagedDataAccess.Core": {
               "target": "Package",
               "version": "[2.19.100, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[5.0.0-alpha.2, )"
             },
             "QRCoder": {
               "target": "Package",

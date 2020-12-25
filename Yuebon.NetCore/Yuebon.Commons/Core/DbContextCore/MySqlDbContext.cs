@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using MySql.Data.MySqlClient;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
@@ -6,12 +9,9 @@ using System.Data.Common;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using MySql.Data.MySqlClient;
-using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Extensions;
+using Yuebon.Commons.IDbContext;
 
 namespace Yuebon.Commons.DbContextCore
 {
@@ -33,7 +33,9 @@ namespace Yuebon.Commons.DbContextCore
             {
                 defaultSqlConnectionString = DEncrypt.Decrypt(defaultSqlConnectionString);
             }
-            optionsBuilder.UseMySQL(defaultSqlConnectionString);
+            optionsBuilder.UseMySql(defaultSqlConnectionString, new MySqlServerVersion(new Version(8, 0, 21)), // use MariaDbServerVersion for MariaDB
+                        mySqlOptions => mySqlOptions
+                            .CharSetBehavior(CharSetBehavior.NeverAppend));
             base.OnConfiguring(optionsBuilder);
         }
         /// <summary>

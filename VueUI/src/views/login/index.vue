@@ -1,6 +1,7 @@
 <template>
   <div class="login-container">
     <el-form
+      v-if="isShow"
       ref="loginForm"
       :model="loginForm"
       :rules="loginRules"
@@ -96,7 +97,7 @@
 <script>
 import { setToken } from '@/utils/auth'
 import { getToken, getSysSetting, getVerifyCode } from '@/api/basebasic'
-
+import { Loading } from 'element-ui'
 export default {
   name: 'Login',
   data () {
@@ -140,7 +141,9 @@ export default {
       softName: '管理系统',
       companyLogo: '/assets/images/login-logo.png',
       companyName: '',
-      copyRight: ''
+      copyRight: '',
+      pageLoading: '',
+      isShow: false
     }
   },
   watch: {
@@ -152,6 +155,13 @@ export default {
     }
   },
   created () {
+    var loadop = {
+      lock: true,
+      text: '正在初始化...',
+      spinner: 'el-icon-loading',
+      background: 'rgba(0, 0, 0, 0.7)'
+    }
+    this.pageLoading = Loading.service(loadop)
     this.loadToken()
     this.getLoginVerifyCode()
   },
@@ -164,6 +174,9 @@ export default {
           this.companyLogo = res.ResData.SysLogo
           this.companyName = res.ResData.CompanyName
           this.copyRight = res.ResData.CopyRight
+
+          this.pageLoading.close()
+          this.isShow = true
         })
       })
     },

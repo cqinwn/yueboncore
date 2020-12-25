@@ -87,8 +87,8 @@ namespace Yuebon.Security.Services
                                 int num = CurrentReset(sequence, item);
                                 //计数拼接
                                 sequenceNewNo += NumberingSeqRule(item, num).ToString();
-                                //更新当前序号, 当前序号+步长
-                                sequence.CurrentNo += sequence.Step;
+                                //更新当前序号
+                                sequence.CurrentNo =num;
                                 break;
                             case "guid"://Guid
                                 sequenceNewNo += GuidUtils.NewGuidFormatN();
@@ -183,8 +183,8 @@ namespace Yuebon.Security.Services
                                 int num = CurrentReset(sequence, item);
                                 //计数拼接
                                 sequenceNewNo += NumberingSeqRule(item, num).ToString();
-                                //更新当前序号, 当前序号+步长 
-                                sequence.CurrentNo += sequence.Step;
+                                //更新当前序号, 
+                                sequence.CurrentNo = num;
                                 break;
                             case "guid"://Guid
                                 sequenceNewNo += GuidUtils.NewGuidFormatN();
@@ -291,7 +291,8 @@ namespace Yuebon.Security.Services
                 }
                 else
                 {
-                    newNo = seq.CurrentNo;
+                    //当前序号+步长 
+                    newNo = seq.CurrentNo + seq.Step;
                 }
             }
             return newNo;

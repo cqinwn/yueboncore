@@ -911,19 +911,14 @@ public partial class MySqlAdapter : ISqlAdapter
     /// <returns>The Id of the row created.</returns>
     public int Insert(IDbConnection connection, IDbTransaction transaction, int? commandTimeout, string tableName, string columnList, string parameterList, IEnumerable<PropertyInfo> keyProperties, object entityToInsert)
     {
-        var cmd = $"insert into {tableName} ({columnList}) values ({parameterList})";
-        connection.Execute(cmd, entityToInsert, transaction, commandTimeout);
-        var r = connection.Query("Select ROW_COUNT() id", transaction: transaction, commandTimeout: commandTimeout);
+        var cmd = $"insert into {tableName} ({columnList}) values ({parameterList}); select ROW_COUNT()  num";
+        var multi = connection.QueryMultiple(cmd, entityToInsert, transaction, commandTimeout);
 
-        var id = r.First().id;
-        if (id == null) return 0;
-        var propertyInfos = keyProperties as PropertyInfo[] ?? keyProperties.ToArray();
-        if (propertyInfos.Length == 0) return Convert.ToInt32(id);
+        var first = multi.Read().FirstOrDefault();
+        if (first == null || first.num == null) return 0;
 
-        var idp = propertyInfos[0];
-        idp.SetValue(entityToInsert, Convert.ChangeType(id, idp.PropertyType), null);
-
-        return Convert.ToInt32(id);
+        var num = (int)first.num;
+        return num;
     }
 
     /// <summary>

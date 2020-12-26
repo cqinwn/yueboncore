@@ -10,12 +10,13 @@
         "projectUniqueName": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.UEditorNetCore\\Yuebon.UEditorNetCore.csproj",
         "projectName": "Yuebon.UEditorNetCore",
         "projectPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.UEditorNetCore\\Yuebon.UEditorNetCore.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+        "packagesPath": "D:\\Nuget\\.nuget\\packages",
         "outputPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.UEditorNetCore\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Nuget.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"

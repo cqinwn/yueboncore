@@ -143,13 +143,18 @@ export default {
       companyName: '',
       copyRight: '',
       pageLoading: '',
-      isShow: false
+      isShow: false,
+      otherQuery: {}
     }
   },
   watch: {
     $route: {
       handler: function (route) {
-        this.redirect = route.query && route.query.redirect
+        const query = route.query
+        if (query) {
+          this.redirect = query.redirect
+          this.otherQuery = this.getOtherQuery(query)
+        }
       },
       immediate: true
     }
@@ -165,6 +170,8 @@ export default {
     this.loadToken()
     this.getLoginVerifyCode()
   },
+  mounted () {
+  },
   methods: {
     loadToken () {
       getToken().then(response => {
@@ -176,6 +183,7 @@ export default {
           this.copyRight = res.ResData.CopyRight
 
           this.pageLoading.close()
+
           this.isShow = true
         })
       })
@@ -197,7 +205,7 @@ export default {
           this.$store
             .dispatch('user/userlogin', this.loginForm)
             .then(res => {
-              // this.$router.push({ path: this.redirect || '/' })
+              // this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
               this.$router.push('/')
               this.loading = false
             })
@@ -217,6 +225,14 @@ export default {
         this.verifyCodeUrl = 'data:image/png;base64,' + res.ResData.Img
         this.loginForm.verifyCodeKey = res.ResData.Key
       }
+    },
+    getOtherQuery (query) {
+      return Object.keys(query).reduce((acc, cur) => {
+        if (cur !== 'redirect') {
+          acc[cur] = query[cur]
+        }
+        return acc
+      }, {})
     }
   }
 }

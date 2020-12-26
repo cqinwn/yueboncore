@@ -31,7 +31,6 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     const res = response.data
-    console.log('返回结果：' + JSON.stringify(res))
     if (res.ErrCode !== '0') {
       if (res.ErrCode === '40000' || res.ErrCode === '40001' || res.ErrCode === '40002' || res.ErrCode === '40004' || res.ErrCode === '40005' || res.ErrCode === '40008') {
         // to re-login

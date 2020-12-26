@@ -10,12 +10,13 @@
         "projectUniqueName": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.AspNetCore\\Yuebon.AspNetCore.csproj",
         "projectName": "Yuebon.AspNetCore",
         "projectPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.AspNetCore\\Yuebon.AspNetCore.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+        "packagesPath": "D:\\Nuget\\.nuget\\packages",
         "outputPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.AspNetCore\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Nuget.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -101,12 +102,13 @@
         "projectUniqueName": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj",
         "projectName": "Yuebon.Commons",
         "projectPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+        "packagesPath": "D:\\Nuget\\.nuget\\packages",
         "outputPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Nuget.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -239,10 +241,6 @@
               "target": "Package",
               "version": "[8.0.22, )"
             },
-            "MySql.Data.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[8.0.22, )"
-            },
             "NPinyin.Core": {
               "target": "Package",
               "version": "[3.0.0, )"
@@ -262,6 +260,10 @@
             "Oracle.ManagedDataAccess.Core": {
               "target": "Package",
               "version": "[2.19.100, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[5.0.0-alpha.2, )"
             },
             "QRCoder": {
               "target": "Package",
@@ -320,12 +322,13 @@
         "projectUniqueName": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj",
         "projectName": "Yuebon.Security.Core",
         "projectPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+        "packagesPath": "D:\\Nuget\\.nuget\\packages",
         "outputPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Nuget.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"

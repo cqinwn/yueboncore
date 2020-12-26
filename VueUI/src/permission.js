@@ -24,9 +24,6 @@ router.beforeEach(async (to, from, next) => {
     if (to.path === '/login') {
       next({ path: '/' })
       NProgress.done()
-    } else if (to.path === '/register') {
-      next({ path: '/' })
-      NProgress.done()
     } else {
       try {
         const hasGetUserInfo = store.getters.name

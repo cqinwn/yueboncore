@@ -1,6 +1,3 @@
-/**
- * Created by PanJiaChen on 16/11/18.
- */
 
 /**
  * Parse the time to string
@@ -111,5 +108,6 @@ export function param2Obj (url) {
  * @param {url参数名称} name
  */
 export function getUrlKey (name) {
+  // eslint-disable-next-line no-sparse-arrays
   return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [, ''])[1].replace(/\+/g, '%20')) || null
 }

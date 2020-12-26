@@ -1604,17 +1604,13 @@
           "lib/net5.0/Zstandard.Net.dll": {}
         }
       },
-      "MySql.Data.EntityFrameworkCore/8.0.22": {
+      "MySqlConnector/1.1.0": {
         "type": "package",
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore.Relational": "3.1.1",
-          "MySql.Data": "8.0.22"
-        },
         "compile": {
-          "lib/netstandard2.1/MySql.Data.EntityFrameworkCore.dll": {}
+          "lib/net5.0/MySqlConnector.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.1/MySql.Data.EntityFrameworkCore.dll": {}
+          "lib/net5.0/MySqlConnector.dll": {}
         }
       },
       "NETStandard.Library/1.6.1": {
@@ -1758,6 +1754,19 @@
         },
         "runtime": {
           "lib/netcoreapp3.0/Pipelines.Sockets.Unofficial.dll": {}
+        }
+      },
+      "Pomelo.EntityFrameworkCore.MySql/5.0.0-alpha.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Relational": "5.0.0",
+          "MySqlConnector": "1.1.0"
+        },
+        "compile": {
+          "lib/netstandard2.1/Pomelo.EntityFrameworkCore.MySql.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Pomelo.EntityFrameworkCore.MySql.dll": {}
         }
       },
       "QRCoder/1.4.1": {
@@ -3987,12 +3996,12 @@
           "MiniProfiler.AspNetCore.Mvc": "4.2.22",
           "MiniProfiler.EntityFrameworkCore": "4.2.22",
           "MySql.Data": "8.0.22",
-          "MySql.Data.EntityFrameworkCore": "8.0.22",
           "NPinyin.Core": "3.0.0",
           "Npgsql": "5.0.1.1",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "5.0.1",
           "Oracle.EntityFrameworkCore": "3.19.80",
           "Oracle.ManagedDataAccess.Core": "2.19.100",
+          "Pomelo.EntityFrameworkCore.MySql": "5.0.0-alpha.2",
           "QRCoder": "1.4.1",
           "Quartz": "3.2.3",
           "SgmlReader.NetCore": "1.0.0",
@@ -6068,19 +6077,34 @@
         "mysql.data.nuspec"
       ]
     },
-    "MySql.Data.EntityFrameworkCore/8.0.22": {
-      "sha512": "o/+OMqQ0fw4f6COfRrbwqP0CKcqoFkCfb1Rl3mfgUcae3XqAkiA6t8rsjA1wnkxUvwfNYX+YM2w2Xa6u4QEUkA==",
+    "MySqlConnector/1.1.0": {
+      "sha512": "RQPR2vkQjSiyGH2mV17K4+gDcgI8hidxgD2qli3OcRupvqpQjoL6S35M3ZjIM6CXC0TgImvJo3HA/fLSOG+oBA==",
       "type": "package",
-      "path": "mysql.data.entityframeworkcore/8.0.22",
+      "path": "mysqlconnector/1.1.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/netstandard2.0/MySql.Data.EntityFrameworkCore.dll",
-        "lib/netstandard2.0/MySql.Data.EntityFrameworkCore.xml",
-        "lib/netstandard2.1/MySql.Data.EntityFrameworkCore.dll",
-        "lib/netstandard2.1/MySql.Data.EntityFrameworkCore.xml",
-        "mysql.data.entityframeworkcore.8.0.22.nupkg.sha512",
-        "mysql.data.entityframeworkcore.nuspec"
+        "lib/net45/MySqlConnector.dll",
+        "lib/net45/MySqlConnector.xml",
+        "lib/net461/MySqlConnector.dll",
+        "lib/net461/MySqlConnector.xml",
+        "lib/net471/MySqlConnector.dll",
+        "lib/net471/MySqlConnector.xml",
+        "lib/net5.0/MySqlConnector.dll",
+        "lib/net5.0/MySqlConnector.xml",
+        "lib/netcoreapp2.1/MySqlConnector.dll",
+        "lib/netcoreapp2.1/MySqlConnector.xml",
+        "lib/netcoreapp3.1/MySqlConnector.dll",
+        "lib/netcoreapp3.1/MySqlConnector.xml",
+        "lib/netstandard1.3/MySqlConnector.dll",
+        "lib/netstandard1.3/MySqlConnector.xml",
+        "lib/netstandard2.0/MySqlConnector.dll",
+        "lib/netstandard2.0/MySqlConnector.xml",
+        "lib/netstandard2.1/MySqlConnector.dll",
+        "lib/netstandard2.1/MySqlConnector.xml",
+        "logo.png",
+        "mysqlconnector.1.1.0.nupkg.sha512",
+        "mysqlconnector.nuspec"
       ]
     },
     "NETStandard.Library/1.6.1": {
@@ -6249,6 +6273,20 @@
         "lib/netstandard2.0/Pipelines.Sockets.Unofficial.xml",
         "pipelines.sockets.unofficial.2.0.17.nupkg.sha512",
         "pipelines.sockets.unofficial.nuspec"
+      ]
+    },
+    "Pomelo.EntityFrameworkCore.MySql/5.0.0-alpha.2": {
+      "sha512": "g2+otNSXHxzmWUJI7+KfoL9C35V8BAKC1fqfriHNNghMQiwrUkK+xaN+3w5r5+YUKA1qfiJH6+Wwc+Kkcsr3Og==",
+      "type": "package",
+      "path": "pomelo.entityframeworkcore.mysql/5.0.0-alpha.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lib/netstandard2.1/Pomelo.EntityFrameworkCore.MySql.dll",
+        "lib/netstandard2.1/Pomelo.EntityFrameworkCore.MySql.xml",
+        "pomelo.entityframeworkcore.mysql.5.0.0-alpha.2.nupkg.sha512",
+        "pomelo.entityframeworkcore.mysql.nuspec"
       ]
     },
     "QRCoder/1.4.1": {
@@ -11818,7 +11856,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Administrator\\.nuget\\packages\\": {}
+    "D:\\Nuget\\.nuget\\packages": {}
   },
   "project": {
     "version": "1.3.2.24",
@@ -11826,12 +11864,13 @@
       "projectUniqueName": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj",
       "projectName": "Yuebon.Security.Core",
       "projectPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj",
-      "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+      "packagesPath": "D:\\Nuget\\.nuget\\packages",
       "outputPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Nuget.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"

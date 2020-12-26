@@ -36,7 +36,7 @@ namespace Yuebon.WebApi.Controllers
             var code =await  captcha.GenerateRandomCaptchaAsync().ConfigureAwait(false);
             var result =await  captcha.GenerateCaptchaImageAsync(code);
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            TimeSpan expiresSliding = DateTime.Now.AddMinutes(1) - DateTime.Now;
+            TimeSpan expiresSliding = DateTime.Now.AddMinutes(5) - DateTime.Now;
             
             yuebonCacheHelper.Add("ValidateCode"+ result.Timestamp.ToString("yyyyMMddHHmmssffff"), code, expiresSliding,false);
             AuthGetVerifyCodeOutputDto authGetVerifyCodeOutputDto = new AuthGetVerifyCodeOutputDto();

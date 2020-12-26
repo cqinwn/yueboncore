@@ -33,7 +33,6 @@ namespace Yuebon.Security.Application
         private string _belongApp;//所属应用
         private string _belongAppId;//所属应用ID
         IUploadFileService service = IoCContainer.Resolve<IUploadFileService>();
-        private Type type = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType;
         /// <summary>
         /// 
         /// </summary>

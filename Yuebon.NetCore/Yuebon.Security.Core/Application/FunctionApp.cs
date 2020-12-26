@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.IoC;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Tree;
@@ -17,10 +18,10 @@ namespace Yuebon.Security.Application
     public class FunctionApp
     {
 
-        private IFunctionRepository service = new FunctionRepository();
-        private ISystemTypeRepository serviceSystemType = new SystemTypeRepository();
-        private IRoleRepository serviceRole = new RoleRepository();
-        private IUserRepository serviceUser = new UserRepository();
+        IFunctionRepository service = IoCContainer.Resolve<IFunctionRepository>();
+        ISystemTypeRepository serviceSystemType = IoCContainer.Resolve<ISystemTypeRepository>();
+        IRoleRepository serviceRole = IoCContainer.Resolve<IRoleRepository>();
+        IUserRepository serviceUser = IoCContainer.Resolve<IUserRepository>();
 
         /// <summary>
         /// 系统功能树形展开treeview需要

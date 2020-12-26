@@ -23,7 +23,7 @@
       </div>
       <el-table ref="gridtable" v-loading="tableloading" :data="tableData" border stripe highlight-current-row style="width: 100%" :default-sort="{ prop: 'CreatorTime', order: 'descending' }" @select="handleSelectChange" @select-all="handleSelectAllChange" @sort-change="handleSortChange">
         <el-table-column type="selection" width="30" />
-        <el-table-column prop="CreatorTime" label="操作时间" sortable="custom" width="150" />
+        <el-table-column prop="CreatorTime" label="操作时间" sortable="custom" width="160" />
         <el-table-column prop="Account" label="操作账号" sortable="custom" width="120" />
         <el-table-column prop="NickName" label="操作人" sortable="custom" width="120" />
         <el-table-column prop="IPAddress" label="IP地址" sortable="custom" width="130" />

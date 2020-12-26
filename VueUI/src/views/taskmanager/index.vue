@@ -30,7 +30,7 @@
       </div>
       <el-table ref="gridtable" v-loading="tableloading" :data="tableData" border stripe highlight-current-row style="width: 100%" :default-sort="{ prop: 'Id', order: 'ascending' }" @select="handleSelectChange" @select-all="handleSelectAllChange" @sort-change="handleSortChange">
         <el-table-column type="selection" width="30" />
-        <el-table-column prop="Id" label="任务Id" sortable="custom" width="100" />
+        <el-table-column prop="Id" label="任务ID" sortable="custom" width="150" />
         <el-table-column prop="TaskName" label="任务名称" sortable="custom" width="150" />
         <el-table-column prop="GroupName" label="分组名称" sortable="custom" width="150" />
         <el-table-column prop="Cron" label="Cron表达式" sortable="custom" width="130" />

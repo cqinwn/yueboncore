@@ -10,7 +10,7 @@ using Dapper;
 namespace Dapper.Contrib.Extensions
 {
     /// <summary>
-    /// 
+    /// 修改mysql新增数据时返回影响记录数
     /// </summary>
     public static partial class SqlMapperExtensions
     {
@@ -443,19 +443,27 @@ public partial class MySqlAdapter
     public async Task<int> InsertAsync(IDbConnection connection, IDbTransaction transaction, int? commandTimeout, string tableName,
         string columnList, string parameterList, IEnumerable<PropertyInfo> keyProperties, object entityToInsert)
     {
-        var cmd = $"INSERT INTO {tableName} ({columnList}) VALUES ({parameterList})";
-        await connection.ExecuteAsync(cmd, entityToInsert, transaction, commandTimeout).ConfigureAwait(false);
-        var r = await connection.QueryAsync<dynamic>("SELECT LAST_INSERT_ID() id", transaction: transaction, commandTimeout: commandTimeout).ConfigureAwait(false);
+        var cmd = $"INSERT INTO {tableName} ({columnList}) VALUES ({parameterList});select ROW_COUNT() num";
+        var multi = await connection.QueryMultipleAsync(cmd, entityToInsert, transaction, commandTimeout).ConfigureAwait(false);
 
-        var id = r.First().id;
-        if (id == null) return 0;
-        var pi = keyProperties as PropertyInfo[] ?? keyProperties.ToArray();
-        if (pi.Length == 0) return Convert.ToInt32(id);
+        var first = multi.Read().FirstOrDefault();
+        if (first == null || first.num == null) return 0;
 
-        var idp = pi[0];
-        idp.SetValue(entityToInsert, Convert.ChangeType(id, idp.PropertyType), null);
+        var num = (int)first.num;
 
-        return Convert.ToInt32(id);
+        return num;
+        //await connection.ExecuteAsync(cmd, entityToInsert, transaction, commandTimeout).ConfigureAwait(false);
+        //var r = await connection.QueryAsync<dynamic>("SELECT LAST_INSERT_ID() id", transaction: transaction, commandTimeout: commandTimeout).ConfigureAwait(false);
+
+        //var id = r.First().id;
+        //if (id == null) return 0;
+        //var pi = keyProperties as PropertyInfo[] ?? keyProperties.ToArray();
+        //if (pi.Length == 0) return Convert.ToInt32(id);
+
+        //var idp = pi[0];
+        //idp.SetValue(entityToInsert, Convert.ChangeType(id, idp.PropertyType), null);
+
+        //return Convert.ToInt32(id);
     }
 }
 

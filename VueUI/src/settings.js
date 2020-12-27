@@ -12,6 +12,7 @@ module.exports = {
  * 开启 Tags-View
  */
   tagsView: true,
+
   /**
    * 应用Id
    */

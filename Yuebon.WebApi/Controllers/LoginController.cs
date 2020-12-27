@@ -320,16 +320,16 @@ namespace Yuebon.WebApi.Controllers
                             else
                             {
                                 YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                                object dd = yuebonCacheHelper.Get("openmf" + openmf);
-                                yuebonCacheHelper.Remove("openmf" + openmf);
-                                if (dd == null)
+                                object cacheOpenmf = yuebonCacheHelper.Get("openmf" + openmf);
+                                //yuebonCacheHelper.Remove("openmf" + openmf);
+                                if (cacheOpenmf == null)
                                 {
                                     result.ErrCode = "40007";
                                     result.ErrMsg = ErrCode.err40007;
                                 }
                                 else
                                 {
-                                    User user = _userService.Get(dd.ToString());
+                                    User user = _userService.Get(cacheOpenmf.ToString());
                                     if (user != null)
                                     {
                                         result.Success = true;

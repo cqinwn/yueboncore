@@ -1,9 +1,10 @@
 import defaultSettings from '@/settings'
 
-const { showSettings, fixedHeader, sidebarLogo, appId, appSecret, subSystem, activeSystemCode, activeSystemName, addRouters } = defaultSettings
+const { showSettings, tagsView, fixedHeader, sidebarLogo, appId, appSecret, subSystem, activeSystemCode, activeSystemName, addRouters } = defaultSettings
 
 const state = {
   showSettings: showSettings,
+  tagsView: tagsView,
   fixedHeader: fixedHeader,
   sidebarLogo: sidebarLogo,
   appId: appId,

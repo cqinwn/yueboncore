@@ -9,6 +9,11 @@ module.exports = {
    */
   sidebarLogo: true,
   /**
+ * 开启 Tags-View
+ */
+  tagsView: true,
+
+  /**
    * 应用Id
    */
   appId: 'system',

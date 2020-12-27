@@ -3,7 +3,11 @@
     <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
     <breadcrumb class="breadcrumb-container" />
     <div class="right-menu">
-      <el-dropdown class="el-dropdown-link" trigger="click" @command="handlerSysType">
+      <template v-if="device!=='mobile'">
+        <screenfull id="screenfull" class="right-menu-item hover-effect" />
+      </template>
+
+      <el-dropdown class="el-dropdown-link right-menu-item" trigger="click" @command="handlerSysType">
         <div class="avatar-wrapper">
           您处在：{{ activeSystemName }}(切换)
           <i class="el-icon-arrow-down el-icon--right" />
@@ -14,7 +18,7 @@
           </a>
         </el-dropdown-menu>
       </el-dropdown>
-      <el-dropdown class="avatar-container" trigger="click">
+      <el-dropdown class="avatar-container right-menu-item" trigger="click">
         <div class="avatar-wrapper">
           <i class="el-icon-user-solid" />{{ name }}
           <i class="el-icon-arrow-down" />
@@ -42,17 +46,20 @@
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
+import Screenfull from '@/components/Screenfull'
 import { yuebonConnecSys } from '@/api/basebasic'
 
 export default {
   components: {
     Breadcrumb,
+    Screenfull,
     Hamburger
   },
   computed: {
     ...mapGetters([
       'sidebar',
       'avatar',
+      'device',
       'name',
       'activeSystemName',
       'subSystem'
@@ -120,7 +127,7 @@ export default {
       display: inline-block;
       padding: 0 8px;
       height: 100%;
-      font-size: 18px;
+      font-size: 14px;
       color: #5a5e66;
       vertical-align: text-bottom;
 
@@ -138,7 +145,6 @@ export default {
       margin-right: 30px;
 
       .avatar-wrapper {
-        margin-top: 5px;
         position: relative;
         cursor: pointer;
 

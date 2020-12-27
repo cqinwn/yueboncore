@@ -57,12 +57,12 @@ namespace Yuebon.Security.Models
         public virtual string Icon { get; set; }
 
         /// <summary>
-        /// 连接
+        /// 路由
         /// </summary>
         public virtual string UrlAddress { get; set; }
 
         /// <summary>
-        /// 目标
+        /// 目标打开方式
         /// </summary>
         public virtual string Target { get; set; }
 

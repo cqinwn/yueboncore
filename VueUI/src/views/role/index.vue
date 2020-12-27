@@ -56,7 +56,7 @@
         <el-pagination background :current-page="pagination.currentPage" :page-sizes="[5, 10, 20, 50, 100, 200, 300, 400]" :page-size="pagination.pagesize" layout="total, sizes, prev, pager, next, jumper" :total="pagination.pageTotal" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
       </div>
     </el-card>
-    <el-dialog ref="dialogEditForm" :title="editFormTitle + '角色'" :visible.sync="dialogEditFormVisible" width="640px">
+    <el-dialog ref="dialogEditForm" v-el-drag-dialog :title="editFormTitle + '角色'" :visible.sync="dialogEditFormVisible" width="640px">
       <el-form ref="editFrom" :inline="true" :model="editFrom" :rules="rules" class="demo-form-inline">
         <el-form-item label="角色名称" :label-width="formLabelWidth" prop="FullName">
           <el-input v-model="editFrom.FullName" placeholder="请输入角色名称" autocomplete="off" clearable />
@@ -105,7 +105,7 @@
       </div>
     </el-dialog>
 
-    <el-dialog ref="dialogSetAuthForm" title="分配权限" :visible.sync="dialogSetAuthFormVisible" width="50%">
+    <el-dialog ref="dialogSetAuthForm" v-el-drag-dialog title="分配权限" :visible.sync="dialogSetAuthFormVisible" width="70%">
       <el-tabs type="border-card">
         <el-tab-pane label="可用系统">
           <el-card class="box-card">
@@ -143,7 +143,10 @@ import {
 import { getAllOrganizeTreeTable } from '@/api/security/organizeservice'
 import { getAllSystemTypeList } from '@/api/developers/systemtypeservice'
 
+import elDragDialog from '@/directive/el-drag-dialog' // base on element-ui
 export default {
+  name: 'DragDialog',
+  directives: { elDragDialog },
   data () {
     return {
       searchform: {
@@ -536,7 +539,6 @@ export default {
         }
       })
     }
-
   }
 }
 </script>

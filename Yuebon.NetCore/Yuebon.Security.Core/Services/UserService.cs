@@ -322,7 +322,7 @@ namespace Yuebon.Security.Services
             PageResult<UserOutputDto> pageResult = new PageResult<UserOutputDto>
             {
                 CurrentPage = pagerInfo.CurrenetPageIndex,
-                Items = list.MapTo<UserOutputDto>(),
+                Items = listResult,
                 ItemsPerPage = pagerInfo.PageSize,
                 TotalItems = pagerInfo.RecordCount
             };

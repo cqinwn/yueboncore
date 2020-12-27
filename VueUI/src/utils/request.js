@@ -33,7 +33,7 @@ service.interceptors.response.use(
     if (res.ErrCode !== '0') {
       if (res.ErrCode === '40000' || res.ErrCode === '40001' || res.ErrCode === '40002' || res.ErrCode === '40004' || res.ErrCode === '40005' || res.ErrCode === '40008') {
         // to re-login
-        MessageBox.confirm('登录超时，请重新登录', '退出提示', {
+        MessageBox.confirm('登录超时，请重新登录', '登录提示', {
           confirmButtonText: '重新登录',
           cancelButtonText: '取消',
           type: 'warning'

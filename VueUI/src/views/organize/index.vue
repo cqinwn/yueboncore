@@ -46,7 +46,7 @@
         <el-table-column prop="LastModifyTime" label="更新时间" sortable />
       </el-table>
     </el-card>
-    <el-dialog ref="dialogEditForm" :title="editFormTitle + '组织'" :visible.sync="dialogEditFormVisible" width="660px">
+    <el-dialog ref="dialogEditForm" v-el-drag-dialog :title="editFormTitle + '组织'" :visible.sync="dialogEditFormVisible" width="660px">
       <el-form ref="editFrom" :inline="true" :model="editFrom" :rules="rules" class="demo-form-inline">
         <el-form-item label="上级组织" :label-width="formLabelWidth" prop="ParentId">
           <el-cascader
@@ -127,7 +127,10 @@ import {
   setOrganizeEnable, deleteSoftOrganize, deleteOrganize
 } from '@/api/security/organizeservice'
 
+import elDragDialog from '@/directive/el-drag-dialog' // base on element-ui
 export default {
+  name: 'DragDialog',
+  directives: { elDragDialog },
   data () {
     return {
       loadBtnFunc: [],

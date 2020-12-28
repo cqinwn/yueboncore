@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Yuebon.Commons.Pages;
 
 namespace Yuebon.Commons.CodeGenerator
 {
     /// <summary>
-    /// MS SQL
+    /// mysql
     /// </summary>
-   public class MssqlExtractor: DbExtractorAbstract
+    public class MySqlExtractor : DbExtractorAbstract
     {
 
         /// <summary>
@@ -17,21 +19,21 @@ namespace Yuebon.Commons.CodeGenerator
         /// <returns></returns>
         public List<DataBaseInfo> GetAllDataBases()
         {
-            var sql = string.Format(@"select name as DbName from master..sysdatabases as dbs");
+            var sql = string.Format(@"select schema_name as DbName from information_schema.schemata");
             return GetAllDataBaseInternal(sql);
         }
         /// <summary>
-        /// 根据表名获取数据库表的信息
+        /// 获取数据库的所有表的信息
         /// </summary>
-        /// <param name="tablelist">表名称</param>
+        /// <param name="dbName"></param>
+        /// <param name="tableList"></param>
         /// <returns></returns>
-        public List<DbTableInfo> GetAllTables(string tablelist)
+        public List<DbTableInfo> GetAllTables(string dbName,string tableList)
         {
-            var sql = string.Format(@"SELECT tbs.name as TableName ,ds.value as Description FROM sys.tables tbs
-left join sys.extended_properties ds on ds.major_id=tbs.object_id and ds.minor_id=0");
-            if (!string.IsNullOrEmpty(tablelist))
+            var sql = string.Format(@"select table_name as TableName from information_schema.tables where table_schema='{0}' ", dbName);
+            if (!string.IsNullOrEmpty(tableList))
             {
-                sql += string.Format(@" where tbs.name in('{0}')", tablelist.Replace(",","','"));
+                sql += string.Format(@" and table_name in('{0}')", tableList.Replace(",", "','"));
             }
             return GetAllTablesInternal(sql);
         }
@@ -40,66 +42,54 @@ left join sys.extended_properties ds on ds.major_id=tbs.object_id and ds.minor_i
         /// <summary>
         /// 获取数据库的所有表的信息
         /// </summary>
+        /// <param name="dbName"></param>
         /// <param name="strwhere"></param>
         /// <param name="fieldNameToSort"></param>
         /// <param name="isDescending"></param>
         /// <param name="info"></param>
         /// <returns></returns>
-        public List<DbTableInfo> GetAllTables(string strwhere, string fieldNameToSort, bool isDescending, PagerInfo info)
+        public List<DbTableInfo> GetAllTables(string dbName,string strwhere, string fieldNameToSort, bool isDescending, PagerInfo info)
         {
-            var sql = string.Format(@"SELECT tbs.name as TableName ,ds.value as Description FROM sys.tables tbs
-left join sys.extended_properties ds on ds.major_id=tbs.object_id and ds.minor_id=0");
-           
+            var sql = string.Format(@"select table_name AS TableName,TABLE_COMMENT as Description from information_schema.tables where table_schema='{0}'", dbName);
+
             string sqlcount = string.Format(@"select count(*) as Total from({0}) AA where {1}", sql, strwhere);
 
             string strOrder = string.Format(" order by {0} {1}", fieldNameToSort, isDescending ? "DESC" : "ASC");
             int minRow = info.PageSize * (info.CurrenetPageIndex - 1) + 1;
             int maxRow = info.PageSize * info.CurrenetPageIndex;
 
-            string pagesql = string.Format(@"With Paging AS
-                ( SELECT ROW_NUMBER() OVER ({0}) as RowNumber, {1} FROM ({2}) AA Where {3})
-                SELECT * FROM Paging WHERE RowNumber Between {4} and {5}", strOrder, "*", sql, strwhere,
-            minRow, maxRow);
+            string pagesql = string.Format(@" {0} and  {1} {2} LIMIT {3},{4}", sql, strwhere, strOrder,minRow, maxRow);
             pagesql = sqlcount + ";" + pagesql;
             return GetAllTablesInternal(pagesql, info);
         }
         /// <summary>
         /// 获取表的所有字段名及字段类型
         /// </summary>
+        /// <param name="dbName">dbName</param>
         /// <param name="tableName">数据表的名称</param>
         /// <returns></returns>
-        public List<DbFieldInfo> GetAllColumns(string tableName)
+        public List<DbFieldInfo> GetAllColumns(string dbName, string tableName)
         {
             if (tableName == null)
                 throw new ArgumentNullException(nameof(tableName));
-          
-            var sqlFields = string.Format(@"
-               SELECT a.name as FieldName,
-(case when COLUMNPROPERTY( a.id,a.name,'IsIdentity')=1 then '1'else '0' end) as Increment, 
-(case when (SELECT count(*) FROM sysobjects 
-WHERE (name in (SELECT name FROM sysindexes 
-WHERE (id = a.id) AND (indid in 
-(SELECT indid FROM sysindexkeys 
-WHERE (id = a.id) AND (colid in 
-(SELECT colid FROM syscolumns WHERE (id = a.id) AND (name = a.name))))))) 
-AND (xtype = 'PK'))>0 then '1' else '0' end) as IsIdentity,b.name as FieldType,a.length as FieldMaxLength, 
-COLUMNPROPERTY(a.id,a.name,'PRECISION') as FieldPrecision, 
-isnull(COLUMNPROPERTY(a.id,a.name,'Scale'),0) as FieldScale,(case when a.isnullable=1 then '1'else '0' end) IsNullable, 
-isnull(g.[value], ' ') AS Description
-FROM syscolumns a 
-left join systypes b on a.xtype=b.xusertype 
-inner join sysobjects d on a.id=d.id and d.xtype='U' and d.name<>'dtproperties' 
-left join syscomments e on a.cdefault=e.id 
-left join sys.extended_properties g on a.id=g.major_id AND a.colid=g.minor_id
-left join sys.extended_properties f on d.id=f.class and f.minor_id=0
-WHERE d.name='{0}' --如果只查询指定表,加上此条件
-order by a.id,a.colorder", tableName);
+
+            var sqlFields = string.Format(@"select 
+column_name as FieldName,
+(case when is_nullable = 'YES' then '1' else '0'  end)  as  IsNullable,
+ (case when Column_key = 'PRI' then '1' else '0'  end) as IsIdentity,
+data_type as FieldType,
+ (case when column_default is null then '' else column_default  end)  as FieldDefaultValue,
+(case when character_maximum_length is null then 0 else character_maximum_length  end)  as FieldMaxLength,
+(case when Numeric_Precision is null then 0 else Numeric_Precision  end)  as FieldPrecision,
+(case when Numeric_scale is null then 0 else Numeric_scale  end)   as FieldScale,
+column_comment as Description
+from information_schema.columns where table_schema='{0}' and table_name='{1}'", dbName,tableName);
             List<DbFieldInfo> list = new List<DbFieldInfo>();
             list = GetAllColumnsInternal(sqlFields);
             List<DbFieldInfo> reslist = new List<DbFieldInfo>();
             foreach (DbFieldInfo info in list)
             {
-                info.DataType= ConvertDataType(info);
+                info.DataType = ConvertDataType(info);
                 reslist.Add(info);
             }
             return reslist;
@@ -150,7 +140,7 @@ order by a.id,a.colorder", tableName);
                     val = "long";
                     break;
                 case "tinyint":
-                    val = "byte";
+                    val = "bool";
                     break;
 
                 case "binary":

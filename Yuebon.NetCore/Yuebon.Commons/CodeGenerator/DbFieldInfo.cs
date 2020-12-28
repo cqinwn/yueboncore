@@ -50,17 +50,17 @@ namespace Yuebon.Commons.CodeGenerator
         /// <summary>
         /// 代表小数位精度。
         /// </summary>
-        public int FieldScale { get; set; }
+        public long? FieldScale { get; set; }
         /// <summary>
         /// 数据精度，仅数字类型有效，总共多少位数字（10进制）。
         /// 在MySql里面代表了字段长度
         /// </summary>
-        public int FieldPrecision { get; set; }
+        public long? FieldPrecision { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int FieldMaxLength { get; set; }
+        public long? FieldMaxLength { get; set; }
 
         /// <summary>
         /// 可空
@@ -79,7 +79,7 @@ namespace Yuebon.Commons.CodeGenerator
         /// <summary>
         /// 默认值
         /// </summary>
-        public string FieldDefaultValue { get; set; }
+        public string? FieldDefaultValue { get; set; }
        
     }
 }

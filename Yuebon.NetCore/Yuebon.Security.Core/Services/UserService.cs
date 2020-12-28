@@ -28,7 +28,6 @@ namespace Yuebon.Security.Services
         private readonly ILogService _logService;
         private readonly IRoleService _roleService;
         private IOrganizeService _organizeService;
-        private IUserLogOnService _userLogOnService;
         /// <summary>
         /// 
         /// </summary>

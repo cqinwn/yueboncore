@@ -158,7 +158,8 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                     SystemType systemType = iService.GetByCode(systype);
                     string openmf = MD5Util.GetMD5_32(DEncrypt.Encrypt(CurrentUser.UserId + systemType.Id, GuidUtils.NewGuidFormatN())).ToLower();
                     YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                    yuebonCacheHelper.Add("openmf" + openmf, CurrentUser.UserId);
+                    TimeSpan expiresSliding = DateTime.Now.AddSeconds(10) - DateTime.Now;
+                    yuebonCacheHelper.Add("openmf" + openmf, CurrentUser.UserId,expiresSliding, false);
                     result.ErrCode = ErrCode.successCode;
                     result.ResData = systemType.Url + "?openmf=" + openmf;
                 }

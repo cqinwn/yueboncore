@@ -111,3 +111,23 @@ export function getUrlKey (name) {
   // eslint-disable-next-line no-sparse-arrays
   return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [, ''])[1].replace(/\+/g, '%20')) || null
 }
+
+/**
+ * 下载文件调用
+ * @param 接口返回数据 文件名
+ */
+export function downloadFile (resUrl, fileName) {
+  if (!resUrl) {
+    return
+  }
+  // 创建下载链接
+  const url = resUrl
+  const link = document.createElement('a')
+  link.style.display = 'none'
+  link.href = url
+  link.setAttribute('download', fileName)// 文件名
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link) // 下载完成移除元素
+  window.URL.revokeObjectURL(url) // 释放掉blob对象
+}

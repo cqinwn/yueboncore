@@ -14,5 +14,9 @@ namespace {RepositoriesNamespace}
 		public {ModelTypeName}Repository()
         {
         }
+
+        public {ModelTypeName}Repository(IDbContextCore context) : base(context)
+        {
+        }
     }
 }

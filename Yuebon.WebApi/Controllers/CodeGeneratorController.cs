@@ -91,6 +91,9 @@ namespace Yuebon.WebApi.Controllers
         [NoPermissionRequired]
         public async Task<IActionResult> GetListDataBase()
         {
+            YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+            yuebonCacheHelper.Remove("CodeGeneratorDbConn");
+            yuebonCacheHelper.Remove("CodeGeneratorDbName");
             CommonResult result = new CommonResult();
             DbExtractor dbExtractor = new DbExtractor();
             List<DataBaseInfo> listTable = dbExtractor.GetAllDataBases();

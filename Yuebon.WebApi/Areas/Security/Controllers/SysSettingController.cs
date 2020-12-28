@@ -15,6 +15,7 @@ using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.Commons;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Encrypt;
+using Yuebon.Commons.Extend;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
@@ -77,8 +78,17 @@ namespace Yuebon.WebApi.Areas.Security
                 dashboardOutModel.WebUrl = sysSetting.WebUrl;
                 dashboardOutModel.Title = sysSetting.SoftName;
                 dashboardOutModel.MachineName = Environment.MachineName;
+                dashboardOutModel.ProcessorCount= Environment.ProcessorCount;
+                dashboardOutModel.SystemPageSize = Environment.SystemPageSize;
+                dashboardOutModel.WorkingSet = Environment.WorkingSet;
+                dashboardOutModel.TickCount = Environment.TickCount;
+                dashboardOutModel.RunTimeLength = (Environment.TickCount/1000).ToBrowseTime();
+                dashboardOutModel.FrameworkDescription = RuntimeInformation.FrameworkDescription;
                 dashboardOutModel.OSName = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? "Linux" : RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ? "OSX" : "Windows";
                 dashboardOutModel.OSDescription = RuntimeInformation.OSDescription + " " + RuntimeInformation.OSArchitecture;
+                dashboardOutModel.OSArchitecture = RuntimeInformation.OSArchitecture.ToString();
+                dashboardOutModel.ProcessArchitecture = RuntimeInformation.ProcessArchitecture.ToString();
+                
                 dashboardOutModel.Directory = AppContext.BaseDirectory;
                 Version version = Environment.Version;
                 dashboardOutModel.SystemVersion = version.Major+"."+version.Minor+"."+version.Build;

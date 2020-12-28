@@ -40,7 +40,7 @@
           </div>
         </div>
       </el-col>
-      <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
+      <el-col :xs="12" :sm="24" :lg="6" class="card-panel-col">
         <div class="card-panel">
           <div class="card-panel-icon-wrapper icon-shopping">
             <div class="iconfont icon-log card-panel-icon" />
@@ -55,7 +55,7 @@
       </el-col>
     </el-row>
     <el-row :gutter="20" class="panel-group">
-      <el-col :xs="12" :sm="12" :lg="12">
+      <el-col :xs="24" :sm="24" :lg="24">
         <el-card>
           <div slot="header" class="clearfix">
             <span class="iconfont icon-notice">系统公告</span>
@@ -68,29 +68,80 @@
           </div>
         </el-card>
       </el-col>
+    </el-row>
 
-      <el-col :xs="12" :sm="12" :lg="12">
+    <el-row :gutter="20" class="panel-group">
+      <el-col :span="12" class="card-box">
         <el-card>
-          <div slot="header" class="clearfix">
+          <div slot="header">
             <span class="iconfont icon-about">系统信息</span>
           </div>
-          <div class="systeminfo">
-            <div class="lidiv">系统名称：{{ SysSetting.Title }}</div>
-            <div class="lidiv">公司名称：{{ SysSetting.CertificatedCompany }}</div>
-            <div class="lidiv">域名：{{ SysSetting.WebUrl }}</div>
-            <div class="lidiv">授权方式：按域名授权</div>
-            <div class="lidiv">系统版本：{{ SysSetting.Version }}</div>
-            <div class="lidiv">版本更新：<a :href="SysSetting.UpdateUrl" target="_blank">更新</a></div>
-            <div class="lidiv">官方文档：<a href="http://docs.v.yuebon.com" target="_blank">http://docs.v.yuebon.com</a></div>
+          <div class="el-table el-table--enable-row-hover el-table--medium">
+            <table cellspacing="0" style="width: 100%;">
+              <tbody>
+                <tr>
+                  <td><div class="cell">系统名称</div></td>
+                  <td><div class="cell">{{ SysSetting.Title }}</div></td>
+                  <td><div class="cell">系统版本</div></td>
+                  <td><div class="cell">{{ SysSetting.Version }}（<a :href="SysSetting.UpdateUrl" target="_blank">更新</a>）</div></td>
+                </tr>
+                <tr>
+                  <td><div class="cell">域名</div></td>
+                  <td><div class="cell">{{ SysSetting.WebUrl }}</div></td>
+                  <td><div class="cell">授权方式</div></td>
+                  <td><div class="cell">按域名授权{{ SysSetting.CertificatedCompany }}</div></td>
+                </tr>
+                <tr>
+                  <td><div class="cell">运行时的版本号</div></td>
+                  <td><div class="cell">{{ SysSetting.FrameworkDescription }}-{{ SysSetting.SystemVersion }}</div></td>
+                  <td><div class="cell">应用端口</div></td>
+                  <td><div class="cell">{{ SysSetting.Port }}</div></td>
+                </tr>
+                <tr>
+                  <td><div class="cell">开发团队</div></td>
+                  <td><div class="cell">{{ SysSetting.Manufacturer }}</div></td>
+                  <td><div class="cell">官方文档：</div></td>
+                  <td><div class="cell"><a href="http://docs.v.yuebon.com" target="_blank">http://docs.v.yuebon.com</a></div></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <div class="systeminfo">
-            <div class="lidiv">服务器名称：{{ SysSetting.MachineName }}</div>
-            <div class="lidiv">操作系统：{{ SysSetting.OSDescription }}</div>
-            <div class="lidiv">服务器IP：{{ SysSetting.IPAdress }}</div>
-            <div class="lidiv">服务器端口：{{ SysSetting.Port }}</div>
-            <div class="lidiv">运行时的版本号：{{ SysSetting.SystemVersion }}</div>
-            <div class="lidiv">开发团队：{{ SysSetting.Manufacturer }}</div>
-            <div class="lidiv">官方网址：<a :href="SysSetting.WebSite" target="_blank"> {{ SysSetting.WebSite }}</a></div>
+        </el-card>
+      </el-col>
+      <el-col :span="12" class="card-box">
+        <el-card>
+          <div slot="header">
+            <span>服务器信息</span>
+          </div>
+          <div class="el-table el-table--enable-row-hover el-table--medium">
+            <table cellspacing="0" style="width: 100%;">
+              <tbody>
+                <tr>
+                  <td><div class="cell">服务器名称</div></td>
+                  <td><div v-if="SysSetting.MachineName" class="cell">{{ SysSetting.MachineName }}</div></td>
+                  <td><div class="cell">操作系统</div></td>
+                  <td><div v-if="SysSetting.OSDescription" class="cell">{{ SysSetting.OSDescription }}</div></td>
+                </tr>
+                <tr>
+                  <td><div class="cell">服务器IP</div></td>
+                  <td><div class="cell">{{ SysSetting.IPAdress }}</div></td>
+                  <td><div class="cell">CPU数量</div></td>
+                  <td><div class="cell">{{ SysSetting.ProcessorCount }}</div></td>
+                </tr>
+                <tr>
+                  <td><div class="cell">内存页</div></td>
+                  <td><div class="cell">{{ SysSetting.SystemPageSize/1024 }}Kb</div></td>
+                  <td><div class="cell">应用架构</div></td>
+                  <td><div class="cell">{{ SysSetting.ProcessArchitecture }}</div></td>
+                </tr>
+                <tr>
+                  <td><div class="cell">运行时长</div></td>
+                  <td><div class="cell">{{ SysSetting.RunTimeLength }}</div></td>
+                  <td><div class="cell">使用内存</div></td>
+                  <td><div class="cell">{{ SysSetting.WorkingSet/1024 }}Kb</div></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </el-card>
       </el-col>

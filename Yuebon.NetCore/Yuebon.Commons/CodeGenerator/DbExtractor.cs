@@ -15,9 +15,15 @@ namespace Yuebon.Commons.CodeGenerator
 
         public DbExtractor()
         {
+            MssqlExtractor mssqlExtractor = new MssqlExtractor();
+            mssqlExtractor.OpenSharedConnection();
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            dbType = yuebonCacheHelper.Get("CodeGeneratorDbType").ToString().ToUpper();
-            dbName= yuebonCacheHelper.Get("CodeGeneratorDbName").ToString();
+            object odbty = yuebonCacheHelper.Get("CodeGeneratorDbType");
+            if (odbty != null)
+                dbType = odbty.ToString().ToUpper();
+            object odbn = yuebonCacheHelper.Get("CodeGeneratorDbName");
+            if (odbn != null)
+                dbName = odbn.ToString();
         }
 
         /// <summary>

@@ -35,7 +35,7 @@ namespace Yuebon.WebApi.Controllers
         /// <param name="dbConnInfo"></param>
         /// <returns></returns>
         [HttpPost("CreateDBConn")]
-        [YuebonAuthorize("GetDBConn")]
+        [YuebonAuthorize("CreateDBConn")]
         [NoPermissionRequired]
         public async Task<IActionResult> CreateDBConn(DbConnInfo dbConnInfo)
         {
@@ -72,8 +72,8 @@ namespace Yuebon.WebApi.Controllers
                 yuebonCacheHelper.Add("CodeGeneratorDbConn", dBConnResult.ConnStr, expiresSliding, false);
                 yuebonCacheHelper.Add("CodeGeneratorDbType", dbConnInfo.DbType, expiresSliding, false);
                 yuebonCacheHelper.Add("CodeGeneratorDbName", dbConnInfo.DbName, expiresSliding, false);
-                DbExtractor mssqlExtractor = new DbExtractor();
-                List<DataBaseInfo> listTable = mssqlExtractor.GetAllDataBases();
+                DbExtractor dbExtractor = new DbExtractor();
+                List<DataBaseInfo> listTable = dbExtractor.GetAllDataBases();
                 result.ResData = listTable;
                 result.Success = true;
                 result.ErrCode = ErrCode.successCode;
@@ -91,9 +91,12 @@ namespace Yuebon.WebApi.Controllers
         [NoPermissionRequired]
         public async Task<IActionResult> GetListDataBase()
         {
+            YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+            yuebonCacheHelper.Remove("CodeGeneratorDbConn");
+            yuebonCacheHelper.Remove("CodeGeneratorDbName");
             CommonResult result = new CommonResult();
-            MssqlExtractor mssqlExtractor = new MssqlExtractor();
-            List<DataBaseInfo> listTable = mssqlExtractor.GetAllDataBases();
+            DbExtractor dbExtractor = new DbExtractor();
+            List<DataBaseInfo> listTable = dbExtractor.GetAllDataBases();
             result.ResData = listTable;
             result.ErrCode = ErrCode.successCode;
             return ToJsonContent(result);
@@ -114,7 +117,6 @@ namespace Yuebon.WebApi.Controllers
             {
                 YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
                 object connCode = yuebonCacheHelper.Get("CodeGeneratorDbConn");
-                string dbType = "";
                 if (connCode != null)
                 {
                     string SqlConnectionString = connCode.ToString();
@@ -122,9 +124,9 @@ namespace Yuebon.WebApi.Controllers
                     string[] dataName = sqlconn[1].Split("=");
                     dataName[1] = search.EnCode;
                     sqlconn[1] = dataName.Join("=");
-                    string newStr = sqlconn.Join(";");
+                    string newConnStr = sqlconn.Join(";");
                     TimeSpan expiresSliding = DateTime.Now.AddMinutes(30) - DateTime.Now;
-                    yuebonCacheHelper.Add("CodeGeneratorDbConn",newStr, expiresSliding,false);
+                    yuebonCacheHelper.Add("CodeGeneratorDbConn", newConnStr, expiresSliding,false);
                     yuebonCacheHelper.Add("CodeGeneratorDbName", search.EnCode, expiresSliding, false);
                 }
             }

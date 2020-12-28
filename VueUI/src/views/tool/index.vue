@@ -36,14 +36,16 @@
         <el-form ref="codeform" :inline="true" :rules="rules" :model="codeform" class="demo-form-inline" size="small">
           <el-button type="default" icon="el-icon-refresh" size="small" @click="loadTableData()">刷新</el-button>
           <el-form-item label="数据库">
-            <el-select v-model="searchform.DbName" clearable placeholder="请选择" @change="handleShowTable">
-              <el-option
-                v-for="item in selectedDataBase"
-                :key="item.Id"
-                :label="item.DbName"
-                :value="item.DbName"
-              />
-            </el-select>
+            <el-tooltip class="item" effect="dark" content="默认为系统访问数据库" placement="top">
+              <el-select v-model="searchform.DbName" clearable placeholder="请选择" @change="handleShowTable">
+                <el-option
+                  v-for="item in selectedDataBase"
+                  :key="item.Id"
+                  :label="item.DbName"
+                  :value="item.DbName"
+                />
+              </el-select>
+            </el-tooltip>
           </el-form-item>
           <el-form-item label="数据库表名">
             <el-input v-model="searchform.tableName" clearable placeholder="输入要查询的表名" />

@@ -53,13 +53,13 @@ namespace Yuebon.Commons.CodeGenerator
             _option.TableList = tableList;
             _option.BaseNamespace = baseNamespace;
 
-            MssqlExtractor mssqlExtractor = new MssqlExtractor();
-            List<DbTableInfo> listTable = mssqlExtractor.GetAllTables(_option.TableList);
+            DbExtractor dbExtractor = new DbExtractor();
+            List<DbTableInfo> listTable = dbExtractor.GetWhereTables(_option.TableList);
             string profileContent = string.Empty;
             foreach (DbTableInfo dbTableInfo in listTable)
             {
                
-                List<DbFieldInfo> listField = mssqlExtractor.GetAllColumns(dbTableInfo.TableName);
+                List<DbFieldInfo> listField = dbExtractor.GetAllColumns(dbTableInfo.TableName);
                 GenerateSingle(listField, dbTableInfo, ifExsitedCovered);
 
                 string tableName = dbTableInfo.TableName.Substring(0,1).ToUpper() + dbTableInfo.TableName.Substring(1);// 

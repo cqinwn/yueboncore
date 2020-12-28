@@ -10,6 +10,7 @@ using Microsoft.Data.Sqlite;
 using MySql.Data.MySqlClient;
 using Npgsql;
 using Oracle.ManagedDataAccess.Client;
+using Yuebon.Commons.Cache;
 using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Pages;
 
@@ -20,6 +21,7 @@ namespace Yuebon.Commons.CodeGenerator
     /// </summary>
     public abstract class DbExtractorAbstract
     {
+
         #region 初始化
         /// <summary>
         /// 连接字符串
@@ -47,18 +49,32 @@ namespace Yuebon.Commons.CodeGenerator
         /// <returns></returns>
         public DbConnection OpenSharedConnection()
         {
-            string conStringEncrypt = Configs.GetConfigurationValue("AppSetting", "ConStringEncrypt");
-            if (string.IsNullOrEmpty(dbConfigName))
+            YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+            object connCode = yuebonCacheHelper.Get("CodeGeneratorDbConn");
+            string dbType = "";
+            if (connCode!=null)
             {
-                dbConfigName = Configs.GetConfigurationValue("AppSetting", "DefaultDataBase");
+                DefaultSqlConnectionString = connCode.ToString();
+                dbType=yuebonCacheHelper.Get("CodeGeneratorDbType").ToString().ToUpper();
             }
-            DefaultSqlConnectionString = Configs.GetConnectionString(dbConfigName);
-            if (conStringEncrypt == "true")
+            else
             {
-                DefaultSqlConnectionString = DEncrypt.Decrypt(DefaultSqlConnectionString);
+                string conStringEncrypt = Configs.GetConfigurationValue("AppSetting", "ConStringEncrypt");
+                if (string.IsNullOrEmpty(dbConfigName))
+                {
+                    dbConfigName = Configs.GetConfigurationValue("AppSetting", "DefaultDataBase");
+                }
+                DefaultSqlConnectionString = Configs.GetConnectionString(dbConfigName);
+                if (conStringEncrypt == "true")
+                {
+                    DefaultSqlConnectionString = DEncrypt.Decrypt(DefaultSqlConnectionString);
+                }
+                dbType = dbConfigName.ToUpper();
+                TimeSpan expiresSliding = DateTime.Now.AddMinutes(30) - DateTime.Now;
+                yuebonCacheHelper.Add("CodeGeneratorDbConn", DefaultSqlConnectionString, expiresSliding, false);
+                yuebonCacheHelper.Add("CodeGeneratorDbType", dbType, expiresSliding, false);
             }
-            string dbType = dbConfigName.ToUpper();
-            if (dbType.Contains("MSSQL"))
+            if (dbType.Contains("SQLSERVER"))
             {
                 dbConnection = new SqlConnection(DefaultSqlConnectionString);
             }
@@ -93,7 +109,10 @@ namespace Yuebon.Commons.CodeGenerator
             return dbConnection;
         }
 
+
+
         #region 信息抽取
+
         /// <summary>
         /// 获取数据库的所有表的信息，
         /// 请定义TABLE_NAME 和 COMMENTS 字段的脚本
@@ -106,6 +125,20 @@ namespace Yuebon.Commons.CodeGenerator
             using (DbConnection conn = OpenSharedConnection())
             {
                 list = conn.Query<DbTableInfo>(sql).ToList();
+            }
+            return list;
+        }
+        /// <summary>
+        /// 获取所有数据库信息，
+        /// </summary>
+        /// <param name="sql">具体的脚本</param>
+        /// <returns></returns>
+        protected List<DataBaseInfo> GetAllDataBaseInternal(string sql)
+        {
+            var list = new List<DataBaseInfo>();
+            using (DbConnection conn = OpenSharedConnection())
+            {
+                list = conn.Query<DataBaseInfo>(sql).ToList();
             }
             return list;
         }
@@ -144,10 +177,10 @@ namespace Yuebon.Commons.CodeGenerator
                     DbFieldInfo dbFieldInfo = new DbFieldInfo
                     {
                         FieldName = item.FieldName,
-                        Increment = item.Increment == "1" ? true : false,
+                        //Increment = item.Increment == "1" ? true : false,
                         IsIdentity = item.IsIdentity == "1" ? true : false,
-                        FieldType = item.FieldType,
-                        DataType = item.FieldType,
+                        FieldType = item.FieldType.ToString(),
+                        DataType = item.FieldType.ToString(),
                         FieldMaxLength = item.FieldMaxLength,
                         FieldPrecision = item.FieldPrecision,
                         FieldScale = item.FieldScale,
@@ -160,6 +193,7 @@ namespace Yuebon.Commons.CodeGenerator
             }
             return list;
         }
+
         #endregion
     }
 }

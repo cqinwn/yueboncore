@@ -2,21 +2,55 @@
   <div class="app-container">
     <div class="filter-container">
       <el-card>
-        <el-form ref="searchform" :inline="true" :model="searchform" class="demo-form-inline" size="small">
-          <el-form-item label="数据库表名">
-            <el-input v-model="searchform.tableName" clearable placeholder="输入要查询的表名" />
+        <el-form ref="searchDbform" :inline="true" :model="searchform" class="demo-form-inline" size="small">
+          <el-form-item label="数据库地址" prop="DbAddress">
+            <el-input v-model="searchDbform.DbAddress" placeholder="请输入数据库地址" autocomplete="off" clearable />
+          </el-form-item>
+          <el-form-item label="数据库名称" prop="DbName">
+            <el-input v-model="searchDbform.DbName" placeholder="请输入数据库名称" autocomplete="off" clearable />
+          </el-form-item>
+          <el-form-item label="用户名" prop="DbUserName">
+            <el-input v-model="searchDbform.DbUserName" placeholder="请输入用户名" autocomplete="off" clearable />
+          </el-form-item>
+          <el-form-item label="访问密码" prop="DbPassword">
+            <el-input v-model="searchDbform.DbPassword" placeholder="请输入访问密码" autocomplete="off" clearable />
+          </el-form-item>
+          <el-form-item label="数据库类型" prop="DbType">
+            <el-select v-model="searchDbform.DbType" clearable placeholder="请选数据库类型">
+              <el-option
+                v-for="item in selectDbTypes"
+                :key="item.Id"
+                :label="item.Title"
+                :value="item.Id"
+              />
+            </el-select>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="handleSearch()">查询</el-button>
+            <el-button type="primary" @click="handleDbConn()">链接</el-button>
           </el-form-item>
         </el-form>
       </el-card>
     </div>
     <el-card>
       <div class="list-btn-container">
-
         <el-form ref="codeform" :inline="true" :rules="rules" :model="codeform" class="demo-form-inline" size="small">
           <el-button type="default" icon="el-icon-refresh" size="small" @click="loadTableData()">刷新</el-button>
+          <el-form-item label="数据库">
+            <el-select v-model="searchform.DbName" clearable placeholder="请选择" @change="handleShowTable">
+              <el-option
+                v-for="item in selectedDataBase"
+                :key="item.Id"
+                :label="item.DbName"
+                :value="item.DbName"
+              />
+            </el-select>
+          </el-form-item>
+          <el-form-item label="数据库表名">
+            <el-input v-model="searchform.tableName" clearable placeholder="输入要查询的表名" />
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="handleSearch()">查询</el-button>
+          </el-form-item>
           <el-form-item label="项目命名空间：" prop="baseSpace">
             <el-tooltip class="item" effect="dark" content="系统会根据项目命名空间自动生成IService、Service、Models等子命名空间" placement="top">
               <el-input v-model="codeform.baseSpace" clearable placeholder="如Yuebon.WMS" />
@@ -78,11 +112,23 @@
 </template>
 
 <script>
-import { codeGetTableList, codeGenerator } from '@/api/developers/toolsservice'
+import { createGetDBConn, codeGetDBList, codeGetTableList, codeGenerator } from '@/api/developers/toolsservice'
+import { downloadFile } from '@/utils/index'
+import { Loading } from 'element-ui'
+
+import defaultSettings from '@/settings'
 export default {
   data () {
     return {
+      searchDbform: {
+        DbName: '',
+        DbAddress: '',
+        DbUserName: '',
+        DbPassword: '',
+        DbType: ''
+      },
       searchform: {
+        DbName: '',
         tableName: ''
       },
       codeform: {
@@ -98,6 +144,13 @@ export default {
           { min: 0, max: 50, message: '长度小于50个字符', trigger: 'blur' }
         ]
       },
+      selectDbTypes: [{
+        Id: 'SqlServer',
+        Title: 'SqlServer'
+      }, {
+        Id: 'MySql',
+        Title: 'MySql'
+      }],
       tableData: [],
       tableloading: true,
       pagination: {
@@ -109,31 +162,41 @@ export default {
         order: '',
         sort: ''
       },
-      currentSelected: []
+      currentSelected: [],
+      selectedDataBase: []
     }
   },
   created () {
     this.pagination.currentPage = 1
+    this.loadData()
     this.loadTableData()
   },
   methods: {
+    loadData: function () {
+      codeGetDBList().then(res => {
+        this.selectedDataBase = res.ResData
+      })
+    },
     /**
      * 加载页面table数据
      */
     loadTableData: function () {
-      this.tableloading = true
-      var seachdata = {
-        'CurrentPage': this.pagination.currentPage,
-        'length': this.pagination.pagesize,
-        'Keywords': this.searchform.tableName,
-        'Order': this.sortableData.order,
-        'Sort': this.sortableData.sort
+      if (this.searchform.dataBaseName !== '') {
+        this.tableloading = true
+        var seachdata = {
+          'CurrentPage': this.pagination.currentPage,
+          'length': this.pagination.pagesize,
+          'Keywords': this.searchform.tableName,
+          'EnCode': this.searchform.DbName,
+          'Order': this.sortableData.order,
+          'Sort': this.sortableData.sort
+        }
+        codeGetTableList(seachdata).then(res => {
+          this.tableData = res.ResData.Items
+          this.pagination.pageTotal = res.ResData.TotalItems
+          this.tableloading = false
+        })
       }
-      codeGetTableList(seachdata).then(res => {
-        this.tableData = res.ResData.Items
-        this.pagination.pageTotal = res.ResData.TotalItems
-        this.tableloading = false
-      })
     },
     /**
      * 点击查询
@@ -142,16 +205,42 @@ export default {
       this.pagination.currentPage = 1
       this.loadTableData()
     },
+    handleShowTable: function () {
+      this.pagination.currentPage = 1
+      this.loadTableData()
+    },
+    handleDbConn: function () {
+      var dataInfo = {
+        DbAddress: this.searchDbform.DbAddress,
+        DbName: this.searchDbform.DbName,
+        DbUserName: this.searchDbform.DbUserName,
+        DbPassword: this.searchDbform.DbPassword,
+        DbType: this.searchDbform.DbType
+      }
+      createGetDBConn(dataInfo).then(res => {
+        this.selectedDataBase = res.ResData
+        this.searchform.DbName = this.searchDbform.DbName
+      })
+      this.pagination.currentPage = 1
+      this.loadTableData()
+    },
     /**
      * 点击生成服务端代码
      */
-    handleGenerate: function () {
+    handleGenerate: async function () {
       if (this.currentSelected.length === 0) {
         this.$alert('请先选择要生成代码的数据表', '提示')
         return false
       } else {
         this.$refs['codeform'].validate((valid) => {
           if (valid) {
+            var loadop = {
+              lock: true,
+              text: '正在生成代码...',
+              spinner: 'el-icon-loading',
+              background: 'rgba(0, 0, 0, 0.7)'
+            }
+            const pageLoading = Loading.service(loadop)
             var currentTables = ''
             this.currentSelected.forEach(element => {
               currentTables += element.TableName + ','
@@ -163,8 +252,9 @@ export default {
             }
             codeGenerator(seachdata).then(res => {
               if (res.Success) {
+                downloadFile(defaultSettings.fileUrl + res.ResData[0], res.ResData[1])
                 this.$message({
-                  message: '恭喜你，操作成功',
+                  message: '恭喜你，代码生成完成！',
                   type: 'success'
                 })
               } else {
@@ -173,6 +263,9 @@ export default {
                   type: 'error'
                 })
               }
+              pageLoading.close()
+            }).catch(erre => {
+              pageLoading.close()
             })
           } else {
             return false

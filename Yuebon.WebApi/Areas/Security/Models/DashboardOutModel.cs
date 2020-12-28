@@ -44,9 +44,75 @@ namespace Yuebon.WebApi.Areas.Security.Models
             set;
         }
         /// <summary>
-        /// 
+        /// 正在其上运行应用的操作系统。
         /// </summary>
         public string OSDescription
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 获取正在其上运行应用的 .NET 安装的名称。
+        /// </summary>
+        public string FrameworkDescription
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 获取正在其上运行当前应用的平台体系结构。
+        /// </summary>
+        public string OSArchitecture
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 获取当前正在运行的应用的进程架构。
+        /// </summary>
+        public string ProcessArchitecture
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 获取当前计算机上的处理器数。
+        /// </summary>
+        public int ProcessorCount
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 获取操作系统的内存页的字节数。
+        /// </summary>
+        public int SystemPageSize
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 获取映射到进程上下文的物理内存量。
+        /// </summary>
+        public long WorkingSet
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 获取系统启动后经过的毫秒数。
+        /// </summary>
+        public int TickCount
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 运行时长
+        /// </summary>
+        public string RunTimeLength
         {
             get;
             set;

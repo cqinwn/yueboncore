@@ -109,7 +109,18 @@ namespace Yuebon.Commons.Extend
             if (value > 0)
             {
                 TimeSpan ts = new TimeSpan(0, 0, value);
-                if (ts.Hours > 0)
+                if (ts.Days > 0)
+                {
+                    if (ts.Hours > 0)
+                    {
+                        return ts.Days + "天" + ts.Hours + "小时" + ts.Minutes + "分钟" + ts.Seconds + "秒";
+                    }
+                    else
+                    {
+                        return ts.Hours + "小时" + ts.Minutes + "分钟";
+                    }
+                }
+                else if (ts.Hours > 0)
                 {
                     if (ts.Seconds > 0)
                     {

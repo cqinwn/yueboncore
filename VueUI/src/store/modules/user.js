@@ -64,7 +64,6 @@ const actions = {
         Cookies.set('yuebon_loginuser', data.UserId)
         resolve(response)
       }).catch(error => {
-        console.log('000:' + JSON.stringify(error))
         reject(error)
       })
     })

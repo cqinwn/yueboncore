@@ -26,8 +26,8 @@
         <el-table-column prop="CreatorTime" label="操作时间" sortable="custom" width="160" />
         <el-table-column prop="Account" label="操作账号" sortable="custom" width="120" />
         <el-table-column prop="NickName" label="操作人" sortable="custom" width="120" />
-        <el-table-column prop="ModuleName" label="操作模块" sortable="custom" width="130" />
-        <el-table-column prop="Type" label="类型" sortable="custom" width="90" />
+        <!--<el-table-column prop="ModuleName" label="操作模块" sortable="custom" width="130" />
+        <el-table-column prop="Type" label="类型" sortable="custom" width="90" />-->
         <el-table-column prop="IPAddress" label="IP地址" sortable="custom" width="150" />
         <el-table-column prop="IPAddressName" label="IP城市" sortable="custom" width="220" />
         <el-table-column prop="Description" label="详情" />
@@ -86,7 +86,7 @@ export default {
         Keywords: this.searchform.name,
         Order: this.sortableData.order,
         Sort: this.sortableData.sort,
-        EnCode: 'Create,Update,Delete,DeleteSoft'
+        EnCode: 'Create,Update,Delete,DeleteSoft,Visit'
       }
       getLogListWithPager(seachdata).then((res) => {
         this.tableData = res.ResData.Items

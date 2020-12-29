@@ -89,7 +89,7 @@
                   <td><div class="cell">域名</div></td>
                   <td><div class="cell">{{ SysSetting.WebUrl }}</div></td>
                   <td><div class="cell">授权方式</div></td>
-                  <td><div class="cell">按域名授权{{ SysSetting.CertificatedCompany }}</div></td>
+                  <td><div class="cell">按域名授权给({{ SysSetting.CertificatedCompany }})</div></td>
                 </tr>
                 <tr>
                   <td><div class="cell">运行时的版本号</div></td>

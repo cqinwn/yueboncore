@@ -205,8 +205,8 @@ export default {
           this.$store
             .dispatch('user/userlogin', this.loginForm)
             .then(res => {
-              this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
-              // this.$router.push('/')
+              // this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
+              this.$router.push('/')
               this.loading = false
             })
             .catch(res => {

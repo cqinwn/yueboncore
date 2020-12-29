@@ -17,6 +17,9 @@ using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Pages;
 using Yuebon.Security.Dtos;
+using Yuebon.Security.IRepositories;
+using Yuebon.Security.Models;
+using Yuebon.Security.Repositories;
 
 namespace Yuebon.AspNetCore.Controllers
 {
@@ -31,7 +34,7 @@ namespace Yuebon.AspNetCore.Controllers
         /// 当前登录的用户属性
         /// </summary>
         public YuebonCurrentUser CurrentUser;
-
+        private ILogRepository service = new LogRepository();
         #region 
         /// <summary>
         /// 重写基类在Action执行之前的事情
@@ -41,7 +44,7 @@ namespace Yuebon.AspNetCore.Controllers
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var controllerActionDescriptor = filterContext.ActionDescriptor as ControllerActionDescriptor;
-            
+
             try
             {   //匿名访问不需要token认证
                 var allowanyone = controllerActionDescriptor.ControllerTypeInfo.GetCustomAttributes(typeof(IAllowAnonymous), true).Any()
@@ -65,6 +68,19 @@ namespace Yuebon.AspNetCore.Controllers
                         }
                     }
                 }
+                Log logEntity = new Log();
+                if (CurrentUser != null)
+                {
+                    logEntity.Account = CurrentUser.Account;
+                    logEntity.NickName = CurrentUser.NickName;
+                    logEntity.IPAddressName = CurrentUser.IPAddressName;
+                }
+                logEntity.IPAddress = filterContext.HttpContext.Connection.RemoteIpAddress.ToString();
+                logEntity.Date = logEntity.CreatorTime = DateTime.Now;
+                logEntity.Result = false;
+                logEntity.Description = filterContext.HttpContext.Request.Path + filterContext.HttpContext.Request.QueryString;
+                logEntity.Type = "Visit";
+                service.Insert(logEntity);
                 base.OnActionExecuting(filterContext);
             }
             catch (Exception ex)

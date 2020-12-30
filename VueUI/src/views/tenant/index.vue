@@ -243,9 +243,9 @@ export default {
             EnabledMark: this.editFrom.EnabledMark
           }
 
-          var url = 'Tenant/Insert'
+          var url = 'Tenants/Tenant/Insert'
           if (this.currentId !== '') {
-            url = 'Tenant/Update?id=' + this.currentId
+            url = 'Tenants/Tenant/Update?id=' + this.currentId
           }
           saveTenant(data, url).then((res) => {
             if (res.Success) {

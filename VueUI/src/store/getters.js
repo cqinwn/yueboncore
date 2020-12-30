@@ -9,6 +9,7 @@ const getters = {
   subSystem: state => state.user.subSystem,
   activeSystemName: state => state.user.activeSystemName,
   menus: state => state.user.menus,
+  permission_routes: state => state.permission.routes,
   addRouters: state => state.settings.addRouters
 }
 export default getters

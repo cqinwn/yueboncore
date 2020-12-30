@@ -38,11 +38,11 @@ namespace Yuebon.AspNetCore.Mvc.Filter
         {
             var exception = context.Exception;
             YuebonCurrentUser currentUser = new YuebonCurrentUser();
-            string requestHost = context.HttpContext.Request.Host.ToString();
             string requestPath = context.HttpContext.Request.Path.ToString();
             string queryString = context.HttpContext.Request.QueryString.ToString();
             var type = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType;
-            Log4NetHelper.Error(type, "全局捕获程序运行异常信息", context.Exception);
+            string exDesc = requestPath + queryString;
+            Log4NetHelper.Error(type, "全局捕获程序运行异常信息\n\r"+ exDesc, context.Exception);
             CommonResult result = new CommonResult();
             if (exception is MyApiException myApiex)
             {
@@ -91,7 +91,7 @@ namespace Yuebon.AspNetCore.Mvc.Filter
             logEntity.IPAddress = currentUser.CurrentLoginIP;
             logEntity.IPAddressName = currentUser.IPAddressName;
             logEntity.Result = false;
-            logEntity.Description = exception.Message;
+            logEntity.Description = $"请求：{exDesc}\r\n异常类型：{exception.GetType().Name} \r\n异常信息：{exception.Message} \r\n【堆栈调用】：\r\n{exception.StackTrace}";
             logEntity.Type = "Exception";
             service.Insert(logEntity);
         }

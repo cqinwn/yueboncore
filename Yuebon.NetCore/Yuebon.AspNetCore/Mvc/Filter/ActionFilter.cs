@@ -15,10 +15,19 @@ using Yuebon.Security.Repositories;
 
 namespace Yuebon.AspNetCore.Mvc.Filter
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ActionFilter : IAsyncActionFilter
     {
 
          ILogService _logService = IoCContainer.Resolve<ILogService>();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="next"></param>
+        /// <returns></returns>
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             var profiler = MiniProfiler.StartNew("StartNew");

@@ -123,7 +123,7 @@ namespace Yuebon.AspNetCore.Mvc
                         if (!isAdmin)
                         {
                             var authorizeAttributes = controllerActionDescriptor.MethodInfo.GetCustomAttributes(typeof(YuebonAuthorizeAttribute), true).OfType<YuebonAuthorizeAttribute>();
-                            if (authorizeAttributes.First() != null)
+                            if (authorizeAttributes.FirstOrDefault() != null)
                             {
                                 string function = authorizeAttributes.First().Function;
                                 if (!string.IsNullOrEmpty(function))

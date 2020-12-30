@@ -24,8 +24,10 @@ namespace Yuebon.Security.Repositories
         /// <returns></returns>
         public Organize GetRootOrganize(string id)
         {
-            var sb = new StringBuilder(";WITH T AS ");
-            sb.Append("(");
+            var sb = new StringBuilder(";WITH ");
+            if (this.dbConfigName.ToUpper().Contains("MYSQL"))
+                sb.Append(" Recursive ");
+            sb.Append(" T AS (");
             sb.Append(" SELECT Id, ParentId, FullName, Layers FROM Sys_Organize");
             sb.AppendFormat(" WHERE Id = '{0}'",id);
             sb.Append(" UNION ALL ");

@@ -83,12 +83,13 @@ export function getSubSystemList () {
    * 登录
    * @param {*} data
    */
-export function login (data) {
+export async function login (data) {
   var query = data
   return http({
     url: 'Login/GetCheckUser',
     method: 'get',
     params: query,
+    timeout: 0,
     baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
   })
 }

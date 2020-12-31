@@ -65,29 +65,29 @@ namespace Yuebon.Security.Services
                 PageSize = search.PageSize
             };
 
-            Expression<Func<Log, bool>> filter = log => true;
-            if (!string.IsNullOrEmpty(search.Keywords))
-            {
-                filter = filter.And(log => log.Account.StartsWith(search.Keywords) || log.ModuleName.StartsWith(search.Keywords) || log.IPAddress.StartsWith(search.Keywords)
-             || log.IPAddressName.StartsWith(search.Keywords) || log.Description.StartsWith(search.Keywords));
-            }
-            if (!string.IsNullOrEmpty(search.EnCode))
-            {
-                filter = filter.And(log=>search.EnCode.Contains(log.Type));
-            }
+            //Expression<Func<Log, bool>> filter = log => true;
+            //if (!string.IsNullOrEmpty(search.Keywords))
+            //{
+            //    filter = filter.And(log => log.Account.StartsWith(search.Keywords) || log.ModuleName.StartsWith(search.Keywords) || log.IPAddress.StartsWith(search.Keywords)
+            // || log.IPAddressName.StartsWith(search.Keywords) || log.Description.StartsWith(search.Keywords));
+            //}
+            //if (!string.IsNullOrEmpty(search.EnCode))
+            //{
+            //    filter = filter.And(log=>search.EnCode.Contains(log.Type));
+            //}
 
-            Stopwatch stopwatch = new Stopwatch();
-            var sb = new StringBuilder(" EF Linq与Dapper Sql分页方法性能分析 ： \n");
-            stopwatch.Start();
+            //Stopwatch stopwatch = new Stopwatch();
+            //var sb = new StringBuilder(" EF Linq与Dapper Sql分页方法性能分析 ： \n");
+            //stopwatch.Start();
             List<Log> list = await _iLogRepository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
-            stopwatch.Stop();
-            sb.Append("Dapper耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
+            //stopwatch.Stop();
+            //sb.Append("Dapper耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
             //Stopwatch stopwatch1 = new Stopwatch();
             //stopwatch1.Start();
             //IEnumerable<Log> list = _iLogRepository.GetByPagination(filter, pagerInfo,order, log=>log.Date);
             //stopwatch1.Stop();
             //sb.Append("EF耗时:" + (stopwatch1.ElapsedMilliseconds + "  毫秒\n"));
-            Log4NetHelper.Info(sb.ToString());
+            //Log4NetHelper.Info(sb.ToString());
             PageResult<LogOutputDto> pageResult = new PageResult<LogOutputDto>
             {
                 CurrentPage = pagerInfo.CurrenetPageIndex,

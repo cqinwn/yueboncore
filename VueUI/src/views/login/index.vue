@@ -181,11 +181,10 @@ export default {
           this.companyLogo = res.ResData.SysLogo
           this.companyName = res.ResData.CompanyName
           this.copyRight = res.ResData.CopyRight
-
-          this.pageLoading.close()
-
-          this.isShow = true
         })
+        this.pageLoading.close()
+
+        this.isShow = true
       })
     },
     showPwd () {

@@ -101,7 +101,7 @@ namespace Yuebon.WebApi.Areas.Security
                 dashboardOutModel.TotalUser = await userService.GetCountByWhereAsync("1=1");
                 dashboardOutModel.TotalModule = await menuService.GetCountByWhereAsync("1=1");
                 dashboardOutModel.TotalRole = await roleService.GetCountByWhereAsync("1=1");
-                dashboardOutModel.TotalLog = await logService.GetCountByWhereAsync("1=1");
+                dashboardOutModel.TotalLog = 0;// await logService.GetCountByWhereAsync("1=1");
                 result.ResData = dashboardOutModel;
                 result.ErrCode = ErrCode.successCode;
             }

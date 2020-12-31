@@ -14,12 +14,14 @@ namespace Yuebon.Security.Services
 {
     public class RoleService: BaseService<Role, RoleOutputDto, string>, IRoleService
     {
-        private readonly IRoleRepository _repository;
-        private readonly ILogService _logService;
-        public RoleService(IRoleRepository repository, ILogService logService) : base(repository)
+        private  IRoleRepository _repository;
+        private  ILogService _logService;
+        private IOrganizeService _organizeService;
+        public RoleService(IRoleRepository repository, ILogService logService,IOrganizeService organizeService) : base(repository)
         {
             _repository = repository;
             _logService = logService;
+            _organizeService = organizeService;
         }
 
         /// <summary>
@@ -93,10 +95,20 @@ namespace Yuebon.Security.Services
                 PageSize = search.PageSize
             };
             List<Role> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+            List<RoleOutputDto> resultList = list.MapTo<RoleOutputDto>();
+            List<RoleOutputDto> listResult = new List<RoleOutputDto>();
+            foreach (RoleOutputDto item in resultList)
+            {
+                if (!string.IsNullOrEmpty(item.OrganizeId))
+                {
+                    item.OrganizeName = _organizeService.Get(item.OrganizeId).FullName;
+                }
+                listResult.Add(item);
+            }
             PageResult<RoleOutputDto> pageResult = new PageResult<RoleOutputDto>
             {
                 CurrentPage = pagerInfo.CurrenetPageIndex,
-                Items = list.MapTo<RoleOutputDto>(),
+                Items = listResult.MapTo<RoleOutputDto>(),
                 ItemsPerPage = pagerInfo.PageSize,
                 TotalItems = pagerInfo.RecordCount
             };

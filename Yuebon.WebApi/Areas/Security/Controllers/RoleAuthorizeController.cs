@@ -110,7 +110,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <summary>
         /// 保存角色权限
         /// </summary>
-        /// <param name="search">功能权限</param>
+        /// <param name="roleinfo">功能权限</param>
         /// <returns></returns>
         [HttpPost("SaveRoleAuthorize")]
         [YuebonAuthorize("List")]
@@ -118,8 +118,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         {
             CommonResult result = new CommonResult();
             try
-            {
-                
+            {                
                 List<RoleAuthorize> inList = new List<RoleAuthorize>();
                 List<ModuleFunctionOutputDto> list = roleinfo.RoleFunctios.ToList<ModuleFunctionOutputDto>();
                 foreach (ModuleFunctionOutputDto item in list)

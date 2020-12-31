@@ -34,9 +34,9 @@ namespace Yuebon.Security.Repositories
         {
             var param = new List<Tuple<string, object>>();
             Tuple<string, object> tupel;
-            tupel = new Tuple<string, object>(@"delete from Sys_RoleAuthorize where ObjectId=@RoleId", new { RoleId = roleId } );
+            tupel = new Tuple<string, object>(@"delete from Sys_RoleAuthorize where ObjectId=@RoleId;", new { RoleId = roleId } );
             param.Add(tupel);
-            tupel = new Tuple<string, object>(@"delete from Sys_RoleData where RoleId=@RoleId", new { RoleId = roleId });
+            tupel = new Tuple<string, object>(@"delete from Sys_RoleData where RoleId=@RoleId;", new { RoleId = roleId });
             param.Add(tupel);
             foreach (RoleAuthorize item in roleAuthorizesList)
             {

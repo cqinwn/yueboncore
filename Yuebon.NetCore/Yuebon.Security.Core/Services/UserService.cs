@@ -312,10 +312,10 @@ namespace Yuebon.Security.Services
                 {
                     item.DepartmentName = _organizeService.Get(item.DepartmentId).FullName;
                 }
-                if (!string.IsNullOrEmpty(item.DutyId))
-                {
-                    item.DutyName = _roleService.Get(item.DutyId).FullName;
-                }
+                //if (!string.IsNullOrEmpty(item.DutyId))
+                //{
+                //    item.DutyName = _roleService.Get(item.DutyId).FullName;
+                //}
                 listResult.Add(item);
             }
             PageResult<UserOutputDto> pageResult = new PageResult<UserOutputDto>

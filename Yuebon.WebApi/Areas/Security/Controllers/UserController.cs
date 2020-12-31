@@ -302,7 +302,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         [YuebonAuthorize("List")]
         public  async Task<IActionResult> FindWithPagerSearchAsync(SearchUserModel search)
         {
-            CommonResult<PageResult<AppOutputDto>> result = new CommonResult<PageResult<AppOutputDto>>();
+            CommonResult<PageResult<UserOutputDto>> result = new CommonResult<PageResult<UserOutputDto>>();
             result.ResData = await iService.FindWithPagerSearchAsync(search);
             result.ErrCode = ErrCode.successCode;
             return ToJsonContent(result);

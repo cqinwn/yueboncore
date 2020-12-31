@@ -277,7 +277,7 @@ namespace Yuebon.Commons.Pages
 
             if (isDoCount)//执行总数统计
             {
-                sql = string.Format("select count(*) as Total from {0} Where {1} ", this.TableOrSqlWrapper, this.strwhere);
+                sql = string.Format("select count(*) as Total from {0} where Id IN(select t.Id from (select Id from {0} Where {1})as t)", this.TableOrSqlWrapper, this.strwhere);
             }
             else
             {
@@ -286,7 +286,7 @@ namespace Yuebon.Commons.Pages
 
                 int minRow = pageSize * (pageIndex - 1);
                 int maxRow = pageSize * pageIndex;
-                sql = string.Format("select {0} from {1} Where {2} {3} LIMIT {4},{5}",
+                sql = string.Format("select {0} from {1} where Id IN(select t.Id from (select Id from {1} Where {2} {3} limit {4},{5})as t);",
                     fieldsToReturn, this.TableOrSqlWrapper, this.strwhere, strOrder, minRow, pageSize);
             }
 

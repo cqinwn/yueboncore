@@ -54,10 +54,11 @@ export function getAllSysSetting () {
 /**
  * 获取系统信息
  */
-export function getSysInfo () {
+export async function getSysInfo () {
   return http({
     url: 'Security/SysSetting/GetSysInfo',
     method: 'get',
+    timeout: 0,
     baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
   })
 }

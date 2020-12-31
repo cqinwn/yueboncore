@@ -36,7 +36,7 @@ namespace Yuebon.AspNetCore.Mvc.Filter
                 //执行Action
                 await next();
             }
-            WriteLog(profiler);
+           WriteLog(profiler);
         }
 
         /// <summary>

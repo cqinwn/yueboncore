@@ -301,10 +301,24 @@ namespace Yuebon.Commons.Repositories
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
-            string sql = $"select top {top} {selectedFields} from " + tableName;
-            if (!string.IsNullOrWhiteSpace(where))
+            string dbType = dbConfigName.ToUpper();
+            string sql =  $"select top {top} {selectedFields} from " + tableName; ;
+            if (dbType.Contains("MSSQL"))
             {
-                sql += " where " + where;
+                if (!string.IsNullOrWhiteSpace(where))
+                {
+                    sql += " where " + where;
+                }
+            }
+            else if (dbType.Contains("MYSQL"))
+            {
+                sql = $"select {selectedFields} from " + tableName;
+
+                if (!string.IsNullOrWhiteSpace(where))
+                {
+                    sql += " where " + where;
+                }
+                sql += $"  LIMIT 0,{top}; ";
             }
             return DapperConn.Query<T>(sql, trans);
         }
@@ -324,10 +338,24 @@ namespace Yuebon.Commons.Repositories
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
-            string sql = $"select top {top} {selectedFields}  from " + tableName;
-            if (!string.IsNullOrWhiteSpace(where))
+            string dbType = dbConfigName.ToUpper();
+            string sql = $"select top {top} {selectedFields} from " + tableName; ;
+            if (dbType.Contains("MSSQL"))
             {
-                sql += " where " + where;
+                if (!string.IsNullOrWhiteSpace(where))
+                {
+                    sql += " where " + where;
+                }
+            }
+            else if (dbType.Contains("MYSQL"))
+            {
+                sql = $"select {selectedFields} from " + tableName;
+
+                if (!string.IsNullOrWhiteSpace(where))
+                {
+                    sql += " where " + where;
+                }
+                sql += $"  LIMIT 0,{top}; ";
             }
             return await DapperConn.QueryAsync<T>(sql, trans);
         }

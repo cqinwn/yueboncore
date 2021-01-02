@@ -48,7 +48,7 @@
               >
                 <el-table-column
                   prop="FullName"
-                  label="模块名称"
+                  label="菜单/模块名称"
                   width="220"
                 >
                   <template slot-scope="scope">
@@ -187,13 +187,13 @@
         </el-col>
       </el-row>
     </el-card>
-    <el-dialog ref="dialogEditMenuForm" :title="editMenuFormTitle+'模块'" :visible.sync="dialogMenuEditFormVisible" width="30%">
+    <el-dialog ref="dialogEditMenuForm" :title="editMenuFormTitle+'模块/菜单'" :visible.sync="dialogMenuEditFormVisible" width="30%">
       <el-form ref="editMenuFrom" :model="editMenuFrom" :rules="rules">
         <el-form-item label="模块名称" :label-width="formLabelWidth" prop="FullName">
-          <el-input v-model="editMenuFrom.FullName" placeholder="请输入模块名称" autocomplete="off" clearable />
+          <el-input v-model="editMenuFrom.FullName" placeholder="请输入模块/菜单名称" autocomplete="off" clearable />
         </el-form-item>
         <el-form-item label="模块编码" :label-width="formLabelWidth" prop="EnCode">
-          <el-input v-model="editMenuFrom.EnCode" placeholder="请输入模块编码" autocomplete="off" clearable />
+          <el-input v-model="editMenuFrom.EnCode" placeholder="请输入模块编码，与对应功能编码一致" autocomplete="off" clearable />
         </el-form-item>
         <el-form-item label="所属系统" :label-width="formLabelWidth" prop="SystemTypeId">
           <el-select

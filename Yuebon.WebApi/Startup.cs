@@ -134,10 +134,10 @@ namespace Yuebon.WebApi
             #endregion
 
             #region 全局设置跨域访问
-            //允许所有跨域访问
+            //允许所有跨域访问，测试用
             services.AddCors(options => options.AddPolicy("yuebonCors",
                 policy => policy.WithOrigins("*").AllowAnyHeader().AllowAnyMethod()));
-
+            // 跨域设置 建议正式环境
             //services.AddCors(options => options.AddPolicy("yuebonCors",
             //    policy => policy.WithOrigins(Configuration.GetSection("AppSetting:AllowOrigins").Value.Split(',', StringSplitOptions.RemoveEmptyEntries)).AllowAnyHeader().AllowAnyMethod()));
             #endregion

@@ -9,6 +9,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Dtos;
+using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
@@ -47,18 +48,30 @@ namespace Yuebon.Security.Services
         /// </summary>
         /// <param name="search">查询的条件</param>
         /// <returns>指定对象的集合</returns>
-        public override async Task<PageResult<LogOutputDto>> FindWithPagerAsync(SearchInputDto<Log> search)
+        public async Task<PageResult<LogOutputDto>> FindWithPagerSearchAsync(SearchLogModel search)
         {
             bool order = search.Order == "asc" ? false : true;
             string where = GetDataPrivilege(false);
-            if (!string.IsNullOrEmpty(search.Keywords))
+            if (!string.IsNullOrEmpty(search.CreatorTime1))
             {
-                where += string.Format(" and (Account like '{0}%' or ModuleName like '{0}%' or IPAddress like '{0}%' or IPAddressName like '{0}%' or Description like '{0}%')", search.Keywords);
-            };
-            if (!string.IsNullOrEmpty(search.EnCode))
-            {
-                where += " and Type in('" + search.EnCode.Replace(",", "','") + "')";
+                where += " and CreatorTime >='"+ search.CreatorTime1.ToDateTime()+ "'";
             }
+            if (!string.IsNullOrEmpty(search.CreatorTime2))
+            {
+                where += " and CreatorTime <='" + search.CreatorTime2.ToDateTime() + "'";
+            }
+            if (!string.IsNullOrEmpty(search.Filter.Type))
+            {
+                where += " and Type='"+ search.Filter.Type + "'";
+            }
+            if (!string.IsNullOrEmpty(search.Filter.IPAddress))
+            {
+                where += string.Format(" and IPAddress = '{0}'", search.Filter.IPAddress);
+            };
+            if (!string.IsNullOrEmpty(search.Filter.Account))
+            {
+                where += string.Format(" and Account = '{0}'", search.Filter.Account);
+            };
             PagerInfo pagerInfo = new PagerInfo
             {
                 CurrenetPageIndex = search.CurrenetPageIndex,
@@ -75,19 +88,7 @@ namespace Yuebon.Security.Services
             //{
             //    filter = filter.And(log=>search.EnCode.Contains(log.Type));
             //}
-
-            //Stopwatch stopwatch = new Stopwatch();
-            //var sb = new StringBuilder(" EF Linq与Dapper Sql分页方法性能分析 ： \n");
-            //stopwatch.Start();
             List<Log> list = await _iLogRepository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
-            //stopwatch.Stop();
-            //sb.Append("Dapper耗时:" + (stopwatch.ElapsedMilliseconds + "  毫秒\n"));
-            //Stopwatch stopwatch1 = new Stopwatch();
-            //stopwatch1.Start();
-            //IEnumerable<Log> list = _iLogRepository.GetByPagination(filter, pagerInfo,order, log=>log.Date);
-            //stopwatch1.Stop();
-            //sb.Append("EF耗时:" + (stopwatch1.ElapsedMilliseconds + "  毫秒\n"));
-            //Log4NetHelper.Info(sb.ToString());
             PageResult<LogOutputDto> pageResult = new PageResult<LogOutputDto>
             {
                 CurrentPage = pagerInfo.CurrenetPageIndex,

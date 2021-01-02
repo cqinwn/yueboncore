@@ -7,7 +7,7 @@ import defaultSettings from '@/settings'
    */
 export function getLogListWithPager (data) {
   return http.request({
-    url: 'Log/FindWithPagerAsync',
+    url: 'Log/FindWithPagerSearchAsync',
     method: 'post',
     data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式

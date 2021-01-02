@@ -277,7 +277,7 @@ namespace Yuebon.Commons.Pages
 
             if (isDoCount)//执行总数统计
             {
-                sql = string.Format("select count(*) as Total from {0} where Id IN(select t.Id from (select Id from {0} Where {1})as t)", this.TableOrSqlWrapper, this.strwhere);
+                sql = string.Format("select count(Id) as Total from {0} Where {1}", this.TableOrSqlWrapper, this.strwhere);
             }
             else
             {

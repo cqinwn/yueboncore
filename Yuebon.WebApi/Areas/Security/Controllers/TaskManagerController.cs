@@ -284,7 +284,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <summary>
         /// 异步批量物理删除
         /// </summary>
-        /// <param name="ids">主键Id</param>
+        /// <param name="info">删除信息</param>
         [HttpDelete("DeleteBatchAsync")]
         [YuebonAuthorize("Delete")]
         public override async Task<IActionResult> DeleteBatchAsync(UpdateEnableViewModel info)

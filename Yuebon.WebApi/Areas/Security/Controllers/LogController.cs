@@ -1,7 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Threading.Tasks;
 using Yuebon.AspNetCore.Controllers;
+using Yuebon.AspNetCore.Models;
+using Yuebon.AspNetCore.Mvc;
 using Yuebon.Commons.Helpers;
+using Yuebon.Commons.Models;
+using Yuebon.Commons.Pages;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
@@ -68,6 +73,22 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.DeleteMark = true;
             info.DeleteTime = DateTime.Now;
             info.DeleteUserId = CurrentUser.UserId;
+        }
+
+
+        /// <summary>
+        /// 异步分页查询
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        [HttpPost("FindWithPagerSearchAsync")]
+        [YuebonAuthorize("List")]
+        public async Task<IActionResult> FindWithPagerSearchAsync(SearchLogModel search)
+        {
+            CommonResult<PageResult<LogOutputDto>> result = new CommonResult<PageResult<LogOutputDto>>();
+            result.ResData = await iService.FindWithPagerSearchAsync(search);
+            result.ErrCode = ErrCode.successCode;
+            return ToJsonContent(result);
         }
     }
 }

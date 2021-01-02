@@ -117,11 +117,11 @@ namespace Yuebon.Commons.Net
                 JObject jo = JObject.Parse(jsonText);
                 if (jo["status"].ToString() == "0")
                 {
-                    var nation = jo["result"]["ad_info"]["nation"].ToString();
-                    var province = jo["result"]["ad_info"]["province"].ToString();
-                    var city = jo["result"]["ad_info"]["city"].ToString();
-                    var district = jo["result"]["ad_info"]["district"].ToString();
-                    var adcode = jo["result"]["ad_info"]["adcode"].ToString();
+                    var nation = jo["result"]["ad_info"]["nation"].ToString();//国家
+                    var province = jo["result"]["ad_info"]["province"].ToString();//省份
+                    var city = jo["result"]["ad_info"]["city"].ToString();//城市
+                    var district = jo["result"]["ad_info"]["district"].ToString();//区/县
+                    var adcode = jo["result"]["ad_info"]["adcode"].ToString();//行政区划代码
                     if (string.IsNullOrEmpty(province) || string.IsNullOrEmpty(city))
                     {
                         return "未知";

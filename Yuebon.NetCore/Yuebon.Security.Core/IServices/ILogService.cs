@@ -1,5 +1,7 @@
 using System;
+using System.Threading.Tasks;
 using Yuebon.Commons.IServices;
+using Yuebon.Commons.Pages;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.Models;
 
@@ -30,5 +32,11 @@ namespace Yuebon.Security.IServices
         /// <param name="currentUser">操作用户</param>
         /// <returns></returns>
         bool OnOperationLog(string module, string operationType,  string note, YuebonCurrentUser currentUser);
+        /// <summary>
+        /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
+        /// </summary>
+        /// <param name="search">查询的条件</param>
+        /// <returns>指定对象的集合</returns>
+        Task<PageResult<LogOutputDto>> FindWithPagerSearchAsync(SearchLogModel search);
     }
 }

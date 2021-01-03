@@ -23,9 +23,6 @@ namespace Yuebon.Security.Dtos
                 .ForMember(e => e.text, s => s.MapFrom(o => o.FullName))
                 .ForMember(e => e.id, s => s.MapFrom(o => o.Id));
             CreateMap<AreaInputDto, Area>();
-            CreateMap<Function, FunctionOutputDto>();
-            CreateMap<FunctionInputDto, Function>();
-            CreateMap<Function, FunctionTreeTableOutputDto>();
             CreateMap<ItemsDetail, ItemsDetailOutputDto>();
             CreateMap<ItemsDetailInputDto, ItemsDetail>();
             CreateMap<Items, ItemsOutputDto>();

@@ -67,15 +67,27 @@ namespace Yuebon.Security.Models
         public virtual string Target { get; set; }
 
         /// <summary>
-        /// 菜单
+        /// 菜单类型（C目录 M菜单 F按钮）
         /// </summary>
-        public virtual bool? IsMenu { get; set; }
+        public virtual string MenuType { get; set; }
+        /// <summary>
+        /// 组件路径
+        /// </summary>
+        public virtual string Component { get; set; }
 
         /// <summary>
         /// 展开
         /// </summary>
         public virtual bool IsExpand { get; set; }
 
+        /// <summary>
+        /// 设置或获取 是否显示
+        /// </summary>
+        public bool? IsShow { get; set; }
+        /// <summary>
+        /// 设置或获取 是否外链
+        /// </summary>
+        public bool? IsFrame { get; set; }
         /// <summary>
         /// 公共
         /// </summary>

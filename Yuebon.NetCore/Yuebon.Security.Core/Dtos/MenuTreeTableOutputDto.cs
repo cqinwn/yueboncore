@@ -56,28 +56,39 @@ namespace Yuebon.Security.Dtos
         [MaxLength(50)]
         public string Icon { get; set; }
 
-        /// <summary>
-        /// 设置或获取 
-        /// </summary>
-        [MaxLength(500)]
-        public string UrlAddress { get; set; }
 
         /// <summary>
-        /// 设置或获取 
+        /// 设置或获取路由
         /// </summary>
-        [MaxLength(50)]
-        public string Target { get; set; }
+        public virtual string UrlAddress { get; set; }
 
         /// <summary>
-        /// 设置或获取 
+        /// 设置或获取目标打开方式
         /// </summary>
-        public bool? IsMenu { get; set; }
+        public virtual string Target { get; set; }
+
+        /// <summary>
+        /// 设置或获取菜单类型（C目录 M菜单 F按钮）
+        /// </summary>
+        public virtual string MenuType { get; set; }
+        /// <summary>
+        /// 设置或获取组件路径
+        /// </summary>
+        public virtual string Component { get; set; }
 
         /// <summary>
         /// 设置或获取 
         /// </summary>
         public bool? IsExpand { get; set; }
 
+        /// <summary>
+        /// 设置或获取 是否显示
+        /// </summary>
+        public bool? IsShow { get; set; }
+        /// <summary>
+        /// 设置或获取 是否外链
+        /// </summary>
+        public bool? IsFrame { get; set; }
         /// <summary>
         /// 设置或获取 
         /// </summary>

@@ -23,6 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Security\Controllers\FunctionController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="index.html" />
   </ItemGroup>
 

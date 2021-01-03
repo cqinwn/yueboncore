@@ -23,13 +23,13 @@ namespace Yuebon.WebApi.Controllers
     [ApiController]
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class FunctionController: AreaApiController<Function, FunctionOutputDto, FunctionInputDto, IFunctionService,string>
+    public class FunctionController: AreaApiController<Menu, MenuOutputDto, MenuInputDto, IMenuService, string>
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="_iService"></param>
-        public FunctionController(IFunctionService _iService) : base(_iService)
+        public FunctionController(IMenuService _iService) : base(_iService)
         {
             iService = _iService;
         }
@@ -49,10 +49,10 @@ namespace Yuebon.WebApi.Controllers
                 if (CurrentUser != null)
                 {
                     YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                    List<FunctionOutputDto> functions = new List<FunctionOutputDto>();
-                    functions = JsonConvert.DeserializeObject<List<FunctionOutputDto>>(yuebonCacheHelper.Get("User_Function_" + CurrentUser.UserId).ToJson());
-                    FunctionOutputDto functionOutputDto = functions.Find(s => s.EnCode == enCode);
-                    List<FunctionOutputDto> nowFunList = new List<FunctionOutputDto>();
+                    List<MenuOutputDto> functions = new List<MenuOutputDto>();
+                    functions = JsonConvert.DeserializeObject<List<MenuOutputDto>>(yuebonCacheHelper.Get("User_Function_" + CurrentUser.UserId).ToJson());
+                    MenuOutputDto functionOutputDto = functions.Find(s => s.EnCode == enCode);
+                    List<MenuOutputDto> nowFunList = new List<MenuOutputDto>();
                     if (functionOutputDto != null)
                     {
                         nowFunList = functions.FindAll(s => s.ParentId == functionOutputDto.Id).OrderBy(s=>s.SortCode).ToList();

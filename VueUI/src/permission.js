@@ -76,7 +76,7 @@ function convertTree (routers) {
           path: m.UrlAddress,
           name: m.EnCode,
           component: _import(`${m.UrlAddress}`),
-          meta: { id: m.Id, title: m.FullName, icon: m.Icon, funcode: m.EnCode, noCache: false }
+          meta: { id: m.Id, title: m.FullName, icon: m.Icon, funcode: m.EnCode, noCache: true }
         }
         r.children.push(menu)
       }
@@ -97,7 +97,7 @@ function initMenuRoutes () {
           name: m.EnCode,
           component: Layout,
           redirect: m.UrlAddress + '/index',
-          meta: { id: m.Id, title: m.FullName, icon: m.Icon, funcode: m.EnCode, noCache: false }
+          meta: { id: m.Id, title: m.FullName, icon: m.Icon, funcode: m.EnCode, noCache: true }
         }
         menuRouters.push(module)
       }

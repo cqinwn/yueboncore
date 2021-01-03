@@ -114,7 +114,7 @@
         </el-tab-pane>
         <el-tab-pane label="功能菜单">
           <el-card class="box-card">
-            <el-tree ref="treeFunction" :data="treeFuntionData" show-checkbox default-expand-all node-key="Id" highlight-current check-strictly :props="{ label: 'FullName', children: 'Children',disabled:'FunctionTag' }" :default-checked-keys="default_select" />
+            <el-tree ref="treeFunction" :data="treeFuntionData" show-checkbox default-expand-all node-key="Id" highlight-current :props="{ label: 'FullName', children: 'Children',disabled:'IsShow'}" :default-checked-keys="default_select" />
           </el-card>
         </el-tab-pane>
         <el-tab-pane label="数据权限">

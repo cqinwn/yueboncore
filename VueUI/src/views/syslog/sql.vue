@@ -12,7 +12,7 @@
           <el-form-item label="日志日期：">
             <el-date-picker
               v-model="searchform.CreateTime"
-              type="daterange"
+              type="datetimerange"
               align="right"
               :default-time="['00:00:00', '23:59:59']"
               format="yyyy-MM-dd HH:mm:ss"

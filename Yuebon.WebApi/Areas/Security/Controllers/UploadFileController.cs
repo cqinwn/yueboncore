@@ -49,7 +49,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                     if (string.IsNullOrEmpty(item.ToString())) continue;
                     UploadFile uploadFile = new UploadFileApp().Get(item.ToString());
                     YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                    SysSetting sysSetting = JsonSerializer.Deserialize<SysSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
+                    SysSetting sysSetting = yuebonCacheHelper.Get("SysSetting").ToJson().ToObject<SysSetting>();
                     if (uploadFile != null)
                     {
                         if (System.IO.File.Exists(sysSetting.LocalPath + "/" + uploadFile.FilePath))

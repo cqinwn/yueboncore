@@ -50,12 +50,12 @@ namespace Yuebon.WebApi.Controllers
                 {
                     YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
                     List<MenuOutputDto> functions = new List<MenuOutputDto>();
-                    functions = JsonConvert.DeserializeObject<List<MenuOutputDto>>(yuebonCacheHelper.Get("User_Function_" + CurrentUser.UserId).ToJson());
+                    functions = yuebonCacheHelper.Get("User_Function_" + CurrentUser.UserId).ToJson().ToObject<List<MenuOutputDto>>();
                     MenuOutputDto functionOutputDto = functions.Find(s => s.EnCode == enCode);
                     List<MenuOutputDto> nowFunList = new List<MenuOutputDto>();
                     if (functionOutputDto != null)
                     {
-                        nowFunList = functions.FindAll(s => s.ParentId == functionOutputDto.Id).OrderBy(s=>s.SortCode).ToList();
+                        nowFunList = functions.FindAll(s => s.ParentId == functionOutputDto.Id && s.IsShow && s.MenuType.Equals("F")).OrderBy(s=>s.SortCode).ToList();
                     }
                     result.ErrCode = ErrCode.successCode;
                     result.ResData = nowFunList;

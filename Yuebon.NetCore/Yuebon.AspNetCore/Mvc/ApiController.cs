@@ -63,7 +63,7 @@ namespace Yuebon.AspNetCore.Controllers
                         {
                             string userId = claimlist[0].Value;
                             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                            var user = JsonSerializer.Deserialize<YuebonCurrentUser>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
+                            var user = yuebonCacheHelper.Get("login_user_" + userId).ToJson().ToObject<YuebonCurrentUser>();
                             if (user != null)
                             {
                                 CurrentUser = user;
@@ -89,7 +89,7 @@ namespace Yuebon.AspNetCore.Controllers
             catch (Exception ex)
             {
                 Log4NetHelper.Error("", ex);
-                throw new MyApiException("", "", ex);
+                //throw new MyApiException("", "", ex);
             }
         }
         #endregion
@@ -125,7 +125,7 @@ namespace Yuebon.AspNetCore.Controllers
                 PropertyNameCaseInsensitive = true,                     //忽略大小写
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
             };
-            options.Converters.Add(new DateTimeJsonConverter("yyyy-MM-dd HH:mm:ss"));
+            options.Converters.Add(new DateTimeJsonConverter());
             return Content(JsonSerializer.Serialize(obj, options));
         }
 

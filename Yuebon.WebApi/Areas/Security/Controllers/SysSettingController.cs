@@ -125,7 +125,7 @@ namespace Yuebon.WebApi.Areas.Security
         {
             CommonResult result = new CommonResult();
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            SysSetting sysSetting = JsonSerializer.Deserialize<SysSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
+            SysSetting sysSetting = yuebonCacheHelper.Get("SysSetting").ToJson().ToObject<SysSetting>();
             SysSettingOutputDto sysSettingOutputDto = new SysSettingOutputDto();
             if (sysSetting == null)
             {
@@ -163,7 +163,7 @@ namespace Yuebon.WebApi.Areas.Security
         {
             CommonResult result = new CommonResult();
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            SysSetting sysSetting = JsonSerializer.Deserialize<SysSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
+            SysSetting sysSetting = yuebonCacheHelper.Get("SysSetting").ToJson().ToObject<SysSetting>();
             SysSettingOutputDto sysSettingOutputDto = new SysSettingOutputDto();
             if (sysSetting == null)
             {

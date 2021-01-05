@@ -11,7 +11,7 @@
  Target Server Version : 80017
  File Encoding         : 65001
 
- Date: 30/12/2020 20:54:11
+ Date: 05/01/2021 20:31:39
 */
 
 SET NAMES utf8mb4;
@@ -117,38 +117,6 @@ CREATE TABLE `sys_filterip`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for sys_function
--- ----------------------------
-DROP TABLE IF EXISTS `sys_function`;
-CREATE TABLE `sys_function`  (
-  `Id` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `SystemTypeId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `ParentId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `Layers` int(8) NULL DEFAULT NULL,
-  `EnCode` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `FullName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `Icon` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `Location` int(8) NULL DEFAULT NULL,
-  `JsEvent` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `UrlAddress` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `Split` tinyint(1) NULL DEFAULT NULL,
-  `IsPublic` tinyint(1) NULL DEFAULT NULL,
-  `AllowEdit` tinyint(1) NULL DEFAULT NULL,
-  `AllowDelete` tinyint(1) NULL DEFAULT NULL,
-  `SortCode` int(8) NULL DEFAULT NULL,
-  `DeleteMark` tinyint(1) NULL DEFAULT NULL,
-  `EnabledMark` tinyint(1) NULL DEFAULT NULL,
-  `Description` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `CreatorTime` datetime(0) NULL DEFAULT NULL,
-  `CreatorUserId` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `LastModifyTime` datetime(0) NULL DEFAULT NULL,
-  `LastModifyUserId` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `DeleteTime` datetime(0) NULL DEFAULT NULL,
-  `DeleteUserId` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
 -- Table structure for sys_items
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_items`;
@@ -231,32 +199,36 @@ CREATE TABLE `sys_log`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu`  (
-  `Id` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `SystemTypeId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `ParentId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `Layers` int(8) NULL DEFAULT NULL,
-  `EnCode` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `FullName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `Icon` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `UrlAddress` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `Target` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `IsMenu` tinyint(1) NULL DEFAULT NULL,
-  `IsExpand` tinyint(1) NULL DEFAULT NULL,
-  `IsPublic` tinyint(1) NULL DEFAULT NULL,
-  `AllowEdit` tinyint(1) NULL DEFAULT NULL,
-  `AllowDelete` tinyint(1) NULL DEFAULT NULL,
-  `SortCode` int(8) NULL DEFAULT NULL,
-  `DeleteMark` tinyint(1) NULL DEFAULT NULL,
-  `EnabledMark` tinyint(1) NULL DEFAULT NULL,
-  `Description` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `CreatorTime` datetime(0) NULL DEFAULT NULL,
-  `CreatorUserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `LastModifyTime` datetime(0) NULL DEFAULT NULL,
-  `LastModifyUserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `DeleteTime` datetime(0) NULL DEFAULT NULL,
-  `DeleteUserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Id` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '主键',
+  `SystemTypeId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '所属系统',
+  `ParentId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '父级ID',
+  `Layers` int(8) NULL DEFAULT NULL COMMENT '所属层级',
+  `EnCode` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '功能代码',
+  `FullName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '名称',
+  `Icon` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '图标',
+  `UrlAddress` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '路由地址',
+  `Component` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '组件路径',
+  `Target` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '打开方式',
+  `MenuType` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '类型（C目录 M菜单 F按钮）',
+  `IsExpand` tinyint(1) NULL DEFAULT NULL COMMENT '是否展开',
+  `IsFrame` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否外链',
+  `IsShow` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否显示',
+  `IsCache` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否缓存',
+  `IsPublic` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否是公共',
+  `AllowEdit` tinyint(1) NULL DEFAULT 1 COMMENT '是否可以编辑',
+  `AllowDelete` tinyint(1) NULL DEFAULT 1 COMMENT '是否可以删除',
+  `SortCode` int(8) NULL DEFAULT NULL COMMENT '排序',
+  `DeleteMark` tinyint(1) NULL DEFAULT NULL COMMENT '删除标志',
+  `EnabledMark` tinyint(1) NULL DEFAULT NULL COMMENT '是否可用',
+  `Description` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '详细描述',
+  `CreatorTime` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `CreatorUserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `LastModifyTime` datetime(0) NULL DEFAULT NULL COMMENT '最近修改时间',
+  `LastModifyUserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '最近修改人',
+  `DeleteTime` datetime(0) NULL DEFAULT NULL COMMENT '删除时间',
+  `DeleteUserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '删除人',
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '功能菜单' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_openidsettings

@@ -24,6 +24,7 @@ namespace Yuebon.Security.Application
     {
         IMenuService service = IoCContainer.Resolve<IMenuService>();
         ISystemTypeService systemservice = IoCContainer.Resolve<ISystemTypeService>();
+        IUserService serviceUser = IoCContainer.Resolve<IUserService>();
         /// <summary>
         /// 获取菜单树JsTree模式
         /// </summary>
@@ -68,7 +69,6 @@ namespace Yuebon.Security.Application
         {
             List<TreeViewModel> list = new List<TreeViewModel>();
             List<Menu> listMenu = service.GetAll().OrderBy(t => t.SortCode).ToList();
-            
             list = JsTreeJson(listMenu, "", "").ToList<TreeViewModel>();
             return list;
         }
@@ -100,20 +100,21 @@ namespace Yuebon.Security.Application
             }
             return list.ToJson().ToString();
         }
+
+
         /// <summary>
         /// 根据用户角色获取菜单树VuexMenusTree模式
         /// </summary>
         /// <param name="roleIds">角色ID</param>
         /// <param name="systemCode">系统类型代码子系统代码</param>
         /// <returns></returns>
-        public List<MenuInputDto> GetMenuFuntionJson(string roleIds, string systemCode)
+        public List<MenuOutputDto> GetMenuFuntionJson(string roleIds, string systemCode)
         {
-            List<MenuInputDto> list = new List<MenuInputDto>();
+            List<MenuOutputDto> list = new List<MenuOutputDto>();
             try
             {
                 SystemType systemType = systemservice.GetByCode(systemCode);
-                List<Menu> listMenu = GetMenusByRole(roleIds, systemType.Id).OrderBy(t => t.SortCode).ToList();
-                list =listMenu.MapTo<MenuInputDto>();
+                list = GetMenusByRole(roleIds, systemType.Id).OrderBy(t => t.SortCode).MapTo<MenuOutputDto>();
             }
             catch (Exception ex)
             {
@@ -121,19 +122,20 @@ namespace Yuebon.Security.Application
             }
             return list;
         }
+
         /// <summary>
         /// 根据用户角色获取菜单树VuexMenusTree模式
         /// </summary>
         /// <param name="systemCode">系统类型代码子系统代码</param>
         /// <returns></returns>
-        public List<MenuInputDto> GetMenuFuntionJson(string systemCode)
+        public List<MenuOutputDto> GetMenuFuntionJson(string systemCode)
         {
-            List<MenuInputDto> list = new List<MenuInputDto>();
+            List<MenuOutputDto> list = new List<MenuOutputDto>();
             try
             {
                 SystemType systemType = systemservice.GetByCode(systemCode);
                 List<Menu> listMenu = GetMenusByRole(systemType.Id).OrderBy(t => t.SortCode).ToList();
-                list = listMenu.MapTo<MenuInputDto>();
+                list = listMenu.MapTo<MenuOutputDto>();
             }
             catch (Exception ex)
             {
@@ -141,36 +143,48 @@ namespace Yuebon.Security.Application
             }
             return list;
         }
+
         /// <summary>
-        /// 根据用户角色获取菜单树VuexMenusTree模式
+        /// 构建菜单树
+        /// </summary>
+        /// <param name="menus">菜单列表</param>
+        /// <param name="parentId">父级Id</param>
+        /// <returns></returns>
+        public List<MenuOutputDto> BuildTreeMenus(List<Menu> menus,string parentId="")
+        {
+            List<MenuOutputDto> resultList = new List<MenuOutputDto>();
+            List<Menu> childNodeList = menus.FindAll(t => t.ParentId == parentId);
+            foreach (Menu menu in childNodeList)
+            {
+                MenuOutputDto menuOutputDto = new MenuOutputDto();
+                menuOutputDto = menu.MapTo<MenuOutputDto>();
+                List<Menu> subChildNodeList = menus.FindAll(t => t.ParentId == menu.Id);
+                if (subChildNodeList.Count > 0)
+                {
+                    menuOutputDto.SubMenu = BuildTreeMenus(subChildNodeList, menu.Id);
+                }
+                resultList.Add(menuOutputDto);
+            }
+
+            return resultList;
+        }
+        #region 获取 Vue Router
+        /// <summary>
+        /// 根据用户角色获取菜单树VueRouter模式
         /// </summary>
         /// <param name="roleIds">角色ID</param>
         /// <param name="systemCode">系统类型代码子系统代码</param>
         /// <returns></returns>
-        public List<VuexMenusTreeModel> GetMenuFuntionVuexMenusTreeJson(string roleIds, string systemCode)
+        public List<VueRouterModel> GetVueRouter(string roleIds, string systemCode)
         {
-            List<VuexMenusTreeModel> list = new List<VuexMenusTreeModel>();
+            List<VueRouterModel> list = new List<VueRouterModel>();
             try
             { 
                 SystemType systemType = systemservice.GetByCode(systemCode);
                 List<Menu> listMenu = GetMenusByRole(roleIds, systemType.Id).OrderBy(t => t.SortCode).ToList();
-                var ChildNodeList = listMenu.FindAll(t => t.ParentId == "");
-                foreach (Menu menu in ChildNodeList)
-                {
-                    VuexMenusTreeModel vueTreeModel = new VuexMenusTreeModel();
-                    vueTreeModel.path = menu.UrlAddress;
-                    vueTreeModel.component = "Layout";
-                    vueTreeModel.name = menu.EnCode;
-                    vueTreeModel.redirect = menu.UrlAddress;
-                    Meta meta = new Meta();
-                    meta.title = menu.FullName;
-                    meta.icon = menu.Icon == null ? "" : menu.Icon;
-                    vueTreeModel.meta = meta;
-
-                    vueTreeModel.children = VuexMenusTreeJson(listMenu, menu.Id);
-                    list.Add(vueTreeModel);
-                }
-                //list = VuexMenusTreeJson(listMenu, "");
+                List<MenuOutputDto> listTree= BuildTreeMenus(listMenu);
+                list = BuildMenus(listTree);
+                
             }
             catch(Exception ex)
             {
@@ -179,55 +193,116 @@ namespace Yuebon.Security.Application
             return list;
         }
         /// <summary>
-        /// 将菜单数据转换VuexMenusTree模式Json格式
+        /// 构建前端路由所需要的菜单
         /// </summary>
-        /// <param name="data"></param>
-        /// <param name="parentId"></param>
+        /// <param name="menus">菜单列表</param>
         /// <returns></returns>
-        private static List<VuexMenusTreeModel> VuexMenusTreeJson(List<Menu> data, string parentId)
+        public List<VueRouterModel> BuildMenus(List<MenuOutputDto> menus)
         {
-            List<VuexMenusTreeModel> list = new List<VuexMenusTreeModel>();
-            var ChildNodeList = data.FindAll(t => t.ParentId == parentId);
-            foreach (Menu entity in ChildNodeList)
+            List<VueRouterModel> routers = new List<VueRouterModel>();
+            foreach (MenuOutputDto menu in menus)
             {
-                VuexMenusTreeModel vueTreeModel = new VuexMenusTreeModel();
-                vueTreeModel.path = entity.UrlAddress;
-                vueTreeModel.component = "Layout";
-                vueTreeModel.name = entity.EnCode;
-                vueTreeModel.redirect = entity.UrlAddress;
-                Meta meta = new Meta();
-                meta.title = entity.FullName;
-                meta.icon = entity.Icon==null?"": entity.Icon;
-                vueTreeModel.meta = meta;
-
-                vueTreeModel.children = VuexMenusTreeJson(data, entity.Id);
-                list.Add(vueTreeModel);
+                VueRouterModel router = new VueRouterModel();
+                router.hidden = menu.IsShow?false:true;
+                router.name = GetRouteName(menu);
+                router.path = GetRouterPath(menu);
+                router.component = GetComponent(menu);
+                router.meta = new Meta(menu.FullName, menu.Icon == null ? "" : menu.Icon, menu.IsCache);
+                List<MenuOutputDto> cMenus = menu.SubMenu;
+                if (cMenus!=null && menu.MenuType == "C")
+                {
+                    router.alwaysShow=true;
+                    router.redirect="noRedirect";
+                    router.children=BuildMenus(cMenus);
+                }
+                else if (IsMeunFrame(menu))
+                {
+                    List<VueRouterModel> childrenList = new List<VueRouterModel>();
+                    VueRouterModel children = new VueRouterModel();
+                    children.path = menu.UrlAddress;
+                    children.component=menu.Component;
+                    children.name=menu.EnCode;
+                    children.meta = new Meta(menu.FullName, menu.Icon == null ? "" : menu.Icon, menu.IsCache);
+                    childrenList.Add(children);
+                    router.children=childrenList;
+                }
+                routers.Add(router);
             }
-            return list;
+
+            return routers;
         }
         /// <summary>
-        /// 根据用户获取功能菜单
+        /// 获取路由名称
         /// </summary>
-        /// <param name="userId">用户ID</param>
-        /// <param name="typeId">系统类型ID/子系统ID</param>
+        /// <param name="menu">菜单信息</param>
         /// <returns></returns>
-        public List<Menu> GetMenuByUser(string userId,string typeId)
+        public String GetRouteName(MenuOutputDto menu)
         {
-            FunctionApp functionApp = new FunctionApp();
-            List<FunctionOutputDto> functionList = functionApp.GetFunctionsByUser(userId, typeId);
-            List<Menu> menuList = service.GetAllByIsNotDeleteAndEnabledMark().ToList();
-            List<Menu> menuListResult = new List<Menu>();
-            foreach(Menu item in menuList)
+            String routerName = menu.EnCode;
+            // 非外链并且是一级目录（类型为目录）
+            if (IsMeunFrame(menu))
             {
-                if (functionList.Count(t => t.EnCode ==item.EnCode)>0)
-                {
-                    menuListResult.Add(item);
-                }
+                routerName = "";
             }
-            return menuListResult;
+            return routerName;
         }
-
-
+        /// <summary>
+        /// 获取路由地址
+        /// </summary>
+        /// <param name="menu">菜单信息</param>
+        /// <returns></returns>
+        public String GetRouterPath(MenuOutputDto menu)
+        {
+            String routerPath = menu.UrlAddress;
+            // 非外链并且是一级目录（类型为目录）
+            if ("" == menu.ParentId && menu.MenuType == "C"&&!menu.IsFrame)
+            {
+                routerPath = menu.UrlAddress;// "/" + menu.EnCode;
+            }
+            // 非外链并且是一级目录（类型为菜单）
+            else if (IsMeunFrame(menu))
+            {
+                routerPath = "/";
+            }
+            return routerPath;
+        }
+        /// <summary>
+        /// 获取组件信息
+        /// </summary>
+        /// <param name="menu">菜单信息</param>
+        /// <returns></returns>
+        public String GetComponent(MenuOutputDto menu)
+        {
+            String component = "Layout";
+            if (!string.IsNullOrEmpty(menu.Component) && !IsMeunFrame(menu))
+            {
+                component = menu.Component;
+            }
+            else if (string.IsNullOrEmpty(menu.Component) && IsParentView(menu))
+            {
+                component = "ParentView";
+            }
+            return component;
+        }
+        /// <summary>
+        /// 是否为菜单内部跳转
+        /// </summary>
+        /// <param name="menu">菜单信息</param>
+        /// <returns></returns>
+        public bool IsMeunFrame(MenuOutputDto menu)
+        {
+            return menu.ParentId== "" && menu.MenuType=="M" && !menu.IsFrame;
+        }
+        /// <summary>
+        /// 是否为parent_view组件
+        /// </summary>
+        /// <param name="menu">菜单信息</param>
+        /// <returns></returns>
+        public bool IsParentView(MenuOutputDto menu)
+        {
+            return menu.ParentId != "" && menu.MenuType == "C";
+        }
+        #endregion
         /// <summary>
         /// 根据用户获取功能菜单
         /// </summary>
@@ -236,17 +311,8 @@ namespace Yuebon.Security.Application
         /// <returns></returns>
         public List<Menu> GetMenusByRole(string roleIds, string systemId)
         {
-            FunctionApp functionApp = new FunctionApp();
-            List<FunctionOutputDto> functionList =functionApp.GetFunctionsByRole(roleIds, systemId);
-            List<Menu> menuList = service.GetAllByIsNotDeleteAndEnabledMark().ToList();
-            List<Menu> menuListResult = new List<Menu>();
-            foreach (Menu item in menuList)
-            {
-                if (functionList.Count(t => t.EnCode == item.EnCode) > 0)
-                {
-                    menuListResult.Add(item);
-                }
-            }
+            string roleIDsStr = string.Format("'{0}'", roleIds.Replace(",", "','"));
+            List<Menu> menuListResult = service.GetFunctions(roleIDsStr, systemId,true);
             return menuListResult;
         }
 
@@ -258,18 +324,60 @@ namespace Yuebon.Security.Application
         /// <returns></returns>
         public List<Menu> GetMenusByRole(string systemId)
         {
-            FunctionApp functionApp = new FunctionApp();
-            List<FunctionOutputDto> functionList = functionApp.GetFunctionsBySystem(systemId);
-            List<Menu> menuList = service.GetAllByIsNotDeleteAndEnabledMark().ToList();
-            List<Menu> menuListResult = new List<Menu>();
-            foreach (Menu item in menuList)
-            {
-                if (functionList.Count(t => t.EnCode == item.EnCode) > 0)
-                {
-                    menuListResult.Add(item);
-                }
-            }
+            List<Menu> menuListResult = service.GetAllByIsNotDeleteAndEnabledMark("MenuType in ('M','C') and SystemTypeId='"+ systemId + "'").ToList();
             return menuListResult;
         }
+
+
+
+        /// <summary>
+        /// 根据用户ID，获取对应的功能列表
+        /// </summary>
+        /// <param name="userID">用户ID</param>
+        /// <param name="typeID">系统类别ID</param>
+        /// <returns></returns>
+        public List<MenuOutputDto> GetFunctionsByUser(string userID, string typeID)
+        {
+            string where = string.Format("");
+            string roleId = serviceUser.Get(userID).RoleId;
+            List<MenuOutputDto> functions = new List<MenuOutputDto>();
+            string roleIDsStr = string.Format("'{0}'", roleId.Replace(",", "','"));
+            if (roleIDsStr != "")
+            {
+                functions = service.GetFunctions(roleIDsStr, typeID).ToList().MapTo<MenuOutputDto>();
+            }
+            return functions;
+        }
+        /// <summary>
+        /// 根据用户角色IDs，获取对应的功能列表
+        /// </summary>
+        /// <param name="roleIds">用户角色ID</param>
+        /// <param name="systemId">系统类型ID/子系统ID</param>
+        /// <returns></returns>
+        public List<MenuOutputDto> GetFunctionsByRole(string roleIds, string systemId)
+        {
+            string where = string.Format("");
+            List<MenuOutputDto> functions = new List<MenuOutputDto>();
+            string roleIDsStr = string.Format("'{0}'", roleIds.Replace(",", "','"));
+            if (roleIDsStr != "")
+            {
+                functions = service.GetFunctions(roleIDsStr, systemId).ToList().MapTo<MenuOutputDto>();
+            }
+            return functions;
+        }
+
+        /// <summary>
+        /// 根据用户角色IDs，获取对应的功能列表
+        /// </summary>
+        /// <param name="systemId">系统类型ID/子系统ID</param>
+        /// <returns></returns>
+        public List<MenuOutputDto> GetFunctionsBySystem(string systemId)
+        {
+            List<MenuOutputDto> functions = new List<MenuOutputDto>();
+            functions = service.GetFunctions(systemId).ToList().MapTo<MenuOutputDto>();
+            return functions;
+        }
+
+
     }
 }

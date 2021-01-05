@@ -11,7 +11,7 @@
  Target Server Version : 80017
  File Encoding         : 65001
 
- Date: 30/12/2020 20:54:11
+ Date: 06/01/2021 00:18:43
 */
 
 SET NAMES utf8mb4;
@@ -41,7 +41,7 @@ CREATE TABLE `sys_app`  (
   `DeleteTime` datetime(0) NULL DEFAULT NULL,
   `DeleteUserId` varchar(254) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '调用接口应用表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_area
@@ -67,7 +67,7 @@ CREATE TABLE `sys_area`  (
   `DeleteTime` datetime(0) NULL DEFAULT NULL,
   `DeleteUserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '地区信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_dbbackup
@@ -92,7 +92,7 @@ CREATE TABLE `sys_dbbackup`  (
   `DeleteTime` datetime(0) NULL DEFAULT NULL,
   `DeleteUserId` varchar(254) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '数据库备份' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_filterip
@@ -114,39 +114,7 @@ CREATE TABLE `sys_filterip`  (
   `DeleteTime` datetime(0) NULL DEFAULT NULL,
   `DeleteUserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for sys_function
--- ----------------------------
-DROP TABLE IF EXISTS `sys_function`;
-CREATE TABLE `sys_function`  (
-  `Id` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `SystemTypeId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `ParentId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `Layers` int(8) NULL DEFAULT NULL,
-  `EnCode` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `FullName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `Icon` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `Location` int(8) NULL DEFAULT NULL,
-  `JsEvent` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `UrlAddress` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `Split` tinyint(1) NULL DEFAULT NULL,
-  `IsPublic` tinyint(1) NULL DEFAULT NULL,
-  `AllowEdit` tinyint(1) NULL DEFAULT NULL,
-  `AllowDelete` tinyint(1) NULL DEFAULT NULL,
-  `SortCode` int(8) NULL DEFAULT NULL,
-  `DeleteMark` tinyint(1) NULL DEFAULT NULL,
-  `EnabledMark` tinyint(1) NULL DEFAULT NULL,
-  `Description` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `CreatorTime` datetime(0) NULL DEFAULT NULL,
-  `CreatorUserId` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `LastModifyTime` datetime(0) NULL DEFAULT NULL,
-  `LastModifyUserId` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `DeleteTime` datetime(0) NULL DEFAULT NULL,
-  `DeleteUserId` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '访问ip地址控制' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_items
@@ -170,7 +138,7 @@ CREATE TABLE `sys_items`  (
   `DeleteTime` datetime(0) NULL DEFAULT NULL,
   `DeleteUserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '数据字典主表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_itemsdetail
@@ -196,7 +164,7 @@ CREATE TABLE `sys_itemsdetail`  (
   `DeleteTime` date NULL DEFAULT NULL,
   `DeleteUserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '数据字典分录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_log
@@ -224,39 +192,43 @@ CREATE TABLE `sys_log`  (
   `DeleteTime` datetime(0) NULL DEFAULT NULL,
   `DeleteUserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '日志表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu`  (
-  `Id` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `SystemTypeId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `ParentId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `Layers` int(8) NULL DEFAULT NULL,
-  `EnCode` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `FullName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `Icon` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `UrlAddress` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `Target` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `IsMenu` tinyint(1) NULL DEFAULT NULL,
-  `IsExpand` tinyint(1) NULL DEFAULT NULL,
-  `IsPublic` tinyint(1) NULL DEFAULT NULL,
-  `AllowEdit` tinyint(1) NULL DEFAULT NULL,
-  `AllowDelete` tinyint(1) NULL DEFAULT NULL,
-  `SortCode` int(8) NULL DEFAULT NULL,
-  `DeleteMark` tinyint(1) NULL DEFAULT NULL,
-  `EnabledMark` tinyint(1) NULL DEFAULT NULL,
-  `Description` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `CreatorTime` datetime(0) NULL DEFAULT NULL,
-  `CreatorUserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `LastModifyTime` datetime(0) NULL DEFAULT NULL,
-  `LastModifyUserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `DeleteTime` datetime(0) NULL DEFAULT NULL,
-  `DeleteUserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Id` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '主键',
+  `SystemTypeId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '所属系统',
+  `ParentId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '父级ID',
+  `Layers` int(8) NULL DEFAULT NULL COMMENT '所属层级',
+  `EnCode` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '功能代码',
+  `FullName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '名称',
+  `Icon` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '图标',
+  `UrlAddress` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '路由地址',
+  `Component` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '组件路径',
+  `Target` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '打开方式',
+  `MenuType` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '类型（C目录 M菜单 F按钮）',
+  `IsExpand` tinyint(1) NULL DEFAULT NULL COMMENT '是否展开',
+  `IsFrame` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否外链',
+  `IsShow` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否显示',
+  `IsCache` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否缓存',
+  `IsPublic` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否是公共',
+  `AllowEdit` tinyint(1) NULL DEFAULT 1 COMMENT '是否可以编辑',
+  `AllowDelete` tinyint(1) NULL DEFAULT 1 COMMENT '是否可以删除',
+  `SortCode` int(8) NULL DEFAULT NULL COMMENT '排序',
+  `DeleteMark` tinyint(1) NULL DEFAULT NULL COMMENT '删除标志',
+  `EnabledMark` tinyint(1) NULL DEFAULT NULL COMMENT '是否可用',
+  `Description` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '详细描述',
+  `CreatorTime` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `CreatorUserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `LastModifyTime` datetime(0) NULL DEFAULT NULL COMMENT '最近修改时间',
+  `LastModifyUserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '最近修改人',
+  `DeleteTime` datetime(0) NULL DEFAULT NULL COMMENT '删除时间',
+  `DeleteUserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '删除人',
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '模块/菜单功能' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_openidsettings
@@ -267,7 +239,7 @@ CREATE TABLE `sys_openidsettings`  (
   `Name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `Description` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `Settings` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '第三方开放平台配置表，如微信、支付宝' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_organize
@@ -302,7 +274,7 @@ CREATE TABLE `sys_organize`  (
   `DeleteTime` datetime(0) NULL DEFAULT NULL,
   `DeleteUserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '组织机构' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -328,7 +300,7 @@ CREATE TABLE `sys_role`  (
   `DeleteTime` datetime(0) NULL DEFAULT NULL,
   `DeleteUserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_roleauthorize
@@ -344,7 +316,7 @@ CREATE TABLE `sys_roleauthorize`  (
   `CreatorTime` datetime(0) NULL DEFAULT NULL,
   `CreatorUserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色可访问功能模块' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_roledata
@@ -356,7 +328,7 @@ CREATE TABLE `sys_roledata`  (
   `DType` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `AuthorizeData` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色可以访问数据' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_sequence
@@ -435,7 +407,7 @@ CREATE TABLE `sys_systemtype`  (
   `DeleteTime` datetime(0) NULL DEFAULT NULL,
   `DeleteUserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统类型，支持多个子系统' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_taskjobslog
@@ -536,7 +508,7 @@ CREATE TABLE `sys_uploadfile`  (
   `BelongApp` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `BelongAppId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '附件管理，包括文档文件和图片' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -580,7 +552,7 @@ CREATE TABLE `sys_user`  (
   `DeleteTime` datetime(0) NULL DEFAULT NULL,
   `DeleteUserId` varchar(254) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户基本信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_userextend
@@ -616,7 +588,7 @@ CREATE TABLE `sys_userextend`  (
   `DeleteTime` datetime(0) NULL DEFAULT NULL,
   `DeleteUserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户扩展信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_userlogon
@@ -625,8 +597,8 @@ DROP TABLE IF EXISTS `sys_userlogon`;
 CREATE TABLE `sys_userlogon`  (
   `Id` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `UserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `UserPassword` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `UserSecretkey` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `UserPassword` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '密码',
+  `UserSecretkey` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '加密密钥',
   `AllowStartTime` datetime(0) NULL DEFAULT NULL,
   `AllowEndTime` datetime(0) NULL DEFAULT NULL,
   `LockStartDate` datetime(0) NULL DEFAULT NULL,
@@ -644,16 +616,16 @@ CREATE TABLE `sys_userlogon`  (
   `Language` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `Theme` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户登录信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_useropenids
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_useropenids`;
 CREATE TABLE `sys_useropenids`  (
-  `UserId` varchar(254) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `OpenIdType` varchar(254) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `OpenId` varchar(254) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  `UserId` varchar(254) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户Id',
+  `OpenIdType` varchar(254) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '第三方平台类型',
+  `OpenId` varchar(254) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '第三方的OpenId'
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户与第三方开放平台openid对应关系表' ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

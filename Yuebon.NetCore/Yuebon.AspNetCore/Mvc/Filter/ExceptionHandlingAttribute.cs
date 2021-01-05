@@ -42,7 +42,7 @@ namespace Yuebon.AspNetCore.Mvc.Filter
             string queryString = context.HttpContext.Request.QueryString.ToString();
             var type = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType;
             string exDesc = requestPath + queryString;
-            Log4NetHelper.Error(type, "全局捕获程序运行异常信息\n\r"+ exDesc, context.Exception);
+            Log4NetHelper.Error(type, "全局捕获程序运行异常信息\n\r" + exDesc, context.Exception);
             CommonResult result = new CommonResult();
             if (exception is MyApiException myApiex)
             {
@@ -66,8 +66,8 @@ namespace Yuebon.AspNetCore.Mvc.Filter
                                                                         //PropertyNamingPolicy = JsonNamingPolicy.CamelCase     //命名方式是默认还是CamelCase
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
             };
-            options.Converters.Add(new DateTimeJsonConverter());
-            context.Result = new JsonResult(result,options);
+            options.Converters.Add(new DateTimeJsonConverter("yyyy-MM-dd HH:mm:ss"));
+            context.Result = new JsonResult(result, options);
             Log logEntity = new Log();
             var identities = context.HttpContext.User.Identities;
             var claimsIdentity = identities.First<ClaimsIdentity>();
@@ -78,7 +78,7 @@ namespace Yuebon.AspNetCore.Mvc.Filter
                 {
                     string userId = claimlist[0].Value;
                     YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                    var user = JsonSerializer.Deserialize<YuebonCurrentUser>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
+                    var user = yuebonCacheHelper.Get("login_user_" + userId).ToJson().ToObject<YuebonCurrentUser>();
                     if (user != null)
                     {
                         currentUser = user;

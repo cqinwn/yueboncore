@@ -144,5 +144,43 @@ namespace Yuebon.Security.Services
             }
             return list;
         }
+
+        /// <summary>
+        /// 根据角色ID字符串（逗号分开)和系统类型ID，获取对应的操作功能列表
+        /// </summary>
+        /// <param name="roleIds">角色ID</param>
+        /// <param name="typeID">系统类型ID</param>
+        /// <param name="isMenu">是否是菜单</param>
+        /// <returns></returns>
+        public List<Menu> GetFunctions(string roleIds, string typeID,bool isMenu=false)
+        {
+            return _MenuRepository.GetFunctions(roleIds, typeID, isMenu).ToList();
+        }
+
+
+        /// <summary>
+        /// 根据系统类型ID，获取对应的操作功能列表
+        /// </summary>
+        /// <param name="typeID">系统类型ID</param>
+        /// <returns></returns>
+        public List<Menu> GetFunctions(string typeID)
+        {
+            return _MenuRepository.GetFunctions(typeID).ToList();
+        }
+
+
+        /// <summary>
+        /// 根据父级功能编码查询所有子集功能，主要用于页面操作按钮权限
+        /// </summary>
+        /// <param name="enCode">菜单功能编码</param>
+        /// <returns></returns>
+        public async Task<IEnumerable<MenuOutputDto>> GetListByParentEnCode(string enCode)
+        {
+            string where = string.Format("EnCode='{0}'", enCode);
+            Menu function = await repository.GetWhereAsync(where);
+            where = string.Format("ParentId='{0}'", function.ParentId);
+            IEnumerable<Menu> list = await repository.GetAllByIsNotEnabledMarkAsync(where);
+            return list.MapTo<MenuOutputDto>().ToList();
+        }
     }
 }

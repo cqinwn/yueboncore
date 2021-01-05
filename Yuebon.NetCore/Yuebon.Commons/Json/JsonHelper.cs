@@ -56,7 +56,7 @@ namespace Yuebon.Commons.Json
             };
 
             options.Converters.Add(new DateTimeJsonConverter());
-            return json == null ? default(T) : JsonSerializer.Deserialize<T>(json);
+            return json == null ? default(T) : JsonSerializer.Deserialize<T>(json,options);
         }
 
         /// <summary>

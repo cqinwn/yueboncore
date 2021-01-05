@@ -34,7 +34,7 @@ namespace Yuebon.Quartz.Jobs
         {
             DateTime dateTime = DateTime.Now; 
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            SysSetting sysSetting = JsonSerializer.Deserialize<SysSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
+            SysSetting sysSetting = yuebonCacheHelper.Get("SysSetting").ToJson().ToObject<SysSetting>();
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             AbstractTrigger trigger = (context as JobExecutionContextImpl).Trigger as AbstractTrigger;

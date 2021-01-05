@@ -37,6 +37,8 @@ namespace Yuebon.WebApi.Controllers
         private IRoleDataService _roleDataService;
         private ILogService _logService;
         private IFilterIPService _filterIPService;
+        private IMenuService _menuService;
+
         /// <summary>
         /// 构造函数注入服务
         /// </summary>
@@ -48,7 +50,8 @@ namespace Yuebon.WebApi.Controllers
         /// <param name="roleService"></param>
         /// <param name="filterIPService"></param>
         /// <param name="roleDataService"></param>
-        public LoginController(IUserService iService, IUserLogOnService userLogOnService, ISystemTypeService systemTypeService,ILogService logService, IAPPService appService, IRoleService roleService, IFilterIPService filterIPService, IRoleDataService roleDataService)
+        /// <param name="menuService"></param>
+        public LoginController(IUserService iService, IUserLogOnService userLogOnService, ISystemTypeService systemTypeService,ILogService logService, IAPPService appService, IRoleService roleService, IFilterIPService filterIPService, IRoleDataService roleDataService, IMenuService menuService)
         {
             _userService = iService;
             _userLogOnService = userLogOnService;
@@ -58,6 +61,7 @@ namespace Yuebon.WebApi.Controllers
             _roleService = roleService;
             _filterIPService = filterIPService;
             _roleDataService = roleDataService;
+            _menuService = menuService;
         }
         /// <summary>
         /// 登录验证用户
@@ -169,24 +173,26 @@ namespace Yuebon.WebApi.Controllers
                                         };
                                         currentSession.ActiveSystem = systemType.FullName;
                                         currentSession.ActiveSystemUrl = systemType.Url;
-                                        List<FunctionOutputDto> listFunction = new List<FunctionOutputDto>();
-                                        FunctionApp functionApp = new FunctionApp();
+                                        List<MenuOutputDto> listFunction = new List<MenuOutputDto>();
+                                        MenuApp menuApp = new MenuApp();
                                         if (Permission.IsAdmin(currentSession))
                                         {
                                             currentSession.SubSystemList = _systemTypeService.GetAllByIsNotDeleteAndEnabledMark().MapTo<SystemTypeOutputDto>();
-                                            currentSession.MenusList = new MenuApp().GetMenuFuntionJson(systemCode);
+                                            //currentSession.MenusList = menuApp.GetMenuFuntionJson(systemCode);
+                                            //currentSession.MenusRouter = menuApp.GetVueRouter(user.RoleId, systemCode);
                                             //取得用户可使用的授权功能信息，并存储在缓存中
-                                            listFunction = functionApp.GetFunctionsBySystem(systemType.Id);
+                                            listFunction = menuApp.GetFunctionsBySystem(systemType.Id);
                                         }
                                         else
                                         {
                                             currentSession.SubSystemList = _systemTypeService.GetSubSystemList(user.RoleId);
-                                            currentSession.MenusList = new MenuApp().GetMenuFuntionJson(user.RoleId, systemCode);
 
+                                           // currentSession.MenusList = menuApp.GetMenuFuntionJson(user.RoleId, systemCode);
                                             //取得用户可使用的授权功能信息，并存储在缓存中
-                                            listFunction = functionApp.GetFunctionsByUser(user.Id, systemType.Id);
+                                            listFunction = menuApp.GetFunctionsByUser(user.Id, systemType.Id);
                                         }
 
+                                        currentSession.MenusRouter = menuApp.GetVueRouter(user.RoleId, systemCode);
                                         TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
                                         yuebonCacheHelper.Add("User_Function_" + user.Id, listFunction,expiresSliding, true);
                                         currentSession.Modules = listFunction;
@@ -235,7 +241,7 @@ namespace Yuebon.WebApi.Controllers
                 }
             }
             yuebonCacheHelper.Remove("LoginValidateCode");
-            return ToJsonContent(result);
+            return ToJsonContent(result,true);
         }
 
 
@@ -359,22 +365,22 @@ namespace Yuebon.WebApi.Controllers
                                         };
                                         currentSession.ActiveSystem = systemType.FullName;
                                         currentSession.ActiveSystemUrl = systemType.Url;
-                                        List<FunctionOutputDto> listFunction = new List<FunctionOutputDto>();
-                                        FunctionApp functionApp = new FunctionApp();
+                                        List<MenuOutputDto> listFunction = new List<MenuOutputDto>();
+                                        MenuApp menuApp = new MenuApp();
                                         if (Permission.IsAdmin(currentSession))
                                         {
                                             currentSession.SubSystemList = _systemTypeService.GetAllByIsNotDeleteAndEnabledMark().MapTo<SystemTypeOutputDto>();
-                                            currentSession.MenusList = new MenuApp().GetMenuFuntionJson(systemCode);
+                                            currentSession.MenusList = menuApp.GetMenuFuntionJson(systemCode);
                                             //取得用户可使用的授权功能信息，并存储在缓存中
-                                            listFunction = functionApp.GetFunctionsBySystem(systemType.Id);
+                                            listFunction = menuApp.GetFunctionsBySystem(systemType.Id);
                                         }
                                         else
                                         {
                                             currentSession.SubSystemList = _systemTypeService.GetSubSystemList(user.RoleId);
-                                            currentSession.MenusList = new MenuApp().GetMenuFuntionJson(user.RoleId, systemCode);
+                                            currentSession.MenusList = menuApp.GetMenuFuntionJson(user.RoleId, systemCode);
 
                                             //取得用户可使用的授权功能信息，并存储在缓存中
-                                            listFunction = functionApp.GetFunctionsByUser(user.Id, systemType.Id);
+                                            listFunction = menuApp.GetFunctionsByUser(user.Id, systemType.Id);
                                         }
 
                                         TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;

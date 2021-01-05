@@ -122,7 +122,7 @@ namespace Yuebon.Security.Services
                 string userId = claimlist[0].Value;
                 YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
                 YuebonCurrentUser CurrentUser = new YuebonCurrentUser();
-                var user = JsonSerializer.Deserialize<YuebonCurrentUser>(yuebonCacheHelper.Get("login_user_" + userId).ToJson());
+                var user = yuebonCacheHelper.Get("login_user_" + userId).ToJson().ToObject<YuebonCurrentUser>();
                 if (user != null)
                 {
                     CurrentUser = user;

@@ -180,7 +180,7 @@ namespace Yuebon.WebApi.Controllers
                     //生成压缩包
 
                     YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                    SysSetting sysSetting = JsonSerializer.Deserialize<SysSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
+                    SysSetting sysSetting = yuebonCacheHelper.Get("SysSetting").ToJson().ToObject<SysSetting>();
                     string zipReturnFileName = baseSpace+DateTime.Now.ToString("yyyyMMddHHmmss") + ".zip";
                     string zipFileBasePath = "Generatecode";
                     string zipFilesPath = sysSetting.LocalPath + "\\"+ zipFileBasePath;

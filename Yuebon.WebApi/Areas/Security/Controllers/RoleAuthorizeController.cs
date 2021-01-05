@@ -24,7 +24,6 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
     public class RoleAuthorizeController : AreaApiController<RoleAuthorize, RoleAuthorizeOutputDto, RoleAuthorizeInputDto, IRoleAuthorizeService,string>
     {
         private readonly IMenuService menuService;
-        private readonly IFunctionService functionService;
         private readonly IRoleDataService roleDataService;
         private readonly IOrganizeService organizeService;
         /// <summary>
@@ -32,14 +31,12 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// </summary>
         /// <param name="_iService"></param>
         /// <param name="_menuService"></param>
-        /// <param name="_functionService"></param>
         /// <param name="_roleDataService"></param>
         /// <param name="_organizeService"></param>
-        public RoleAuthorizeController(IRoleAuthorizeService _iService, IMenuService _menuService, IFunctionService _functionService, IRoleDataService _roleDataService, IOrganizeService _organizeService) : base(_iService)
+        public RoleAuthorizeController(IRoleAuthorizeService _iService, IMenuService _menuService, IRoleDataService _roleDataService, IOrganizeService _organizeService) : base(_iService)
         {
             iService = _iService;
             menuService = _menuService;
-            functionService = _functionService;
             roleDataService = _roleDataService;
             organizeService = _organizeService;
             AuthorizeKey.ListKey = "RoleAuthorize/List";
@@ -125,7 +122,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 {
                     RoleAuthorize info = new RoleAuthorize();
                     info.ObjectId = roleinfo.RoleId;
-                    info.ItemType = 1;
+                    info.ItemType = item.FunctionTag;
                     info.ObjectType = 1;
                     info.ItemId = item.Id.ToString();
                     OnBeforeInsert(info);
@@ -212,25 +209,25 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// </summary>
         /// <param name="systemTypeId">子系统Id</param>
         /// <returns></returns>
-        [HttpGet("GetAllFunctionTreeTable")]
-        [YuebonAuthorize("List")]
-        public async Task<IActionResult> GetAllFunctionTreeTable(string systemTypeId)
-        {
-            CommonResult result = new CommonResult();
-            try
-            {
-                List<FunctionTreeTableOutputDto> list = await functionService.GetAllFunctionTreeTable(systemTypeId);
-                result.Success = true;
-                result.ErrCode = ErrCode.successCode;
-                result.ResData = list;
-            }
-            catch (Exception ex)
-            {
-                Log4NetHelper.Error("获取菜单异常", ex);
-                result.ErrMsg = ErrCode.err40110;
-                result.ErrCode = "40110";
-            }
-            return ToJsonContent(result);
-        }
+        //[HttpGet("GetAllFunctionTreeTable")]
+        //[YuebonAuthorize("List")]
+        //public async Task<IActionResult> GetAllFunctionTreeTable(string systemTypeId)
+        //{
+        //    CommonResult result = new CommonResult();
+        //    try
+        //    {
+        //        List<FunctionTreeTableOutputDto> list = await menuService.GetAllFunctionTreeTable(systemTypeId);
+        //        result.Success = true;
+        //        result.ErrCode = ErrCode.successCode;
+        //        result.ResData = list;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Log4NetHelper.Error("获取菜单异常", ex);
+        //        result.ErrMsg = ErrCode.err40110;
+        //        result.ErrCode = "40110";
+        //    }
+        //    return ToJsonContent(result);
+        //}
     }
 }

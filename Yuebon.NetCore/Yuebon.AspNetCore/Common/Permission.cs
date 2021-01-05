@@ -30,7 +30,7 @@ namespace Yuebon.AspNetCore.Common
                 }
                 else
                 {
-                    List<FunctionOutputDto> listFunction = JsonConvert.DeserializeObject<List<FunctionOutputDto>>(new YuebonCacheHelper().Get("User_Function_" + userId).ToJson());
+                    List<MenuOutputDto> listFunction = JsonConvert.DeserializeObject<List<MenuOutputDto>>(new YuebonCacheHelper().Get("User_Function_" + userId).ToJson());
                     if (listFunction != null && listFunction.Count(t => t.EnCode == functionCode) > 0)
                     {
                         hasFunction = true;

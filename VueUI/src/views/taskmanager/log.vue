@@ -28,7 +28,7 @@
       </div>
       <el-table ref="gridtable" v-loading="tableloading" :data="tableData" border stripe highlight-current-row style="width: 100%" :default-sort="{ prop: 'CreatorTime', order: 'ascending' }" @select="handleSelectChange" @select-all="handleSelectAllChange" @sort-change="handleSortChange">
         <el-table-column type="selection" width="30" />
-        <el-table-column prop="TaskId" label="任务Id" sortable="custom" width="120" />
+        <el-table-column prop="TaskId" label="任务Id" sortable="custom" width="150" />
         <el-table-column prop="TaskName" label="任务名称" sortable="custom" width="220" />
         <el-table-column prop="JobAction" label="执行动作" sortable="custom" width="120" />
         <el-table-column prop="Status" label="执行状态" sortable="custom" width="120">

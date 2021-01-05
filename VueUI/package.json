@@ -53,7 +53,7 @@
     "autoprefixer": "9.5.1",
     "babel-eslint": "10.1.0",
     "babel-jest": "23.6.0",
-    "babel-plugin-dynamic-import-node": "2.3.3",
+    "babel-plugin-dynamic-import-node": "^2.3.3",
     "chalk": "2.4.2",
     "chokidar": "3.4.3",
     "connect": "3.6.6",

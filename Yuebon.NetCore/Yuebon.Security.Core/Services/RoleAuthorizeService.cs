@@ -19,7 +19,6 @@ namespace Yuebon.Security.Services
     {
         private readonly IRoleAuthorizeRepository _repository;
 
-        private readonly IFunctionRepository functionRepository;
         private readonly IMenuRepository menuRepository;
         private readonly ISystemTypeRepository systemTypeRepository;
         private readonly ILogService _logService;
@@ -27,14 +26,12 @@ namespace Yuebon.Security.Services
         /// 
         /// </summary>
         /// <param name="repository"></param>
-        /// <param name="_functionRepository"></param>
         /// <param name="_menuRepository"></param>
         /// <param name="_systemTypeRepository"></param>
         /// <param name="logService"></param>
-        public RoleAuthorizeService(IRoleAuthorizeRepository repository, IFunctionRepository _functionRepository, IMenuRepository _menuRepository, ISystemTypeRepository _systemTypeRepository, ILogService logService) : base(repository)
+        public RoleAuthorizeService(IRoleAuthorizeRepository repository,  IMenuRepository _menuRepository, ISystemTypeRepository _systemTypeRepository, ILogService logService) : base(repository)
         {
             _repository = repository;
-            functionRepository = _functionRepository;
             menuRepository = _menuRepository;
             systemTypeRepository = _systemTypeRepository;
             _logService = logService;
@@ -68,12 +65,13 @@ namespace Yuebon.Security.Services
                 ModuleFunctionOutputDto menuTreeTableOutputDto = new ModuleFunctionOutputDto();
                 menuTreeTableOutputDto.Id = systemType.Id;
                 menuTreeTableOutputDto.FullName = systemType.FullName;
-                menuTreeTableOutputDto.FunctionTag =true;
+                menuTreeTableOutputDto.FunctionTag =0;
+                menuTreeTableOutputDto.IsShow = true;
 
-                IEnumerable<Function> elist = await functionRepository.GetListWhereAsync("SystemTypeId='" + systemType.Id + "'");
+                IEnumerable<Menu> elist = await menuRepository.GetListWhereAsync("SystemTypeId='" + systemType.Id + "'");
                 if (elist.Count() > 0)
                 {
-                    List<Function> list = elist.OrderBy(t => t.SortCode).ToList();
+                    List<Menu> list = elist.OrderBy(t => t.SortCode).ToList();
                     menuTreeTableOutputDto.Children = GetSubMenus(list, "").ToList<ModuleFunctionOutputDto>();
                 }
                 reslist.Add(menuTreeTableOutputDto);
@@ -88,17 +86,25 @@ namespace Yuebon.Security.Services
         /// <param name="data"></param>
         /// <param name="parentId">¸¸¼¶Id</param>
         /// <returns></returns>
-        private List<ModuleFunctionOutputDto> GetSubMenus(List<Function> data, string parentId)
+        private List<ModuleFunctionOutputDto> GetSubMenus(List<Menu> data, string parentId)
         {
             List<ModuleFunctionOutputDto> list = new List<ModuleFunctionOutputDto>();
             var ChilList = data.FindAll(t => t.ParentId == parentId);
-            foreach (Function entity in ChilList)
+            foreach (Menu entity in ChilList)
             {
                 ModuleFunctionOutputDto menuTreeTableOutputDto = new ModuleFunctionOutputDto();
                 menuTreeTableOutputDto.Id= entity.Id;
                 menuTreeTableOutputDto.FullName = entity.FullName;
-                menuTreeTableOutputDto.FunctionTag=false;
-                menuTreeTableOutputDto.Children = GetSubMenus(data, entity.Id).MapTo<ModuleFunctionOutputDto>();
+                menuTreeTableOutputDto.IsShow = false;
+                if (entity.MenuType == "F")
+                {
+                    menuTreeTableOutputDto.FunctionTag = 2;
+                }
+                else
+                {
+                    menuTreeTableOutputDto.FunctionTag = 1;
+                }
+                    menuTreeTableOutputDto.Children = GetSubMenus(data, entity.Id).MapTo<ModuleFunctionOutputDto>();
                 list.Add(menuTreeTableOutputDto);
             }
             return list;

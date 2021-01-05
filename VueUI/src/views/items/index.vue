@@ -305,7 +305,7 @@ export default {
      * 初始化数据
      */
     InitDictItem () {
-      getListMeunFuntionBymeunCode('ItemsDetail/List').then(res => {
+      getListMeunFuntionBymeunCode('ItemsDetail').then(res => {
         this.loadItemsDetailBtnFunc = res.ResData
       })
     },

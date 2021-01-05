@@ -79,7 +79,6 @@ function filterChildren (childrenMap) {
 }
 
 export const loadView = (view) => { // 路由懒加载
-  console.log('view:' + view)
   return (resolve) => require([`@/views/${view}`], resolve)
 }
 

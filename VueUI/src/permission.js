@@ -21,7 +21,6 @@ router.beforeEach(async (to, from, next) => {
     } else {
       try {
         const hasGetUserInfo = store.getters.name
-        console.log('hasGetUserInfo:' + hasGetUserInfo)
         if (hasGetUserInfo && hasGetUserInfo !== 'null') {
           if (to.name !== '' && (to.name !== undefined && to.name !== 'undefined')) {
             getListMeunFuntionBymeunCode(to.name).then(res => {

@@ -222,7 +222,6 @@
                 <el-radio label="true">是</el-radio>
                 <el-radio label="false">否</el-radio>
               </el-radio-group>
-              <el-link disabled>批量添加菜单下的功能按钮</el-link>
             </el-form-item>
           </el-col>
           <el-col :span="12">

@@ -9,7 +9,8 @@ const getDefaultState = () => {
     avatar: localStorage.getItem('useravatar'),
     subSystem: JSON.parse(localStorage.getItem('usersubSystem')),
     activeSystemName: localStorage.getItem('activeSystemName'),
-    menus: JSON.parse(localStorage.getItem('nowmenus'))
+    menus: JSON.parse(localStorage.getItem('nowmenus')),
+    roles: localStorage.getItem('userroles')
   }
 }
 
@@ -25,6 +26,10 @@ const mutations = {
   SET_NAME: (state, name) => {
     state.name = name
     localStorage.setItem('username', name)
+  },
+  SET_ROLES: (state, roles) => {
+    state.roles = roles
+    localStorage.setItem('userroles', roles)
   },
   SET_TEMPNAME: (state, name) => {
     localStorage.setItem('usernametemp', name)
@@ -57,9 +62,10 @@ const actions = {
         setToken(data.AccessToken)
         commit('SET_TEMPNAME', data.Account)
         commit('SET_AVATAR', data.HeadIcon)
+        commit('SET_ROLES', data.Role)
         commit('SET_SUBSYSTEM', data.SubSystemList)
         commit('SET_ACTIVESYSTEMNAME', data.ActiveSystem)
-        commit('SET_MENUS', data.MenusList)
+        commit('SET_MENUS', data.MenusRouter)
         commit('SET_NAME', data.Account)
         Cookies.set('yuebon_loginuser', data.UserId)
         resolve(response)
@@ -76,10 +82,11 @@ const actions = {
         commit('SET_TOKEN', data.AccessToken)
         setToken(data.AccessToken)
         commit('SET_TEMPNAME', data.Account)
+        commit('SET_ROLES', data.Role)
         commit('SET_AVATAR', data.HeadIcon)
         commit('SET_SUBSYSTEM', data.SubSystemList)
         commit('SET_ACTIVESYSTEMNAME', data.ActiveSystem)
-        commit('SET_MENUS', data.MenusList)
+        commit('SET_MENUS', data.MenusRouter)
         commit('SET_NAME', data.Account)
         Cookies.set('yuebon_loginuser', data.UserId)
         resolve(response)

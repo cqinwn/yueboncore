@@ -89,6 +89,10 @@ namespace Yuebon.Security.Models
         /// </summary>
         public bool? IsFrame { get; set; }
         /// <summary>
+        /// 设置或获取是否缓存
+        /// </summary>
+        public bool? IsCache { get; set; }
+        /// <summary>
         /// 公共
         /// </summary>
         public virtual bool? IsPublic { get; set; }

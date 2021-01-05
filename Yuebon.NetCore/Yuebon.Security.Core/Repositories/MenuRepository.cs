@@ -30,7 +30,7 @@ namespace Yuebon.Security.Repositories
             string sql = $"SELECT DISTINCT b.* FROM sys_menu as b INNER JOIN Sys_RoleAuthorize as a On b.Id = a.ItemId  WHERE ObjectId IN (" + roleIds + ")";
             if (isMenu)
             {
-                sql = sql + "and menutype='M'";
+                sql = sql + "and menutype in('M','C')";
             }
             if (!string.IsNullOrEmpty(typeID))
             {

@@ -152,9 +152,9 @@ namespace Yuebon.Security.Services
         /// <param name="typeID">系统类型ID</param>
         /// <param name="isMenu">是否是菜单</param>
         /// <returns></returns>
-        public List<MenuOutputDto> GetFunctions(string roleIds, string typeID,bool isMenu=false)
+        public List<Menu> GetFunctions(string roleIds, string typeID,bool isMenu=false)
         {
-            return _MenuRepository.GetFunctions(roleIds, typeID, isMenu).ToList().MapTo<MenuOutputDto>();
+            return _MenuRepository.GetFunctions(roleIds, typeID, isMenu).ToList();
         }
 
 
@@ -163,9 +163,9 @@ namespace Yuebon.Security.Services
         /// </summary>
         /// <param name="typeID">系统类型ID</param>
         /// <returns></returns>
-        public List<MenuOutputDto> GetFunctions(string typeID)
+        public List<Menu> GetFunctions(string typeID)
         {
-            return _MenuRepository.GetFunctions(typeID).ToList().MapTo<MenuOutputDto>();
+            return _MenuRepository.GetFunctions(typeID).ToList();
         }
 
 

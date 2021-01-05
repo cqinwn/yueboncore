@@ -35,14 +35,14 @@ namespace Yuebon.Security.IServices
         /// <param name="typeID">系统类型ID</param>
         /// <param name="isMenu">是否是菜单</param>
         /// <returns></returns>
-        List<MenuOutputDto> GetFunctions(string roleIds, string typeID,bool isMenu=false);
+        List<Menu> GetFunctions(string roleIds, string typeID,bool isMenu=false);
 
         /// <summary>
         /// 根据系统类型ID，获取对应的操作功能列表
         /// </summary>
         /// <param name="typeID">系统类型ID</param>
         /// <returns></returns>
-        List<MenuOutputDto> GetFunctions(string typeID);
+        List<Menu> GetFunctions(string typeID);
 
         /// <summary>
         /// 根据父级功能编码查询所有子集功能，主要用于页面操作按钮权限

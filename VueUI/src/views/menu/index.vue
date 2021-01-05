@@ -65,10 +65,24 @@
                 <el-table-column
                   prop="UrlAddress"
                   label="路由地址"
+                  width="180"
                 />
+                <el-table-column
+                  label="类型"
+                  width="80"
+                  prop="MenuType"
+                  align="center"
+                >
+                  <template slot-scope="scope">
+                    <slot v-if="scope.row.MenuType==='C'" disable-transitions>模块/目录</slot>
+                    <slot v-if="scope.row.MenuType==='M'" disable-transitions>菜单</slot>
+                    <slot v-if="scope.row.MenuType==='F'" disable-transitions>功能/按钮</slot>
+                  </template>
+                </el-table-column>
                 <el-table-column
                   prop="SortCode"
                   label="排序"
+                  width="80"
                 />
                 <el-table-column
                   label="显示"
@@ -137,9 +151,9 @@
           <el-col :span="24">
             <el-form-item label="所属类型" :label-width="formLabelWidth" prop="MenuType">
               <el-radio-group v-model="editMenuFrom.MenuType" @change="menuTypeChange">
-                <el-radio label="C">模块</el-radio>
+                <el-radio label="C">模块/目录</el-radio>
                 <el-radio label="M">菜单</el-radio>
-                <el-radio label="F">按钮</el-radio>
+                <el-radio label="F">功能/按钮</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -202,6 +216,15 @@
               </el-radio-group>
             </el-form-item>
           </el-col>
+          <el-col v-if="editMenuFrom.MenuType == 'F'" :span="12">
+            <el-form-item label="是否缓存" :label-width="formLabelWidth" prop="IsCache">
+              <el-radio-group v-model="editMenuFrom.IsCache">
+                <el-radio label="true">是</el-radio>
+                <el-radio label="false">否</el-radio>
+              </el-radio-group>
+              <el-link disabled>批量添加菜单下的功能按钮</el-link>
+            </el-form-item>
+          </el-col>
           <el-col :span="12">
             <el-form-item label="是否公共" :label-width="formLabelWidth" prop="IsPublic">
               <el-radio-group v-model="editMenuFrom.IsPublic">
@@ -209,7 +232,6 @@
                 <el-radio label="false">否</el-radio>
               </el-radio-group>
             </el-form-item>
-
           </el-col>
           <el-col v-if="editMenuFrom.MenuType == 'F'" :span="12">
             <el-form-item label="批量新增" :label-width="formLabelWidth" prop="IsBatch">
@@ -277,7 +299,8 @@ export default {
         IsShow: 'true',
         IsFrame: 'true',
         SortCode: 99,
-        IsBatch: 'false'
+        IsBatch: 'false',
+        IsCache: 'false'
       },
       rules: {
         FullName: [
@@ -429,6 +452,7 @@ export default {
         this.editMenuFrom.IsShow = res.ResData.IsShow + ''
         this.editMenuFrom.IsFrame = res.ResData.IsFrame + ''
         this.editMenuFrom.IsPublic = res.ResData.IsPublic + ''
+        this.editMenuFrom.IsCache = res.ResData.IsCache + ''
         this.selectSystemTypeId = res.ResData.SystemTypeId
         this.selectedMenuOptions = res.ResData.ParentId
         this.handleSystemTypeChange()
@@ -457,6 +481,7 @@ export default {
             'IsShow': this.editMenuFrom.IsShow,
             'IsFrame': this.editMenuFrom.IsFrame,
             'IsBatch': this.editMenuFrom.IsBatch,
+            'IsCache': this.editMenuFrom.IsCache,
             'Id': this.currentMenuId
           }
           var url = 'Menu/Insert'

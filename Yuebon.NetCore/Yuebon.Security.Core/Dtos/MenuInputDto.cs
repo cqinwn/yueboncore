@@ -77,6 +77,10 @@ namespace Yuebon.Security.Dtos
         /// </summary>
         public bool? IsShow { get; set; }
         /// <summary>
+        /// 设置或获取是否缓存
+        /// </summary>
+        public bool? IsCache { get; set; }
+        /// <summary>
         /// 设置或获取 是否外链
         /// </summary>
         public bool? IsFrame { get; set; }

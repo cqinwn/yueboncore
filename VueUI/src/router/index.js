@@ -11,6 +11,8 @@ Router.prototype.push = function push (location) {
 }
 /* Layout */
 import Layout from '@/layout'
+// eslint-disable-next-line no-unused-vars
+import ParentView from '@/components/ParentView'
 
 /**
  * 所有人都可以访问的路由
@@ -23,20 +25,20 @@ export const constantRoutes = [
     children: [
       {
         path: '/redirect/:path(.*)',
-        component: () => import('@/views/redirect/index')
+        component: (resolve) => require(['@/views/redirect/index'], resolve)
       }
     ]
   },
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/views/login/index'),
+    component: (resolve) => require(['@/views/login/index'], resolve),
     hidden: true
   },
   {
     path: '/register',
     name: 'register',
-    component: () => import('@/views/register/index'),
+    component: (resolve) => require(['@/views/register/index'], resolve),
     hidden: true
   },
   {
@@ -46,7 +48,7 @@ export const constantRoutes = [
     children: [{
       path: 'dashboard',
       name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
+      component: (resolve) => require(['@/views/dashboard/index'], resolve),
       meta: { title: '控制台', icon: 'icon-dashboard', affix: true }
     }]
   },
@@ -58,13 +60,13 @@ export const constantRoutes = [
     children: [{
       path: '/usercenter/index',
       name: 'usercenter',
-      component: () => import('@/views/usercenter/index'),
+      component: (resolve) => require(['@/views/usercenter/index'], resolve),
       meta: { title: '个人信息', icon: 'icon-card' }
     },
     {
       path: '/usercenter/modify',
       name: 'usercentermodify',
-      component: () => import('@/views/usercenter/modify'),
+      component: (resolve) => require(['@/views/usercenter/modify'], resolve),
       meta: { title: '修改密码', icon: 'icon-new-pwd' }
     }]
   }

@@ -8,11 +8,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Unicode;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Extensions;
+using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Pages;
@@ -103,6 +106,28 @@ namespace Yuebon.AspNetCore.Controllers
             return Content(obj.ToJson());
         }
 
+
+        /// <summary>
+        /// 把object对象转换为ContentResult
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("api/ToJsonContent")]
+        protected IActionResult ToJsonContent(object obj,bool isNull=false)
+        {
+            JsonSerializerOptions options = new JsonSerializerOptions()
+            {
+                WriteIndented = true,                                   //格式化json字符串
+                AllowTrailingCommas = true,                             //可以结尾有逗号
+                IgnoreNullValues = true,                              //可以有空值,转换json去除空值属性
+                IgnoreReadOnlyProperties = true,                        //忽略只读属性
+                PropertyNameCaseInsensitive = true,                     //忽略大小写
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
+            };
+            options.Converters.Add(new DateTimeJsonConverter("yyyy-MM-dd HH:mm:ss"));
+            return Content(JsonSerializer.Serialize(obj, options));
+        }
 
         /// <summary>
         /// 根据Request参数获取分页对象数据

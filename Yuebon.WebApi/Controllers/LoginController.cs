@@ -178,19 +178,21 @@ namespace Yuebon.WebApi.Controllers
                                         if (Permission.IsAdmin(currentSession))
                                         {
                                             currentSession.SubSystemList = _systemTypeService.GetAllByIsNotDeleteAndEnabledMark().MapTo<SystemTypeOutputDto>();
-                                            currentSession.MenusList = menuApp.GetMenuFuntionJson(systemCode);
+                                            //currentSession.MenusList = menuApp.GetMenuFuntionJson(systemCode);
+                                            //currentSession.MenusRouter = menuApp.GetVueRouter(user.RoleId, systemCode);
                                             //取得用户可使用的授权功能信息，并存储在缓存中
                                             listFunction = menuApp.GetFunctionsBySystem(systemType.Id);
                                         }
                                         else
                                         {
                                             currentSession.SubSystemList = _systemTypeService.GetSubSystemList(user.RoleId);
-                                            currentSession.MenusList = menuApp.GetMenuFuntionJson(user.RoleId, systemCode);
 
+                                           // currentSession.MenusList = menuApp.GetMenuFuntionJson(user.RoleId, systemCode);
                                             //取得用户可使用的授权功能信息，并存储在缓存中
                                             listFunction = menuApp.GetFunctionsByUser(user.Id, systemType.Id);
                                         }
 
+                                        currentSession.MenusRouter = menuApp.GetVueRouter(user.RoleId, systemCode);
                                         TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
                                         yuebonCacheHelper.Add("User_Function_" + user.Id, listFunction,expiresSliding, true);
                                         currentSession.Modules = listFunction;
@@ -239,7 +241,7 @@ namespace Yuebon.WebApi.Controllers
                 }
             }
             yuebonCacheHelper.Remove("LoginValidateCode");
-            return ToJsonContent(result);
+            return ToJsonContent(result,true);
         }
 
 

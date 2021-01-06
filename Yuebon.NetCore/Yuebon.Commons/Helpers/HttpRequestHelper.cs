@@ -16,7 +16,7 @@ namespace Yuebon.Commons.Helpers
         #region 同步方法
 
         /// <summary>
-        /// 使用Get方法获取字符串结果（加入Cookie）
+        /// 使用Get方法获取字符串结果
         /// </summary>
         /// <param name="url"></param>
         /// <param name="encoding"></param>
@@ -27,19 +27,7 @@ namespace Yuebon.Commons.Helpers
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
             request.Timeout = timeOut;
-
-            //if (cookieContainer != null)
-            //{
-            //    request.CookieContainer = cookieContainer;
-            //}
-
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-            //if (cookieContainer != null)
-            //{
-            //    response.Cookies = cookieContainer.GetCookies(response.ResponseUri);
-            //}
-
             using (Stream responseStream = response.GetResponseStream())
             {
                 using (StreamReader myStreamReader = new StreamReader(responseStream, encoding ?? Encoding.GetEncoding("utf-8")))

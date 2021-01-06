@@ -100,7 +100,7 @@
     </el-card>
     <el-dialog
       ref="dialogEditForm"
-      :title="editFormTitle+'{TableNameDesc}'"
+      :title="editFormTitle+'{modelTypeDesc}'"
       :visible.sync="dialogEditFormVisible"
       width="640px"
     >

@@ -139,7 +139,7 @@ export default {
       verifyCodeUrl: '',
       redirect: undefined,
       softName: '管理系统',
-      companyLogo: '/assets/images/login-logo.png',
+      companyLogo: '/images/login-logo.png',
       companyName: '',
       copyRight: '',
       pageLoading: '',

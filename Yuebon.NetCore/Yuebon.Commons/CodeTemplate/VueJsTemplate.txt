@@ -8,7 +8,7 @@ import defaultSettings from '@/settings'
 export function get{ModelTypeName}ListWithPager(data) {
   return http.request({
     url: '{ModelTypeName}/FindWithPagerAsync',
-    method: 'get',
+    method: 'post',
     data: data,
     baseURL: defaultSettings.api{fileClassName}Url // 直接通过覆盖的方式
   })

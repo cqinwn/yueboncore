@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
+using Yuebon.Commons.Net.TencentIp;
 
 namespace Yuebon.Commons.Net
 {
@@ -114,23 +115,31 @@ namespace Yuebon.Commons.Net
             {
                 string url = "https://apis.map.qq.com/ws/location/v1/ip?ip="+ strIP+"&key=Y6VBZ-CFZ2D-Q6A4K-HOCK4-VA3MT-UCFK6";
                 string jsonText = HttpRequestHelper.HttpGet(url);
-                JObject jo = JObject.Parse(jsonText);
-                if (jo["status"].ToString() == "0")
+                TencentIpResult ipResult = jsonText.ToObject<TencentIpResult>();
+                if (ipResult.status == 0)
                 {
-                    var nation = jo["result"]["ad_info"]["nation"].ToString();//国家
-                    var province = jo["result"]["ad_info"]["province"].ToString();//省份
-                    var city = jo["result"]["ad_info"]["city"].ToString();//城市
-                    var district = jo["result"]["ad_info"]["district"].ToString();//区/县
-                    var adcode = jo["result"]["ad_info"]["adcode"].ToString();//行政区划代码
+                    string nation = ipResult.result.ad_info.nation.ToString();//国家
+                    string province = ipResult.result.ad_info.province.ToString();//省份
+                    string city = ipResult.result.ad_info.city.ToString();//城市
+                    string district = ipResult.result.ad_info.district.ToString();//区/县
+                    string adcode = ipResult.result.ad_info.adcode.ToString();//行政区划代码
                     if (string.IsNullOrEmpty(province) || string.IsNullOrEmpty(city))
                     {
                         return "未知";
 
                     }
-                    return nation + province + city + district;
+                    if (!string.IsNullOrEmpty(district))
+                    {
+                        return nation + province + city + district;
+                    }
+                    else
+                    {
+                        return nation + province + city;
+                    }
                 }
                 else
                 {
+                    Log4NetHelper.Error(strIP + "获取地区接口调用异常。" + ipResult.message);
                     return "未知";
                 }
             }

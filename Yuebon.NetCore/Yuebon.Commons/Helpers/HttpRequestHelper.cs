@@ -127,7 +127,6 @@ namespace Yuebon.Commons.Helpers
             request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.87 Safari/537.36 QQBrowser/9.2.5748.400";
             request.ContentType = contentType;
 
-            //request.Headers.Add("Access-Control-Allow-Origin","http://517best.com");
             if (headers != null)
             {
                 foreach (var header in headers)

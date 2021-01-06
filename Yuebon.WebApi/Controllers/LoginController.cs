@@ -98,7 +98,6 @@ namespace Yuebon.WebApi.Controllers
             }
             else
             {
-                string ipAddressName =IpAddressUtil.GetCityByIp(strIp);
 
                 if (string.IsNullOrEmpty(username))
                 {
@@ -141,6 +140,7 @@ namespace Yuebon.WebApi.Controllers
                                 Tuple<User, string> userLogin = await this._userService.Validate(username, password);
                                 if (userLogin != null)
                                 {
+                                    string ipAddressName = IpAddressUtil.GetCityByIp(strIp);
                                     if (userLogin.Item1 != null)
                                     {
                                         result.Success = true;

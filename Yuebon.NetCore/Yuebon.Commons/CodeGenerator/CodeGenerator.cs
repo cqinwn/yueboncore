@@ -155,7 +155,7 @@ namespace Yuebon.Commons.CodeGenerator
                     }
                     outputDtocontent += string.Format("        public {0} {1}", dbFieldInfo.DataType, fieldName);
                     outputDtocontent += " { get; set; }\n\r";
-                    if (dbFieldInfo.DataType == "bool")
+                    if (dbFieldInfo.DataType == "bool"||dbFieldInfo.DataType== "tinyint")
                     {
 
                         vueViewListContent += string.Format("        <el-table-column prop=\"{0}\" label=\"{1}\" sortable=\"custom\" width=\"120\" >\n", fieldName, dbFieldInfo.Description);

@@ -30,7 +30,7 @@ namespace Yuebon.Commons.CodeGenerator
         /// <returns></returns>
         public List<DbTableInfo> GetAllTables(string dbName,string tableList)
         {
-            var sql = string.Format(@"select table_name as TableName from information_schema.tables where table_schema='{0}' ", dbName);
+            var sql = string.Format(@"select table_name as TableName,TABLE_COMMENT as Description from information_schema.tables where table_schema='{0}' ", dbName);
             if (!string.IsNullOrEmpty(tableList))
             {
                 sql += string.Format(@" and table_name in('{0}')", tableList.Replace(",", "','"));

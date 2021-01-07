@@ -54,7 +54,7 @@ namespace Yuebon.Security.Services
 
 
         /// <summary>
-        /// 获取子菜单，递归调用
+        /// 获取子集，递归调用
         /// </summary>
         /// <param name="data"></param>
         /// <param name="parentId">父级Id</param>

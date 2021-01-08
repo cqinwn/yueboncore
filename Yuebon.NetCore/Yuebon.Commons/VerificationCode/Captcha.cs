@@ -17,9 +17,9 @@ namespace Yuebon.Commons.VerificationCode
         /// <summary>
         /// 生成验证码图片
         /// </summary>
-        /// <param name="captchaCode"></param>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
+        /// <param name="captchaCode">验证码</param>
+        /// <param name="width">图形宽度，默认为验证码长度x25</param>
+        /// <param name="height">图形高度，默认30px</param>
         /// <returns></returns>
         public async Task<CaptchaResult> GenerateCaptchaImageAsync(string captchaCode, int width = 0, int height = 30)
         {

@@ -24,6 +24,7 @@
 
 import { modifyPassword } from '@/api/security/userservice'
 export default {
+  name: 'Usercentermodify',
   data () {
     return {
       activeName: 'first',

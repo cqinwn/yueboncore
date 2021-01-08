@@ -147,6 +147,7 @@ import { getAllSysSetting, saveSysSetting } from '@/api/basebasic'
 import defaultSettings from '@/settings'
 import { getToken } from '@/utils/auth'
 export default {
+  name: 'SysSetting',
   data () {
     return {
       activeName: 'first',

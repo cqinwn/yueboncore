@@ -161,7 +161,7 @@ import { GetAllCategoryTreeTable, getArticlecategoryDetail,
 
 import elDragDialog from '@/directive/el-drag-dialog' // base on element-ui
 export default {
-  name: 'DragDialog',
+  name: 'Articlecategory',
   directives: { elDragDialog },
   data () {
     return {

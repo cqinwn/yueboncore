@@ -145,7 +145,7 @@ import { getAllSystemTypeList } from '@/api/developers/systemtypeservice'
 
 import elDragDialog from '@/directive/el-drag-dialog' // base on element-ui
 export default {
-  name: 'DragDialog',
+  name: 'Role',
   directives: { elDragDialog },
   data () {
     return {

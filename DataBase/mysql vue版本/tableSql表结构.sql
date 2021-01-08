@@ -11,11 +11,88 @@
  Target Server Version : 80017
  File Encoding         : 65001
 
- Date: 06/01/2021 00:18:43
+ Date: 08/01/2021 20:57:38
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for cms_articlecategory
+-- ----------------------------
+DROP TABLE IF EXISTS `cms_articlecategory`;
+CREATE TABLE `cms_articlecategory`  (
+  `Id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '主键',
+  `Title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '标题',
+  `ParentId` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '父级Id',
+  `ClassPath` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '全路径',
+  `ClassLayer` int(11) NULL DEFAULT NULL COMMENT '层级',
+  `SortCode` int(11) NOT NULL DEFAULT 99 COMMENT '排序',
+  `Description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '描述',
+  `LinkUrl` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '外链地址',
+  `ImgUrl` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '主图图片',
+  `SeoTitle` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT 'SEO标题',
+  `SeoKeywords` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT 'SEO关键词',
+  `SeoDescription` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT 'SEO描述',
+  `IsHot` tinyint(1) NULL DEFAULT NULL COMMENT '是否热门',
+  `EnabledMark` tinyint(1) NULL DEFAULT NULL COMMENT '是否可用',
+  `DeleteMark` tinyint(1) NULL DEFAULT NULL COMMENT '删除标志',
+  `CreatorTime` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `CreatorUserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `CompanyId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '所属公司',
+  `DeptId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '所属部门',
+  `LastModifyTime` datetime(0) NULL DEFAULT NULL COMMENT '最近修改时间',
+  `LastModifyUserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '最近修改人',
+  `DeleteTime` datetime(0) NULL DEFAULT NULL COMMENT '删除时间',
+  `DeleteUserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '删除人',
+  PRIMARY KEY (`Id`) USING BTREE,
+  INDEX `Id`(`Id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '文章分类' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for cms_articlenews
+-- ----------------------------
+DROP TABLE IF EXISTS `cms_articlenews`;
+CREATE TABLE `cms_articlenews`  (
+  `Id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '主键',
+  `CategoryId` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '文章分类',
+  `CategoryName` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '分类名称',
+  `Title` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '文章标题',
+  `SubTitle` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '副标题',
+  `LinkUrl` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '外链',
+  `ImgUrl` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '主图',
+  `SeoTitle` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT 'SEO标题',
+  `SeoKeywords` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT 'SEO关键词',
+  `SeoDescription` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT 'SEO描述',
+  `Tags` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '标签，多个用逗号隔开',
+  `Zhaiyao` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '摘要',
+  `Description` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '详情',
+  `SortCode` int(11) NULL DEFAULT NULL COMMENT '排序',
+  `IsMsg` tinyint(1) NULL DEFAULT NULL COMMENT '开启评论',
+  `IsTop` tinyint(1) NULL DEFAULT NULL COMMENT '是否置顶，默认不置顶',
+  `IsRed` tinyint(1) NULL DEFAULT NULL COMMENT '是否推荐',
+  `IsHot` tinyint(1) NULL DEFAULT NULL COMMENT '是否热门，默认否',
+  `IsSys` tinyint(1) NULL DEFAULT NULL COMMENT '是否是系统预置文章，不可删除',
+  `IsNew` tinyint(1) NULL DEFAULT NULL COMMENT '是否推荐到最新',
+  `IsSlide` tinyint(1) NULL DEFAULT NULL COMMENT '是否推荐到幻灯',
+  `Click` int(11) NULL DEFAULT NULL COMMENT '点击量',
+  `LikeCount` int(11) NULL DEFAULT NULL COMMENT '喜欢量',
+  `TotalBrowse` int(11) NULL DEFAULT NULL COMMENT '浏览量',
+  `Source` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '来源',
+  `Author` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '作者',
+  `EnabledMark` tinyint(1) NULL DEFAULT NULL COMMENT '是否发布',
+  `DeleteMark` tinyint(1) NULL DEFAULT NULL COMMENT '逻辑删除标志',
+  `CreatorTime` timestamp(0) NOT NULL COMMENT '创建时间',
+  `CreatorUserId` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '创建人',
+  `CompanyId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '所属公司',
+  `DeptId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '所属部门',
+  `LastModifyTime` datetime(0) NULL DEFAULT NULL COMMENT '最近修改时间',
+  `LastModifyUserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '最近修改人',
+  `DeleteTime` datetime(0) NULL DEFAULT NULL COMMENT '删除时间',
+  `DeleteUserId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '删除人',
+  PRIMARY KEY (`Id`) USING BTREE,
+  INDEX `Id`(`Id`, `CategoryId`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '文章，通知公告' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_app

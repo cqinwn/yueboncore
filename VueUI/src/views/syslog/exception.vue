@@ -57,6 +57,7 @@
 import { getLogListWithPager, deleteLog } from '@/api/security/logservice'
 
 export default {
+  name: 'LogException',
   data () {
     return {
       searchform: {

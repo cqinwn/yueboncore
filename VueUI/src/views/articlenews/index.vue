@@ -134,7 +134,7 @@
           />
         </el-form-item>
         <el-form-item label="详情" :label-width="formLabelWidth" prop="Description">
-          <el-input v-model="editFrom.Description" placeholder="请输入详情" autocomplete="off" clearable />
+          <editor v-model="editFrom.Description" :min-height="192" :height="300" />
         </el-form-item>
         <el-form-item label="排序" :label-width="formLabelWidth" prop="SortCode">
           <el-input v-model="editFrom.SortCode" placeholder="请输入排序" autocomplete="off" clearable />
@@ -160,11 +160,15 @@ import { getArticlenewsListWithPager, getArticlenewsDetail,
   saveArticlenews, setArticlenewsEnable, deleteSoftArticlenews,
   deleteArticlenews } from '@/api/cms/articlenews'
 import { GetAllCategoryTreeTable } from '@/api/cms/articlecategory'
+import Editor from '@/components/Editor'
 
 import elDragDialog from '@/directive/el-drag-dialog' // base on element-ui
 export default {
-  name: 'DragDialog',
+  name: 'Articlenews',
   directives: { elDragDialog },
+  components: {
+    Editor
+  },
   data () {
     return {
       searchform: {
@@ -281,7 +285,7 @@ export default {
         this.editFrom.Title = res.ResData.Title
         this.editFrom.Description = res.ResData.Description
         this.editFrom.SortCode = res.ResData.SortCode
-        this.editFrom.EnabledMark = res.ResData.EnabledMark
+        this.editFrom.EnabledMark = res.ResData.EnabledMark + ''
       })
     },
     /**

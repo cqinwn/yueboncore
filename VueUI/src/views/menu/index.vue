@@ -262,6 +262,7 @@ import { getSubSystemList } from '@/api/basebasic'
 import { getAllMenuTreeTable, getMenuDetail, saveMenu, setMenuEnable, deleteSoftMenu, deleteMenu } from '@/api/developers/menufunction'
 
 export default {
+  name: 'Menu',
   data () {
     return {
       searchform: {

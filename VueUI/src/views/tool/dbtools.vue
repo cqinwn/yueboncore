@@ -52,6 +52,7 @@
 
 import { dbtoolsConnStrDecrypt, dbtoolsConnStrEncrypt } from '@/api/developers/toolsservice'
 export default {
+  name: 'DbTools',
   data () {
     return {
       selectDbTypes: [{

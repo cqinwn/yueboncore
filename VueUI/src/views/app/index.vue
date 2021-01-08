@@ -226,6 +226,7 @@ import { getAPPListWithPager, getAPPDetail, saveAPP, setAPPEnable,
   deleteSoftAPP, deleteAPP, resetAppSecret, resetEncodingAESKey } from '@/api/developers/appservice'
 
 export default {
+  name: 'APP',
   data () {
     return {
       searchform: {

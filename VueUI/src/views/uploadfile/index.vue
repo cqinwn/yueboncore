@@ -111,6 +111,7 @@ import { getUploadFileListWithPager, deleteUploadFile } from '@/api/security/upl
 
 import defaultSettings from '@/settings'
 export default {
+  name: 'UploadFile',
   data () {
     return {
       searchform: {

@@ -210,10 +210,6 @@ namespace Yuebon.CMS.Dtos
         /// </summary>
         [MaxLength(50)]
         public string DeleteUserId { get; set; }
-        /// <summary>
-        /// 获取子集
-        /// </summary>
-        public List<ArticlenewsOutputDto> Children { get; set; }
 
     }
 }

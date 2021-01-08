@@ -55,6 +55,7 @@
 import { getLogListWithPager, deleteLog } from '@/api/security/logservice'
 
 export default {
+  name: 'LogSQL',
   data () {
     return {
       searchform: {

@@ -42,7 +42,6 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
         /// 设置或获取描述
         /// </summary>
-        [MaxLength(4294967295)]
         public string Description { get; set; }
         /// <summary>
         /// 设置或获取外链地址
@@ -118,6 +117,11 @@ namespace Yuebon.CMS.Dtos
         /// </summary>
         [MaxLength(50)]
         public string DeleteUserId { get; set; }
-
+
+
+        /// <summary>
+        /// 获取子集
+        /// </summary>
+        public List<ArticlecategoryOutputDto> Children { get; set; }
     }
 }

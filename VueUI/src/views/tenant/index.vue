@@ -101,6 +101,7 @@ import {
 } from '@/api/security/tenant'
 
 export default {
+  name: 'Tenant',
   data () {
     return {
       searchform: {

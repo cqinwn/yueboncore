@@ -200,6 +200,7 @@ import { getFilterIPListWithPager, getFilterIPDetail, saveFilterIP, setFilterIPE
   deleteSoftFilterIP, deleteFilterIP } from '@/api/security/filteripservice'
 
 export default {
+  name: 'FilterIP',
   data () {
     return {
       searchform: {

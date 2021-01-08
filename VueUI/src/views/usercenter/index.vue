@@ -104,6 +104,7 @@ import { getAllOrganizeTreeTable } from '@/api/security/organizeservice'
 
 import { getToken } from '@/utils/auth'
 export default {
+  name: 'Usercenter',
   data () {
     return {
       activeName: 'first',

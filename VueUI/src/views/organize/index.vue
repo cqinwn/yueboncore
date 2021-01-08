@@ -129,7 +129,7 @@ import {
 
 import elDragDialog from '@/directive/el-drag-dialog' // base on element-ui
 export default {
-  name: 'DragDialog',
+  name: 'Organize',
   directives: { elDragDialog },
   data () {
     return {
@@ -224,6 +224,7 @@ export default {
         this.editFormTitle = '新增'
         this.currentId = ''
         this.dialogEditFormVisible = true
+        this.$refs['editFrom'].resetFields()
       }
     },
     bindEditInfo: function () {

@@ -243,6 +243,7 @@ import { getSequenceRuleListWithPager, getSequenceRuleDetail,
 import { getAllSequenceList } from '@/api/security/sequence'
 
 export default {
+  name: 'SequenceRule',
   data () {
     return {
       searchform: {

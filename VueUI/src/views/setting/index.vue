@@ -147,6 +147,7 @@ import { getAllSysSetting, saveSysSetting } from '@/api/basebasic'
 import defaultSettings from '@/settings'
 import { getToken } from '@/utils/auth'
 export default {
+  name: 'SysSetting',
   data () {
     return {
       activeName: 'first',
@@ -251,6 +252,9 @@ export default {
 }
 </script>
 <style>
+.yuebon-setting-form .el-form-item{
+  width: 100%;
+}
 .yuebon-setting-form .el-input{
 width: 40%;
 }

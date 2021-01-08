@@ -120,6 +120,7 @@ import { Loading } from 'element-ui'
 
 import defaultSettings from '@/settings'
 export default {
+  name: 'CodeGenerator',
   data () {
     return {
       searchDbform: {

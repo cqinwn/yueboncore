@@ -86,6 +86,7 @@ import {
 } from '@/api/security/taskjobslog'
 
 export default {
+  name: 'TaskJobsLog',
   data () {
     return {
       searchform: {

@@ -64,14 +64,14 @@ namespace Yuebon.WebApi.Controllers
             _menuService = menuService;
         }
         /// <summary>
-        /// 登录验证用户
+        /// 用户登录，必须要有验证码
         /// </summary>
         /// <param name="username">用户名</param>
         /// <param name="password">密码</param>
         /// <param name="vcode">验证码</param>
         /// <param name="vkey">验证码key</param>
         /// <param name="appId">AppId</param>
-        /// <param name="systemCode">systemCode</param>
+        /// <param name="systemCode">系统编码</param>
         /// <returns>返回用户User对象</returns>
         [HttpGet("GetCheckUser")]
         [NoPermissionRequired]
@@ -178,16 +178,12 @@ namespace Yuebon.WebApi.Controllers
                                         if (Permission.IsAdmin(currentSession))
                                         {
                                             currentSession.SubSystemList = _systemTypeService.GetAllByIsNotDeleteAndEnabledMark().MapTo<SystemTypeOutputDto>();
-                                            //currentSession.MenusList = menuApp.GetMenuFuntionJson(systemCode);
-                                            //currentSession.MenusRouter = menuApp.GetVueRouter(user.RoleId, systemCode);
                                             //取得用户可使用的授权功能信息，并存储在缓存中
                                             listFunction = menuApp.GetFunctionsBySystem(systemType.Id);
                                         }
                                         else
                                         {
                                             currentSession.SubSystemList = _systemTypeService.GetSubSystemList(user.RoleId);
-
-                                           // currentSession.MenusList = menuApp.GetMenuFuntionJson(user.RoleId, systemCode);
                                             //取得用户可使用的授权功能信息，并存储在缓存中
                                             listFunction = menuApp.GetFunctionsByUser(user.Id, systemType.Id);
                                         }
@@ -257,7 +253,7 @@ namespace Yuebon.WebApi.Controllers
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
             yuebonCacheHelper.Remove("login_user_" + CurrentUser.UserId);
             yuebonCacheHelper.Remove("User_Function_" + CurrentUser.UserId);
-            yuebonCacheHelper.Remove("User_Menu_" + CurrentUser.UserId);
+            //yuebonCacheHelper.Remove("User_Menu_" + CurrentUser.UserId);
             UserLogOn userLogOn = _userLogOnService.GetWhere("UserId='"+ CurrentUser.UserId + "'");
             userLogOn.UserOnLine = false;
             _userLogOnService.Update(userLogOn,userLogOn.Id);
@@ -327,7 +323,7 @@ namespace Yuebon.WebApi.Controllers
                             {
                                 YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
                                 object cacheOpenmf = yuebonCacheHelper.Get("openmf" + openmf);
-                                //yuebonCacheHelper.Remove("openmf" + openmf);
+                                yuebonCacheHelper.Remove("openmf" + openmf);
                                 if (cacheOpenmf == null)
                                 {
                                     result.ErrCode = "40007";
@@ -370,19 +366,17 @@ namespace Yuebon.WebApi.Controllers
                                         if (Permission.IsAdmin(currentSession))
                                         {
                                             currentSession.SubSystemList = _systemTypeService.GetAllByIsNotDeleteAndEnabledMark().MapTo<SystemTypeOutputDto>();
-                                            currentSession.MenusList = menuApp.GetMenuFuntionJson(systemCode);
                                             //取得用户可使用的授权功能信息，并存储在缓存中
                                             listFunction = menuApp.GetFunctionsBySystem(systemType.Id);
                                         }
                                         else
                                         {
                                             currentSession.SubSystemList = _systemTypeService.GetSubSystemList(user.RoleId);
-                                            currentSession.MenusList = menuApp.GetMenuFuntionJson(user.RoleId, systemCode);
-
                                             //取得用户可使用的授权功能信息，并存储在缓存中
                                             listFunction = menuApp.GetFunctionsByUser(user.Id, systemType.Id);
                                         }
 
+                                        currentSession.MenusRouter = menuApp.GetVueRouter(user.RoleId, systemCode);
                                         TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
                                         yuebonCacheHelper.Add("User_Function_" + user.Id, listFunction, expiresSliding, true);
                                         currentSession.Modules = listFunction;

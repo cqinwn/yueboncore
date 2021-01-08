@@ -143,7 +143,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             return ToJsonContent(result);
         }
         /// <summary>
-        /// 获取功能菜单适用于Vue 树形列表
+        /// 获取组织机构适用于Vue 树形列表
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetAllOrganizeTreeTable")]
@@ -169,7 +169,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
 
 
         /// <summary>
-        /// 获取功能菜单适用于Vue Tree树形
+        /// 获取组织机构适用于Vue Tree树形
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetAllOrganizeTree")]
@@ -186,7 +186,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             }
             catch (Exception ex)
             {
-                Log4NetHelper.Error("获取菜单异常", ex);
+                Log4NetHelper.Error("获取组织结构异常", ex);
                 result.ErrMsg = ErrCode.err40110;
                 result.ErrCode = "40110";
             }

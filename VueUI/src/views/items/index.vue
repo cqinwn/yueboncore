@@ -214,6 +214,7 @@ import { getAllItemsTreeTable, getItemsDetail, saveItems, setItemsEnable, delete
 
 import { getListMeunFuntionBymeunCode } from '@/api/basebasic'
 export default {
+  name: 'Items',
   data () {
     return {
       searchform: {

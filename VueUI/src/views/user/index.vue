@@ -139,6 +139,7 @@ import { getAllRoleList } from '@/api/security/roleservice'
 import { getAllOrganizeTreeTable } from '@/api/security/organizeservice'
 
 export default {
+  name: 'User',
   data () {
     return {
       searchform: {

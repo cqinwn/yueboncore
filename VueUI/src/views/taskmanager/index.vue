@@ -147,6 +147,7 @@ import {
 } from '@/api/security/taskmanager'
 
 export default {
+  name: 'TaskManager',
   data () {
     return {
       searchform: {

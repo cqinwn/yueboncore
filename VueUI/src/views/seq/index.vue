@@ -210,6 +210,7 @@ import { getSequenceListWithPager, getSequenceDetail,
   deleteSequence } from '@/api/security/sequence'
 
 export default {
+  name: 'Sequence',
   data () {
     return {
       searchform: {

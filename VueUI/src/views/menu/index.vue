@@ -68,6 +68,11 @@
                   width="180"
                 />
                 <el-table-column
+                  prop="Component"
+                  label="组件地址"
+                  width="180"
+                />
+                <el-table-column
                   label="类型"
                   width="80"
                   prop="MenuType"
@@ -257,6 +262,7 @@ import { getSubSystemList } from '@/api/basebasic'
 import { getAllMenuTreeTable, getMenuDetail, saveMenu, setMenuEnable, deleteSoftMenu, deleteMenu } from '@/api/developers/menufunction'
 
 export default {
+  name: 'Menu',
   data () {
     return {
       searchform: {
@@ -296,7 +302,7 @@ export default {
         MenuType: 'C',
         IsPublic: 'false',
         IsShow: 'true',
-        IsFrame: 'true',
+        IsFrame: 'false',
         SortCode: 99,
         IsBatch: 'false',
         IsCache: 'false'

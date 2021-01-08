@@ -191,6 +191,7 @@ import { getSystemTypeListWithPager, getSystemTypeDetail,
   deleteSystemType } from '@/api/developers/systemtypeservice'
 
 export default {
+  name: 'SystemType',
   data () {
     return {
       searchform: {

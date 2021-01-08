@@ -59,13 +59,13 @@ export const constantRoutes = [
     meta: { title: '个人中心', icon: 'icon-my' },
     children: [{
       path: '/usercenter/index',
-      name: 'usercenter',
+      name: 'Usercenter',
       component: (resolve) => require(['@/views/usercenter/index'], resolve),
       meta: { title: '个人信息', icon: 'icon-card' }
     },
     {
       path: '/usercenter/modify',
-      name: 'usercentermodify',
+      name: 'Usercentermodify',
       component: (resolve) => require(['@/views/usercenter/modify'], resolve),
       meta: { title: '修改密码', icon: 'icon-new-pwd' }
     }]

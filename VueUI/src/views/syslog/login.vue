@@ -59,6 +59,7 @@
 import { getLogListWithPager, deleteLog } from '@/api/security/logservice'
 
 export default {
+  name: 'LogLogin',
   data () {
     return {
       searchform: {

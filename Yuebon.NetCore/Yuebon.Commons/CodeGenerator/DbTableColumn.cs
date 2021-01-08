@@ -8,11 +8,17 @@ namespace Yuebon.Commons.CodeGenerator
     [Serializable]
     public class DbTableColumn
     {
+        /// <summary>
+        /// 表名称
+        /// </summary>
         public string TableName { get; set; }
         /// <summary>
         /// 字段名
         /// </summary>
         public string ColName { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public string Alias { get; set; }
         /// <summary>
         /// 是否自增

@@ -101,6 +101,12 @@ namespace Yuebon.WebApi.Areas.CMS.Controllers
             info.EnabledMark = tinfo.EnabledMark;
             info.SortCode = tinfo.SortCode;
             info.Description = tinfo.Description;
+            info.SubTitle = tinfo.SubTitle;
+            info.LinkUrl = tinfo.LinkUrl;
+            info.IsHot = tinfo.IsHot;
+            info.IsNew = tinfo.IsNew;
+            info.IsRed = tinfo.IsRed;
+            info.IsTop = tinfo.IsTop;
 
             OnBeforeUpdate(info);
             bool bl = await iService.UpdateAsync(info, id).ConfigureAwait(false);

@@ -100,9 +100,9 @@
     </el-card>
     <el-dialog
       ref="dialogEditForm"
-      :title="editFormTitle+'{modelTypeDesc}'"
+      :title="editFormTitle+'{ModelTypeDesc}'"
       :visible.sync="dialogEditFormVisible"
-      width="640px"
+      width="660px"
     >
       <el-form ref="editFrom" :model="editFrom" :rules="rules">
         {VueViewFromContent}
@@ -224,7 +224,12 @@ export default {
            {VueViewSaveBindContent}
             'Id': this.currentId
           }
-          save{ModelTypeName}(data).then(res => {
+          
+          var url = '{ModelTypeName}/Insert'
+          if (this.currentId !== '') {
+            url = '{ModelTypeName}/Update?id=' + this.currentId
+          }
+          save{ModelTypeName}(data,url).then(res => {
             if (res.Success) {
               this.$message({
                 message: '恭喜你，操作成功',

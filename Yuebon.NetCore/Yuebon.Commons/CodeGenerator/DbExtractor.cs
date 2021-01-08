@@ -76,8 +76,8 @@ namespace Yuebon.Commons.CodeGenerator
             }
             else if (dbType.Contains("MYSQL"))
             {
-                MySqlExtractor mssqlExtractor = new MySqlExtractor();
-                list = mssqlExtractor.GetAllTables(this.dbName, strwhere, fieldNameToSort, isDescending, info);
+                MySqlExtractor mysqlExtractor = new MySqlExtractor();
+                list = mysqlExtractor.GetAllTables(this.dbName, strwhere, fieldNameToSort, isDescending, info);
             }
             return list;
         }
@@ -97,8 +97,8 @@ namespace Yuebon.Commons.CodeGenerator
             }
             else if (dbType.Contains("MYSQL"))
             {
-                MySqlExtractor mssqlExtractor = new MySqlExtractor();
-                list = mssqlExtractor.GetAllColumns(this.dbName, tableName);
+                MySqlExtractor mysqlExtractor = new MySqlExtractor();
+                list = mysqlExtractor.GetAllColumns(this.dbName, tableName);
             }
             return list;
         }

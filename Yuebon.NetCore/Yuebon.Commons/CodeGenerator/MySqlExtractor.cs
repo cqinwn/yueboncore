@@ -83,7 +83,7 @@ data_type as FieldType,
 (case when Numeric_Precision is null then 0 else Numeric_Precision  end)  as FieldPrecision,
 (case when Numeric_scale is null then 0 else Numeric_scale  end)   as FieldScale,
 column_comment as Description
-from information_schema.columns where table_schema='{0}' and table_name='{1}'", dbName,tableName);
+from information_schema.columns where table_schema='{0}' and table_name='{1}' ORDER BY ORDINAL_POSITION asc;", dbName,tableName);
             List<DbFieldInfo> list = new List<DbFieldInfo>();
             list = GetAllColumnsInternal(sqlFields);
             List<DbFieldInfo> reslist = new List<DbFieldInfo>();
@@ -97,7 +97,6 @@ from information_schema.columns where table_schema='{0}' and table_name='{1}'", 
 
 
         #region 字段转换
-        //所有类型转换 http://www.cnblogs.com/vjine/p/3462167.html
         /// <summary>
         /// 将字段信息的类型转换为C#信息
         /// </summary>
@@ -116,7 +115,7 @@ from information_schema.columns where table_schema='{0}' and table_name='{1}'", 
         /// <summary>
         /// 将数据库类型转为系统类型。
         /// </summary>
-        /// <param name="sqlType"></param>
+        /// <param name="sqlType">数据库字段类型</param>
         /// <param name="isNullable">字段是否可空</param>
         /// <returns></returns>
         public static string SqlType2CsharpTypeStr(string sqlType, bool isNullable = false)
@@ -151,6 +150,8 @@ from information_schema.columns where table_schema='{0}' and table_name='{1}'", 
                     break;
 
                 case "decimal":
+                    val = "decimal";
+                    break;
                 case "numeric":
                 case "money":
                 case "smallmoney":
@@ -165,6 +166,8 @@ from information_schema.columns where table_schema='{0}' and table_name='{1}'", 
                     break;
 
                 case "datetime":
+                    val = "DateTime";
+                    break;
                 case "smalldatetime":
                 case "timestamp":
                     val = "DateTime";
@@ -179,11 +182,29 @@ from information_schema.columns where table_schema='{0}' and table_name='{1}'", 
                     break;
 
                 case "text":
+                    val = "string";
+                    allowNull = true;
+                    break;
                 case "ntext":
+                    val = "string";
+                    allowNull = true;
+                    break;
                 case "char":
+                    val = "string";
+                    allowNull = true;
+                    break;
                 case "nchar":
+                    val = "string";
+                    allowNull = true;
+                    break;
                 case "varchar":
+                    val = "string";
+                    allowNull = true;
+                    break;
                 case "nvarchar":
+                    val = "string";
+                    allowNull = true;
+                    break;
                 default:
                     val = "string";
                     allowNull = true;

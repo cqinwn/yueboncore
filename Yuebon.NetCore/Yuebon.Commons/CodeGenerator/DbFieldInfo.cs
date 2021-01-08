@@ -26,20 +26,13 @@ namespace Yuebon.Commons.CodeGenerator
         /// 描述
         /// </summary>
         public string Description { get; set; }
-
-        private string _DataType = "string";
         /// <summary>
         /// 系统数据类型，如 int
         /// </summary>
         public string DataType
         {
-            get { return _DataType; }
-            set
-            {
-                _DataType = value;
-                //if (string.IsNullOrEmpty(_DBType))
-                // _DBType = TypeConvertHelper.CsharpType2SqlTypeStr(value);
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -79,7 +72,7 @@ namespace Yuebon.Commons.CodeGenerator
         /// <summary>
         /// 默认值
         /// </summary>
-        public string? FieldDefaultValue { get; set; }
+        public string FieldDefaultValue { get; set; }
        
     }
 }

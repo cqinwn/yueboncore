@@ -103,7 +103,7 @@ namespace Yuebon.Commons.CodeGenerator
                     }
                 }
             }
-            modelTypeName = modelTypeName.Substring(0, 1).ToUpper() + modelTypeName.Substring(1);// System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(modelTypeName);
+            modelTypeName = modelTypeName.Substring(0, 1).ToUpper() + modelTypeName.Substring(1);
             string keyTypeName = "string";//主键数据类型
             string modelcontent = "";//数据库模型字段
             string InputDtocontent = "";//输入模型
@@ -117,7 +117,7 @@ namespace Yuebon.Commons.CodeGenerator
 
             foreach (DbFieldInfo dbFieldInfo in listField)
             {
-                string fieldName = dbFieldInfo.FieldName.Substring(0, 1).ToUpper() + dbFieldInfo.FieldName.Substring(1);// System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(dbFieldInfo.FieldName);
+                string fieldName = dbFieldInfo.FieldName.Substring(0, 1).ToUpper() + dbFieldInfo.FieldName.Substring(1);
                 //主键
                 if (dbFieldInfo.IsIdentity)
                 {
@@ -127,20 +127,18 @@ namespace Yuebon.Commons.CodeGenerator
                     outputDtocontent += "        /// </summary>\n";
                     if (dbFieldInfo.DataType == "string")
                     {
-                        outputDtocontent += string.Format("        [MaxLength({0})]\n", dbFieldInfo.FieldPrecision);
+                        outputDtocontent += string.Format("        [MaxLength({0})]\n", dbFieldInfo.FieldMaxLength);
                     }
                     outputDtocontent += string.Format("        public {0} {1}", dbFieldInfo.DataType, fieldName);
                     outputDtocontent += " { get; set; }\n\r";
-                }
-                //非主键
-                if (!dbFieldInfo.IsIdentity)
+                }else //非主键
                 {
                     modelcontent += "        /// <summary>\n";
                     modelcontent += string.Format("        /// 设置或获取{0}\n", dbFieldInfo.Description);
                     modelcontent += "        /// </summary>\n";
                     if (dbFieldInfo.FieldType == "string")
                     {
-                        modelcontent += string.Format("        [MaxLength({0})]\n", dbFieldInfo.FieldPrecision);
+                        modelcontent += string.Format("        [MaxLength({0})]\n", dbFieldInfo.FieldMaxLength);
                     }
                     modelcontent += string.Format("        public {0} {1}", dbFieldInfo.DataType, fieldName);
                     modelcontent += " { get; set; }\n\r";
@@ -151,7 +149,7 @@ namespace Yuebon.Commons.CodeGenerator
                     outputDtocontent += "        /// </summary>\n";
                     if (dbFieldInfo.DataType == "string")
                     {
-                        outputDtocontent += string.Format("        [MaxLength({0})]\n", dbFieldInfo.FieldPrecision);
+                        outputDtocontent += string.Format("        [MaxLength({0})]\n", dbFieldInfo.FieldMaxLength);
                     }
                     outputDtocontent += string.Format("        public {0} {1}", dbFieldInfo.DataType, fieldName);
                     outputDtocontent += " { get; set; }\n\r";
@@ -205,7 +203,7 @@ namespace Yuebon.Commons.CodeGenerator
                     InputDtocontent += "        /// </summary>\n";
                     if (dbFieldInfo.FieldType == "string")
                     {
-                        InputDtocontent += string.Format("        [MaxLength({0})]\n", dbFieldInfo.FieldPrecision);
+                        InputDtocontent += string.Format("        [MaxLength({0})]\n", dbFieldInfo.FieldMaxLength);
                     }
                     InputDtocontent += string.Format("        public {0} {1}", dbFieldInfo.DataType, fieldName);
                     InputDtocontent += " { get; set; }\n\r";

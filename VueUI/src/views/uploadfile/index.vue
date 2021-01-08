@@ -22,6 +22,7 @@
       <div class="list-btn-container">
         <el-button-group>
           <slot v-for="itemf in loadBtnFunc">
+            <el-button v-if="itemf.FullName === '新增'" type="primary" icon="el-icon-plus" size="small" @click="ShowEditOrViewDialog()">新增</el-button>
             <el-button
               v-if="itemf.FullName==='删除'"
               type="danger"

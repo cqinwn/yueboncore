@@ -93,7 +93,7 @@
                 </tr>
                 <tr>
                   <td><div class="cell">运行时的版本号</div></td>
-                  <td><div class="cell">{{ SysSetting.FrameworkDescription }}-{{ SysSetting.SystemVersion }}</div></td>
+                  <td><div class="cell">{{ SysSetting.FrameworkDescription }}</div></td>
                   <td><div class="cell">应用端口</div></td>
                   <td><div class="cell">{{ SysSetting.Port }}</div></td>
                 </tr>

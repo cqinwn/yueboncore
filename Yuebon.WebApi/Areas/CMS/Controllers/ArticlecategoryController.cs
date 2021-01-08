@@ -4,43 +4,45 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Yuebon.AspNetCore.Controllers;
 using Yuebon.AspNetCore.Models;
-using Yuebon.AspNetCore.Mvc;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Log;
+using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Models;
-using Yuebon.Security.Dtos;
-using Yuebon.Security.IServices;
-using Yuebon.Security.Models;
+using Yuebon.Commons.Pages;
+using Yuebon.CMS.Dtos;
+using Yuebon.CMS.Models;
+using Yuebon.CMS.IServices;
+using Yuebon.AspNetCore.Mvc;
 
-namespace Yuebon.WebApi.Areas.Security.Controllers
+namespace Yuebon.WebApi.Areas.CMS.Controllers
 {
     /// <summary>
-    /// 组织机构接口
+    /// 文章分类接口
     /// </summary>
     [ApiController]
-    [Route("api/Security/[controller]")]
-    public class OrganizeController : AreaApiController<Organize, OrganizeOutputDto, OrganizeInputDto, IOrganizeService, string>
+    [Route("api/CMS/[controller]")]
+    public class ArticlecategoryController : AreaApiController<Articlecategory, ArticlecategoryOutputDto,ArticlecategoryInputDto,IArticlecategoryService,string>
     {
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="_iService"></param>
-        public OrganizeController(IOrganizeService _iService) : base(_iService)
+        public ArticlecategoryController(IArticlecategoryService _iService) : base(_iService)
         {
             iService = _iService;
-            AuthorizeKey.ListKey = "Organize/List";
-            AuthorizeKey.InsertKey = "Organize/Add";
-            AuthorizeKey.UpdateKey = "Organize/Edit";
-            AuthorizeKey.UpdateEnableKey = "Organize/Enable";
-            AuthorizeKey.DeleteKey = "Organize/Delete";
-            AuthorizeKey.DeleteSoftKey = "Organize/DeleteSoft";
-            AuthorizeKey.ViewKey = "Organize/View";
+            AuthorizeKey.ListKey = "Articlecategory/List";
+            AuthorizeKey.InsertKey = "Articlecategory/Add";
+            AuthorizeKey.UpdateKey = "Articlecategory/Edit";
+            AuthorizeKey.UpdateEnableKey = "Articlecategory/Enable";
+            AuthorizeKey.DeleteKey = "Articlecategory/Delete";
+            AuthorizeKey.DeleteSoftKey = "Articlecategory/DeleteSoft";
+            AuthorizeKey.ViewKey = "Articlecategory/View";
         }
         /// <summary>
         /// 新增前处理数据
         /// </summary>
         /// <param name="info"></param>
-        protected override void OnBeforeInsert(Organize info)
+        protected override void OnBeforeInsert(Articlecategory info)
         {
             info.Id = GuidUtils.CreateNo();
             info.CreatorTime = DateTime.Now;
@@ -52,33 +54,32 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             }
             if (string.IsNullOrEmpty(info.ParentId))
             {
-                info.Layers = 1;
+                info.ClassLayer = 1;
                 info.ParentId = "";
             }
             else
             {
-                info.Layers = iService.Get(info.ParentId).Layers + 1;
+                info.ClassLayer = iService.Get(info.ParentId).ClassLayer + 1;
             }
-
         }
-
+        
         /// <summary>
         /// 在更新数据前对数据的修改操作
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        protected override void OnBeforeUpdate(Organize info)
+        protected override void OnBeforeUpdate(Articlecategory info)
         {
             info.LastModifyUserId = CurrentUser.UserId;
             info.LastModifyTime = DateTime.Now;
             if (string.IsNullOrEmpty(info.ParentId))
             {
-                info.Layers = 1;
+                info.ClassLayer = 1;
                 info.ParentId = "";
             }
             else
             {
-                info.Layers = iService.Get(info.ParentId).Layers + 1;
+                info.ClassLayer = iService.Get(info.ParentId).ClassLayer + 1;
             }
         }
 
@@ -87,7 +88,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        protected override void OnBeforeSoftDelete(Organize info)
+        protected override void OnBeforeSoftDelete(Articlecategory info)
         {
             info.DeleteMark = true;
             info.DeleteTime = DateTime.Now;
@@ -103,28 +104,14 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <returns></returns>
         [HttpPost("Update")]
         [YuebonAuthorize("Edit")]
-        public override async Task<IActionResult> UpdateAsync(OrganizeInputDto tinfo, string id)
+        public override async Task<IActionResult> UpdateAsync(ArticlecategoryInputDto tinfo, string id)
         {
             CommonResult result = new CommonResult();
 
-            Organize info = iService.Get(id);
+            Articlecategory info = iService.Get(id);
             info.ParentId = tinfo.ParentId;
-            info.FullName = tinfo.FullName;
-            info.EnCode = tinfo.EnCode;
-            info.ShortName = tinfo.ShortName;
-            info.CategoryId = tinfo.CategoryId;
-            info.ManagerId = tinfo.ManagerId;
-            info.TelePhone = tinfo.TelePhone;
-            info.MobilePhone = tinfo.MobilePhone;
-            info.WeChat = tinfo.WeChat;
-            info.Fax = tinfo.Fax;
-            info.Email = tinfo.Email;
-            info.Address = tinfo.Address;
-            info.AllowEdit = tinfo.AllowEdit;
-            info.AllowDelete = tinfo.AllowDelete;
-            info.ManagerId = tinfo.ManagerId;
+            info.Title = tinfo.Title;
             info.EnabledMark = tinfo.EnabledMark;
-            info.DeleteMark = tinfo.DeleteMark;
             info.SortCode = tinfo.SortCode;
             info.Description = tinfo.Description;
 
@@ -143,17 +130,17 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             return ToJsonContent(result);
         }
         /// <summary>
-        /// 获取组织机构适用于Vue 树形列表
+        /// 获取文章分类适用于Vue 树形列表
         /// </summary>
         /// <returns></returns>
-        [HttpGet("GetAllOrganizeTreeTable")]
+        [HttpGet("GetAllCategoryTreeTable")]
         [YuebonAuthorize("List")]
-        public async Task<IActionResult> GetAllOrganizeTreeTable()
+        public async Task<IActionResult> GetAllCategoryTreeTable(string keyword)
         {
             CommonResult result = new CommonResult();
             try
             {
-                List<OrganizeOutputDto> list = await iService.GetAllOrganizeTreeTable();
+                List<ArticlecategoryOutputDto> list = await iService.GetAllArticlecategoryTreeTable(keyword);
                 result.Success = true;
                 result.ErrCode = ErrCode.successCode;
                 result.ResData = list;
@@ -167,30 +154,5 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             return ToJsonContent(result);
         }
 
-
-        /// <summary>
-        /// 获取组织机构适用于Vue Tree树形
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("GetAllOrganizeTree")]
-        [YuebonAuthorize("List")]
-        public async Task<IActionResult> GetAllOrganizeTree()
-        {
-            CommonResult result = new CommonResult();
-            try
-            {
-                List<OrganizeOutputDto> list = await iService.GetAllOrganizeTreeTable();
-                result.Success = true;
-                result.ErrCode = ErrCode.successCode;
-                result.ResData = list;
-            }
-            catch (Exception ex)
-            {
-                Log4NetHelper.Error("获取组织结构异常", ex);
-                result.ErrMsg = ErrCode.err40110;
-                result.ErrCode = "40110";
-            }
-            return ToJsonContent(result);
-        }
     }
 }

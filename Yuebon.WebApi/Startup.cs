@@ -224,6 +224,7 @@ namespace Yuebon.WebApi
                     options.SwaggerEndpoint("/swagger/v1/swagger.json", "Yuebon System API V1");
                     options.RoutePrefix = string.Empty;//这里主要是不需要再输入swagger这个默认前缀
                 });
+                YuebonInitialization.Initial();
             }
         }
 
@@ -308,6 +309,7 @@ namespace Yuebon.WebApi
             });
             #endregion
             services.AddTransient<IDbContextCore, MySqlDbContext>(); //注入EF上下文
+
             IoCContainer.Register(cacheProvider);//注册缓存配置
             IoCContainer.Register(Configuration);//注册配置
             IoCContainer.Register(jwtOption);//注册配置
@@ -328,11 +330,17 @@ namespace Yuebon.WebApi
             IoCContainer.RegisterNew("Yuebon.Messages.Core", "Yuebon.Messages");
             IoCContainer.Register("Yuebon.Tenants.Core");
             IoCContainer.RegisterNew("Yuebon.Tenants.Core", "Yuebon.Tenants");
+            IoCContainer.Register("Yuebon.CMS.Core");
+            IoCContainer.RegisterNew("Yuebon.CMS.Core", "Yuebon.CMS");
+
+            #region automapper
             List<Assembly> myAssembly = new List<Assembly>();
             myAssembly.Add(Assembly.Load("Yuebon.Security.Core"));
             myAssembly.Add(Assembly.Load("Yuebon.Tenants.Core"));
+            myAssembly.Add(Assembly.Load("Yuebon.CMS.Core"));
             services.AddAutoMapper(myAssembly);
             services.AddScoped<IMapper, Mapper>();
+            #endregion
 
             #region 定时任务
             services.AddTransient<HttpResultfulJob>();

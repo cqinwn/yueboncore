@@ -128,8 +128,7 @@ namespace Yuebon.AspNetCore.Controllers
 
 
         /// <summary>
-        /// 异步更新数据，需要在业务模块控制器重写该方法
-        /// 否则更新无效
+        /// 异步更新数据，需要在业务模块控制器重写该方法,否则更新无效
         /// </summary>
         /// <param name="tinfo"></param>
         /// <param name="id">主键Id</param>

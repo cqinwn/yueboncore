@@ -224,6 +224,7 @@ export default {
         this.editFormTitle = '新增'
         this.currentId = ''
         this.dialogEditFormVisible = true
+        this.$refs['editFrom'].resetFields()
       }
     },
     bindEditInfo: function () {

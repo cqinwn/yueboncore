@@ -251,6 +251,9 @@ export default {
 }
 </script>
 <style>
+.yuebon-setting-form .el-form-item{
+  width: 100%;
+}
 .yuebon-setting-form .el-input{
 width: 40%;
 }

@@ -43,14 +43,14 @@
               icon="el-icon-video-pause"
               size="small"
               @click="setEnable('0')"
-            >禁用</el-button>
+            >设为未发布</el-button>
             <el-button
               v-if="itemf.FullName=='启用'"
               type="success"
               icon="el-icon-video-play"
               size="small"
               @click="setEnable('1')"
-            >启用</el-button>
+            >设为发布</el-button>
             <el-button
               v-if="itemf.FullName==='软删除'"
               type="warning"
@@ -86,9 +86,19 @@
         <el-table-column prop="Title" label="文章标题" sortable="custom" />
         <el-table-column prop="CategoryName" label="所属分类" sortable="custom" width="120" />
         <el-table-column prop="SortCode" label="排序" sortable="custom" width="120" />
-        <el-table-column prop="IsTop" label="是否置顶" sortable="custom" width="120" />
-        <el-table-column prop="IsRed" label="是否推荐" sortable="custom" width="120" />
-        <el-table-column prop="IsHot" label="是否热门" sortable="custom" width="120" />
+        <el-table-column label="属性" sortable="custom" width="230" prop="" align="center">
+          <template slot-scope="scope">
+            <el-tag v-if="scope.row.IsTop === true" disable-transitions>置顶</el-tag>
+            <el-tag v-if="scope.row.IsRed === true" type="success" disable-transitions>推荐</el-tag>
+            <el-tag v-if="scope.row.IsHot === true" type="danger" disable-transitions>热门</el-tag>
+            <el-tag v-if="scope.row.IsNew === true" type="warning" disable-transitions>最新</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="是否发布" sortable="custom" width="120" prop="EnabledMark" align="center">
+          <template slot-scope="scope">
+            <el-tag :type="scope.row.EnabledMark === true ? 'success' : 'info'" disable-transitions>{{ scope.row.EnabledMark === true ? "已发布" : "未发布" }}</el-tag>
+          </template>
+        </el-table-column>
         <el-table-column prop="CreatorTime" label="创建时间" sortable="custom" width="160" />
 
       </el-table>
@@ -110,44 +120,74 @@
       v-el-drag-dialog
       :title="editFormTitle+'文章'"
       :visible.sync="dialogEditFormVisible"
-      width="860px"
+      width="960px"
     >
       <el-form ref="editFrom" :model="editFrom" :rules="rules">
-        <el-form-item label="文章标题" :label-width="formLabelWidth" prop="Title">
-          <el-input v-model="editFrom.Title" placeholder="请输入文章标题" autocomplete="off" clearable />
-        </el-form-item>
-        <el-form-item label="文章分类" :label-width="formLabelWidth" prop="CategoryId">
-          <el-cascader
-            v-model="selectedCategoryOptions"
-            style="width: 500px"
-            :options="selectCategory"
-            filterable
-            :props="{label: 'Title',
-                     value: 'Id',
-                     children: 'Children',
-                     emitPath: false,
-                     checkStrictly: true,
-                     expandTrigger: 'hover',
-            }"
-            clearable
-            @change="handleSelectCategoryChange"
-          />
-        </el-form-item>
-        <el-form-item label="详情" :label-width="formLabelWidth" prop="Description">
-          <editor v-model="editFrom.Description" :min-height="192" :height="300" />
-        </el-form-item>
-        <el-form-item label="排序" :label-width="formLabelWidth" prop="SortCode">
-          <el-input v-model="editFrom.SortCode" placeholder="请输入排序" autocomplete="off" clearable />
-        </el-form-item>
-        <el-form-item label="是否发布" :label-width="formLabelWidth" prop="EnabledMark">
-          <el-radio-group v-model="editFrom.EnabledMark">
-            <el-radio label="true">是</el-radio>
-            <el-radio label="false">否</el-radio>
-          </el-radio-group>
-        </el-form-item>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="文章标题" :label-width="formLabelWidth" prop="Title">
+              <el-input v-model="editFrom.Title" placeholder="请输入文章标题" autocomplete="off" clearable />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="副标题" :label-width="formLabelWidth" prop="SubTitle">
+              <el-input v-model="editFrom.SubTitle" placeholder="请输入文章副标题" autocomplete="off" clearable />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="文章分类" :label-width="formLabelWidth" prop="CategoryId">
+              <el-cascader
+                v-model="selectedCategoryOptions"
+                style="width: 380px"
+                :options="selectCategory"
+                filterable
+                :props="{label: 'Title',
+                         value: 'Id',
+                         children: 'Children',
+                         emitPath: false,
+                         checkStrictly: true,
+                         expandTrigger: 'hover',
+                }"
+                clearable
+                @change="handleSelectCategoryChange"
+              />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="外链" :label-width="formLabelWidth" prop="LinkUrl">
+              <el-input v-model="editFrom.LinkUrl" placeholder="请输入外部链接" autocomplete="off" clearable />
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="详情" :label-width="formLabelWidth" prop="Description">
+              <editor v-model="editFrom.Description" :min-height="192" :height="300" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="排序" :label-width="formLabelWidth" prop="SortCode">
+              <el-input v-model="editFrom.SortCode" placeholder="请输入排序" autocomplete="off" clearable />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="属性" :label-width="formLabelWidth" prop="">
+              <el-checkbox v-model="editFrom.IsTop">置顶</el-checkbox>
+              <el-checkbox v-model="editFrom.IsHot">热门</el-checkbox>
+              <el-checkbox v-model="editFrom.IsRed">推荐</el-checkbox>
+              <el-checkbox v-model="editFrom.IsNew">最新</el-checkbox>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="是否发布" :label-width="formLabelWidth" prop="EnabledMark">
+              <el-radio-group v-model="editFrom.EnabledMark">
+                <el-radio :label="true">是</el-radio>
+                <el-radio :label="false">否</el-radio>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogEditFormVisible = false">取 消</el-button>
+        <el-button @click="cancel">取 消</el-button>
         <el-button type="primary" @click="saveEditForm()">确 定</el-button>
       </div>
     </el-dialog>
@@ -188,13 +228,7 @@ export default {
       },
       dialogEditFormVisible: false,
       editFormTitle: '',
-      editFrom: {
-        CategoryId: '',
-        Title: '',
-        Description: '',
-        SortCode: 99,
-        EnabledMark: 'true'
-      },
+      editFrom: {},
       rules: {
         CategoryId: [
           { required: true, message: '请输入文章分类', trigger: 'blur' },
@@ -245,6 +279,23 @@ export default {
         this.tableloading = false
       })
     },
+
+    // 取消按钮
+    cancel () {
+      this.dialogEditFormVisible = false
+      this.reset()
+    },
+    // 表单重置
+    reset () {
+      this.editFrom = {
+        CategoryId: '',
+        Title: '',
+        Description: '',
+        SortCode: 99,
+        EnabledMark: true
+      }
+      this.resetForm('editFrom')
+    },
     /**
      * 点击查询
      */
@@ -263,6 +314,7 @@ export default {
      * 新增、修改或查看明细信息（绑定显示数据）     *
      */
     ShowEditOrViewDialog: function (view) {
+      this.reset()
       if (view !== undefined) {
         if (this.currentSelected.length > 1 || this.currentSelected.length === 0) {
           this.$alert('请选择一条数据进行编辑/修改', '提示')
@@ -281,11 +333,8 @@ export default {
     },
     bindEditInfo: function () {
       getArticlenewsDetail(this.currentId).then(res => {
-        this.editFrom.CategoryId = res.ResData.CategoryId
-        this.editFrom.Title = res.ResData.Title
-        this.editFrom.Description = res.ResData.Description
-        this.editFrom.SortCode = res.ResData.SortCode
-        this.editFrom.EnabledMark = res.ResData.EnabledMark + ''
+        this.editFrom = res.ResData
+        this.selectedCategoryOptions = res.ResData.CategoryId
       })
     },
     /**
@@ -294,20 +343,11 @@ export default {
     saveEditForm () {
       this.$refs['editFrom'].validate((valid) => {
         if (valid) {
-          const data = {
-            'CategoryId': this.editFrom.CategoryId,
-            'Title': this.editFrom.Title,
-            'Description': this.editFrom.Description,
-            'SortCode': this.editFrom.SortCode,
-            'EnabledMark': this.editFrom.EnabledMark,
-            'Id': this.currentId
-          }
-
           var url = 'Articlenews/Insert'
           if (this.currentId !== '') {
             url = 'Articlenews/Update?id=' + this.currentId
           }
-          saveArticlenews(data, url).then(res => {
+          saveArticlenews(this.editFrom, url).then(res => {
             if (res.Success) {
               this.$message({
                 message: '恭喜你，操作成功',
@@ -315,7 +355,6 @@ export default {
               })
               this.dialogEditFormVisible = false
               this.currentSelected = ''
-              this.$refs['editFrom'].resetFields()
               this.loadTableData()
               this.InitDictItem()
             } else {

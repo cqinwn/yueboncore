@@ -5,11 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Enums;
-using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IoC;
 using Yuebon.Commons.Json;
@@ -52,12 +50,10 @@ namespace Yuebon.Quartz.Jobs
                 iService.RecordRun(taskManager.Id, JobAction.开始, true, msg);
                 //初始化任务日志
                 FileQuartz.InitTaskJobLogPath(taskManager.Id);
-                ////任务错误日志
-                //FileQuartz.WriteErrorLog($"{ DateTime.Now.ToString("yyyy-MM-dd HH:mm:sss")}未配置url,");
 
                 var jobId = context.MergedJobDataMap.GetString("OpenJob");
                 iJobLogService.DeleteBatchWhereAsync("");
-                string where = "Type not in('Login','Exception')";
+                string where = "Type not in('Login','Exception') and CreatorTime>'"+ DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd") + "'";
                 iLogService.DeleteBatchWhereAsync(where);
 
                 stopwatch.Stop();

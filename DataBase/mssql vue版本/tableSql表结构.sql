@@ -6,6 +6,89 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+CREATE TABLE [dbo].[CMS_Articlecategory](
+	[Id] [nvarchar](50) NOT NULL,
+	[Title] [nvarchar](200) NOT NULL,
+	[ParentId] [nvarchar](50) NULL,
+	[ClassPath] [nvarchar](1000) NULL,
+	[ClassLayer] [int] NOT NULL,
+	[SortCode] [int] NOT NULL,
+	[LinkUrl] [nvarchar](255) NOT NULL,
+	[ImgUrl] [nvarchar](255) NULL,
+	[SeoTitle] [nvarchar](255) NULL,
+	[SeoKeywords] [nvarchar](255) NULL,
+	[SeoDescription] [nvarchar](255) NULL,
+	[IsHot] [bit] NULL,
+	[Description] [nvarchar](200) NULL,
+	[EnabledMark] [bit] NULL,
+	[DeleteMark] [bit] NULL,
+	[CreatorTime] [datetime] NULL,
+	[CreatorUserId] [nvarchar](50) NULL,
+	[CompanyId] [nvarchar](50) NULL,
+	[DeptId] [nvarchar](50) NULL,
+	[LastModifyTime] [datetime] NULL,
+	[LastModifyUserId] [nvarchar](50) NULL,
+	[DeleteTime] [datetime] NULL,
+	[DeleteUserId] [nvarchar](50) NULL,
+ CONSTRAINT [PK_Sys_Articlecategory] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[CMS_Articlenews]    Script Date: 2021/1/9 16:20:48 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[CMS_Articlenews](
+	[Id] [nvarchar](50) NOT NULL,
+	[Title] [nvarchar](200) NOT NULL,
+	[CategoryId] [nvarchar](50) NULL,
+	[CategoryName] [nvarchar](1000) NULL,
+	[SubTitle] [nvarchar](200) NOT NULL,
+	[LinkUrl] [nvarchar](255) NOT NULL,
+	[ImgUrl] [nvarchar](255) NULL,
+	[SeoTitle] [nvarchar](255) NULL,
+	[SeoKeywords] [nvarchar](255) NULL,
+	[SeoDescription] [nvarchar](255) NULL,
+	[Tags] [nvarchar](255) NULL,
+	[Zhaiyao] [nvarchar](255) NULL,
+	[SortCode] [int] NOT NULL,
+	[IsMsg] [bit] NULL,
+	[IsTop] [bit] NULL,
+	[IsRed] [bit] NULL,
+	[IsHot] [bit] NULL,
+	[IsSys] [bit] NULL,
+	[IsNew] [bit] NULL,
+	[IsSlide] [bit] NULL,
+	[Click] [int] NULL,
+	[LikeCount] [int] NULL,
+	[TotalBrowse] [int] NULL,
+	[Source] [nvarchar](255) NULL,
+	[Author] [nvarchar](255) NULL,
+	[Description] [nvarchar](200) NULL,
+	[EnabledMark] [bit] NULL,
+	[DeleteMark] [bit] NULL,
+	[CreatorTime] [datetime] NULL,
+	[CreatorUserId] [nvarchar](50) NULL,
+	[CompanyId] [nvarchar](50) NULL,
+	[DeptId] [nvarchar](50) NULL,
+	[LastModifyTime] [datetime] NULL,
+	[LastModifyUserId] [nvarchar](50) NULL,
+	[DeleteTime] [datetime] NULL,
+	[DeleteUserId] [nvarchar](50) NULL,
+ CONSTRAINT [PK_CMS_Articlenews] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Sys_APP]    Script Date: 2021/1/9 16:20:48 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE TABLE [dbo].[Sys_APP](
 	[Id] [nvarchar](50) NOT NULL,
 	[AppId] [nvarchar](50) NULL,
@@ -31,7 +114,7 @@ CREATE TABLE [dbo].[Sys_APP](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Area]    Script Date: 2021/1/5 22:11:14 ******/
+/****** Object:  Table [dbo].[Sys_Area]    Script Date: 2021/1/9 16:20:48 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -57,7 +140,7 @@ CREATE TABLE [dbo].[Sys_Area](
 	[DeleteUserId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_DbBackup]    Script Date: 2021/1/5 22:11:14 ******/
+/****** Object:  Table [dbo].[Sys_DbBackup]    Script Date: 2021/1/9 16:20:48 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -82,7 +165,7 @@ CREATE TABLE [dbo].[Sys_DbBackup](
 	[DeleteUserId] [varchar](500) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_FilterIP]    Script Date: 2021/1/5 22:11:14 ******/
+/****** Object:  Table [dbo].[Sys_FilterIP]    Script Date: 2021/1/9 16:20:48 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -104,7 +187,7 @@ CREATE TABLE [dbo].[Sys_FilterIP](
 	[DeleteUserId] [varchar](500) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Items]    Script Date: 2021/1/5 22:11:14 ******/
+/****** Object:  Table [dbo].[Sys_Items]    Script Date: 2021/1/9 16:20:48 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -128,7 +211,7 @@ CREATE TABLE [dbo].[Sys_Items](
 	[DeleteUserId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_ItemsDetail]    Script Date: 2021/1/5 22:11:14 ******/
+/****** Object:  Table [dbo].[Sys_ItemsDetail]    Script Date: 2021/1/9 16:20:48 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -154,7 +237,7 @@ CREATE TABLE [dbo].[Sys_ItemsDetail](
 	[DeleteUserId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Log]    Script Date: 2021/1/5 22:11:14 ******/
+/****** Object:  Table [dbo].[Sys_Log]    Script Date: 2021/1/9 16:20:48 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -182,7 +265,7 @@ CREATE TABLE [dbo].[Sys_Log](
 	[DeleteUserId] [varchar](50) NULL
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Menu]    Script Date: 2021/1/5 22:11:14 ******/
+/****** Object:  Table [dbo].[Sys_Menu]    Script Date: 2021/1/9 16:20:48 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -222,7 +305,7 @@ CREATE TABLE [dbo].[Sys_Menu](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_OpenIdSettings]    Script Date: 2021/1/5 22:11:14 ******/
+/****** Object:  Table [dbo].[Sys_OpenIdSettings]    Script Date: 2021/1/9 16:20:48 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -234,7 +317,7 @@ CREATE TABLE [dbo].[Sys_OpenIdSettings](
 	[Settings] [ntext] NOT NULL
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Organize]    Script Date: 2021/1/5 22:11:15 ******/
+/****** Object:  Table [dbo].[Sys_Organize]    Script Date: 2021/1/9 16:20:48 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -269,7 +352,7 @@ CREATE TABLE [dbo].[Sys_Organize](
 	[DeleteUserId] [varchar](500) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Role]    Script Date: 2021/1/5 22:11:15 ******/
+/****** Object:  Table [dbo].[Sys_Role]    Script Date: 2021/1/9 16:20:48 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -295,7 +378,7 @@ CREATE TABLE [dbo].[Sys_Role](
 	[DeleteUserId] [varchar](500) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_RoleAuthorize]    Script Date: 2021/1/5 22:11:15 ******/
+/****** Object:  Table [dbo].[Sys_RoleAuthorize]    Script Date: 2021/1/9 16:20:48 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -311,7 +394,7 @@ CREATE TABLE [dbo].[Sys_RoleAuthorize](
 	[CreatorUserId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_RoleData]    Script Date: 2021/1/5 22:11:15 ******/
+/****** Object:  Table [dbo].[Sys_RoleData]    Script Date: 2021/1/9 16:20:48 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -323,7 +406,7 @@ CREATE TABLE [dbo].[Sys_RoleData](
 	[DType] [nvarchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Sequence]    Script Date: 2021/1/5 22:11:15 ******/
+/****** Object:  Table [dbo].[Sys_Sequence]    Script Date: 2021/1/9 16:20:48 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -354,7 +437,7 @@ CREATE TABLE [dbo].[Sys_Sequence](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_SequenceRule]    Script Date: 2021/1/5 22:11:15 ******/
+/****** Object:  Table [dbo].[Sys_SequenceRule]    Script Date: 2021/1/9 16:20:48 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -385,7 +468,7 @@ CREATE TABLE [dbo].[Sys_SequenceRule](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_SystemType]    Script Date: 2021/1/5 22:11:15 ******/
+/****** Object:  Table [dbo].[Sys_SystemType]    Script Date: 2021/1/9 16:20:48 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -409,7 +492,7 @@ CREATE TABLE [dbo].[Sys_SystemType](
 	[DeleteUserId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_TaskJobsLog]    Script Date: 2021/1/5 22:11:15 ******/
+/****** Object:  Table [dbo].[Sys_TaskJobsLog]    Script Date: 2021/1/9 16:20:48 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -428,7 +511,7 @@ CREATE TABLE [dbo].[Sys_TaskJobsLog](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_TaskManager]    Script Date: 2021/1/5 22:11:15 ******/
+/****** Object:  Table [dbo].[Sys_TaskManager]    Script Date: 2021/1/9 16:20:48 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -468,7 +551,7 @@ CREATE TABLE [dbo].[Sys_TaskManager](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Tenant]    Script Date: 2021/1/5 22:11:15 ******/
+/****** Object:  Table [dbo].[Sys_Tenant]    Script Date: 2021/1/9 16:20:48 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -494,7 +577,7 @@ CREATE TABLE [dbo].[Sys_Tenant](
 	[DeleteUserId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_UploadFile]    Script Date: 2021/1/5 22:11:15 ******/
+/****** Object:  Table [dbo].[Sys_UploadFile]    Script Date: 2021/1/9 16:20:48 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -518,7 +601,7 @@ CREATE TABLE [dbo].[Sys_UploadFile](
 	[BelongAppId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_User]    Script Date: 2021/1/5 22:11:15 ******/
+/****** Object:  Table [dbo].[Sys_User]    Script Date: 2021/1/9 16:20:48 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -562,7 +645,7 @@ CREATE TABLE [dbo].[Sys_User](
 	[DeleteUserId] [varchar](500) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_UserExtend]    Script Date: 2021/1/5 22:11:15 ******/
+/****** Object:  Table [dbo].[Sys_UserExtend]    Script Date: 2021/1/9 16:20:48 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -602,7 +685,7 @@ CREATE TABLE [dbo].[Sys_UserExtend](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_UserLogOn]    Script Date: 2021/1/5 22:11:15 ******/
+/****** Object:  Table [dbo].[Sys_UserLogOn]    Script Date: 2021/1/9 16:20:48 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -630,7 +713,7 @@ CREATE TABLE [dbo].[Sys_UserLogOn](
 	[Theme] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_UserOpenIds]    Script Date: 2021/1/5 22:11:15 ******/
+/****** Object:  Table [dbo].[Sys_UserOpenIds]    Script Date: 2021/1/9 16:20:48 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -645,6 +728,24 @@ CREATE TABLE [dbo].[Sys_UserOpenIds](
 	[OpenIdType] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[CMS_Articlecategory] ADD  CONSTRAINT [DF_Sys_Articlecategory_SortCode]  DEFAULT ((99)) FOR [SortCode]
+GO
+ALTER TABLE [dbo].[CMS_Articlecategory] ADD  CONSTRAINT [DF_Sys_Articlecategory_EnabledMark]  DEFAULT ((1)) FOR [EnabledMark]
+GO
+ALTER TABLE [dbo].[CMS_Articlecategory] ADD  CONSTRAINT [DF_Sys_Articlecategory_DeleteMark]  DEFAULT ((0)) FOR [DeleteMark]
+GO
+ALTER TABLE [dbo].[CMS_Articlenews] ADD  CONSTRAINT [DF_CMS_Articlenews_SortCode]  DEFAULT ((99)) FOR [SortCode]
+GO
+ALTER TABLE [dbo].[CMS_Articlenews] ADD  CONSTRAINT [DF_CMS_Articlenews_Click]  DEFAULT ((0)) FOR [Click]
+GO
+ALTER TABLE [dbo].[CMS_Articlenews] ADD  CONSTRAINT [DF_CMS_Articlenews_Click3]  DEFAULT ((0)) FOR [LikeCount]
+GO
+ALTER TABLE [dbo].[CMS_Articlenews] ADD  CONSTRAINT [DF_CMS_Articlenews_Click2]  DEFAULT ((0)) FOR [TotalBrowse]
+GO
+ALTER TABLE [dbo].[CMS_Articlenews] ADD  CONSTRAINT [DF_CMS_Articlenews_EnabledMark]  DEFAULT ((1)) FOR [EnabledMark]
+GO
+ALTER TABLE [dbo].[CMS_Articlenews] ADD  CONSTRAINT [DF_CMS_Articlenews_DeleteMark]  DEFAULT ((0)) FOR [DeleteMark]
 GO
 ALTER TABLE [dbo].[Sys_Menu] ADD  CONSTRAINT [DF_Sys_Menu_IsFrame]  DEFAULT ((0)) FOR [IsFrame]
 GO
@@ -697,6 +798,120 @@ GO
 ALTER TABLE [dbo].[Sys_UserExtend] ADD  CONSTRAINT [DF_CMS_NameCard_EnabledMark]  DEFAULT ((1)) FOR [EnabledMark]
 GO
 ALTER TABLE [dbo].[Sys_UserExtend] ADD  CONSTRAINT [DF_CMS_NameCard_DeleteMark]  DEFAULT ((0)) FOR [DeleteMark]
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'分类名称' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlecategory', @level2type=N'COLUMN',@level2name=N'Title'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'父级分类Id' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlecategory', @level2type=N'COLUMN',@level2name=N'ParentId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'全路径' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlecategory', @level2type=N'COLUMN',@level2name=N'ClassPath'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'层级' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlecategory', @level2type=N'COLUMN',@level2name=N'ClassLayer'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'排序' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlecategory', @level2type=N'COLUMN',@level2name=N'SortCode'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'外链地址' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlecategory', @level2type=N'COLUMN',@level2name=N'LinkUrl'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'主图图片' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlecategory', @level2type=N'COLUMN',@level2name=N'ImgUrl'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'SEO标题' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlecategory', @level2type=N'COLUMN',@level2name=N'SeoTitle'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'SEO关键词' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlecategory', @level2type=N'COLUMN',@level2name=N'SeoKeywords'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'SEO描述' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlecategory', @level2type=N'COLUMN',@level2name=N'SeoDescription'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'是否热门' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlecategory', @level2type=N'COLUMN',@level2name=N'IsHot'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'是否可用' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlecategory', @level2type=N'COLUMN',@level2name=N'EnabledMark'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'删除标记' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlecategory', @level2type=N'COLUMN',@level2name=N'DeleteMark'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'创建时间' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlecategory', @level2type=N'COLUMN',@level2name=N'CreatorTime'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'创建人' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlecategory', @level2type=N'COLUMN',@level2name=N'CreatorUserId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'创建人组织' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlecategory', @level2type=N'COLUMN',@level2name=N'CompanyId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'部门' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlecategory', @level2type=N'COLUMN',@level2name=N'DeptId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'修改时间' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlecategory', @level2type=N'COLUMN',@level2name=N'LastModifyTime'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'修改人' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlecategory', @level2type=N'COLUMN',@level2name=N'LastModifyUserId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'删除时间' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlecategory', @level2type=N'COLUMN',@level2name=N'DeleteTime'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'删除人' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlecategory', @level2type=N'COLUMN',@level2name=N'DeleteUserId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Content', @value=N'文章分类' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlecategory'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'标题' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'Title'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'文章分类' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'CategoryId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'分类名称' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'CategoryName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'副标题' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'SubTitle'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'外链地址' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'LinkUrl'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'主图图片' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'ImgUrl'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'SEO标题' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'SeoTitle'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'SEO关键词' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'SeoKeywords'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'SEO描述' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'SeoDescription'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'标签，多个用逗号隔开' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'Tags'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'摘要' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'Zhaiyao'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'排序' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'SortCode'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'开启评论' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'IsMsg'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'是否置顶，默认不置顶' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'IsTop'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'是否推荐' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'IsRed'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'是否热门，默认否' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'IsHot'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'是否是系统预置文章，不可删除' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'IsSys'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'是否推荐到最新' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'IsNew'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'否推荐到幻灯' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'IsSlide'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'点击量' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'Click'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'喜欢量' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'LikeCount'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'浏览量' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'TotalBrowse'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'来源' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'Source'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'是否热门' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'Author'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'作者' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'Description'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'是否可用' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'EnabledMark'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'删除标记' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'DeleteMark'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'创建时间' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'CreatorTime'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'创建人' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'CreatorUserId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'创建人组织' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'CompanyId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'部门' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'DeptId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'修改时间' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'LastModifyTime'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'修改人' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'LastModifyUserId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'删除时间' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'DeleteTime'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'删除人' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'CMS_Articlenews', @level2type=N'COLUMN',@level2name=N'DeleteUserId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'应用管理' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_APP'
 GO

@@ -47,6 +47,8 @@ namespace Yuebon.WebApi.Areas.CMS.Controllers
             info.Id = GuidUtils.CreateNo();
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = CurrentUser.UserId;
+            info.CompanyId = CurrentUser.OrganizeId;
+            info.DeptId = CurrentUser.DeptId;
             info.DeleteMark = false;
             if (info.SortCode == null)
             {

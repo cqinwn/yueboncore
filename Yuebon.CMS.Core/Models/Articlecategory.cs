@@ -37,7 +37,7 @@ namespace Yuebon.CMS.Models
         /// <summary>
         /// 设置或获取排序
         /// </summary>
-        public int SortCode { get; set; }
+        public int? SortCode { get; set; }
 
 
         /// <summary>

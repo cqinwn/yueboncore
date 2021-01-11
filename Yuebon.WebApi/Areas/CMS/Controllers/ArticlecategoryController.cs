@@ -13,6 +13,8 @@ using Yuebon.CMS.Dtos;
 using Yuebon.CMS.Models;
 using Yuebon.CMS.IServices;
 using Yuebon.AspNetCore.Mvc;
+using Yuebon.Commons.Core.Dtos;
+using System.Data;
 
 namespace Yuebon.WebApi.Areas.CMS.Controllers
 {
@@ -156,5 +158,30 @@ namespace Yuebon.WebApi.Areas.CMS.Controllers
             return ToJsonContent(result);
         }
 
+        /// <summary>
+        /// 异步批量物理删除
+        /// </summary>
+        /// <param name="info"></param>
+        [HttpDelete("DeleteBatchAsync")]
+        [YuebonAuthorize("Delete")]
+        public override async Task<IActionResult> DeleteBatchAsync(DeletesInputDto info)
+        {
+            CommonResult result = new CommonResult();
+
+            if (info.Ids.Length > 0)
+            {
+                result = await iService.DeleteBatchWhereAsync(info).ConfigureAwait(false);
+                if (result.Success)
+                {
+                    result.ErrCode = ErrCode.successCode;
+                    result.ErrMsg = ErrCode.err0;
+                }
+                else
+                {
+                    result.ErrCode = "43003";
+                }
+            }
+            return ToJsonContent(result);
+        }
     }
 }

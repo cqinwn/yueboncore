@@ -123,19 +123,24 @@ namespace Yuebon.Commons.Net
                     string city = ipResult.result.ad_info.city.ToString();//城市
                     string district = ipResult.result.ad_info.district.ToString();//区/县
                     string adcode = ipResult.result.ad_info.adcode.ToString();//行政区划代码
-                    if (string.IsNullOrEmpty(province) || string.IsNullOrEmpty(city))
+                    string resultStr = "";
+                    if (nation is { Length: > 0 })
                     {
-                        return "未知";
-
+                        resultStr += nation;
                     }
-                    if (!string.IsNullOrEmpty(district))
+                    if (province is { Length: > 0 })
                     {
-                        return nation + province + city + district;
+                        resultStr += province;
                     }
-                    else
+                    if (city is { Length: > 0 })
                     {
-                        return nation + province + city;
+                        resultStr += city;
                     }
+                    if (district is { Length: > 0 })
+                    {
+                        resultStr += district;
+                    }
+                    return resultStr;
                 }
                 else
                 {

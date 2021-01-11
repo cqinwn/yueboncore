@@ -1,8 +1,12 @@
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Yuebon.Commons.Core.Dtos;
 using Yuebon.Commons.Extend;
+using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Mapping;
+using Yuebon.Commons.Models;
 using Yuebon.Commons.Services;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.IRepositories;
@@ -181,6 +185,69 @@ namespace Yuebon.Security.Services
             where = string.Format("ParentId='{0}'", function.ParentId);
             IEnumerable<Menu> list = await repository.GetAllByIsNotEnabledMarkAsync(where);
             return list.MapTo<MenuOutputDto>().ToList();
+        }
+        /// <summary>
+        /// 按条件批量删除
+        /// </summary>
+        /// <param name="idsInfo">主键Id集合</param>
+        /// <param name="trans">事务对象</param>
+        /// <returns></returns>
+        public CommonResult DeleteBatchWhere(DeletesInputDto idsInfo, IDbTransaction trans = null)
+        {
+            CommonResult result = new CommonResult();
+            string where = string.Empty;
+            for (int i = 0; i < idsInfo.Ids.Length; i++)
+            {
+                if (idsInfo.Ids[0] != null)
+                {
+                    where = string.Format("ParentId='{0}'", idsInfo.Ids[0]);
+                    IEnumerable<Menu> list = _MenuRepository.GetListWhere(where);
+                    if (list != null)
+                    {
+                        result.ErrMsg = "功能存在子集数据，不能删除";
+                        return result;
+                    }
+                }
+            }
+            where = "id in ('" + idsInfo.Ids.Join(",").Trim(',').Replace(",", "','") + "')";
+            bool bl = repository.DeleteBatchWhere(where);
+            if (bl)
+            {
+                result.ErrCode ="0";
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 按条件批量删除
+        /// </summary>
+        /// <param name="idsInfo">主键Id集合</param>
+        /// <param name="trans">事务对象</param>
+        /// <returns></returns>
+        public async Task<CommonResult> DeleteBatchWhereAsync(DeletesInputDto idsInfo,IDbTransaction trans = null)
+        {
+            CommonResult result = new CommonResult();
+            string where =string.Empty;
+            for (int i =0;i< idsInfo.Ids.Length;i++)
+            {
+                if (idsInfo.Ids[0].ToString().Length>0)
+                {
+                    where = string.Format("ParentId='{0}'", idsInfo.Ids[0]);
+                    IEnumerable<Menu> list = _MenuRepository.GetListWhere(where);
+                    if (list != null)
+                    {
+                        result.ErrMsg = "功能存在子集数据，不能删除";
+                        return result;
+                    }
+                }
+            }
+            where = "id in ('" + idsInfo.Ids.Join(",").Trim(',').Replace(",", "','") + "')";
+            bool bl = await repository.DeleteBatchWhereAsync(where);
+            if (bl)
+            {
+                result.ErrCode = "0";
+            }
+            return result;
         }
     }
 }

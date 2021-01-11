@@ -81,7 +81,7 @@
           "lib/netstandard2.0/BouncyCastle.Crypto.dll": {}
         }
       },
-      "Castle.Core/4.4.1": {
+      "Castle.Core/4.4.0": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.1",
@@ -102,7 +102,7 @@
           "lib/netstandard1.5/Castle.Core.dll": {}
         }
       },
-      "CSRedisCore/3.6.5": {
+      "CSRedisCore/3.6.6": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "12.0.3",
@@ -4083,17 +4083,17 @@
         "lib/xamarinios/BouncyCastle.Crypto.xml"
       ]
     },
-    "Castle.Core/4.4.1": {
-      "sha512": "zanbjWC0Y05gbx4eGXkzVycOQqVOFVeCjVsDSyuao9P4mtN1w3WxxTo193NGC7j3o2u3AJRswaoC6hEbnGACnQ==",
+    "Castle.Core/4.4.0": {
+      "sha512": "b5rRL5zeaau1y/5hIbI+6mGw3cwun16YjkHZnV9RRT5UyUIFsgLmNXJ0YnIN9p8Hw7K7AbG1q1UclQVU3DinAQ==",
       "type": "package",
-      "path": "castle.core/4.4.1",
+      "path": "castle.core/4.4.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "ASL - Apache Software Foundation License.txt",
         "CHANGELOG.md",
         "LICENSE",
-        "castle.core.4.4.1.nupkg.sha512",
+        "castle.core.4.4.0.nupkg.sha512",
         "castle.core.nuspec",
         "lib/net35/Castle.Core.dll",
         "lib/net35/Castle.Core.xml",
@@ -4108,14 +4108,14 @@
         "readme.txt"
       ]
     },
-    "CSRedisCore/3.6.5": {
-      "sha512": "leAH+nG/WalDKiQFy1aCbUzNimvguRUvOnC8TwwcgoxeAonF7oWv0ilUpJ1ntqtRmLZhRWSO+we8yf0xm4Q/7A==",
+    "CSRedisCore/3.6.6": {
+      "sha512": "fxP+ZuW3wj1425iILLyF+L1oTjWRM5odFn0p/LFYkUWzEfYznjBB7xzn716kVH3SxD0cSv7fj9Jaf1kKaPduRA==",
       "type": "package",
-      "path": "csrediscore/3.6.5",
+      "path": "csrediscore/3.6.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "csrediscore.3.6.5.nupkg.sha512",
+        "csrediscore.3.6.6.nupkg.sha512",
         "csrediscore.nuspec",
         "lib/net40/CSRedisCore.dll",
         "lib/net40/CSRedisCore.xml",
@@ -11799,8 +11799,7 @@
       "Autofac >= 6.1.0",
       "Autofac.Extensions.DependencyInjection >= 7.1.0",
       "Autofac.Extras.DynamicProxy >= 6.0.0",
-      "CSRedisCore >= 3.6.5",
-      "Castle.Core >= 4.4.1",
+      "CSRedisCore >= 3.6.6",
       "Dapper >= 2.0.78",
       "Dapper.SqlBuilder >= 2.0.78",
       "DotNetCore.NPOI >= 1.2.3",
@@ -11898,11 +11897,7 @@
           },
           "CSRedisCore": {
             "target": "Package",
-            "version": "[3.6.5, )"
-          },
-          "Castle.Core": {
-            "target": "Package",
-            "version": "[4.4.1, )"
+            "version": "[3.6.6, )"
           },
           "Dapper": {
             "target": "Package",

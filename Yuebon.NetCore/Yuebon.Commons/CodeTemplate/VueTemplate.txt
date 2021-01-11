@@ -100,6 +100,7 @@
     </el-card>
     <el-dialog
       ref="dialogEditForm"
+      v-el-drag-dialog
       :title="editFormTitle+'{ModelTypeDesc}'"
       :visible.sync="dialogEditFormVisible"
       width="660px"
@@ -121,7 +122,10 @@ import { get{ModelTypeName}ListWithPager, get{ModelTypeName}Detail,
   save{ModelTypeName}, set{ModelTypeName}Enable, deleteSoft{ModelTypeName},
   delete{ModelTypeName} } from '@/api/{fileClassName}/{ModelTypeNameToLower}'
 
+import elDragDialog from '@/directive/el-drag-dialog' // 弹窗可移动
 export default {
+  name: '{ModelTypeName}',//需与菜单的功能编码一致
+  directives: { elDragDialog },
   data() {
     return {
       searchform: {

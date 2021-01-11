@@ -108,7 +108,7 @@
         {VueViewFromContent}
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogEditFormVisible = false">取 消</el-button>
+        <el-button @click="cancel">取 消</el-button>
         <el-button type="primary" @click="saveEditForm()">确 定</el-button>
       </div>
     </el-dialog>
@@ -141,9 +141,7 @@ export default {
       },
       dialogEditFormVisible: false,
       editFormTitle: '',
-      editFrom: {
-        {VueViewEditFromContent}
-      },
+      editFrom: {},
       rules: {
         {VueViewEditFromRuleContent}
       },
@@ -163,6 +161,21 @@ export default {
      * 初始化数据
      */
     InitDictItem() {
+    },
+    
+    // 取消按钮
+    cancel () {
+      this.dialogEditFormVisible = false
+      this.reset()
+    },
+    // 表单重置
+    reset () {
+      this.editFrom = {
+        {VueViewEditFromContent}        
+        //需个性化处理内容
+
+      }
+      this.resetForm('editFrom')
     },
     /**
      * 加载页面table数据
@@ -194,6 +207,7 @@ export default {
      * 新增、修改或查看明细信息（绑定显示数据）     *
      */
     ShowEditOrViewDialog: function(view) {
+      this.reset()
       if (view !== undefined) {
         if (this.currentSelected.length > 1 || this.currentSelected.length === 0) {
           this.$alert('请选择一条数据进行编辑/修改', '提示')
@@ -211,7 +225,9 @@ export default {
     },
     bindEditInfo: function() {
       get{ModelTypeName}Detail(this.currentId).then(res => {
-       {VueViewEditFromBindContent}
+        this.editFrom = res.ResData
+        //需个性化处理内容
+
       })
     },
     /**
@@ -287,18 +303,24 @@ export default {
         this.$alert('请先选择要操作的数据', '提示')
         return false
       } else {
-        var currentIds = []
-        this.currentSelected.forEach(element => {
-          currentIds.push(element.Id)
-        })
-        const data = {
-          Ids: currentIds,
-          Flag: val
-        }
-        deleteSoft{ModelTypeName}(data).then(res => {
+       this.$confirm('是否确认删除所选的数据项?', '警告', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(function () {
+          var currentIds = []
+          this.currentSelected.forEach(element => {
+            currentIds.push(element.Id)
+          })
+          const data = {
+            Ids: currentIds,
+            Flag: val
+          }
+          return  deleteSoft{ModelTypeName}(data)
+        }).then(res => {
           if (res.Success) {
             this.$message({
-              message: '恭喜你，操作成功',
+              message: '恭喜你，删除成功',
               type: 'success'
             })
             this.currentSelected = ''
@@ -317,17 +339,23 @@ export default {
         this.$alert('请先选择要操作的数据', '提示')
         return false
       } else {
-        var currentIds = []
-        this.currentSelected.forEach(element => {
-          currentIds.push(element.Id)
-        })
-        const data = {
-          Ids: currentIds
-        }
-        delete{ModelTypeName}(data).then(res => {
+        this.$confirm('是否确认删除所选的数据项?', '警告', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(function () {
+          var currentIds = []
+          this.currentSelected.forEach(element => {
+            currentIds.push(element.Id)
+          })
+          const data = {
+            Ids: currentIds
+          }
+          return  delete{ModelTypeName}(data)
+        }).then(res => {
           if (res.Success) {
             this.$message({
-              message: '恭喜你，操作成功',
+              message: '恭喜你，删除成功',
               type: 'success'
             })
             this.currentSelected = ''

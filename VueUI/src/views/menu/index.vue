@@ -144,6 +144,7 @@
           <el-col :span="12">
             <el-form-item label="父级模块" :label-width="formLabelWidth" prop="ParentId">
               <el-cascader
+                :key="cascaderKey"
                 v-model="selectedMenuOptions"
                 :options="selectMenus"
                 filterable
@@ -177,8 +178,8 @@
           <el-col v-if="editMenuFrom.MenuType != 'F'" :span="12">
             <el-form-item label="是否外链" :label-width="formLabelWidth" prop="IsFrame">
               <el-radio-group v-model="editMenuFrom.IsFrame">
-                <el-radio label="true">是</el-radio>
-                <el-radio label="false">否</el-radio>
+                <el-radio :label="true">是</el-radio>
+                <el-radio :label="false">否</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -208,40 +209,40 @@
           <el-col :span="12">
             <el-form-item label="是否显示" :label-width="formLabelWidth" prop="IsShow">
               <el-radio-group v-model="editMenuFrom.IsShow">
-                <el-radio label="true">显示</el-radio>
-                <el-radio label="false">隐藏</el-radio>
+                <el-radio :label="true">显示</el-radio>
+                <el-radio :label="false">隐藏</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="状态" :label-width="formLabelWidth" prop="EnabledMark">
               <el-radio-group v-model="editMenuFrom.EnabledMark">
-                <el-radio label="true">可用</el-radio>
-                <el-radio label="false">停用</el-radio>
+                <el-radio :label="true">可用</el-radio>
+                <el-radio :label="false">停用</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col v-if="editMenuFrom.MenuType == 'F'" :span="12">
             <el-form-item label="是否缓存" :label-width="formLabelWidth" prop="IsCache">
               <el-radio-group v-model="editMenuFrom.IsCache">
-                <el-radio label="true">是</el-radio>
-                <el-radio label="false">否</el-radio>
+                <el-radio :label="true">是</el-radio>
+                <el-radio :label="false">否</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="是否公共" :label-width="formLabelWidth" prop="IsPublic">
               <el-radio-group v-model="editMenuFrom.IsPublic">
-                <el-radio label="true">是</el-radio>
-                <el-radio label="false">否</el-radio>
+                <el-radio :label="true">是</el-radio>
+                <el-radio :label="false">否</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col v-if="editMenuFrom.MenuType == 'F'" :span="12">
             <el-form-item label="批量新增" :label-width="formLabelWidth" prop="IsBatch">
               <el-radio-group v-model="editMenuFrom.IsBatch">
-                <el-radio label="true">是</el-radio>
-                <el-radio label="false">否</el-radio>
+                <el-radio :label="true">是</el-radio>
+                <el-radio :label="false">否</el-radio>
               </el-radio-group>
               <el-link disabled>批量添加菜单下的功能按钮</el-link>
             </el-form-item>
@@ -249,7 +250,7 @@
         </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogMenuEditFormVisible = false">取 消</el-button>
+        <el-button @click="cancel">取 消</el-button>
         <el-button type="primary" @click="saveEditMenuForm()">确 定</el-button>
       </div>
     </el-dialog>
@@ -290,23 +291,7 @@ export default {
       editMenuFormTitle: '',
       selectedMenuOptions: [],
       selectMenus: [],
-      editMenuFrom: {
-        FullName: '',
-        EnCode: '',
-        ParentId: '',
-        SystemTypeId: '',
-        Icon: '',
-        UrlAddress: '',
-        Component: '',
-        EnabledMark: 'true',
-        MenuType: 'C',
-        IsPublic: 'false',
-        IsShow: 'true',
-        IsFrame: 'false',
-        SortCode: 99,
-        IsBatch: 'false',
-        IsCache: 'false'
-      },
+      editMenuFrom: {},
       rules: {
         FullName: [
           { required: true, message: '请输入模块名称', trigger: 'blur' },
@@ -328,7 +313,8 @@ export default {
       formShowTitle: '模块',
       currentId: '', // 当前操作对象的ID值，主要用于修改
       currentSelected: [],
-      tableDataMenus: []
+      tableDataMenus: [],
+      cascaderKey: 0
     }
   },
   created () {
@@ -352,9 +338,40 @@ export default {
         this.formShowTitle = '菜单'
       } else if (mty === 'F') {
         this.formShowTitle = '功能'
+        this.editMenuFrom.Component = ''
       } else if (mty === 'C') {
         this.formShowTitle = '模块'
+        this.editMenuFrom.Component = ''
       }
+    },
+
+    // 取消按钮
+    cancel () {
+      this.dialogMenuEditFormVisible = false
+      this.reset()
+    },
+    // 表单重置
+    reset () {
+      this.editMenuFrom = {
+        FullName: '',
+        EnCode: '',
+        ParentId: '',
+        SystemTypeId: '',
+        Icon: '',
+        UrlAddress: '',
+        Component: '',
+        EnabledMark: true,
+        MenuType: 'C',
+        IsPublic: false,
+        IsShow: true,
+        IsFrame: false,
+        SortCode: 99,
+        IsBatch: false,
+        IsCache: false
+      }
+      this.selectedMenuOptions = []
+      this.selectSystemTypeId = ''
+      this.resetForm('editMenuFrom')
     },
     /**
      * 加载页面左侧菜单table数据
@@ -383,24 +400,14 @@ export default {
      * 菜单选择子系统
      */
     handleSystemTypeChange: function () {
-      this.editMenuFrom.ParentId = ''
-      console.log(this.selectSystemTypeId)
-      this.editMenuFrom.SystemTypeId = this.selectSystemTypeId
+      ++this.cascaderKey
       var data = {
         systemTypeId: this.selectSystemTypeId
       }
       getAllMenuTreeTable(data).then(res => {
         this.selectMenus = res.ResData
       })
-    },
-    /**
-     * 功能模块选择子系统
-     */
-    handleFunSystemTypeChange: function () {
-      this.editFunctionFrom.ParentId = ''
-      console.log(this.selectSystemTypeId)
-      this.editFunctionFrom.SystemTypeId = this.selectSystemTypeId
-      this.loadFunctionTree()
+      this.editMenuFrom.SystemTypeId = this.selectSystemTypeId
     },
     /**
      * 添加模块式选择菜单
@@ -414,22 +421,10 @@ export default {
       this.editMenuFrom.ParentId = this.selectedMenuOptions
     },
     /**
-     * 添加功能时选择菜单
-     */
-    handleAddFunctionMenuChange: function () {
-      console.log(this.selectedFunctionOptions)
-      if (this.currentId === this.selectedFunctionOptions) {
-        this.$alert('不能选择自己作为父级', '提示')
-        this.selectedFunctionOptions = ''
-        return
-      }
-      console.log('selectedFunctionOptions:' + this.selectedFunctionOptions)
-      this.editFunctionFrom.ParentId = this.selectedFunctionOptions
-    },
-    /**
      * 新增、修改或查看明细信息（绑定显示数据）*
      */
     ShowMenuEditOrViewDialog: function (view) {
+      this.reset()
       if (view !== undefined) {
         if (this.currentMenuId === '') {
           this.$alert('请选择一条数据进行编辑/修改', '提示')
@@ -446,23 +441,11 @@ export default {
     },
     bindMenuEditInfo: function () {
       getMenuDetail(this.currentMenuId).then(res => {
-        this.editMenuFrom.FullName = res.ResData.FullName
-        this.editMenuFrom.EnCode = res.ResData.EnCode
-        this.editMenuFrom.EnabledMark = res.ResData.EnabledMark + ''
-        this.editMenuFrom.SortCode = parseInt(res.ResData.SortCode)
-        this.editMenuFrom.UrlAddress = res.ResData.UrlAddress
-        this.editMenuFrom.Icon = res.ResData.Icon
-        this.editMenuFrom.MenuType = res.ResData.MenuType
-        this.editMenuFrom.Component = res.ResData.Component
-        this.editMenuFrom.IsShow = res.ResData.IsShow + ''
-        this.editMenuFrom.IsFrame = res.ResData.IsFrame + ''
-        this.editMenuFrom.IsPublic = res.ResData.IsPublic + ''
-        this.editMenuFrom.IsCache = res.ResData.IsCache + ''
+        this.editMenuFrom = res.ResData
         this.selectSystemTypeId = res.ResData.SystemTypeId
         this.selectedMenuOptions = res.ResData.ParentId
         this.handleSystemTypeChange()
-        this.editMenuFrom.ParentId = res.ResData.ParentId
-        this.editMenuFrom.IsBatch = 'false'
+        this.editMenuFrom.IsBatch = false
       })
     },
     /**
@@ -502,7 +485,6 @@ export default {
               this.dialogMenuEditFormVisible = false
               this.currentMenuId = ''
               this.selectedMenuOptions = []
-              this.$refs['editMenuFrom'].resetFields()
               this.loadTableData()
               this.InitDictItem()
             } else {
@@ -577,16 +559,22 @@ export default {
         return false
       } else {
         var currentIds = [this.currentMenuId]
-        const data = {
-          Ids: currentIds
-        }
-        deleteMenu(data).then(res => {
+        this.$confirm('是否确认删除所选的数据项?', '警告', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(function () {
+          const data = {
+            Ids: currentIds
+          }
+          return deleteMenu(data)
+        }).then(res => {
           if (res.Success) {
             this.$message({
-              message: '恭喜你，操作成功',
+              message: '恭喜你，删除成功',
               type: 'success'
             })
-            this.currentMenuId = ''
+            this.currentSelected = ''
             this.loadTableData()
           } else {
             this.$message({

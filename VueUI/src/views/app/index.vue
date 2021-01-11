@@ -426,11 +426,17 @@ export default {
         this.currentSelected.forEach(element => {
           currentIds.push(element.Id)
         })
-        const data = {
-          Ids: currentIds,
-          Flag: val
-        }
-        deleteSoftAPP(data).then(res => {
+        this.$confirm('是否确认删除所选的数据项?', '警告', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(function () {
+          const data = {
+            Ids: currentIds,
+            Flag: val
+          }
+          return deleteSoftAPP(data)
+        }).then(res => {
           if (res.Success) {
             this.$message({
               message: '恭喜你，操作成功',
@@ -456,13 +462,19 @@ export default {
         this.currentSelected.forEach(element => {
           currentIds.push(element.Id)
         })
-        const data = {
-          Ids: currentIds
-        }
-        deleteAPP(data).then(res => {
+        this.$confirm('是否确认删除所选的数据项?', '警告', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(function () {
+          const data = {
+            Ids: currentIds
+          }
+          return deleteAPP(data)
+        }).then(res => {
           if (res.Success) {
             this.$message({
-              message: '恭喜你，操作成功',
+              message: '恭喜你，删除成功',
               type: 'success'
             })
             this.currentSelected = ''

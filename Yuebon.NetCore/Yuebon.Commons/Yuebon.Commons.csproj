@@ -164,9 +164,7 @@
 
     <PackageReference Include="AutoMapper" Version="10.1.1" />
 
-    <PackageReference Include="Castle.Core" Version="4.4.1" />
-
-    <PackageReference Include="CSRedisCore" Version="3.6.5" />
+    <PackageReference Include="CSRedisCore" Version="3.6.6" />
     <PackageReference Include="Dapper" Version="2.0.78" />
     <PackageReference Include="Dapper.SqlBuilder" Version="2.0.78" />
     <PackageReference Include="DotNetCore.NPOI" Version="1.2.3" />

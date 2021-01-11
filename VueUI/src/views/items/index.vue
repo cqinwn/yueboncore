@@ -506,16 +506,22 @@ export default {
         return false
       } else {
         var currentIds = [this.currentItemsId]
-        const data = {
-          Ids: currentIds
-        }
-        deleteItems(data).then(res => {
+        this.$confirm('是否确认删除所选的数据项?', '警告', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(function () {
+          const data = {
+            Ids: currentIds
+          }
+          return deleteItems(data)
+        }).then(res => {
           if (res.Success) {
             this.$message({
-              message: '恭喜你，操作成功',
+              message: '恭喜你，删除成功',
               type: 'success'
             })
-            this.currentItemsId = ''
+            this.currentSelected = ''
             this.loadTableData()
           } else {
             this.$message({
@@ -673,17 +679,23 @@ export default {
         this.currentSelected.forEach(element => {
           currentIds.push(element.Id)
         })
-        const data = {
-          Ids: currentIds
-        }
-        deleteItemsDetail(data).then(res => {
+        this.$confirm('是否确认删除所选的数据项?', '警告', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(function () {
+          const data = {
+            Ids: currentIds
+          }
+          return deleteItemsDetail(data)
+        }).then(res => {
           if (res.Success) {
             this.$message({
-              message: '恭喜你，操作成功',
+              message: '恭喜你，删除成功',
               type: 'success'
             })
             this.currentSelected = ''
-            this.loadItemsDetailTableData()
+            this.loadTableData()
           } else {
             this.$message({
               message: res.ErrMsg,

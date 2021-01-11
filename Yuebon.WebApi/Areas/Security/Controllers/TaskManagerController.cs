@@ -10,6 +10,7 @@ using Yuebon.AspNetCore.Controllers;
 using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.ViewModel;
+using Yuebon.Commons.Core.Dtos;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Models;
@@ -287,7 +288,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <param name="info">删除信息</param>
         [HttpDelete("DeleteBatchAsync")]
         [YuebonAuthorize("Delete")]
-        public override async Task<IActionResult> DeleteBatchAsync(UpdateEnableViewModel info)
+        public override async Task<IActionResult> DeleteBatchAsync(DeletesInputDto info)
         {
             CommonResult result = new CommonResult();
             string where = string.Empty;

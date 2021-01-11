@@ -72,12 +72,10 @@ namespace Yuebon.Commons.Models
                 m_ErrCode = value;
                 if (value == "0")
                 {
-                    ErrMsg = m_ErrMsg = "成功";
                     Success= m_Success = true;
                 }
                 else
                 {
-                    ErrMsg = m_ErrMsg = "失败";
                     Success = m_Success = false;
                 }
             }

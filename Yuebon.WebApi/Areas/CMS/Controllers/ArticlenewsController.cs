@@ -51,6 +51,8 @@ namespace Yuebon.WebApi.Areas.CMS.Controllers
             info.CategoryName = articlecategoryService.Get(info.CategoryId).Title;
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = CurrentUser.UserId;
+            info.CompanyId = CurrentUser.OrganizeId;
+            info.DeptId = CurrentUser.DeptId;
             info.DeleteMark = false;
             if (info.SortCode == null)
             {

@@ -372,31 +372,30 @@ export default {
         this.currentSelected.forEach(element => {
           currentIds.push(element.Id)
         })
-        const data = {
-          Ids: currentIds
-        }
-        try {
-          deleteOrganize(data).then(res => {
-            if (res.Success) {
-              this.$message({
-                message: '恭喜你，操作成功',
-                type: 'success'
-              })
-              this.currentSelected = ''
-              this.loadTableData()
-            } else {
-              this.$message({
-                message: res.ErrMsg,
-                type: 'error'
-              })
-            }
-          })
-        } catch (error) {
-          this.$message({
-            message: error,
-            type: 'error'
-          })
-        }
+        this.$confirm('是否确认删除所选的数据项?', '警告', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(function () {
+          const data = {
+            Ids: currentIds
+          }
+          return deleteOrganize(data)
+        }).then(res => {
+          if (res.Success) {
+            this.$message({
+              message: '恭喜你，删除成功',
+              type: 'success'
+            })
+            this.currentSelected = ''
+            this.loadTableData()
+          } else {
+            this.$message({
+              message: res.ErrMsg,
+              type: 'error'
+            })
+          }
+        })
       }
     },
     /**

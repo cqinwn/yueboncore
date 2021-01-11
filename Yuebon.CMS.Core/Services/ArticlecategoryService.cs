@@ -10,6 +10,10 @@ using Yuebon.CMS.IServices;
 using Yuebon.CMS.Dtos;
 using Yuebon.CMS.Models;
 using System.Linq;
+using Yuebon.Commons.Core.Dtos;
+using Yuebon.Commons.Models;
+using System.Data;
+using Yuebon.Commons.Extensions;
 
 namespace Yuebon.CMS.Services
 {
@@ -19,9 +23,11 @@ namespace Yuebon.CMS.Services
     public class ArticlecategoryService: BaseService<Articlecategory,ArticlecategoryOutputDto, string>, IArticlecategoryService
     {
 		private readonly IArticlecategoryRepository _repository;
-        public ArticlecategoryService(IArticlecategoryRepository repository) : base(repository)
+        private readonly IArticlenewsRepository _articleRepository;
+        public ArticlecategoryService(IArticlecategoryRepository repository, IArticlenewsRepository articleRepository) : base(repository)
         {
 			_repository=repository;
+            _articleRepository = articleRepository;
         }
 
         /// <summary>
@@ -105,6 +111,83 @@ namespace Yuebon.CMS.Services
                 list.Add(articlecategoryOutputDto);
             }
             return list;
+        }
+
+        /// <summary>
+        /// 按条件批量删除
+        /// </summary>
+        /// <param name="idsInfo">主键Id集合</param>
+        /// <param name="trans">事务对象</param>
+        /// <returns></returns>
+        public CommonResult DeleteBatchWhere(DeletesInputDto idsInfo, IDbTransaction trans = null)
+        {
+            CommonResult result = new CommonResult();
+            string where = string.Empty;
+            for (int i = 0; i < idsInfo.Ids.Length; i++)
+            {
+                if (idsInfo.Ids[0] != null)
+                {
+                    where = string.Format("ParentId='{0}'", idsInfo.Ids[0]);
+                    IEnumerable<Articlecategory> list = _repository.GetListWhere(where);
+                    if (list != null)
+                    {
+                        result.ErrMsg = "该分类存在子分类，不能删除";
+                        return result;
+                    }
+
+                    where = string.Format("CategoryId='{0}'", idsInfo.Ids[0]);
+                    IEnumerable<Articlenews> listArticle = _articleRepository.GetListWhere(where);
+                    if (listArticle != null)
+                    {
+                        result.ErrMsg = "该分类有文章数据，不能删除";
+                        return result;
+                    }
+                }
+            }
+            where = "id in ('" + idsInfo.Ids.Join(",").Trim(',').Replace(",", "','") + "')";
+            bool bl = repository.DeleteBatchWhere(where);
+            if (bl)
+            {
+                result.ErrCode = "0";
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 按条件批量删除
+        /// </summary>
+        /// <param name="idsInfo">主键Id集合</param>
+        /// <param name="trans">事务对象</param>
+        /// <returns></returns>
+        public async Task<CommonResult> DeleteBatchWhereAsync(DeletesInputDto idsInfo, IDbTransaction trans = null)
+        {
+            CommonResult result = new CommonResult();
+            string where = string.Empty;
+            for (int i = 0; i < idsInfo.Ids.Length; i++)
+            {
+                where = string.Format("ParentId='{0}'", idsInfo.Ids[0]);
+                IEnumerable<Articlecategory> list = _repository.GetListWhere(where);
+                if (list != null)
+                {
+                    result.ErrMsg = "该分类存在子分类，不能删除";
+                    return result;
+                }
+
+                where = string.Format("CategoryId='{0}'", idsInfo.Ids[0]);
+                IEnumerable<Articlenews> listArticle = _articleRepository.GetListWhere(where);
+                if (listArticle != null)
+                {
+                    result.ErrMsg = "该分类有文章数据，不能删除";
+                    return result;
+                }
+            }
+            where = "id in ('" + idsInfo.Ids.Join(",").Trim(',').Replace(",", "','") + "')";
+            bool bl = await repository.DeleteBatchWhereAsync(where);
+            if (bl)
+            {
+                result.ErrCode = "0";
+            }
+            return result;
         }
     }
 }

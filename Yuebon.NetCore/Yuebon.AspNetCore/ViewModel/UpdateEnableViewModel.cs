@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 
 namespace Yuebon.AspNetCore.ViewModel
 {
+    /// <summary>
+    /// 批量更新操作传入参数，如设为禁用、有效、软删除；
+    /// 物理删除操作是Flag无效不用传参
+    /// </summary>
     [Serializable]
     public class UpdateEnableViewModel
     {

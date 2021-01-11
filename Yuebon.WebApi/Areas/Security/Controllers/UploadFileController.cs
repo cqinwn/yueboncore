@@ -6,6 +6,7 @@ using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.ViewModel;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.Core.Dtos;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Models;
@@ -32,10 +33,10 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <summary>
         /// 异步批量物理删除
         /// </summary>
-        /// <param name="ids">主键Id</param>
+        /// <param name="info">主键Id数组</param>
         [HttpDelete("DeleteBatchAsync")]
         [YuebonAuthorize("Delete")]
-        public override async Task<IActionResult> DeleteBatchAsync(UpdateEnableViewModel info)
+        public override async Task<IActionResult> DeleteBatchAsync(DeletesInputDto info)
         {
             CommonResult result = new CommonResult();
             string where = string.Empty;

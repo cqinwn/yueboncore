@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
+using Yuebon.Commons.Core.Dtos;
 using Yuebon.Commons.IServices;
+using Yuebon.Commons.Models;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.Models;
 
@@ -50,5 +53,20 @@ namespace Yuebon.Security.IServices
         /// <param name="enCode">菜单功能编码</param>
         /// <returns></returns>
         Task<IEnumerable<MenuOutputDto>> GetListByParentEnCode(string enCode);
+
+        /// <summary>
+        /// 按条件批量删除
+        /// </summary>
+        /// <param name="ids">主键Id集合</param>
+        /// <param name="trans">事务对象</param>
+        /// <returns></returns>
+        CommonResult DeleteBatchWhere(DeletesInputDto ids, IDbTransaction trans = null);
+        /// <summary>
+        /// 异步按条件批量删除
+        /// </summary>
+        /// <param name="ids">主键Id集合</param>
+        /// <param name="trans">事务对象</param>
+        /// <returns></returns>
+        Task<CommonResult> DeleteBatchWhereAsync(DeletesInputDto ids, IDbTransaction trans = null);
     }
 }

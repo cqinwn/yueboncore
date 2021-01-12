@@ -284,7 +284,7 @@ export default {
         ],
         ItemCode: [
           { required: true, message: '请输入值', trigger: 'blur' },
-          { min: 2, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur' }
+          { min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur' }
         ],
         ItemId: [
           { required: true, message: '请选择所属分类', trigger: 'blur' }

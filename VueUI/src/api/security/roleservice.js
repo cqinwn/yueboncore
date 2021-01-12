@@ -128,6 +128,7 @@ export function saveRoleAuthorize (data) {
     url: 'RoleAuthorize/SaveRoleAuthorize',
     method: 'post',
     data: data,
+    timeout: 0,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

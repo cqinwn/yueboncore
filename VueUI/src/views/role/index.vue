@@ -71,6 +71,7 @@
         </el-form-item>
         <el-form-item label="归属组织" :label-width="formLabelWidth" prop="OrganizeId">
           <el-cascader
+            :key="cascaderKey"
             v-model="selectedOrganizeOptions"
             :options="selectOrganize"
             filterable
@@ -142,7 +143,7 @@ import {
 
 import { getAllOrganizeTreeTable } from '@/api/security/organizeservice'
 import { getAllSystemTypeList } from '@/api/developers/systemtypeservice'
-
+import { Loading } from 'element-ui'
 import elDragDialog from '@/directive/el-drag-dialog' // base on element-ui
 export default {
   name: 'Role',
@@ -197,13 +198,15 @@ export default {
       formLabelWidth: '80px',
       currentId: '', // 当前操作对象的ID值，主要用于修改
       currentSelected: [],
+      pageLoading: '',
       dialogSetAuthFormVisible: false,
       treeFuntionData: [],
       default_select: [],
       defaultOrganize_select: [],
       treeOrganizeData: [],
       defaultSystem_select: [],
-      treeSystemData: []
+      treeSystemData: [],
+      cascaderKey: 0
     }
   },
   created () {
@@ -222,6 +225,7 @@ export default {
       })
 
       getAllOrganizeTreeTable().then(res => {
+        ++this.cascaderKey
         this.selectOrganize = res.ResData
       })
     },
@@ -295,6 +299,13 @@ export default {
     saveEditForm () {
       this.$refs['editFrom'].validate((valid) => {
         if (valid) {
+          var loadop = {
+            lock: true,
+            text: '正在保存数据，请耐心等待...',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 0.7)'
+          }
+          this.pageLoading = Loading.service(loadop)
           const data = {
             'OrganizeId': this.editFrom.OrganizeId,
             'EnCode': this.editFrom.EnCode,
@@ -326,6 +337,7 @@ export default {
                 type: 'error'
               })
             }
+            this.pageLoading.close()
           })
         } else {
           return false
@@ -487,16 +499,22 @@ export default {
         getRoleAuthorizeFunction(data).then(res => {
           this.default_select = res.ResData
         })
+        this.$nextTick(() => {
+          this.$refs.treeFunction.setCheckedKeys(this.default_select)
+        })
 
         this.defaultOrganize_select = []
+        getAllOrganizeTreeTable().then(res => {
+          this.treeOrganizeData = res.ResData
+        })
         const datar = {
           roleId: this.currentId
         }
         getAllRoleDataByRoleId(datar).then(res => {
           this.defaultOrganize_select = res.ResData
         })
-        getAllOrganizeTreeTable().then(res => {
-          this.treeOrganizeData = res.ResData
+        this.$nextTick(() => {
+          this.$refs.treeOrganize.setCheckedKeys(this.defaultOrganize_select)
         })
 
         const datas = {
@@ -510,12 +528,23 @@ export default {
         getAllSystemTypeList().then(res => {
           this.treeSystemData = res.ResData
         })
+
+        this.$nextTick(() => {
+          this.$refs.treeSystem.setCheckedKeys(this.defaultSystem_select)
+        })
       }
     },
     /**
      * 保存权限
      */
     saveRoleAuthorize: function () {
+      var loadop = {
+        lock: true,
+        text: '正在保存数据，请耐心等待...',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      }
+      this.pageLoading = Loading.service(loadop)
       // console.log(JSON.stringify(this.$refs.treeFunction.getCheckedNodes()))
       var f = JSON.stringify(this.$refs.treeFunction.getCheckedNodes().concat(this.$refs.treeFunction.getHalfCheckedNodes()))
       var d = JSON.stringify(this.$refs.treeOrganize.getCheckedNodes().concat(this.$refs.treeOrganize.getHalfCheckedNodes()))
@@ -533,9 +562,9 @@ export default {
             type: 'success'
           })
           this.currentSelected = ''
-          this.default_select = ''
-          this.defaultOrganize_select = ''
-          this.defaultSystem_select = ''
+          // this.default_select = []
+          // this.defaultOrganize_select = []
+          // this.defaultSystem_select = []
           this.dialogSetAuthFormVisible = false
         } else {
           this.$message({
@@ -543,6 +572,7 @@ export default {
             type: 'error'
           })
         }
+        this.pageLoading.close()
       })
     }
   }

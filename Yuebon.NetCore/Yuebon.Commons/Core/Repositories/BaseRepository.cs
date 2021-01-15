@@ -31,7 +31,7 @@ namespace Yuebon.Commons.Repositories
     /// <typeparam name="T">实体类型</typeparam>
     /// <typeparam name="TKey">实体主键类型</typeparam>
     public abstract class BaseRepository<T, TKey> : IRepository<T, TKey> 
-        where T :Entity
+        where T : Entity
     {
         #region 构造函数及基本配置
         /// <summary>
@@ -161,8 +161,8 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual T Get(TKey primaryKey)
         {
-            //return DapperConn.Get<T>(primaryKey);
-            return DbContext.Find<T,TKey>(primaryKey);
+            return DapperConn.Get<T>(primaryKey);
+            //return DbContext.Find<T,TKey>(primaryKey);
         }
         /// <summary>
         /// 异步根据id获取一个对象
@@ -171,10 +171,18 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual async  Task<T> GetAsync(TKey primaryKey)
         {
-            //return await DapperConn.GetAsync<T>(primaryKey);
+            return await DapperConn.GetAsync<T>(primaryKey);
+           // return await DbContext.FindAsync<T>(primaryKey);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="primaryKey"></param>
+        /// <returns></returns>
+        public virtual T Get(string primaryKey)
+        {
             return DbContext.Find<T>(primaryKey);
         }
-
         /// <summary>
         /// 根据条件获取一个对象
         /// </summary>
@@ -196,8 +204,6 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += " where " + where;
             }
-            // return DbContext.GetDbSet<T>().FromSqlRaw<T>(sql).FirstOrDefault<T>();
-
             return DapperConn.QueryFirstOrDefault<T>(sql);
 
         }
@@ -222,7 +228,8 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += " where "+where;
             }
-            return await DbContext.GetDbSet<T>().FromSqlRaw<T>(sql).FirstOrDefaultAsync<T>();
+
+            return await DapperConn.QueryFirstOrDefaultAsync<T>(sql);
         }
 
         /// <summary>

@@ -193,6 +193,14 @@ namespace Yuebon.Commons.IDbContext
         /// <param name="key">主键值</param>
         /// <returns></returns>
         T Find<T>(object key) where T : class;
+
+        /// <summary>
+        /// 根据主键查询实体
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key">主键值</param>
+        /// <returns></returns>
+        T Find<T>(string key) where T : class;
         /// <summary>
         /// 根据主键查询实体
         /// </summary>

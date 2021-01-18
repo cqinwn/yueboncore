@@ -107,20 +107,20 @@
     </el-dialog>
 
     <el-dialog ref="dialogSetAuthForm" v-el-drag-dialog title="分配权限" :visible.sync="dialogSetAuthFormVisible" width="70%">
-      <el-tabs type="border-card">
-        <el-tab-pane label="可用系统">
+      <el-tabs v-model="ActionName" type="border-card" @tab-click="handleClick">
+        <el-tab-pane label="可用系统" name="treeSystem">
           <el-card class="box-card">
-            <el-tree ref="treeSystem" :data="treeSystemData" empty-text="加载中，请稍后" show-checkbox default-expand-all node-key="Id" highlight-current :props="{ label: 'FullName', children: 'Children' }" />
+            <el-tree ref="treeSystem" :data="treeSystemData" :check-strictly="true" empty-text="加载中，请稍后" show-checkbox default-expand-all node-key="Id" highlight-current :props="{ label: 'FullName', children: 'Children' }" />
           </el-card>
         </el-tab-pane>
-        <el-tab-pane label="功能菜单">
+        <el-tab-pane label="功能菜单" name="treeFunction">
           <el-card class="box-card">
-            <el-tree ref="treeFunction" :data="treeFuntionData" empty-text="加载中，请稍后" show-checkbox default-expand-all node-key="Id" highlight-current :props="{ label: 'FullName', children: 'Children',disabled:'IsShow'}" />
+            <el-tree ref="treeFunction" :data="treeFuntionData" :check-strictly="true" empty-text="加载中，请稍后" show-checkbox default-expand-all node-key="Id" highlight-current :props="{ label: 'FullName', children: 'Children',disabled:'IsShow'}" />
           </el-card>
         </el-tab-pane>
-        <el-tab-pane label="数据权限">
+        <el-tab-pane label="数据权限" name="treeOrganize">
           <el-card class="box-card">
-            <el-tree ref="treeOrganize" :data="treeOrganizeData" empty-text="加载中，请稍后" show-checkbox default-expand-all node-key="Id" highlight-current :props="{ label: 'FullName', children: 'Children' }" />
+            <el-tree ref="treeOrganize" :data="treeOrganizeData" :check-strictly="true" empty-text="加载中，请稍后" show-checkbox default-expand-all node-key="Id" highlight-current :props="{ label: 'FullName', children: 'Children' }" />
           </el-card>
         </el-tab-pane>
       </el-tabs>
@@ -206,7 +206,8 @@ export default {
       treeOrganizeData: [],
       defaultSystem_select: [],
       treeSystemData: [],
-      cascaderKey: 0
+      cascaderKey: 0,
+      ActionName: 'treeSystem'
     }
   },
   created () {
@@ -227,6 +228,16 @@ export default {
       getAllOrganizeTreeTable().then(res => {
         ++this.cascaderKey
         this.selectOrganize = res.ResData
+      })
+
+      getAllFunctionTree().then(res => {
+        this.treeFuntionData = res.ResData
+      })
+      getAllOrganizeTreeTable().then(res => {
+        this.treeOrganizeData = res.ResData
+      })
+      getAllSystemTypeList().then(res => {
+        this.treeSystemData = res.ResData
       })
     },
     /**
@@ -489,60 +500,48 @@ export default {
         this.currentId = this.currentSelected[0].Id
         this.dialogSetAuthFormVisible = true
 
-        getAllFunctionTree().then(res => {
-          this.treeFuntionData = res.ResData
-        })
-        const data = {
-          roleId: this.currentId,
-          itemType: '1,2'
-        }
+        this.ActionName = 'treeSystem'
         this.default_select = []
-        getRoleAuthorizeFunction(data).then(res => {
-          this.default_select = res.ResData
-        })
-
         this.defaultOrganize_select = []
-        getAllOrganizeTreeTable().then(res => {
-          this.treeOrganizeData = res.ResData
-        })
+        this.defaultSystem_select = []
+
         const datar = {
           roleId: this.currentId
         }
         getAllRoleDataByRoleId(datar).then(res => {
           this.defaultOrganize_select = res.ResData
+          setTimeout(this.restFrom(), 500)
         })
 
-        getAllSystemTypeList().then(res => {
-          this.treeSystemData = res.ResData
+        const data = {
+          roleId: this.currentId,
+          itemType: '1,2'
+        }
+        getRoleAuthorizeFunction(data).then(res => {
+          this.default_select = res.ResData
+          setTimeout(this.restFrom(), 500)
         })
+
         const datas = {
           roleId: this.currentId,
-          itemType: 0
+          itemType: '0'
         }
-        this.defaultSystem_select = []
         getRoleAuthorizeFunction(datas).then(res => {
           this.defaultSystem_select = res.ResData
-          this.restFrom()
+          setTimeout(this.restFrom(), 500)
         })
       }
     },
+    handleClick: function () {
+      // this.restFrom()
+    },
     // 重置
     restFrom: function () {
-      const that = this
-      this.default_select.forEach(element => {
-        that.$nextTick(() => {
-          that.$refs.treeFunction.setChecked(element, true, false)
-        })
-      })
-      this.defaultOrganize_select.forEach(element => {
-        that.$nextTick(() => {
-          that.$refs.treeOrganize.setChecked(element, true, false)
-        })
-      })
-      this.defaultSystem_select.forEach(element => {
-        that.$nextTick(() => {
-          that.$refs.treeSystem.setChecked(element, true, false)
-        })
+      var that = this
+      this.$nextTick(() => {
+        this.$refs.treeFunction.setCheckedKeys(that.default_select)
+        this.$refs.treeSystem.setCheckedKeys(that.defaultSystem_select)
+        this.$refs.treeOrganize.setCheckedKeys(that.defaultOrganize_select)
       })
     },
     /**

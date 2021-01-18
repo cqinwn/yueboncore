@@ -117,7 +117,6 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             try
             {                
                 List<RoleAuthorize> inList = new List<RoleAuthorize>();
-               // List<ModuleFunctionOutputDto> list = roleinfo.RoleFunctios.ToList<ModuleFunctionOutputDto>();
                 foreach (string item in roleinfo.RoleFunctios)
                 {
                     Menu menu = menuService.Get(item);
@@ -134,7 +133,6 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 }
 
                 List<RoleData> roleDataList = new List<RoleData>();
-                //List<OrganizeOutputDto> listRoleData = roleinfo.RoleData.ToList<OrganizeOutputDto>();
                 foreach (string item in roleinfo.RoleData)
                 {
                     RoleData info = new RoleData();
@@ -143,7 +141,6 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                     info.DType = "dept";
                     roleDataList.Add(info);
                 }
-               // List<SystemTypeOutputDto> listRoleSystem = roleinfo.RoleSystem.ToList<SystemTypeOutputDto>();
                 foreach (string item in roleinfo.RoleSystem)
                 {
                     RoleAuthorize info = new RoleAuthorize();

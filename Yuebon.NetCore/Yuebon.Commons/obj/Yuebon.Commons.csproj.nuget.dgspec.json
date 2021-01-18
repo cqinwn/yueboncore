@@ -87,23 +87,23 @@
             },
             "Microsoft.Data.Sqlite": {
               "target": "Package",
-              "version": "[5.0.1, )"
+              "version": "[5.0.2, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[5.0.1, )"
+              "version": "[5.0.2, )"
             },
             "Microsoft.EntityFrameworkCore.Relational": {
               "target": "Package",
-              "version": "[5.0.1, )"
+              "version": "[5.0.2, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[5.0.1, )"
+              "version": "[5.0.2, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[5.0.1, )"
+              "version": "[5.0.2, )"
             },
             "Microsoft.Extensions.Caching.Memory": {
               "target": "Package",
@@ -163,7 +163,7 @@
             },
             "Oracle.ManagedDataAccess.Core": {
               "target": "Package",
-              "version": "[2.19.100, )"
+              "version": "[2.19.101, )"
             },
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
@@ -216,7 +216,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

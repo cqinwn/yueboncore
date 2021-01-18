@@ -61,7 +61,7 @@ namespace Yuebon.Security.Services
                 roleIDsStr = string.Format("'{0}'", roleIds); 
             }
             
-            IEnumerable<RoleAuthorize> roleAuthorizes = roleAuthorizeService.GetListRoleAuthorizeByRoleId(roleIDsStr, 0);
+            IEnumerable<RoleAuthorize> roleAuthorizes = roleAuthorizeService.GetListRoleAuthorizeByRoleId(roleIDsStr, "0");
             string strWhere = string.Empty;
             if (roleAuthorizes.Count() > 0)
             {

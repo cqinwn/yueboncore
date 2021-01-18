@@ -38,7 +38,7 @@
     <PackageReference Include="Senparc.Weixin.MP" Version="16.11.101" />
     <PackageReference Include="Senparc.Weixin.Open" Version="4.8.101" />
     <PackageReference Include="Senparc.Weixin.TenPay" Version="1.6.101.1" />
-    <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.9.101" />
+    <PackageReference Include="Senparc.Weixin.WxOpen" Version="3.10.101" />
   </ItemGroup>
 
   <ItemGroup>

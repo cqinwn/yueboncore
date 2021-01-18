@@ -442,15 +442,15 @@ export default {
         this.$alert('请先选择要操作的数据', '提示')
         return false
       } else {
+        var currentIds = []
+        this.currentSelected.forEach(element => {
+          currentIds.push(element.Id)
+        })
         this.$confirm('是否确认删除所选的数据项?', '警告', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(function () {
-          var currentIds = []
-          this.currentSelected.forEach(element => {
-            currentIds.push(element.Id)
-          })
           const data = {
             Ids: currentIds
           }

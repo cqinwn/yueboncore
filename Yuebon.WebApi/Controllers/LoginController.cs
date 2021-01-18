@@ -269,7 +269,7 @@ namespace Yuebon.WebApi.Controllers
         /// </summary>
         /// <param name="openmf">凭据</param>
         /// <param name="appId">应用Id</param>
-        /// <param name="systemCode">子系统代码</param>
+        /// <param name="systemCode">子系统编码</param>
         /// <returns>返回用户User对象</returns>
         [HttpGet("SysConnect")]
         [AllowAnonymous]
@@ -384,8 +384,8 @@ namespace Yuebon.WebApi.Controllers
                                         //该用户的数据权限
                                         List<String> roleDateList = _roleDataService.GetListDeptByRole(user.RoleId);
                                         yuebonCacheHelper.Add("User_RoleData_" + user.Id, roleDateList, expiresSliding, true);
-
                                         CurrentUser = currentSession;
+
                                         result.ResData = currentSession;
                                         result.ErrCode = ErrCode.successCode;
                                         result.Success = true;

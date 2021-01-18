@@ -14,7 +14,7 @@
       </div>
 
       <div class="logo-container">
-        <img :src="companyLogo">
+        <img :src="companyLogo" width="220" height="40">
       </div>
       <el-form-item prop="username">
         <span class="svg-container">

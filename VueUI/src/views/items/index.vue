@@ -284,7 +284,7 @@ export default {
         ],
         ItemCode: [
           { required: true, message: '请输入值', trigger: 'blur' },
-          { min: 2, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur' }
+          { min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur' }
         ],
         ItemId: [
           { required: true, message: '请选择所属分类', trigger: 'blur' }
@@ -344,7 +344,6 @@ export default {
      * 添加添加分类是选择父级分类
      */
     handleItemsChange: function () {
-      console.log(this.selectedItemsOptions)
       if (this.currentItemsId === this.selectedItemsOptions) {
         this.$alert('不能选择自己作为父级', '提示')
         this.selectedItemsOptions = ''
@@ -356,7 +355,6 @@ export default {
      * 添加分类值是选择分类
      */
     handleAddItemsDetailChange: function () {
-      console.log(this.selectedItemsOptions)
       this.selectItemsId = this.selectedItemsOptions
       this.loadItemsDetailTree()
       this.editItemsDetailFrom.ItemId = this.selectedItemsOptions
@@ -365,13 +363,11 @@ export default {
      * 添加分类值时选择父级
      */
     handleAddItemsDetailItemsChange: function () {
-      console.log(this.selectedItemsDetailOptions)
       if (this.currentId === this.selectedItemsDetailOptions) {
         this.$alert('不能选择自己作为父级', '提示')
         this.selectedItemsDetailOptions = ''
         return
       }
-      console.log('selectedItemsDetailOptions:' + this.selectedItemsDetailOptions)
       this.editItemsDetailFrom.ParentId = this.selectedItemsDetailOptions
     },
     /**
@@ -430,7 +426,7 @@ export default {
               })
               this.dialogItemsEditFormVisible = false
               this.currentItemsId = ''
-              this.selectedItemsOptions = []
+              this.selectedItemsOptions = ''
               this.$refs['editItemsFrom'].resetFields()
               this.loadTableData()
               this.InitDictItem()
@@ -595,6 +591,7 @@ export default {
               })
               this.dialogItemsDetailEditFormVisible = false
               this.currentSelected = ''
+              this.selectedItemsOptions = ''
               this.$refs['editItemsDetailFrom'].resetFields()
               this.loadItemsDetailTableData()
               this.InitDictItem()

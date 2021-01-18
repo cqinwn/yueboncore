@@ -151,17 +151,17 @@ namespace Yuebon.AspNetCore.Controllers
         public virtual IActionResult Delete(TKey id)
         {
             CommonResult result = new CommonResult();
-                bool bl =iService.Delete(id);
-                if (bl)
-                {
-                    result.ErrCode = ErrCode.successCode;
-                    result.ErrMsg = ErrCode.err0;
-                }
-                else
-                {
-                    result.ErrMsg = ErrCode.err43003;
-                    result.ErrCode = "43003";
-                }
+            bool bl = iService.Delete(id);
+            if (bl)
+            {
+                result.ErrCode = ErrCode.successCode;
+                result.ErrMsg = ErrCode.err0;
+            }
+            else
+            {
+                result.ErrMsg = ErrCode.err43003;
+                result.ErrCode = "43003";
+            }
             return ToJsonContent(result);
         }
 
@@ -229,25 +229,25 @@ namespace Yuebon.AspNetCore.Controllers
         /// <param name="bltag">删除标识，默认为1：即设为删除,0：未删除</param>
         [HttpPost("DeleteSoft")]
         [YuebonAuthorize("DeleteSoft")]
-        public virtual IActionResult DeleteSoft(TKey id,string bltag="1")
+        public virtual IActionResult DeleteSoft(TKey id, string bltag = "1")
         {
-            CommonResult result = new CommonResult();  
-                bool bl = false;
-                if (bltag == "0")
-                {
-                    bl = true;
-                }
-                bool blResult =iService.DeleteSoft(bl,id,CurrentUser.UserId);
-                if (blResult)
-                {
-                    result.ErrCode = ErrCode.successCode;
-                    result.ErrMsg = ErrCode.err0;
-                }
-                else
-                {
-                    result.ErrMsg = ErrCode.err43002;
-                    result.ErrCode = "43002";
-                }
+            CommonResult result = new CommonResult();
+            bool bl = false;
+            if (bltag == "0")
+            {
+                bl = true;
+            }
+            bool blResult = iService.DeleteSoft(bl, id, CurrentUser.UserId);
+            if (blResult)
+            {
+                result.ErrCode = ErrCode.successCode;
+                result.ErrMsg = ErrCode.err0;
+            }
+            else
+            {
+                result.ErrMsg = ErrCode.err43002;
+                result.ErrCode = "43002";
+            }
             return ToJsonContent(result);
         }
 
@@ -258,25 +258,25 @@ namespace Yuebon.AspNetCore.Controllers
         /// <param name="bltag">删除标识，默认为1：即设为删除,0：未删除</param>
         [HttpPost("DeleteSoftAsync")]
         [YuebonAuthorize("DeleteSoft")]
-        public virtual async Task<IActionResult> DeleteSoftAsync(TKey id,string bltag="1")
+        public virtual async Task<IActionResult> DeleteSoftAsync(TKey id, string bltag = "1")
         {
             CommonResult result = new CommonResult();
-                bool bl = false;
-                if (bltag == "0")
-                {
-                    bl = true;
-                }
-                bool blResult = await iService.DeleteSoftAsync(bl,id,CurrentUser.UserId);
-                if (blResult)
-                {
-                    result.ErrCode = ErrCode.successCode;
-                    result.ErrMsg = ErrCode.err0;
-                }
-                else
-                {
-                    result.ErrMsg = ErrCode.err43002;
-                    result.ErrCode = "43002";
-                }
+            bool bl = false;
+            if (bltag == "0")
+            {
+                bl = true;
+            }
+            bool blResult = await iService.DeleteSoftAsync(bl, id, CurrentUser.UserId);
+            if (blResult)
+            {
+                result.ErrCode = ErrCode.successCode;
+                result.ErrMsg = ErrCode.err0;
+            }
+            else
+            {
+                result.ErrMsg = ErrCode.err43002;
+                result.ErrCode = "43002";
+            }
             return ToJsonContent(result);
         }
 

@@ -19,7 +19,7 @@ namespace Yuebon.Security.IServices
         /// <param name="roleIds"></param>
         /// <param name="itemType"></param>
         /// <returns></returns>
-        IEnumerable<RoleAuthorize> GetListRoleAuthorizeByRoleId(string roleIds, int itemType);
+        IEnumerable<RoleAuthorize> GetListRoleAuthorizeByRoleId(string roleIds, string itemType);
 
 
         /// <summary>

@@ -394,6 +394,16 @@ namespace Yuebon.Commons.DbContextCore
         /// 根据主键查询实体
         /// </summary>
         /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public virtual T Find<T>(string key) where T : class
+        {
+            return base.Find<T>(key);
+        }
+        /// <summary>
+        /// 根据主键查询实体
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
         /// <typeparam name="TKey"></typeparam>
         /// <param name="key"></param>
         /// <returns></returns>

@@ -44,9 +44,9 @@ namespace Yuebon.Security.Services
         /// <param name="roleIds">½ÇÉ«Id</param>
         /// <param name="itemType"></param>
         /// <returns></returns>
-        public IEnumerable<RoleAuthorize> GetListRoleAuthorizeByRoleId(string roleIds, int itemType)
+        public IEnumerable<RoleAuthorize> GetListRoleAuthorizeByRoleId(string roleIds, string itemType)
         {
-            IEnumerable<RoleAuthorize> list = _repository.GetListWhere(string.Format("ItemType={0} and ObjectId in ({1}) and ObjectType=1", itemType, roleIds));
+            IEnumerable<RoleAuthorize> list = _repository.GetListWhere(string.Format("ItemType in({0}) and ObjectId in ({1}) and ObjectType=1", itemType, roleIds));
             return list;
         }
 

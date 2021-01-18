@@ -88,7 +88,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <returns></returns>
         [HttpGet("GetRoleAuthorizeFunction")]
         [YuebonAuthorize("List")]
-        public async Task<IActionResult> GetRoleAuthorizeFunction(string roleId,int itemType)
+        public async Task<IActionResult> GetRoleAuthorizeFunction(string roleId, string itemType)
         {
             CommonResult result = new CommonResult();
             roleId = "'" + roleId + "'";
@@ -117,36 +117,37 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             try
             {                
                 List<RoleAuthorize> inList = new List<RoleAuthorize>();
-                List<ModuleFunctionOutputDto> list = roleinfo.RoleFunctios.ToList<ModuleFunctionOutputDto>();
-                foreach (ModuleFunctionOutputDto item in list)
+                foreach (string item in roleinfo.RoleFunctios)
                 {
-                    RoleAuthorize info = new RoleAuthorize();
-                    info.ObjectId = roleinfo.RoleId;
-                    info.ItemType = item.FunctionTag;
-                    info.ObjectType = 1;
-                    info.ItemId = item.Id.ToString();
-                    OnBeforeInsert(info);
-                    inList.Add(info);
+                    Menu menu = menuService.Get(item);
+                    if (menu != null)
+                    {
+                        RoleAuthorize info = new RoleAuthorize();
+                        info.ObjectId = roleinfo.RoleId;
+                        info.ItemType = (menu.MenuType == "C" || menu.MenuType == "M") ? 1 : 2;
+                        info.ObjectType = 1;
+                        info.ItemId = menu.Id;
+                        OnBeforeInsert(info);
+                        inList.Add(info);
+                    }
                 }
 
                 List<RoleData> roleDataList = new List<RoleData>();
-                List<OrganizeOutputDto> listRoleData = roleinfo.RoleData.ToList<OrganizeOutputDto>();
-                foreach (OrganizeOutputDto item in listRoleData)
+                foreach (string item in roleinfo.RoleData)
                 {
                     RoleData info = new RoleData();
                     info.RoleId = roleinfo.RoleId;
-                    info.AuthorizeData = item.Id;
+                    info.AuthorizeData = item;
                     info.DType = "dept";
                     roleDataList.Add(info);
                 }
-                List<SystemTypeOutputDto> listRoleSystem = roleinfo.RoleSystem.ToList<SystemTypeOutputDto>();
-                foreach (SystemTypeOutputDto item in listRoleSystem)
+                foreach (string item in roleinfo.RoleSystem)
                 {
                     RoleAuthorize info = new RoleAuthorize();
                     info.ObjectId = roleinfo.RoleId;
                     info.ItemType = 0;
                     info.ObjectType = 1;
-                    info.ItemId = item.Id.ToString();
+                    info.ItemId = item;
                     OnBeforeInsert(info);
                     inList.Add(info);
                 }

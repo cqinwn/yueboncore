@@ -110,17 +110,17 @@
       <el-tabs type="border-card">
         <el-tab-pane label="可用系统">
           <el-card class="box-card">
-            <el-tree ref="treeSystem" :data="treeSystemData" show-checkbox default-expand-all node-key="Id" highlight-current check-strictly :props="{ label: 'FullName', children: 'Children' }" :default-checked-keys="defaultSystem_select" />
+            <el-tree ref="treeSystem" :data="treeSystemData" empty-text="加载中，请稍后" show-checkbox default-expand-all node-key="Id" highlight-current :props="{ label: 'FullName', children: 'Children' }" />
           </el-card>
         </el-tab-pane>
         <el-tab-pane label="功能菜单">
           <el-card class="box-card">
-            <el-tree ref="treeFunction" :data="treeFuntionData" show-checkbox default-expand-all node-key="Id" highlight-current :props="{ label: 'FullName', children: 'Children',disabled:'IsShow'}" :default-checked-keys="default_select" />
+            <el-tree ref="treeFunction" :data="treeFuntionData" empty-text="加载中，请稍后" show-checkbox default-expand-all node-key="Id" highlight-current :props="{ label: 'FullName', children: 'Children',disabled:'IsShow'}" />
           </el-card>
         </el-tab-pane>
         <el-tab-pane label="数据权限">
           <el-card class="box-card">
-            <el-tree ref="treeOrganize" :data="treeOrganizeData" show-checkbox default-expand-all node-key="Id" highlight-current check-strictly :props="{ label: 'FullName', children: 'Children' }" :default-checked-keys="defaultOrganize_select" />
+            <el-tree ref="treeOrganize" :data="treeOrganizeData" empty-text="加载中，请稍后" show-checkbox default-expand-all node-key="Id" highlight-current :props="{ label: 'FullName', children: 'Children' }" />
           </el-card>
         </el-tab-pane>
       </el-tabs>
@@ -488,19 +488,17 @@ export default {
       } else {
         this.currentId = this.currentSelected[0].Id
         this.dialogSetAuthFormVisible = true
-        const data = {
-          roleId: this.currentId,
-          itemType: 1
-        }
-        this.default_select = []
+
         getAllFunctionTree().then(res => {
           this.treeFuntionData = res.ResData
         })
+        const data = {
+          roleId: this.currentId,
+          itemType: '1,2'
+        }
+        this.default_select = []
         getRoleAuthorizeFunction(data).then(res => {
           this.default_select = res.ResData
-        })
-        this.$nextTick(() => {
-          this.$refs.treeFunction.setCheckedKeys(this.default_select)
         })
 
         this.defaultOrganize_select = []
@@ -513,10 +511,10 @@ export default {
         getAllRoleDataByRoleId(datar).then(res => {
           this.defaultOrganize_select = res.ResData
         })
-        this.$nextTick(() => {
-          this.$refs.treeOrganize.setCheckedKeys(this.defaultOrganize_select)
-        })
 
+        getAllSystemTypeList().then(res => {
+          this.treeSystemData = res.ResData
+        })
         const datas = {
           roleId: this.currentId,
           itemType: 0
@@ -524,15 +522,28 @@ export default {
         this.defaultSystem_select = []
         getRoleAuthorizeFunction(datas).then(res => {
           this.defaultSystem_select = res.ResData
-        })
-        getAllSystemTypeList().then(res => {
-          this.treeSystemData = res.ResData
-        })
-
-        this.$nextTick(() => {
-          this.$refs.treeSystem.setCheckedKeys(this.defaultSystem_select)
+          this.restFrom()
         })
       }
+    },
+    // 重置
+    restFrom: function () {
+      const that = this
+      this.default_select.forEach(element => {
+        that.$nextTick(() => {
+          that.$refs.treeFunction.setChecked(element, true, false)
+        })
+      })
+      this.defaultOrganize_select.forEach(element => {
+        that.$nextTick(() => {
+          that.$refs.treeOrganize.setChecked(element, true, false)
+        })
+      })
+      this.defaultSystem_select.forEach(element => {
+        that.$nextTick(() => {
+          that.$refs.treeSystem.setChecked(element, true, false)
+        })
+      })
     },
     /**
      * 保存权限
@@ -545,14 +556,24 @@ export default {
         background: 'rgba(0, 0, 0, 0.7)'
       }
       this.pageLoading = Loading.service(loadop)
-      // console.log(JSON.stringify(this.$refs.treeFunction.getCheckedNodes()))
-      var f = JSON.stringify(this.$refs.treeFunction.getCheckedNodes().concat(this.$refs.treeFunction.getHalfCheckedNodes()))
-      var d = JSON.stringify(this.$refs.treeOrganize.getCheckedNodes().concat(this.$refs.treeOrganize.getHalfCheckedNodes()))
-      var s = JSON.stringify(this.$refs.treeSystem.getCheckedNodes().concat(this.$refs.treeSystem.getHalfCheckedNodes()))
+      // 目前被选中的菜单节点
+      const checkedKeysTreeFunction = this.$refs.treeFunction.getCheckedKeys()
+      // 半选中的菜单节点
+      const halfCheckedKeysTreeFunction = this.$refs.treeFunction.getHalfCheckedKeys()
+      checkedKeysTreeFunction.unshift.apply(checkedKeysTreeFunction, halfCheckedKeysTreeFunction)
+
+      const checkedKeysTreeOrganize = this.$refs.treeOrganize.getCheckedKeys()
+      const halfCheckedKeysTreeOrganize = this.$refs.treeOrganize.getHalfCheckedKeys()
+      checkedKeysTreeOrganize.unshift.apply(checkedKeysTreeOrganize, halfCheckedKeysTreeOrganize)
+
+      const checkedKeysTreeSystem = this.$refs.treeSystem.getCheckedKeys()
+      const halfCheckedKeysTreeSystem = this.$refs.treeSystem.getHalfCheckedKeys()
+      checkedKeysTreeSystem.unshift.apply(checkedKeysTreeSystem, halfCheckedKeysTreeSystem)
+
       var data = {
-        'RoleFunctios': f,
-        'RoleData': d,
-        'RoleSystem': s,
+        'RoleFunctios': checkedKeysTreeFunction,
+        'RoleData': checkedKeysTreeOrganize,
+        'RoleSystem': checkedKeysTreeSystem,
         'RoleId': this.currentId
       }
       saveRoleAuthorize(data).then(res => {

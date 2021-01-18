@@ -13,16 +13,16 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 设置角色功能
         /// </summary>
-        public string RoleFunctios { get; set; }
+        public string[] RoleFunctios { get; set; }
 
         /// <summary>
         /// 设置角色可访问系统
         /// </summary>
-        public string RoleSystem { get; set; }
+        public string[] RoleSystem { get; set; }
         /// <summary>
         /// 设置角色可访问数据
         /// </summary>
-        public string RoleData{ get; set; }
+        public string[] RoleData { get; set; }
 
         /// <summary>
         /// 设置角色Id

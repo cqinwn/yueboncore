@@ -29,7 +29,7 @@ namespace Yuebon.Security.Models
 
 
         /// <summary>
-        /// 项目类型0-子系统，1-模块，2-列表/菜单，3-按钮
+        /// 项目类型功能标识 0-子系统 1-标识菜单/模块，2标识按钮功能
         /// </summary>
         public virtual int? ItemType { get; set; }
 

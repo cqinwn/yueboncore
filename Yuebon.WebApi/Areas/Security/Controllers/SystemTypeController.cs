@@ -144,7 +144,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// 系统切换时获取凭据
         /// 适用于不同子系统分别独立部署站点场景
         /// </summary>
-        /// <param name="systype"></param>
+        /// <param name="systype">子系统编码</param>
         /// <returns></returns>
         [HttpGet("YuebonConnecSys")]
         [YuebonAuthorize("")]

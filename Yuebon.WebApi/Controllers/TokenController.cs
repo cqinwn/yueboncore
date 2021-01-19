@@ -132,6 +132,7 @@ namespace Yuebon.WebApi.Controllers
                 #endif
                 if (jwtToken != null)
                 {
+                    //根据应用获取token
                     if (jwtToken.Subject == GrantType.ClientCredentials)
                     {
                         TokenResult tresult = new TokenResult();
@@ -159,6 +160,7 @@ namespace Yuebon.WebApi.Controllers
                             }
                         }
                     }
+                    // 用户账号密码登录获取token类型
                     if (jwtToken.Subject == GrantType.Password)
                     {
                         var claimlist = jwtToken?.Payload.Claims as List<Claim>;

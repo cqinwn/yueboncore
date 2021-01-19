@@ -31,7 +31,13 @@ service.interceptors.response.use(
   response => {
     const res = response.data
     if (res.ErrCode !== '0') {
-      if (res.ErrCode === '40000' || res.ErrCode === '40001' || res.ErrCode === '40002' || res.ErrCode === '40004' || res.ErrCode === '40005' || res.ErrCode === '40008') {
+      // 超时自动刷新token
+      if (res.ErrCode === '40005') {
+        store.dispatch('user/resetToken').then((res) => {
+          location.reload()
+        })
+      }
+      if (res.ErrCode === '40000' || res.ErrCode === '40001' || res.ErrCode === '40002' || res.ErrCode === '40004' || res.ErrCode === '40008') {
         // to re-login
         MessageBox.confirm('登录状态已过期，您可以继续留在该页面，或者重新登录', '系统提示', {
           confirmButtonText: '重新登录',
@@ -48,7 +54,6 @@ service.interceptors.response.use(
           type: 'error',
           duration: 5 * 1000
         })
-
         return Promise.reject(new Error(res.ErrMsg))
       }
     } else {

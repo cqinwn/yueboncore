@@ -155,7 +155,10 @@ namespace Yuebon.Commons.DbContextCore
             return list;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modelBuilder"></param>
         private void MappingEntityTypes(ModelBuilder modelBuilder)
         {
             var assemblies = GetCurrentPathAssembly();

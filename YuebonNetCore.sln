@@ -25,7 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.SMS.Core", "Yuebon.S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.Tenants.Core", "Yuebon.Tenants.Core\Yuebon.Tenants.Core.csproj", "{A99022D9-5450-446E-86FD-0A11C16B2BBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yuebon.CMS.Core", "Yuebon.CMS.Core\Yuebon.CMS.Core.csproj", "{4B98EC5F-7C75-4D13-AB06-FEE62AD0D5E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.CMS.Core", "Yuebon.CMS.Core\Yuebon.CMS.Core.csproj", "{4B98EC5F-7C75-4D13-AB06-FEE62AD0D5E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{F6A4B30D-A108-4312-B888-FDA110F40D2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{4B98EC5F-7C75-4D13-AB06-FEE62AD0D5E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B98EC5F-7C75-4D13-AB06-FEE62AD0D5E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B98EC5F-7C75-4D13-AB06-FEE62AD0D5E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6A4B30D-A108-4312-B888-FDA110F40D2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6A4B30D-A108-4312-B888-FDA110F40D2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6A4B30D-A108-4312-B888-FDA110F40D2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6A4B30D-A108-4312-B888-FDA110F40D2A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

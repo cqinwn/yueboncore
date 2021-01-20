@@ -110,17 +110,34 @@ namespace Yuebon.WebApi
                     options.IncludeXmlComments(file, true);
                 });
                 options.DocumentFilter<HiddenApiFilter>(); // 在接口类、方法标记属性 [HiddenApi]，可以阻止【Swagger文档】生成
-                options.OperationFilter<AddResponseHeadersFilter>();
-                options.OperationFilter<SecurityRequirementsOperationFilter>();
-                options.OperationFilter<SwaggerFileUploadFilter>();
                 //给api添加token令牌证书
-                options.AddSecurityDefinition("CoreApi", new OpenApiSecurityScheme
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = "JWT授权(数据将在请求头中进行传输) 直接在下框中输入Bearer {token}（注意两者之间是一个空格）\"",
                     Name = "Authorization",//jwt默认的参数名称
                     In = ParameterLocation.Header,//jwt默认存放Authorization信息的位置(请求头中)
-                    Type = SecuritySchemeType.ApiKey
+                    Type = SecuritySchemeType.ApiKey,
+                    BearerFormat="JWT",
+                    Scheme= "Bearer"
                 });
+                //添加安全请求
+                options.AddSecurityRequirement(
+                    new OpenApiSecurityRequirement {
+                        { 
+                            new OpenApiSecurityScheme
+                            {
+                                Reference=new OpenApiReference{
+                                    Type=ReferenceType.SecurityScheme,
+                                    Id= "Bearer"
+                                }
+                            }
+                            ,new string[] { }
+                        }
+                    });
+                //开启加权锁
+                options.OperationFilter<AddResponseHeadersFilter>();
+                options.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
+                options.OperationFilter<SecurityRequirementsOperationFilter>();
             });
 
 
@@ -198,6 +215,12 @@ namespace Yuebon.WebApi
                 if (env.IsDevelopment())
                 {
                     app.UseDeveloperExceptionPage();
+                    app.UseSwagger();
+                    app.UseSwaggerUI(options =>
+                    {
+                        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Yuebon System API V1");
+                        options.RoutePrefix = string.Empty;//这里主要是不需要再输入swagger这个默认前缀
+                    });
                 }
                 else
                 {
@@ -218,12 +241,7 @@ namespace Yuebon.WebApi
                     endpoints.MapControllerRoute("default", "api/{controller=Home}/{action=Index}/{id?}");
                 });
                 app.UseStatusCodePages();
-                app.UseSwagger();
-                app.UseSwaggerUI(options =>
-                {
-                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Yuebon System API V1");
-                    options.RoutePrefix = string.Empty;//这里主要是不需要再输入swagger这个默认前缀
-                });
+
                 YuebonInitialization.Initial();
             }
         }

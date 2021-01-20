@@ -96,7 +96,7 @@ namespace Yuebon.WebApi.Areas.Security
                 dashboardOutModel.Manufacturer = AppVersionHelper.Manufacturer;
                 dashboardOutModel.WebSite = AppVersionHelper.WebSite;
                 dashboardOutModel.UpdateUrl = AppVersionHelper.UpdateUrl;
-                dashboardOutModel.IPAdress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+                dashboardOutModel.IPAdress = Request.HttpContext.Connection.LocalIpAddress.ToString();
                 dashboardOutModel.Port = Request.HttpContext.Connection.LocalPort.ToString();
                 dashboardOutModel.TotalUser = await userService.GetCountByWhereAsync("1=1");
                 dashboardOutModel.TotalModule = await menuService.GetCountByWhereAsync("1=1");

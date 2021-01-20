@@ -21,6 +21,7 @@ namespace Yuebon.WebApi.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
     public class CaptchaController : ApiController
     {
         /// <summary>

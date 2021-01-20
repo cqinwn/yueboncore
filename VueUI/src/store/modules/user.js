@@ -123,7 +123,7 @@ const actions = {
       })
     })
   },
-  // remove token
+  // 刷新 token
   resetToken ({ commit }) {
     const data = {
       'token': getToken()

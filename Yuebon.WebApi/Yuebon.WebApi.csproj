@@ -52,10 +52,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="wwwroot\swagger\ui\index.html" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="Yuebon.WebApi.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

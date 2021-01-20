@@ -83,7 +83,7 @@ namespace Yuebon.AspNetCore.Mvc
                 //token验证失败
                 if (!result.Success)
                 {
-                    context.Result = new JsonResult(result);
+                    context.Result = new JsonResult(result,options);
                 }
                 else
                 {

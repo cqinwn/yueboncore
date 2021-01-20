@@ -249,6 +249,7 @@ namespace Yuebon.WebApi.Controllers
         /// <param name="systemCode">系统编码</param>
         /// <returns>返回用户User对象</returns>
         [HttpGet("UserLogin")]
+        [ApiVersion("2.0")]
         [NoPermissionRequired]
         [AllowAnonymous]
         public async Task<IActionResult> UserLogin(string username, string password,  string appId, string systemCode)

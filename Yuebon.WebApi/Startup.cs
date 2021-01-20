@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
@@ -144,9 +145,10 @@ namespace Yuebon.WebApi
             // Api配置版本信息
             services.AddApiVersioning(o =>
             {
-                o.ReportApiVersions = true;
-                o.AssumeDefaultVersionWhenUnspecified = true;
-                o.DefaultApiVersion = new ApiVersion(1, 0);
+                o.ReportApiVersions = true;//是否在请求头中返回受支持的版本信息。
+                o.ApiVersionReader=new HeaderApiVersionReader("api-version");//自定义Headers进行版本控制
+                o.AssumeDefaultVersionWhenUnspecified = true;//请求没有指明版本的情况下是否使用默认的版本。
+                o.DefaultApiVersion = new ApiVersion(1, 0);//默认的版本号。
             });
             #endregion
 

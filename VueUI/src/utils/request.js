@@ -43,7 +43,7 @@ service.interceptors.response.use(
           confirmButtonText: '重新登录',
           cancelButtonText: '取消',
           type: 'warning'
-        }).then((re) => {
+        }).then((res) => {
           store.dispatch('user/resetToken').then((res) => {
             location.reload()
           })

@@ -67,13 +67,8 @@
           "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
         }
       },
-      "BouncyCastle.NetCore/1.8.3": {
+      "BouncyCastle.NetCore/1.8.5": {
         "type": "package",
-        "dependencies": {
-          "NETStandard.Library": "1.6.0",
-          "System.Reflection": "4.3.0",
-          "System.Reflection.TypeExtensions": "4.1.0"
-        },
         "compile": {
           "lib/netstandard2.0/BouncyCastle.Crypto.dll": {}
         },
@@ -1708,15 +1703,15 @@
           "lib/netstandard2.0/MiniProfiler.Shared.dll": {}
         }
       },
-      "MySql.Data/8.0.22": {
+      "MySql.Data/8.0.23": {
         "type": "package",
         "dependencies": {
-          "BouncyCastle.NetCore": "1.8.3",
+          "BouncyCastle.NetCore": "1.8.5",
           "Google.Protobuf": "3.11.4",
           "K4os.Compression.LZ4": "1.1.11",
           "K4os.Compression.LZ4.Streams": "1.1.11",
           "K4os.Hash.xxHash": "1.0.6",
-          "SSH.NET": "2016.1.0",
+          "SSH.NET": "2020.0.0-beta1",
           "System.Buffers": "4.5.1",
           "System.Configuration.ConfigurationManager": "4.4.1",
           "System.Security.Permissions": "4.7.0",
@@ -1812,7 +1807,7 @@
           "lib/netstandard2.0/Newtonsoft.Json.Bson.dll": {}
         }
       },
-      "Npgsql/5.0.1.1": {
+      "Npgsql/5.0.2": {
         "type": "package",
         "dependencies": {
           "System.Runtime.CompilerServices.Unsafe": "4.6.0"
@@ -1824,13 +1819,13 @@
           "lib/net5.0/Npgsql.dll": {}
         }
       },
-      "Npgsql.EntityFrameworkCore.PostgreSQL/5.0.1": {
+      "Npgsql.EntityFrameworkCore.PostgreSQL/5.0.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore": "5.0.1",
-          "Microsoft.EntityFrameworkCore.Abstractions": "5.0.1",
-          "Microsoft.EntityFrameworkCore.Relational": "5.0.1",
-          "Npgsql": "5.0.1.1"
+          "Microsoft.EntityFrameworkCore": "5.0.2",
+          "Microsoft.EntityFrameworkCore.Abstractions": "5.0.2",
+          "Microsoft.EntityFrameworkCore.Relational": "5.0.2",
+          "Npgsql": "5.0.2"
         },
         "compile": {
           "lib/netstandard2.1/Npgsql.EntityFrameworkCore.PostgreSQL.dll": {}
@@ -1909,7 +1904,7 @@
           "lib/netstandard2.0/QRCoder.dll": {}
         }
       },
-      "Quartz/3.2.3": {
+      "Quartz/3.2.4": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.Logging.Abstractions": "2.1.1",
@@ -2250,50 +2245,25 @@
           "lib/netstandard2.0/SQLitePCLRaw.provider.dynamic_cdecl.dll": {}
         }
       },
-      "SSH.NET/2016.1.0": {
+      "SSH.NET/2020.0.0-beta1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.CSharp": "4.0.1",
-          "SshNet.Security.Cryptography": "[1.2.0]",
-          "System.Diagnostics.Debug": "4.0.11",
-          "System.Diagnostics.Tools": "4.0.1",
-          "System.Diagnostics.TraceSource": "4.0.0",
-          "System.Globalization": "4.0.11",
-          "System.IO": "4.1.0",
-          "System.IO.FileSystem": "4.0.1",
-          "System.IO.FileSystem.Primitives": "4.0.1",
-          "System.Linq": "4.1.0",
-          "System.Net.NameResolution": "4.0.0",
-          "System.Net.Sockets": "4.1.0",
-          "System.Reflection.Extensions": "4.0.1",
-          "System.Runtime.Extensions": "4.1.0",
-          "System.Security.Cryptography.Algorithms": "4.2.0",
-          "System.Text.RegularExpressions": "4.1.0",
-          "System.Threading": "4.0.11",
-          "System.Threading.Thread": "4.0.0",
-          "System.Threading.ThreadPool": "4.0.10",
-          "System.Threading.Timer": "4.0.1",
-          "System.Xml.XPath.XmlDocument": "4.0.1",
-          "System.Xml.XmlDocument": "4.0.1"
+          "SshNet.Security.Cryptography": "[1.3.0]"
         },
         "compile": {
-          "lib/netstandard1.3/Renci.SshNet.dll": {}
+          "lib/netstandard2.0/Renci.SshNet.dll": {}
         },
         "runtime": {
-          "lib/netstandard1.3/Renci.SshNet.dll": {}
+          "lib/netstandard2.0/Renci.SshNet.dll": {}
         }
       },
-      "SshNet.Security.Cryptography/1.2.0": {
+      "SshNet.Security.Cryptography/1.3.0": {
         "type": "package",
-        "dependencies": {
-          "System.IO": "4.1.0",
-          "System.Security.Cryptography.Primitives": "4.0.0"
-        },
         "compile": {
-          "lib/netstandard1.3/SshNet.Security.Cryptography.dll": {}
+          "lib/netstandard2.0/SshNet.Security.Cryptography.dll": {}
         },
         "runtime": {
-          "lib/netstandard1.3/SshNet.Security.Cryptography.dll": {}
+          "lib/netstandard2.0/SshNet.Security.Cryptography.dll": {}
         }
       },
       "StackExchange.Redis/2.0.593": {
@@ -3052,7 +3022,7 @@
           "runtime.native.System": "4.3.0"
         },
         "compile": {
-          "ref/netstandard1.3/System.Net.NameResolution.dll": {}
+          "ref/netstandard1.3/_._": {}
         },
         "runtimeTargets": {
           "runtimes/unix/lib/netstandard1.3/System.Net.NameResolution.dll": {
@@ -3879,31 +3849,6 @@
           "lib/netstandard1.3/System.Threading.Tasks.Parallel.dll": {}
         }
       },
-      "System.Threading.Thread/4.0.0": {
-        "type": "package",
-        "dependencies": {
-          "System.Runtime": "4.1.0"
-        },
-        "compile": {
-          "ref/netstandard1.3/System.Threading.Thread.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.3/System.Threading.Thread.dll": {}
-        }
-      },
-      "System.Threading.ThreadPool/4.0.10": {
-        "type": "package",
-        "dependencies": {
-          "System.Runtime": "4.1.0",
-          "System.Runtime.Handles": "4.0.1"
-        },
-        "compile": {
-          "ref/netstandard1.3/System.Threading.ThreadPool.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.3/System.Threading.ThreadPool.dll": {}
-        }
-      },
       "System.Threading.Timer/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -4040,47 +3985,6 @@
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "System.Xml.XPath/4.0.1": {
-        "type": "package",
-        "dependencies": {
-          "System.Collections": "4.0.11",
-          "System.Diagnostics.Debug": "4.0.11",
-          "System.Globalization": "4.0.11",
-          "System.IO": "4.1.0",
-          "System.Resources.ResourceManager": "4.0.1",
-          "System.Runtime": "4.1.0",
-          "System.Runtime.Extensions": "4.1.0",
-          "System.Threading": "4.0.11",
-          "System.Xml.ReaderWriter": "4.0.11"
-        },
-        "compile": {
-          "ref/netstandard1.3/System.Xml.XPath.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.3/System.Xml.XPath.dll": {}
-        }
-      },
-      "System.Xml.XPath.XmlDocument/4.0.1": {
-        "type": "package",
-        "dependencies": {
-          "System.Collections": "4.0.11",
-          "System.Globalization": "4.0.11",
-          "System.IO": "4.1.0",
-          "System.Resources.ResourceManager": "4.0.1",
-          "System.Runtime": "4.1.0",
-          "System.Runtime.Extensions": "4.1.0",
-          "System.Threading": "4.0.11",
-          "System.Xml.ReaderWriter": "4.0.11",
-          "System.Xml.XPath": "4.0.1",
-          "System.Xml.XmlDocument": "4.0.1"
-        },
-        "compile": {
-          "ref/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
-        }
-      },
       "Yuebon.Commons/1.3.1.26": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
@@ -4110,15 +4014,15 @@
           "MiniProfiler.AspNetCore": "4.2.22",
           "MiniProfiler.AspNetCore.Mvc": "4.2.22",
           "MiniProfiler.EntityFrameworkCore": "4.2.22",
-          "MySql.Data": "8.0.22",
+          "MySql.Data": "8.0.23",
           "NPinyin.Core": "3.0.0",
-          "Npgsql": "5.0.1.1",
-          "Npgsql.EntityFrameworkCore.PostgreSQL": "5.0.1",
+          "Npgsql": "5.0.2",
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "5.0.2",
           "Oracle.EntityFrameworkCore": "3.19.80",
           "Oracle.ManagedDataAccess.Core": "2.19.101",
           "Pomelo.EntityFrameworkCore.MySql": "5.0.0-alpha.2",
           "QRCoder": "1.4.1",
-          "Quartz": "3.2.3",
+          "Quartz": "3.2.4",
           "SgmlReader.NetCore": "1.0.0",
           "System.Data.SqlClient": "4.8.2",
           "System.Drawing.Common": "5.0.0",
@@ -4240,14 +4144,14 @@
         "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll"
       ]
     },
-    "BouncyCastle.NetCore/1.8.3": {
-      "sha512": "jAy3uHN1U9DpoT/TgLqDTEhlccn/4doOVxhSmmNsnoSsGfHT9Lwr634ac9D0YFujAhNw61nWF4UIpHyzv0aQww==",
+    "BouncyCastle.NetCore/1.8.5": {
+      "sha512": "6uxsQw2UXrt82VQAWC2td3oBSJjUZ3P4u4DliagB8wf67KsU53V8sW9xwdF+IwZOOZFR0TCZuv/YKZ2BlrfAag==",
       "type": "package",
-      "path": "bouncycastle.netcore/1.8.3",
+      "path": "bouncycastle.netcore/1.8.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "bouncycastle.netcore.1.8.3.nupkg.sha512",
+        "bouncycastle.netcore.1.8.5.nupkg.sha512",
         "bouncycastle.netcore.nuspec",
         "lib/Mono/BouncyCastle.Crypto.dll",
         "lib/Mono/BouncyCastle.Crypto.xml",
@@ -4259,8 +4163,6 @@
         "lib/MonoTouch/BouncyCastle.Crypto.xml",
         "lib/net20/BouncyCastle.Crypto.dll",
         "lib/net20/BouncyCastle.Crypto.xml",
-        "lib/netstandard1.3/BouncyCastle.Crypto.dll",
-        "lib/netstandard1.3/BouncyCastle.Crypto.xml",
         "lib/netstandard2.0/BouncyCastle.Crypto.dll",
         "lib/netstandard2.0/BouncyCastle.Crypto.xml",
         "lib/xamarinios/BouncyCastle.Crypto.dll",
@@ -6433,10 +6335,10 @@
         "miniprofiler.shared.nuspec"
       ]
     },
-    "MySql.Data/8.0.22": {
-      "sha512": "DTKXORgTwQLbAjl8g5+YhvrAB+peQLfAZQ7gbm5Ejma37f/vBtZqP5aTnqZoJUzaQQgj4Psgdcnlo6IwYedyCg==",
+    "MySql.Data/8.0.23": {
+      "sha512": "5UPKd+OX5aSR8fTTfWzAifYg8YKOWMVX39bkdGbI3/SB3khdE13DZVMrk6CzjXvo2BjXic9emf2lwgvJTVWnyg==",
       "type": "package",
-      "path": "mysql.data/8.0.22",
+      "path": "mysql.data/8.0.23",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -6460,7 +6362,7 @@
         "lib/netstandard2.1/MySql.Data.xml",
         "lib/netstandard2.1/Ubiety.Dns.Core.dll",
         "lib/netstandard2.1/Zstandard.Net.dll",
-        "mysql.data.8.0.22.nupkg.sha512",
+        "mysql.data.8.0.23.nupkg.sha512",
         "mysql.data.nuspec"
       ]
     },
@@ -6559,10 +6461,10 @@
         "newtonsoft.json.bson.nuspec"
       ]
     },
-    "Npgsql/5.0.1.1": {
-      "sha512": "vblKEzmyX/RkrC8ykx4yaiEOiURovDSnEw93KkY6nKDRJRLES95OM6hN4aYOoHfwkzPgENSFu1JMbMenoL1k9w==",
+    "Npgsql/5.0.2": {
+      "sha512": "bqsG+0t6+c7nfpunu08HkjeRZCI2g8EbXNtWUHsnFlDzjx0zsLkvzfByiHuYo9a74CMKR9RmxRu7HiPGCE/EvQ==",
       "type": "package",
-      "path": "npgsql/5.0.1.1",
+      "path": "npgsql/5.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -6574,20 +6476,20 @@
         "lib/netstandard2.0/Npgsql.xml",
         "lib/netstandard2.1/Npgsql.dll",
         "lib/netstandard2.1/Npgsql.xml",
-        "npgsql.5.0.1.1.nupkg.sha512",
+        "npgsql.5.0.2.nupkg.sha512",
         "npgsql.nuspec",
         "postgresql.png"
       ]
     },
-    "Npgsql.EntityFrameworkCore.PostgreSQL/5.0.1": {
-      "sha512": "sT10NTM33qJqtfUOX3v+XV4CLT831EjaibWgU7wYPjFjm4O0JvQL46DVN9NadXAumBRTe5sjTATJFWoC5CB6lg==",
+    "Npgsql.EntityFrameworkCore.PostgreSQL/5.0.2": {
+      "sha512": "xdhI0Y1uMxEUbH00T9kLk5m4JN8b4bAHv8fX+nU3GzdEsIgI0k0tKM4ZJ/RjkvGE1L5h4Y+oBZNNqzgetOTBtg==",
       "type": "package",
-      "path": "npgsql.entityframeworkcore.postgresql/5.0.1",
+      "path": "npgsql.entityframeworkcore.postgresql/5.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.1/Npgsql.EntityFrameworkCore.PostgreSQL.dll",
-        "npgsql.entityframeworkcore.postgresql.5.0.1.nupkg.sha512",
+        "npgsql.entityframeworkcore.postgresql.5.0.2.nupkg.sha512",
         "npgsql.entityframeworkcore.postgresql.nuspec",
         "postgresql.png"
       ]
@@ -6697,10 +6599,10 @@
         "qrcoder.nuspec"
       ]
     },
-    "Quartz/3.2.3": {
-      "sha512": "AWybQvHH/eI69NEiqe4x4jgCGYOCxHfsbrK7IdZJU35MC+85wneNtY4xd9CkUiLlYJvV7YsU0uBMzJV00HKtWg==",
+    "Quartz/3.2.4": {
+      "sha512": "Oc8mOWl+Mba2dleNahbt8btwCTI686DfQEV3jmVvXljU6C65g8XyB/cfin87ezXe3QQgwVk9pTFOZikl9BAaOA==",
       "type": "package",
-      "path": "quartz/3.2.3",
+      "path": "quartz/3.2.4",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -6709,7 +6611,7 @@
         "lib/netstandard2.0/Quartz.dll",
         "lib/netstandard2.0/Quartz.xml",
         "quartz-logo-small.png",
-        "quartz.3.2.3.nupkg.sha512",
+        "quartz.3.2.4.nupkg.sha512",
         "quartz.nuspec"
       ]
     },
@@ -7102,10 +7004,10 @@
         "sqlitepclraw.provider.dynamic_cdecl.nuspec"
       ]
     },
-    "SSH.NET/2016.1.0": {
-      "sha512": "b0fcFFOE044KNRhq1uGujmK04ab+OzA9xARdeVCoZrY6I4D1IIaR6dn6qBIa+er4bJapGBhznDitwcRQpSRC0w==",
+    "SSH.NET/2020.0.0-beta1": {
+      "sha512": "GdgJ3eFSEXkGIror8SfxbXKJM/g0Eofm4bM6LIYANSM1foOJc640adnr1dqs2BTf/MKwL+9NqOUm3RvQm1CxtA==",
       "type": "package",
-      "path": "ssh.net/2016.1.0",
+      "path": "ssh.net/2020.0.0-beta1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -7115,6 +7017,8 @@
         "lib/net40/Renci.SshNet.xml",
         "lib/netstandard1.3/Renci.SshNet.dll",
         "lib/netstandard1.3/Renci.SshNet.xml",
+        "lib/netstandard2.0/Renci.SshNet.dll",
+        "lib/netstandard2.0/Renci.SshNet.xml",
         "lib/sl4/Renci.SshNet.dll",
         "lib/sl4/Renci.SshNet.xml",
         "lib/sl5/Renci.SshNet.dll",
@@ -7125,14 +7029,14 @@
         "lib/wp71/Renci.SshNet.xml",
         "lib/wp8/Renci.SshNet.dll",
         "lib/wp8/Renci.SshNet.xml",
-        "ssh.net.2016.1.0.nupkg.sha512",
+        "ssh.net.2020.0.0-beta1.nupkg.sha512",
         "ssh.net.nuspec"
       ]
     },
-    "SshNet.Security.Cryptography/1.2.0": {
-      "sha512": "EeFsirrrkIK+cdlYsxukNjBN98cbU7eHfTYZEwxsbOa3dvgR/OhOD06C0sTxvNPhe4UQ6yM0p1sKcT69jqgjTw==",
+    "SshNet.Security.Cryptography/1.3.0": {
+      "sha512": "5pBIXRjcSO/amY8WztpmNOhaaCNHY/B6CcYDI7FSTgqSyo/ZUojlLiKcsl+YGbxQuLX439qIkMfP0PHqxqJi/Q==",
       "type": "package",
-      "path": "sshnet.security.cryptography/1.2.0",
+      "path": "sshnet.security.cryptography/1.3.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -7146,6 +7050,8 @@
         "lib/netstandard1.0/SshNet.Security.Cryptography.xml",
         "lib/netstandard1.3/SshNet.Security.Cryptography.dll",
         "lib/netstandard1.3/SshNet.Security.Cryptography.xml",
+        "lib/netstandard2.0/SshNet.Security.Cryptography.dll",
+        "lib/netstandard2.0/SshNet.Security.Cryptography.xml",
         "lib/portable-net45+win8+wpa81/SshNet.Security.Cryptography.dll",
         "lib/portable-net45+win8+wpa81/SshNet.Security.Cryptography.xml",
         "lib/sl4/SshNet.Security.Cryptography.dll",
@@ -7158,7 +7064,7 @@
         "lib/wp71/SshNet.Security.Cryptography.xml",
         "lib/wp8/SshNet.Security.Cryptography.dll",
         "lib/wp8/SshNet.Security.Cryptography.xml",
-        "sshnet.security.cryptography.1.2.0.nupkg.sha512",
+        "sshnet.security.cryptography.1.3.0.nupkg.sha512",
         "sshnet.security.cryptography.nuspec"
       ]
     },
@@ -11707,86 +11613,6 @@
         "system.threading.tasks.parallel.nuspec"
       ]
     },
-    "System.Threading.Thread/4.0.0": {
-      "sha512": "gIdJqDXlOr5W9zeqFErLw3dsOsiShSCYtF9SEHitACycmvNvY8odf9kiKvp6V7aibc8C4HzzNBkWXjyfn7plbQ==",
-      "type": "package",
-      "path": "system.threading.thread/4.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "ThirdPartyNotices.txt",
-        "dotnet_library_license.txt",
-        "lib/MonoAndroid10/_._",
-        "lib/MonoTouch10/_._",
-        "lib/net46/System.Threading.Thread.dll",
-        "lib/netcore50/_._",
-        "lib/netstandard1.3/System.Threading.Thread.dll",
-        "lib/xamarinios10/_._",
-        "lib/xamarinmac20/_._",
-        "lib/xamarintvos10/_._",
-        "lib/xamarinwatchos10/_._",
-        "ref/MonoAndroid10/_._",
-        "ref/MonoTouch10/_._",
-        "ref/net46/System.Threading.Thread.dll",
-        "ref/netstandard1.3/System.Threading.Thread.dll",
-        "ref/netstandard1.3/System.Threading.Thread.xml",
-        "ref/netstandard1.3/de/System.Threading.Thread.xml",
-        "ref/netstandard1.3/es/System.Threading.Thread.xml",
-        "ref/netstandard1.3/fr/System.Threading.Thread.xml",
-        "ref/netstandard1.3/it/System.Threading.Thread.xml",
-        "ref/netstandard1.3/ja/System.Threading.Thread.xml",
-        "ref/netstandard1.3/ko/System.Threading.Thread.xml",
-        "ref/netstandard1.3/ru/System.Threading.Thread.xml",
-        "ref/netstandard1.3/zh-hans/System.Threading.Thread.xml",
-        "ref/netstandard1.3/zh-hant/System.Threading.Thread.xml",
-        "ref/xamarinios10/_._",
-        "ref/xamarinmac20/_._",
-        "ref/xamarintvos10/_._",
-        "ref/xamarinwatchos10/_._",
-        "system.threading.thread.4.0.0.nupkg.sha512",
-        "system.threading.thread.nuspec"
-      ]
-    },
-    "System.Threading.ThreadPool/4.0.10": {
-      "sha512": "IMXgB5Vf/5Qw1kpoVgJMOvUO1l32aC+qC3OaIZjWJOjvcxuxNWOK2ZTWWYXfij22NHxT2j1yWX5vlAeQWld9vA==",
-      "type": "package",
-      "path": "system.threading.threadpool/4.0.10",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "ThirdPartyNotices.txt",
-        "dotnet_library_license.txt",
-        "lib/MonoAndroid10/_._",
-        "lib/MonoTouch10/_._",
-        "lib/net46/System.Threading.ThreadPool.dll",
-        "lib/netcore50/_._",
-        "lib/netstandard1.3/System.Threading.ThreadPool.dll",
-        "lib/xamarinios10/_._",
-        "lib/xamarinmac20/_._",
-        "lib/xamarintvos10/_._",
-        "lib/xamarinwatchos10/_._",
-        "ref/MonoAndroid10/_._",
-        "ref/MonoTouch10/_._",
-        "ref/net46/System.Threading.ThreadPool.dll",
-        "ref/netstandard1.3/System.Threading.ThreadPool.dll",
-        "ref/netstandard1.3/System.Threading.ThreadPool.xml",
-        "ref/netstandard1.3/de/System.Threading.ThreadPool.xml",
-        "ref/netstandard1.3/es/System.Threading.ThreadPool.xml",
-        "ref/netstandard1.3/fr/System.Threading.ThreadPool.xml",
-        "ref/netstandard1.3/it/System.Threading.ThreadPool.xml",
-        "ref/netstandard1.3/ja/System.Threading.ThreadPool.xml",
-        "ref/netstandard1.3/ko/System.Threading.ThreadPool.xml",
-        "ref/netstandard1.3/ru/System.Threading.ThreadPool.xml",
-        "ref/netstandard1.3/zh-hans/System.Threading.ThreadPool.xml",
-        "ref/netstandard1.3/zh-hant/System.Threading.ThreadPool.xml",
-        "ref/xamarinios10/_._",
-        "ref/xamarinmac20/_._",
-        "ref/xamarintvos10/_._",
-        "ref/xamarinwatchos10/_._",
-        "system.threading.threadpool.4.0.10.nupkg.sha512",
-        "system.threading.threadpool.nuspec"
-      ]
-    },
     "System.Threading.Timer/4.3.0": {
       "sha512": "Z6YfyYTCg7lOZjJzBjONJTFKGN9/NIYKSxhU5GRd+DTwHSZyvWp1xuI5aR+dLg+ayyC5Xv57KiY4oJ0tMO89fQ==",
       "type": "package",
@@ -12157,82 +11983,6 @@
         "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll",
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
-      ]
-    },
-    "System.Xml.XPath/4.0.1": {
-      "sha512": "UWd1H+1IJ9Wlq5nognZ/XJdyj8qPE4XufBUkAW59ijsCPjZkZe0MUzKKJFBr+ZWBe5Wq1u1d5f2CYgE93uH7DA==",
-      "type": "package",
-      "path": "system.xml.xpath/4.0.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "ThirdPartyNotices.txt",
-        "dotnet_library_license.txt",
-        "lib/MonoAndroid10/_._",
-        "lib/MonoTouch10/_._",
-        "lib/net46/System.Xml.XPath.dll",
-        "lib/netstandard1.3/System.Xml.XPath.dll",
-        "lib/xamarinios10/_._",
-        "lib/xamarinmac20/_._",
-        "lib/xamarintvos10/_._",
-        "lib/xamarinwatchos10/_._",
-        "ref/MonoAndroid10/_._",
-        "ref/MonoTouch10/_._",
-        "ref/net46/System.Xml.XPath.dll",
-        "ref/netstandard1.3/System.Xml.XPath.dll",
-        "ref/netstandard1.3/System.Xml.XPath.xml",
-        "ref/netstandard1.3/de/System.Xml.XPath.xml",
-        "ref/netstandard1.3/es/System.Xml.XPath.xml",
-        "ref/netstandard1.3/fr/System.Xml.XPath.xml",
-        "ref/netstandard1.3/it/System.Xml.XPath.xml",
-        "ref/netstandard1.3/ja/System.Xml.XPath.xml",
-        "ref/netstandard1.3/ko/System.Xml.XPath.xml",
-        "ref/netstandard1.3/ru/System.Xml.XPath.xml",
-        "ref/netstandard1.3/zh-hans/System.Xml.XPath.xml",
-        "ref/netstandard1.3/zh-hant/System.Xml.XPath.xml",
-        "ref/xamarinios10/_._",
-        "ref/xamarinmac20/_._",
-        "ref/xamarintvos10/_._",
-        "ref/xamarinwatchos10/_._",
-        "system.xml.xpath.4.0.1.nupkg.sha512",
-        "system.xml.xpath.nuspec"
-      ]
-    },
-    "System.Xml.XPath.XmlDocument/4.0.1": {
-      "sha512": "Zm2BdeanuncYs3NhCj4c9e1x3EXFzFBVv2wPEc/Dj4ZbI9R8ecLSR5frAsx4zJCPBtKQreQ7Q/KxJEohJZbfzA==",
-      "type": "package",
-      "path": "system.xml.xpath.xmldocument/4.0.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "ThirdPartyNotices.txt",
-        "dotnet_library_license.txt",
-        "lib/MonoAndroid10/_._",
-        "lib/MonoTouch10/_._",
-        "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll",
-        "lib/xamarinios10/_._",
-        "lib/xamarinmac20/_._",
-        "lib/xamarintvos10/_._",
-        "lib/xamarinwatchos10/_._",
-        "ref/MonoAndroid10/_._",
-        "ref/MonoTouch10/_._",
-        "ref/netstandard1.3/System.Xml.XPath.XmlDocument.dll",
-        "ref/netstandard1.3/System.Xml.XPath.XmlDocument.xml",
-        "ref/netstandard1.3/de/System.Xml.XPath.XmlDocument.xml",
-        "ref/netstandard1.3/es/System.Xml.XPath.XmlDocument.xml",
-        "ref/netstandard1.3/fr/System.Xml.XPath.XmlDocument.xml",
-        "ref/netstandard1.3/it/System.Xml.XPath.XmlDocument.xml",
-        "ref/netstandard1.3/ja/System.Xml.XPath.XmlDocument.xml",
-        "ref/netstandard1.3/ko/System.Xml.XPath.XmlDocument.xml",
-        "ref/netstandard1.3/ru/System.Xml.XPath.XmlDocument.xml",
-        "ref/netstandard1.3/zh-hans/System.Xml.XPath.XmlDocument.xml",
-        "ref/netstandard1.3/zh-hant/System.Xml.XPath.XmlDocument.xml",
-        "ref/xamarinios10/_._",
-        "ref/xamarinmac20/_._",
-        "ref/xamarintvos10/_._",
-        "ref/xamarinwatchos10/_._",
-        "system.xml.xpath.xmldocument.4.0.1.nupkg.sha512",
-        "system.xml.xpath.xmldocument.nuspec"
       ]
     },
     "Yuebon.Commons/1.3.1.26": {

@@ -49,25 +49,25 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: (resolve) => require(['@/views/dashboard/index'], resolve),
-      meta: { title: '控制台', icon: 'icon-dashboard', affix: true }
+      meta: { title: '控制台', icon: 'dashboard', affix: true }
     }]
   },
   {
     path: '/usercenter',
     redirect: '/usercenter/index',
     component: Layout,
-    meta: { title: '个人中心', icon: 'icon-my' },
+    meta: { title: '个人中心', icon: 'my' },
     children: [{
       path: '/usercenter/index',
       name: 'Usercenter',
       component: (resolve) => require(['@/views/usercenter/index'], resolve),
-      meta: { title: '个人信息', icon: 'icon-card' }
+      meta: { title: '个人信息', icon: 'card' }
     },
     {
       path: '/usercenter/modify',
       name: 'Usercentermodify',
       component: (resolve) => require(['@/views/usercenter/modify'], resolve),
-      meta: { title: '修改密码', icon: 'icon-new-pwd' }
+      meta: { title: '修改密码', icon: 'new-pwd' }
     }]
   }
 

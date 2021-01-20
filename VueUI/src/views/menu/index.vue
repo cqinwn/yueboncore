@@ -52,9 +52,7 @@
                   width="220"
                 >
                   <template slot-scope="scope">
-                    <i
-                      :class="['iconfont ',scope.row.Icon]"
-                    />{{ scope.row.FullName }}
+                    <svg-icon :icon-class="scope.row.Icon" />{{ scope.row.FullName }}
                   </template>
                 </el-table-column>
                 <el-table-column
@@ -198,7 +196,24 @@
 
           <el-col :span="12">
             <el-form-item label="图标" :label-width="formLabelWidth" prop="Icon">
-              <el-input v-model="editMenuFrom.Icon" placeholder="请填写icon图标值" autocomplete="off" clearable />
+              <el-popover
+                placement="bottom-start"
+                width="660"
+                trigger="click"
+                @show="$refs['iconSelect'].reset()"
+              >
+                <IconSelect ref="iconSelect" @selected="selected" />
+                <el-input slot="reference" v-model="editMenuFrom.Icon" placeholder="点击选择图标" readonly>
+                  <svg-icon
+                    v-if="editMenuFrom.Icon"
+                    slot="prefix"
+                    :icon-class="editMenuFrom.Icon"
+                    class="el-input__icon"
+                    style="height: 32px;width: 16px;"
+                  />
+                  <i v-else slot="prefix" class="el-icon-search el-input__icon" />
+                </el-input>
+              </el-popover>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -262,8 +277,11 @@
 import { getSubSystemList } from '@/api/basebasic'
 import { getAllMenuTreeTable, getMenuDetail, saveMenu, setMenuEnable, deleteSoftMenu, deleteMenu } from '@/api/developers/menufunction'
 
+import IconSelect from '@/components/IconSelect'
+
 export default {
   name: 'Menu',
+  components: { IconSelect },
   data () {
     return {
       searchform: {
@@ -345,6 +363,10 @@ export default {
       }
     },
 
+    // 选择图标
+    selected (name) {
+      this.editMenuFrom.Icon = name
+    },
     // 取消按钮
     cancel () {
       this.dialogMenuEditFormVisible = false

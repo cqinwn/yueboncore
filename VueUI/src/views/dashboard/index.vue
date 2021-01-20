@@ -4,7 +4,7 @@
       <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
         <div class="card-panel">
           <div class="card-panel-icon-wrapper icon-people">
-            <div class="iconfont icon-friend card-panel-icon" />
+            <svg-icon icon-class="friend" class="card-panel-icon" />
           </div>
           <div class="card-panel-description">
             <div class="card-panel-text">
@@ -17,7 +17,7 @@
       <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
         <div class="card-panel">
           <div class="card-panel-icon-wrapper icon-message">
-            <div class="iconfont icon-module card-panel-icon" />
+            <svg-icon icon-class="menu-module" class="card-panel-icon" />
           </div>
           <div class="card-panel-description">
             <div class="card-panel-text">
@@ -30,7 +30,7 @@
       <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
         <div class="card-panel">
           <div class="card-panel-icon-wrapper icon-money">
-            <div class="iconfont icon-jiaose3-01 card-panel-icon" />
+            <svg-icon icon-class="juese" class="card-panel-icon" />
           </div>
           <div class="card-panel-description">
             <div class="card-panel-text">
@@ -43,7 +43,7 @@
       <el-col :xs="12" :sm="24" :lg="6" class="card-panel-col">
         <div class="card-panel">
           <div class="card-panel-icon-wrapper icon-shopping">
-            <div class="iconfont icon-log card-panel-icon" />
+            <svg-icon icon-class="log" class="card-panel-icon" />
           </div>
           <div class="card-panel-description">
             <div class="card-panel-text">

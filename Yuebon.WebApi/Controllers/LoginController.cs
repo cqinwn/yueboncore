@@ -25,6 +25,7 @@ namespace Yuebon.WebApi.Controllers
     /// 用户登录接口控制器
     /// </summary>
     [ApiController]
+    [ApiVersion("1.0")]
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class LoginController : ApiController

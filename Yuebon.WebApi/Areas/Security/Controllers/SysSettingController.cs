@@ -41,7 +41,7 @@ namespace Yuebon.WebApi.Areas.Security
         private readonly IUserService userService;
         private readonly IMenuService menuService;
         private readonly IRoleService roleService;
-        private readonly ILogService logService;
+        private readonly ITaskManagerService taskManagerService;
         /// <summary>
         /// 
         /// </summary>
@@ -49,14 +49,14 @@ namespace Yuebon.WebApi.Areas.Security
         /// <param name="_userService"></param>
         /// <param name="_menuService"></param>
         /// <param name="_roleService"></param>
-        /// <param name="_logService"></param>
-        public SysSettingController(IWebHostEnvironment hostingEnvironment, IUserService _userService, IMenuService _menuService, IRoleService _roleService, ILogService _logService)
+        /// <param name="_taskManagerService"></param>
+        public SysSettingController(IWebHostEnvironment hostingEnvironment, IUserService _userService, IMenuService _menuService, IRoleService _roleService, ITaskManagerService _taskManagerService)
         {
             _hostingEnvironment = hostingEnvironment;
             userService = _userService;
             menuService = _menuService;
             roleService = _roleService;
-            logService = _logService;
+            taskManagerService = _taskManagerService;
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Yuebon.WebApi.Areas.Security
                 dashboardOutModel.TotalUser = await userService.GetCountByWhereAsync("1=1");
                 dashboardOutModel.TotalModule = await menuService.GetCountByWhereAsync("1=1");
                 dashboardOutModel.TotalRole = await roleService.GetCountByWhereAsync("1=1");
-                dashboardOutModel.TotalLog = 0;// await logService.GetCountByWhereAsync("1=1");
+                dashboardOutModel.TotalTask = await taskManagerService.GetCountByWhereAsync("1=1");
                 result.ResData = dashboardOutModel;
                 result.ErrCode = ErrCode.successCode;
             }

@@ -43,7 +43,7 @@ namespace Yuebon.Commons.Repositories
         /// </summary>
         protected DbSet<T> DbSet => DbContext.GetDbSet<T>();
         /// <summary>
-        /// 
+        /// 获取访问数据库配置
         /// </summary>
         protected string dbConfigName=typeof(T).GetCustomAttribute<AppDBContextAttribute>(false)?.DbConfigName?? Configs.GetConfigurationValue("AppSetting", "DefaultDataBase");
         /// <summary>
@@ -153,6 +153,7 @@ namespace Yuebon.Commons.Repositories
         #endregion
 
         #region Dapper 操作
+
         #region 查询获得对象和列表
         /// <summary>
         /// 根据id获取一个对象
@@ -162,7 +163,6 @@ namespace Yuebon.Commons.Repositories
         public virtual T Get(TKey primaryKey)
         {
             return DapperConn.Get<T>(primaryKey);
-            //return DbContext.Find<T,TKey>(primaryKey);
         }
         /// <summary>
         /// 异步根据id获取一个对象
@@ -172,16 +172,6 @@ namespace Yuebon.Commons.Repositories
         public virtual async  Task<T> GetAsync(TKey primaryKey)
         {
             return await DapperConn.GetAsync<T>(primaryKey);
-           // return await DbContext.FindAsync<T>(primaryKey);
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="primaryKey"></param>
-        /// <returns></returns>
-        public virtual T Get(string primaryKey)
-        {
-            return DbContext.Find<T>(primaryKey);
         }
         /// <summary>
         /// 根据条件获取一个对象
@@ -345,16 +335,15 @@ namespace Yuebon.Commons.Repositories
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
-            string dbType = dbConfigName.ToUpper();
-            string sql = $"select top {top} {selectedFields} from " + tableName; ;
-            if (dbType.Contains("MSSQL"))
+            string sql = $"select top {top} {selectedFields} from " + tableName;
+            if (dbConfigName.Contains("MSSQL",StringComparison.CurrentCultureIgnoreCase))
             {
                 if (!string.IsNullOrWhiteSpace(where))
                 {
                     sql += " where " + where;
                 }
             }
-            else if (dbType.Contains("MYSQL"))
+            else if (dbConfigName.Contains("MSSQL", StringComparison.CurrentCultureIgnoreCase))
             {
                 sql = $"select {selectedFields} from " + tableName;
 
@@ -607,6 +596,31 @@ namespace Yuebon.Commons.Repositories
         {
             return FindWithPager(condition, info, fieldToSort, this.isDescending, trans);
         }
+
+        /// <summary>
+        /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
+        /// </summary>
+        /// <param name="condition">查询的条件</param>
+        /// <param name="info">分页实体</param>
+        /// <param name="fieldToSort">排序字段</param>
+        /// <param name="trans">事务对象</param>
+        /// <returns>指定对象的集合</returns>
+        public virtual async Task<List<T>> FindWithPagerAsync(string condition, PagerInfo info, string fieldToSort, IDbTransaction trans = null)
+        {
+            return await FindWithPagerAsync(condition, info, fieldToSort, this.isDescending, trans);
+        }
+
+        /// <summary>
+        /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
+        /// </summary>
+        /// <param name="condition">查询的条件</param>
+        /// <param name="info">分页实体</param>
+        /// <param name="trans">事务对象</param>
+        /// <returns>指定对象的集合</returns>
+        public virtual async Task<List<T>> FindWithPagerAsync(string condition, PagerInfo info, IDbTransaction trans = null)
+        {
+            return await FindWithPagerAsync(condition, info, this.SortField, trans);
+        }
         /// <summary>
         /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
         /// </summary>
@@ -676,31 +690,8 @@ namespace Yuebon.Commons.Repositories
         }
 
         /// <summary>
-        /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
-        /// </summary>
-        /// <param name="condition">查询的条件</param>
-        /// <param name="info">分页实体</param>
-        /// <param name="fieldToSort">排序字段</param>
-        /// <param name="trans">事务对象</param>
-        /// <returns>指定对象的集合</returns>
-        public virtual async Task<List<T>> FindWithPagerAsync(string condition, PagerInfo info, string fieldToSort, IDbTransaction trans = null)
-        {
-            return await FindWithPagerAsync(condition, info, fieldToSort, this.isDescending, trans);
-        }
-
-        /// <summary>
-        /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
-        /// </summary>
-        /// <param name="condition">查询的条件</param>
-        /// <param name="info">分页实体</param>
-        /// <param name="trans">事务对象</param>
-        /// <returns>指定对象的集合</returns>
-        public virtual async Task<List<T>> FindWithPagerAsync(string condition, PagerInfo info, IDbTransaction trans = null)
-        {
-            return await FindWithPagerAsync(condition, info, this.SortField, trans);
-        }
-        /// <summary>
-        /// 分页查询，自行封装sql语句
+        /// 分页查询，自行封装sql语句(仅支持sql server)
+        /// 非常复杂的查询，可在具体业务模块重写该方法
         /// </summary>
         /// <param name="condition">查询条件</param>
         /// <param name="info">分页信息</param>
@@ -733,7 +724,8 @@ namespace Yuebon.Commons.Repositories
         }
 
         /// <summary>
-        /// 分页查询，自行封装sql语句
+        /// 分页查询，自行封装sql语句(仅支持sql server)
+        /// 非常复杂的查询，可在具体业务模块重写该方法
         /// </summary>
         /// <param name="condition">查询条件</param>
         /// <param name="info">分页信息</param>
@@ -764,7 +756,7 @@ namespace Yuebon.Commons.Repositories
             return list;
         }
         /// <summary>
-        /// 分页查询包含用户信息
+        /// 分页查询包含用户信息(仅支持sql server)
         /// 查询主表别名为t1,用户表别名为t2，在查询字段需要注意使用t1.xxx格式，xx表示主表字段
         /// 用户信息主要有用户账号：Account、昵称：NickName、真实姓名：RealName、头像：HeadIcon、手机号：MobilePhone
         /// 输出对象请在Dtos中进行自行封装，不能是使用实体Model类
@@ -802,7 +794,7 @@ namespace Yuebon.Commons.Repositories
         }
 
         /// <summary>
-        /// 分页查询包含用户信息
+        /// 分页查询包含用户信息(仅支持sql server)
         /// 查询主表别名为t1,用户表别名为t2，在查询字段需要注意使用t1.xxx格式，xx表示主表字段
         /// 用户信息主要有用户账号：Account、昵称：NickName、真实姓名：RealName、头像：HeadIcon、手机号：MobilePhone
         /// 输出对象请在Dtos中进行自行封装，不能是使用实体Model类
@@ -841,8 +833,9 @@ namespace Yuebon.Commons.Repositories
         /// 根据条件统计数据
         /// </summary>
         /// <param name="condition">查询条件</param>
+        /// <param name="fieldName">统计字段名称</param>
         /// <returns></returns>
-        public virtual int GetCountByWhere(string condition)
+        public virtual int GetCountByWhere(string condition,string fieldName="*")
         {
             if (HasInjectionData(condition))
             {
@@ -853,7 +846,7 @@ namespace Yuebon.Commons.Repositories
             {
                 condition = "1=1";
             }
-            string sql = $"select count(*) from {tableName}  where ";
+            string sql = $"select count({fieldName}) from {tableName}  where ";
             if (!string.IsNullOrWhiteSpace(condition))
             {
                 sql = sql + condition;
@@ -865,8 +858,9 @@ namespace Yuebon.Commons.Repositories
         /// 根据条件统计数据
         /// </summary>
         /// <param name="condition">查询条件</param>
+        /// <param name="fieldName">统计字段名称</param>
         /// <returns></returns>
-        public virtual async Task<int> GetCountByWhereAsync(string condition)
+        public virtual async Task<int> GetCountByWhereAsync(string condition, string fieldName = "*")
         {
             if (HasInjectionData(condition))
             {
@@ -877,7 +871,7 @@ namespace Yuebon.Commons.Repositories
             {
                 condition = "1=1";
             }
-            string sql = $"select count(*) from {tableName}  where ";
+            string sql = $"select count({fieldName}) from {tableName}  where ";
             if (!string.IsNullOrWhiteSpace(condition))
             {
                 sql = sql + condition;
@@ -892,15 +886,19 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">条件</param>
         /// <param name="trans">事务</param>
         /// <returns>返回字段的最大值</returns>
-        public virtual async Task<int> GetMaxValueByFieldAsync(string strField, string where, IDbTransaction trans = null)
+        public virtual async Task<dynamic> GetMaxValueByFieldAsync(string strField, string where, IDbTransaction trans = null)
         {
             string sql = $"select isnull(MAX({strField}),0) as maxVaule from {tableName} ";
+            if (dbConfigName.Contains("mysql", StringComparison.OrdinalIgnoreCase))
+            {
+                sql = $"select if(isnull(MAX({strField})),0,MAX({strField})) as maxVaule from {tableName} ";
+            }
             if (!string.IsNullOrEmpty(where))
             {
                 sql += " where " + where;
             }
 
-            return await DapperConn.QueryFirstAsync<int>(sql);
+            return await DapperConn.QueryFirstAsync<dynamic>(sql);
         }
         /// <summary>
         /// 根据条件统计某个字段之和,sum(字段)
@@ -908,17 +906,22 @@ namespace Yuebon.Commons.Repositories
         /// <param name="strField">字段</param>
         /// <param name="where">条件</param>
         /// <param name="trans">事务</param>
-        /// <returns>返回字段的最大值</returns>
-        public virtual async Task<int> GetSumValueByFieldAsync(string strField, string where, IDbTransaction trans = null)
+        /// <returns>返回字段求和后的值</returns>
+        public virtual async Task<dynamic> GetSumValueByFieldAsync(string strField, string where, IDbTransaction trans = null)
         {
             string sql = $"select isnull(sum({strField}),0) as sumVaule from {tableName} ";
+            if (dbConfigName.Contains("mysql", StringComparison.OrdinalIgnoreCase))
+            {
+                sql = $"select if(isnull(sum({strField})),0,sum({strField})) as sumVaule from {tableName} ";
+            }
             if (!string.IsNullOrEmpty(where))
             {
                 sql += " where " + where;
             }
-            return await DapperConn.QueryFirstAsync<int>(sql);
+            return await DapperConn.QueryFirstAsync<dynamic>(sql);
         }
         #endregion
+
         #region 新增、修改和删除
 
         /// <summary>
@@ -1680,6 +1683,7 @@ namespace Yuebon.Commons.Repositories
         }
 
         #endregion
+
         #endregion
 
         #region EF操作

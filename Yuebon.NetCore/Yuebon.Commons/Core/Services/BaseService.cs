@@ -638,7 +638,8 @@ namespace Yuebon.Commons.Services
         }
 
         /// <summary>
-        /// 分页查询，自行封装sql语句
+        /// 分页查询，自行封装sql语句(仅支持sql server)
+        /// 非常复杂的查询，可在具体业务模块重写该方法
         /// </summary>
         /// <param name="condition">查询条件</param>
         /// <param name="info">分页信息</param>
@@ -746,7 +747,8 @@ namespace Yuebon.Commons.Services
         }
 
         /// <summary>
-        /// 分页查询，自行封装sql语句
+        /// 分页查询，自行封装sql语句(仅支持sql server)
+        /// 非常复杂的查询，可在具体业务模块重写该方法
         /// </summary>
         /// <param name="condition">查询条件</param>
         /// <param name="info">分页信息</param>
@@ -760,7 +762,7 @@ namespace Yuebon.Commons.Services
         }
 
         /// <summary>
-        /// 分页查询包含用户信息
+        /// 分页查询包含用户信息(仅支持sql server)
         /// 查询主表别名为t1,用户表别名为t2，在查询字段需要注意使用t1.xxx格式，xx表示主表字段
         /// 用户信息主要有用户账号：Account、昵称：NickName、真实姓名：RealName、头像：HeadIcon、手机号：MobilePhone
         /// 输出对象请在Dtos中进行自行封装，不能是使用实体Model类
@@ -777,7 +779,7 @@ namespace Yuebon.Commons.Services
         }
 
         /// <summary>
-        /// 分页查询包含用户信息
+        /// 分页查询包含用户信息(仅支持sql server)
         /// 查询主表别名为t1,用户表别名为t2，在查询字段需要注意使用t1.xxx格式，xx表示主表字段
         /// 用户信息主要有用户账号：Account、昵称：NickName、真实姓名：RealName、头像：HeadIcon、手机号：MobilePhone
         /// 输出对象请在Dtos中进行自行封装，不能是使用实体Model类
@@ -796,20 +798,22 @@ namespace Yuebon.Commons.Services
         /// 根据条件统计数据
         /// </summary>
         /// <param name="condition">查询条件</param>
+        /// <param name="fieldName">统计字段名称</param>
         /// <returns></returns>
-        public virtual int GetCountByWhere(string condition)
+        public virtual int GetCountByWhere(string condition, string fieldName = "*")
         {
-            return repository.GetCountByWhere(condition);
+            return repository.GetCountByWhere(condition, fieldName);
         }
 
         /// <summary>
         /// 根据条件统计数据
         /// </summary>
         /// <param name="condition">查询条件</param>
+        /// <param name="fieldName">统计字段名称</param>
         /// <returns></returns>
-        public virtual async Task<int> GetCountByWhereAsync(string condition)
+        public virtual async Task<int> GetCountByWhereAsync(string condition, string fieldName = "*")
         {
-            return await repository.GetCountByWhereAsync(condition);
+            return await repository.GetCountByWhereAsync(condition, fieldName);
         }
 
         /// <summary>
@@ -819,7 +823,7 @@ namespace Yuebon.Commons.Services
         /// <param name="where">条件</param>
         /// <param name="trans">事务</param>
         /// <returns>返回字段的最大值</returns>
-        public virtual async Task<int> GetMaxValueByFieldAsync(string strField, string where, IDbTransaction trans = null)
+        public virtual async Task<dynamic> GetMaxValueByFieldAsync(string strField, string where, IDbTransaction trans = null)
         {
             return await repository.GetMaxValueByFieldAsync(strField,where);
         }
@@ -830,8 +834,8 @@ namespace Yuebon.Commons.Services
         /// <param name="strField">字段</param>
         /// <param name="where">条件</param>
         /// <param name="trans">事务</param>
-        /// <returns>返回字段的最大值</returns>
-        public virtual async Task<int> GetSumValueByFieldAsync(string strField, string where, IDbTransaction trans = null)
+        /// <returns>返回字段求和后的值</returns>
+        public virtual async Task<dynamic> GetSumValueByFieldAsync(string strField, string where, IDbTransaction trans = null)
         {
             return await repository.GetSumValueByFieldAsync(strField, where);
         }

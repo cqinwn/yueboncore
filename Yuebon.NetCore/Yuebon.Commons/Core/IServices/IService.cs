@@ -325,7 +325,15 @@ namespace Yuebon.Commons.IServices
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
         Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, string userId = null, IDbTransaction trans = null);
-
+        /// <summary>
+        /// 异步按条件设置数据有效性，将EnabledMark设置为1:有效，0-为无效
+        /// </summary>
+        /// <param name="bl">true为有效，false无效</param>
+        /// <param name="where">条件</param>
+        /// <param name="paramparameters"></param>
+        /// <param name="userId">操作用户</param>
+        /// <param name="trans">事务对象</param>
+        /// <returns></returns>
         Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, object paramparameters = null, string userId = null, IDbTransaction trans = null);
         /// <summary>
         /// 查询软删除的数据，如果查询条件为空，即查询所有软删除的数据
@@ -473,7 +481,8 @@ namespace Yuebon.Commons.IServices
         /// <returns>指定对象的集合</returns>
         Task<PageResult<TODto>> FindWithPagerAsync(SearchInputDto<T> search);
         /// <summary>
-        /// 分页查询，自行封装sql语句
+        /// 分页查询，自行封装sql语句(仅支持sql server)
+        /// 非常复杂的查询，可在具体业务模块重写该方法
         /// </summary>
         /// <param name="condition">查询条件</param>
         /// <param name="info">分页信息</param>
@@ -483,7 +492,8 @@ namespace Yuebon.Commons.IServices
         /// <returns></returns>
         Task<List<T>> FindWithPagerSqlAsync(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null);
         /// <summary>
-        /// 分页查询，自行封装sql语句
+        /// 分页查询，自行封装sql语句(仅支持sql server)
+        /// 非常复杂的查询，可在具体业务模块重写该方法
         /// </summary>
         /// <param name="condition">查询条件</param>
         /// <param name="info">分页信息</param>
@@ -494,7 +504,7 @@ namespace Yuebon.Commons.IServices
         List<T> FindWithPagerSql(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null);
 
         /// <summary>
-        /// 分页查询包含用户信息
+        /// 分页查询包含用户信息(仅支持sql server)
         /// 查询主表别名为t1,用户表别名为t2，在查询字段需要注意使用t1.xxx格式，xx表示主表字段
         /// 用户信息主要有用户账号：Account、昵称：NickName、真实姓名：RealName、头像：HeadIcon、手机号：MobilePhone
         /// 输出对象请在Dtos中进行自行封装，不能是使用实体Model类
@@ -507,7 +517,7 @@ namespace Yuebon.Commons.IServices
         /// <returns></returns>
         Task<List<object>> FindWithPagerRelationUserAsync(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null);
         /// <summary>
-        /// 分页查询包含用户信息
+        /// 分页查询包含用户信息(仅支持sql server)
         /// 查询主表别名为t1,用户表别名为t2，在查询字段需要注意使用t1.xxx格式，xx表示主表字段
         /// 用户信息主要有用户账号：Account、昵称：NickName、真实姓名：RealName、头像：HeadIcon、手机号：MobilePhone
         /// 输出对象请在Dtos中进行自行封装，不能是使用实体Model类
@@ -524,14 +534,16 @@ namespace Yuebon.Commons.IServices
         /// 根据条件统计数据
         /// </summary>
         /// <param name="condition">查询条件</param>
+        /// <param name="fieldName">统计字段名称</param>
         /// <returns></returns>
-        int GetCountByWhere(string condition);
+        int GetCountByWhere(string condition, string fieldName = "*");
         /// <summary>
         /// 根据条件统计数据
         /// </summary>
         /// <param name="condition">查询条件</param>
+        /// <param name="fieldName">统计字段名称</param>
         /// <returns></returns>
-        Task<int> GetCountByWhereAsync(string condition);
+        Task<int> GetCountByWhereAsync(string condition,string fieldName = "*");
 
         /// <summary>
         /// 根据条件查询获取某个字段的最大值
@@ -540,7 +552,7 @@ namespace Yuebon.Commons.IServices
         /// <param name="where">条件</param>
         /// <param name="trans">事务</param>
         /// <returns>返回字段的最大值</returns>
-        Task<int> GetMaxValueByFieldAsync(string strField, string where, IDbTransaction trans = null);
+        Task<dynamic> GetMaxValueByFieldAsync(string strField, string where, IDbTransaction trans = null);
 
         /// <summary>
         /// 根据条件统计某个字段之和,sum(字段)
@@ -548,8 +560,8 @@ namespace Yuebon.Commons.IServices
         /// <param name="strField">字段</param>
         /// <param name="where">条件</param>
         /// <param name="trans">事务</param>
-        /// <returns>返回字段的最大值</returns>
-        Task<int> GetSumValueByFieldAsync(string strField, string where, IDbTransaction trans = null);
+        /// <returns>返回字段求和后的值</returns>
+        Task<dynamic> GetSumValueByFieldAsync(string strField, string where, IDbTransaction trans = null);
 
         /// <summary>
         /// 多表操作--事务

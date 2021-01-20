@@ -217,9 +217,9 @@ namespace Yuebon.WebApi.Areas.Security.Models
         }
 
         /// <summary>
-        /// 总日志数
+        /// 定时任务
         /// </summary>
-        public int TotalLog
+        public int TotalTask
         {
             get;
             set;

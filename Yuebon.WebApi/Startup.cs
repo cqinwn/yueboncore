@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Memory;
@@ -62,6 +63,7 @@ namespace Yuebon.WebApi
         /// 
         /// </summary>
         public IConfiguration Configuration { get; }
+        private IApiVersionDescriptionProvider apiVersionProvider;//版本控制
         /// <summary>
         /// 
         /// </summary>
@@ -92,20 +94,40 @@ namespace Yuebon.WebApi
 
 
             #region Swagger Api文档
+
+            // Api多版本版本配置
+            services.AddApiVersioning(o =>
+            {
+                o.ReportApiVersions = true;//是否在请求头中返回受支持的版本信息。
+                o.ApiVersionReader = new HeaderApiVersionReader("api-version");////版本信息放到header ,不写在不配置路由的情况下，版本信息放到response url 中
+                o.AssumeDefaultVersionWhenUnspecified = true;//请求没有指明版本的情况下是否使用默认的版本。
+                o.DefaultApiVersion = new ApiVersion(1, 0);//默认的版本号。
+            }).AddVersionedApiExplorer(option =>
+            {    // 版本名的格式：v+版本号
+                option.GroupNameFormat = "'v'V";
+                option.AssumeDefaultVersionWhenUnspecified = true;
+            });
+            //获取webapi版本信息，用于swagger多版本支持 
+            apiVersionProvider = services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
             services.AddSwaggerGen(options =>
             {
                 string contactName = Configuration.GetSection("SwaggerDoc:ContactName").Value;
                 string contactNameEmail = Configuration.GetSection("SwaggerDoc:ContactEmail").Value;
                 string contactUrl = Configuration.GetSection("SwaggerDoc:ContactUrl").Value;
-                options.SwaggerDoc("v1", new OpenApiInfo
-                {
 
-                    Version = Configuration.GetSection("SwaggerDoc:Version").Value,
-                    Title = Configuration.GetSection("SwaggerDoc:Title").Value,
-                    Description = Configuration.GetSection("SwaggerDoc:Description").Value,
-                    Contact = new OpenApiContact { Name = contactName, Email = contactNameEmail, Url = new Uri(contactUrl) },
-                    License = new OpenApiLicense { Name = contactName, Url = new Uri(contactUrl) }
-                });
+                foreach (var description in apiVersionProvider.ApiVersionDescriptions)
+                {
+                    options.SwaggerDoc(description.GroupName,
+                         new OpenApiInfo()
+                         {
+                             Title = $"{Configuration.GetSection("SwaggerDoc:Title").Value}v{description.ApiVersion}",
+                             Version = description.ApiVersion.ToString(),
+                             Description = Configuration.GetSection("SwaggerDoc:Description").Value,
+                             Contact = new OpenApiContact { Name = contactName, Email = contactNameEmail, Url = new Uri(contactUrl) },
+                             License = new OpenApiLicense { Name = contactName, Url = new Uri(contactUrl) }
+                         }
+                    );
+                }
                 Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.xml").ToList().ForEach(file =>
                 {
                     options.IncludeXmlComments(file, true);
@@ -142,14 +164,6 @@ namespace Yuebon.WebApi
             });
 
 
-            // Api配置版本信息
-            services.AddApiVersioning(o =>
-            {
-                o.ReportApiVersions = true;//是否在请求头中返回受支持的版本信息。
-                o.ApiVersionReader=new HeaderApiVersionReader("api-version");//自定义Headers进行版本控制
-                o.AssumeDefaultVersionWhenUnspecified = true;//请求没有指明版本的情况下是否使用默认的版本。
-                o.DefaultApiVersion = new ApiVersion(1, 0);//默认的版本号。
-            });
             #endregion
 
             #region 全局设置跨域访问
@@ -220,8 +234,11 @@ namespace Yuebon.WebApi
                     app.UseSwagger();
                     app.UseSwaggerUI(options =>
                     {
-                        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Yuebon System API V1");
-                        options.RoutePrefix = string.Empty;//这里主要是不需要再输入swagger这个默认前缀
+                        foreach (var description in apiVersionProvider.ApiVersionDescriptions)
+                        {
+                            options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", $"{Configuration.GetSection("SwaggerDoc:Title").Value+description.GroupName.ToUpperInvariant()}");
+                            options.RoutePrefix = string.Empty;//这里主要是不需要再输入swagger这个默认前缀
+                        }
                     });
                 }
                 else

@@ -871,7 +871,7 @@ namespace Yuebon.Commons.Repositories
             {
                 condition = "1=1";
             }
-            string sql = $"select count(*) from {tableName}  where ";
+            string sql = $"select count({fieldName}) from {tableName}  where ";
             if (!string.IsNullOrWhiteSpace(condition))
             {
                 sql = sql + condition;

@@ -235,7 +235,7 @@
             },
             "MySql.Data": {
               "target": "Package",
-              "version": "[8.0.22, )"
+              "version": "[8.0.23, )"
             },
             "NPinyin.Core": {
               "target": "Package",
@@ -243,11 +243,11 @@
             },
             "Npgsql": {
               "target": "Package",
-              "version": "[5.0.1.1, )"
+              "version": "[5.0.2, )"
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
-              "version": "[5.0.1, )"
+              "version": "[5.0.2, )"
             },
             "Oracle.EntityFrameworkCore": {
               "target": "Package",
@@ -267,7 +267,7 @@
             },
             "Quartz": {
               "target": "Package",
-              "version": "[3.2.3, )"
+              "version": "[3.2.4, )"
             },
             "SgmlReader.NetCore": {
               "target": "Package",

@@ -29,7 +29,7 @@ namespace Yuebon.Commons.DbContextCore
             string dbType = dbConfigName.ToUpper();
             if (dbType.Contains("ORACLE"))
             {
-                optionsBuilder.UseOracle(defaultSqlConnectionString);
+                optionsBuilder.UseOracle(defaultSqlConnectionString,d=>d.UseOracleSQLCompatibility("11.2"));
             }
             base.OnConfiguring(optionsBuilder);
         }

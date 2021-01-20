@@ -47,14 +47,14 @@ export default {
     width: 100%;
     padding: 10px;
     .icon-list {
-      height: 200px;
+      height: 300px;
       overflow-y: scroll;
       div {
         height: 30px;
         line-height: 30px;
         margin-bottom: -5px;
         cursor: pointer;
-        width: 33%;
+        width: 25%;
         float: left;
       }
       span {

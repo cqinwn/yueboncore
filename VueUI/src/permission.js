@@ -35,7 +35,7 @@ router.beforeEach(async (to, from, next) => {
             flag++
             next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
           }).catch(err => {
-            store.dispatch('LogOut').then(() => {
+            store.dispatch('user/logout').then(() => {
               Message.error(err)
               next({ path: '/' })
             })

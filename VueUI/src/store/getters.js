@@ -10,6 +10,7 @@ const getters = {
   subSystem: state => state.user.subSystem,
   activeSystemName: state => state.user.activeSystemName,
   menus: state => state.user.menus,
+  permissions: state => state.user.permissions,
   permission_routes: state => state.permission.routes,
   addRouters: state => state.settings.addRouters,
   sidebarRouters: state => state.permission.sidebarRouters

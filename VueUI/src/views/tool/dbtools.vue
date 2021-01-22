@@ -53,7 +53,7 @@
 import { dbtoolsConnStrDecrypt, dbtoolsConnStrEncrypt } from '@/api/developers/toolsservice'
 export default {
   name: 'DbTools',
-  data () {
+  data() {
     return {
       selectDbTypes: [{
         Id: 'SqlServer',
@@ -103,13 +103,13 @@ export default {
       formLabelWidth: '120px'
     }
   },
-  created () {
+  created() {
   },
   methods: {
     /**
      * 解密数据库
      */
-    handleDecrypt: function () {
+    handleDecrypt: function() {
       this.$refs['resultFrom'].validate((valid) => {
         if (valid) {
           var dataInfo = {
@@ -138,7 +138,7 @@ export default {
     /**
      * 生成连接字符串
      */
-    handleEncrypt: function () {
+    handleEncrypt: function() {
       this.$refs['editFrom'].validate((valid) => {
         if (valid) {
           var dataInfo = {

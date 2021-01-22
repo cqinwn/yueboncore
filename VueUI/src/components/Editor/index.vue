@@ -27,7 +27,7 @@ export default {
       default: null
     }
   },
-  data () {
+  data() {
     return {
       Quill: null,
       currentValue: '',
@@ -56,7 +56,7 @@ export default {
     }
   },
   computed: {
-    styles () {
+    styles() {
       const style = {}
       if (this.minHeight) {
         style.minHeight = `${this.minHeight}px`
@@ -69,7 +69,7 @@ export default {
   },
   watch: {
     value: {
-      handler (val) {
+      handler(val) {
         if (val !== this.currentValue) {
           this.currentValue = val === null ? '' : val
           if (this.Quill) {
@@ -80,14 +80,14 @@ export default {
       immediate: true
     }
   },
-  mounted () {
+  mounted() {
     this.init()
   },
-  beforeDestroy () {
+  beforeDestroy() {
     this.Quill = null
   },
   methods: {
-    init () {
+    init() {
       const editor = this.$refs.editor
       this.Quill = new Quill(editor, this.options)
       this.Quill.pasteHTML(this.currentValue)

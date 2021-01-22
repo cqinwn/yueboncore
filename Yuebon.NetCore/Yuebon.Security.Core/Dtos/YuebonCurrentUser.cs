@@ -104,8 +104,12 @@ namespace Yuebon.Security.Dtos
         /// 登录IP地址
         /// </summary>
         public virtual string IPAddressName { get; set; }
-        
 
+
+        /// <summary>
+        /// 当前访问的系统Id
+        /// </summary>
+        public string ActiveSystemId { get; set; }
         /// <summary>
         /// 当前访问的系统名称
         /// </summary>
@@ -132,6 +136,6 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 授权使用功能
         /// </summary>
-        public List<MenuOutputDto> Modules { get; set; }
+        public List<string> Modules { get; set; }
     }
 }

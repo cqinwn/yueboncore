@@ -29,6 +29,10 @@
               <i class="el-icon-user" />个人中心
             </el-dropdown-item>
           </router-link>
+
+          <el-dropdown-item @click.native="setting = true">
+            <svg-icon icon-class="buju" /><span>布局设置</span>
+          </el-dropdown-item>
           <a target="_blank" href="http://docs.v.yuebon.com">
             <el-dropdown-item>
               <i class="el-icon-question" />使用手册</el-dropdown-item>
@@ -63,18 +67,36 @@ export default {
       'name',
       'activeSystemName',
       'subSystem'
-    ])
+    ]),
+    setting: {
+      get() {
+        return this.$store.state.settings.showSettings
+      },
+      set(val) {
+        this.$store.dispatch('settings/changeSetting', {
+          key: 'showSettings',
+          value: val
+        })
+      }
+    }
   },
   methods: {
-    toggleSideBar () {
+    toggleSideBar() {
       this.$store.dispatch('app/toggleSideBar')
     },
-    async logout () {
-      await this.$store.dispatch('user/logout')
-      this.$router.push(`/login?redirect=${this.$route.fullPath}`)
-      location.reload()
+    async logout() {
+      this.$confirm('确定注销并退出系统吗？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$store.dispatch('user/logout').then(() => {
+          this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+          location.reload()
+        })
+      })
     },
-    handlerSysType (command) {
+    handlerSysType(command) {
       var data = {
         systype: command
       }
@@ -89,6 +111,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .navbar {
   height: 50px;
   overflow: hidden;

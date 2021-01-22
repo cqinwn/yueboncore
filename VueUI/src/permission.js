@@ -5,12 +5,10 @@ import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
 import { getToken } from '@/utils/auth' // get token from cookie
 import getPageTitle from '@/utils/get-page-title'
-import { getListMeunFuntionBymeunCode } from '@/api/basebasic'
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
-let flag = 0// 刷新不空白
 const whiteList = ['/login', '/register'] // no redirect whitelist
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async(to, from, next) => {
   NProgress.start()
   document.title = getPageTitle(to.meta.title)
   const hasToken = getToken()
@@ -20,21 +18,17 @@ router.beforeEach(async (to, from, next) => {
       NProgress.done()
     } else {
       try {
-        const hasGetUserInfo = store.getters.name
-        if (hasGetUserInfo && hasGetUserInfo !== 'null') {
-          if (to.name !== '' && (to.name !== undefined && to.name !== 'undefined')) {
-            getListMeunFuntionBymeunCode(to.name).then(res => {
-              localStorage.setItem('yueboncurrentfuns', JSON.stringify(res.ResData))
+        if (store.getters.roles.length === 0) {
+          await store.dispatch('user/getUserInfo').then(res => {
+            store.dispatch('GenerateRoutes', store.getters.menus).then(accessRoutes => {
+              // 根据roles权限生成可访问的路由表
+              router.addRoutes(accessRoutes) // 动态添加可访问路由表
+              next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
             })
-          }
-        }
-        if (flag === 0) {
-          await store.dispatch('GenerateRoutes').then(accessRoutes => {
-            // 根据roles权限生成可访问的路由表
-            router.addRoutes(accessRoutes) // 动态添加可访问路由表
-            flag++
-            next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
           }).catch(err => {
+            Message.error({
+              message: err || '出现错误，请稍后再试'
+            })
             store.dispatch('user/logout').then(() => {
               Message.error(err)
               next({ path: '/' })

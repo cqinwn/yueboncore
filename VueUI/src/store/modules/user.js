@@ -1,15 +1,16 @@
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
-import { login, logout, refreshToken, getListMeunFuntionBymeunCode, sysConnect } from '@/api/basebasic'
+import { login, logout, refreshToken, getListMeunFuntionBymeunCode, sysConnect, getUserInfo } from '@/api/basebasic'
 const getDefaultState = () => {
   return {
     token: getToken(),
-    name: localStorage.getItem('username'),
-    avatar: localStorage.getItem('useravatar'),
-    subSystem: JSON.parse(localStorage.getItem('usersubSystem')),
-    activeSystemName: localStorage.getItem('activeSystemName'),
-    menus: JSON.parse(localStorage.getItem('nowmenus')),
-    roles: localStorage.getItem('userroles')
+    name: '',
+    avatar: '',
+    subSystem: [],
+    activeSystemName: [],
+    menus: [], // JSON.parse(localStorage.getItem('nowmenus')),
+    roles: [],
+    permissions: []
   }
 }
 
@@ -24,41 +25,49 @@ const mutations = {
   },
   SET_NAME: (state, name) => {
     state.name = name
-    localStorage.setItem('username', name)
   },
   SET_ROLES: (state, roles) => {
     state.roles = roles
-    localStorage.setItem('userroles', roles)
   },
   SET_TEMPNAME: (state, name) => {
-    localStorage.setItem('usernametemp', name)
+    state.name = name
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
-    localStorage.setItem('useravatar', avatar)
   },
   SET_SUBSYSTEM: (state, subSystem) => {
     state.subSystem = subSystem
-    localStorage.setItem('usersubSystem', JSON.stringify(subSystem))
   },
   SET_ACTIVESYSTEMNAME: (state, activeSystemName) => {
     state.activeSystemName = activeSystemName
   },
   SET_MENUS: (state, menus) => {
     state.menus = menus
-    localStorage.setItem('nowmenus', JSON.stringify(menus))
+  },
+  SET_PERMISSIONS: (state, permissions) => {
+    state.permissions = permissions
   }
 }
 
 const actions = {
-  userlogin ({ commit }, userInfo) {
+  userlogin({ commit }, userInfo) {
     const { username, password, vcode, verifyCodeKey } = userInfo
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password, vcode: vcode, vkey: verifyCodeKey, appId: 'system', systemCode: 'openauth' }).then(response => {
         const data = response.ResData
-        const avatar = data.HeadIcon === '' ? require('@/assets/images/profile.jpg') : process.env.VUE_APP_BASE_API + data.HeadIcon
         setToken(data.AccessToken)
         commit('SET_TOKEN', data.AccessToken)
+        resolve(response)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+  getUserInfo({ commit }) {
+    return new Promise((resolve, reject) => {
+      getUserInfo().then(response => {
+        const data = response.ResData
+        const avatar = data.HeadIcon === '' ? require('@/assets/images/profile.jpg') : process.env.VUE_APP_BASE_API + data.HeadIcon
         commit('SET_TEMPNAME', data.Account)
         commit('SET_AVATAR', avatar)
         commit('SET_ROLES', data.Role)
@@ -66,6 +75,7 @@ const actions = {
         commit('SET_ACTIVESYSTEMNAME', data.ActiveSystem)
         commit('SET_MENUS', data.MenusRouter)
         commit('SET_NAME', data.Account)
+        commit('SET_PERMISSIONS', data.Modules)
         resolve(response)
       }).catch(error => {
         reject(error)
@@ -73,7 +83,7 @@ const actions = {
     })
   },
   // 系统切换
-  sysConnetLogin ({ commit }, userInfo) {
+  sysConnetLogin({ commit }, userInfo) {
     return new Promise((resolve, reject) => {
       sysConnect(userInfo).then(response => {
         const data = response.ResData
@@ -86,6 +96,7 @@ const actions = {
         commit('SET_ACTIVESYSTEMNAME', data.ActiveSystem)
         commit('SET_MENUS', data.MenusRouter)
         commit('SET_NAME', data.Account)
+        commit('SET_PERMISSIONS', JSON.stringify(data.Modules))
         resolve(response)
       }).catch(error => {
         reject(error)
@@ -93,7 +104,7 @@ const actions = {
     })
   },
   // user logout
-  logout ({ commit, state }) {
+  logout({ commit, state }) {
     return new Promise((resolve, reject) => {
       logout(state.token).then(() => {
         removeToken() // must remove  token  first
@@ -117,7 +128,7 @@ const actions = {
     })
   },
   // 刷新 token
-  resetToken ({ commit }) {
+  resetToken({ commit }) {
     const data = {
       'token': getToken()
     }
@@ -131,7 +142,7 @@ const actions = {
       resolve()
     })
   },
-  userNowMeunsFun (encode) {
+  userNowMeunsFun(encode) {
     const code = encode
     return new Promise((resolve, reject) => {
       getListMeunFuntionBymeunCode({ enCode: code }).then(response => {

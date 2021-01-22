@@ -105,7 +105,7 @@ import { getAllOrganizeTreeTable } from '@/api/security/organizeservice'
 import { getToken } from '@/utils/auth'
 export default {
   name: 'Usercenter',
-  data () {
+  data() {
     return {
       activeName: 'first',
       selectRole: [],
@@ -150,7 +150,7 @@ export default {
       'name'
     ])
   },
-  created () {
+  created() {
     this.InitDictItem()
     this.bindEditInfo()
     this.headers = { Authorization: 'Bearer ' + (getToken() || '') }
@@ -159,7 +159,7 @@ export default {
     /**
      * 初始化数据
      */
-    InitDictItem () {
+    InitDictItem() {
       getAllRoleList().then(res => {
         this.selectRole = res.ResData
       })
@@ -167,24 +167,24 @@ export default {
         this.selectOrganize = res.ResData
       })
     },
-    handleClick (tab, event) {
+    handleClick(tab, event) {
       console.log(tab, event)
     },
 
     /**
      *选择组织
      */
-    handleSelectOrganizeChange: function () {
+    handleSelectOrganizeChange: function() {
       this.editFrom.OrganizeId = this.selectedOrganizeOptions
     },
-    handleRemove (file, fileList) {
+    handleRemove(file, fileList) {
       this.editFrom.SysLogo = file.url
     },
-    handlePictureCardPreview (file) {
+    handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url
       this.dialogVisible = true
     },
-    bindEditInfo: function () {
+    bindEditInfo: function() {
       getByUserName(this.name).then(res => {
         this.editFrom.Account = res.ResData.Account
         this.editFrom.RealName = res.ResData.RealName
@@ -208,7 +208,7 @@ export default {
     /**
      * 新增/修改保存
      */
-    saveEditForm () {
+    saveEditForm() {
       console.log(this.editFrom.RoleId)
       this.$refs['editFrom'].validate((valid) => {
         if (valid) {
@@ -251,7 +251,7 @@ export default {
         }
       })
     },
-    uploadFileSuccess: function (response, file, fileList) {
+    uploadFileSuccess: function(response, file, fileList) {
       this.editFrom.HeadIcon = defaultSettings.fileUrl + response.ResData.FilePath
     }
   }

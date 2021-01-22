@@ -5,7 +5,7 @@
  * @param {string} cFormat
  * @returns {string | null}
  */
-export function parseTime (time, cFormat) {
+export function parseTime(time, cFormat) {
   if (arguments.length === 0) {
     return null
   }
@@ -45,7 +45,7 @@ export function parseTime (time, cFormat) {
  * @param {string} option
  * @returns {string}
  */
-export function formatTime (time, option) {
+export function formatTime(time, option) {
   if (('' + time).length === 10) {
     time = parseInt(time) * 1000
   } else {
@@ -87,7 +87,7 @@ export function formatTime (time, option) {
  * @param {string} url
  * @returns {Object}
  */
-export function param2Obj (url) {
+export function param2Obj(url) {
   const search = url.split('?')[1]
   if (!search) {
     return {}
@@ -107,7 +107,7 @@ export function param2Obj (url) {
  * 获取url参数值
  * @param {url参数名称} name
  */
-export function getUrlKey (name) {
+export function getUrlKey(name) {
   // eslint-disable-next-line no-sparse-arrays
   return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [, ''])[1].replace(/\+/g, '%20')) || null
 }
@@ -116,7 +116,7 @@ export function getUrlKey (name) {
  * 下载文件调用
  * @param 接口返回数据 文件名
  */
-export function downloadFile (resUrl, fileName) {
+export function downloadFile(resUrl, fileName) {
   if (!resUrl) {
     return
   }
@@ -133,8 +133,38 @@ export function downloadFile (resUrl, fileName) {
 }
 
 // 表单重置
-export function resetForm (refName) {
+export function resetForm(refName) {
   if (this.$refs[refName]) {
     this.$refs[refName].resetFields()
+  }
+}
+
+/**
+ * Check if an element has a class
+ * @param {HTMLElement} elm
+ * @param {string} cls
+ * @returns {boolean}
+ */
+export function hasClass(ele, cls) {
+  return !!ele.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'))
+}
+/**
+ * Add class to element
+ * @param {HTMLElement} elm
+ * @param {string} cls
+ */
+export function addClass(ele, cls) {
+  if (!hasClass(ele, cls)) ele.className += ' ' + cls
+}
+
+/**
+ * Remove class from element
+ * @param {HTMLElement} elm
+ * @param {string} cls
+ */
+export function removeClass(ele, cls) {
+  if (hasClass(ele, cls)) {
+    const reg = new RegExp('(\\s|^)' + cls + '(\\s|$)')
+    ele.className = ele.className.replace(reg, ' ')
   }
 }

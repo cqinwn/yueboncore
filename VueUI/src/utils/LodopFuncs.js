@@ -3,7 +3,7 @@
 var CreatedOKLodopObject, CLodopIsLocal, CLodopJsState
 
 // ==判断是否需要CLodop(那些不支持插件的浏览器):==
-function needCLodop () {
+function needCLodop() {
   try {
     var ua = navigator.userAgent
     if (ua.match(/Windows\sPhone/i)) { return true }
@@ -36,7 +36,7 @@ function needCLodop () {
 }
 
 // ==加载引用CLodop的主JS,用双端口8000和18000(以防其中一个被占):==
-function loadCLodop () {
+function loadCLodop() {
   if (CLodopJsState === 'loading' || CLodopJsState === 'complete') return
   CLodopJsState = 'loading'
   var head = document.head || document.getElementsByTagName('head')[0] || document.documentElement
@@ -44,8 +44,8 @@ function loadCLodop () {
   var JS2 = document.createElement('script')
   JS1.src = 'http://localhost:8000/CLodopfuncs.js?priority=1'
   JS2.src = 'http://localhost:18000/CLodopfuncs.js'
-  JS1.onload = JS2.onload = function () { CLodopJsState = 'complete' }
-  JS1.onerror = JS2.onerror = function (evt) { CLodopJsState = 'complete' }
+  JS1.onload = JS2.onload = function() { CLodopJsState = 'complete' }
+  JS1.onerror = JS2.onerror = function(evt) { CLodopJsState = 'complete' }
   head.insertBefore(JS1, head.firstChild)
   head.insertBefore(JS2, head.firstChild)
   CLodopIsLocal = !!((JS1.src + JS2.src).match(/\/\/localho|\/\/127.0.0./i))
@@ -54,7 +54,7 @@ function loadCLodop () {
 if (needCLodop()) { loadCLodop() }// 加载
 
 // ==获取LODOP对象主过程,判断是否安装、需否升级:==
-function getLodop (oOBJECT, oEMBED) {
+function getLodop(oOBJECT, oEMBED) {
   var strHtmInstall = "<br><font color='#FF00FF'>打印控件未安装!点击这里<a href='install_lodop32.exe' target='_self'>执行安装</a>,安装后请刷新页面或重新进入。</font>"
   var strHtmUpdate = "<br><font color='#FF00FF'>打印控件需要升级!点击这里<a href='install_lodop32.exe' target='_self'>执行升级</a>,升级后请重新进入。</font>"
   var strHtm64_Install = "<br><font color='#FF00FF'>打印控件未安装!点击这里<a href='install_lodop64.exe' target='_self'>执行安装</a>,安装后请刷新页面或重新进入。</font>"

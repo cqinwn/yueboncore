@@ -5,7 +5,7 @@ import defaultSettings from '@/settings'
    * 租户分页查询
    * @param {查询条件} data
    */
-export function getTenantListWithPager (data) {
+export function getTenantListWithPager(data) {
   return http.request({
     url: 'Tenants/Tenant/FindWithPagerAsync',
     method: 'post',
@@ -15,7 +15,7 @@ export function getTenantListWithPager (data) {
 }/**
    * 获取所有可用的租户
    */
-export function getAllTenantList () {
+export function getAllTenantList() {
   return http.request({
     url: 'Tenants/Tenant/GetAllEnable',
     method: 'get',
@@ -26,7 +26,7 @@ export function getAllTenantList () {
    * 新增或修改保存租户
    * @param data
    */
-export function saveTenant (data, url) {
+export function saveTenant(data, url) {
   return http.request({
     url: url,
     method: 'post',
@@ -38,7 +38,7 @@ export function saveTenant (data, url) {
    * 获取租户详情
    * @param {Id} 租户Id
    */
-export function getTenantDetail (id) {
+export function getTenantDetail(id) {
   return http({
     url: 'Tenants/Tenant/GetById?id=' + id,
     method: 'get',
@@ -49,7 +49,7 @@ export function getTenantDetail (id) {
    * 批量设置启用状态
    * @param {id集合} ids
    */
-export function setTenantEnable (data) {
+export function setTenantEnable(data) {
   return http({
     url: 'Tenants/Tenant/SetEnabledMarktBatchAsync',
     method: 'post',
@@ -61,7 +61,7 @@ export function setTenantEnable (data) {
    * 批量软删除
    * @param {id集合} ids
    */
-export function deleteSoftTenant (data) {
+export function deleteSoftTenant(data) {
   return http({
     url: 'Tenants/Tenant/DeleteSoftBatchAsync',
     method: 'post',
@@ -74,7 +74,7 @@ export function deleteSoftTenant (data) {
    * 批量删除
    * @param {id集合} ids
    */
-export function deleteTenant (data) {
+export function deleteTenant(data) {
   return http({
     url: 'Tenants/Tenant/DeleteBatchAsync',
     method: 'delete',

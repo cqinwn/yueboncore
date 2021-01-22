@@ -113,8 +113,7 @@ namespace Yuebon.AspNetCore.Mvc
                         var claims = new[] {
                            new Claim(YuebonClaimTypes.UserId,userId),
                            new Claim(YuebonClaimTypes.UserName,claimlist[2].Value),
-                           new Claim(YuebonClaimTypes.Role,claimlist[4].Value),
-                           new Claim(YuebonClaimTypes.TenantId,user.TenantId)
+                           new Claim(YuebonClaimTypes.Role,claimlist[4].Value)
                         };
                         var identity = new ClaimsIdentity(claims);
                         var principal = new ClaimsPrincipal(identity);

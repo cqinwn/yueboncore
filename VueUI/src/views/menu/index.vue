@@ -10,13 +10,11 @@
                   <el-form-item>
                     <el-button-group>
                       <el-button type="default" icon="el-icon-refresh" size="mini" @click="loadTableData()">刷新</el-button>
-                      <slot v-for="itemf in loadBtnFunc">
-                        <el-button v-if="itemf.EnCode==='Menu/Add'" type="primary" icon="el-icon-plus" size="mini" @click="ShowMenuEditOrViewDialog()">新增</el-button>
-                        <el-button v-if="itemf.EnCode==='Menu/Edit'" type="primary" icon="el-icon-edit" class="el-button-modify" size="mini" @click="ShowMenuEditOrViewDialog('edit')">修改</el-button>
-                        <el-button v-if="itemf.EnCode==='Menu/Enable'" type="info" icon="el-icon-video-pause" size="mini" @click="setMenuEnable('0')">禁用</el-button>
-                        <el-button v-if="itemf.EnCode==='Menu/Enable'" type="success" icon="el-icon-video-play" size="mini" @click="setMenuEnable('1')">启用</el-button>
-                        <el-button v-if="itemf.EnCode==='Menu/Delete'" type="danger" icon="el-icon-delete" size="mini" @click="deleteMenuPhysics()">删除</el-button>
-                      </slot>
+                      <el-button v-hasPermi="['Menu/Add']" type="primary" icon="el-icon-plus" size="mini" @click="ShowMenuEditOrViewDialog()">新增</el-button>
+                      <el-button v-hasPermi="['Menu/Edit']" type="primary" icon="el-icon-edit" class="el-button-modify" size="mini" @click="ShowMenuEditOrViewDialog('edit')">修改</el-button>
+                      <el-button v-hasPermi="['Menu/Enable']" type="info" icon="el-icon-video-pause" size="mini" @click="setMenuEnable('0')">禁用</el-button>
+                      <el-button v-hasPermi="['Menu/Enable']" type="success" icon="el-icon-video-play" size="mini" @click="setMenuEnable('1')">启用</el-button>
+                      <el-button v-hasPermi="['Menu/Delete']" type="danger" icon="el-icon-delete" size="mini" @click="deleteMenuPhysics()">删除</el-button>
                     </el-button-group>
                   </el-form-item>
                   <el-form-item label="系统名称：">
@@ -284,7 +282,7 @@ import IconSelect from '@/components/IconSelect'
 export default {
   name: 'Menu',
   components: { IconSelect },
-  data () {
+  data() {
     return {
       searchform: {
         keywords: '',
@@ -338,7 +336,7 @@ export default {
       cascaderKey: 0
     }
   },
-  created () {
+  created() {
     this.pagination.currentPage = 1
     this.InitDictItem()
     this.loadTableData()
@@ -348,12 +346,12 @@ export default {
     /**
      * 初始化数据
      */
-    InitDictItem () {
+    InitDictItem() {
       getSubSystemList().then(res => {
         this.selectSystemType = res.ResData
       })
     },
-    menuTypeChange: function () {
+    menuTypeChange: function() {
       var mty = this.editMenuFrom.MenuType
       if (mty === 'M') {
         this.formShowTitle = '菜单'
@@ -367,16 +365,16 @@ export default {
     },
 
     // 选择图标
-    selected (name) {
+    selected(name) {
       this.editMenuFrom.Icon = name
     },
     // 取消按钮
-    cancel () {
+    cancel() {
       this.dialogMenuEditFormVisible = false
       this.reset()
     },
     // 表单重置
-    reset () {
+    reset() {
       this.editMenuFrom = {
         FullName: '',
         EnCode: '',
@@ -401,7 +399,7 @@ export default {
     /**
      * 加载页面左侧菜单table数据
      */
-    loadTableData: function () {
+    loadTableData: function() {
       var data = {
         systemTypeId: this.searchmenuform.systemTypeId
       }
@@ -412,11 +410,11 @@ export default {
     /**
      * 点击查询菜单
      */
-    handleSearch: function () {
+    handleSearch: function() {
       this.loadTableData()
     },
     //
-    handleClickMenuChange: function (row, column, event) {
+    handleClickMenuChange: function(row, column, event) {
       this.searchform.code = row.EnCode
       this.currentMenuId = row.Id
     },
@@ -424,7 +422,7 @@ export default {
     /**
      * 菜单选择子系统
      */
-    handleSystemTypeChange: function () {
+    handleSystemTypeChange: function() {
       ++this.cascaderKey
       var data = {
         systemTypeId: this.selectSystemTypeId
@@ -437,7 +435,7 @@ export default {
     /**
      * 添加模块式选择菜单
      */
-    handleMenuChange: function () {
+    handleMenuChange: function() {
       if (this.currentMenuId === this.selectedMenuOptions) {
         this.$alert('不能选择自己作为父级', '提示')
         this.selectedMenuOptions = ''
@@ -448,7 +446,7 @@ export default {
     /**
      * 新增、修改或查看明细信息（绑定显示数据）*
      */
-    ShowMenuEditOrViewDialog: function (view) {
+    ShowMenuEditOrViewDialog: function(view) {
       this.reset()
       if (view !== undefined) {
         if (this.currentMenuId === '') {
@@ -464,7 +462,7 @@ export default {
         this.dialogMenuEditFormVisible = true
       }
     },
-    bindMenuEditInfo: function () {
+    bindMenuEditInfo: function() {
       getMenuDetail(this.currentMenuId).then(res => {
         this.editMenuFrom = res.ResData
         this.selectSystemTypeId = res.ResData.SystemTypeId
@@ -476,7 +474,7 @@ export default {
     /**
      * 新增/修改保存
      */
-    saveEditMenuForm () {
+    saveEditMenuForm() {
       this.$refs['editMenuFrom'].validate((valid) => {
         if (valid) {
           const data = {
@@ -524,7 +522,7 @@ export default {
         }
       })
     },
-    setMenuEnable: function (val) {
+    setMenuEnable: function(val) {
       if (this.currentMenuId === '') {
         this.$alert('请先选择要操作的数据', '提示')
         return false
@@ -551,7 +549,7 @@ export default {
         })
       }
     },
-    deleteMenuSoft: function (val) {
+    deleteMenuSoft: function(val) {
       if (this.currentMenuId === '') {
         this.$alert('请先选择要操作的数据', '提示')
         return false
@@ -578,7 +576,7 @@ export default {
         })
       }
     },
-    deleteMenuPhysics: function () {
+    deleteMenuPhysics: function() {
       if (this.currentMenuId === '') {
         this.$alert('请先选择要操作的数据', '提示')
         return false
@@ -588,7 +586,7 @@ export default {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
-        }).then(function () {
+        }).then(function() {
           const data = {
             Ids: currentIds
           }

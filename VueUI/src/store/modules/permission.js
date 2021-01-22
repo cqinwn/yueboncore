@@ -19,9 +19,9 @@ const permission = {
   },
   actions: {
     // 生成路由
-    GenerateRoutes ({ commit }) {
+    GenerateRoutes ({ commit }, meuns) {
       return new Promise(resolve => {
-        var menuList = localStorage.getItem('nowmenus')
+        var menuList = JSON.stringify(meuns)
         const sdata = JSON.parse(menuList)
         const rdata = JSON.parse(menuList)
         const sidebarRoutes = filterAsyncRouter(sdata)

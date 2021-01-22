@@ -24,15 +24,13 @@
     <el-card>
       <div class="list-btn-container">
         <el-button-group>
-          <slot v-for="itemf in loadBtnFunc">
-            <el-button v-if="itemf.FullName==='新增'" type="default" icon="el-icon-plus" size="small" @click="ShowEditOrViewDialog()">新增</el-button>
-            <el-button v-if="itemf.FullName==='修改'" type="default" icon="el-icon-edit" size="small" @click="ShowEditOrViewDialog('edit')">修改</el-button>
-            <el-button v-if="itemf.FullName=='禁用'" type="default" icon="el-icon-video-pause" size="small" @click="setEnable('0')">禁用</el-button>
-            <el-button v-if="itemf.FullName=='启用'" type="default" icon="el-icon-video-play" size="small" @click="setEnable('1')">启用</el-button>
-            <el-button v-if="itemf.FullName==='软删除'" type="default" icon="el-icon-delete" size="small" @click="deleteSoft('0')">软删除</el-button>
-            <el-button v-if="itemf.FullName==='删除'" type="default" icon="el-icon-delete" size="small" @click="deletePhysics()">删除</el-button>
-            <el-button v-if="itemf.FullName==='重置密码'" type="default" icon="el-icon-refresh-right" size="small" @click="handleResetPassword()">重置密码</el-button>
-          </slot>
+          <el-button v-hasPermi="['User/Add']" type="primary" icon="el-icon-plus" size="small" @click="ShowEditOrViewDialog()">新增</el-button>
+          <el-button v-hasPermi="['User/Edit']" type="primary" icon="el-icon-edit" class="el-button-modify" size="small" @click="ShowEditOrViewDialog('edit')">修改</el-button>
+          <el-button v-hasPermi="['User/Enable']" type="info" icon="el-icon-video-pause" size="small" @click="setEnable('0')">禁用</el-button>
+          <el-button v-hasPermi="['User/Enable']" type="success" icon="el-icon-video-play" size="small" @click="setEnable('1')">启用</el-button>
+          <el-button v-hasPermi="['User/DeleteSoft']" type="warning" icon="el-icon-delete" size="small" @click="deleteSoft('0')">软删除</el-button>
+          <el-button v-hasPermi="['User/Delete']" type="danger" icon="el-icon-delete" size="small" @click="deletePhysics()">删除</el-button>
+          <el-button v-hasPermi="['User/ResetPassword']" type="default" icon="el-icon-refresh-right" size="small" @click="handleResetPassword()">重置密码</el-button>
           <el-button type="default" icon="el-icon-refresh" size="small" @click="loadTableData()">刷新</el-button>
         </el-button-group>
       </div>

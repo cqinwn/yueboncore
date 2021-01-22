@@ -33,9 +33,7 @@
     <el-card>
       <div class="list-btn-container">
         <el-button-group>
-          <slot v-for="itemf in loadBtnFunc">
-            <el-button v-if="itemf.FullName === '删除'" type="danger" icon="el-icon-delete" size="small" @click="deletePhysics()">删除</el-button>
-          </slot>
+          <el-button v-hasPermi="['Log/Delete']" type="danger" icon="el-icon-delete" size="small" @click="deletePhysics()">删除</el-button>
           <el-button type="default" icon="el-icon-refresh" size="small" @click="loadTableData()">刷新</el-button>
         </el-button-group>
       </div>

@@ -9,14 +9,44 @@
                 <el-form ref="searchmenuform" :inline="true" :model="searchform" class="demo-form-inline" size="small">
                   <el-form-item>
                     <el-button-group>
-                      <el-button type="default" icon="el-icon-refresh" size="mini" @click="loadTableData()">刷新</el-button>
-                      <slot v-for="itemf in loadItemsBtnFunc">
-                        <el-button v-if="itemf.FullName==='新增'" type="primary" icon="el-icon-plus" size="mini" @click="ShowItemsEditOrViewDialog()">新增</el-button>
-                        <el-button v-if="itemf.FullName==='修改'" type="primary" icon="el-icon-edit" class="el-button-modify" size="mini" @click="ShowItemsEditOrViewDialog('edit')">修改</el-button>
-                        <el-button v-if="itemf.FullName=='禁用'" type="info" icon="el-icon-video-pause" size="mini" @click="setItemsEnable('0')">禁用</el-button>
-                        <el-button v-if="itemf.FullName=='启用'" type="success" icon="el-icon-video-play" size="mini" @click="setItemsEnable('1')">启用</el-button>
-                        <el-button v-if="itemf.FullName==='删除'" type="danger" icon="el-icon-delete" size="mini" @click="deleteItemsPhysics()">删除</el-button>
-                      </slot>
+                      <el-button type="default" icon="el-icon-refresh" size="small" @click="loadTableData()">刷新</el-button>
+
+                      <el-button
+                        v-hasPermi="['Items/Add']"
+                        type="primary"
+                        icon="el-icon-plus"
+                        size="small"
+                        @click="ShowItemsEditOrViewDialog()"
+                      >新增</el-button>
+                      <el-button
+                        v-hasPermi="['Items/Edit']"
+                        type="primary"
+                        icon="el-icon-edit"
+                        class="el-button-modify"
+                        size="small"
+                        @click="ShowItemsEditOrViewDialog('edit')"
+                      >修改</el-button>
+                      <el-button
+                        v-hasPermi="['Items/Enable']"
+                        type="info"
+                        icon="el-icon-video-pause"
+                        size="small"
+                        @click="setItemsEnable('0')"
+                      >禁用</el-button>
+                      <el-button
+                        v-hasPermi="['Items/Enable']"
+                        type="success"
+                        icon="el-icon-video-play"
+                        size="small"
+                        @click="setItemsEnable('1')"
+                      >启用</el-button>
+                      <el-button
+                        v-hasPermi="['Items/Delete']"
+                        type="danger"
+                        icon="el-icon-delete"
+                        size="small"
+                        @click="deleteItemsPhysics()"
+                      >删除</el-button>
                     </el-button-group>
                   </el-form-item>
                 </el-form>
@@ -60,14 +90,37 @@
               <el-form ref="searchform" :inline="true" :model="searchform" class="demo-form-inline" size="small">
                 <el-form-item>
                   <el-button-group>
-                    <el-button type="default" icon="el-icon-refresh" size="mini" @click="loadItemsDetailTableData()">刷新</el-button>
-                    <slot v-for="itemf in loadItemsDetailBtnFunc">
-                      <el-button v-if="itemf.FullName==='新增'" type="primary" icon="el-icon-plus" size="mini" @click="ShowItemsDetailEditOrViewDialog()">新增</el-button>
-                      <el-button v-if="itemf.FullName==='修改'" type="primary" icon="el-icon-edit" class="el-button-modify" size="mini" @click="ShowItemsDetailEditOrViewDialog('edit')">修改</el-button>
-                      <el-button v-if="itemf.FullName=='禁用'" type="info" icon="el-icon-video-pause" size="mini" @click="setItemsDetailEnable('0')">禁用</el-button>
-                      <el-button v-if="itemf.FullName=='启用'" type="success" icon="el-icon-video-play" size="mini" @click="setItemsDetailEnable('1')">启用</el-button>
-                      <el-button v-if="itemf.FullName==='删除'" type="danger" icon="el-icon-delete" size="mini" @click="deleteItemsDetailPhysics()">删除</el-button>
-                    </slot>
+                    <el-button type="default" icon="el-icon-refresh" size="small" @click="loadItemsDetailTableData()">刷新</el-button>
+                    <el-button
+                      v-hasPermi="['ItemsDetail/Add']"
+                      type="primary"
+                      icon="el-icon-plus"
+                      size="small"
+                      @click="ShowItemsDetailEditOrViewDialog()"
+                    >新增</el-button>
+                    <el-button
+                      v-hasPermi="['ItemsDetail/Edit']"
+                      type="primary"
+                      icon="el-icon-edit"
+                      class="el-button-modify"
+                      size="small"
+                      @click="ShowItemsDetailEditOrViewDialog('edit')"
+                    >修改</el-button>
+                    <el-button
+                      v-hasPermi="['ItemsDetail/Enable']"
+                      type="info"
+                      icon="el-icon-video-pause"
+                      size="small"
+                      @click="setItemsDetailEnable('0')"
+                    >禁用</el-button>
+                    <el-button
+                      v-hasPermi="['ItemsDetail/Enable']"
+                      type="success"
+                      icon="el-icon-video-play"
+                      size="small"
+                      @click="setItemsDetailEnable('1')"
+                    >启用</el-button>
+                    <el-button v-hasPermi="['ItemsDetail/Delete']" type="danger" icon="el-icon-delete" size="small" @click="deleteItemsDetailPhysics()">删除</el-button>
                   </el-button-group>
                 </el-form-item>
               </el-form>

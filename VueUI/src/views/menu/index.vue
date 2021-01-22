@@ -10,13 +10,11 @@
                   <el-form-item>
                     <el-button-group>
                       <el-button type="default" icon="el-icon-refresh" size="mini" @click="loadTableData()">刷新</el-button>
-                      <slot v-for="itemf in loadBtnFunc">
-                        <el-button v-if="itemf.EnCode==='Menu/Add'" type="primary" icon="el-icon-plus" size="mini" @click="ShowMenuEditOrViewDialog()">新增</el-button>
-                        <el-button v-if="itemf.EnCode==='Menu/Edit'" type="primary" icon="el-icon-edit" class="el-button-modify" size="mini" @click="ShowMenuEditOrViewDialog('edit')">修改</el-button>
-                        <el-button v-if="itemf.EnCode==='Menu/Enable'" type="info" icon="el-icon-video-pause" size="mini" @click="setMenuEnable('0')">禁用</el-button>
-                        <el-button v-if="itemf.EnCode==='Menu/Enable'" type="success" icon="el-icon-video-play" size="mini" @click="setMenuEnable('1')">启用</el-button>
-                        <el-button v-if="itemf.EnCode==='Menu/Delete'" type="danger" icon="el-icon-delete" size="mini" @click="deleteMenuPhysics()">删除</el-button>
-                      </slot>
+                      <el-button v-hasPermi="['Menu/Add']" type="primary" icon="el-icon-plus" size="mini" @click="ShowMenuEditOrViewDialog()">新增</el-button>
+                      <el-button v-hasPermi="['Menu/Edit']" type="primary" icon="el-icon-edit" class="el-button-modify" size="mini" @click="ShowMenuEditOrViewDialog('edit')">修改</el-button>
+                      <el-button v-hasPermi="['Menu/Enable']" type="info" icon="el-icon-video-pause" size="mini" @click="setMenuEnable('0')">禁用</el-button>
+                      <el-button v-hasPermi="['Menu/Enable']" type="success" icon="el-icon-video-play" size="mini" @click="setMenuEnable('1')">启用</el-button>
+                      <el-button v-hasPermi="['Menu/Delete']" type="danger" icon="el-icon-delete" size="mini" @click="deleteMenuPhysics()">删除</el-button>
                     </el-button-group>
                   </el-form-item>
                   <el-form-item label="系统名称：">

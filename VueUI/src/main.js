@@ -9,6 +9,7 @@ import '@/styles/index.scss' // global css
 import App from './App'
 import store from './store'
 import router from './router'
+import permission from './directive/permission'
 
 import '@/icons' // icon
 import '@/permission' // permission control
@@ -16,6 +17,8 @@ import { resetForm } from '@/utils/index'
 
 // 全局方法挂载
 Vue.prototype.resetForm = resetForm
+
+Vue.use(permission)
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api

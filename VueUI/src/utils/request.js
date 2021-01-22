@@ -37,6 +37,7 @@ service.interceptors.response.use(
           location.reload()
         })
       }
+      console.log(JSON.stringify(res))
       if (res.ErrCode === '40000' || res.ErrCode === '40001' || res.ErrCode === '40002' || res.ErrCode === '40004' || res.ErrCode === '40008') {
         // to re-login
         MessageBox.confirm('登录状态已过期，您可以继续留在该页面，或者重新登录', '系统提示', {

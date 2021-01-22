@@ -94,6 +94,14 @@ export async function login (data) {
     baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
   })
 }
+export async function getUserInfo () {
+  return http({
+    url: 'Login/GetUserInfo',
+    method: 'get',
+    timeout: 0,
+    baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
+  })
+}
 export function savePassword (data) {
   var query = data
   return http({

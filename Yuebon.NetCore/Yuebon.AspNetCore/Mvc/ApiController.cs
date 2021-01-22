@@ -110,7 +110,8 @@ namespace Yuebon.AspNetCore.Controllers
         /// <summary>
         /// 把object对象转换为ContentResult
         /// </summary>
-        /// <param name="obj"></param>
+        /// <param name="obj">转换对象</param>
+        /// <param name="isNull">是否忽略空值</param>
         /// <returns></returns>
         [HttpPost]
         [Route("api/ToJsonContent")]

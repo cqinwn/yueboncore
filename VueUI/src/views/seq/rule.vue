@@ -204,7 +204,7 @@ import { getAllSequenceList } from '@/api/security/sequence'
 
 export default {
   name: 'SequenceRule',
-  data () {
+  data() {
     return {
       searchform: {
         name: ''
@@ -290,7 +290,7 @@ export default {
       ]
     }
   },
-  created () {
+  created() {
     this.pagination.currentPage = 1
     this.InitDictItem()
     this.loadTableData()
@@ -300,7 +300,7 @@ export default {
     /**
      * 初始化数据
      */
-    InitDictItem () {
+    InitDictItem() {
       getAllSequenceList().then(res => {
         this.selectedSequence = res.ResData
       })
@@ -308,7 +308,7 @@ export default {
     /**
      * 加载页面table数据
      */
-    loadTableData: function () {
+    loadTableData: function() {
       this.tableloading = true
       var seachdata = {
         CurrenetPageIndex: this.pagination.currentPage,
@@ -326,7 +326,7 @@ export default {
     /**
      * 点击查询
      */
-    handleSearch: function () {
+    handleSearch: function() {
       this.pagination.currentPage = 1
       this.loadTableData()
     },
@@ -334,7 +334,7 @@ export default {
     /**
      * 新增、修改或查看明细信息（绑定显示数据）     *
      */
-    ShowEditOrViewDialog: function (view) {
+    ShowEditOrViewDialog: function(view) {
       if (view !== undefined) {
         if (this.currentSelected.length > 1 || this.currentSelected.length === 0) {
           this.$alert('请选择一条数据进行编辑/修改', '提示')
@@ -350,7 +350,7 @@ export default {
         this.dialogEditFormVisible = true
       }
     },
-    bindEditInfo: function () {
+    bindEditInfo: function() {
       getSequenceRuleDetail(this.currentId).then(res => {
         this.editFrom.SequenceName = res.ResData.SequenceName
         this.editFrom.RuleOrder = res.ResData.RuleOrder
@@ -366,7 +366,7 @@ export default {
     /**
      * 新增/修改保存
      */
-    saveEditForm () {
+    saveEditForm() {
       this.$refs['editFrom'].validate((valid) => {
         if (valid) {
           const data = {
@@ -404,7 +404,7 @@ export default {
         }
       })
     },
-    setEnable: function (val) {
+    setEnable: function(val) {
       if (this.currentSelected.length === 0) {
         this.$alert('请先选择要操作的数据', '提示')
         return false
@@ -434,7 +434,7 @@ export default {
         })
       }
     },
-    deleteSoft: function (val) {
+    deleteSoft: function(val) {
       if (this.currentSelected.length === 0) {
         this.$alert('请先选择要操作的数据', '提示')
         return false
@@ -464,7 +464,7 @@ export default {
         })
       }
     },
-    deletePhysics: function () {
+    deletePhysics: function() {
       if (this.currentSelected.length === 0) {
         this.$alert('请先选择要操作的数据', '提示')
         return false
@@ -477,7 +477,7 @@ export default {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
-        }).then(function () {
+        }).then(function() {
           const data = {
             Ids: currentIds
           }
@@ -502,7 +502,7 @@ export default {
     /**
      * 当表格的排序条件发生变化的时候会触发该事件
      */
-    handleSortChange: function (column) {
+    handleSortChange: function(column) {
       this.sortableData.sort = column.prop
       if (column.order === 'ascending') {
         this.sortableData.order = 'asc'
@@ -514,19 +514,19 @@ export default {
     /**
      * 当用户手动勾选checkbox数据行事件
      */
-    handleSelectChange: function (selection, row) {
+    handleSelectChange: function(selection, row) {
       this.currentSelected = selection
     },
     /**
      * 当用户手动勾选全选checkbox事件
      */
-    handleSelectAllChange: function (selection) {
+    handleSelectAllChange: function(selection) {
       this.currentSelected = selection
     },
     /**
      * 选择每页显示数量
      */
-    handleSizeChange (val) {
+    handleSizeChange(val) {
       this.pagination.pagesize = val
       this.pagination.currentPage = 1
       this.loadTableData()
@@ -534,7 +534,7 @@ export default {
     /**
      * 选择当页面
      */
-    handleCurrentChange (val) {
+    handleCurrentChange(val) {
       this.pagination.currentPage = val
       this.loadTableData()
     }

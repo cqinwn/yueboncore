@@ -157,13 +157,13 @@ import defaultSettings from '@/settings'
 export default {
   name: 'Dashboard',
   components: { countto },
-  data () {
+  data() {
     return {
       SysSetting: [],
       syskey: ''
     }
   },
-  created () {
+  created() {
     this.syskey = getUrlKey('openmf')
     if (this.syskey !== '' && this.syskey !== null && this.syskey !== 'null' && this.syskey !== undefined) {
       this.loadsysType()
@@ -174,12 +174,12 @@ export default {
     /**
      * 初始化数据
      */
-    InitDictItem () {
+    InitDictItem() {
       getSysInfo().then(res => {
         this.SysSetting = res.ResData
       })
     },
-    loadsysType () {
+    loadsysType() {
       var data = {
         openmf: this.syskey,
         appId: defaultSettings.appId,

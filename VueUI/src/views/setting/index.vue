@@ -148,7 +148,7 @@ import defaultSettings from '@/settings'
 import { getToken } from '@/utils/auth'
 export default {
   name: 'SysSetting',
-  data () {
+  data() {
     return {
       activeName: 'first',
       editFrom: {
@@ -199,19 +199,19 @@ export default {
       headers: []
     }
   },
-  created () {
+  created() {
     this.loadSettingData()
     this.headers = { Authorization: 'Bearer ' + (getToken() || '') }
   },
   methods: {
-    handleRemove (file, fileList) {
+    handleRemove(file, fileList) {
       this.editFrom.SysLogo = file.url
     },
-    handlePictureCardPreview (file) {
+    handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url
       this.dialogVisible = true
     },
-    loadSettingData: function () {
+    loadSettingData: function() {
       getAllSysSetting().then(res => {
         this.editFrom = res.ResData
         this.editFrom.Webstatus = res.ResData.Webstatus + ''
@@ -219,10 +219,10 @@ export default {
         this.filelist = [{ name: res.ResData.SysLogo, url: res.ResData.SysLogo }]
       })
     },
-    uploadFileSuccess: function (response, file, fileList) {
+    uploadFileSuccess: function(response, file, fileList) {
       this.editFrom.SysLogo = defaultSettings.fileUrl + response.ResData.FilePath
     },
-    saveEditForm () {
+    saveEditForm() {
       this.$refs['editFrom'].validate((valid) => {
         if (valid) {
           const data = this.editFrom

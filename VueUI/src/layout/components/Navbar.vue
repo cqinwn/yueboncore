@@ -66,10 +66,10 @@ export default {
     ])
   },
   methods: {
-    toggleSideBar () {
+    toggleSideBar() {
       this.$store.dispatch('app/toggleSideBar')
     },
-    async logout () {
+    async logout() {
       this.$confirm('确定注销并退出系统吗？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -81,7 +81,7 @@ export default {
         })
       })
     },
-    handlerSysType (command) {
+    handlerSysType(command) {
       var data = {
         systype: command
       }

@@ -26,7 +26,19 @@
           <el-button type="default" icon="el-icon-refresh" size="small" @click="loadTableData()">刷新</el-button>
         </el-button-group>
       </div>
-      <el-table ref="gridtable" v-loading="tableloading" :data="tableData" border stripe highlight-current-row style="width: 100%" :default-sort="{ prop: 'Id', order: 'ascending' }" @select="handleSelectChange" @select-all="handleSelectAllChange" @sort-change="handleSortChange">
+      <el-table
+        ref="gridtable"
+        v-loading="tableloading"
+        :data="tableData"
+        border
+        stripe
+        highlight-current-row
+        style="width: 100%"
+        :default-sort="{ prop: 'Id', order: 'ascending' }"
+        @select="handleSelectChange"
+        @select-all="handleSelectAllChange"
+        @sort-change="handleSortChange"
+      >
         <el-table-column type="selection" width="30" />
         <el-table-column prop="Id" label="任务ID" sortable="custom" width="150" />
         <el-table-column prop="TaskName" label="任务名称" sortable="custom" width="150" />
@@ -68,57 +80,83 @@
         <el-pagination background :current-page="pagination.currentPage" :page-sizes="[5, 10, 20, 50, 100, 200, 300, 400]" :page-size="pagination.pagesize" layout="total, sizes, prev, pager, next, jumper" :total="pagination.pageTotal" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
       </div>
     </el-card>
-    <el-dialog ref="dialogEditForm" :title="editFormTitle + '任务'" :visible.sync="dialogEditFormVisible" width="640px">
+    <el-dialog ref="dialogEditForm" :title="editFormTitle + '任务'" :visible.sync="dialogEditFormVisible" width="880px">
       <el-form ref="editFrom" :model="editFrom" :rules="rules">
-        <el-form-item label="任务名称" :label-width="formLabelWidth" prop="TaskName">
-          <el-input v-model="editFrom.TaskName" placeholder="请输入任务名称" autocomplete="off" clearable />
-        </el-form-item>
-        <el-form-item label="分组名称" :label-width="formLabelWidth" prop="GroupName">
-          <el-input v-model="editFrom.GroupName" placeholder="请输入分组名称" autocomplete="off" clearable />
-        </el-form-item>
-        <el-form-item label="起止时间" :label-width="formLabelWidth" prop="StartEndTime">
-          <el-date-picker v-model="editFrom.StartEndTime" type="datetimerange" start-placeholder="开始时间" end-placeholder="结束结束" :default-time="['12:00:00']" />
-        </el-form-item>
-        <el-form-item label="Cron表达式" :label-width="formLabelWidth" prop="Cron">
-          <el-input v-model="editFrom.Cron" placeholder="请输入Cron表达式" autocomplete="off" clearable />
-        </el-form-item>
-        <el-form-item label="任务执行方式" :label-width="formLabelWidth" prop="IsLocal">
-          <el-radio-group v-model="editFrom.IsLocal" @change="changeIsLocal">
-            <el-radio label="true">本地任务</el-radio>
-            <el-radio label="false">外部接口任务</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item v-if="isShowSelect === 'true'" label="任务地址" :label-width="formLabelWidth" prop="JobCallAddress">
-          <el-select v-model="editFrom.JobCallAddress" clearable filterable placeholder="请输入任务地址" style="width: 300px">
-            <el-option v-for="item in selectLocalTask" :key="item.FullName" :label="item.FullName" :value="item.FullName" />
-          </el-select>
-        </el-form-item>
-        <el-form-item v-if="isShowSelect !== 'true'" label="任务地址" :label-width="formLabelWidth" prop="JobCallAddress">
-          <el-input v-model="editFrom.JobCallAddress" placeholder="请输入外部接口任务地址" autocomplete="off" clearable />
-        </el-form-item>
-        <el-form-item label="任务参数" :label-width="formLabelWidth" prop="JobCallParams">
-          <el-input v-model="editFrom.JobCallParams" type="textarea" placeholder="请输入任务参数，JSON格式,为空时请求访问方式为get，反之为post" autocomplete="off" clearable />
-        </el-form-item>
-        <el-form-item label="描述" :label-width="formLabelWidth" prop="Description">
-          <el-input v-model="editFrom.Description" type="textarea" autocomplete="off" clearable />
-        </el-form-item>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="任务名称" :label-width="formLabelWidth" prop="TaskName">
+              <el-input v-model="editFrom.TaskName" placeholder="请输入任务名称" autocomplete="off" clearable />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="分组名称" :label-width="formLabelWidth" prop="GroupName">
+              <el-input v-model="editFrom.GroupName" placeholder="请输入分组名称" autocomplete="off" clearable />
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="起止时间" :label-width="formLabelWidth" prop="StartEndTime">
+              <el-date-picker v-model="editFrom.StartEndTime" type="datetimerange" start-placeholder="开始时间" end-placeholder="结束结束" :default-time="['12:00:00']" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="Cron表达式" :label-width="formLabelWidth" prop="Cron">
+              <cron-input v-model="editFrom.Cron" placeholder="请输入Cron表达式" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="执行方式" :label-width="formLabelWidth" prop="IsLocal">
+              <el-radio-group v-model="editFrom.IsLocal" @change="changeIsLocal">
+                <el-radio label="true">本地任务</el-radio>
+                <el-radio label="false">外部接口任务</el-radio>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item v-if="isShowSelect === 'true'" label="任务地址" :label-width="formLabelWidth" prop="JobCallAddress">
+              <el-select v-model="editFrom.JobCallAddress" clearable filterable placeholder="请输入任务地址" style="width: 300px">
+                <el-option v-for="item in selectLocalTask" :key="item.FullName" :label="item.FullName" :value="item.FullName" />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item v-if="isShowSelect !== 'true'" label="任务地址" :label-width="formLabelWidth" prop="JobCallAddress">
+              <el-input v-model="editFrom.JobCallAddress" placeholder="请输入外部接口任务地址" autocomplete="off" clearable />
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="任务参数" :label-width="formLabelWidth" prop="JobCallParams">
+              <el-input v-model="editFrom.JobCallParams" type="textarea" placeholder="请输入任务参数，JSON格式,为空时请求访问方式为get，反之为post" autocomplete="off" clearable />
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="描述" :label-width="formLabelWidth" prop="Description">
+              <el-input v-model="editFrom.Description" type="textarea" autocomplete="off" clearable />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
 
-        <el-form-item label="邮件通知" :label-width="formLabelWidth" prop="IsSendMail">
-          <el-radio-group v-model="editFrom.SendMail">
-            <el-radio label="0">不通知</el-radio>
-            <el-radio label="1">异常通知</el-radio>
-            <el-radio label="2">所有通知</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item v-if="editFrom.SendMail != '0'" label="Email地址" :label-width="formLabelWidth" prop="EmailAddress">
-          <el-input v-model="editFrom.EmailAddress" placeholder="接收通知邮件多个用英文逗号隔开，为空默认系统配置邮箱" autocomplete="off" clearable />
-        </el-form-item>
-        <el-form-item label="是否启用" :label-width="formLabelWidth" prop="EnabledMark">
-          <el-radio-group v-model="editFrom.EnabledMark">
-            <el-radio label="true">是</el-radio>
-            <el-radio label="false">否</el-radio>
-          </el-radio-group>
-        </el-form-item>
+            <el-form-item label="邮件通知" :label-width="formLabelWidth" prop="IsSendMail">
+              <el-radio-group v-model="editFrom.SendMail">
+                <el-radio label="0">不通知</el-radio>
+                <el-radio label="1">异常通知</el-radio>
+                <el-radio label="2">所有通知</el-radio>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item v-if="editFrom.SendMail != '0'" label="Email地址" :label-width="formLabelWidth" prop="EmailAddress">
+              <el-input v-model="editFrom.EmailAddress" placeholder="接收通知邮件多个用英文逗号隔开，为空默认系统配置邮箱" autocomplete="off" clearable />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="是否启用" :label-width="formLabelWidth" prop="EnabledMark">
+              <el-radio-group v-model="editFrom.EnabledMark">
+                <el-radio label="true">是</el-radio>
+                <el-radio label="false">否</el-radio>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogEditFormVisible = false">取 消</el-button>
@@ -144,9 +182,14 @@ import {
   deleteTaskManager, changeStatus, getLocalTaskJobs, getTaskJobLogListWithPager
 } from '@/api/security/taskmanager'
 
+import CronInput from '@/components/cron/cron-input'
+
 export default {
   name: 'TaskManager',
-  data () {
+  components: {
+    CronInput
+  },
+  data() {
     return {
       searchform: {
         name: ''
@@ -211,7 +254,7 @@ export default {
       reverse: true
     }
   },
-  created () {
+  created() {
     this.pagination.currentPage = 1
     this.InitDictItem()
     this.loadTableData()
@@ -221,7 +264,7 @@ export default {
     /**
      * 初始化数据
      */
-    InitDictItem () {
+    InitDictItem() {
       getLocalTaskJobs().then(res => {
         this.selectLocalTask = res.ResData
       })
@@ -229,7 +272,7 @@ export default {
     /**
      * 加载页面table数据
      */
-    loadTableData: function () {
+    loadTableData: function() {
       this.tableloading = true
       var seachdata = {
         CurrenetPageIndex: this.pagination.currentPage,
@@ -247,22 +290,22 @@ export default {
     /**
      * 点击查询
      */
-    handleSearch: function () {
+    handleSearch: function() {
       this.pagination.currentPage = 1
       this.loadTableData()
     },
-    changeIsLocal: function () {
+    changeIsLocal: function() {
       this.isShowSelect = this.editFrom.IsLocal
       this.editFrom.JobCallAddress = ''
     },
-    handleShowLogs: function (row) {
+    handleShowLogs: function(row) {
       this.dialogShowLogFormVisible = true
       this.loadJobLogData(row)
     },
     /**
      * 加载页面table数据
      */
-    loadJobLogData: function (row) {
+    loadJobLogData: function(row) {
       var seachdata = {
         'Keywords': row.Id
       }
@@ -273,7 +316,7 @@ export default {
     /**
      * 新增、修改或查看明细信息（绑定显示数据）     *
      */
-    ShowEditOrViewDialog: function (view) {
+    ShowEditOrViewDialog: function(view) {
       if (view !== undefined) {
         if (this.currentSelected.length > 1 || this.currentSelected.length === 0) {
           this.$alert('请选择一条数据进行编辑/修改', '提示')
@@ -289,7 +332,7 @@ export default {
         this.dialogEditFormVisible = true
       }
     },
-    bindEditInfo: function () {
+    bindEditInfo: function() {
       getTaskManagerDetail(this.currentId).then(res => {
         this.editFrom.TaskName = res.ResData.TaskName
         this.editFrom.GroupName = res.ResData.GroupName
@@ -308,7 +351,7 @@ export default {
     /**
      * 新增/修改保存
      */
-    saveEditForm () {
+    saveEditForm() {
       this.$refs['editFrom'].validate((valid) => {
         if (valid) {
           const data = {
@@ -354,7 +397,7 @@ export default {
         }
       })
     },
-    setEnable: function (val) {
+    setEnable: function(val) {
       if (this.currentSelected.length === 0) {
         this.$alert('请先选择要操作的数据', '提示')
         return false
@@ -384,7 +427,7 @@ export default {
         })
       }
     },
-    deleteSoft: function (val) {
+    deleteSoft: function(val) {
       if (this.currentSelected.length === 0) {
         this.$alert('请先选择要操作的数据', '提示')
         return false
@@ -414,7 +457,7 @@ export default {
         })
       }
     },
-    deletePhysics: function () {
+    deletePhysics: function() {
       if (this.currentSelected.length === 0) {
         this.$alert('请先选择要操作的数据', '提示')
         return false
@@ -427,7 +470,7 @@ export default {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
-        }).then(function () {
+        }).then(function() {
           const data = {
             Ids: currentIds
           }
@@ -450,7 +493,7 @@ export default {
       }
     },
     // 启动/暂停
-    setStatus: function (val) {
+    setStatus: function(val) {
       if (this.currentSelected.length === 0) {
         this.$alert('请先选择要操作的数据', '提示')
         return false
@@ -480,7 +523,7 @@ export default {
     /**
      * 当表格的排序条件发生变化的时候会触发该事件
      */
-    handleSortChange: function (column) {
+    handleSortChange: function(column) {
       this.sortableData.sort = column.prop
       if (column.order === 'ascending') {
         this.sortableData.order = 'asc'
@@ -492,19 +535,19 @@ export default {
     /**
      * 当用户手动勾选checkbox数据行事件
      */
-    handleSelectChange: function (selection, row) {
+    handleSelectChange: function(selection, row) {
       this.currentSelected = selection
     },
     /**
      * 当用户手动勾选全选checkbox事件
      */
-    handleSelectAllChange: function (selection) {
+    handleSelectAllChange: function(selection) {
       this.currentSelected = selection
     },
     /**
      * 选择每页显示数量
      */
-    handleSizeChange (val) {
+    handleSizeChange(val) {
       this.pagination.pagesize = val
       this.pagination.currentPage = 1
       this.loadTableData()
@@ -512,7 +555,7 @@ export default {
     /**
      * 选择当页面
      */
-    handleCurrentChange (val) {
+    handleCurrentChange(val) {
       this.pagination.currentPage = val
       this.loadTableData()
     }

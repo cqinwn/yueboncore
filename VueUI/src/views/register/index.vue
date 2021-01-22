@@ -69,7 +69,7 @@ import { registerUser } from '@/api/security/userservice'
 
 export default {
   name: 'Register',
-  data () {
+  data() {
     const validateUsername = (rule, value, callback) => {
       if (value.length < 1) {
         callback(new Error('请输入登录账号！'))
@@ -145,13 +145,13 @@ export default {
       copyRight: ''
     }
   },
-  created () {
+  created() {
     this.loadToken()
     this.getLoginVerifyCode()
   },
   methods: {
 
-    loadToken () {
+    loadToken() {
       getToken().then(response => {
         setToken(response.ResData.AccessToken)
         getSysSetting().then(res => {
@@ -162,7 +162,7 @@ export default {
         })
       })
     },
-    handleLogin () {
+    handleLogin() {
       this.$refs['registerForm'].validate((valid) => {
         if (valid) {
           if (!this.editFrom.checkAgreement) {
@@ -196,7 +196,7 @@ export default {
       })
     },
     // 获取验证码
-    async getLoginVerifyCode () {
+    async getLoginVerifyCode() {
       this.editFrom.VerificationCode = ''
       const res = await getVerifyCode()
       if (res.Success) {

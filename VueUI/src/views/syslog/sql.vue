@@ -37,7 +37,19 @@
           <el-button type="default" icon="el-icon-refresh" size="small" @click="loadTableData()">刷新</el-button>
         </el-button-group>
       </div>
-      <el-table ref="gridtable" v-loading="tableloading" :data="tableData" border stripe highlight-current-row style="width: 100%" :default-sort="{ prop: 'CreatorTime', order: 'descending' }" @select="handleSelectChange" @select-all="handleSelectAllChange" @sort-change="handleSortChange">
+      <el-table
+        ref="gridtable"
+        v-loading="tableloading"
+        :data="tableData"
+        border
+        stripe
+        highlight-current-row
+        style="width: 100%"
+        :default-sort="{ prop: 'CreatorTime', order: 'descending' }"
+        @select="handleSelectChange"
+        @select-all="handleSelectAllChange"
+        @sort-change="handleSortChange"
+      >
         <el-table-column type="selection" width="30" />
         <el-table-column prop="CreatorTime" label="操作时间" sortable="custom" width="180" />
         <el-table-column prop="Description" label="详情" />
@@ -54,7 +66,7 @@ import { getLogListWithPager, deleteLog } from '@/api/security/logservice'
 
 export default {
   name: 'LogSQL',
-  data () {
+  data() {
     return {
       searchform: {
         name: '',
@@ -64,7 +76,7 @@ export default {
       pickerOptions: {
         shortcuts: [{
           text: '今天',
-          onClick (picker) {
+          onClick(picker) {
             const end = new Date()
             const start = new Date()
             start.setTime(start.getTime())
@@ -72,7 +84,7 @@ export default {
           }
         }, {
           text: '昨天',
-          onClick (picker) {
+          onClick(picker) {
             const end = new Date()
             const start = new Date()
             start.setTime(start.getTime() - 3600 * 1000 * 24 * 1)
@@ -80,7 +92,7 @@ export default {
           }
         }, {
           text: '最近两天',
-          onClick (picker) {
+          onClick(picker) {
             const end = new Date()
             const start = new Date()
             start.setTime(start.getTime() - 3600 * 1000 * 24 * 2)
@@ -88,7 +100,7 @@ export default {
           }
         }, {
           text: '最近三天',
-          onClick (picker) {
+          onClick(picker) {
             const end = new Date()
             const start = new Date()
             start.setTime(start.getTime() - 3600 * 1000 * 24 * 3)
@@ -96,7 +108,7 @@ export default {
           }
         }, {
           text: '最近一周',
-          onClick (picker) {
+          onClick(picker) {
             const end = new Date()
             const start = new Date()
             start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
@@ -104,7 +116,7 @@ export default {
           }
         }, {
           text: '最近一个月',
-          onClick (picker) {
+          onClick(picker) {
             const end = new Date()
             const start = new Date()
             start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
@@ -112,7 +124,7 @@ export default {
           }
         }, {
           text: '最近两个月',
-          onClick (picker) {
+          onClick(picker) {
             const end = new Date()
             const start = new Date()
             start.setTime(start.getTime() - 3600 * 1000 * 24 * 60)
@@ -136,7 +148,7 @@ export default {
       currentSelected: []
     }
   },
-  created () {
+  created() {
     const end = new Date()
     const start = new Date()
     start.setTime(start.getTime() - 3600 * 1000 * 24 * 15)
@@ -150,11 +162,11 @@ export default {
     /**
      * 初始化数据
      */
-    InitDictItem () { },
+    InitDictItem() { },
     /**
      * 加载页面table数据
      */
-    loadTableData: function () {
+    loadTableData: function() {
       this.tableloading = true
       var seachdata = {
         CurrenetPageIndex: this.pagination.currentPage,
@@ -179,12 +191,12 @@ export default {
     /**
      * 点击查询
      */
-    handleSearch: function () {
+    handleSearch: function() {
       this.pagination.currentPage = 1
       this.loadTableData()
     },
 
-    deletePhysics: function () {
+    deletePhysics: function() {
       if (this.currentSelected.length === 0) {
         this.$alert('请先选择要操作的数据', '提示')
         return false
@@ -216,7 +228,7 @@ export default {
     /**
      * 当表格的排序条件发生变化的时候会触发该事件
      */
-    handleSortChange: function (column) {
+    handleSortChange: function(column) {
       this.sortableData.sort = column.prop
       if (column.order === 'ascending') {
         this.sortableData.order = 'asc'
@@ -228,19 +240,19 @@ export default {
     /**
      * 当用户手动勾选checkbox数据行事件
      */
-    handleSelectChange: function (selection, row) {
+    handleSelectChange: function(selection, row) {
       this.currentSelected = selection
     },
     /**
      * 当用户手动勾选全选checkbox事件
      */
-    handleSelectAllChange: function (selection) {
+    handleSelectAllChange: function(selection) {
       this.currentSelected = selection
     },
     /**
      * 选择每页显示数量
      */
-    handleSizeChange (val) {
+    handleSizeChange(val) {
       this.pagination.pagesize = val
       this.pagination.currentPage = 1
       this.loadTableData()
@@ -248,7 +260,7 @@ export default {
     /**
      * 选择当页面
      */
-    handleCurrentChange (val) {
+    handleCurrentChange(val) {
       this.pagination.currentPage = val
       this.loadTableData()
     }

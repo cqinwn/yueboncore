@@ -4,7 +4,7 @@ import defaultSettings from '@/settings'
 /**
    * 创建数据库连接
    */
-export function createGetDBConn (data) {
+export function createGetDBConn(data) {
   return http({
     url: 'CodeGenerator/CreateDBConn',
     method: 'post',
@@ -15,7 +15,7 @@ export function createGetDBConn (data) {
 /**
    * 获取数据库
    */
-export function codeGetDBList () {
+export function codeGetDBList() {
   return http({
     url: 'CodeGenerator/GetListDataBase',
     method: 'get',
@@ -25,7 +25,7 @@ export function codeGetDBList () {
 /**
    * 获取数据库表
    */
-export function codeGetTableList (data) {
+export function codeGetTableList(data) {
   return http({
     url: 'CodeGenerator/GetListTable',
     method: 'get',
@@ -36,7 +36,7 @@ export function codeGetTableList (data) {
 /**
    * 生成代码
    */
-export async function codeGenerator (data) {
+export async function codeGenerator(data) {
   return await http({
     url: 'CodeGenerator/Generate',
     method: 'get',
@@ -49,7 +49,7 @@ export async function codeGenerator (data) {
  *
 * 数据库解密
 */
-export function dbtoolsConnStrDecrypt (data) {
+export function dbtoolsConnStrDecrypt(data) {
   return http({
     url: 'DbTools/ConnStrDecrypt',
     method: 'post',
@@ -60,7 +60,7 @@ export function dbtoolsConnStrDecrypt (data) {
 /**
    * 数据库加密
    */
-export function dbtoolsConnStrEncrypt (data) {
+export function dbtoolsConnStrEncrypt(data) {
   return http({
     url: 'DbTools/ConnStrEncrypt',
     method: 'post',

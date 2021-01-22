@@ -24,7 +24,7 @@ export default {
       required: true
     }
   },
-  data () {
+  data() {
     return {
       title: '管理中心',
       logo: ''

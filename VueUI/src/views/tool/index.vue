@@ -121,7 +121,7 @@ import { Loading } from 'element-ui'
 import defaultSettings from '@/settings'
 export default {
   name: 'CodeGenerator',
-  data () {
+  data() {
     return {
       searchDbform: {
         DbName: '',
@@ -169,13 +169,13 @@ export default {
       selectedDataBase: []
     }
   },
-  created () {
+  created() {
     this.pagination.currentPage = 1
     this.loadData()
     this.loadTableData()
   },
   methods: {
-    loadData: function () {
+    loadData: function() {
       codeGetDBList().then(res => {
         this.selectedDataBase = res.ResData
       })
@@ -183,7 +183,7 @@ export default {
     /**
      * 加载页面table数据
      */
-    loadTableData: function () {
+    loadTableData: function() {
       if (this.searchform.dataBaseName !== '') {
         this.tableloading = true
         var seachdata = {
@@ -204,15 +204,15 @@ export default {
     /**
      * 点击查询
      */
-    handleSearch: function () {
+    handleSearch: function() {
       this.pagination.currentPage = 1
       this.loadTableData()
     },
-    handleShowTable: function () {
+    handleShowTable: function() {
       this.pagination.currentPage = 1
       this.loadTableData()
     },
-    handleDbConn: function () {
+    handleDbConn: function() {
       var dataInfo = {
         DbAddress: this.searchDbform.DbAddress,
         DbName: this.searchDbform.DbName,
@@ -230,7 +230,7 @@ export default {
     /**
      * 点击生成服务端代码
      */
-    handleGenerate: async function () {
+    handleGenerate: async function() {
       if (this.currentSelected.length === 0) {
         this.$alert('请先选择要生成代码的数据表', '提示')
         return false
@@ -279,7 +279,7 @@ export default {
     /**
      * 当表格的排序条件发生变化的时候会触发该事件
      */
-    handleSortChange: function (column) {
+    handleSortChange: function(column) {
       this.sortableData.sort = column.prop
       if (column.order === 'ascending') {
         this.sortableData.order = 'asc'
@@ -291,19 +291,19 @@ export default {
     /**
      * 当用户手动勾选checkbox数据行事件
      */
-    handleSelectChange: function (selection, row) {
+    handleSelectChange: function(selection, row) {
       this.currentSelected = selection
     },
     /**
      * 当用户手动勾选全选checkbox事件
      */
-    handleSelectAllChange: function (selection) {
+    handleSelectAllChange: function(selection) {
       this.currentSelected = selection
     },
     /**
      * 选择每页显示数量
      */
-    handleSizeChange (val) {
+    handleSizeChange(val) {
       this.pagination.pagesize = val
       this.pagination.currentPage = 1
       this.loadTableData()
@@ -311,7 +311,7 @@ export default {
     /**
      * 选择当页面
      */
-    handleCurrentChange (val) {
+    handleCurrentChange(val) {
       this.pagination.currentPage = val
       this.loadTableData()
     }

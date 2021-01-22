@@ -100,7 +100,7 @@ import { getToken, getSysSetting, getVerifyCode } from '@/api/basebasic'
 import { Loading } from 'element-ui'
 export default {
   name: 'Login',
-  data () {
+  data() {
     const validateUsername = (rule, value, callback) => {
       if (value.length < 1) {
         callback(new Error('请输入登录账号！'))
@@ -149,7 +149,7 @@ export default {
   },
   watch: {
     $route: {
-      handler: function (route) {
+      handler: function(route) {
         const query = route.query
         if (query) {
           this.redirect = query.redirect
@@ -159,7 +159,7 @@ export default {
       immediate: true
     }
   },
-  created () {
+  created() {
     var loadop = {
       lock: true,
       text: '正在初始化...',
@@ -170,10 +170,10 @@ export default {
     this.loadToken()
     this.getLoginVerifyCode()
   },
-  mounted () {
+  mounted() {
   },
   methods: {
-    loadToken () {
+    loadToken() {
       getToken().then(response => {
         setToken(response.ResData.AccessToken)
         getSysSetting().then(res => {
@@ -187,7 +187,7 @@ export default {
         this.isShow = true
       })
     },
-    showPwd () {
+    showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''
       } else {
@@ -197,7 +197,7 @@ export default {
         this.$refs.password.focus()
       })
     },
-    handleLogin () {
+    handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
@@ -216,7 +216,7 @@ export default {
       })
     },
     // 获取验证码
-    async getLoginVerifyCode () {
+    async getLoginVerifyCode() {
       this.loginForm.vcode = ''
       const res = await getVerifyCode()
       if (res.Success) {
@@ -224,7 +224,7 @@ export default {
         this.loginForm.verifyCodeKey = res.ResData.Key
       }
     },
-    getOtherQuery (query) {
+    getOtherQuery(query) {
       return Object.keys(query).reduce((acc, cur) => {
         if (cur !== 'redirect') {
           acc[cur] = query[cur]

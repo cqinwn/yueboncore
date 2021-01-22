@@ -25,7 +25,7 @@
 import { modifyPassword } from '@/api/security/userservice'
 export default {
   name: 'Usercentermodify',
-  data () {
+  data() {
     return {
       activeName: 'first',
       editFrom: {
@@ -54,7 +54,7 @@ export default {
     /**
      * 新增/修改保存
      */
-    saveEditForm () {
+    saveEditForm() {
       this.$refs['editFrom'].validate((valid) => {
         if (valid) {
           const data = {
@@ -84,7 +84,7 @@ export default {
   }
 }
 </script>
-<style>
+<style lang="scss" scoped>
 .yuebon-setting-form .el-input{
 width: 40%;
 }

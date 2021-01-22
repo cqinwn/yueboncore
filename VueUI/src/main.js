@@ -14,6 +14,7 @@ import '@/icons' // icon
 import '@/permission' // permission control
 import { resetForm } from '@/utils/index'
 
+// 全局方法挂载
 Vue.prototype.resetForm = resetForm
 /**
  * If you don't want to use mock-server

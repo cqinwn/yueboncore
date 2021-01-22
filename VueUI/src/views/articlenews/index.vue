@@ -68,6 +68,7 @@
           </slot>
           <el-button type="default" icon="el-icon-refresh" size="small" @click="loadTableData()">刷新</el-button>
         </el-button-group>
+
       </div>
       <el-table
         ref="gridtable"

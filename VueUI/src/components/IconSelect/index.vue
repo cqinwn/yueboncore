@@ -1,4 +1,3 @@
-<!-- @author zhengjie -->
 <template>
   <div class="icon-body">
     <el-input v-model="name" style="position: relative;" clearable placeholder="请输入图标名称" @clear="filterIcons" @input.native="filterIcons">
@@ -47,14 +46,14 @@ export default {
     width: 100%;
     padding: 10px;
     .icon-list {
-      height: 300px;
+      height: 200px;
       overflow-y: scroll;
       div {
         height: 30px;
         line-height: 30px;
         margin-bottom: -5px;
         cursor: pointer;
-        width: 25%;
+        width: 33%;
         float: left;
       }
       span {

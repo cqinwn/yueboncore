@@ -13,7 +13,10 @@ namespace Yuebon.Commons.Core.DataManager
         /// 数据库配置名称
         /// </summary>
         public string DbConfigName { get; set; }
-
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="dbConfigName"></param>
         public AppDBContextAttribute(string dbConfigName)
         {
             DbConfigName = dbConfigName;

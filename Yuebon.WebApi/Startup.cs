@@ -63,7 +63,7 @@ namespace Yuebon.WebApi
         /// 
         /// </summary>
         public IConfiguration Configuration { get; }
-        private IApiVersionDescriptionProvider apiVersionProvider;//版本控制
+        private IApiVersionDescriptionProvider apiVersionProvider;//api接口版本控制
         /// <summary>
         /// 
         /// </summary>

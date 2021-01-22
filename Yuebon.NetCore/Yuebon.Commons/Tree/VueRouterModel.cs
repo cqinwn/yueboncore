@@ -49,6 +49,12 @@ namespace Yuebon.Commons.Tree
     [Serializable]
     public class Meta
     {
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="icon"></param>
+        /// <param name="noCache"></param>
         public Meta(string title, string icon, bool noCache)
         {
             this.title = title;
@@ -66,8 +72,16 @@ namespace Yuebon.Commons.Tree
         public string icon { get; set; }
 
         /// <summary>
-        /// 设置为true，则不会被 <keep-alive>缓存
+        /// 设置为true，则不会被keep-alive缓存
         /// </summary>
         public bool noCache { get; set; }
+
+        /// <summary>
+        /// 当路由设置了该属性，则会高亮相对应的侧边栏。
+        /// 这在某些场景非常有用，比如：一个文章的列表页路由为：/article/list
+        /// 点击文章进入文章详情页，这时候路由为/article/1，但你想在侧边栏高亮文章列表的路由，就可以进行如下设置
+        /// activeMenu: '/article/list'
+        /// </summary>
+        public string activeMenu { get; set; }
     }
 }

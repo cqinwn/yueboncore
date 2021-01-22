@@ -9,3 +9,4 @@ const icons = requireAll(req).map(i => {
 })
 
 export default icons
+

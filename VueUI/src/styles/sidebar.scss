@@ -51,12 +51,6 @@
       width: 100%;
       overflow: hidden;
     }
-
-    .iconfont {
-      margin-right: 16px;
-    }
-
-
     .svg-icon {
       margin-right: 16px;
     }
@@ -105,8 +99,7 @@
 
       .el-tooltip {
         padding: 0 !important;
-
-        .iconfont {
+        .svg-icon {
           margin-left: 20px;
         }
       }
@@ -117,8 +110,7 @@
 
       &>.el-submenu__title {
         padding: 0 !important;
-
-        .iconfont {
+        .svg-icon {
           margin-left: 20px;
         }
 
@@ -179,10 +171,11 @@
 // when menu collapsed
 .el-menu--vertical {
   &>.el-menu {
-    .iconfont {
+     .svg-icon {
       margin-right: 16px;
     }
-  }
+
+}
 
   .nest-menu .el-submenu>.el-submenu__title,
   .el-menu-item {

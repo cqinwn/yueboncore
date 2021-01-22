@@ -29,16 +29,28 @@ namespace Yuebon.Commons.DbContextCore
             string dbType = dbConfigName.ToUpper();
             if (dbType.Contains("ORACLE"))
             {
-                optionsBuilder.UseOracle(defaultSqlConnectionString,d=>d.UseOracleSQLCompatibility("11.2"));
+                optionsBuilder.UseOracle(defaultSqlConnectionString,o=>o.UseOracleSQLCompatibility("11"));
             }
             base.OnConfiguring(optionsBuilder);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="cmdTimeout"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
         public override DataTable GetDataTable(string sql, int cmdTimeout = 30, params DbParameter[] parameters)
         {
             return GetDataTables(sql, cmdTimeout, parameters).FirstOrDefault();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="cmdTimeout"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
         public override List<DataTable> GetDataTables(string sql, int cmdTimeout = 30, params DbParameter[] parameters)
         {
             var dts = new List<DataTable>();

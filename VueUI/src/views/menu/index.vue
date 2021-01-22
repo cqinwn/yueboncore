@@ -13,8 +13,8 @@
                       <slot v-for="itemf in loadBtnFunc">
                         <el-button v-if="itemf.EnCode==='Menu/Add'" type="primary" icon="el-icon-plus" size="mini" @click="ShowMenuEditOrViewDialog()">新增</el-button>
                         <el-button v-if="itemf.EnCode==='Menu/Edit'" type="primary" icon="el-icon-edit" class="el-button-modify" size="mini" @click="ShowMenuEditOrViewDialog('edit')">修改</el-button>
-                        <el-button v-if="itemf.FullName=='禁用'" type="info" icon="el-icon-video-pause" size="mini" @click="setMenuEnable('0')">禁用</el-button>
-                        <el-button v-if="itemf.FullName=='启用'" type="success" icon="el-icon-video-play" size="mini" @click="setMenuEnable('1')">启用</el-button>
+                        <el-button v-if="itemf.EnCode==='Menu/Enable'" type="info" icon="el-icon-video-pause" size="mini" @click="setMenuEnable('0')">禁用</el-button>
+                        <el-button v-if="itemf.EnCode==='Menu/Enable'" type="success" icon="el-icon-video-play" size="mini" @click="setMenuEnable('1')">启用</el-button>
                         <el-button v-if="itemf.EnCode==='Menu/Delete'" type="danger" icon="el-icon-delete" size="mini" @click="deleteMenuPhysics()">删除</el-button>
                       </slot>
                     </el-button-group>
@@ -52,7 +52,7 @@
                   width="220"
                 >
                   <template slot-scope="scope">
-                    <svg-icon :icon-class="scope.row.Icon" />{{ scope.row.FullName }}
+                    <svg-icon v-if="scope.row.Icon" :icon-class="scope.row.Icon" />{{ scope.row.FullName }}
                   </template>
                 </el-table-column>
                 <el-table-column
@@ -119,7 +119,9 @@
         </el-col>
       </el-row>
     </el-card>
-    <el-dialog ref="dialogEditMenuForm" :title="editMenuFormTitle+'模块/菜单'" :visible.sync="dialogMenuEditFormVisible" width="40%">
+
+    <!-- 添加或修改菜单对话框 -->
+    <el-dialog ref="dialogEditMenuForm" :title="editMenuFormTitle+'模块/菜单'" append-to-body :visible.sync="dialogMenuEditFormVisible" width="40%">
       <el-form ref="editMenuFrom" :model="editMenuFrom" :rules="rules">
         <el-row>
           <el-col :span="12">
@@ -195,7 +197,7 @@
           </el-col>
 
           <el-col :span="12">
-            <el-form-item label="图标" :label-width="formLabelWidth" prop="Icon">
+            <el-form-item v-if="editMenuFrom.MenuType !== 'F'" label="图标" :label-width="formLabelWidth" prop="Icon">
               <el-popover
                 placement="bottom-start"
                 width="660"
@@ -309,6 +311,7 @@ export default {
       editMenuFormTitle: '',
       selectedMenuOptions: [],
       selectMenus: [],
+      // 表单参数
       editMenuFrom: {},
       rules: {
         FullName: [
@@ -379,7 +382,7 @@ export default {
         EnCode: '',
         ParentId: '',
         SystemTypeId: '',
-        Icon: '',
+        Icon: undefined,
         UrlAddress: '',
         Component: '',
         EnabledMark: true,

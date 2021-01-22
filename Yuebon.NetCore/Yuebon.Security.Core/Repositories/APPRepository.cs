@@ -11,7 +11,7 @@ using Yuebon.Security.Models;
 namespace Yuebon.Security.Repositories
 {
     /// <summary>
-    /// 应用仓储
+    /// 应用仓储实现
     /// </summary>
     public class APPRepository : BaseRepository<APP,string>, IAPPRepository
     {
@@ -29,7 +29,6 @@ namespace Yuebon.Security.Repositories
         /// <returns></returns>
         public APP GetAPP(string appid, string secret)
         {
-
             string sql = @"SELECT * FROM Sys_APP t WHERE t.AppId = @AppId and AppSecret=@AppSecret and EnabledMark=1";
             return DapperConn.QueryFirstOrDefault<APP>(sql, new { AppId = appid, AppSecret = secret });
         }

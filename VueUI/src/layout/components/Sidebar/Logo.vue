@@ -1,21 +1,23 @@
-<template>
-  <div class="sidebar-logo-container" :class="{'collapse':collapse}">
-    <transition name="sidebarLogoFade">
-      <router-link v-if="collapse" key="collapse" class="sidebar-logo-link" to="/">
-        <img src="~@/assets/images/AdminLogo.png" class="sidebar-logo">
-        <h1 class="sidebar-title">{{ activeSystemName+ title }} </h1>
-      </router-link>
-      <router-link v-else key="expand" class="sidebar-logo-link" to="/">
-        <img src="~@/assets/images/AdminLogo.png" class="sidebar-logo">
-        <h1 class="sidebar-title">{{ activeSystemName+ title }} </h1>
-      </router-link>
-    </transition>
-  </div>
+<template><div class="sidebar-logo-container" :class="{'collapse':collapse}" :style="{ backgroundColor: sideTheme === 'theme-dark' ? variables.menuBg : variables.menuLightBg }">
+  <transition name="sidebarLogoFade">
+    <router-link v-if="collapse" key="collapse" class="sidebar-logo-link" to="/">
+      <img src="~@/assets/images/AdminLogo.png" class="sidebar-logo">
+      <h1 class="sidebar-title" :style="{ color: sideTheme === 'theme-dark' ? variables.sidebarTitle : variables.sidebarLightTitle }">{{ activeSystemName+ title }} </h1>
+    </router-link>
+    <router-link v-else key="expand" class="sidebar-logo-link" to="/">
+      <img src="~@/assets/images/AdminLogo.png" class="sidebar-logo">
+      <h1 class="sidebar-title" :style="{ color: sideTheme === 'theme-dark' ? variables.sidebarTitle : variables.sidebarLightTitle }">{{ activeSystemName+ title }} </h1>
+    </router-link>
+  </transition>
+</div>
 </template>
 
 <script>
 
 import { mapGetters } from 'vuex'
+import logoImg from '@/assets/images/AdminLogo.png'
+import variables from '@/styles/variables.scss'
+
 export default {
   name: 'SidebarLogo',
   props: {
@@ -27,13 +29,19 @@ export default {
   data() {
     return {
       title: '管理中心',
-      logo: ''
+      logo: logoImg
     }
   },
   computed: {
     ...mapGetters([
       'activeSystemName'
-    ])
+    ]),
+    variables() {
+      return variables
+    },
+    sideTheme() {
+      return this.$store.state.settings.sideTheme
+    }
   }
 }
 </script>

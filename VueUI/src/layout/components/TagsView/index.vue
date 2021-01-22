@@ -9,6 +9,7 @@
         :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
         tag="span"
         class="tags-view-item"
+        :style="activeStyle(tag)"
         @click.middle.native="!isAffix(tag)?closeSelectedTag(tag):''"
         @contextmenu.prevent.native="openMenu(tag,$event)"
       >
@@ -17,8 +18,8 @@
       </router-link>
     </scroll-pane>
     <ul v-show="visible" :style="{left:left+'px',top:top+'px'}" class="contextmenu">
-      <li @click="refreshSelectedTag(selectedTag)">刷新</li>
-      <li v-if="!isAffix(selectedTag)" @click="closeSelectedTag(selectedTag)">关闭</li>
+      <li @click="refreshSelectedTag(selectedTag)">刷新页面</li>
+      <li v-if="!isAffix(selectedTag)" @click="closeSelectedTag(selectedTag)">关闭当前</li>
       <li @click="closeOthersTags">关闭其他</li>
       <li @click="closeAllTags(selectedTag)">关闭所有</li>
     </ul>
@@ -46,6 +47,9 @@ export default {
     },
     routes() {
       return this.$store.state.permission.routes
+    },
+    theme() {
+      return this.$store.state.settings.theme
     }
   },
   watch: {
@@ -68,6 +72,13 @@ export default {
   methods: {
     isActive(route) {
       return route.path === this.$route.path
+    },
+    activeStyle(tag) {
+      if (!this.isActive(tag)) return {}
+      return {
+        'background-color': this.theme,
+        'border-color': this.theme
+      }
     },
     isAffix(tag) {
       return tag.meta && tag.meta.affix
@@ -149,7 +160,7 @@ export default {
     },
     closeAllTags(view) {
       this.$store.dispatch('tagsView/delAllViews').then(({ visitedViews }) => {
-        if (this.affixTags.some(tag => tag.path === view.path)) {
+        if (this.affixTags.some(tag => tag.path === this.$route.path)) {
           return
         }
         this.toLastView(visitedViews, view)
@@ -225,9 +236,9 @@ export default {
         margin-right: 15px;
       }
       &.active {
-        background-color: #409EFF;
+        background-color: #42b983;
         color: #fff;
-        border-color: #409EFF;
+        border-color: #42b983;
         &::before {
           content: '';
           background: #fff;

@@ -7,7 +7,7 @@
         v-model="start"
         :size="size"
         :placeholder="$t('common.placeholder')"
-        style="width: 100px;"
+        style="width: 120px;"
         filterable
       >
         <el-option

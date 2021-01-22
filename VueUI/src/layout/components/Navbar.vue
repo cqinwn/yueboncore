@@ -29,6 +29,10 @@
               <i class="el-icon-user" />个人中心
             </el-dropdown-item>
           </router-link>
+
+          <el-dropdown-item @click.native="setting = true">
+            <svg-icon icon-class="buju" /><span>布局设置</span>
+          </el-dropdown-item>
           <a target="_blank" href="http://docs.v.yuebon.com">
             <el-dropdown-item>
               <i class="el-icon-question" />使用手册</el-dropdown-item>
@@ -63,7 +67,18 @@ export default {
       'name',
       'activeSystemName',
       'subSystem'
-    ])
+    ]),
+    setting: {
+      get() {
+        return this.$store.state.settings.showSettings
+      },
+      set(val) {
+        this.$store.dispatch('settings/changeSetting', {
+          key: 'showSettings',
+          value: val
+        })
+      }
+    }
   },
   methods: {
     toggleSideBar() {
@@ -96,6 +111,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .navbar {
   height: 50px;
   overflow: hidden;

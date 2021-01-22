@@ -31,15 +31,12 @@ service.interceptors.response.use(
   response => {
     const res = response.data
     if (res.ErrCode !== '0') {
-      // 超时自动刷新token
-      if (res.ErrCode === '40005') {
+      if (res.ErrCode === '40005') { // 超时自动刷新token
         store.dispatch('user/resetToken').then((res) => {
           location.reload()
         })
-      }
-      console.log(JSON.stringify(res))
-      if (res.ErrCode === '40000' || res.ErrCode === '40001' || res.ErrCode === '40002' || res.ErrCode === '40004' || res.ErrCode === '40008') {
-        // to re-login
+      } else if (res.ErrCode === '40000' || res.ErrCode === '40008') {
+      // to re-login
         MessageBox.confirm('登录状态已过期，您可以继续留在该页面，或者重新登录', '系统提示', {
           confirmButtonText: '重新登录',
           cancelButtonText: '取消',

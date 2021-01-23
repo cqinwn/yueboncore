@@ -518,7 +518,8 @@ namespace Yuebon.WebApi.Controllers
                                             Role = _roleService.GetRoleEnCode(user.RoleId),
                                             ActiveSystemId = systemType.Id,
                                             CurrentLoginIP = strIp,
-                                            IPAddressName = ipAddressName
+                                            IPAddressName = ipAddressName,
+                                            ActiveSystemUrl= systemType.Url
 
                                         };
                                         TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;

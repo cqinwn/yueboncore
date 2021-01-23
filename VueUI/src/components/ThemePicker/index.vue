@@ -35,7 +35,7 @@ export default {
       if (typeof val !== 'string') return
       const themeCluster = this.getThemeCluster(val.replace('#', ''))
       const originalCluster = this.getThemeCluster(oldVal.replace('#', ''))
-      console.log(themeCluster, originalCluster)
+      // console.log(themeCluster, originalCluster)
 
       const $message = this.$message({
         message: '  正在编译主题',
@@ -79,7 +79,6 @@ export default {
         if (typeof innerText !== 'string') return
         style.innerText = this.updateStyle(innerText, originalCluster, themeCluster)
       })
-
       this.$emit('change', val)
 
       $message.close()

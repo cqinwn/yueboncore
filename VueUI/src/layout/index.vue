@@ -22,6 +22,7 @@ import ResizeMixin from './mixin/ResizeHandler'
 import { mapState } from 'vuex'
 import variables from '@/styles/variables.scss'
 
+import { loadUserConfigTheme } from '@/utils/theme-change'
 export default {
   name: 'Layout',
   components: {
@@ -55,9 +56,15 @@ export default {
       return variables
     }
   },
+  created() { this.loadtheme() },
   methods: {
     handleClickOutside() {
       this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
+    },
+    loadtheme() {
+      this.$nextTick(function() {
+        loadUserConfigTheme(this.$store.state.settings.theme)
+      })
     }
   }
 }

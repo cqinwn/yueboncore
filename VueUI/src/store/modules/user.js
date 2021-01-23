@@ -89,14 +89,6 @@ const actions = {
         const data = response.ResData
         commit('SET_TOKEN', data.AccessToken)
         setToken(data.AccessToken)
-        commit('SET_TEMPNAME', data.Account)
-        commit('SET_ROLES', data.Role)
-        commit('SET_AVATAR', data.HeadIcon)
-        commit('SET_SUBSYSTEM', data.SubSystemList)
-        commit('SET_ACTIVESYSTEMNAME', data.ActiveSystem)
-        commit('SET_MENUS', data.MenusRouter)
-        commit('SET_NAME', data.Account)
-        commit('SET_PERMISSIONS', JSON.stringify(data.Modules))
         resolve(response)
       }).catch(error => {
         reject(error)
@@ -108,19 +100,11 @@ const actions = {
     return new Promise((resolve, reject) => {
       logout(state.token).then(() => {
         removeToken() // must remove  token  first
-        localStorage.removeItem('username')
-        localStorage.removeItem('useravatar')
-        localStorage.removeItem('usersubSystem')
-        localStorage.removeItem('nowmenus')
         resetRouter()
         commit('RESET_STATE')
         resolve()
       }).catch(error => {
         removeToken() // must remove  token  first
-        localStorage.removeItem('username')
-        localStorage.removeItem('useravatar')
-        localStorage.removeItem('usersubSystem')
-        localStorage.removeItem('nowmenus')
         resetRouter()
         commit('RESET_STATE')
         reject(error)

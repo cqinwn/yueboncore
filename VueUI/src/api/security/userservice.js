@@ -123,3 +123,17 @@ export function registerUser(data, url) {
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
+
+/**
+   * 保存用户主题配置
+   * @param data
+   */
+export function saveThemeConfig(data) {
+  return http.request({
+    url: 'User/SaveUserTheme',
+    method: 'post',
+    data: data,
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
+  })
+}
+

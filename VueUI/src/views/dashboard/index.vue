@@ -154,6 +154,7 @@ import countto from 'vue-count-to'
 import { getSysInfo } from '@/api/basebasic'
 import { getUrlKey } from '@/utils/index'
 import defaultSettings from '@/settings'
+
 export default {
   name: 'Dashboard',
   components: { countto },

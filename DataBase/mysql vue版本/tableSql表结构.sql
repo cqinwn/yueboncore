@@ -11,7 +11,7 @@
  Target Server Version : 80017
  File Encoding         : 65001
 
- Date: 08/01/2021 20:57:38
+ Date: 23/01/2021 11:34:07
 */
 
 SET NAMES utf8mb4;
@@ -690,8 +690,8 @@ CREATE TABLE `sys_userlogon`  (
   `Question` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `AnswerQuestion` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `CheckIPAddress` tinyint(1) NULL DEFAULT NULL,
-  `Language` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `Theme` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Language` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '软件语言',
+  `Theme` mediumtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '软件风格设置信息',
   PRIMARY KEY (`Id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户登录信息' ROW_FORMAT = Dynamic;
 

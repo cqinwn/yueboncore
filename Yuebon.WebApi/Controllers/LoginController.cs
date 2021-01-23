@@ -169,8 +169,8 @@ namespace Yuebon.WebApi.Controllers
                                         result.ErrCode = ErrCode.successCode;
                                         result.Success = true;
 
-                                        logEntity.Account = CurrentUser.Account;
-                                        logEntity.NickName = CurrentUser.NickName;
+                                        logEntity.Account = user.Account;
+                                        logEntity.NickName = user.NickName;
                                         logEntity.Date = logEntity.CreatorTime = DateTime.Now;
                                         logEntity.IPAddress = CurrentUser.CurrentLoginIP;
                                         logEntity.IPAddressName = CurrentUser.IPAddressName;
@@ -257,7 +257,8 @@ namespace Yuebon.WebApi.Controllers
                 //取得用户可使用的授权功能信息，并存储在缓存中
                 listFunction = menuApp.GetFunctionsByUser(user.Id, currentSession.ActiveSystemId);
             }
-
+            UserLogOn userLogOn = _userLogOnService.GetByUserId(CurrentUser.UserId);
+            currentSession.UserTheme = userLogOn.Theme == null ? "default" : userLogOn.Theme;
             currentSession.MenusRouter = menuApp.GetVueRouter(user.RoleId, systemType.EnCode);
             TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
             yuebonCacheHelper.Add("User_Function_" + user.Id, listFunction, expiresSliding, true);
@@ -358,62 +359,25 @@ namespace Yuebon.WebApi.Controllers
                                         YuebonCurrentUser currentSession = new YuebonCurrentUser
                                         {
                                             UserId = user.Id,
-                                            Account = user.Account,
                                             Name = user.RealName,
-                                            NickName = user.NickName,
                                             AccessToken = tokenResult.AccessToken,
                                             AppKey = appId,
                                             CreateTime = DateTime.Now,
-                                            HeadIcon = user.HeadIcon,
-                                            Gender = user.Gender,
-                                            ReferralUserId = user.ReferralUserId,
-                                            MemberGradeId = user.MemberGradeId,
                                             Role = _roleService.GetRoleEnCode(user.RoleId),
-                                            MobilePhone = user.MobilePhone,
-                                            OrganizeId = user.OrganizeId,
-                                            DeptId = user.DepartmentId,
+                                            ActiveSystemId = systemType.Id,
                                             CurrentLoginIP = strIp,
-                                            IPAddressName = ipAddressName,
-                                            TenantId = ""
+                                            IPAddressName = ipAddressName
+
                                         };
-                                        currentSession.ActiveSystem = systemType.FullName;
-                                        currentSession.ActiveSystemUrl = systemType.Url;
-                                        List<MenuOutputDto> listFunction = new List<MenuOutputDto>();
-                                        MenuApp menuApp = new MenuApp();
-                                        if (Permission.IsAdmin(currentSession))
-                                        {
-                                            currentSession.SubSystemList = _systemTypeService.GetAllByIsNotDeleteAndEnabledMark().MapTo<SystemTypeOutputDto>();
-                                            //取得用户可使用的授权功能信息，并存储在缓存中
-                                            listFunction = menuApp.GetFunctionsBySystem(systemType.Id);
-                                        }
-                                        else
-                                        {
-                                            currentSession.SubSystemList = _systemTypeService.GetSubSystemList(user.RoleId);
-                                            //取得用户可使用的授权功能信息，并存储在缓存中
-                                            listFunction = menuApp.GetFunctionsByUser(user.Id, systemType.Id);
-                                        }
-
-                                        currentSession.MenusRouter = menuApp.GetVueRouter(user.RoleId, systemCode);
                                         TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
-                                        yuebonCacheHelper.Add("User_Function_" + user.Id, listFunction, expiresSliding, true);
-                                        List<string> listModules = new List<string>();
-                                        foreach(MenuOutputDto item in listFunction)
-                                        {
-                                            listModules.Add(item.EnCode);
-                                        }
-                                        currentSession.Modules = listModules;
                                         yuebonCacheHelper.Add("login_user_" + user.Id, currentSession, expiresSliding, true);
-                                        //该用户的数据权限
-                                        List<String> roleDateList = _roleDataService.GetListDeptByRole(user.RoleId);
-                                        yuebonCacheHelper.Add("User_RoleData_" + user.Id, roleDateList, expiresSliding, true);
-
                                         CurrentUser = currentSession;
                                         result.ResData = currentSession;
                                         result.ErrCode = ErrCode.successCode;
                                         result.Success = true;
 
-                                        logEntity.Account = CurrentUser.Account;
-                                        logEntity.NickName = CurrentUser.NickName;
+                                        logEntity.Account = user.Account;
+                                        logEntity.NickName = user.NickName;
                                         logEntity.Date = logEntity.CreatorTime = DateTime.Now;
                                         logEntity.IPAddress = CurrentUser.CurrentLoginIP;
                                         logEntity.IPAddressName = CurrentUser.IPAddressName;
@@ -547,55 +511,18 @@ namespace Yuebon.WebApi.Controllers
                                         YuebonCurrentUser currentSession = new YuebonCurrentUser
                                         {
                                             UserId = user.Id,
-                                            Account = user.Account,
                                             Name = user.RealName,
-                                            NickName = user.NickName,
                                             AccessToken = tokenResult.AccessToken,
                                             AppKey = appId,
                                             CreateTime = DateTime.Now,
-                                            HeadIcon = user.HeadIcon,
-                                            Gender = user.Gender,
-                                            ReferralUserId = user.ReferralUserId,
-                                            MemberGradeId = user.MemberGradeId,
                                             Role = _roleService.GetRoleEnCode(user.RoleId),
-                                            MobilePhone = user.MobilePhone,
-                                            OrganizeId = user.OrganizeId,
-                                            DeptId = user.DepartmentId,
+                                            ActiveSystemId = systemType.Id,
                                             CurrentLoginIP = strIp,
-                                            IPAddressName = ipAddressName,
-                                            TenantId = ""
+                                            IPAddressName = ipAddressName
+
                                         };
-                                        currentSession.ActiveSystem = systemType.FullName;
-                                        currentSession.ActiveSystemUrl = systemType.Url;
-                                        List<MenuOutputDto> listFunction = new List<MenuOutputDto>();
-                                        MenuApp menuApp = new MenuApp();
-                                        if (Permission.IsAdmin(currentSession))
-                                        {
-                                            currentSession.SubSystemList = _systemTypeService.GetAllByIsNotDeleteAndEnabledMark().MapTo<SystemTypeOutputDto>();
-                                            //取得用户可使用的授权功能信息，并存储在缓存中
-                                            listFunction = menuApp.GetFunctionsBySystem(systemType.Id);
-                                        }
-                                        else
-                                        {
-                                            currentSession.SubSystemList = _systemTypeService.GetSubSystemList(user.RoleId);
-                                            //取得用户可使用的授权功能信息，并存储在缓存中
-                                            listFunction = menuApp.GetFunctionsByUser(user.Id, systemType.Id);
-                                        }
-
-                                        currentSession.MenusRouter = menuApp.GetVueRouter(user.RoleId, systemCode);
                                         TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
-                                        yuebonCacheHelper.Add("User_Function_" + user.Id, listFunction, expiresSliding, true);
-                                        List<string> listModules = new List<string>();
-                                        foreach (MenuOutputDto item in listFunction)
-                                        {
-                                            listModules.Add(item.EnCode);
-                                        }
-                                        currentSession.Modules = listModules;
                                         yuebonCacheHelper.Add("login_user_" + user.Id, currentSession, expiresSliding, true);
-                                        //该用户的数据权限
-                                        List<String> roleDateList = _roleDataService.GetListDeptByRole(user.RoleId);
-                                        yuebonCacheHelper.Add("User_RoleData_" + user.Id, roleDateList, expiresSliding, true);
-
                                         CurrentUser = currentSession;
                                         result.ResData = currentSession;
                                         result.ErrCode = ErrCode.successCode;

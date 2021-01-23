@@ -53,12 +53,17 @@
         <el-switch v-model="sidebarLogo" class="drawer-switch" />
       </div>
 
+      <el-divider />
+      <div class="drawer-item">
+        <el-button type="primary" class="btnFr" @click="handleSaveTheme">保存</el-button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import ThemePicker from '@/components/ThemePicker'
+import { saveThemeConfig } from '@/api/security/userservice'
 
 export default {
   components: { ThemePicker },
@@ -117,6 +122,28 @@ export default {
       this.$store.dispatch('settings/changeSetting', {
         key: 'sideTheme',
         value: val
+      })
+    },
+    handleSaveTheme() {
+      var data = {
+        Theme: this.$store.state.settings.theme,
+        SideTheme: this.$store.state.settings.sideTheme,
+        FixedHeader: this.$store.state.settings.fixedHeader,
+        TagsView: this.$store.state.settings.tagsView,
+        SidebarLogo: this.$store.state.settings.sidebarLogo
+      }
+      saveThemeConfig(data).then(res => {
+        if (res.Success) {
+          this.$message({
+            message: '恭喜你，操作成功',
+            type: 'success'
+          })
+        } else {
+          this.$message({
+            message: res.ErrMsg,
+            type: 'error'
+          })
+        }
       })
     }
   }
@@ -184,6 +211,9 @@ export default {
     color: rgba(0, 0, 0, 0.65);
     font-size: 14px;
     padding: 12px 0;
+    .btnFr{
+      float: right;
+    }
   }
 
   .drawer-switch {

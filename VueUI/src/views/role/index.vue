@@ -91,7 +91,7 @@
             <slot v-else-if="scope.row.Type === '3'">其他角色</slot>
           </template>
         </el-table-column>
-        <el-table-column prop="OrganizeName" label="所属组织" sortable="custom" />
+        <el-table-column prop="OrganizeName" label="所属组织" />
         <el-table-column label="是否启用" sortable="custom" width="120" prop="EnabledMark" align="center">
           <template slot-scope="scope">
             <el-tag :type="scope.row.EnabledMark === true ? 'success' : 'info'" disable-transitions>{{ scope.row.EnabledMark === true ? "启用" : "禁用" }}</el-tag>

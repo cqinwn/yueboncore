@@ -6,7 +6,7 @@ const version = require('element-ui/package.json').version // element-ui version
 const ORIGINAL_THEME = '#409EFF' // default color
 
 export async function loadUserConfigTheme(val) {
-  const chalk = ''
+  let chalk = ''
   const oldVal = chalk ? val : ORIGINAL_THEME
   if (typeof val !== 'string') return
   const themeCluster = getThemeCluster(val.replace('#', ''))
@@ -27,10 +27,10 @@ export async function loadUserConfigTheme(val) {
   if (!chalk) {
     const url = `https://unpkg.com/element-ui@${version}/lib/theme-chalk/index.css`
     // eslint-disable-next-line no-const-assign
-    this.chalk = await getCSSString(url, 'chalk')
+    chalk = await getCSSString(url, 'chalk')
   }
 
-  const chalkHandler = getHandler(this.chalk, 'chalk-style')
+  const chalkHandler = getHandler(chalk, 'chalk-style')
 
   chalkHandler()
 

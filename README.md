@@ -75,8 +75,6 @@ Yuebon.Security.Core[权限管理类库]：以Security为基础实现以角色-�
 
 Yuebon.AspNetCore[AspNetCore类库]，提供AspNetCore的服务端功能的封装，支持webapi和webmvc模式，同时支持插件式开发；
 
-Yuebon.WebApp[管理后台]：基于aspnet core mvc实现了权限管理和CMS部分管理后台；参考MVC分支，不在提供升级和服务。
-
 Yuebon.Cms.Core[CMS基础类库]，包含文章管理、广告管理等内容，以此做案例给大家开发参考。
 
 Yuebon.WebApi[webapi接口]：为Vue版或其他三方系统提供接口服务。
@@ -112,6 +110,8 @@ DataBase是最新数据库备份文件，目前支持MS SQL Server和MySql。
 14、短信和邮件：集成腾讯云短信通知和EMail发送通知
 
 15、支持租户模式
+
+16、支持用户定义主题风格
 
 ### 部分界面展示
 
@@ -157,18 +157,6 @@ DataBase是最新数据库备份文件，目前支持MS SQL Server和MySql。
 ![输入图片说明](https://images.gitee.com/uploads/images/2018/0719/120732_0776845c_1017224.png "9-1 webapi.png")
 
 
-### 如何用起来
-1、系统基于.Net5.0开发版本，请务必安装sdk版本.Net5.0及以上；
-
-2、安装Redis并启动，下载地址：https://github.com/MicrosoftArchive/redis/releases；
-如果不用redis缓存可以将UseRedis设置为false。
-
-3、创建数据YuebonFW，然后按顺序分别执行mssql表结构.sql、mssql权限初始化数据.sql;地区数据可以根据自己的实际情况执行mssql地区数据.sql；
-
-4、修改数据库连接MsSqlServer，根据自己的数据库服务填写。
-
-### vue版如何用起来，[请点击进入专题](http://docs.v.yuebon.com/guide/start.html)
-
 
 ### 部分应用案例
 1、做个车吧
@@ -199,13 +187,7 @@ DataBase是最新数据库备份文件，目前支持MS SQL Server和MySql。
 
 欢迎你加入我们一起共商、共建、共享技术成果！开源让我们进步，开源让我们开阔视野！
 
-有任何疑问可加微信咨询，微信二维码如下，添加时请备注 “gitee”，或者加入QQ群90311523
-
-![微信二维码](https://images.gitee.com/uploads/images/2020/0915/120702_f1c8e303_1017224.jpeg "微信图片_20200915120640.jpg")
-
-### 帮助[请查看](https://gitee.com/yuebon/YuebonNetCore/wikis/%E9%A1%B9%E7%9B%AE%E7%AE%80%E4%BB%8B)
-
-
+有任何疑问加入QQ群90311523
 
 
 ### 鸣谢

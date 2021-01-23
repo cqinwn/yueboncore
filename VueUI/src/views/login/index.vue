@@ -142,7 +142,7 @@ export default {
       verifyCodeUrl: '',
       redirect: undefined,
       softName: '管理系统',
-      companyLogo: '~@/assets/images/login-logo.png',
+      companyLogo: require('@/assets/images/login-logo.png'),
       companyName: '',
       copyRight: '',
       pageLoading: '',

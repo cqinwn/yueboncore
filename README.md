@@ -177,7 +177,7 @@ DataBase是最新数据库备份文件，目前支持MS SQL Server和MySql。
 
 系统作者：YuebonCore团队
 
-作者微信：13524377688
+作者微信：cqinwn
 
 发布日期：2018年07月1日
 
@@ -185,19 +185,15 @@ DataBase是最新数据库备份文件，目前支持MS SQL Server和MySql。
 
 开源协议：Mit协议
 
-欢迎你加入我们一起共商、共建、共享技术成果！开源让我们进步，开源让我们开阔视野！
-
-有任何疑问加入QQ群90311523
-
 
 ### 鸣谢
 
 1、感谢@cuijianhao_admin[催催啊](https://gitee.com/cuijianhao_admin)提供mysql测试环境
 
 
-### 如果对您有帮助，您可以点右上角 "Star" 支持一下，这样我们才有继续免费下去的动力，谢谢！
+### 如果对您有帮助，您可以点 "Star" 支持一下，这样我们才有继续免费下去的动力，谢谢！
 
 
-### 捐赠
-如果这个项目对您有所帮助，请扫下方二维码打赏一杯咖啡。
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0515/105002_d82f8d8e_1017224.jpeg "收款码.jpg")
+欢迎你加入我们一起共商、共建、共享技术成果！开源让我们进步，开源让我们开阔视野！
+
+有任何疑问加微信cqinwn或加入[QQ群 90311523](https://jq.qq.com/?_wv=1027&k=p6IUTzDF)，点击链接加入群聊[【YuebonCore交流群】](https://jq.qq.com/?_wv=1027&k=p6IUTzDF)

@@ -20,6 +20,7 @@ router.beforeEach(async(to, from, next) => {
       try {
         if (store.getters.roles.length === 0) {
           await store.dispatch('user/getUserInfo').then(res => {
+            store.dispatch('settings/loadUserSettingTheme', res.ResData.UserTheme).then(res => { })
             store.dispatch('GenerateRoutes', store.getters.menus).then(accessRoutes => {
               // 根据roles权限生成可访问的路由表
               router.addRoutes(accessRoutes) // 动态添加可访问路由表

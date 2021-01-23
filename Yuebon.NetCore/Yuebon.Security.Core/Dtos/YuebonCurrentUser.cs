@@ -137,5 +137,9 @@ namespace Yuebon.Security.Dtos
         /// 授权使用功能
         /// </summary>
         public List<string> Modules { get; set; }
+        /// <summary>
+        /// 用户设置的软件主题
+        /// </summary>
+        public string UserTheme { get; set; }
     }
 }

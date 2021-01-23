@@ -414,5 +414,29 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             }
             return ToJsonContent(result);
         }
+
+        /// <summary>
+        /// 保存用户自定义的软件主题
+        /// </summary>
+        /// <param name="info">主题配置信息</param>
+        /// <returns></returns>
+        [HttpPost("SaveUserTheme")]
+        [YuebonAuthorize("SaveUserTheme")]
+        public async Task<IActionResult> SaveUserTheme(UserThemeInputDto info)
+        {
+            CommonResult result = new CommonResult();
+            try
+            {
+                result.Success= await userLogOnService.SaveUserTheme(info, CurrentUser.UserId);
+                result.ErrCode = ErrCode.successCode;
+            }
+            catch (Exception ex)
+            {
+                Log4NetHelper.Error("保存用户自定义的软件主题异常", ex);//错误记录
+                result.ErrMsg = ex.Message;
+            }
+            return ToJsonContent(result);
+        }
+
     }
 }

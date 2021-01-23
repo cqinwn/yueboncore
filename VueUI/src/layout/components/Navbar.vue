@@ -31,7 +31,7 @@
           </router-link>
 
           <el-dropdown-item @click.native="setting = true">
-            <svg-icon icon-class="buju" /><span>布局设置</span>
+            <svg-icon icon-class="buju" class="iconbuju" /><span class="bujutitle" style="margin-left:6px;">布局设置</span>
           </el-dropdown-item>
           <a target="_blank" href="http://docs.v.yuebon.com">
             <el-dropdown-item>
@@ -162,6 +162,12 @@ export default {
         &:hover {
           background: rgba(0, 0, 0, .025)
         }
+      }
+      .iconbuju{
+        margin-right: 10px;
+      }
+      .bujutitle{
+        margin-left: 10px;
       }
     }
 

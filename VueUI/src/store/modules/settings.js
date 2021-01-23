@@ -30,7 +30,23 @@ const mutations = {
 const actions = {
   changeSetting({ commit }, data) {
     commit('CHANGE_SETTING', data)
+  },
+  /**
+   * 加载用户配置主题
+   * @param {} param
+   * @param {*} data
+   */
+  loadUserSettingTheme({ commit }, data) {
+    if (data !== 'default') {
+      var userTheme = JSON.parse(data)
+      state.theme = userTheme.Theme
+      state.sideTheme = userTheme.SideTheme
+      state.fixedHeader = userTheme.FixedHeader
+      state.tagsView = userTheme.TagsView
+      state.sidebarLogo = userTheme.SidebarLogo
+    }
   }
+
 }
 
 export default {

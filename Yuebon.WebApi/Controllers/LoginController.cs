@@ -257,7 +257,8 @@ namespace Yuebon.WebApi.Controllers
                 //取得用户可使用的授权功能信息，并存储在缓存中
                 listFunction = menuApp.GetFunctionsByUser(user.Id, currentSession.ActiveSystemId);
             }
-
+            UserLogOn userLogOn = _userLogOnService.GetByUserId(CurrentUser.UserId);
+            currentSession.UserTheme = userLogOn.Theme == null ? "default" : userLogOn.Theme;
             currentSession.MenusRouter = menuApp.GetVueRouter(user.RoleId, systemType.EnCode);
             TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
             yuebonCacheHelper.Add("User_Function_" + user.Id, listFunction, expiresSliding, true);

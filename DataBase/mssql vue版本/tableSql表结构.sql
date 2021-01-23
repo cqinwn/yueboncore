@@ -709,7 +709,7 @@ CREATE TABLE [dbo].[Sys_UserLogOn](
 	[AnswerQuestion] [varchar](500) NULL,
 	[CheckIPAddress] [bit] NULL,
 	[Language] [varchar](50) NULL,
-	[Theme] [varchar](50) NULL
+	[Theme] [nvarchar](5000) NULL
 ) ON [PRIMARY]
 GO
 /****** Object:  Table [dbo].[Sys_UserOpenIds]    Script Date: 2021/1/9 16:30:55 ******/

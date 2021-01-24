@@ -21,8 +21,9 @@
     <el-card>
       <div class="list-btn-container">
         <el-button-group>
-          <el-button v-hasPermi="['Articlenews/Add']" type="primary" icon="el-icon-plus" size="small" @click="ShowEditOrViewDialog()">新增</el-button>
-          <el-button v-hasPermi="['Articlenews/Edit']" type="primary" icon="el-icon-edit" class="el-button-modify" size="small" @click="ShowEditOrViewDialog('edit')">修改</el-button>
+          <el-button v-hasPermi="['Articlenews/Add']" type="primary" icon="el-icon-plus" size="small" @click="handleEditDataFrom('add')">新增</el-button>
+          <el-button v-hasPermi="['Articlenews/Edit']" type="primary" icon="el-icon-edit" class="el-button-modify" size="small" @click="handleEditDataFrom('edit')">修改</el-button>
+          <el-button v-hasPermi="['Articlenews/List']" type="primary" icon="el-icon-view" size="small" @click="handleEditDataFrom('show')">查看</el-button>
           <el-button v-hasPermi="['Articlenews/Enable']" type="info" icon="el-icon-video-pause" size="small" @click="setEnable('0')">禁用</el-button>
           <el-button v-hasPermi="['Articlenews/Enable']" type="success" icon="el-icon-video-play" size="small" @click="setEnable('1')">启用</el-button>
           <el-button v-hasPermi="['Articlenews/DeleteSoft']" type="warning" icon="el-icon-delete" size="small" @click="deleteSoft('0')">软删除</el-button>
@@ -76,100 +77,15 @@
         />
       </div>
     </el-card>
-    <el-dialog
-      ref="dialogEditForm"
-      v-el-drag-dialog
-      :title="editFormTitle+'文章'"
-      :visible.sync="dialogEditFormVisible"
-      width="960px"
-    >
-      <el-form ref="editFrom" :model="editFrom" :rules="rules">
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="文章标题" :label-width="formLabelWidth" prop="Title">
-              <el-input v-model="editFrom.Title" placeholder="请输入文章标题" autocomplete="off" clearable />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="副标题" :label-width="formLabelWidth" prop="SubTitle">
-              <el-input v-model="editFrom.SubTitle" placeholder="请输入文章副标题" autocomplete="off" clearable />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="文章分类" :label-width="formLabelWidth" prop="CategoryId">
-              <el-cascader
-                v-model="selectedCategoryOptions"
-                style="width: 380px"
-                :options="selectCategory"
-                filterable
-                :props="{label: 'Title',
-                         value: 'Id',
-                         children: 'Children',
-                         emitPath: false,
-                         checkStrictly: true,
-                         expandTrigger: 'hover',
-                }"
-                clearable
-                @change="handleSelectCategoryChange"
-              />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="外链" :label-width="formLabelWidth" prop="LinkUrl">
-              <el-input v-model="editFrom.LinkUrl" placeholder="请输入外部链接" autocomplete="off" clearable />
-            </el-form-item>
-          </el-col>
-          <el-col :span="24">
-            <el-form-item label="详情" :label-width="formLabelWidth" prop="Description">
-              <editor v-model="editFrom.Description" :min-height="192" :height="300" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="排序" :label-width="formLabelWidth" prop="SortCode">
-              <el-input v-model="editFrom.SortCode" placeholder="请输入排序" autocomplete="off" clearable />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="属性" :label-width="formLabelWidth" prop="">
-              <el-checkbox v-model="editFrom.IsTop">置顶</el-checkbox>
-              <el-checkbox v-model="editFrom.IsHot">热门</el-checkbox>
-              <el-checkbox v-model="editFrom.IsRed">推荐</el-checkbox>
-              <el-checkbox v-model="editFrom.IsNew">最新</el-checkbox>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="是否发布" :label-width="formLabelWidth" prop="EnabledMark">
-              <el-radio-group v-model="editFrom.EnabledMark">
-                <el-radio :label="true">是</el-radio>
-                <el-radio :label="false">否</el-radio>
-              </el-radio-group>
-            </el-form-item>
-          </el-col>
-        </el-row>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="cancel">取 消</el-button>
-        <el-button type="primary" @click="saveEditForm()">确 定</el-button>
-      </div>
-    </el-dialog>
   </div>
 </template>
 
 <script>
 
-import { getArticlenewsListWithPager, getArticlenewsDetail,
-  saveArticlenews, setArticlenewsEnable, deleteSoftArticlenews,
-  deleteArticlenews } from '@/api/cms/articlenews'
+import { getArticlenewsListWithPager, setArticlenewsEnable, deleteSoftArticlenews, deleteArticlenews } from '@/api/cms/articlenews'
 import { GetAllCategoryTreeTable } from '@/api/cms/articlecategory'
-import Editor from '@/components/Editor'
-
-import elDragDialog from '@/directive/el-drag-dialog' // base on element-ui
 export default {
   name: 'Articlenews',
-  directives: { elDragDialog },
-  components: {
-    Editor
-  },
   data() {
     return {
       searchform: {
@@ -186,19 +102,6 @@ export default {
       sortableData: {
         order: 'desc',
         sort: 'CreatorTime'
-      },
-      dialogEditFormVisible: false,
-      editFormTitle: '',
-      editFrom: {},
-      rules: {
-        CategoryId: [
-          { required: true, message: '请输入文章分类', trigger: 'blur' },
-          { min: 2, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur' }
-        ],
-        Title: [
-          { required: true, message: '请输入文章标题', trigger: 'blur' },
-          { min: 2, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur' }
-        ]
       },
       selectedCategoryOptions: '',
       selectCategory: [],
@@ -240,95 +143,12 @@ export default {
         this.tableloading = false
       })
     },
-
-    // 取消按钮
-    cancel() {
-      this.dialogEditFormVisible = false
-      this.reset()
-    },
-    // 表单重置
-    reset() {
-      this.editFrom = {
-        CategoryId: '',
-        Title: '',
-        Description: '',
-        SortCode: 99,
-        EnabledMark: true
-      }
-      this.resetForm('editFrom')
-    },
     /**
      * 点击查询
      */
     handleSearch: function() {
       this.pagination.currentPage = 1
       this.loadTableData()
-    },
-
-    /**
-     * 选择分类
-     */
-    handleSelectCategoryChange: function() {
-      this.editFrom.CategoryId = this.selectedCategoryOptions
-    },
-    /**
-     * 新增、修改或查看明细信息（绑定显示数据）     *
-     */
-    ShowEditOrViewDialog: function(view) {
-      this.reset()
-      if (view !== undefined) {
-        if (this.currentSelected.length > 1 || this.currentSelected.length === 0) {
-          this.$alert('请选择一条数据进行编辑/修改', '提示')
-        } else {
-          this.currentId = this.currentSelected[0].Id
-          this.editFormTitle = '编辑'
-          this.dialogEditFormVisible = true
-          this.bindEditInfo()
-        }
-      } else {
-        this.editFormTitle = '新增'
-        this.currentId = ''
-        this.dialogEditFormVisible = true
-        this.selectedCategoryOptions = ''
-      }
-    },
-    bindEditInfo: function() {
-      getArticlenewsDetail(this.currentId).then(res => {
-        this.editFrom = res.ResData
-        this.selectedCategoryOptions = res.ResData.CategoryId
-      })
-    },
-    /**
-     * 新增/修改保存
-     */
-    saveEditForm() {
-      this.$refs['editFrom'].validate((valid) => {
-        if (valid) {
-          var url = 'Articlenews/Insert'
-          if (this.currentId !== '') {
-            url = 'Articlenews/Update?id=' + this.currentId
-          }
-          saveArticlenews(this.editFrom, url).then(res => {
-            if (res.Success) {
-              this.$message({
-                message: '恭喜你，操作成功',
-                type: 'success'
-              })
-              this.dialogEditFormVisible = false
-              this.currentSelected = ''
-              this.loadTableData()
-              this.InitDictItem()
-            } else {
-              this.$message({
-                message: res.ErrMsg,
-                type: 'error'
-              })
-            }
-          })
-        } else {
-          return false
-        }
-      })
     },
     setEnable: function(val) {
       if (this.currentSelected.length === 0) {
@@ -463,10 +283,23 @@ export default {
     handleCurrentChange(val) {
       this.pagination.currentPage = val
       this.loadTableData()
+    },
+    handleEditDataFrom(view) {
+      if (view !== undefined && view !== 'add') {
+        if (this.currentSelected.length > 1 || this.currentSelected.length === 0) {
+          this.$alert('请选择一条数据进行编辑/修改', '提示')
+        } else {
+          this.currentId = this.currentSelected[0].Id
+          this.$router.push({ name: 'EditArticle', params: { id: this.currentId, showtype: view }})
+        }
+      } else {
+        this.$router.push({ name: 'EditArticle', params: { id: 'null', showtype: 'add' }})
+      }
     }
+
   }
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 </style>

@@ -144,14 +144,22 @@ namespace Yuebon.Commons.Extensions
             dtTo = dtTo.AddDays(-(dtTo.Day));
             return dtTo;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
 		public static DateTime ToEndOfTheDay(this DateTime dt)
 		{
 			if (dt != null)
 				return new DateTime(dt.Year, dt.Month, dt.Day, 23, 59, 59);
 			return dt;
 		}
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
 		public static DateTime? ToEndOfTheDay(this DateTime? dt)
 		{
 			return (dt.HasValue ? dt.Value.ToEndOfTheDay() : dt);

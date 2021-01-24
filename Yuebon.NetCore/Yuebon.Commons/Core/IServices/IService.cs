@@ -167,13 +167,6 @@ namespace Yuebon.Commons.IServices
         /// <returns></returns>
         bool Update(List<T> entities, IDbTransaction trans = null);
 
-        /// <summary>
-        /// 异步批量更新实体。
-        /// </summary>
-        /// <param name="entities">实体集合</param>
-        /// <param name="trans">事务对象</param>
-        /// <returns></returns>
-        Task<bool> UpdateAsync(List<T> entities, IDbTransaction trans = null);
 
         /// <summary>
         /// 更新某一字段值

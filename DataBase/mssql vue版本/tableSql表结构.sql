@@ -281,6 +281,7 @@ CREATE TABLE [dbo].[Sys_Menu](
 	[Component] [varchar](255) NULL,
 	[Target] [varchar](50) NULL,
 	[MenuType] [char](1) NULL,
+	[ActiveMenu] [varchar](255) NULL,
 	[IsExpand] [bit] NULL,
 	[IsFrame] [bit] NOT NULL,
 	[IsShow] [bit] NOT NULL,

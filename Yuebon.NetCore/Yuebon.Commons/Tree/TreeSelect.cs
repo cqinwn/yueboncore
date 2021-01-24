@@ -4,8 +4,16 @@ using Yuebon.Commons.Json;
 
 namespace Yuebon.Commons.Tree
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class TreeSelect
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public static string TreeSelectJson(this List<TreeSelectModel> data)
         {
             StringBuilder sb = new StringBuilder();
@@ -14,6 +22,13 @@ namespace Yuebon.Commons.Tree
             sb.Append("]");
             return sb.ToString();
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="parentId"></param>
+        /// <param name="blank"></param>
+        /// <returns></returns>
         private static string TreeSelectJson(List<TreeSelectModel> data, string parentId, string blank)
         {
             StringBuilder sb = new StringBuilder();

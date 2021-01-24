@@ -24,6 +24,10 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
     [ApiController]
     public class UploadFileController : AreaApiController<UploadFile, UploadFileOutputDto, UploadFileInputDto, IUploadFileService, string>
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_iService"></param>
         public UploadFileController(IUploadFileService _iService) : base(_iService)
         {
             iService = _iService;

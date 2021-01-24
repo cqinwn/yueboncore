@@ -15,11 +15,13 @@ import permission from './directive/permission'
 import '@/icons' // icon
 import '@/permission' // permission control
 import { resetForm } from '@/utils/index'
+import preventReClick from '@/utils/preventRepeatClick.js'
 
 // 全局方法挂载
 Vue.prototype.resetForm = resetForm
 
 Vue.use(permission)
+Vue.use(preventReClick)
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api

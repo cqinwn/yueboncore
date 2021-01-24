@@ -11,6 +11,11 @@ namespace Yuebon.Commons.Helpers
     /// </summary>
     public class UpperFirstCaseNamingPolicy:JsonNamingPolicy
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public override string ConvertName(string name) =>
             name.UpperFirst();
     }

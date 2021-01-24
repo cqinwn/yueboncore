@@ -207,7 +207,12 @@ namespace Yuebon.Security.Application
                 router.name = GetRouteName(menu);
                 router.path = GetRouterPath(menu);
                 router.component = GetComponent(menu);
-                router.meta = new Meta(menu.FullName, menu.Icon == null ? "" : menu.Icon, menu.IsCache);
+                Meta meta=  new Meta(menu.FullName, menu.Icon == null ? "" : menu.Icon, menu.IsCache);
+                if (!menu.IsShow && menu.MenuType.Contains("M"))
+                {
+                    meta.activeMenu = menu.ActiveMenu;
+                }
+                router.meta = meta;
                 List<MenuOutputDto> cMenus = menu.SubMenu;
                 if (cMenus!=null && menu.MenuType == "C")
                 {
@@ -223,7 +228,7 @@ namespace Yuebon.Security.Application
                     childrenRouter.component=menu.Component;
                     childrenRouter.name=menu.EnCode;
                     childrenRouter.meta = new Meta(menu.FullName, menu.Icon == null ? "" : menu.Icon, menu.IsCache);
-                    
+                    childrenRouter.meta = meta;
                     childrenList.Add(childrenRouter);
                     router.children=childrenList;
                 }else if (IsMeunFrame(menu)&& cMenus != null)

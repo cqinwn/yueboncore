@@ -270,16 +270,26 @@ namespace Yuebon.Commons.Extensions
         /// <summary>
         /// 获取主键字段
         /// </summary>
-        /// <param name="propertyInfo"></param>
+        /// <param name="entity"></param>
         /// <returns></returns>
         public static PropertyInfo GetKeyProperty(this Type entity)
         {
             return entity.GetProperties().GetKeyProperty();
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="properties"></param>
+        /// <returns></returns>
         public static PropertyInfo GetKeyProperty(this PropertyInfo[] properties)
         {
             return properties.Where(c => c.IsKey()).FirstOrDefault();
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="propertyInfo"></param>
+        /// <returns></returns>
         public static bool IsKey(this PropertyInfo propertyInfo)
         {
             object[] keyAttributes = propertyInfo.GetCustomAttributes(typeof(KeyAttribute), false);

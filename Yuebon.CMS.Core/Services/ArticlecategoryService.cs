@@ -129,7 +129,7 @@ namespace Yuebon.CMS.Services
                 {
                     where = string.Format("ParentId='{0}'", idsInfo.Ids[0]);
                     IEnumerable<Articlecategory> list = _repository.GetListWhere(where);
-                    if (list != null)
+                    if (list.Count()>0)
                     {
                         result.ErrMsg = "该分类存在子分类，不能删除";
                         return result;
@@ -167,7 +167,7 @@ namespace Yuebon.CMS.Services
             {
                 where = string.Format("ParentId='{0}'", idsInfo.Ids[0]);
                 IEnumerable<Articlecategory> list = _repository.GetListWhere(where);
-                if (list != null)
+                if (list.Count()> 0)
                 {
                     result.ErrMsg = "该分类存在子分类，不能删除";
                     return result;

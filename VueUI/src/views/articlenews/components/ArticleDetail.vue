@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div>
     <el-form ref="editFrom" :model="editFrom" :rules="rules">
       <el-row>
         <el-col :span="12">

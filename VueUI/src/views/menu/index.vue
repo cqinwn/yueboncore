@@ -61,7 +61,7 @@
                 <el-table-column
                   prop="UrlAddress"
                   label="路由地址"
-                  width="180"
+                  width="280"
                 />
                 <el-table-column
                   prop="Component"

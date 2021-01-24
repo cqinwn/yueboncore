@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <article-detail />
+  <div class="app-container">
+    <el-card>
+      <article-detail />
+    </el-card>
   </div>
 </template>
 

@@ -38,12 +38,19 @@ namespace Yuebon.Commons.Helpers
             }
             return list;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="assemblyName"></param>
+        /// <returns></returns>
         public static Assembly GetAssembly(string assemblyName)
         {
             return GetAllAssemblies().FirstOrDefault(assembly => assembly.FullName.Contains(assemblyName));
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public static IList<Type> GetAllTypes()
         {
             var list = new List<Type>();
@@ -57,7 +64,11 @@ namespace Yuebon.Commons.Helpers
             }
             return list;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="assemblyName"></param>
+        /// <returns></returns>
         public static IList<Type> GetTypesByAssembly(string assemblyName)
         {
             var list = new List<Type>();
@@ -69,7 +80,12 @@ namespace Yuebon.Commons.Helpers
             }
             return list;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="typeName"></param>
+        /// <param name="baseInterfaceType"></param>
+        /// <returns></returns>
         public static Type GetImplementType(string typeName, Type baseInterfaceType)
         {
             return GetAllTypes().FirstOrDefault(t =>

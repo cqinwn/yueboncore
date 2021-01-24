@@ -384,16 +384,6 @@ namespace Yuebon.Commons.Services
             return repository.UpdateAsync(entity,id, trans);
         }
 
-        /// <summary>
-        /// 异步批量更新实体。
-        /// </summary>
-        /// <param name="entities">实体集合</param>
-        /// <param name="trans">事务对象</param>
-        /// <returns></returns>
-        public virtual Task<bool> UpdateAsync(List<T> entities, IDbTransaction trans = null)
-        {
-            return repository.UpdateAsync(entities, trans);
-        }
 
         /// <summary>
         /// 更新某一字段值,字段值字符类型

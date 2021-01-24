@@ -115,7 +115,7 @@ namespace Yuebon.Commons.Repositories
         }
 
         /// <summary>
-        /// 构造方法，指定上下文
+        /// 构造方法，注入上下文
         /// </summary>
         /// <param name="dbContext">上下文</param>
         public BaseRepository(IDbContextCore dbContext)
@@ -994,7 +994,7 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual async Task<bool> UpdateAsync(T entity, TKey primaryKey, IDbTransaction trans=null)
         {
-          return DbContext.Update(entity)>0;
+            return await DapperConn.UpdateAsync<T>(entity);
         }
         /// <summary>
         /// 批量更新数据
@@ -1005,16 +1005,6 @@ namespace Yuebon.Commons.Repositories
         public virtual bool Update(List<T> entities, IDbTransaction trans=null)
         {
             return DbContext.EditRange<T>(entities)>0;
-        }
-        /// <summary>
-        /// 异步批量更新数据
-        /// </summary>
-        /// <param name="entities"></param>
-        /// <param name="trans">事务对象</param>
-        /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual async Task<bool> UpdateAsync(List<T> entities,IDbTransaction trans=null)
-        {
-            return DbContext.EditRange<T>(entities) > 0;
         }
 
         /// <summary>
@@ -1383,7 +1373,15 @@ namespace Yuebon.Commons.Repositories
             Tuple<bool, string> result = await ExecuteTransactionAsync(param);
             return result.Item1;
         }
-
+        /// <summary>
+        /// 异步按条件设置数据有效性，将EnabledMark设置为1:有效，0-为无效
+        /// </summary>
+        /// <param name="bl">true为有效，false无效</param>
+        /// <param name="where">条件</param>
+        /// <param name="paramparameters"></param>
+        /// <param name="userId"></param>
+        /// <param name="trans"></param>
+        /// <returns></returns>
         public virtual async Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, object paramparameters = null, string userId = null, IDbTransaction trans = null)
         {
             if (HasInjectionData(where))
@@ -1633,51 +1631,6 @@ namespace Yuebon.Commons.Repositories
                         DapperConn.Close();
                         DapperConn.Dispose();
                     }
-                }
-            }
-        }
-
-        IDbTransaction dbTransaction = null;
-        private T Execute<T>(Func<IDbConnection, IDbTransaction, T> func, bool beginTransaction = false, bool disposeConn = true)
-        {
-            if (beginTransaction)
-            {
-                if(DapperConn.State!=ConnectionState.Open)
-                DapperConn.Open();
-                dbTransaction = DapperConn.BeginTransaction();
-            }
-            using (IDbConnection connection = DapperConn)
-            {
-                try
-                {
-                    T reslutT = func(connection, dbTransaction);
-                    if (dbTransaction != null)
-                    {
-                        dbTransaction.Commit();
-                    }
-                    return reslutT;
-                }
-                catch (Exception ex)
-                {
-                    Log4NetHelper.Error("", ex);
-                    if (dbTransaction != null)
-                    {
-                        dbTransaction.Rollback();
-                        connection.Dispose();
-                        DapperConn.Close();
-                        DapperConn.Dispose();
-                    }
-                    throw ex;
-                }
-                finally
-                {
-                    if (disposeConn)
-                    {
-                        connection.Dispose();
-                        DapperConn.Close();
-                        DapperConn.Dispose();
-                    }
-                    dbTransaction?.Dispose();
                 }
             }
         }
@@ -2001,7 +1954,7 @@ namespace Yuebon.Commons.Repositories
         /// 获取正则表达式
         /// </summary>
         /// <returns></returns>
-        private string GetRegexString()
+        private static string  GetRegexString()
         {
             //构造SQL的注入关键字符
             string[] strBadChar =
@@ -2032,7 +1985,7 @@ namespace Yuebon.Commons.Repositories
             {
                 str_Regex += strBadChar[i] + "|";
             }
-            str_Regex += strBadChar[strBadChar.Length - 1] + ").*";
+            str_Regex += strBadChar[^1] + ").*";
 
             return str_Regex;
         }

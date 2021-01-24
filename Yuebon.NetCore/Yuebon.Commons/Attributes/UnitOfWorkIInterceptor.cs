@@ -14,10 +14,18 @@ namespace Yuebon.Commons.Attributes
     public class UnitOfWorkIInterceptor : IInterceptor
     {
         private DapperDbContext dBContext;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dBContext"></param>
         public UnitOfWorkIInterceptor(DapperDbContext dBContext)
         {
             this.dBContext = dBContext;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="invocation"></param>
         public void Intercept(IInvocation invocation)
         {
             MethodInfo methodInfo = invocation.MethodInvocationTarget;

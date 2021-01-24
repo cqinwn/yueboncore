@@ -256,15 +256,6 @@ namespace Yuebon.Commons.Application
             return service.UpdateAsync(entity, id, null);
         }
 
-        /// <summary>
-        /// 异步批量更新实体。
-        /// </summary>
-        /// <param name="entities">实体集合</param>
-        /// <returns></returns>
-        public virtual Task<bool> UpdateAsync(List<T> entities)
-        {
-            return service.UpdateAsync(entities, null);
-        }
 
 
         /// <summary>

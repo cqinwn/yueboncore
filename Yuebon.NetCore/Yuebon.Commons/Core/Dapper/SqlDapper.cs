@@ -35,7 +35,9 @@ namespace Yuebon.Commons.Dapper
                 return dbConnection;
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public SqlDapper()
         {
             DBServerProvider.GetConnectionString();
@@ -89,7 +91,12 @@ namespace Yuebon.Commons.Dapper
             Committed = true;
             Dispose();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="primaryKey"></param>
+        /// <returns></returns>
         public T Get<T>(dynamic primaryKey) where T : class
         {
             var type = typeof(T);
@@ -101,7 +108,12 @@ namespace Yuebon.Commons.Dapper
             dynParms.Add("@keyName", primaryKey);
             return Connection.QueryFirstOrDefault<T>(sql);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="primaryKey"></param>
+        /// <returns></returns>
         public async Task<T> GetAsync<T>(dynamic primaryKey) where T : class
         {
             var type = typeof(T);
@@ -114,9 +126,19 @@ namespace Yuebon.Commons.Dapper
             return await Connection.QueryFirstOrDefaultAsync<T>(sql);
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
         private static readonly ConcurrentDictionary<RuntimeTypeHandle, IEnumerable<PropertyInfo>> KeyProperties = new ConcurrentDictionary<RuntimeTypeHandle, IEnumerable<PropertyInfo>>();
+        /// <summary>
+        /// 
+        /// </summary>
         private static readonly ConcurrentDictionary<RuntimeTypeHandle, IEnumerable<PropertyInfo>> TypeProperties = new ConcurrentDictionary<RuntimeTypeHandle, IEnumerable<PropertyInfo>>();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         private static string GetTableName(Type type)
         {
 #if NETSTANDARD1_3
@@ -133,7 +155,12 @@ namespace Yuebon.Commons.Dapper
             return tableAttrName;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="method"></param>
+        /// <returns></returns>
         private static PropertyInfo GetSingleKey<T>(string method)
         {
             var type = typeof(T);
@@ -175,7 +202,11 @@ namespace Yuebon.Commons.Dapper
             KeyProperties[type.TypeHandle] = keyProperties;
             return keyProperties;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         private static List<PropertyInfo> TypePropertiesCache(Type type)
         {
             if (TypeProperties.TryGetValue(type.TypeHandle, out IEnumerable<PropertyInfo> pis))
@@ -247,7 +278,7 @@ namespace Yuebon.Commons.Dapper
             {
                 str_Regex += strBadChar[i] + "|";
             }
-            str_Regex += strBadChar[strBadChar.Length - 1] + ").*";
+            str_Regex += strBadChar[^1] + ").*";
 
             return str_Regex;
         }

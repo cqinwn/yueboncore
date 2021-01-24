@@ -1,8 +1,8 @@
 <template>
   <div class="app-container">
     <el-card>
-      <el-row :gutter="20">
-        <el-col :span="7">
+      <el-row :gutter="24">
+        <el-col :span="10">
           <div class="grid-content bg-purple">
             <div class="grid-content bg-purple">
               <div class="list-btn-container">
@@ -84,7 +84,7 @@
             </div>
           </div>
         </el-col>
-        <el-col :span="17">
+        <el-col :span="14">
           <div class="grid-content bg-purple">
             <div class="list-btn-container">
               <el-form ref="searchform" :inline="true" :model="searchform" class="demo-form-inline" size="small">

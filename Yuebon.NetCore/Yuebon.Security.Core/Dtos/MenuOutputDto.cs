@@ -71,6 +71,11 @@ namespace Yuebon.Security.Dtos
         /// 设置或获取组件路径
         /// </summary>
         public virtual string Component { get; set; }
+        /// <summary>
+        /// 设置当前选中菜单，用于新增、编辑、查看操作为单独的路由时指定选中菜单路由
+        /// 同时设置为隐藏时才有效
+        /// </summary>
+        public virtual string ActiveMenu { get; set; }
 
         /// <summary>
         /// 设置或获取 
@@ -117,7 +122,7 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 设置或获取 
         /// </summary>
-        public bool? EnabledMark { get; set; }
+        public bool EnabledMark { get; set; }
 
         /// <summary>
         /// 设置或获取 

@@ -247,6 +247,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.SortCode = tinfo.SortCode;
             info.Description = tinfo.Description;
             info.MenuType = tinfo.MenuType;
+            info.ActiveMenu = tinfo.ActiveMenu;
             if (info.MenuType == "F")
             {
                 info.IsFrame = false;

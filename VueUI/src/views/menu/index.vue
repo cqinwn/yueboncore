@@ -194,6 +194,11 @@
             </el-form-item>
           </el-col>
 
+          <el-col v-if="editMenuFrom.MenuType == 'M' && !editMenuFrom.IsShow" :span="12">
+            <el-form-item label="选中菜单" :label-width="formLabelWidth" prop="ActiveMenu">
+              <el-input v-model="editMenuFrom.ActiveMenu" placeholder="请输入选中菜单路由地址" autocomplete="off" clearable />
+            </el-form-item>
+          </el-col>
           <el-col :span="12">
             <el-form-item v-if="editMenuFrom.MenuType !== 'F'" label="图标" :label-width="formLabelWidth" prop="Icon">
               <el-popover
@@ -383,6 +388,7 @@ export default {
         Icon: undefined,
         UrlAddress: '',
         Component: '',
+        ActiveMenu: '',
         EnabledMark: true,
         MenuType: 'C',
         IsPublic: false,
@@ -485,6 +491,7 @@ export default {
             'Icon': this.editMenuFrom.Icon,
             'UrlAddress': this.editMenuFrom.UrlAddress,
             'EnabledMark': this.editMenuFrom.EnabledMark,
+            'ActiveMenu': this.editMenuFrom.ActiveMenu,
             'MenuType': this.editMenuFrom.MenuType,
             'Component': this.editMenuFrom.Component,
             'SortCode': this.editMenuFrom.SortCode,
@@ -611,7 +618,7 @@ export default {
   }
 }
 </script>
-<style>
+<style lang="scss" scoped>
 .el-cascader{
   width: 100%;
 }

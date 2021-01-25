@@ -283,6 +283,21 @@ namespace Yuebon.WebApi
                 ConnectionString = Configuration.GetSection("CacheProvider:Redis_ConnectionString").Value,
                 InstanceName = Configuration.GetSection("CacheProvider:Redis_InstanceName").Value
             };
+
+            var options = new JsonSerializerOptions();
+            options.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All);
+            options.WriteIndented = true;
+            options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+            options.AllowTrailingCommas = true;
+            //设置时间格式
+            options.Converters.Add(new DateTimeJsonConverter());
+            options.Converters.Add(new DateTimeNullableConverter());
+            //设置bool获取格式
+            options.Converters.Add(new BooleanJsonConverter());
+            //设置数字
+            options.Converters.Add(new IntJsonConverter());
+            options.PropertyNamingPolicy = new UpperFirstCaseNamingPolicy();
+            options.PropertyNameCaseInsensitive = true;                     //忽略大小写
             //判断是否使用Redis，如果不使用 Redis就默认使用 MemoryCache
             if (cacheProvider.IsUseRedis)
             {
@@ -296,7 +311,7 @@ namespace Yuebon.WebApi
                 {
                     Configuration = cacheProvider.ConnectionString,
                     InstanceName = cacheProvider.InstanceName
-                }, 0));
+                }, options, 0));
                 services.Configure<DistributedCacheEntryOptions>(option => option.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5));//设置Redis缓存有效时间为5分钟。
             }
             else
@@ -345,7 +360,7 @@ namespace Yuebon.WebApi
                 };
             });
             #endregion
-            services.AddTransient<IDbContextCore, MySqlDbContext>(); //注入EF上下文
+            services.AddTransient<IDbContextCore, SqlServerDbContext>(); //注入EF上下文
 
             IoCContainer.Register(cacheProvider);//注册缓存配置
             IoCContainer.Register(Configuration);//注册配置

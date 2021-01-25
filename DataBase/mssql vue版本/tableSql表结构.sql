@@ -1,6 +1,6 @@
 USE [YBNF]
 GO
-/****** Object:  Table [dbo].[CMS_Articlecategory]    Script Date: 2021/1/9 16:30:54 ******/
+/****** Object:  Table [dbo].[CMS_Articlecategory]    Script Date: 2021/1/25 16:37:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35,7 +35,7 @@ CREATE TABLE [dbo].[CMS_Articlecategory](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[CMS_Articlenews]    Script Date: 2021/1/9 16:30:54 ******/
+/****** Object:  Table [dbo].[CMS_Articlenews]    Script Date: 2021/1/25 16:37:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -83,7 +83,7 @@ CREATE TABLE [dbo].[CMS_Articlenews](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_APP]    Script Date: 2021/1/9 16:30:54 ******/
+/****** Object:  Table [dbo].[Sys_APP]    Script Date: 2021/1/25 16:37:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -113,7 +113,7 @@ CREATE TABLE [dbo].[Sys_APP](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Area]    Script Date: 2021/1/9 16:30:54 ******/
+/****** Object:  Table [dbo].[Sys_Area]    Script Date: 2021/1/25 16:37:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -139,7 +139,7 @@ CREATE TABLE [dbo].[Sys_Area](
 	[DeleteUserId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_DbBackup]    Script Date: 2021/1/9 16:30:54 ******/
+/****** Object:  Table [dbo].[Sys_DbBackup]    Script Date: 2021/1/25 16:37:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -164,7 +164,7 @@ CREATE TABLE [dbo].[Sys_DbBackup](
 	[DeleteUserId] [varchar](500) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_FilterIP]    Script Date: 2021/1/9 16:30:54 ******/
+/****** Object:  Table [dbo].[Sys_FilterIP]    Script Date: 2021/1/25 16:37:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -186,7 +186,7 @@ CREATE TABLE [dbo].[Sys_FilterIP](
 	[DeleteUserId] [varchar](500) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Items]    Script Date: 2021/1/9 16:30:54 ******/
+/****** Object:  Table [dbo].[Sys_Items]    Script Date: 2021/1/25 16:37:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -210,7 +210,7 @@ CREATE TABLE [dbo].[Sys_Items](
 	[DeleteUserId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_ItemsDetail]    Script Date: 2021/1/9 16:30:54 ******/
+/****** Object:  Table [dbo].[Sys_ItemsDetail]    Script Date: 2021/1/25 16:37:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -236,7 +236,7 @@ CREATE TABLE [dbo].[Sys_ItemsDetail](
 	[DeleteUserId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Log]    Script Date: 2021/1/9 16:30:54 ******/
+/****** Object:  Table [dbo].[Sys_Log]    Script Date: 2021/1/25 16:37:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -264,7 +264,7 @@ CREATE TABLE [dbo].[Sys_Log](
 	[DeleteUserId] [varchar](50) NULL
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Menu]    Script Date: 2021/1/9 16:30:54 ******/
+/****** Object:  Table [dbo].[Sys_Menu]    Script Date: 2021/1/25 16:37:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -305,7 +305,7 @@ CREATE TABLE [dbo].[Sys_Menu](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_OpenIdSettings]    Script Date: 2021/1/9 16:30:54 ******/
+/****** Object:  Table [dbo].[Sys_OpenIdSettings]    Script Date: 2021/1/25 16:37:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -317,7 +317,7 @@ CREATE TABLE [dbo].[Sys_OpenIdSettings](
 	[Settings] [ntext] NOT NULL
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Organize]    Script Date: 2021/1/9 16:30:54 ******/
+/****** Object:  Table [dbo].[Sys_Organize]    Script Date: 2021/1/25 16:37:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -352,7 +352,7 @@ CREATE TABLE [dbo].[Sys_Organize](
 	[DeleteUserId] [varchar](500) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Role]    Script Date: 2021/1/9 16:30:54 ******/
+/****** Object:  Table [dbo].[Sys_Role]    Script Date: 2021/1/25 16:37:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -378,7 +378,7 @@ CREATE TABLE [dbo].[Sys_Role](
 	[DeleteUserId] [varchar](500) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_RoleAuthorize]    Script Date: 2021/1/9 16:30:54 ******/
+/****** Object:  Table [dbo].[Sys_RoleAuthorize]    Script Date: 2021/1/25 16:37:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -394,7 +394,7 @@ CREATE TABLE [dbo].[Sys_RoleAuthorize](
 	[CreatorUserId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_RoleData]    Script Date: 2021/1/9 16:30:54 ******/
+/****** Object:  Table [dbo].[Sys_RoleData]    Script Date: 2021/1/25 16:37:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -406,7 +406,7 @@ CREATE TABLE [dbo].[Sys_RoleData](
 	[DType] [nvarchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Sequence]    Script Date: 2021/1/9 16:30:54 ******/
+/****** Object:  Table [dbo].[Sys_Sequence]    Script Date: 2021/1/25 16:37:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -437,7 +437,7 @@ CREATE TABLE [dbo].[Sys_Sequence](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_SequenceRule]    Script Date: 2021/1/9 16:30:54 ******/
+/****** Object:  Table [dbo].[Sys_SequenceRule]    Script Date: 2021/1/25 16:37:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -468,7 +468,7 @@ CREATE TABLE [dbo].[Sys_SequenceRule](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_SystemType]    Script Date: 2021/1/9 16:30:54 ******/
+/****** Object:  Table [dbo].[Sys_SystemType]    Script Date: 2021/1/25 16:37:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -492,7 +492,7 @@ CREATE TABLE [dbo].[Sys_SystemType](
 	[DeleteUserId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_TaskJobsLog]    Script Date: 2021/1/9 16:30:54 ******/
+/****** Object:  Table [dbo].[Sys_TaskJobsLog]    Script Date: 2021/1/25 16:37:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -511,7 +511,7 @@ CREATE TABLE [dbo].[Sys_TaskJobsLog](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_TaskManager]    Script Date: 2021/1/9 16:30:54 ******/
+/****** Object:  Table [dbo].[Sys_TaskManager]    Script Date: 2021/1/25 16:37:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -551,7 +551,7 @@ CREATE TABLE [dbo].[Sys_TaskManager](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_Tenant]    Script Date: 2021/1/9 16:30:54 ******/
+/****** Object:  Table [dbo].[Sys_Tenant]    Script Date: 2021/1/25 16:37:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -577,7 +577,7 @@ CREATE TABLE [dbo].[Sys_Tenant](
 	[DeleteUserId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_UploadFile]    Script Date: 2021/1/9 16:30:54 ******/
+/****** Object:  Table [dbo].[Sys_UploadFile]    Script Date: 2021/1/25 16:37:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -601,7 +601,7 @@ CREATE TABLE [dbo].[Sys_UploadFile](
 	[BelongAppId] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_User]    Script Date: 2021/1/9 16:30:55 ******/
+/****** Object:  Table [dbo].[Sys_User]    Script Date: 2021/1/25 16:37:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -645,7 +645,7 @@ CREATE TABLE [dbo].[Sys_User](
 	[DeleteUserId] [varchar](500) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_UserExtend]    Script Date: 2021/1/9 16:30:55 ******/
+/****** Object:  Table [dbo].[Sys_UserExtend]    Script Date: 2021/1/25 16:37:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -685,7 +685,7 @@ CREATE TABLE [dbo].[Sys_UserExtend](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_UserLogOn]    Script Date: 2021/1/9 16:30:55 ******/
+/****** Object:  Table [dbo].[Sys_UserLogOn]    Script Date: 2021/1/25 16:37:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -713,7 +713,7 @@ CREATE TABLE [dbo].[Sys_UserLogOn](
 	[Theme] [nvarchar](3000) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Sys_UserOpenIds]    Script Date: 2021/1/9 16:30:55 ******/
+/****** Object:  Table [dbo].[Sys_UserOpenIds]    Script Date: 2021/1/25 16:37:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1194,9 +1194,4 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'用户登录信息' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_UserLogOn'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'用户与第三方开放平台对应关系' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Sys_UserOpenIds'
-GO
-
-USE [master]
-GO
-ALTER DATABASE [YBNF] SET  READ_WRITE 
 GO

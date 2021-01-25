@@ -41,10 +41,9 @@ function filterAsyncRouter(asyncRouterMap, isRewrite = false) {
       route.children = filterChildren(route.children)
     }
     if (route.component) {
-      // Layout ParentView 组件特殊处理
       if (route.component === 'Layout') {
         route.component = Layout
-      } else if (route.component === 'ParentView') {
+      } else if (route.component === 'ParentView') { // Layout ParentView 组件特殊处理
         route.component = ParentView
       } else {
         route.component = loadView(route.component)
@@ -63,7 +62,6 @@ function filterChildren(childrenMap) {
     if (el.children && el.children.length) {
       if (el.component === 'ParentView') {
         el.children.forEach(c => {
-          c.path = el.path + '/' + c.path
           if (c.children && c.children.length) {
             children = children.concat(filterChildren(c.children, c))
             return

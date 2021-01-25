@@ -360,7 +360,7 @@ namespace Yuebon.WebApi
                 };
             });
             #endregion
-            services.AddTransient<IDbContextCore, SqlServerDbContext>(); //注入EF上下文
+            services.AddTransient<IDbContextCore, MySqlDbContext>(); //注入EF上下文
 
             IoCContainer.Register(cacheProvider);//注册缓存配置
             IoCContainer.Register(Configuration);//注册配置

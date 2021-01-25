@@ -119,7 +119,7 @@
     </el-card>
 
     <!-- 添加或修改菜单对话框 -->
-    <el-dialog ref="dialogEditMenuForm" :title="editMenuFormTitle+'模块/菜单'" append-to-body :visible.sync="dialogMenuEditFormVisible" width="40%">
+    <el-dialog ref="dialogEditMenuForm" v-el-drag-dialog :title="editMenuFormTitle+'模块/菜单'" append-to-body :visible.sync="dialogMenuEditFormVisible" width="40%">
       <el-form ref="editMenuFrom" :model="editMenuFrom" :rules="rules">
         <el-row>
           <el-col :span="12">
@@ -283,9 +283,10 @@ import { getSubSystemList } from '@/api/basebasic'
 import { getAllMenuTreeTable, getMenuDetail, saveMenu, setMenuEnable, deleteSoftMenu, deleteMenu } from '@/api/developers/menufunction'
 
 import IconSelect from '@/components/IconSelect'
-
+import elDragDialog from '@/directive/el-drag-dialog'
 export default {
   name: 'Menu',
+  directives: { elDragDialog },
   components: { IconSelect },
   data() {
     return {

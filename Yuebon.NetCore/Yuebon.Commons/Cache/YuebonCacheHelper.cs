@@ -133,7 +133,7 @@ namespace Yuebon.Commons.Cache
         /// <returns></returns>
         public T Get<T>(string key) where T : class
         {
-            return cacheservice.Get(key) as T;
+            return cacheservice.Get<T>(key);
         }
         /// <summary>
         /// 获取缓存

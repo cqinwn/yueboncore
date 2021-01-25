@@ -63,7 +63,7 @@ namespace Yuebon.AspNetCore.Controllers
                         {
                             string userId = claimlist[0].Value;
                             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                            var user = yuebonCacheHelper.Get("login_user_" + userId).ToJson().ToObject<YuebonCurrentUser>();
+                            var user = yuebonCacheHelper.Get<YuebonCurrentUser>("login_user_" + userId);
                             if (user != null)
                             {
                                 CurrentUser = user;

@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Text.Unicode;
 using System.Threading.Tasks;
+using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Json;
 
 namespace Yuebon.Commons.Cache
@@ -29,16 +31,20 @@ namespace Yuebon.Commons.Cache
         /// </summary>
         private readonly string _instance;
 
+        private readonly JsonSerializerOptions _jsonOptions;
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="options"></param>
         /// <param name="database"></param>
-        public RedisCacheService(RedisCacheOptions options, int database = 0)
+        /// <param name="jsonOptions"></param>
+        public RedisCacheService(RedisCacheOptions options, JsonSerializerOptions jsonOptions, int database = 0)
         {
             _connection = ConnectionMultiplexer.Connect(options.Configuration);
             _cache = _connection.GetDatabase(database);
             _instance = options.InstanceName;
+            _jsonOptions = jsonOptions;
         }
         /// <summary>
         /// 
@@ -91,7 +97,8 @@ namespace Yuebon.Commons.Cache
             {
                 throw new ArgumentNullException(nameof(key));
             }
-            return _cache.StringSet(GetKeyForRedis(key), Encoding.UTF8.GetBytes(JsonSerializer.Serialize(value)));
+
+            return _cache.StringSet(GetKeyForRedis(key), Encoding.UTF8.GetBytes(JsonSerializer.Serialize(value, _jsonOptions)));
         }
         /// <summary>
         /// 添加缓存
@@ -107,7 +114,8 @@ namespace Yuebon.Commons.Cache
             {
                 throw new ArgumentNullException(nameof(key));
             }
-            return _cache.StringSet(GetKeyForRedis(key), Encoding.UTF8.GetBytes(JsonSerializer.Serialize(value)), expiressAbsoulte);
+
+            return _cache.StringSet(GetKeyForRedis(key), Encoding.UTF8.GetBytes(JsonSerializer.Serialize(value, _jsonOptions)), expiressAbsoulte);
         }
         /// <summary>
         /// 添加缓存
@@ -123,7 +131,9 @@ namespace Yuebon.Commons.Cache
             {
                 throw new ArgumentNullException(nameof(key));
             }
-            return _cache.StringSet(GetKeyForRedis(key), Encoding.UTF8.GetBytes(JsonSerializer.Serialize(value)), expiresIn);
+
+
+            return _cache.StringSet(GetKeyForRedis(key), Encoding.UTF8.GetBytes(JsonSerializer.Serialize(value, _jsonOptions)), expiresIn);
         }
 
 
@@ -133,7 +143,8 @@ namespace Yuebon.Commons.Cache
             {
                 throw new ArgumentNullException(nameof(key));
             }
-            return _cache.StringSetAsync(GetKeyForRedis(key), Encoding.UTF8.GetBytes(JsonSerializer.Serialize(value)));
+
+            return _cache.StringSetAsync(GetKeyForRedis(key), Encoding.UTF8.GetBytes(JsonSerializer.Serialize(value, _jsonOptions)));
         }
 
         public Task<bool> AddAsync(string key, object value, TimeSpan expiresSliding, TimeSpan expiressAbsoulte)
@@ -142,7 +153,8 @@ namespace Yuebon.Commons.Cache
             {
                 throw new ArgumentNullException(nameof(key));
             }
-            return _cache.StringSetAsync(GetKeyForRedis(key), Encoding.UTF8.GetBytes(JsonSerializer.Serialize(value)), expiressAbsoulte);
+
+            return _cache.StringSetAsync(GetKeyForRedis(key), Encoding.UTF8.GetBytes(JsonSerializer.Serialize(value, _jsonOptions)), expiressAbsoulte);
         }
 
         public Task<bool> AddAsync(string key, object value, TimeSpan expiresIn, bool isSliding = false)
@@ -152,7 +164,8 @@ namespace Yuebon.Commons.Cache
             {
                 throw new ArgumentNullException(nameof(key));
             }
-            return _cache.StringSetAsync(GetKeyForRedis(key), Encoding.UTF8.GetBytes(JsonSerializer.Serialize(value)), expiresIn);
+
+            return _cache.StringSetAsync(GetKeyForRedis(key), Encoding.UTF8.GetBytes(JsonSerializer.Serialize(value, _jsonOptions)), expiresIn);
         }
 
         #endregion
@@ -200,7 +213,7 @@ namespace Yuebon.Commons.Cache
         {
             //if (keys == null)
             //{
-                throw new ArgumentNullException(nameof(keys));
+            throw new ArgumentNullException(nameof(keys));
             //}
 
             //keys.ToList().ForEach(item => RemoveAsync(item));
@@ -251,7 +264,7 @@ namespace Yuebon.Commons.Cache
                 return default(T);
             }
 
-            return JsonSerializer.Deserialize<T>(value);
+            return JsonSerializer.Deserialize<T>(value, _jsonOptions);
         }
         /// <summary>
         /// 获取缓存
@@ -271,7 +284,12 @@ namespace Yuebon.Commons.Cache
             {
                 return null;
             }
-            return JsonSerializer.Deserialize<object>(value);
+
+            return JsonSerializer.Deserialize<object>(value, _jsonOptions);
+            //string json = value.ToString();
+            //return Newtonsoft.Json.JsonConvert.DeserializeObject(json);
+
+
         }
         /// <summary>
         /// 获取缓存集合
@@ -304,8 +322,8 @@ namespace Yuebon.Commons.Cache
 
         public Task<IDictionary<string, object>> GetAllAsync(IEnumerable<string> keys)
         {
-            
-                throw new ArgumentNullException(nameof(keys));
+
+            throw new ArgumentNullException(nameof(keys));
         }
         #endregion
 

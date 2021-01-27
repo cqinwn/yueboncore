@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.Core.App;
 using Yuebon.Commons.Enums;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IoC;
@@ -23,10 +24,10 @@ namespace Yuebon.Quartz.Jobs
     /// </summary>
     public class SysLogJob : IJob
     {
-        ITaskManagerService iService = IoCContainer.Resolve<ITaskManagerService>();
+        ITaskManagerService iService = App.GetService<ITaskManagerService>();
 
-        ITaskJobsLogService iJobLogService = IoCContainer.Resolve<ITaskJobsLogService>();
-        ILogService iLogService = IoCContainer.Resolve<ILogService>();
+        ITaskJobsLogService iJobLogService = App.GetService<ITaskJobsLogService>();
+        ILogService iLogService = App.GetService<ILogService>();
 
         public Task Execute(IJobExecutionContext context)
         {

@@ -33,7 +33,7 @@ namespace Yuebon.Email
 
             SendServerConfigurationEntity sendServerConfiguration = new SendServerConfigurationEntity();
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            AppSetting sysSetting = JsonSerializer.Deserialize<AppSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
+            AppSetting sysSetting = yuebonCacheHelper.Get<AppSetting>("SysSetting");
             if (sysSetting != null)
             {
                 sendServerConfiguration.SmtpHost = DEncrypt.Decrypt(sysSetting.Emailsmtp);

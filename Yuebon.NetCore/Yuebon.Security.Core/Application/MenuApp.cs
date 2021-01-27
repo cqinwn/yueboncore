@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Yuebon.Commons.Core.App;
 using Yuebon.Commons.Extend;
 using Yuebon.Commons.IoC;
 using Yuebon.Commons.Json;
@@ -22,9 +23,9 @@ namespace Yuebon.Security.Application
     /// </summary>
     public class MenuApp
     {
-        IMenuService service = IoCContainer.Resolve<IMenuService>();
-        ISystemTypeService systemservice = IoCContainer.Resolve<ISystemTypeService>();
-        IUserService serviceUser = IoCContainer.Resolve<IUserService>();
+        IMenuService service = App.GetService<IMenuService>();
+        ISystemTypeService systemservice = App.GetService<ISystemTypeService>();
+        IUserService serviceUser = App.GetService<IUserService>();
         /// <summary>
         /// 获取菜单树JsTree模式
         /// </summary>

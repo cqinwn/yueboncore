@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Text;
+using Yuebon.Commons.Core.App;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IoC;
@@ -32,7 +33,7 @@ namespace Yuebon.Security.Application
         private string _dbThumbnail;   //数据库中的缩略图路径
         private string _belongApp;//所属应用
         private string _belongAppId;//所属应用ID
-        IUploadFileService service = IoCContainer.Resolve<IUploadFileService>();
+        IUploadFileService service = App.GetService<IUploadFileService>();
         /// <summary>
         /// 
         /// </summary>

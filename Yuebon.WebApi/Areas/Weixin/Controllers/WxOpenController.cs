@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Senparc.CO2NET.Extensions;
 using Senparc.Weixin;
 using Senparc.Weixin.Entities;
@@ -24,6 +23,7 @@ using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.Core.App;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IoC;
@@ -154,7 +154,7 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
                     var currentSession = (YuebonCurrentUser)(yuebonCacheHelper.Get("login_user_" + userId));
                     if (currentSession == null || string.IsNullOrWhiteSpace(currentSession.AccessToken))
                     {
-                        JwtOption jwtModel = IoCContainer.Resolve<JwtOption>();
+                        JwtOption jwtModel = App.GetService<JwtOption>();
                         TokenProvider tokenProvider = new TokenProvider(jwtModel);
                         TokenResult tokenResult = tokenProvider.LoginToken(user, "wxapplet");
                         currentSession = new YuebonCurrentUser
@@ -707,7 +707,7 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
                     user = userService.GetUserByOpenId(info.openIdType, info.openId);
                     if (user != null)
                     {
-                        JwtOption jwtModel = IoCContainer.Resolve<JwtOption>();
+                        JwtOption jwtModel = App.GetService<JwtOption>();
                         TokenProvider tokenProvider = new TokenProvider(jwtModel);
                         TokenResult tokenResult = tokenProvider.LoginToken(user, "wxapplet");
                         var currentSession = new YuebonCurrentUser
@@ -786,7 +786,7 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
                 var currentSession =(YuebonCurrentUser)yuebonCacheHelper.Get("login_user_" + user.Id);
                 if (currentSession == null || string.IsNullOrWhiteSpace(currentSession.AccessToken))
                 {
-                    JwtOption jwtModel = IoCContainer.Resolve<JwtOption>();
+                    JwtOption jwtModel = App.GetService<JwtOption>();
                     TokenProvider tokenProvider = new TokenProvider(jwtModel);
                     TokenResult tokenResult = tokenProvider.LoginToken(user, "wxapplet");
                     currentSession = new YuebonCurrentUser

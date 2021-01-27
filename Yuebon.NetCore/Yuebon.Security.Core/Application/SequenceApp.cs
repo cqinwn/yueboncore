@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Yuebon.Commons.Core.App;
 using Yuebon.Commons.IoC;
 using Yuebon.Commons.Models;
 using Yuebon.Security.IServices;
@@ -13,7 +14,7 @@ namespace Yuebon.Security.Application
     /// </summary>
     public class  SequenceApp
     {
-        ISequenceService iService = IoCContainer.Resolve<ISequenceService>();
+        ISequenceService iService = App.GetService<ISequenceService>();
         static object locker = new object(); 
         /// <summary>
         /// 获取新的业务单据编码

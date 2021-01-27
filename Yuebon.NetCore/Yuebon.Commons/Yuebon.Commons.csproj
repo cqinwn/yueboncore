@@ -72,18 +72,25 @@
     <Compile Remove="Attributes\MemoryCacheAttribute.cs" />
     <Compile Remove="Attributes\RedisCacheAttribute.cs" />
     <Compile Remove="Attributes\TableAttribute.cs" />
+    <Compile Remove="Attributes\UnitOfWorkIInterceptor.cs" />
     <Compile Remove="Attributes\WriteAttribute.cs" />
+    <Compile Remove="Core\App\AppContext.cs" />
+    <Compile Remove="Core\App\IAppContext.cs" />
+    <Compile Remove="Core\App\InternalApp.cs" />
     <Compile Remove="Core\DbContextCore\InMemoryDbContext.cs" />
     <Compile Remove="Core\DbContextCore\MongoDbContext.cs" />
     <Compile Remove="Core\DbContextCore\ShardDbContextFactory.cs" />
     <Compile Remove="Core\IDbContext\IInMemoryDbContext.cs" />
     <Compile Remove="Core\IDbContext\IMongoDbContext.cs" />
+    <Compile Remove="Core\Module\MoudleService.cs" />
+    <Compile Remove="DependencyInjection\AspectCoreContainer.cs" />
     <Compile Remove="Extensions\AutoMapperExtension.cs" />
     <Compile Remove="Extensions\ComparisonHelper.cs" />
     <Compile Remove="Extensions\EnumerableExtensions.cs" />
     <Compile Remove="Extensions\GenericExtension.cs" />
     <Compile Remove="Extensions\IoCContainerExtensions.cs" />
     <Compile Remove="Extensions\MiddlewareExtensions.cs" />
+    <Compile Remove="Extensions\MvcExtension.cs" />
     <Compile Remove="Extensions\ServiceCollectionExtension.cs" />
     <Compile Remove="Extensions\SqlBuilder.cs" />
     <Compile Remove="Helpers\BoolNullableConverter.cs" />
@@ -158,10 +165,6 @@
 
   <ItemGroup>
 
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
-
-    <PackageReference Include="Autofac.Extras.DynamicProxy" Version="6.0.0" />
-
     <PackageReference Include="AutoMapper" Version="10.1.1" />
 
     <PackageReference Include="CSRedisCore" Version="3.6.6" />
@@ -186,7 +189,6 @@
     <PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.2.22" />
     <PackageReference Include="MiniProfiler.EntityFrameworkCore" Version="4.2.22" />
     <PackageReference Include="MySql.Data" Version="8.0.23" />
-    <PackageReference Include="Autofac" Version="6.1.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
     <PackageReference Include="Npgsql" Version="5.0.2" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.2" />

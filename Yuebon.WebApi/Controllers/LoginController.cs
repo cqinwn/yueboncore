@@ -9,6 +9,7 @@ using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.Core.App;
 using Yuebon.Commons.IoC;
 using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Models;
@@ -146,7 +147,7 @@ namespace Yuebon.WebApi.Controllers
                                     {
                                         result.Success = true;
                                         User user = userLogin.Item1;
-                                        JwtOption jwtModel = IoCContainer.Resolve<JwtOption>();
+                                        JwtOption jwtModel = App.GetService<JwtOption>();
                                         TokenProvider tokenProvider = new TokenProvider(jwtModel);
                                         TokenResult tokenResult = tokenProvider.LoginToken(user, appId);
                                         YuebonCurrentUser currentSession = new YuebonCurrentUser
@@ -353,7 +354,7 @@ namespace Yuebon.WebApi.Controllers
 
                                         User user = userLogin.Item1;
 
-                                        JwtOption jwtModel = IoCContainer.Resolve<JwtOption>();
+                                        JwtOption jwtModel = App.GetService<JwtOption>();
                                         TokenProvider tokenProvider = new TokenProvider(jwtModel);
                                         TokenResult tokenResult = tokenProvider.LoginToken(user, appId);
                                         YuebonCurrentUser currentSession = new YuebonCurrentUser
@@ -505,7 +506,7 @@ namespace Yuebon.WebApi.Controllers
                                     if (user != null)
                                     {
                                         result.Success = true;
-                                        JwtOption jwtModel = IoCContainer.Resolve<JwtOption>();
+                                        JwtOption jwtModel = App.GetService<JwtOption>();
                                         TokenProvider tokenProvider = new TokenProvider(jwtModel);
                                         TokenResult tokenResult = tokenProvider.LoginToken(user, appId);
                                         YuebonCurrentUser currentSession = new YuebonCurrentUser

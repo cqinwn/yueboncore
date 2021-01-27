@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Yuebon.Commons.Core.Dapper;
 using Yuebon.Commons.Core.DataManager;
+using Yuebon.Commons.DependencyInjection;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.IRepositories;
@@ -30,7 +31,7 @@ namespace Yuebon.Commons.Repositories
     /// </summary>
     /// <typeparam name="T">实体类型</typeparam>
     /// <typeparam name="TKey">实体主键类型</typeparam>
-    public abstract class BaseRepository<T, TKey> : IRepository<T, TKey> 
+    public abstract class BaseRepository<T, TKey> : IRepository<T, TKey> ,ITransientDependency
         where T : Entity
     {
         #region 构造函数及基本配置

@@ -17,7 +17,10 @@ namespace Yuebon.Commons.CodeGenerator
     /// </summary>
     public class CodeGenerator
     {
-        private static CodeGenerateOption _option;
+        /// <summary>
+        /// 代码生成器配置
+        /// </summary>
+        private static CodeGenerateOption _option=new CodeGenerateOption();
         /// <summary>
         /// InputDto输入实体是不包含字段
         /// </summary>
@@ -27,11 +30,6 @@ namespace Yuebon.Commons.CodeGenerator
         /// </summary>
         static CodeGenerator()
         {
-            _option = IoCContainer.Resolve<CodeGenerateOption>();
-            if (_option == null)
-            {
-                throw new ArgumentNullException(nameof(_option));
-            }
         }
         /// <summary>
         /// 代码生成器入口方法

@@ -31,19 +31,19 @@ namespace Yuebon.Security.Models
         /// <summary>
         /// 应用密钥
         /// </summary>
-        [MaxLength(128)]
+        [MaxLength(256)]
         public virtual string AppSecret { get; set; }
 
         /// <summary>
         /// 消息加解密密钥
         /// </summary>
-        [MaxLength(128)]
+        [MaxLength(256)]
         public virtual string EncodingAESKey { get; set; }
 
         /// <summary>
         /// 服务器地址url
         /// </summary>
-        [MaxLength(256)]
+        [MaxLength(512)]
         public virtual string RequestUrl { get; set; }
 
         /// <summary>

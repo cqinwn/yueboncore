@@ -11,15 +11,16 @@ using Yuebon.Security.Models;
 using Yuebon.WeChat.CommonService.SubscribeMessage.WxApplet;
 using Senparc.Weixin.Entities;
 using Yuebon.SMS.AliYun;
+using Yuebon.Commons.Core.App;
 
 namespace Yuebon.Messages.Application
 {
     public static class Messenger
     {
-        static IMessageTemplatesService messageTemplatesService = IoCContainer.Resolve<IMessageTemplatesService>();
-        static IMemberMessageBoxService memberMessageBoxService = IoCContainer.Resolve<IMemberMessageBoxService>();
-        static IMemberSubscribeMsgService memberSubscribeMsgService = IoCContainer.Resolve<IMemberSubscribeMsgService>();
-        static IUserService userService = IoCContainer.Resolve<IUserService>();
+        static IMessageTemplatesService messageTemplatesService = App.GetService<IMessageTemplatesService>();
+        static IMemberMessageBoxService memberMessageBoxService = App.GetService<IMemberMessageBoxService>();
+        static IMemberSubscribeMsgService memberSubscribeMsgService = App.GetService<IMemberSubscribeMsgService>();
+        static IUserService userService = App.GetService<IUserService>();
 
         /// <summary>
         /// 留言提醒

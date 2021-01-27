@@ -2,6 +2,7 @@
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Entities.TemplateMessage;
 using Senparc.Weixin.WxOpen.AdvancedAPIs;
+using Yuebon.Commons.Core.App;
 using Yuebon.Commons.IoC;
 
 namespace Yuebon.WeChat.CommonService.SubscribeMessage.WxApplet
@@ -11,7 +12,7 @@ namespace Yuebon.WeChat.CommonService.SubscribeMessage.WxApplet
     /// </summary>
     public class WxAppletSubscribeMessage
     {
-        private static SenparcWeixinSetting senparcWeixinSetting = IoCContainer.Resolve<SenparcWeixinSetting>();
+        private static SenparcWeixinSetting senparcWeixinSetting = App.GetService<SenparcWeixinSetting>();
         private static readonly string weixinAppId = senparcWeixinSetting.WxOpenAppId;
 
         /// <summary>

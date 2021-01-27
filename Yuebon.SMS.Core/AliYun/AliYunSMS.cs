@@ -29,7 +29,7 @@ namespace Yuebon.SMS.AliYun
         public AliYunSMS()
         {
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            AppSetting sysSetting = JsonConvert.DeserializeObject<AppSetting>(yuebonCacheHelper.Get("SysSetting").ToJson());
+            AppSetting sysSetting = yuebonCacheHelper.Get<AppSetting>("SysSetting");
             if (sysSetting != null)
             {
                 this.Appkey = DEncrypt.Decrypt(sysSetting.Smsusername);

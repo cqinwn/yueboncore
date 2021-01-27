@@ -14,6 +14,7 @@ namespace Yuebon.Security.Models
     /// </summary>
     [Table("Sys_Vw_NameCard")]
     [Serializable]
+    [NotMapped]
     public class UserNameCardView : BaseEntity<string>
     { 
         /// <summary>

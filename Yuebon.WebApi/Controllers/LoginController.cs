@@ -77,7 +77,6 @@ namespace Yuebon.WebApi.Controllers
         /// <returns>返回用户User对象</returns>
         [HttpGet("GetCheckUser")]
         [NoPermissionRequired]
-        [AllowAnonymous]
         public async Task<IActionResult> GetCheckUser(string username, string password, string vcode,string vkey, string appId,string systemCode)
         {
 
@@ -211,7 +210,7 @@ namespace Yuebon.WebApi.Controllers
         /// </summary>
         /// <returns>返回用户User对象</returns>
         [HttpGet("GetUserInfo")]
-        [YuebonAuthorize("List")]
+        [YuebonAuthorize("")]
         public IActionResult GetUserInfo()
         {
             CommonResult result = new CommonResult();
@@ -290,7 +289,6 @@ namespace Yuebon.WebApi.Controllers
         [HttpGet("UserLogin")]
         [ApiVersion("2.0")]
         [NoPermissionRequired]
-        [AllowAnonymous]
         public async Task<IActionResult> UserLogin(string username, string password,  string appId, string systemCode)
         {
             CommonResult result = new CommonResult();

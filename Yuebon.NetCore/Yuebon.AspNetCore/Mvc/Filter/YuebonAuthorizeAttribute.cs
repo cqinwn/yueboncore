@@ -22,7 +22,7 @@ namespace Yuebon.AspNetCore.Mvc
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="function">功能点</param>
+        /// <param name="function">功能代码</param>
         public YuebonAuthorizeAttribute(string function)
         {
             Function = function;

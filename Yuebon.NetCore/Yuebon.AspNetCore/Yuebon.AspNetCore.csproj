@@ -51,6 +51,7 @@
 
   <ItemGroup>
     <Compile Remove="Mvc\AuthorizeMiddleware.cs" />
+    <Compile Remove="Mvc\Filter\NoA.cs" />
     <Compile Remove="Mvc\Filter\PermissionRequiredFilter.cs" />
   </ItemGroup>
 

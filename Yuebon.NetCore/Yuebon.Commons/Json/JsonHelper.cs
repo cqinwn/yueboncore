@@ -93,18 +93,32 @@ namespace Yuebon.Commons.Json
         /// <returns></returns>
         public static List<T> ToList<T>(this string json)
         {
-            JsonSerializerOptions options = new JsonSerializerOptions()
-            {
-                WriteIndented = true,                                   //格式化json字符串
-                AllowTrailingCommas = true,                             //可以结尾有逗号
-                //IgnoreNullValues = true,                              //可以有空值,转换json去除空值属性
-                IgnoreReadOnlyProperties = true,                        //忽略只读属性
-                PropertyNameCaseInsensitive = true,                     //忽略大小写
-                                                                        //PropertyNamingPolicy = JsonNamingPolicy.CamelCase     //命名方式是默认还是CamelCase
-                Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
-            };
+            //JsonSerializerOptions options = new JsonSerializerOptions()
+            //{
+            //    WriteIndented = true,                                   //格式化json字符串
+            //    AllowTrailingCommas = true,                             //可以结尾有逗号
+            //    //IgnoreNullValues = true,                              //可以有空值,转换json去除空值属性
+            //    IgnoreReadOnlyProperties = true,                        //忽略只读属性
+            //    PropertyNameCaseInsensitive = true,                     //忽略大小写
+            //                                                            //PropertyNamingPolicy = JsonNamingPolicy.CamelCase     //命名方式是默认还是CamelCase
+            //    Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
+            //};
 
+
+            var options = new JsonSerializerOptions();
+            options.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All);
+            options.WriteIndented = true;
+            options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+            options.AllowTrailingCommas = true;
+            //设置时间格式
             options.Converters.Add(new DateTimeJsonConverter());
+            options.Converters.Add(new DateTimeNullableConverter());
+            //设置bool获取格式
+            options.Converters.Add(new BooleanJsonConverter());
+            //设置数字
+            options.Converters.Add(new IntJsonConverter());
+            //options.PropertyNamingPolicy = new UpperFirstCaseNamingPolicy();
+            options.PropertyNameCaseInsensitive = true;                     //忽略大小写
             return json == null ? null : JsonSerializer.Deserialize<List<T>>(json,options);
         }
 

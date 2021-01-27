@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Yuebon.Commons.Extensions;
-
+//通过HostingStartup指定要启动的类型
 [assembly: HostingStartup(typeof(Yuebon.Commons.Core.App.HostingStartup))]
 namespace Yuebon.Commons.Core.App
 {
@@ -20,12 +20,14 @@ namespace Yuebon.Commons.Core.App
         /// <param name="builder"></param>
         public void Configure(IWebHostBuilder builder)
         {
-            // 自动装载配置
+            //可以添加配置
             builder.ConfigureAppConfiguration((hostingContext, config) =>
             {
-               App.AddConfigureFiles(config, hostingContext.HostingEnvironment);
+                // 自动装载配置
+                App.AddConfigureFiles(config, hostingContext.HostingEnvironment);
             });
 
+            //可以添加ConfigureServices
             // 自动注入 AddApp() 服务
             builder.ConfigureServices(services =>
             {

@@ -95,7 +95,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 listInfo = menu;
                 listInfo.FullName ="列表";
                 listInfo.EnCode = strEnCode + "/List";
-                listInfo.Icon = "";
+                listInfo.Icon = "list";
                 OnBeforeInsert(listInfo);
                 string listId = info.ParentId;
                 ln = iService.Insert(listInfo);
@@ -106,10 +106,21 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 addInfo.FullName = "新增";
                 addInfo.EnCode = strEnCode + "/Add";
                 addInfo.ParentId = listId;
-                addInfo.Icon = "el-icon-plus";
+                addInfo.Icon = "add";
                 addInfo.SortCode = 1;
                 OnBeforeInsert(addInfo);
                 ln = iService.Insert(addInfo);
+
+                Menu viewInfo = new Menu();
+                viewInfo = menu;
+                viewInfo.Id = GuidUtils.CreateNo();
+                viewInfo.FullName = "查看";
+                viewInfo.EnCode = strEnCode + "/View";
+                viewInfo.ParentId = listId;
+                viewInfo.Icon = "eye-open";
+                viewInfo.SortCode = 1;
+                OnBeforeInsert(viewInfo);
+                ln = iService.Insert(viewInfo);
 
                 Menu editnfo = new Menu();
                 editnfo = menu;
@@ -117,7 +128,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 editnfo.FullName = "修改";
                 editnfo.EnCode = strEnCode + "/Edit";
                 editnfo.ParentId = listId;
-                editnfo.Icon = "el-icon-edit";
+                editnfo.Icon = "write";
                 editnfo.SortCode = 2;
                 OnBeforeInsert(editnfo);
                 ln = iService.Insert(editnfo);
@@ -129,7 +140,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 enableInfo.FullName = "禁用";
                 enableInfo.EnCode = strEnCode + "/Enable";
                 enableInfo.ParentId = listId;
-                enableInfo.Icon = "el-icon-video-pause";
+                enableInfo.Icon = "pause";
                 enableInfo.SortCode = 3;
                 OnBeforeInsert(enableInfo);
                 ln = iService.Insert(enableInfo);
@@ -141,7 +152,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 enableInfo1.FullName = "启用";
                 enableInfo1.EnCode = strEnCode + "/Enable";
                 enableInfo1.ParentId = listId;
-                enableInfo1.Icon = "el-icon-video-play";
+                enableInfo1.Icon = "play";
                 enableInfo1.SortCode = 4;
                 OnBeforeInsert(enableInfo1);
                 ln = iService.Insert(enableInfo1);
@@ -153,7 +164,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 deleteSoftInfo.FullName = "软删除";
                 deleteSoftInfo.EnCode = strEnCode + "/DeleteSoft";
                 deleteSoftInfo.ParentId = listId;
-                deleteSoftInfo.Icon = "el-icon-delete";
+                deleteSoftInfo.Icon = "remove";
                 deleteSoftInfo.SortCode = 5;
                 OnBeforeInsert(deleteSoftInfo);
                 ln = iService.Insert(deleteSoftInfo);
@@ -165,7 +176,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 deleteInfo.FullName = "删除";
                 deleteInfo.EnCode = strEnCode + "/Delete";
                 deleteInfo.ParentId = listId;
-                deleteInfo.Icon = "el-icon-delete";
+                deleteInfo.Icon = "remove";
                 deleteInfo.SortCode = 6;
                 OnBeforeInsert(deleteInfo);
                 ln = iService.Insert(deleteInfo);

@@ -159,7 +159,7 @@
             },
             "HtmlAgilityPack": {
               "target": "Package",
-              "version": "[1.11.29, )"
+              "version": "[1.11.30, )"
             },
             "Microsoft.AspNetCore.Mvc": {
               "target": "Package",
@@ -231,7 +231,7 @@
             },
             "Npgsql": {
               "target": "Package",
-              "version": "[5.0.2, )"
+              "version": "[5.0.3, )"
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",

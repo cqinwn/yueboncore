@@ -1,5 +1,4 @@
-﻿using Autofac;
-using AutoMapper;
+﻿using AutoMapper;
 using log4net;
 using log4net.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -33,8 +32,9 @@ using System.Text.Unicode;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.Mvc.Filter;
-using Yuebon.Commons.Attributes;
+using Yuebon.Commons;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.Core.App;
 using Yuebon.Commons.DbContextCore;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
@@ -81,12 +81,11 @@ namespace Yuebon.WebApi
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
-
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddHttpContextAccessor();
-            services.AddSingleton(Configuration);
+            //services.AddSingleton(Configuration);
             //如果部署在linux系统上，需要加上下面的配置：
             //services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
             //如果部署在IIS上，需要加上下面的配置：
@@ -209,7 +208,7 @@ namespace Yuebon.WebApi
                 .AddAuthorization().AddApiExplorer();
             #endregion
             services.AddSignalR();//使用 SignalR
-            return InitIoC(services);
+            InitIoC(services);
         }
 
         /// <summary>
@@ -272,11 +271,9 @@ namespace Yuebon.WebApi
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        private IServiceProvider InitIoC(IServiceCollection services)
+        private void InitIoC(IServiceCollection services)
         {
             #region 缓存
-
-            services.AddMemoryCache();// 启用MemoryCache
             CacheProvider cacheProvider = new CacheProvider
             {
                 IsUseRedis = Configuration.GetSection("CacheProvider:UseRedis").Value.ToBool(false),
@@ -326,6 +323,7 @@ namespace Yuebon.WebApi
                 services.Configure<MemoryCacheEntryOptions>(
                     options => options.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5)); //设置MemoryCache缓存有效时间为5分钟
             }
+            services.AddMemoryCache();// 启用MemoryCache
             #endregion
 
 
@@ -360,38 +358,15 @@ namespace Yuebon.WebApi
                 };
             });
             #endregion
+
+            services.AddAutoScanInjection();//自动化注入仓储和服务
             services.AddTransient<IDbContextCore, MySqlDbContext>(); //注入EF上下文
-
-            IoCContainer.Register(cacheProvider);//注册缓存配置
-            IoCContainer.Register(Configuration);//注册配置
-            IoCContainer.Register(jwtOption);//注册配置
-            var codeGenerateOption = new CodeGenerateOption
-            {
-                ModelsNamespace = "",
-                IRepositoriesNamespace = "",
-                RepositoriesNamespace = "",
-                IServicsNamespace = "",
-                ServicesNamespace = ""
-            };
-            IoCContainer.Register(codeGenerateOption);//注册代码生成器相关配置信息
-            IoCContainer.Register("Yuebon.Commons");
-            IoCContainer.Register("Yuebon.AspNetCore");
-            IoCContainer.Register("Yuebon.Security.Core");
-            IoCContainer.RegisterNew("Yuebon.Security.Core", "Yuebon.Security");
-            IoCContainer.Register("Yuebon.Messages.Core");
-            IoCContainer.RegisterNew("Yuebon.Messages.Core", "Yuebon.Messages");
-            IoCContainer.Register("Yuebon.Tenants.Core");
-            IoCContainer.RegisterNew("Yuebon.Tenants.Core", "Yuebon.Tenants");
-            IoCContainer.Register("Yuebon.CMS.Core");
-            IoCContainer.RegisterNew("Yuebon.CMS.Core", "Yuebon.CMS");
-
+            services.AddSingleton(cacheProvider)//注册缓存配置
+                .AddSingleton(jwtOption);//注册配置
             #region automapper
-            List<Assembly> myAssembly = new List<Assembly>();
-            myAssembly.Add(Assembly.Load("Yuebon.Security.Core"));
-            myAssembly.Add(Assembly.Load("Yuebon.Tenants.Core"));
-            myAssembly.Add(Assembly.Load("Yuebon.CMS.Core"));
+            List<Assembly> myAssembly =RuntimeHelper.GetAllYuebonAssemblies().ToList();
             services.AddAutoMapper(myAssembly);
-            services.AddScoped<IMapper, Mapper>();
+            services.AddTransient<IMapper, Mapper>();
             #endregion
 
             #region 定时任务
@@ -399,44 +374,10 @@ namespace Yuebon.WebApi
             services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
             //设置定时启动的任务
             services.AddHostedService<QuartzService>();
-            #endregion
-
-            return IoCContainer.Build(services);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="builder"></param>
-        public void ConfigureContainer(ContainerBuilder builder)
-        {
-            #region AutoFac IOC容器
-            try
-            {
-                #region SingleInstance
-                //无接口注入单例
-
-                //有接口注入单例
-                #endregion
-
-                #region Aop
-                var interceptorServiceTypes = new List<Type>();
-                builder.RegisterType<UnitOfWorkIInterceptor>();
-                interceptorServiceTypes.Add(typeof(UnitOfWorkIInterceptor));
-                #endregion
-
-                #region Repository
-                #endregion
-
-                #region Service
-                #endregion
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message + "\n" + ex.InnerException);
-            }
+            App.Services = services;
             #endregion
         }
+
         /// <summary>
         /// 加载模块应用
         /// </summary>

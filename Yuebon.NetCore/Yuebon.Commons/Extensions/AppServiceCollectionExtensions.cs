@@ -1,17 +1,15 @@
-﻿using CSRedis;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
+using Yuebon.Commons.Core.App;
 using Yuebon.Commons.DbContextCore;
+using Yuebon.Commons.DependencyInjection;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.IoC;
@@ -25,8 +23,9 @@ namespace Yuebon.Commons.Extensions
     /// <summary>
     /// IServiceCollection自定义扩展
     /// </summary>
-    public static class ServiceExtensions
+    public static class AppServiceCollectionExtensions
     {
+        #region 用DI批量注入接口程序集中对应的实现类，接口和实现类在一个程序集中。
         /// <summary>
         /// 用DI批量注入接口程序集中对应的实现类。
         /// 针对每一次服务提供请求，IServiceProvider对象总是创建一个新的服务实例
@@ -136,6 +135,9 @@ namespace Yuebon.Commons.Extensions
             }
             return service;
         }
+        #endregion
+
+        #region 用DI批量注入接口程序集中对应的实现类，接口和实现类在独立的程序集中。
         /// <summary>
         /// 用DI批量注入接口程序集中对应的实现类。
         /// </summary>
@@ -273,6 +275,10 @@ namespace Yuebon.Commons.Extensions
 
             return service;
         }
+
+        #endregion
+
+        #region 注入控制器Controler
         /// <summary>
         /// 注入Controler
         /// </summary>
@@ -306,17 +312,11 @@ namespace Yuebon.Commons.Extensions
 
             return service;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="services"></param>
-        /// <returns></returns>
-        public static IServiceProvider BuildAutofacServiceProvider(this IServiceCollection services)
-        {
-            if (services == null) throw new ArgumentNullException(nameof(services));
-            return ServiceLocator.ServiceProvider = IoCContainer.Build(services);
-        }
 
+        #endregion
+
+
+        #region 数据库上下文相关服务注入
         /// <summary>
         /// 注册数据库上下文工厂
         /// </summary>
@@ -362,7 +362,7 @@ namespace Yuebon.Commons.Extensions
             return services.AddDbContext<IT, T>();
         }
         /// <summary>
-        /// 
+        /// 获取数据库上线文
         /// </summary>
         /// <param name="provider"></param>
         /// <param name="dbContextTagName"></param>
@@ -378,6 +378,12 @@ namespace Yuebon.Commons.Extensions
 
             return context;
         }
+        #endregion
+
+
+
+        #region  注册仓储Repositories
+
         /// <summary>
         /// 注册仓储Repositories
         /// </summary>
@@ -415,8 +421,10 @@ namespace Yuebon.Commons.Extensions
         {
             return typeof(BaseRepository<,>).MakeGenericType(entityType, primaryKeyType);
         }
+
+
         /// <summary>
-        /// 获取继承Entity的所有实体类型
+        /// 获取继承Entity的所有实体类型主键类型
         /// </summary>
         /// <param name="entityType"></param>
         /// <returns></returns>
@@ -432,6 +440,72 @@ namespace Yuebon.Commons.Extensions
 
             return null;
         }
+        #endregion
 
+
+        /// <summary>
+        /// 添加自动扫描注入Service服务和Respository仓储
+        /// <para>
+        /// 需要注意的是，这里有如下约定：
+        /// IUserService --> UserService, IUserRepository --> UserRepository.
+        /// </para>
+        /// </summary>
+        /// <param name="services">服务集合</param>
+        /// <returns>服务集合</returns>
+        public static IServiceCollection AddAutoScanInjection(this IServiceCollection services)
+        {
+            RuntimeHelper.GetAllYuebonAssemblies().ToList().ForEach(a =>
+            {
+                a.GetTypes().Where(t => typeof(IPrivateDependency).IsAssignableFrom(t) && t.IsClass).ToList().ForEach(t =>
+                {
+                    var serviceType = t.GetInterface($"I{t.Name}");
+                    if ((serviceType ?? t).GetInterface(typeof(ISingletonDependency).Name) != null)
+                    {
+                        if (serviceType != null)
+                        {
+                            services.AddSingleton(serviceType, t);
+                        }
+                        else
+                        {
+                            services.AddSingleton(t);
+                        }
+                    }
+                    else if ((serviceType ?? t).GetInterface(typeof(IScopedDependency).Name) != null)
+                    {
+                        if (serviceType != null)
+                        {
+                            services.AddScoped(serviceType, t);
+                        }
+                        else
+                        {
+                            services.AddScoped(t);
+                        }
+                    }
+                    else if ((serviceType ?? t).GetInterface(typeof(ITransientDependency).Name) != null)
+                    {
+                        if (serviceType != null)
+                        {
+                            services.AddTransient(serviceType, t);
+                        }
+                        else
+                        {
+                            services.AddTransient(t);
+                        }
+                    }
+                    else
+                    {
+                        if (serviceType != null)
+                        {
+                            services.AddTransient(serviceType, t);
+                        }
+                        else
+                        {
+                            services.AddTransient(t);
+                        }
+                    }
+                });
+            });
+            return services;
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Text;
 using System.Threading.Tasks;
+using Yuebon.Commons.Core.App;
 using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IoC;
@@ -18,9 +19,9 @@ namespace Yuebon.Security.Application
     /// </summary>
     public class UserApp
     {
-        IUserService service = IoCContainer.Resolve<IUserService>();
-        IUserLogOnService userLogOnService = IoCContainer.Resolve<IUserLogOnService>();
-        IRoleService roleService = IoCContainer.Resolve<IRoleService>();
+        IUserService service = App.GetService<IUserService>();
+        IUserLogOnService userLogOnService = App.GetService<IUserLogOnService>();
+        IRoleService roleService = App.GetService<IRoleService>();
         /// <summary>
         /// 获取所有用户信息
         /// </summary>        

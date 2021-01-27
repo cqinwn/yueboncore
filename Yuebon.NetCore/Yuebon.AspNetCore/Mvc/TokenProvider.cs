@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Models;
+using Yuebon.Commons.Core.App;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.IoC;
 using Yuebon.Commons.Json;
@@ -25,7 +26,7 @@ namespace Yuebon.AspNetCore.Mvc
     /// </summary>
     public class TokenProvider
     {
-        JwtOption _jwtModel=IoCContainer.Resolve<JwtOption>();
+        JwtOption _jwtModel=App.GetService<JwtOption>();
         private Type type = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType;
         /// <summary>
         /// 构造函数

@@ -21,7 +21,7 @@ namespace Yuebon.AspNetCore.Mvc.Filter
     public class ActionFilter : IAsyncActionFilter
     {
 
-         ILogService _logService = IoCContainer.Resolve<ILogService>();
+         ILogService _logService = Yuebon.Commons.Core.App.App.GetService<ILogService>();
         /// <summary>
         /// 
         /// </summary>

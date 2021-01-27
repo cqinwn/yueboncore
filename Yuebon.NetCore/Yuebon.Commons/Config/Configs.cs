@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Yuebon.Commons.Core.App;
 using Yuebon.Commons.IoC;
 
 namespace Yuebon.Commons
@@ -8,10 +9,11 @@ namespace Yuebon.Commons
     /// </summary>
     public class Configs
     {
-        private static readonly IConfiguration configuration;
+        public static  IConfiguration configuration;
         static Configs()
         {
-            configuration = IoCContainer.Resolve<IConfiguration>();
+            configuration =App.GetService<IConfiguration>();
+        
         }
         /// <summary>
         /// 根据Key获取数配置内容

@@ -5,19 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading;
 using System.Threading.Tasks;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.Core.App;
 using Yuebon.Commons.Enums;
 using Yuebon.Commons.Extend;
-using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
-using Yuebon.Commons.IoC;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
-using Yuebon.Commons.Options;
 using Yuebon.Email;
 using Yuebon.Security.IRepositories;
 using Yuebon.Security.IServices;
@@ -31,8 +26,8 @@ namespace Yuebon.Quartz.Jobs
     /// </summary>
     public class TestJob : IJob
     {
-        ITaskManagerService iService = IoCContainer.Resolve<ITaskManagerService>();
-        ILogRepository iLogService = IoCContainer.Resolve<ILogRepository>();
+        ITaskManagerService iService = App.GetService<ITaskManagerService>();
+        ILogRepository iLogService = App.GetService<ILogRepository>();
 
         public Task Execute(IJobExecutionContext context)
         { 

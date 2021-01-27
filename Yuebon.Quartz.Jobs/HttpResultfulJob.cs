@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.Core.App;
 using Yuebon.Commons.Enums;
 using Yuebon.Commons.Extend;
 using Yuebon.Commons.Helpers;
@@ -24,7 +25,7 @@ namespace Yuebon.Quartz.Jobs
     /// </summary>
     public class HttpResultfulJob : IJob
     {
-        ITaskManagerService iService = IoCContainer.Resolve<ITaskManagerService>();
+        ITaskManagerService iService = App.GetService<ITaskManagerService>();
 
         /// <summary>
         /// 执行远程接口url的定时任务

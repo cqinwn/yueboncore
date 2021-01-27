@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 
@@ -26,7 +27,8 @@ namespace Yuebon.Commons.Models
         /// </summary>
         [DisplayName("编号")]
         [Key]
-        public  TKey Id { get; set; }
+        [Column("Id")]
+        public virtual TKey Id { get; set; }
 
 
         /// <summary>

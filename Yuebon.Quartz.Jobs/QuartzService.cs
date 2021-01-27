@@ -20,11 +20,12 @@ namespace Yuebon.Quartz.Jobs
     {
         private ISchedulerFactory _schedulerFactory;
         private IScheduler _scheduler;
-        ITaskManagerService iService = IoCContainer.Resolve<ITaskManagerService>();
+        private ITaskManagerService _iService;
 
-        public QuartzService(ISchedulerFactory schedulerFactory)
+        public QuartzService(ISchedulerFactory schedulerFactory, ITaskManagerService iService)
         {
             _schedulerFactory = schedulerFactory;
+            _iService = iService;
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)
@@ -32,7 +33,7 @@ namespace Yuebon.Quartz.Jobs
             Log4NetHelper.Info("开始启动定时任务");
             try
             {
-                IEnumerable<TaskManager> list = iService.GetAllByIsNotDeleteAndEnabledMark();
+                IEnumerable<TaskManager> list = _iService.GetAllByIsNotDeleteAndEnabledMark();
                 _scheduler =await _schedulerFactory.GetScheduler();
                 foreach (TaskManager job in list)
                 {

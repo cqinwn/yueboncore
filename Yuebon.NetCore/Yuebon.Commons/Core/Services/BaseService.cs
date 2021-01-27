@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.DependencyInjection;
 using Yuebon.Commons.Dtos;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
@@ -27,7 +28,7 @@ namespace Yuebon.Commons.Services
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="TODto"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public abstract class BaseService<T, TODto,TKey> : IService<T, TODto, TKey>
+    public abstract class BaseService<T, TODto,TKey> : IService<T, TODto, TKey>, ITransientDependency
         where T: Entity
         where TODto : class
         where TKey : IEquatable<TKey>

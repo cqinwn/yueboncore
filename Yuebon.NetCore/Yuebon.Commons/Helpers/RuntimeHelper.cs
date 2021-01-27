@@ -22,8 +22,29 @@ namespace Yuebon.Commons.Helpers
         {
             var list = new List<Assembly>();
             var deps = DependencyContext.Default;
-            //var libs = deps.CompileLibraries.Where(lib => !lib.Serviceable && lib.Type != "package" && lib.Type!= "referenceassembly");//排除所有的系统程序集、Nuget下载包
+            //排除所有的系统程序集、Nuget下载包
             var libs = deps.CompileLibraries.Where(lib => lib.Type == AssembleTypeConsts.Project);//只获取本项目用到的包
+            foreach (var lib in libs)
+            {
+                try
+                {
+                    var assembly = AssemblyLoadContext.Default.LoadFromAssemblyName(new AssemblyName(lib.Name));
+                    list.Add(assembly);
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
+            }
+            return list;
+        }
+
+        public static IList<Assembly> GetAllYuebonAssemblies()
+        {
+            var list = new List<Assembly>();
+            var deps = DependencyContext.Default;
+            //排除所有的系统程序集、Nuget下载包
+            var libs = deps.CompileLibraries.Where(lib => lib.Type == AssembleTypeConsts.Project&&lib.Name!= "Yuebon.Commons");//只获取本项目用到的包
             foreach (var lib in libs)
             {
                 try
@@ -81,7 +102,7 @@ namespace Yuebon.Commons.Helpers
             return list;
         }
         /// <summary>
-        /// 
+        /// 获取实现类
         /// </summary>
         /// <param name="typeName"></param>
         /// <param name="baseInterfaceType"></param>

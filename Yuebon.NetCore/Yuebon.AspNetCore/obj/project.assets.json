@@ -143,7 +143,7 @@
           "lib/netstandard2.0/Google.Protobuf.dll": {}
         }
       },
-      "HtmlAgilityPack/1.11.29": {
+      "HtmlAgilityPack/1.11.30": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/HtmlAgilityPack.dll": {}
@@ -1688,7 +1688,7 @@
           "lib/netstandard2.0/Newtonsoft.Json.Bson.dll": {}
         }
       },
-      "Npgsql/5.0.2": {
+      "Npgsql/5.0.3": {
         "type": "package",
         "dependencies": {
           "System.Runtime.CompilerServices.Unsafe": "4.6.0"
@@ -3319,7 +3319,7 @@
           "Dapper": "2.0.78",
           "Dapper.SqlBuilder": "2.0.78",
           "DotNetCore.NPOI": "1.2.3",
-          "HtmlAgilityPack": "1.11.29",
+          "HtmlAgilityPack": "1.11.30",
           "Microsoft.AspNetCore.Mvc": "2.2.0",
           "Microsoft.Data.Sqlite": "5.0.2",
           "Microsoft.EntityFrameworkCore": "5.0.2",
@@ -3337,7 +3337,7 @@
           "MiniProfiler.EntityFrameworkCore": "4.2.22",
           "MySql.Data": "8.0.23",
           "NPinyin.Core": "3.0.0",
-          "Npgsql": "5.0.2",
+          "Npgsql": "5.0.3",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "5.0.2",
           "Oracle.EntityFrameworkCore": "3.19.80",
           "Oracle.ManagedDataAccess.Core": "2.19.101",
@@ -3556,14 +3556,14 @@
         "lib/netstandard2.0/Google.Protobuf.xml"
       ]
     },
-    "HtmlAgilityPack/1.11.29": {
-      "sha512": "aCMPdyDUPU7z4fwMJ+4pbsUd669BWhIbC2rCo0upxBpYyblJHXNUjg5pxnk2iyqBg1C8gWF2fSxA1XERxcVZow==",
+    "HtmlAgilityPack/1.11.30": {
+      "sha512": "IuOSVuuHCJKrnAjNe5rZnZCyR/NpXL6ExEL7UiM8h4fnhbt8tLqIKol9q5Lv0uoxWO8fl9Uq+1kpGfMDUdr5zA==",
       "type": "package",
-      "path": "htmlagilitypack/1.11.29",
+      "path": "htmlagilitypack/1.11.30",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "htmlagilitypack.1.11.29.nupkg.sha512",
+        "htmlagilitypack.1.11.30.nupkg.sha512",
         "htmlagilitypack.nuspec",
         "lib/Net35/HtmlAgilityPack.dll",
         "lib/Net35/HtmlAgilityPack.pdb",
@@ -5649,10 +5649,10 @@
         "newtonsoft.json.bson.nuspec"
       ]
     },
-    "Npgsql/5.0.2": {
-      "sha512": "bqsG+0t6+c7nfpunu08HkjeRZCI2g8EbXNtWUHsnFlDzjx0zsLkvzfByiHuYo9a74CMKR9RmxRu7HiPGCE/EvQ==",
+    "Npgsql/5.0.3": {
+      "sha512": "IDx2tijhyXGz7tVXQH0iGnCnW0ReSUy3UC99ytSklJKscob5WV8eLZWuT/jqYBq0l07RmZOSrdjUEDEetsgDIA==",
       "type": "package",
-      "path": "npgsql/5.0.2",
+      "path": "npgsql/5.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5664,7 +5664,7 @@
         "lib/netstandard2.0/Npgsql.xml",
         "lib/netstandard2.1/Npgsql.dll",
         "lib/netstandard2.1/Npgsql.xml",
-        "npgsql.5.0.2.nupkg.sha512",
+        "npgsql.5.0.3.nupkg.sha512",
         "npgsql.nuspec",
         "postgresql.png"
       ]

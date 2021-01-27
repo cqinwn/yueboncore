@@ -19,9 +19,12 @@ namespace Yuebon.WebApi
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
-            // WebHost.CreateDefaultBuilder(args).UseConfiguration(config).UseStartup<Startup>().Build().Run();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
             var config = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())

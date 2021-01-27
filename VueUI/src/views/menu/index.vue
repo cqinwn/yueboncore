@@ -200,7 +200,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item v-if="editMenuFrom.MenuType !== 'F'" label="图标" :label-width="formLabelWidth" prop="Icon">
+            <el-form-item label="图标" :label-width="formLabelWidth" prop="Icon">
               <el-popover
                 placement="bottom-start"
                 width="660"
@@ -258,7 +258,7 @@
               </el-radio-group>
             </el-form-item>
           </el-col>
-          <el-col v-if="editMenuFrom.MenuType == 'F'" :span="12">
+          <el-col v-if="editMenuFrom.MenuType == 'F' && currentMenuId===''" :span="12">
             <el-form-item label="批量新增" :label-width="formLabelWidth" prop="IsBatch">
               <el-radio-group v-model="editMenuFrom.IsBatch">
                 <el-radio :label="true">是</el-radio>

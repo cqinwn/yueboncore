@@ -445,8 +445,9 @@ namespace Yuebon.Commons.Extensions
 
         /// <summary>
         /// 添加自动扫描注入Service服务和Respository仓储
+        /// 
         /// <para>
-        /// 需要注意的是，这里有如下约定：
+        /// 需要注意的是，遵循如下约定：
         /// IUserService --> UserService, IUserRepository --> UserRepository.
         /// </para>
         /// </summary>

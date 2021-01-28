@@ -111,7 +111,7 @@ namespace Yuebon.WebApi.Controllers
                 if (string.IsNullOrEmpty(systemCode))
                 {
 
-                    result.ErrMsg = ErrCode.err40009;
+                    result.ErrMsg = ErrCode.err40006;
                 }
                 else
                 {
@@ -134,7 +134,7 @@ namespace Yuebon.WebApi.Controllers
                             SystemType systemType = _systemTypeService.GetByCode(systemCode);
                             if (systemType == null)
                             {
-                                result.ErrMsg = ErrCode.err40009;
+                                result.ErrMsg = ErrCode.err40006;
                             }
                             else
                             {
@@ -314,7 +314,7 @@ namespace Yuebon.WebApi.Controllers
                 if (string.IsNullOrEmpty(systemCode))
                 {
 
-                    result.ErrMsg = ErrCode.err40009;
+                    result.ErrMsg = ErrCode.err40006;
                 }
                 else
                 {
@@ -337,7 +337,7 @@ namespace Yuebon.WebApi.Controllers
                             SystemType systemType = _systemTypeService.GetByCode(systemCode);
                             if (systemType == null)
                             {
-                                result.ErrMsg = ErrCode.err40009;
+                                result.ErrMsg = ErrCode.err40006;
                             }
                             else
                             {
@@ -463,7 +463,7 @@ namespace Yuebon.WebApi.Controllers
                 string ipAddressName = IpAddressUtil.GetCityByIp(strIp);
                 if (string.IsNullOrEmpty(systemCode))
                 {
-                    result.ErrMsg = ErrCode.err40009;
+                    result.ErrMsg = ErrCode.err40006;
                 }
                 else
                 {
@@ -486,7 +486,7 @@ namespace Yuebon.WebApi.Controllers
                             SystemType systemType = _systemTypeService.GetByCode(systemCode);
                             if (systemType == null)
                             {
-                                result.ErrMsg = ErrCode.err40009;
+                                result.ErrMsg = ErrCode.err40006;
                             }
                             else
                             {

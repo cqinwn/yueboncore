@@ -234,7 +234,7 @@ namespace Yuebon.Security.Services
                 {
                     where = string.Format("ParentId='{0}'", idsInfo.Ids[0]);
                     IEnumerable<Menu> list = _MenuRepository.GetListWhere(where);
-                    if (list.Count>0)
+                    if (list.Count()>0)
                     {
                         result.ErrMsg = "功能存在子集数据，不能删除";
                         return result;

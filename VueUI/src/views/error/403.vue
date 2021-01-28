@@ -5,22 +5,22 @@
         <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
           <div class="pic-error">
             <img
-              alt="401"
+              alt="403"
               class="pic-error-parent"
-              src="@/assets/error_images/401.png"
+              src="@/assets/error_images/403.png"
             >
             <img
-              alt="401"
+              alt="403"
               class="pic-error-child left"
               src="@/assets/error_images/cloud.png"
             >
             <img
-              alt="401"
+              alt="403"
               class="pic-error-child"
               src="@/assets/error_images/cloud.png"
             >
             <img
-              alt="401"
+              alt="403"
               class="pic-error-child"
               src="@/assets/error_images/cloud.png"
             >
@@ -44,7 +44,7 @@
 
 <script>
 export default {
-  name: 'Page401',
+  name: 'Page403',
   data() {
     return {
       jumpTime: 5,

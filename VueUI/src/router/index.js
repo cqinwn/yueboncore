@@ -43,14 +43,14 @@ export const constantRoutes = [
   },
   {
     path: '/404',
-    name: '404',
+    name: 'Page404',
     component: (resolve) => require(['@/views/error/404'], resolve),
     hidden: true
   },
   {
-    path: '/401',
-    name: '401',
-    component: (resolve) => require(['@/views/error/401'], resolve),
+    path: '/403',
+    name: 'Page403',
+    component: (resolve) => require(['@/views/error/403'], resolve),
     hidden: true
   },
   {

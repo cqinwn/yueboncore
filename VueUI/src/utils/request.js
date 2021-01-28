@@ -1,4 +1,6 @@
 import axios from 'axios'
+import router from '../router'
+
 import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
@@ -34,6 +36,13 @@ service.interceptors.response.use(
       if (res.ErrCode === '40005') { // 超时自动刷新token
         store.dispatch('user/resetToken').then((res) => {
           location.reload()
+        })
+      } else if (res.ErrCode === '40006') {
+        router.replace({
+          path: '/401',
+          query: {
+            redirect: router.currentRoute.fullPath
+          }
         })
       } else if (res.ErrCode === '40000' || res.ErrCode === '40008') {
       // to re-login

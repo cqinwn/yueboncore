@@ -42,6 +42,18 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/404',
+    name: '404',
+    component: (resolve) => require(['@/views/error/404'], resolve),
+    hidden: true
+  },
+  {
+    path: '/401',
+    name: '401',
+    component: (resolve) => require(['@/views/error/401'], resolve),
+    hidden: true
+  },
+  {
     path: '/',
     redirect: '/dashboard',
     component: Layout,

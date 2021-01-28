@@ -1,4 +1,6 @@
 import axios from 'axios'
+import router from '../router'
+
 import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
@@ -35,6 +37,13 @@ service.interceptors.response.use(
         store.dispatch('user/resetToken').then((res) => {
           location.reload()
         })
+      } else if (res.ErrCode === '40006') {
+        router.push({
+          path: '/403',
+          query: {
+            redirect: router.currentRoute.fullPath
+          }
+        }).catch(() => { })
       } else if (res.ErrCode === '40000' || res.ErrCode === '40008') {
       // to re-login
         MessageBox.confirm('登录状态已过期，您可以继续留在该页面，或者重新登录', '系统提示', {
@@ -59,6 +68,15 @@ service.interceptors.response.use(
     }
   },
   error => {
+    console.log('err' + error)
+    let { message } = error
+    if (message === 'Network Error') {
+      message = '后端接口连接异常'
+    } else if (message.includes('timeout')) {
+      message = '系统接口请求超时'
+    } else if (message.includes('Request failed with status code')) {
+      message = '系统接口' + message.substr(message.length - 3) + '异常'
+    }
     Message({
       message: error.message,
       type: 'error',

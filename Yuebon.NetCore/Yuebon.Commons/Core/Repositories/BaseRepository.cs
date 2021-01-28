@@ -344,7 +344,7 @@ namespace Yuebon.Commons.Repositories
                     sql += " where " + where;
                 }
             }
-            else if (dbConfigName.Contains("MSSQL", StringComparison.CurrentCultureIgnoreCase))
+            else if (dbConfigName.Contains("MYSQL", StringComparison.CurrentCultureIgnoreCase))
             {
                 sql = $"select {selectedFields} from " + tableName;
 

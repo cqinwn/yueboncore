@@ -314,7 +314,12 @@ export default {
             'Description': this.editFrom.Description,
             'Id': this.currentId
           }
-          saveSequence(data).then(res => {
+
+          var url = 'Sequence/Insert'
+          if (this.currentId !== '') {
+            url = 'Sequence/Update?id=' + this.currentId
+          }
+          saveSequence(data, url).then(res => {
             if (res.Success) {
               this.$message({
                 message: '恭喜你，操作成功',

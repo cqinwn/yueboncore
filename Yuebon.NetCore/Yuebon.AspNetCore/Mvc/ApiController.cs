@@ -38,6 +38,7 @@ namespace Yuebon.AspNetCore.Controllers
         /// </summary>
         public YuebonCurrentUser CurrentUser;
         private ILogRepository service = new LogRepository();
+
         #region 
         /// <summary>
         /// 重写基类在Action执行之前的事情
@@ -89,7 +90,6 @@ namespace Yuebon.AspNetCore.Controllers
             catch (Exception ex)
             {
                 Log4NetHelper.Error("", ex);
-                //throw new MyApiException("", "", ex);
             }
         }
         #endregion

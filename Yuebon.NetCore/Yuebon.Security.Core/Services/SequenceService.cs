@@ -253,14 +253,9 @@ namespace Yuebon.Security.Services
                     break;
                 case "M"://每月重置
                     if (!string.IsNullOrWhiteSpace(seq.CurrentReset)) {
-                        string resetDate = seq.CurrentReset.Substring(4, 2);
-                        if (DateTime.Now.Month != resetDate.ToInt())
+                        if (!seq.CurrentReset.Contains(DateTime.Now.ToString("yyyyMM")))
                         {
-                            // 判断当前时间是否是每月第一天, 如果是: 重置规则, 使用初始的值
-                            if (DateTime.Now.Day == 1)
-                            {
-                                newNo = ruleNo;
-                            }
+                            newNo = ruleNo;
                         }
                     }
                     else
@@ -271,8 +266,7 @@ namespace Yuebon.Security.Services
                 case "Y"://每年重置
                     if (!string.IsNullOrWhiteSpace(seq.CurrentReset))
                     {
-                        // 当前时间 = 1月1号 且 当前重置 != 1月1号
-                        if (DateTime.Now.ToShortDateString().Contains("0101") && !seq.CurrentReset.Contains("0101"))
+                        if (!seq.CurrentReset.Contains(DateTime.Now.ToString("yyyy")))
                         {
                             newNo = ruleNo;
                         }

@@ -16,16 +16,14 @@
           </el-form-item>
           <el-form-item label="Logo" :label-width="formLabelWidth" prop="SysLogo">
             <el-upload
+              class="avatar-uploader"
               :action="httpFileUploadUrl"
               :headers="headers"
-              list-type="picture-card"
-              :on-preview="handlePictureCardPreview"
-              :on-remove="handleRemove"
-              :limit="1"
-              :file-list="filelist"
+              :show-file-list="false"
               :on-success="uploadFileSuccess"
             >
-              <i class="el-icon-plus" />
+              <img v-if="editFrom.SysLogo" :src="editFrom.SysLogo" class="avatar">
+              <i v-else class="el-icon-plus avatar-uploader-icon" />
             </el-upload>
             <el-dialog :visible.sync="dialogVisible">
               <img width="100%" :src="dialogImageUrl" alt="">
@@ -216,7 +214,6 @@ export default {
         this.editFrom = res.ResData
         this.editFrom.Webstatus = res.ResData.Webstatus + ''
         this.editFrom.Emailssl = res.ResData.Emailssl + ''
-        this.filelist = [{ name: res.ResData.SysLogo, url: res.ResData.SysLogo }]
       })
     },
     uploadFileSuccess: function(response, file, fileList) {
@@ -251,7 +248,7 @@ export default {
   }
 }
 </script>
-<style>
+<style lang="scss" scoped>
 .yuebon-setting-form .el-form-item{
   width: 100%;
 }
@@ -266,4 +263,30 @@ width: 40%;
     margin-right: 30px;
     margin-top: 20px;
 }
+
+.avatar-uploader .el-upload {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 176px;
+    height: 176px;
+    line-height: 176px;
+    border: 1px solid #ccc;
+    text-align: center;
+  }
+  .avatar {
+    width: 176px;
+    height: 176px;
+    display: block;
+    border: 1px solid #ccc;
+  }
 </style>

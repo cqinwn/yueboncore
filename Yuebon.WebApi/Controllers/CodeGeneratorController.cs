@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -29,6 +30,17 @@ namespace Yuebon.WebApi.Controllers
     [Route("api/[controller]")]
     public class CodeGeneratorController : ApiController
     {
+
+        private readonly IWebHostEnvironment _hostingEnvironment;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="hostingEnvironment"></param>
+        public CodeGeneratorController(IWebHostEnvironment hostingEnvironment)
+        {
+            _hostingEnvironment = hostingEnvironment;
+        }
+
         /// <summary>
         /// 创建数据库连接
         /// </summary>
@@ -178,12 +190,9 @@ namespace Yuebon.WebApi.Controllers
                     var parentPath = path.Substring(0, path.LastIndexOf("\\"));
                     var servicesPath = parentPath + "\\" + baseSpace + "\\";
                     //生成压缩包
-
-                    YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                    SysSetting sysSetting = yuebonCacheHelper.Get("SysSetting").ToJson().ToObject<SysSetting>();
                     string zipReturnFileName = baseSpace+DateTime.Now.ToString("yyyyMMddHHmmss") + ".zip";
                     string zipFileBasePath = "Generatecode";
-                    string zipFilesPath = sysSetting.LocalPath + "\\"+ zipFileBasePath;
+                    string zipFilesPath = _hostingEnvironment.WebRootPath + "\\"+ zipFileBasePath;
                     if (!System.IO.Directory.Exists(zipFilesPath))
                     {
                         System.IO.Directory.CreateDirectory(zipFilesPath);

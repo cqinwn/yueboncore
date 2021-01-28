@@ -5,16 +5,14 @@
         <el-tab-pane label="基本信息" name="first">
           <el-form-item label="头像" :label-width="formLabelWidth" prop="HeadIcon">
             <el-upload
+              class="avatar-uploader"
               :action="httpFileUploadUrl"
               :headers="headers"
-              list-type="picture-card"
-              :on-preview="handlePictureCardPreview"
-              :on-remove="handleRemove"
-              :limit="1"
-              :file-list="filelist"
+              :show-file-list="false"
               :on-success="uploadFileSuccess"
             >
-              <i class="el-icon-plus" />
+              <img v-if="editFrom.HeadIcon" :src="editFrom.HeadIcon" class="avatar">
+              <i v-else class="el-icon-plus avatar-uploader-icon" />
             </el-upload>
             <el-dialog :visible.sync="dialogHeadIconVisible">
               <img width="100%" :src="dialogHeadIconImageUrl" alt="">
@@ -257,7 +255,7 @@ export default {
   }
 }
 </script>
-<style>
+<style lang="scss" scoped>
 .yuebon-setting-form .el-tab-pane{
   width: 40%;
 }
@@ -272,4 +270,29 @@ width: 100%;
     margin-right: 30px;
     margin-top: 20px;
 }
+.avatar-uploader .el-upload {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 176px;
+    height: 176px;
+    line-height: 176px;
+    border: 1px solid #ccc;
+    text-align: center;
+  }
+  .avatar {
+    width: 176px;
+    height: 176px;
+    display: block;
+    border: 1px solid #ccc;
+  }
 </style>

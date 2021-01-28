@@ -26,9 +26,9 @@ export function getAllSequenceList() {
    * 新增或修改保存
    * @param data
    */
-export function saveSequence(data) {
+export function saveSequence(data, url) {
   return http.request({
-    url: 'Sequence/InsertOrUpdateAsync',
+    url: url,
     method: 'post',
     data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式

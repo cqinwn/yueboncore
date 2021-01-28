@@ -46,7 +46,7 @@ namespace Yuebon.Security.Models
         public string CurrentCode { get; set; }
 
         /// <summary>
-        /// 设置或获取当前重置依赖
+        /// 设置或获取当前重置依赖，即最后一次获取编码的日期
         /// </summary>
         public string CurrentReset { get; set; }
 

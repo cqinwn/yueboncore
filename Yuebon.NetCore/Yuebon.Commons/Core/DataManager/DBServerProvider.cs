@@ -151,8 +151,8 @@ namespace Yuebon.Commons.Core.DataManager
             bool isDBReadWriteSeparate = Configs.GetConfigurationValue("AppSetting", "IsDBReadWriteSeparate").ToBool();
             if (masterDb || !isDBReadWriteSeparate || dictRead.Count == 0)
             {
-                dbConnectionOptions.ConnectionString = dict["MassterDB"].ConnectionString;
-                dbConnectionOptions.DatabaseType = dict["MassterDB"].DatabaseType;
+                dbConnectionOptions.ConnectionString = dict["MasterDB"].ConnectionString;
+                dbConnectionOptions.DatabaseType = dict["MasterDB"].DatabaseType;
             }
             else
             {

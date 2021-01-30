@@ -250,16 +250,17 @@ namespace Yuebon.WebApi.Controllers
                 currentSession.SubSystemList = _systemTypeService.GetAllByIsNotDeleteAndEnabledMark().MapTo<SystemTypeOutputDto>();
                 //取得用户可使用的授权功能信息，并存储在缓存中
                 listFunction = menuApp.GetFunctionsBySystem(currentSession.ActiveSystemId);
+                currentSession.MenusRouter = menuApp.GetVueRouter("", systemType.EnCode);
             }
             else
             {
                 currentSession.SubSystemList = _systemTypeService.GetSubSystemList(user.RoleId);
                 //取得用户可使用的授权功能信息，并存储在缓存中
                 listFunction = menuApp.GetFunctionsByUser(user.Id, currentSession.ActiveSystemId);
+                currentSession.MenusRouter = menuApp.GetVueRouter(user.RoleId, systemType.EnCode);
             }
             UserLogOn userLogOn = _userLogOnService.GetByUserId(CurrentUser.UserId);
             currentSession.UserTheme = userLogOn.Theme == null ? "default" : userLogOn.Theme;
-            currentSession.MenusRouter = menuApp.GetVueRouter(user.RoleId, systemType.EnCode);
             TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
             yuebonCacheHelper.Add("User_Function_" + user.Id, listFunction, expiresSliding, true);
             List<string> listModules = new List<string>();

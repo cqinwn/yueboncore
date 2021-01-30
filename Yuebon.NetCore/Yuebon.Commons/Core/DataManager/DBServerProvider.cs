@@ -185,8 +185,8 @@ namespace Yuebon.Commons.Core.DataManager
             bool isDBReadWriteSeparate = Configs.GetConfigurationValue("AppSetting", "IsDBReadWriteSeparate").ToBool();
             if (masterDb || !isDBReadWriteSeparate || dictRead.Count == 0)
             {
-                dbConnectionOptions.ConnectionString = dict["MassterDB"].ConnectionString;
-                dbConnectionOptions.DatabaseType = dict["MassterDB"].DatabaseType;
+                dbConnectionOptions.ConnectionString = dict["MasterDB"].ConnectionString;
+                dbConnectionOptions.DatabaseType = dict["MasterDB"].DatabaseType;
             }
             else
             {
@@ -212,7 +212,6 @@ namespace Yuebon.Commons.Core.DataManager
             {
                 int index = new Random().Next(0, slaveData.Count - 1);
                 connectionOptions = slaveData[index.ToString()];
-
             }
             else if (queryDBStrategy == "Polling")//轮询策略
             {

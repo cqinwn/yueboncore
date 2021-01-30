@@ -361,6 +361,7 @@ namespace Yuebon.Commons.Extensions
             if (services == null) throw new ArgumentNullException(nameof(services));
             return services.AddDbContext<IT, T>();
         }
+
         /// <summary>
         /// 获取数据库上下文
         /// </summary>

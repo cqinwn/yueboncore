@@ -235,15 +235,6 @@ namespace Yuebon.Commons.Application
             return service.Update(entity, id, null);
         }
 
-        /// <summary>
-        /// 同步批量更新实体。
-        /// </summary>
-        /// <param name="entities">实体集合</param>
-        /// <returns></returns>
-        public virtual bool Update(List<T> entities)
-        {
-            return service.Update(entities, null);
-        }
 
         /// <summary>
         /// 异步更新实体。

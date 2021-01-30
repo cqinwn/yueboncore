@@ -28,6 +28,10 @@ namespace Yuebon.Security.Repositories
         public IEnumerable<Menu> GetFunctions(string roleIds, string typeID,bool isMenu = false)
         {
             string sql = $"SELECT DISTINCT b.* FROM sys_menu as b INNER JOIN Sys_RoleAuthorize as a On b.Id = a.ItemId  WHERE ObjectId IN (" + roleIds + ")";
+            if (roleIds == "")
+            {
+                sql = $"SELECT DISTINCT b.* FROM sys_menu as b where 1=1 ";
+            }
             if (isMenu)
             {
                 sql = sql + "and menutype in('M','C')";
@@ -36,7 +40,7 @@ namespace Yuebon.Security.Repositories
             {
                 sql = sql + string.Format(" AND SystemTypeId='{0}' ", typeID);
             }
-            return DapperConn.Query<Menu>(sql);
+            return DapperConnRead.Query<Menu>(sql);
         }
 
 
@@ -47,12 +51,12 @@ namespace Yuebon.Security.Repositories
         /// <returns></returns>
         public IEnumerable<Menu> GetFunctions(string typeID)
         {
-            string sql = $"SELECT DISTINCT b.* FROM sys_menu as b INNER JOIN Sys_RoleAuthorize as a On b.Id = a.ItemId  ";
+            string sql = $"SELECT DISTINCT b.* FROM sys_menu as b ";
             if (!string.IsNullOrEmpty(typeID))
             {
                 sql = sql + string.Format(" Where SystemTypeId='{0}' ", typeID);
             }
-            return DapperConn.Query<Menu>(sql);
+            return DapperConnRead.Query<Menu>(sql);
         }
     }
 }

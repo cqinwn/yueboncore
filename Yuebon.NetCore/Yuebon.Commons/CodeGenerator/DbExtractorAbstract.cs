@@ -7,11 +7,14 @@ using System.Linq;
 using System.Text;
 using Dapper;
 using Microsoft.Data.Sqlite;
+using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using Npgsql;
 using Oracle.ManagedDataAccess.Client;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.Core.DataManager;
 using Yuebon.Commons.Encrypt;
+using Yuebon.Commons.Enums;
 using Yuebon.Commons.Pages;
 
 namespace Yuebon.Commons.CodeGenerator
@@ -26,7 +29,7 @@ namespace Yuebon.Commons.CodeGenerator
         /// <summary>
         /// 连接字符串
         /// </summary>
-        internal string DefaultSqlConnectionString { get; set; }
+        internal string defaultSqlConnectionString { get; set; }
 
         private DbConnection dbConnection;
         /// <summary>
@@ -51,52 +54,42 @@ namespace Yuebon.Commons.CodeGenerator
         {
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
             object connCode = yuebonCacheHelper.Get("CodeGeneratorDbConn");
-            string dbType = "";
+            DbConnectionOptions dbConnectionOptions = DBServerProvider.GeDbConnectionOptions();
+            DatabaseType dbType = DatabaseType.SqlServer;
             if (connCode!=null)
             {
-                DefaultSqlConnectionString = connCode.ToString();
-                dbType=yuebonCacheHelper.Get("CodeGeneratorDbType").ToString().ToUpper();
+                defaultSqlConnectionString = connCode.ToString();
+                string dbTypeCache=yuebonCacheHelper.Get("CodeGeneratorDbType").ToString();
+                dbType = (DatabaseType)Enum.Parse(typeof(DatabaseType), dbTypeCache);
             }
             else
             {
-                string conStringEncrypt = Configs.GetConfigurationValue("AppSetting", "ConStringEncrypt");
-                if (string.IsNullOrEmpty(dbConfigName))
-                {
-                    dbConfigName = Configs.GetConfigurationValue("AppSetting", "DefaultDataBase");
-                }
-                DefaultSqlConnectionString = Configs.GetConnectionString(dbConfigName);
-                if (conStringEncrypt == "true")
-                {
-                    DefaultSqlConnectionString = DEncrypt.Decrypt(DefaultSqlConnectionString);
-                }
-                dbType = dbConfigName.ToUpper();
+                defaultSqlConnectionString = dbConnectionOptions.ConnectionString;
+
+                dbType = dbConnectionOptions.DatabaseType;
                 TimeSpan expiresSliding = DateTime.Now.AddMinutes(30) - DateTime.Now;
-                yuebonCacheHelper.Add("CodeGeneratorDbConn", DefaultSqlConnectionString, expiresSliding, false);
+                yuebonCacheHelper.Add("CodeGeneratorDbConn", defaultSqlConnectionString, expiresSliding, false);
                 yuebonCacheHelper.Add("CodeGeneratorDbType", dbType, expiresSliding, false);
             }
-            if (dbType.Contains("SQLSERVER"))
+            if (dbType == DatabaseType.SqlServer)
             {
-                dbConnection = new SqlConnection(DefaultSqlConnectionString);
+                dbConnection = new SqlConnection(defaultSqlConnectionString);
             }
-            else if (dbType.Contains("MYSQL"))
+            else if (dbType == DatabaseType.MySql)
             {
-                dbConnection = new MySqlConnection(DefaultSqlConnectionString);
+                dbConnection = new MySqlConnection(defaultSqlConnectionString);
             }
-            else if (dbType.Contains("ORACLE"))
+            else if (dbType == DatabaseType.Oracle)
             {
-                dbConnection = new OracleConnection(DefaultSqlConnectionString);
+                dbConnection = new OracleConnection(defaultSqlConnectionString);
             }
-            else if (dbType.Contains("SQLITE"))
+            else if (dbType == DatabaseType.SQLite)
             {
-                dbConnection = new SqliteConnection(DefaultSqlConnectionString);
+                dbConnection = new SqliteConnection(defaultSqlConnectionString);
             }
-            else if (dbType.Contains("MEMORY"))
+            else if (dbType == DatabaseType.Npgsql)
             {
-                throw new NotSupportedException("In Memory Dapper Database Provider is not yet available.");
-            }
-            else if (dbType.Contains("NPGSQL"))
-            {
-                dbConnection = new NpgsqlConnection(DefaultSqlConnectionString);
+                dbConnection = new NpgsqlConnection(defaultSqlConnectionString);
             }
             else
             {

@@ -24,6 +24,7 @@ namespace Yuebon.Commons.IDbContext
         /// </summary>
         /// <returns></returns>
         DatabaseFacade GetDatabase();
+
         #region 新增
         /// <summary>
         /// 新增实体
@@ -54,6 +55,7 @@ namespace Yuebon.Commons.IDbContext
         /// <returns></returns>
         Task<int> AddRangeAsync<T>(ICollection<T> entities) where T : class;
         #endregion
+
         #region 删除
         /// <summary>
         /// 物理删除数据
@@ -104,6 +106,7 @@ namespace Yuebon.Commons.IDbContext
         /// <param name="parameters"></param>
         /// <returns></returns>
         Task<int> ExecuteSqlWithNonQueryAsync(string sql, params object[] parameters);
+
         #region 更新
         /// <summary>
         /// 更新保存实体
@@ -148,6 +151,7 @@ namespace Yuebon.Commons.IDbContext
        // Task<int> UpdateAsync<T>(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateFactory)
         //    where T : class;
         #endregion
+
         #region 查询
         /// <summary>
         /// 根据条件统计数量Count()
@@ -262,6 +266,7 @@ namespace Yuebon.Commons.IDbContext
         /// <returns></returns>
         Task<T> GetSingleOrDefaultAsync<T>(Expression<Func<T, bool>> @where = null) where T : class;
         #endregion
+
         /// <summary>
         /// 批量插入
         /// </summary>

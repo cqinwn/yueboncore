@@ -4,7 +4,6 @@ using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Yuebon.Commons.Dapper;
 using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.IRepositories;
 using Yuebon.Commons.Models;
@@ -123,15 +122,6 @@ namespace Yuebon.Commons.IRepositories
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
         Task<bool> UpdateAsync(T entity, TKey primaryKey, IDbTransaction trans = null);
-
-        /// <summary>
-        /// 同步批量更新实体。
-        /// </summary>
-        /// <param name="entities">实体集合</param>
-        /// <param name="trans">事务对象</param>
-        /// <returns></returns>
-        bool Update(List<T> entities, IDbTransaction trans = null);
-
 
         #endregion
         #region 更新某一字段值

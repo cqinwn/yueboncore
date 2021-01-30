@@ -160,15 +160,6 @@ namespace Yuebon.Commons.IServices
         Task<bool> UpdateAsync(T entity, TKey id, IDbTransaction trans = null);
 
         /// <summary>
-        /// 同步批量更新实体。
-        /// </summary>
-        /// <param name="entities">实体集合</param>
-        /// <param name="trans">事务对象</param>
-        /// <returns></returns>
-        bool Update(List<T> entities, IDbTransaction trans = null);
-
-
-        /// <summary>
         /// 更新某一字段值
         /// </summary>
         /// <param name="strField">字段</param>

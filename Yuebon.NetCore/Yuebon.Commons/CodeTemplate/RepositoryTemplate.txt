@@ -17,6 +17,22 @@ namespace {RepositoriesNamespace}
 
         public {ModelTypeName}Repository(IDbContextCore context) : base(context)
         {
+
         }
+
+        #region Dapper 操作
+
+        //DapperConn 用于读写操作
+        //DapperConnRead 用于只读操作
+
+        #endregion
+
+        
+        #region EF 操作
+
+        //DbContext 用于读写操作
+        //DbContextRead 用于只读操作
+
+        #endregion
     }
 }

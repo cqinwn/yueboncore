@@ -13,7 +13,7 @@ namespace Yuebon.Commons.Enums
         /// <summary>
         /// SqlServer数据库
         /// </summary>
-        SqlServer=0,
+        SqlServer = 0,
         /// <summary>
         /// Oracle数据库
         /// </summary>
@@ -33,6 +33,10 @@ namespace Yuebon.Commons.Enums
         /// <summary>
         /// PostgreSQL数据库
         /// </summary>
-        PostgreSQL
+        PostgreSQL,
+        /// <summary>
+        /// Npgsql数据库
+        /// </summary>
+        Npgsql
     }
 }

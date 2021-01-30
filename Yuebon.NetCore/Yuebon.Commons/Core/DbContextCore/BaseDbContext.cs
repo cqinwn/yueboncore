@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyModel;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using System;
@@ -15,9 +16,13 @@ using System.Threading.Tasks;
 using Yuebon.Commons.Attributes;
 using Yuebon.Commons.Core.DataManager;
 using Yuebon.Commons.Encrypt;
+using Yuebon.Commons.Enums;
 using Yuebon.Commons.Extensions;
+using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IDbContext;
+using Yuebon.Commons.Json;
 using Yuebon.Commons.Models;
+using Yuebon.Commons.Options;
 using Yuebon.Commons.Pages;
 
 namespace Yuebon.Commons.DbContextCore
@@ -25,8 +30,10 @@ namespace Yuebon.Commons.DbContextCore
     /// <summary>
     /// DbContext上下文的实现
     /// </summary>
-    public abstract class BaseDbContext : DbContext, IDbContextCore
+    public  class BaseDbContext : DbContext, IDbContextCore
     {
+
+
         #region 基础参数
 
         /// <summary>
@@ -38,6 +45,12 @@ namespace Yuebon.Commons.DbContextCore
         /// 是否开启多租户
         /// </summary>
         protected bool isMultiTenant = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected DbConnectionOptions dbConnectionOptions;
+
 
         /// <summary>
         /// 数据库访问对象的外键约束
@@ -61,58 +74,51 @@ namespace Yuebon.Commons.DbContextCore
         /// </summary>
         protected BaseDbContext()
         {
+
         }
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="options"></param>
-        public BaseDbContext(DbContextOptions<BaseDbContext> options) : base(options)
+        /// <param name="dbConnectionOptions"></param>
+        public BaseDbContext(DbConnectionOptions dbConnectionOptions)
         {
-
+            this.dbConnectionOptions = dbConnectionOptions;
         }
+
         /// <summary>
         /// 配置，初始化数据库引擎
         /// </summary>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            dbConfigName = DBServerProvider.GetConnectionString();
-            string conStringEncrypt = Configs.GetConfigurationValue("AppSetting", "ConStringEncrypt");
-            this.isMultiTenant = Configs.GetConfigurationValue("AppSetting", "IsMultiTenant").ToBool();
-            if (string.IsNullOrEmpty(dbConfigName))
+            if (dbConnectionOptions == null)
             {
-                dbConfigName = Configs.GetConfigurationValue("AppSetting", "DefaultDataBase");
+                dbConnectionOptions = DBServerProvider.GeDbConnectionOptions();
             }
-            string defaultSqlConnectionString = Configs.GetConnectionString(dbConfigName);
-            if (conStringEncrypt == "true")
-            {
-                defaultSqlConnectionString = DEncrypt.Decrypt(defaultSqlConnectionString);
-            }
-            string dbType = dbConfigName.ToUpper();
-            if (dbType.Contains("MSSQL"))
+            string defaultSqlConnectionString = dbConnectionOptions.ConnectionString;// Configs.GetConnectionString(dbConnections.MassterDB.ConnectionString);
+
+            DatabaseType dbType = dbConnectionOptions.DatabaseType;
+            if (dbType == DatabaseType.SqlServer)
             {
                 optionsBuilder.UseSqlServer(defaultSqlConnectionString);
             }
-            else if (dbType.Contains("MYSQL"))
+            else if (dbType == DatabaseType.MySql)
             {
                 optionsBuilder.UseMySql(defaultSqlConnectionString, new MySqlServerVersion(new Version(8, 0, 21)), // use MariaDbServerVersion for MariaDB
                         mySqlOptions => mySqlOptions
                             .CharSetBehavior(CharSetBehavior.NeverAppend));
             }
-            else if (dbType.Contains("ORACLE"))
+            else if (dbType == DatabaseType.Oracle)
             {
-                optionsBuilder.UseOracle(defaultSqlConnectionString);
+                optionsBuilder.UseOracle(defaultSqlConnectionString, o => o.UseOracleSQLCompatibility("11"));
             }
-            else if (dbType.Contains("SQLITE"))
+            else if (dbType == DatabaseType.SQLite)
             {
                 optionsBuilder.UseSqlite(defaultSqlConnectionString);
             }
-            else if(dbType.Contains("NPGSQL"))
+            else if(dbType == DatabaseType.Npgsql)
             {
                 optionsBuilder.UseNpgsql(defaultSqlConnectionString);
-            }
-            else if (dbType.Contains("MEMORY"))
-            {
-                throw new NotSupportedException("In Memory Dapper Database Provider is not yet available.");
             }
             else
             {
@@ -132,28 +138,6 @@ namespace Yuebon.Commons.DbContextCore
             base.OnModelCreating(modelBuilder);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        private List<Assembly> GetCurrentPathAssembly()
-        {
-            var dlls = DependencyContext.Default.CompileLibraries
-                .Where(x => !x.Name.StartsWith("Microsoft") && !x.Name.StartsWith("System")&& x.Name.StartsWith("Yuebon"))
-                .ToList();
-            var list = new List<Assembly>();
-            if (dlls.Any())
-            {
-                foreach (var dll in dlls)
-                {
-                    if (dll.Type == "project")
-                    {
-                        list.Add(Assembly.Load(dll.Name));
-                    }
-                }
-            }
-            return list;
-        }
 
         /// <summary>
         /// 
@@ -161,7 +145,7 @@ namespace Yuebon.Commons.DbContextCore
         /// <param name="modelBuilder"></param>
         private void MappingEntityTypes(ModelBuilder modelBuilder)
         {
-            var assemblies = GetCurrentPathAssembly();
+            var assemblies = RuntimeHelper.GetAllYuebonAssemblies();
             foreach (var assembly in assemblies)
             {
                 var entityTypes = assembly.GetTypes()
@@ -588,23 +572,6 @@ namespace Yuebon.Commons.DbContextCore
         {
             throw new NotImplementedException();
         }
-        /// <summary>
-        /// 根据sql语句返回DataTable数据，具体在实现在特定数据库上上下文中实现
-        /// </summary>
-        /// <param name="sql">Sql语句</param>
-        /// <param name="cmdTimeout">执行超时时间，默认30毫秒</param>
-        /// <param name="parameters">Sql语句参数</param>
-        /// <returns></returns>
-        public abstract DataTable GetDataTable(string sql, int cmdTimeout = 30, params DbParameter[] parameters);
-        /// <summary>
-        /// 根据sql语句返回List数据，具体在实现在特定数据库上上下文中实现
-        /// </summary>
-        /// <param name="sql">Sql语句</param>
-        /// <param name="cmdTimeout">执行超时时间，默认30毫秒</param>
-        /// <param name="parameters">Sql语句参数</param>
-        /// <returns></returns>
-        public abstract List<DataTable> GetDataTables(string sql, int cmdTimeout = 30, params DbParameter[] parameters);
-
         #region 显式编译的查询,提高查询性能
         /// <summary>
         /// 根据主键查询返回一个实体，该方法是显式编译的查询
@@ -720,6 +687,30 @@ namespace Yuebon.Commons.DbContextCore
         {
             if (filter == null) filter = m => true;
             return EF.CompileAsyncQuery((DbContext context) => context.Set<T>().Count(filter))(this);
+        }
+
+        /// <summary>
+        /// 根据sql语句返回DataTable数据
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        /// <param name="cmdTimeout">执行超时时间，默认30毫秒</param>
+        /// <param name="parameters">DbParameter[]参数</param>
+        /// <returns></returns>
+        public virtual DataTable GetDataTable(string sql, int cmdTimeout = 30, params DbParameter[] parameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 根据sql语句返回List数据
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        /// <param name="cmdTimeout">执行超时时间，默认30毫秒</param>
+        /// <param name="parameters">DbParameter[] 参数</param>
+        /// <returns></returns>
+        public virtual List<DataTable> GetDataTables(string sql, int cmdTimeout = 30, params DbParameter[] parameters)
+        {
+            throw new NotImplementedException();
         }
         #endregion
         #endregion

@@ -14,6 +14,8 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Yuebon.Commons.Core.Dapper;
 using Yuebon.Commons.Core.DataManager;
+using Yuebon.Commons.DataManager;
+using Yuebon.Commons.DbContextCore;
 using Yuebon.Commons.DependencyInjection;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.IDbContext;
@@ -39,6 +41,7 @@ namespace Yuebon.Commons.Repositories
         ///  EF DBContext
         /// </summary>
         private IDbContextCore _dbContext;
+        private IDbContextFactory _dbContextFactory;
         /// <summary>
         /// 
         /// </summary>
@@ -125,19 +128,18 @@ namespace Yuebon.Commons.Repositories
             _dbContext = dbContext;
             _dbContext.EnsureCreated();
         }
+
         /// <summary>
-        /// 
+        /// 构造方法，注入上下文
         /// </summary>
-        private IDbContextCore EFContext
+        /// <param name="dbContextFactory">上下文</param>
+        public BaseRepository(IDbContextFactory dbContextFactory)
         {
-            get
-            {
-                DBServerProvider.GetDbContextConnection<T>(DbContext);
-                return DbContext;
-            }
+            _dbContextFactory = dbContextFactory;
         }
+
         /// <summary>
-        /// EF 上下文接口
+        /// EF 上下文接口，可读可写
         /// </summary>
         public virtual IDbContextCore DbContext
         {
@@ -145,11 +147,25 @@ namespace Yuebon.Commons.Repositories
         }
 
         /// <summary>
-        /// 用Dapper原生方法操作数据
+        /// EF 上下文接口，仅可读
+        /// </summary>
+        public virtual IDbContextCore DbContextRead
+        {
+            get { return _dbContextFactory.CreateContext<T>(WriteAndReadEnum.Read); }
+        }
+        /// <summary>
+        /// 用Dapper原生方法操作数据，支持读写操作
         /// </summary>
         public IDbConnection DapperConn
         {
             get { return new DapperDbContext().GetConnection<T>(); }
+        }
+        /// <summary>
+        /// 用Dapper原生方法，仅用于只读数据库
+        /// </summary>
+        public IDbConnection DapperConnRead
+        {
+            get { return new DapperDbContext().GetConnection<T>(false); }
         }
         #endregion
 
@@ -163,7 +179,7 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual T Get(TKey primaryKey)
         {
-            return DapperConn.Get<T>(primaryKey);
+            return DapperConnRead.Get<T>(primaryKey);
         }
         /// <summary>
         /// 异步根据id获取一个对象
@@ -172,7 +188,7 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual async  Task<T> GetAsync(TKey primaryKey)
         {
-            return await DapperConn.GetAsync<T>(primaryKey);
+            return await DapperConnRead.GetAsync<T>(primaryKey);
         }
         /// <summary>
         /// 根据条件获取一个对象
@@ -195,7 +211,7 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += " where " + where;
             }
-            return DapperConn.QueryFirstOrDefault<T>(sql);
+            return DapperConnRead.QueryFirstOrDefault<T>(sql);
 
         }
         /// <summary>
@@ -220,7 +236,7 @@ namespace Yuebon.Commons.Repositories
                 sql += " where "+where;
             }
 
-            return await DapperConn.QueryFirstOrDefaultAsync<T>(sql);
+            return await DapperConnRead.QueryFirstOrDefaultAsync<T>(sql);
         }
 
         /// <summary>
@@ -261,7 +277,7 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += " where " + where;
             }
-            return DapperConn.Query<T>(sql, trans);
+            return DapperConnRead.Query<T>(sql, trans);
         }
 
         /// <summary>
@@ -282,7 +298,7 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += " where " + where;
             }
-            return await DapperConn.QueryAsync<T>(sql, trans);
+            return await DapperConnRead.QueryAsync<T>(sql, trans);
         }
 
         /// <summary>
@@ -318,7 +334,7 @@ namespace Yuebon.Commons.Repositories
                 }
                 sql += $"  LIMIT 0,{top}; ";
             }
-            return DapperConn.Query<T>(sql, trans);
+            return DapperConnRead.Query<T>(sql, trans);
         }
 
 
@@ -354,7 +370,7 @@ namespace Yuebon.Commons.Repositories
                 }
                 sql += $"  LIMIT 0,{top}; ";
             }
-            return await DapperConn.QueryAsync<T>(sql, trans);
+            return await DapperConnRead.QueryAsync<T>(sql, trans);
         }
         /// <summary>
         /// 查询软删除的数据，如果查询条件为空，即查询所有软删除的数据
@@ -649,7 +665,7 @@ namespace Yuebon.Commons.Repositories
             string pageSql = pagerHelper.GetPagingSql(true, this.dbConfigName);
             pageSql += ";" + pagerHelper.GetPagingSql(false, this.dbConfigName);
 
-            var reader = DapperConn.QueryMultiple(pageSql);
+            var reader = DapperConnRead.QueryMultiple(pageSql);
             info.RecordCount = reader.ReadFirst<int>();
             list = reader.Read<T>().AsList();
             return list;
@@ -684,7 +700,7 @@ namespace Yuebon.Commons.Repositories
             string pageSql = pagerHelper.GetPagingSql(true, this.dbConfigName);
             pageSql += ";" + pagerHelper.GetPagingSql(false, this.dbConfigName);
 
-            var reader = await DapperConn.QueryMultipleAsync(pageSql);
+            var reader = await DapperConnRead.QueryMultipleAsync(pageSql);
             info.RecordCount = reader.ReadFirst<int>();
             list = reader.Read<T>().AsList();
             return list;
@@ -718,7 +734,7 @@ namespace Yuebon.Commons.Repositories
             string strOrder = string.Format(" {0} {1}", fieldToSort, desc ? "DESC" : "ASC");
             sb.AppendFormat("SELECT count(*) as RecordCount FROM (select {0} FROM {1} where {2})  AS main_temp;", primaryKey, tableName, condition);
             sb.AppendFormat("SELECT * FROM ( SELECT ROW_NUMBER() OVER (order by {0}) AS rows ,{1} FROM {2} where {3}) AS main_temp where rows BETWEEN {4} and {5}", strOrder, selectedFields, tableName, condition, startRows, endNum);
-            var reader = DapperConn.QueryMultiple(sb.ToString());
+            var reader = DapperConnRead.QueryMultiple(sb.ToString());
             info.RecordCount = reader.ReadFirst<int>();
             list = reader.Read<T>().AsList();
             return list;
@@ -751,7 +767,7 @@ namespace Yuebon.Commons.Repositories
             string strOrder = string.Format(" {0} {1}", fieldToSort, desc ? "DESC" : "ASC");
             sb.AppendFormat("SELECT count(*) as RecordCount FROM (select {0} FROM {1} where {2})  AS main_temp;", primaryKey, tableName, condition);
             sb.AppendFormat("SELECT * FROM ( SELECT ROW_NUMBER() OVER (order by {0}) AS rows ,{1} FROM {2} where {3}) AS main_temp where rows BETWEEN {4} and {5}", strOrder, selectedFields, tableName, condition, startRows, endNum);
-            var reader = await DapperConn.QueryMultipleAsync(sb.ToString());
+            var reader = await DapperConnRead.QueryMultipleAsync(sb.ToString());
             info.RecordCount = reader.ReadFirst<int>();
             List<T> list  = reader.Read<T>().AsList();
             return list;
@@ -788,7 +804,7 @@ namespace Yuebon.Commons.Repositories
             sb.AppendFormat("SELECT * FROM (SELECT ROW_NUMBER() OVER (order by  {0}) AS rows ,t1.{1},t2.Account as Account,t2.NickName as NickName,t2.RealName as RealName,t2.HeadIcon as HeadIcon ,t2.MobilePhone as MobilePhone  FROM {2} t1 inner join Sys_User t2 on t1.CreatorUserId = t2.Id " +
                 "where {3}) AS main_temp where rows BETWEEN {4} and {5}", strOrder, selectedFields, tableName, condition, startRows, endNum);
 
-            var reader = DapperConn.QueryMultiple(sb.ToString());
+            var reader = DapperConnRead.QueryMultiple(sb.ToString());
             info.RecordCount = reader.ReadFirst<int>();
             List<object> list = reader.Read<object>().AsList();
             return list;
@@ -825,7 +841,7 @@ namespace Yuebon.Commons.Repositories
             sb.AppendFormat("SELECT * FROM (SELECT ROW_NUMBER() OVER (order by  {0}) AS rows ,t1.{1},t2.Account as Account,t2.NickName as NickName,t2.RealName as RealName,t2.HeadIcon as HeadIcon ,t2.MobilePhone as MobilePhone  FROM {2} t1 inner join Sys_User t2 on t1.CreatorUserId = t2.Id " +
                 "where {3}) AS main_temp where rows BETWEEN {4} and {5}", strOrder, selectedFields, tableName, condition, startRows, endNum);
 
-            var reader = await DapperConn.QueryMultipleAsync(sb.ToString());
+            var reader = await DapperConnRead.QueryMultipleAsync(sb.ToString());
             info.RecordCount = reader.ReadFirst<int>();
             List<object> list = reader.Read<object>().AsList();
             return list;
@@ -852,7 +868,7 @@ namespace Yuebon.Commons.Repositories
             {
                 sql = sql + condition;
             }
-            return DapperConn.Query<int>(sql).FirstOrDefault();
+            return DapperConnRead.Query<int>(sql).FirstOrDefault();
         }
 
         /// <summary>
@@ -877,7 +893,7 @@ namespace Yuebon.Commons.Repositories
             {
                 sql = sql + condition;
             }
-            return await DapperConn.QueryFirstAsync<int>(sql);
+            return await DapperConnRead.QueryFirstAsync<int>(sql);
         }
 
         /// <summary>
@@ -899,7 +915,7 @@ namespace Yuebon.Commons.Repositories
                 sql += " where " + where;
             }
 
-            return await DapperConn.QueryFirstAsync<dynamic>(sql);
+            return await DapperConnRead.QueryFirstAsync<dynamic>(sql);
         }
         /// <summary>
         /// 根据条件统计某个字段之和,sum(字段)
@@ -919,7 +935,7 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += " where " + where;
             }
-            return await DapperConn.QueryFirstAsync<dynamic>(sql);
+            return await DapperConnRead.QueryFirstAsync<dynamic>(sql);
         }
         #endregion
 
@@ -996,16 +1012,6 @@ namespace Yuebon.Commons.Repositories
         public virtual async Task<bool> UpdateAsync(T entity, TKey primaryKey, IDbTransaction trans=null)
         {
             return await DapperConn.UpdateAsync<T>(entity);
-        }
-        /// <summary>
-        /// 批量更新数据
-        /// </summary>
-        /// <param name="entities"></param>
-        /// <param name="trans">事务对象</param>
-        /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual bool Update(List<T> entities, IDbTransaction trans=null)
-        {
-            return DbContext.EditRange<T>(entities)>0;
         }
 
         /// <summary>

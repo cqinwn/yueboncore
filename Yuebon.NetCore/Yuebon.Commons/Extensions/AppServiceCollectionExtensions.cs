@@ -339,7 +339,7 @@ namespace Yuebon.Commons.Extensions
         /// <typeparam name="IT"></typeparam>
         /// <typeparam name="T"></typeparam>
         /// <param name="services"></param>
-        /// <param name="option"></param>
+        /// <param name="option">数据库上下文配置参数</param>
         /// <returns></returns>
         public static IServiceCollection AddDbContext<IT, T>(this IServiceCollection services, DbContextOption option) where IT : IDbContextCore where T : BaseDbContext, IT
         {
@@ -361,11 +361,12 @@ namespace Yuebon.Commons.Extensions
             if (services == null) throw new ArgumentNullException(nameof(services));
             return services.AddDbContext<IT, T>();
         }
+
         /// <summary>
-        /// 获取数据库上线文
+        /// 获取数据库上下文
         /// </summary>
         /// <param name="provider"></param>
-        /// <param name="dbContextTagName"></param>
+        /// <param name="dbContextTagName">上下文标签名称</param>
         /// <param name="serviceType"></param>
         /// <returns></returns>
         public static object GetDbContext(this IServiceProvider provider, string dbContextTagName, Type serviceType)

@@ -334,8 +334,16 @@ namespace Yuebon.Security.Application
         /// <returns></returns>
         public List<Menu> GetMenusByRole(string roleIds, string systemId)
         {
-            string roleIDsStr = string.Format("'{0}'", roleIds.Replace(",", "','"));
-            List<Menu> menuListResult = service.GetFunctions(roleIDsStr, systemId,true);
+            List<Menu> menuListResult = new List<Menu>();
+            if (roleIds == "")
+            {
+               menuListResult = service.GetFunctions("", systemId, true);
+            }
+            else
+            {
+                string roleIDsStr = string.Format("'{0}'", roleIds.Replace(",", "','"));
+                menuListResult = service.GetFunctions(roleIDsStr, systemId, true);
+            }
             return menuListResult;
         }
 

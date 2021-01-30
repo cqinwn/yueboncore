@@ -35,6 +35,7 @@ using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.Commons;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Core.App;
+using Yuebon.Commons.Core.DataManager;
 using Yuebon.Commons.DbContextCore;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
@@ -89,8 +90,9 @@ namespace Yuebon.WebApi
             //如果部署在linux系统上，需要加上下面的配置：
             //services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
             //如果部署在IIS上，需要加上下面的配置：
+            services.AddOptions();
             services.Configure<IISServerOptions>(options => options.AllowSynchronousIO = true);
-
+            services.Configure<DbConnections>(Configuration.GetSection("DbConnections"));
 
             #region Swagger Api文档
 
@@ -360,7 +362,7 @@ namespace Yuebon.WebApi
             #endregion
 
             services.AddAutoScanInjection();//自动化注入仓储和服务
-            services.AddTransient<IDbContextCore, MySqlDbContext>(); //注入EF上下文
+            services.AddTransient<IDbContextCore, SqlServerDbContext>(); //注入EF上下文
             services.AddSingleton(cacheProvider)//注册缓存配置
                 .AddSingleton(jwtOption);//注册配置
             #region automapper

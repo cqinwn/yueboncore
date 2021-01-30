@@ -269,7 +269,7 @@ namespace Yuebon.Security.Repositories
             }
             Stopwatch stopwatch15 = new Stopwatch();
             stopwatch15.Start();
-            Update(newlogList);
+           // Update(newlogList);
             stopwatch15.Stop();
             sb.Append("Dapper批量更新" + n + "条数据Update耗时:" + (stopwatch15.ElapsedMilliseconds + "  毫秒\n"));
             stopwatch8.Start();

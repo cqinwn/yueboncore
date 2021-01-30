@@ -38,7 +38,10 @@ namespace Yuebon.Commons.Helpers
             }
             return list;
         }
-
+        /// <summary>
+        /// 获取项目程序集，排除所有的系统程序集(Microsoft.***、System.***等)、Nuget下载包和Yuebon.Commons.dll
+        /// </summary>
+        /// <returns></returns>
         public static IList<Assembly> GetAllYuebonAssemblies()
         {
             var list = new List<Assembly>();

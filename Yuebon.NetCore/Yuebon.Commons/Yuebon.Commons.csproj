@@ -77,9 +77,12 @@
     <Compile Remove="Core\App\AppContext.cs" />
     <Compile Remove="Core\App\IAppContext.cs" />
     <Compile Remove="Core\App\InternalApp.cs" />
+    <Compile Remove="Core\Dapper\ISqlDapper.cs" />
+    <Compile Remove="Core\Dapper\SqlDapper.cs" />
     <Compile Remove="Core\DbContextCore\InMemoryDbContext.cs" />
     <Compile Remove="Core\DbContextCore\MongoDbContext.cs" />
     <Compile Remove="Core\DbContextCore\ShardDbContextFactory.cs" />
+    <Compile Remove="Core\IDbContext\IDbContextFactory.cs" />
     <Compile Remove="Core\IDbContext\IInMemoryDbContext.cs" />
     <Compile Remove="Core\IDbContext\IMongoDbContext.cs" />
     <Compile Remove="Core\Module\MoudleService.cs" />

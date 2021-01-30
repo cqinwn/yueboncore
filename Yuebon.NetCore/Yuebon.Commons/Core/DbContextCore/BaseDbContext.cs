@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyModel;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using System;
@@ -15,9 +16,13 @@ using System.Threading.Tasks;
 using Yuebon.Commons.Attributes;
 using Yuebon.Commons.Core.DataManager;
 using Yuebon.Commons.Encrypt;
+using Yuebon.Commons.Enums;
 using Yuebon.Commons.Extensions;
+using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IDbContext;
+using Yuebon.Commons.Json;
 using Yuebon.Commons.Models;
+using Yuebon.Commons.Options;
 using Yuebon.Commons.Pages;
 
 namespace Yuebon.Commons.DbContextCore
@@ -70,49 +75,60 @@ namespace Yuebon.Commons.DbContextCore
         {
 
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="options"></param>
+        public BaseDbContext(DbContextOption options)
+        {
+            dbConfigName = options.dbConfigName;
+        }
         /// <summary>
         /// 配置，初始化数据库引擎
         /// </summary>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            dbConfigName = DBServerProvider.GetConnectionString();
-            string conStringEncrypt = Configs.GetConfigurationValue("AppSetting", "ConStringEncrypt");
+            bool conStringEncrypt = Configs.GetConfigurationValue("AppSetting", "ConStringEncrypt").ToBool(false);
             this.isMultiTenant = Configs.GetConfigurationValue("AppSetting", "IsMultiTenant").ToBool();
             if (string.IsNullOrEmpty(dbConfigName))
             {
                 dbConfigName = Configs.GetConfigurationValue("AppSetting", "DefaultDataBase");
             }
-            string defaultSqlConnectionString = Configs.GetConnectionString(dbConfigName);
-            if (conStringEncrypt == "true")
+
+            IConfiguration section = Configs.GetSection("DbConnections:" + dbConfigName);
+            Dictionary<string, DbConnectionOptions> dict = section.Get<Dictionary<string, DbConnectionOptions>>();
+
+            Dictionary<string, DbConnectionOptions> dictRead = Configs.GetSection("DbConnections:" + dbConfigName + ":ReadDb").Get<Dictionary<string, DbConnectionOptions>>();
+
+            string defaultSqlConnectionString =dict["MassterDB"].ConnectionString;// Configs.GetConnectionString(dbConnections.MassterDB.ConnectionString);
+
+            if (conStringEncrypt)
             {
                 defaultSqlConnectionString = DEncrypt.Decrypt(defaultSqlConnectionString);
             }
-            string dbType = dbConfigName.ToUpper();
-            if (dbType.Contains("MSSQL"))
+            DatabaseType dbType = dict["MassterDB"].DatabaseType;
+            if (dbType == DatabaseType.SqlServer)
             {
                 optionsBuilder.UseSqlServer(defaultSqlConnectionString);
             }
-            else if (dbType.Contains("MYSQL"))
+            else if (dbType == DatabaseType.MySql)
             {
                 optionsBuilder.UseMySql(defaultSqlConnectionString, new MySqlServerVersion(new Version(8, 0, 21)), // use MariaDbServerVersion for MariaDB
                         mySqlOptions => mySqlOptions
                             .CharSetBehavior(CharSetBehavior.NeverAppend));
             }
-            else if (dbType.Contains("ORACLE"))
+            else if (dbType == DatabaseType.Oracle)
             {
-                optionsBuilder.UseOracle(defaultSqlConnectionString);
+                optionsBuilder.UseOracle(defaultSqlConnectionString, o => o.UseOracleSQLCompatibility("11"));
             }
-            else if (dbType.Contains("SQLITE"))
+            else if (dbType == DatabaseType.SQLite)
             {
                 optionsBuilder.UseSqlite(defaultSqlConnectionString);
             }
-            else if(dbType.Contains("NPGSQL"))
+            else if(dbType == DatabaseType.Npgsql)
             {
                 optionsBuilder.UseNpgsql(defaultSqlConnectionString);
-            }
-            else if (dbType.Contains("MEMORY"))
-            {
-                throw new NotSupportedException("In Memory Dapper Database Provider is not yet available.");
             }
             else
             {
@@ -132,28 +148,6 @@ namespace Yuebon.Commons.DbContextCore
             base.OnModelCreating(modelBuilder);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        private List<Assembly> GetCurrentPathAssembly()
-        {
-            var dlls = DependencyContext.Default.CompileLibraries
-                .Where(x => !x.Name.StartsWith("Microsoft") && !x.Name.StartsWith("System")&& x.Name.StartsWith("Yuebon"))
-                .ToList();
-            var list = new List<Assembly>();
-            if (dlls.Any())
-            {
-                foreach (var dll in dlls)
-                {
-                    if (dll.Type == "project")
-                    {
-                        list.Add(Assembly.Load(dll.Name));
-                    }
-                }
-            }
-            return list;
-        }
 
         /// <summary>
         /// 
@@ -161,7 +155,7 @@ namespace Yuebon.Commons.DbContextCore
         /// <param name="modelBuilder"></param>
         private void MappingEntityTypes(ModelBuilder modelBuilder)
         {
-            var assemblies = GetCurrentPathAssembly();
+            var assemblies = RuntimeHelper.GetAllYuebonAssemblies();
             foreach (var assembly in assemblies)
             {
                 var entityTypes = assembly.GetTypes()

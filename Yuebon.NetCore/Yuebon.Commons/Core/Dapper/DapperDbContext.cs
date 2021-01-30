@@ -16,30 +16,18 @@ namespace Yuebon.Commons.Core.Dapper
     {
 
         private IDbConnection dbConnection { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public IDbConnection Connection
-        {
-            get
-            {
-                if (dbConnection == null || dbConnection.State == ConnectionState.Closed)
-                {
-                    dbConnection = DBServerProvider.GetDBConnection();
 
-                    if (MiniProfiler.Current != null)
-                    {
-                        dbConnection = new StackExchange.Profiling.Data.ProfiledDbConnection((DbConnection)dbConnection, MiniProfiler.Current);
-                    }
-                }
-                return dbConnection;
-            }
-        }
-        public IDbConnection GetConnection<T>() where T : class
+        /// <summary>
+        /// 获取的数据库连接
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="masterDb"></param>
+        /// <returns></returns>
+        public IDbConnection GetConnection<T>(bool masterDb = true) where T : class
         {
             if (dbConnection == null || dbConnection.State == ConnectionState.Closed)
             {
-                dbConnection = DBServerProvider.GetDBConnection<T>();
+                dbConnection = DBServerProvider.GetDBConnection<T>(masterDb);
 
                 if (MiniProfiler.Current != null)
                 {
@@ -48,6 +36,7 @@ namespace Yuebon.Commons.Core.Dapper
             }
             return dbConnection;
         }
+
         /// <summary>
         /// 事务
         /// </summary>
@@ -64,9 +53,9 @@ namespace Yuebon.Commons.Core.Dapper
         public void BeginTransaction()
         {
             Committed = false;
-            bool isClosed = Connection.State == ConnectionState.Closed;
-            if (isClosed) Connection.Open();
-            DbTransaction = Connection?.BeginTransaction();
+            bool isClosed = dbConnection.State == ConnectionState.Closed;
+            if (isClosed) dbConnection.Open();
+            DbTransaction = dbConnection?.BeginTransaction();
         }
 
         /// <summary>
@@ -113,10 +102,10 @@ namespace Yuebon.Commons.Core.Dapper
 
                 disposedValue = true;
             }
-            if (Connection != null)
+            if (dbConnection != null)
             {
                 DbTransaction.Dispose();
-                Connection.Dispose();
+                dbConnection.Dispose();
             }
         }
         /// <summary>
@@ -128,8 +117,8 @@ namespace Yuebon.Commons.Core.Dapper
             Dispose(true);
 
             DbTransaction?.Dispose();
-            if (Connection.State == ConnectionState.Open)
-                Connection?.Close();
+            if (dbConnection.State == ConnectionState.Open)
+                dbConnection?.Close();
             // TODO: 如果在以上内容中替代了终结器，则取消注释以下行。
             // GC.SuppressFinalize(this);
         }

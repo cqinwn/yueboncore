@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Yuebon.Commons.Core.App
 {
     /// <summary>
-    /// 获取本地 HttpContext 上下文
+    /// 获取 HttpContext 上下文
     /// </summary>
     public static class HttpContextLocal
     {

@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Yuebon.Commons.Core.Dapper;
 using Yuebon.Commons.Core.DataManager;
+using Yuebon.Commons.DataManager;
 using Yuebon.Commons.DbContextCore;
 using Yuebon.Commons.DependencyInjection;
 using Yuebon.Commons.Extensions;
@@ -40,6 +41,7 @@ namespace Yuebon.Commons.Repositories
         ///  EF DBContext
         /// </summary>
         private IDbContextCore _dbContext;
+        private IDbContextFactory _dbContextFactory;
         /// <summary>
         /// 
         /// </summary>
@@ -128,25 +130,29 @@ namespace Yuebon.Commons.Repositories
         }
 
         /// <summary>
-        /// 
+        /// 构造方法，注入上下文
         /// </summary>
-        private IDbContextCore EFContext
+        /// <param name="dbContextFactory">上下文</param>
+        public BaseRepository(IDbContextFactory dbContextFactory)
         {
-            get
-            {
-                DBServerProvider.GetDbContextConnection<T>(DbContext);
-                return DbContext;
-            }
+            _dbContextFactory = dbContextFactory;
         }
 
         /// <summary>
-        /// EF 上下文接口
+        /// EF 上下文接口，可读可写
         /// </summary>
         public virtual IDbContextCore DbContext
         {
             get { return _dbContext; }
         }
 
+        /// <summary>
+        /// EF 上下文接口，仅可读
+        /// </summary>
+        public virtual IDbContextCore DbContextRead
+        {
+            get { return _dbContextFactory.CreateContext<T>(WriteAndReadEnum.Read); }
+        }
         /// <summary>
         /// 用Dapper原生方法操作数据，支持读写操作
         /// </summary>
@@ -205,7 +211,7 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += " where " + where;
             }
-            return DapperConn.QueryFirstOrDefault<T>(sql);
+            return DapperConnRead.QueryFirstOrDefault<T>(sql);
 
         }
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using Npgsql;
@@ -29,12 +30,14 @@ namespace Yuebon.Commons.Core.DataManager
         /// 数据库配置名称
         /// </summary>
         private static string dbConfigName = "";
+
         /// <summary>
         /// 数据库连接
         /// </summary>
         private static IDbConnection dbConnection;
 
         #region Dapper Context
+
         /// <summary>
         /// 获取默认数据库连接
         /// </summary>
@@ -60,36 +63,9 @@ namespace Yuebon.Commons.Core.DataManager
         /// <returns></returns>
         public static IDbConnection GetDBConnection<TEntity>(bool masterDb = true)
         {
-            string conStringEncrypt = Configs.GetConfigurationValue("AppSetting", "ConStringEncrypt");
-            bool isMultiTenant = Configs.GetConfigurationValue("AppSetting", "IsMultiTenant").ToBool();
-            //获取实体真实的数据库连接池对象名，如果不存在则用默认数据连接池名
-            dbConfigName = typeof(TEntity).GetCustomAttribute<AppDBContextAttribute>(false)?.DbConfigName ?? dbConfigName;
-            if (string.IsNullOrEmpty(dbConfigName))
-            {
-                dbConfigName = Configs.GetConfigurationValue("AppSetting", "DefaultDataBase");
-            }
-
-            Dictionary<string, DbConnectionOptions> dict = Configs.GetSection("DbConnections:" + dbConfigName).Get<Dictionary<string, DbConnectionOptions>>();
-            Dictionary<string, DbConnectionOptions> dictRead = Configs.GetSection("DbConnections:" + dbConfigName+ ":ReadDb").Get<Dictionary<string, DbConnectionOptions>>();
-            string defaultSqlConnectionString = dict["MassterDB"].ConnectionString;
-            bool isDBReadWriteSeparate = Configs.GetConfigurationValue("AppSetting", "IsDBReadWriteSeparate").ToBool();
-            DatabaseType dbType = DatabaseType.SqlServer;
-
-            if (masterDb || !isDBReadWriteSeparate || dictRead.Count == 0)
-            {
-                defaultSqlConnectionString = dict["MassterDB"].ConnectionString;
-                dbType = dict["MassterDB"].DatabaseType;
-            }
-            else
-            {
-                DbConnectionOptions connectionOptions = GetReadConn(dictRead);
-                defaultSqlConnectionString = connectionOptions.ConnectionString;
-                dbType = connectionOptions.DatabaseType;
-            }
-            if (conStringEncrypt == "true")
-            {
-                defaultSqlConnectionString = DEncrypt.Decrypt(defaultSqlConnectionString);
-            }
+            DbConnectionOptions connectionOptions = GeDbConnectionOptions<TEntity>(masterDb); 
+            string defaultSqlConnectionString = connectionOptions.ConnectionString;
+            DatabaseType dbType = connectionOptions.DatabaseType;
             if (dbType==DatabaseType.SqlServer)
             {
                 dbConnection=new SqlConnection(defaultSqlConnectionString);
@@ -124,34 +100,9 @@ namespace Yuebon.Commons.Core.DataManager
         /// <returns></returns>
         public static IDbConnection GetDBConnection(bool masterDb=true)
         {
-            string conStringEncrypt = Configs.GetConfigurationValue("AppSetting", "ConStringEncrypt");
-            if (string.IsNullOrEmpty(dbConfigName))
-            {
-                dbConfigName = Configs.GetConfigurationValue("AppSetting", "DefaultDataBase");
-            }
-
-
-            Dictionary<string, DbConnectionOptions> dict = Configs.GetSection("DbConnections:" + dbConfigName).Get<Dictionary<string, DbConnectionOptions>>();
-            Dictionary<string, DbConnectionOptions> dictRead = Configs.GetSection("DbConnections:" + dbConfigName + ":ReadDb").Get<Dictionary<string, DbConnectionOptions>>();
-            string defaultSqlConnectionString = dict["MassterDB"].ConnectionString;
-            bool isDBReadWriteSeparate = Configs.GetConfigurationValue("AppSetting", "IsDBReadWriteSeparate").ToBool();
-            DatabaseType dbType = DatabaseType.SqlServer;
-
-            if (masterDb || !isDBReadWriteSeparate || dictRead.Count == 0)
-            {
-                defaultSqlConnectionString = dict["MassterDB"].ConnectionString;
-                dbType = dict["MassterDB"].DatabaseType;
-            }
-            else
-            {
-                DbConnectionOptions connectionOptions = GetReadConn(dictRead);
-                defaultSqlConnectionString = connectionOptions.ConnectionString;
-                dbType = connectionOptions.DatabaseType;
-            }
-            if (conStringEncrypt == "true")
-            {
-                defaultSqlConnectionString = DEncrypt.Decrypt(defaultSqlConnectionString);
-            }
+            DbConnectionOptions connectionOptions = GeDbConnectionOptions(masterDb);
+            string defaultSqlConnectionString = connectionOptions.ConnectionString;
+            DatabaseType dbType = connectionOptions.DatabaseType;
             if (dbType == DatabaseType.SqlServer)
             {
                 dbConnection = new SqlConnection(defaultSqlConnectionString);
@@ -178,20 +129,75 @@ namespace Yuebon.Commons.Core.DataManager
             }
             return dbConnection;
         }
-        #endregion
 
-        #region EF Context
         /// <summary>
-        /// 获取实体的数据库连接
+        /// 获取数据库连接连接配置
         /// </summary>
-        /// <typeparam name="TEntity"></typeparam>
-        /// <param name="defaultDbContext"></param>
+        /// <typeparam name="TEntity">数据实体</typeparam>
+        /// <param name="masterDb">是否访问主库，默认为是，否则访问从库即只读数据库</param>
         /// <returns></returns>
-        public static void GetDbContextConnection<TEntity>(IDbContextCore defaultDbContext)
+        public static DbConnectionOptions GeDbConnectionOptions<TEntity>(bool masterDb = true)
         {
             dbConfigName = typeof(TEntity).GetCustomAttribute<AppDBContextAttribute>(false)?.DbConfigName ?? dbConfigName;
+            bool conStringEncrypt = Configs.GetConfigurationValue("AppSetting", "ConStringEncrypt").ToBool();
+            if (string.IsNullOrEmpty(dbConfigName))
+            {
+                dbConfigName = Configs.GetConfigurationValue("AppSetting", "DefaultDataBase");
+            }
+            Dictionary<string, DbConnectionOptions> dict = Configs.GetSection("DbConnections:" + dbConfigName).Get<Dictionary<string, DbConnectionOptions>>();
+            Dictionary<string, DbConnectionOptions> dictRead = Configs.GetSection("DbConnections:" + dbConfigName + ":ReadDb").Get<Dictionary<string, DbConnectionOptions>>();
+
+            DbConnectionOptions dbConnectionOptions = new DbConnectionOptions();
+            bool isDBReadWriteSeparate = Configs.GetConfigurationValue("AppSetting", "IsDBReadWriteSeparate").ToBool();
+            if (masterDb || !isDBReadWriteSeparate || dictRead.Count == 0)
+            {
+                dbConnectionOptions.ConnectionString = dict["MassterDB"].ConnectionString;
+                dbConnectionOptions.DatabaseType = dict["MassterDB"].DatabaseType;
+            }
+            else
+            {
+                dbConnectionOptions = GetReadConn(dictRead);
+            }
+            if (conStringEncrypt)
+            {
+                dbConnectionOptions.ConnectionString = DEncrypt.Decrypt(dbConnectionOptions.ConnectionString);
+            }
+            return dbConnectionOptions;
         }
-        #endregion
+
+
+        /// <summary>
+        /// 获取数据库连接连接配置
+        /// </summary>
+        /// <param name="masterDb">是否访问主库，默认为是，否则访问从库即只读数据库</param>
+        /// <returns></returns>
+        public static DbConnectionOptions GeDbConnectionOptions(bool masterDb = true)
+        {
+            bool conStringEncrypt = Configs.GetConfigurationValue("AppSetting", "ConStringEncrypt").ToBool();
+            if (string.IsNullOrEmpty(dbConfigName))
+            {
+                dbConfigName = Configs.GetConfigurationValue("AppSetting", "DefaultDataBase");
+            }
+            Dictionary<string, DbConnectionOptions> dict = Configs.GetSection("DbConnections:" + dbConfigName).Get<Dictionary<string, DbConnectionOptions>>();
+            Dictionary<string, DbConnectionOptions> dictRead = Configs.GetSection("DbConnections:" + dbConfigName + ":ReadDb").Get<Dictionary<string, DbConnectionOptions>>();
+
+            DbConnectionOptions dbConnectionOptions = new DbConnectionOptions();
+            bool isDBReadWriteSeparate = Configs.GetConfigurationValue("AppSetting", "IsDBReadWriteSeparate").ToBool();
+            if (masterDb || !isDBReadWriteSeparate || dictRead.Count == 0)
+            {
+                dbConnectionOptions.ConnectionString = dict["MassterDB"].ConnectionString;
+                dbConnectionOptions.DatabaseType = dict["MassterDB"].DatabaseType;
+            }
+            else
+            {
+                dbConnectionOptions = GetReadConn(dictRead);
+            }
+            if (conStringEncrypt)
+            {
+                dbConnectionOptions.ConnectionString = DEncrypt.Decrypt(dbConnectionOptions.ConnectionString);
+            }
+            return dbConnectionOptions;
+        }
 
         /// <summary>
         /// 按从库数据库连接的策略进行返回连接对象，实现从库的负载均衡
@@ -218,5 +224,7 @@ namespace Yuebon.Commons.Core.DataManager
             }
             return connectionOptions;
         }
+
+        #endregion
     }
 }

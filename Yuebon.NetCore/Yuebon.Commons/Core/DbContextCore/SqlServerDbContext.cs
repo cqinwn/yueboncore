@@ -22,6 +22,7 @@ namespace Yuebon.Commons.DbContextCore
     /// </summary>
     public class SqlServerDbContext:BaseDbContext, ISqlServerDbContext
     {
+
         /// <summary>
         /// 批量插入
         /// </summary>

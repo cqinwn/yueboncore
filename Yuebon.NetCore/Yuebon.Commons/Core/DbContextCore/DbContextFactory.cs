@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using Yuebon.Commons.Core.DataManager;
 using Yuebon.Commons.DataManager;
 using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Extensions;
@@ -13,7 +14,7 @@ namespace Yuebon.Commons.DbContextCore
     /// <summary>
     /// 上下文工厂类
     /// </summary>
-    public class DbContextFactory//:IDbContextFactory
+    public class DbContextFactory:IDbContextFactory
     {
         /// <summary>
         /// 
@@ -28,13 +29,6 @@ namespace Yuebon.Commons.DbContextCore
         /// </summary>
         public DbContextFactory()
         {
-        }
-        private IConfiguration Configuration { get; }
-        private string[] ReadConnectionStrings;
-        public DbContextFactory(IConfiguration configuration)
-        {
-            Configuration = configuration;
-            ReadConnectionStrings = Configuration.GetConnectionString("EFCoreTestToRead").Split(",");
         }
 
         /// <summary>
@@ -59,47 +53,51 @@ namespace Yuebon.Commons.DbContextCore
         {
             ServiceCollection.AddDbContext<ITContext, TContext>(option);
         }
-        ///// <summary>
-        ///// 创建数据库读写上下文
-        ///// </summary>
-        ///// <param name="writeAndRead">指定读、写操作</param>
-        ///// <returns></returns>
-        //public BaseDbContext CreateContext(WriteAndReadEnum writeAndRead)
-        //{
-        //    string dbConfigName = Configs.GetConfigurationValue("AppSetting", "DefaultDataBase");
-        //    string conStringEncrypt = Configs.GetConfigurationValue("AppSetting", "ConStringEncrypt");
-        //    string defaultSqlConnectionString = Configs.GetConnectionString(dbConfigName);
-        //    if (conStringEncrypt == "true")
-        //    {
-        //        defaultSqlConnectionString = DEncrypt.Decrypt(defaultSqlConnectionString);
-        //    }
-        //    DbContextOption option=new DbContextOption();
-        //    switch (writeAndRead)
-        //    {
-        //        case WriteAndReadEnum.Write:
-        //            option.dbConfigName = dbConfigName;
-        //            break;
-        //        case WriteAndReadEnum.Read:
-        //            option.dbConfigName = GetReadConnectionString();
-        //            break;
-        //        default:
-        //            option.dbConfigName = dbConfigName;
-        //            break;
-        //    }
-        //    return new BaseDbContext(option);
-        //}
-        //private string GetReadConnectionString()
-        //{
-        //    /*
-        //     * 随机策略
-        //     * 权重策略
-        //     * 轮询策略
-        //     */
 
-        //    //随机策略
-        //    string connectionString = ReadConnectionStrings[new Random().Next(0, ReadConnectionStrings.Length)];
+        /// <summary>
+        /// 创建数据库读写上下文
+        /// </summary>
+        /// <param name="writeAndRead">指定读、写操作</param>
+        /// <returns></returns>
+        public BaseDbContext CreateContext(WriteAndReadEnum writeAndRead)
+        {
+            DbConnectionOptions dbConnectionOptions =new DbConnectionOptions();
+            switch (writeAndRead)
+            {
+                case WriteAndReadEnum.Write:
+                    dbConnectionOptions = DBServerProvider.GeDbConnectionOptions(true);
+                    break;
+                case WriteAndReadEnum.Read:
+                    dbConnectionOptions = DBServerProvider.GeDbConnectionOptions(false);
+                    break;
+                default:
+                    break;
+            }
+            return new BaseDbContext(dbConnectionOptions);
+        }
 
-        //    return connectionString;
-        //}
+
+        /// <summary>
+        /// 创建数据库读写上下文
+        /// </summary>
+        /// <typeparam name="TEntity"></typeparam>
+        /// <param name="writeAndRead">指定读、写操作</param>
+        /// <returns></returns>
+        public BaseDbContext CreateContext<TEntity>(WriteAndReadEnum writeAndRead)
+        {
+            DbConnectionOptions dbConnectionOptions = new DbConnectionOptions();
+            switch (writeAndRead)
+            {
+                case WriteAndReadEnum.Write:
+                    dbConnectionOptions = DBServerProvider.GeDbConnectionOptions<TEntity>(true);
+                    break;
+                case WriteAndReadEnum.Read:
+                    dbConnectionOptions = DBServerProvider.GeDbConnectionOptions<TEntity>(false);
+                    break;
+                default:
+                    break;
+            }
+            return new BaseDbContext(dbConnectionOptions);
+        }
     }
 }

@@ -30,8 +30,10 @@ namespace Yuebon.Commons.DbContextCore
     /// <summary>
     /// DbContext上下文的实现
     /// </summary>
-    public abstract class BaseDbContext : DbContext, IDbContextCore
+    public  class BaseDbContext : DbContext, IDbContextCore
     {
+
+
         #region 基础参数
 
         /// <summary>
@@ -43,6 +45,12 @@ namespace Yuebon.Commons.DbContextCore
         /// 是否开启多租户
         /// </summary>
         protected bool isMultiTenant = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected DbConnectionOptions dbConnectionOptions;
+
 
         /// <summary>
         /// 数据库访问对象的外键约束
@@ -66,48 +74,30 @@ namespace Yuebon.Commons.DbContextCore
         /// </summary>
         protected BaseDbContext()
         {
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="options"></param>
-        public BaseDbContext(DbContextOptions<BaseDbContext> options) : base(options)
-        {
 
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="options"></param>
-        public BaseDbContext(DbContextOption options)
+        /// <param name="dbConnectionOptions"></param>
+        public BaseDbContext(DbConnectionOptions dbConnectionOptions)
         {
-            dbConfigName = options.dbConfigName;
+            this.dbConnectionOptions = dbConnectionOptions;
         }
+
         /// <summary>
         /// 配置，初始化数据库引擎
         /// </summary>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            bool conStringEncrypt = Configs.GetConfigurationValue("AppSetting", "ConStringEncrypt").ToBool(false);
-            this.isMultiTenant = Configs.GetConfigurationValue("AppSetting", "IsMultiTenant").ToBool();
-            if (string.IsNullOrEmpty(dbConfigName))
+            if (dbConnectionOptions == null)
             {
-                dbConfigName = Configs.GetConfigurationValue("AppSetting", "DefaultDataBase");
+                dbConnectionOptions = DBServerProvider.GeDbConnectionOptions();
             }
+            string defaultSqlConnectionString = dbConnectionOptions.ConnectionString;// Configs.GetConnectionString(dbConnections.MassterDB.ConnectionString);
 
-            IConfiguration section = Configs.GetSection("DbConnections:" + dbConfigName);
-            Dictionary<string, DbConnectionOptions> dict = section.Get<Dictionary<string, DbConnectionOptions>>();
-
-            Dictionary<string, DbConnectionOptions> dictRead = Configs.GetSection("DbConnections:" + dbConfigName + ":ReadDb").Get<Dictionary<string, DbConnectionOptions>>();
-
-            string defaultSqlConnectionString =dict["MassterDB"].ConnectionString;// Configs.GetConnectionString(dbConnections.MassterDB.ConnectionString);
-
-            if (conStringEncrypt)
-            {
-                defaultSqlConnectionString = DEncrypt.Decrypt(defaultSqlConnectionString);
-            }
-            DatabaseType dbType = dict["MassterDB"].DatabaseType;
+            DatabaseType dbType = dbConnectionOptions.DatabaseType;
             if (dbType == DatabaseType.SqlServer)
             {
                 optionsBuilder.UseSqlServer(defaultSqlConnectionString);
@@ -582,23 +572,6 @@ namespace Yuebon.Commons.DbContextCore
         {
             throw new NotImplementedException();
         }
-        /// <summary>
-        /// 根据sql语句返回DataTable数据，具体在实现在特定数据库上上下文中实现
-        /// </summary>
-        /// <param name="sql">Sql语句</param>
-        /// <param name="cmdTimeout">执行超时时间，默认30毫秒</param>
-        /// <param name="parameters">Sql语句参数</param>
-        /// <returns></returns>
-        public abstract DataTable GetDataTable(string sql, int cmdTimeout = 30, params DbParameter[] parameters);
-        /// <summary>
-        /// 根据sql语句返回List数据，具体在实现在特定数据库上上下文中实现
-        /// </summary>
-        /// <param name="sql">Sql语句</param>
-        /// <param name="cmdTimeout">执行超时时间，默认30毫秒</param>
-        /// <param name="parameters">Sql语句参数</param>
-        /// <returns></returns>
-        public abstract List<DataTable> GetDataTables(string sql, int cmdTimeout = 30, params DbParameter[] parameters);
-
         #region 显式编译的查询,提高查询性能
         /// <summary>
         /// 根据主键查询返回一个实体，该方法是显式编译的查询
@@ -714,6 +687,30 @@ namespace Yuebon.Commons.DbContextCore
         {
             if (filter == null) filter = m => true;
             return EF.CompileAsyncQuery((DbContext context) => context.Set<T>().Count(filter))(this);
+        }
+
+        /// <summary>
+        /// 根据sql语句返回DataTable数据
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        /// <param name="cmdTimeout">执行超时时间，默认30毫秒</param>
+        /// <param name="parameters">DbParameter[]参数</param>
+        /// <returns></returns>
+        public virtual DataTable GetDataTable(string sql, int cmdTimeout = 30, params DbParameter[] parameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 根据sql语句返回List数据
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        /// <param name="cmdTimeout">执行超时时间，默认30毫秒</param>
+        /// <param name="parameters">DbParameter[] 参数</param>
+        /// <returns></returns>
+        public virtual List<DataTable> GetDataTables(string sql, int cmdTimeout = 30, params DbParameter[] parameters)
+        {
+            throw new NotImplementedException();
         }
         #endregion
         #endregion

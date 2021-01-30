@@ -82,7 +82,6 @@
     <Compile Remove="Core\DbContextCore\InMemoryDbContext.cs" />
     <Compile Remove="Core\DbContextCore\MongoDbContext.cs" />
     <Compile Remove="Core\DbContextCore\ShardDbContextFactory.cs" />
-    <Compile Remove="Core\IDbContext\IDbContextFactory.cs" />
     <Compile Remove="Core\IDbContext\IInMemoryDbContext.cs" />
     <Compile Remove="Core\IDbContext\IMongoDbContext.cs" />
     <Compile Remove="Core\Module\MoudleService.cs" />

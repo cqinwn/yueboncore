@@ -19,5 +19,12 @@ namespace Yuebon.Commons.IDbContext
         /// <param name="writeAndRead">指定读、写操作</param>
         /// <returns></returns>
         BaseDbContext CreateContext(WriteAndReadEnum writeAndRead);
+        /// <summary>
+        /// 创建数据库读写上下文
+        /// </summary>
+        /// <typeparam name="TEntity"></typeparam>
+        /// <param name="writeAndRead">指定读、写操作</param>
+        /// <returns></returns>
+        BaseDbContext CreateContext<TEntity>(WriteAndReadEnum writeAndRead);
     }
 }

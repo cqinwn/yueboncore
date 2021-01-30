@@ -8,7 +8,7 @@ using Yuebon.Commons.Enums;
 namespace Yuebon.Commons.Core.DataManager
 {
     /// <summary>
-    /// 数据库连接配置
+    /// 数据库连接配置选项
     /// </summary>
     public class DbConnections
     {
@@ -25,29 +25,7 @@ namespace Yuebon.Commons.Core.DataManager
 
 
     /// <summary>
-    /// 主数据库
-    /// </summary>
-    public class MassterDataBase
-    {
-        /// <summary>
-        /// 主数据库有且仅有一个
-        /// </summary>
-        public DbConnectionOptions MassterDb { get;set;}
-    }
-
-    /// <summary>
-    /// 从数据库
-    /// </summary>
-    public class SlaveDataBase
-    {
-        /// <summary>
-        /// 从数据库，可以多个
-        /// </summary>
-        public List<DbConnectionOptions> SlaveDb { get; set; }
-    }
-
-    /// <summary>
-    /// 数据库连接配置
+    /// 数据库配置选项
     /// </summary>
     public class DbConnectionOptions
     {

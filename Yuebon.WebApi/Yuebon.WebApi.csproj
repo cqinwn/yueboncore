@@ -17,9 +17,13 @@
 
   <ItemGroup>
     <Compile Remove="Areas\Authorizer\**" />
+    <Compile Remove="Areas\CMSTest\**" />
     <Content Remove="Areas\Authorizer\**" />
+    <Content Remove="Areas\CMSTest\**" />
     <EmbeddedResource Remove="Areas\Authorizer\**" />
+    <EmbeddedResource Remove="Areas\CMSTest\**" />
     <None Remove="Areas\Authorizer\**" />
+    <None Remove="Areas\CMSTest\**" />
   </ItemGroup>
 
   <ItemGroup>

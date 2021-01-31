@@ -56,6 +56,7 @@ module.exports = {
   apiHostUrl: 'http://localhost:54678/api/', // 基础接口
   apiSecurityUrl: 'http://localhost:54678/api/Security/', // 权限管理系统接口
   apiCMSUrl: 'http://localhost:54678/api/CMS/', // 文章
+  apiCMSTestUrl: 'http://localhost:54678/api/CMSTest/', // 文章
   fileUrl: 'http://localhost:54678/', // 文件访问路径
   fileUploadUrl: 'http://localhost:54678/api/Files/Upload'// 文件上传路径
 

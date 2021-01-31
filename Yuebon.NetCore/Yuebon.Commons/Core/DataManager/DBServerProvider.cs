@@ -178,15 +178,14 @@ namespace Yuebon.Commons.Core.DataManager
             {
                 dbConfigName = Configs.GetConfigurationValue("AppSetting", "DefaultDataBase");
             }
-            Dictionary<string, DbConnectionOptions> dict = Configs.GetSection("DbConnections:" + dbConfigName).Get<Dictionary<string, DbConnectionOptions>>();
             Dictionary<string, DbConnectionOptions> dictRead = Configs.GetSection("DbConnections:" + dbConfigName + ":ReadDb").Get<Dictionary<string, DbConnectionOptions>>();
 
             DbConnectionOptions dbConnectionOptions = new DbConnectionOptions();
             bool isDBReadWriteSeparate = Configs.GetConfigurationValue("AppSetting", "IsDBReadWriteSeparate").ToBool();
-            if (masterDb || !isDBReadWriteSeparate || dictRead.Count == 0)
+            if (masterDb || !isDBReadWriteSeparate)
             {
-                dbConnectionOptions.ConnectionString = dict["MasterDB"].ConnectionString;
-                dbConnectionOptions.DatabaseType = dict["MasterDB"].DatabaseType;
+                dbConnectionOptions.ConnectionString = Configs.GetConfigurationValue("DbConnections:" + dbConfigName+":MasterDB", "ConnectionString");
+                dbConnectionOptions.DatabaseType = (DatabaseType)Enum.Parse(typeof(DatabaseType), Configs.GetConfigurationValue("DbConnections:" + dbConfigName + ":MasterDB", "DatabaseType"));
             }
             else
             {

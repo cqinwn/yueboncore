@@ -44,7 +44,7 @@
         <el-col :span="24">
           <el-form-item label="详情" :label-width="formLabelWidth" prop="Description">
             <div v-if="showType==='show'" v-html="editFrom.Description" />
-            <editor v-else v-model="editFrom.Description" :min-height="192" :height="300" />
+            <Tinymce v-else ref="editor" v-model="editFrom.Description" :height="400" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -92,11 +92,11 @@
 
 import { getArticlenewsDetail, saveArticlenews } from '@/api/cms/articlenews'
 import { GetAllCategoryTreeTable } from '@/api/cms/articlecategory'
-import Editor from '@/components/Editor'
+import Tinymce from '@/components/Tinymce'
 export default {
   name: 'ArticleDetai',
   components: {
-    Editor
+    Tinymce
   },
   data() {
     return {

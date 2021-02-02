@@ -75,7 +75,7 @@ namespace Yuebon.CMS.Services
             }
             where += " order by ClassLayer,SortCode";
             IEnumerable<Articlecategory> elist = await _repository.GetListWhereAsync(where);
-            if (elist != null)
+            if (elist.Count() >0)
             {
                 List<Articlecategory> list = elist.ToList();
                 var ChilList = list.FindAll(t => t.ParentId == "");

@@ -39,6 +39,7 @@ namespace Yuebon.Security.Repositories
         /// <returns></returns>
         public override async Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, string userId = null, IDbTransaction trans = null)
         {
+            
             if (HasInjectionData(where))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));

@@ -18,9 +18,11 @@ namespace Yuebon.CMS.Services
     public class ArticlenewsService : BaseService<Articlenews, ArticlenewsOutputDto, string>, IArticlenewsService
     {
         private readonly IArticlenewsRepository _repository;
-        public ArticlenewsService(IArticlenewsRepository repository) : base(repository)
+        private readonly IArticlecategoryRepository _articlecategoryRepository;
+        public ArticlenewsService(IArticlenewsRepository repository, IArticlecategoryRepository articlecategoryRepository) : base(repository)
         {
             _repository = repository;
+            _articlecategoryRepository = articlecategoryRepository;
         }
 
 
@@ -51,6 +53,40 @@ namespace Yuebon.CMS.Services
                 TotalItems = pagerInfo.RecordCount
             };
             return pageResult;
+        }
+
+        /// <summary>
+        /// 根据用户角色获取分类及该分类的文章
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<CategoryArticleOutputDto>> GetCategoryArticleList()
+        {
+            string where = "ParentId='2021013118255576392825'";
+            IEnumerable<Articlecategory> list = await _articlecategoryRepository.GetAllByIsNotDeleteAndEnabledMarkAsync(where);
+            List<CategoryArticleOutputDto> resultList = new List<CategoryArticleOutputDto>();
+            foreach (Articlecategory item in list)
+            {
+                CategoryArticleOutputDto categoryArticleOutputDto = new CategoryArticleOutputDto();
+                categoryArticleOutputDto.Id = item.Id;
+                categoryArticleOutputDto.Title = item.Title;
+                categoryArticleOutputDto.SubTitle = item.SeoTitle;
+                categoryArticleOutputDto.ParentId = "";
+                where = $"CategoryId='{item.Id}'";
+                IEnumerable<Articlenews> articleList = await _repository.GetAllByIsNotDeleteAndEnabledMarkAsync(where);
+                List<CategoryArticleOutputDto> subList = new List<CategoryArticleOutputDto>();
+                foreach (Articlenews sItem in articleList)
+                {
+                    CategoryArticleOutputDto subInfo = new CategoryArticleOutputDto();
+                    subInfo.Id = sItem.Id;
+                    subInfo.Title = sItem.Title;
+                    subInfo.SubTitle = sItem.SubTitle;
+                    subInfo.ParentId =item.Id;
+                    subList.Add(subInfo);
+                }
+                categoryArticleOutputDto.Children = subList;
+                resultList.Add(categoryArticleOutputDto);
+            }
+            return resultList;
         }
     }
 }

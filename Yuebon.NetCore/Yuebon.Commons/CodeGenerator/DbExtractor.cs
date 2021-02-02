@@ -4,23 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.Enums;
 using Yuebon.Commons.Pages;
 
 namespace Yuebon.Commons.CodeGenerator
 {
     public class DbExtractor:IDbExtractor
     {
-        public string dbType="";
         public string dbName = "";
-
+        DatabaseType dbType = DatabaseType.SqlServer;
         public DbExtractor()
         {
             MssqlExtractor mssqlExtractor = new MssqlExtractor();
             mssqlExtractor.OpenSharedConnection();
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            object odbty = yuebonCacheHelper.Get("CodeGeneratorDbType");
-            if (odbty != null)
-                dbType = odbty.ToString().ToUpper();
+            string dbTypeCache = yuebonCacheHelper.Get("CodeGeneratorDbType").ToString();
+            if (dbTypeCache != null)
+               dbType = (DatabaseType)Enum.Parse(typeof(DatabaseType), dbTypeCache);
             object odbn = yuebonCacheHelper.Get("CodeGeneratorDbName");
             if (odbn != null)
                 dbName = odbn.ToString();
@@ -33,12 +33,12 @@ namespace Yuebon.Commons.CodeGenerator
         public List<DataBaseInfo> GetAllDataBases()
         {
             List<DataBaseInfo> list = new List<DataBaseInfo>();
-            if (dbType.Contains("SQLSERVER"))
+            if (dbType == DatabaseType.SqlServer)
             {
                 MssqlExtractor mssqlExtractor = new MssqlExtractor();
                 list= mssqlExtractor.GetAllDataBases();
             }
-            else if (dbType.Contains("MYSQL"))
+            else if (dbType == DatabaseType.MySql)
             {
                 MySqlExtractor mssqlExtractor = new MySqlExtractor();
                 list= mssqlExtractor.GetAllDataBases();
@@ -53,12 +53,12 @@ namespace Yuebon.Commons.CodeGenerator
         public List<DbTableInfo> GetWhereTables(string tablelist = null)
         {
             List<DbTableInfo> list = new List<DbTableInfo>();
-            if (dbType.Contains("SQLSERVER"))
+            if (dbType == DatabaseType.SqlServer)
             {
                 MssqlExtractor mssqlExtractor = new MssqlExtractor();
                 list = mssqlExtractor.GetAllTables(tablelist);
             }
-            else if (dbType.Contains("MYSQL"))
+            else if (dbType == DatabaseType.MySql)
             {
                 MySqlExtractor mssqlExtractor = new MySqlExtractor();
                 list = mssqlExtractor.GetAllTables(this.dbName,tablelist);
@@ -69,12 +69,12 @@ namespace Yuebon.Commons.CodeGenerator
         public List<DbTableInfo> GetTablesWithPage(string strwhere, string fieldNameToSort, bool isDescending, PagerInfo info)
         {
             List<DbTableInfo> list = new List<DbTableInfo>();
-            if (dbType.Contains("SQLSERVER"))
+            if (dbType == DatabaseType.SqlServer)
             {
                 MssqlExtractor mssqlExtractor = new MssqlExtractor();
                 list = mssqlExtractor.GetAllTables(strwhere, fieldNameToSort, isDescending, info);
             }
-            else if (dbType.Contains("MYSQL"))
+            else if (dbType == DatabaseType.MySql)
             {
                 MySqlExtractor mysqlExtractor = new MySqlExtractor();
                 list = mysqlExtractor.GetAllTables(this.dbName, strwhere, fieldNameToSort, isDescending, info);
@@ -90,12 +90,12 @@ namespace Yuebon.Commons.CodeGenerator
         public List<DbFieldInfo> GetAllColumns(string tableName)
         {
             List<DbFieldInfo> list = new List<DbFieldInfo>();
-            if (dbType.Contains("SQLSERVER"))
+            if (dbType == DatabaseType.SqlServer)
             {
                 MssqlExtractor mssqlExtractor = new MssqlExtractor();
                 list = mssqlExtractor.GetAllColumns(tableName);
             }
-            else if (dbType.Contains("MYSQL"))
+            else if (dbType == DatabaseType.MySql)
             {
                 MySqlExtractor mysqlExtractor = new MySqlExtractor();
                 list = mysqlExtractor.GetAllColumns(this.dbName, tableName);

@@ -5,6 +5,7 @@ using Yuebon.CMS.Models;
 using System.Threading.Tasks;
 using Yuebon.Commons.Pages;
 using Yuebon.Commons.Dtos;
+using System.Collections.Generic;
 
 namespace Yuebon.CMS.IServices
 {
@@ -19,5 +20,10 @@ namespace Yuebon.CMS.IServices
         /// <param name="search">查询的条件</param>
         /// <returns>指定对象的集合</returns>
         Task<PageResult<ArticlenewsOutputDto>> FindWithPagerAsync(SearchInputDto<Articlenews> search);
+        /// <summary>
+        /// 根据用户角色获取分类及该分类的文章
+        /// </summary>
+        /// <returns></returns>
+        Task<List<CategoryArticleOutputDto>> GetCategoryArticleList();
     }
 }

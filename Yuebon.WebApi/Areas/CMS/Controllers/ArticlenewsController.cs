@@ -13,6 +13,7 @@ using Yuebon.CMS.Dtos;
 using Yuebon.CMS.Models;
 using Yuebon.CMS.IServices;
 using Yuebon.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Yuebon.WebApi.Areas.CMS.Controllers
 {
@@ -122,6 +123,21 @@ namespace Yuebon.WebApi.Areas.CMS.Controllers
                 result.ErrMsg = ErrCode.err43002;
                 result.ErrCode = "43002";
             }
+            return ToJsonContent(result);
+        }
+
+
+        /// <summary>
+        /// 获取分类及该分类文章标题
+        /// </summary>
+        [HttpGet("GetCategoryArticle")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetCategoryArticle()
+        {
+            CommonResult result = new CommonResult();
+            result.ResData = await iService.GetCategoryArticleList();
+            result.ErrCode = ErrCode.successCode;
+            result.ErrMsg = ErrCode.err0;
             return ToJsonContent(result);
         }
     }

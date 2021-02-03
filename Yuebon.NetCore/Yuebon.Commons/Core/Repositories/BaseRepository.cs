@@ -17,6 +17,7 @@ using Yuebon.Commons.Core.DataManager;
 using Yuebon.Commons.DataManager;
 using Yuebon.Commons.DbContextCore;
 using Yuebon.Commons.DependencyInjection;
+using Yuebon.Commons.Enums;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.IRepositories;
@@ -49,7 +50,7 @@ namespace Yuebon.Commons.Repositories
         /// <summary>
         /// 获取访问数据库配置
         /// </summary>
-        protected string dbConfigName=typeof(T).GetCustomAttribute<AppDBContextAttribute>(false)?.DbConfigName?? Configs.GetConfigurationValue("AppSetting", "DefaultDataBase");
+        protected DbConnectionOptions dbConnectionOptions = DBServerProvider.GeDbConnectionOptions<T>();
         /// <summary>
         /// 需要初始化的对象表名
         /// </summary>
@@ -315,16 +316,16 @@ namespace Yuebon.Commons.Repositories
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
-            string dbType = dbConfigName.ToUpper();
+            
             string sql =  $"select top {top} {selectedFields} from " + tableName; ;
-            if (dbType.Contains("MSSQL"))
+            if (dbConnectionOptions.DatabaseType==DatabaseType.SqlServer)
             {
                 if (!string.IsNullOrWhiteSpace(where))
                 {
                     sql += " where " + where;
                 }
             }
-            else if (dbType.Contains("MYSQL"))
+            else if (dbConnectionOptions.DatabaseType == DatabaseType.MySql)
             {
                 sql = $"select {selectedFields} from " + tableName;
 
@@ -353,14 +354,14 @@ namespace Yuebon.Commons.Repositories
                 throw new Exception("检测出SQL注入的恶意数据");
             }
             string sql = $"select top {top} {selectedFields} from " + tableName;
-            if (dbConfigName.Contains("MSSQL",StringComparison.CurrentCultureIgnoreCase))
+            if (dbConnectionOptions.DatabaseType == DatabaseType.SqlServer)
             {
                 if (!string.IsNullOrWhiteSpace(where))
                 {
                     sql += " where " + where;
                 }
             }
-            else if (dbConfigName.Contains("MYSQL", StringComparison.CurrentCultureIgnoreCase))
+            else if (dbConnectionOptions.DatabaseType == DatabaseType.MySql)
             {
                 sql = $"select {selectedFields} from " + tableName;
 
@@ -662,8 +663,8 @@ namespace Yuebon.Commons.Repositories
             }
             PagerHelper pagerHelper = new PagerHelper(this.tableName, this.selectedFields, fieldToSort, info.PageSize, info.CurrenetPageIndex, desc, condition);
 
-            string pageSql = pagerHelper.GetPagingSql(true, this.dbConfigName);
-            pageSql += ";" + pagerHelper.GetPagingSql(false, this.dbConfigName);
+            string pageSql = pagerHelper.GetPagingSql(true, dbConnectionOptions.DatabaseType);
+            pageSql += ";" + pagerHelper.GetPagingSql(false, dbConnectionOptions.DatabaseType);
 
             var reader = DapperConnRead.QueryMultiple(pageSql);
             info.RecordCount = reader.ReadFirst<int>();
@@ -697,8 +698,8 @@ namespace Yuebon.Commons.Repositories
 
             PagerHelper pagerHelper = new PagerHelper(this.tableName, this.selectedFields, fieldToSort, info.PageSize, info.CurrenetPageIndex, desc, condition);
 
-            string pageSql = pagerHelper.GetPagingSql(true, this.dbConfigName);
-            pageSql += ";" + pagerHelper.GetPagingSql(false, this.dbConfigName);
+            string pageSql = pagerHelper.GetPagingSql(true, dbConnectionOptions.DatabaseType);
+            pageSql += ";" + pagerHelper.GetPagingSql(false, dbConnectionOptions.DatabaseType);
 
             var reader = await DapperConnRead.QueryMultipleAsync(pageSql);
             info.RecordCount = reader.ReadFirst<int>();
@@ -906,7 +907,7 @@ namespace Yuebon.Commons.Repositories
         public virtual async Task<dynamic> GetMaxValueByFieldAsync(string strField, string where, IDbTransaction trans = null)
         {
             string sql = $"select isnull(MAX({strField}),0) as maxVaule from {tableName} ";
-            if (dbConfigName.Contains("mysql", StringComparison.OrdinalIgnoreCase))
+            if (dbConnectionOptions.DatabaseType==DatabaseType.MySql)
             {
                 sql = $"select if(isnull(MAX({strField})),0,MAX({strField})) as maxVaule from {tableName} ";
             }
@@ -927,7 +928,7 @@ namespace Yuebon.Commons.Repositories
         public virtual async Task<dynamic> GetSumValueByFieldAsync(string strField, string where, IDbTransaction trans = null)
         {
             string sql = $"select isnull(sum({strField}),0) as sumVaule from {tableName} ";
-            if (dbConfigName.Contains("mysql", StringComparison.OrdinalIgnoreCase))
+            if (dbConnectionOptions.DatabaseType == DatabaseType.MySql)
             {
                 sql = $"select if(isnull(sum({strField})),0,sum({strField})) as sumVaule from {tableName} ";
             }

@@ -40,6 +40,7 @@ namespace Yuebon.Commons.Helpers
         }
         /// <summary>
         /// 获取项目程序集，排除所有的系统程序集(Microsoft.***、System.***等)、Nuget下载包和Yuebon.Commons.dll
+        /// 获取所有关于Yuebon的程序集
         /// </summary>
         /// <returns></returns>
         public static IList<Assembly> GetAllYuebonAssemblies()
@@ -47,13 +48,16 @@ namespace Yuebon.Commons.Helpers
             var list = new List<Assembly>();
             var deps = DependencyContext.Default;
             //排除所有的系统程序集、Nuget下载包
-            var libs = deps.CompileLibraries.Where(lib => lib.Type == AssembleTypeConsts.Project&&lib.Name!= "Yuebon.Commons");//只获取本项目用到的包
+            var libs = deps.CompileLibraries.Where(lib => lib.Type == AssembleTypeConsts.Project||lib.Name.StartsWith("Yuebon"));//只获取本项目用到的包
             foreach (var lib in libs)
             {
                 try
                 {
-                    var assembly = AssemblyLoadContext.Default.LoadFromAssemblyName(new AssemblyName(lib.Name));
-                    list.Add(assembly);
+                    if (lib.Name != "Yuebon.Commons")
+                    {
+                        var assembly = AssemblyLoadContext.Default.LoadFromAssemblyName(new AssemblyName(lib.Name));
+                        list.Add(assembly);
+                    }
                 }
                 catch (Exception)
                 {
@@ -69,7 +73,7 @@ namespace Yuebon.Commons.Helpers
         /// <returns></returns>
         public static Assembly GetAssembly(string assemblyName)
         {
-            return GetAllAssemblies().FirstOrDefault(assembly => assembly.FullName.Contains(assemblyName));
+            return GetAllYuebonAssemblies().FirstOrDefault(assembly => assembly.FullName.Contains(assemblyName));
         }
         /// <summary>
         /// 

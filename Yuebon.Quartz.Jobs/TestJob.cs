@@ -14,6 +14,8 @@ using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
 using Yuebon.Email;
+using Yuebon.Quartz.IServices;
+using Yuebon.Quartz.Models;
 using Yuebon.Security.IRepositories;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;

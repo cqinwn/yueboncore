@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Repositories;
+using Yuebon.Quartz.IRepositories;
+using Yuebon.Quartz.Models;
 using Yuebon.Security.IRepositories;
 using Yuebon.Security.Models;
 
-namespace Yuebon.Security.Repositories
+namespace Yuebon.Quartz.Repositories
 {
     /// <summary>
     /// 定时任务仓储接口的实现

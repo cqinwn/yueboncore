@@ -327,9 +327,9 @@ namespace Yuebon.Commons.Pages
         /// <summary>
         /// 获取对应数据库的分页语句（指定数据库类型）
         /// </summary>
-        /// <param name="dbType">数据库类型枚举</param>
         /// <param name="isDoCount">如果isDoCount为True，返回总数统计Sql；否则返回分页语句Sql</param>
-        public string GetPagingSql(DatabaseType dbType, bool isDoCount)
+        /// <param name="dbType">数据库类型枚举</param>
+        public string GetPagingSql( bool isDoCount, DatabaseType dbType)
         {
             string sql = "";
             switch (dbType)
@@ -354,43 +354,6 @@ namespace Yuebon.Commons.Pages
         }
 
 
-        /// <summary>
-        /// 获取对应数据库的分页语句(从配置文件读取数据库类型：ComponentDbType）
-        /// </summary>
-        /// <param name="isDoCount">如果isDoCount为True，返回总数统计Sql；否则返回分页语句Sql</param>
-        /// <param name="dbConfig">数据库连接配置</param>
-        /// <returns></returns>
-        public string GetPagingSql(bool isDoCount,string dbConfig)
-        {
-            string dbConfigName = dbConfig.ToUpper();
-            string databaseType = "";
-            if (dbConfigName.Contains("MSSQL"))
-            {
-                databaseType= "MSSQL";
-            }
-            else if (dbConfigName.Contains("MYSQL"))
-            {
-                databaseType = "MYSQL";
-            }
-            else if (dbConfigName.Contains("ORACLE"))
-            {
-                databaseType = "ORACLE";
-            }
-            else if (dbConfigName.Contains("SQLITE"))
-            {
-                databaseType = "SQLITE";
-            }
-            else if (dbConfigName.Contains("MEMORY"))
-            {
-                databaseType = "MEMORY";
-            }
-            else if (dbConfigName.Contains("NPGSQL"))
-            {
-                databaseType = "NPGSQL";
-            }
-            DatabaseType dbType = GetDataBaseType(databaseType);
-            return GetPagingSql(dbType, isDoCount);
-        }
         /// <summary>
         /// 数据库类型
         /// </summary>

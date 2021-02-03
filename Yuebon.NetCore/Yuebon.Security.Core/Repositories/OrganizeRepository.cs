@@ -1,5 +1,6 @@
 using Dapper;
 using System.Text;
+using Yuebon.Commons.Enums;
 using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
@@ -25,8 +26,10 @@ namespace Yuebon.Security.Repositories
         public Organize GetRootOrganize(string id)
         {
             var sb = new StringBuilder(";WITH ");
-            if (this.dbConfigName.ToUpper().Contains("MYSQL"))
+            if(dbConnectionOptions.DatabaseType == DatabaseType.SqlServer)
+            {
                 sb.Append(" Recursive ");
+            }
             sb.Append(" T AS (");
             sb.Append(" SELECT Id, ParentId, FullName, Layers FROM Sys_Organize");
             sb.AppendFormat(" WHERE Id = '{0}'",id);

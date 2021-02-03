@@ -1,36 +1,26 @@
 using AutoMapper;
-
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using Yuebon.Commons.Dtos;
 using Yuebon.Commons.Models;
+using Yuebon.Quartz.Models;
+using Yuebon.Security.Models;
 
-namespace Yuebon.Security.Models
+namespace Yuebon.Quartz.Dtos
 {
     /// <summary>
-    /// 定时任务，数据实体对象
+    /// 定时任务输入对象模型
     /// </summary>
-    [Table("Sys_TaskManager")]
+    [AutoMap(typeof(TaskManager))]
     [Serializable]
-    public class TaskManager:BaseEntity<string>, ICreationAudited, IModificationAudited, IDeleteAudited
+    public class TaskManagerInputDto: IInputDto<string>
     {
         /// <summary>
-        /// 构造函数
+        /// 设置或获取 
         /// </summary>
-        public TaskManager()
-        {
-            this.RunCount = 0;
-            this.ErrorCount = 0;
-            this.NextRunTime = DateTime.Now;
-            this.LastRunTime = DateTime.Now;
-            this.JobCallParams = string.Empty;
-            this.Cron = string.Empty;
-            this.Status = 0;
-            this.CompanyId = "";
-            this.DeptId = "";
-            this.DeleteUserId = "";
-        }
+        public string Id { get; set; }
+
         /// <summary>
         /// 设置或获取任务名称
         /// </summary>
@@ -100,10 +90,14 @@ namespace Yuebon.Security.Models
         public string Description { get; set; }
 
         /// <summary>
-        /// 设置或获取状态，0-暂停，1-启用
+        /// 设置或获取状态
         /// </summary>
         public int Status { get; set; }
 
+        /// <summary>
+        /// 设置或获取是否可用
+        /// </summary>
+        public bool? EnabledMark { get; set; }
         /// <summary>
         /// 设置或获取是否邮件通知
         /// </summary>
@@ -112,56 +106,6 @@ namespace Yuebon.Security.Models
         /// 设置或获取接受邮件地址
         /// </summary>
         public string EmailAddress { get; set; }
-
-        /// <summary>
-        /// 设置或获取是否可用
-        /// </summary>
-        public bool? EnabledMark { get; set; }
-
-        /// <summary>
-        /// 设置或获取删除标记
-        /// </summary>
-        public bool? DeleteMark { get; set; }
-
-        /// <summary>
-        /// 设置或获取创建时间
-        /// </summary>
-        public DateTime? CreatorTime { get; set; }
-
-        /// <summary>
-        /// 设置或获取创建人
-        /// </summary>
-        public string CreatorUserId { get; set; }
-
-        /// <summary>
-        /// 设置或获取创建人组织
-        /// </summary>
-        public string CompanyId { get; set; }
-
-        /// <summary>
-        /// 设置或获取部门
-        /// </summary>
-        public string DeptId { get; set; }
-
-        /// <summary>
-        /// 设置或获取修改时间
-        /// </summary>
-        public DateTime? LastModifyTime { get; set; }
-
-        /// <summary>
-        /// 设置或获取修改人
-        /// </summary>
-        public string LastModifyUserId { get; set; }
-
-        /// <summary>
-        /// 设置或获取删除时间
-        /// </summary>
-        public DateTime? DeleteTime { get; set; }
-
-        /// <summary>
-        /// 设置或获取删除人
-        /// </summary>
-        public string DeleteUserId { get; set; }
 
 
     }

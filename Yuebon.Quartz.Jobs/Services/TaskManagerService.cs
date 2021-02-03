@@ -9,12 +9,13 @@ using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Pages;
 using Yuebon.Commons.Services;
-using Yuebon.Security.Dtos;
-using Yuebon.Security.IRepositories;
+using Yuebon.Quartz.Dtos;
+using Yuebon.Quartz.IRepositories;
+using Yuebon.Quartz.IServices;
+using Yuebon.Quartz.Models;
 using Yuebon.Security.IServices;
-using Yuebon.Security.Models;
 
-namespace Yuebon.Security.Services
+namespace Yuebon.Quartz.Services
 {
     /// <summary>
     /// 定时任务服务接口实现

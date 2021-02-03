@@ -8,30 +8,32 @@
         :multiple="true"
         :file-list="fileList"
         :show-file-list="true"
+        :headers="headers"
         :on-remove="handleRemove"
         :on-success="handleSuccess"
         :before-upload="beforeUpload"
         class="editor-slide-upload"
-        action="https://httpbin.org/post"
+        :action="uploadurl"
         list-type="picture-card"
       >
         <el-button size="small" type="primary">
-          Click upload
+          点击上传
         </el-button>
       </el-upload>
       <el-button @click="dialogVisible = false">
-        Cancel
+        取消
       </el-button>
       <el-button type="primary" @click="handleSubmit">
-        Confirm
+        提交
       </el-button>
     </el-dialog>
   </div>
 </template>
 
 <script>
-// import { getToken } from 'api/qiniu'
+import defaultSettings from '@/settings'
 
+import { getToken } from '@/utils/auth'
 export default {
   name: 'EditorSlideUpload',
   props: {
@@ -43,8 +45,12 @@ export default {
   data() {
     return {
       dialogVisible: false,
+      uploadurl: defaultSettings.fileUploadUrl,
       listObj: {},
-      fileList: []
+      fileList: [],
+      headers: {
+        'Authorization': 'Bearer ' + getToken()
+      }
     }
   },
   methods: {
@@ -67,7 +73,7 @@ export default {
       const objKeyArr = Object.keys(this.listObj)
       for (let i = 0, len = objKeyArr.length; i < len; i++) {
         if (this.listObj[objKeyArr[i]].uid === uid) {
-          this.listObj[objKeyArr[i]].url = response.files.file
+          this.listObj[objKeyArr[i]].url = defaultSettings.fileUrl + response.ResData.FilePath
           this.listObj[objKeyArr[i]].hasSuccess = true
           return
         }

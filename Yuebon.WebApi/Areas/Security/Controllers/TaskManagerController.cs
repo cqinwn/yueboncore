@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Internal;
 using Quartz;
 using System;
 using System.Collections.Generic;
@@ -14,11 +13,12 @@ using Yuebon.Commons.Core.Dtos;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Models;
+using Yuebon.Quartz.Dtos;
+using Yuebon.Quartz.IServices;
 using Yuebon.Quartz.Jobs;
+using Yuebon.Quartz.Models;
 using Yuebon.Security.Application;
 using Yuebon.Security.Dtos;
-using Yuebon.Security.IServices;
-using Yuebon.Security.Models;
 using Yuebon.WebApi.Areas.Security.Models;
 
 namespace Yuebon.WebApi.Areas.Security.Controllers

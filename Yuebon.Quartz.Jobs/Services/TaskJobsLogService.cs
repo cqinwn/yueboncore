@@ -1,17 +1,16 @@
-using System;
-using Yuebon.Commons.Services;
-using Yuebon.Security.IServices;
-using Yuebon.Security.IRepositories;
-using Yuebon.Security.IServices;
-using Yuebon.Security.Dtos;
-using Yuebon.Security.Models;
-using System.Threading.Tasks;
-using Yuebon.Commons.Pages;
-using Yuebon.Commons.Dtos;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Yuebon.Commons.Dtos;
 using Yuebon.Commons.Mapping;
+using Yuebon.Commons.Pages;
+using Yuebon.Commons.Services;
+using Yuebon.Quartz.Dtos;
+using Yuebon.Quartz.IRepositories;
+using Yuebon.Quartz.IServices;
+using Yuebon.Quartz.Models;
+using Yuebon.Security.IServices;
 
-namespace Yuebon.Security.Services
+namespace Yuebon.Quartz.Services
 {
     /// <summary>
     /// 定时任务执行日志服务接口实现

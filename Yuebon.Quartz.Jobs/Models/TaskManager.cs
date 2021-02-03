@@ -1,32 +1,44 @@
+using AutoMapper;
+
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using Yuebon.Commons.Models;
 
-namespace Yuebon.Security.Dtos
+namespace Yuebon.Quartz.Models
 {
     /// <summary>
-    /// 定时任务输出对象模型
+    /// 定时任务，数据实体对象
     /// </summary>
+    [Table("Sys_TaskManager")]
     [Serializable]
-    public class TaskManagerOutputDto
+    public class TaskManager:BaseEntity<string>, ICreationAudited, IModificationAudited, IDeleteAudited
     {
         /// <summary>
-        /// 设置或获取 
+        /// 构造函数
         /// </summary>
-        [MaxLength(50)]
-        public string Id { get; set; }
-
+        public TaskManager()
+        {
+            this.RunCount = 0;
+            this.ErrorCount = 0;
+            this.NextRunTime = DateTime.Now;
+            this.LastRunTime = DateTime.Now;
+            this.JobCallParams = string.Empty;
+            this.Cron = string.Empty;
+            this.Status = 0;
+            this.CompanyId = "";
+            this.DeptId = "";
+            this.DeleteUserId = "";
+        }
         /// <summary>
         /// 设置或获取任务名称
         /// </summary>
-        [MaxLength(300)]
         public string TaskName { get; set; }
 
         /// <summary>
         /// 设置或获取任务分组
         /// </summary>
-        [MaxLength(300)]
         public string GroupName { get; set; }
 
         /// <summary>
@@ -40,7 +52,6 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 设置或获取CRON表达式
         /// </summary>
-        [MaxLength(300)]
         public string Cron { get; set; }
 
         /// <summary>
@@ -51,13 +62,11 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 设置或获取远程调用接口url
         /// </summary>
-        [MaxLength(300)]
         public string JobCallAddress { get; set; }
 
         /// <summary>
         /// 设置或获取任务参数，JSON格式
         /// </summary>
-        [MaxLength(300)]
         public string JobCallParams { get; set; }
 
         /// <summary>
@@ -88,19 +97,12 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 设置或获取描述
         /// </summary>
-        [MaxLength(200)]
         public string Description { get; set; }
 
         /// <summary>
-        /// 设置或获取状态
+        /// 设置或获取状态，0-暂停，1-启用
         /// </summary>
         public int Status { get; set; }
-
-        /// <summary>
-        /// 设置或获取是否可用
-        /// </summary>
-        public bool? EnabledMark { get; set; }
-
 
         /// <summary>
         /// 设置或获取是否邮件通知
@@ -110,6 +112,12 @@ namespace Yuebon.Security.Dtos
         /// 设置或获取接受邮件地址
         /// </summary>
         public string EmailAddress { get; set; }
+
+        /// <summary>
+        /// 设置或获取是否可用
+        /// </summary>
+        public bool? EnabledMark { get; set; }
+
         /// <summary>
         /// 设置或获取删除标记
         /// </summary>
@@ -123,19 +131,16 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 设置或获取创建人
         /// </summary>
-        [MaxLength(50)]
         public string CreatorUserId { get; set; }
 
         /// <summary>
         /// 设置或获取创建人组织
         /// </summary>
-        [MaxLength(50)]
         public string CompanyId { get; set; }
 
         /// <summary>
         /// 设置或获取部门
         /// </summary>
-        [MaxLength(50)]
         public string DeptId { get; set; }
 
         /// <summary>
@@ -146,7 +151,6 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 设置或获取修改人
         /// </summary>
-        [MaxLength(50)]
         public string LastModifyUserId { get; set; }
 
         /// <summary>
@@ -157,7 +161,6 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 设置或获取删除人
         /// </summary>
-        [MaxLength(50)]
         public string DeleteUserId { get; set; }
 
 

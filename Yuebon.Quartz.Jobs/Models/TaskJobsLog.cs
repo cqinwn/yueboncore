@@ -1,28 +1,24 @@
+using AutoMapper;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Yuebon.Security.Dtos
+using Yuebon.Commons.Models;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Yuebon.Quartz.Models
 {
     /// <summary>
-    /// 定时任务执行日志输出对象模型
+    /// 定时任务执行日志，数据实体对象
     /// </summary>
+    [Table("Sys_TaskJobsLog")]
     [Serializable]
-    public class TaskJobsLogOutputDto
+    public class TaskJobsLog:BaseEntity<string>
     {
-        /// <summary>
-        /// 设置或获取 
-        /// </summary>
-        [MaxLength(50)]
-        public string Id { get; set; }
-
         /// <summary>
         /// 设置或获取任务Id
         /// </summary>
-        [MaxLength(50)]
         public string TaskId { get; set; }
-
 
         /// <summary>
         /// 设置或获取任务名称
@@ -30,19 +26,18 @@ namespace Yuebon.Security.Dtos
         public string TaskName { get; set; }
 
         /// <summary>
-        /// 设置或获取任务执行动作开始、暂停、结束
+        /// 设置或获取执行动作
         /// </summary>
         public string JobAction { get; set; }
+
         /// <summary>
-        /// 设置或获取执行状态 成功、失败
+        /// 设置或获取执行状态 正常、异常
         /// </summary>
         public bool Status { get; set; }
-
 
         /// <summary>
         /// 设置或获取结果描述
         /// </summary>
-        [MaxLength(2147483647)]
         public string Description { get; set; }
 
         /// <summary>

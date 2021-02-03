@@ -13,6 +13,8 @@ using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IoC;
 using Yuebon.Commons.Json;
 using Yuebon.Email;
+using Yuebon.Quartz.IServices;
+using Yuebon.Quartz.Models;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
 

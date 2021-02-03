@@ -6,10 +6,9 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Yuebon.Commons.IoC;
 using Yuebon.Commons.Log;
-using Yuebon.Security.IServices;
-using Yuebon.Security.Models;
+using Yuebon.Quartz.IServices;
+using Yuebon.Quartz.Models;
 
 namespace Yuebon.Quartz.Jobs
 {

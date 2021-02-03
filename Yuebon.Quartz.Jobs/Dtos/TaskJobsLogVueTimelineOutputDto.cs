@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Yuebon.Security.Dtos
+namespace Yuebon.Quartz.Dtos
 {
 
     /// <summary>

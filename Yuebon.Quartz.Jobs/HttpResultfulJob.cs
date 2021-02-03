@@ -5,17 +5,16 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Core.App;
 using Yuebon.Commons.Enums;
 using Yuebon.Commons.Extend;
 using Yuebon.Commons.Helpers;
-using Yuebon.Commons.IoC;
 using Yuebon.Commons.Json;
 using Yuebon.Email;
-using Yuebon.Security.IServices;
+using Yuebon.Quartz.IServices;
+using Yuebon.Quartz.Models;
 using Yuebon.Security.Models;
 
 namespace Yuebon.Quartz.Jobs

@@ -1,29 +1,28 @@
-using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
-using Yuebon.Commons.Dtos;
-using Yuebon.Commons.Models;
-using Yuebon.Security.Models;
 
-namespace Yuebon.Security.Dtos
+namespace Yuebon.Quartz.Dtos
 {
     /// <summary>
-    /// 定时任务执行日志输入对象模型
+    /// 定时任务执行日志输出对象模型
     /// </summary>
-    [AutoMap(typeof(TaskJobsLog))]
     [Serializable]
-    public class TaskJobsLogInputDto: IInputDto<string>
+    public class TaskJobsLogOutputDto
     {
         /// <summary>
         /// 设置或获取 
         /// </summary>
+        [MaxLength(50)]
         public string Id { get; set; }
 
         /// <summary>
         /// 设置或获取任务Id
         /// </summary>
+        [MaxLength(50)]
         public string TaskId { get; set; }
+
 
         /// <summary>
         /// 设置或获取任务名称
@@ -35,14 +34,17 @@ namespace Yuebon.Security.Dtos
         /// </summary>
         public string JobAction { get; set; }
         /// <summary>
-        /// 设置或获取执行状态 成功、是啊比阿
+        /// 设置或获取执行状态 成功、失败
         /// </summary>
         public bool Status { get; set; }
+
 
         /// <summary>
         /// 设置或获取结果描述
         /// </summary>
+        [MaxLength(2147483647)]
         public string Description { get; set; }
+
         /// <summary>
         /// 设置或获取创建时间
         /// </summary>

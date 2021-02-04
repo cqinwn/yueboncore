@@ -59,6 +59,7 @@ export default {
       hasInit: false,
       tinymceId: this.id,
       fullscreen: false,
+      editorContent: '',
       languageTypeList: {
         'en': 'en',
         'zh': 'zh_CN',
@@ -80,7 +81,8 @@ export default {
     value(val) {
       if (!this.hasChange && this.hasInit) {
         this.$nextTick(() =>
-          window.tinymce.get(this.tinymceId).setContent(val || ''))
+          window.tinymce.get(this.tinymceId).setContent(val || '')
+        )
       }
     }
   },

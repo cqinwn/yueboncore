@@ -44,7 +44,7 @@
         <el-col :span="24">
           <el-form-item label="详情" :label-width="formLabelWidth" prop="Description">
             <div v-if="showType==='show'" v-html="editFrom.Description" />
-            <Tinymce v-else ref="editor" v-model="editFrom.Description" :height="400" />
+            <Tinymce v-else ref="editorDescription" v-model="editFrom.Description" :height="400" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -150,7 +150,7 @@ export default {
         this.editFrom = {
           CategoryId: '',
           Title: '',
-          Description: '',
+          Description: '333',
           SortCode: 99,
           EnabledMark: true
         }
@@ -163,6 +163,7 @@ export default {
     bindEditInfo: function() {
       getArticlenewsDetail(this.currentId).then(res => {
         this.editFrom = res.ResData
+        this.$refs.editorDescription.setContent(res.ResData.Description)
         this.selectedCategoryOptions = res.ResData.CategoryId
       })
     },

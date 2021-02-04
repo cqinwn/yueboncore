@@ -8,17 +8,14 @@
 </template>
 
 <script>
-/**
- * docs:
- * https://panjiachen.github.io/vue-element-admin-site/feature/component/rich-editor.html#tinymce
- */
 import editorImage from './components/EditorImage'
 import plugins from './plugins'
 import toolbar from './toolbar'
 import load from './dynamicLoadScript'
-
-// why use this cdn, detail see https://github.com/PanJiaChen/tinymce-all-in-one
-const tinymceCDN = 'https://cdn.jsdelivr.net/npm/tinymce-all-in-one@4.9.3/tinymce.min.js'
+// https://www.jsdelivr.com/package/npm/tinymce
+const tinymceCDN = './tinymce/tinymce.min.js'// 'https://cdn.jsdelivr.net/npm/tinymce@5.6.2/tinymce.min.js'
+// https://www.jsdelivr.com/package/npm/tinymce-i18n?path=langs5
+const tinymcelangsCDN = './tinymce/langs/zh_CN.js'// 'https://cdn.jsdelivr.net/npm/tinymce-i18n@20.12.25/langs5/zh_CN.js'
 
 export default {
   name: 'Tinymce',
@@ -48,7 +45,7 @@ export default {
     height: {
       type: [Number, String],
       required: false,
-      default: 360
+      default: 400
     },
     width: {
       type: [Number, String],
@@ -116,6 +113,7 @@ export default {
       const _this = this
       window.tinymce.init({
         selector: `#${this.tinymceId}`,
+        language_url: tinymcelangsCDN,
         language: this.languageTypeList['zh'],
         height: this.height,
         body_class: 'panel-body ',
@@ -148,43 +146,7 @@ export default {
             _this.fullscreen = e.state
           })
         },
-        // it will try to keep these URLs intact
-        // https://www.tiny.cloud/docs-3x/reference/configuration/Configuration3x@convert_urls/
-        // https://stackoverflow.com/questions/5196205/disable-tinymce-absolute-to-relative-url-conversions
         convert_urls: false
-        // 整合七牛上传
-        // images_dataimg_filter(img) {
-        //   setTimeout(() => {
-        //     const $image = $(img);
-        //     $image.removeAttr('width');
-        //     $image.removeAttr('height');
-        //     if ($image[0].height && $image[0].width) {
-        //       $image.attr('data-wscntype', 'image');
-        //       $image.attr('data-wscnh', $image[0].height);
-        //       $image.attr('data-wscnw', $image[0].width);
-        //       $image.addClass('wscnph');
-        //     }
-        //   }, 0);
-        //   return img
-        // },
-        // images_upload_handler(blobInfo, success, failure, progress) {
-        //   progress(0);
-        //   const token = _this.$store.getters.token;
-        //   getToken(token).then(response => {
-        //     const url = response.data.qiniu_url;
-        //     const formData = new FormData();
-        //     formData.append('token', response.data.qiniu_token);
-        //     formData.append('key', response.data.qiniu_key);
-        //     formData.append('file', blobInfo.blob(), url);
-        //     upload(formData).then(() => {
-        //       success(url);
-        //       progress(100);
-        //     })
-        //   }).catch(err => {
-        //     failure('出现未知问题，刷新页面，或者联系程序员')
-        //     console.log(err);
-        //   });
-        // },
       })
     },
     destroyTinymce() {

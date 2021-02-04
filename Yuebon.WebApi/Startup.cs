@@ -192,6 +192,8 @@ namespace Yuebon.WebApi
                 options.JsonSerializerOptions.Converters.Add(new DateTimeNullableConverter());
                 //设置bool获取格式
                 options.JsonSerializerOptions.Converters.Add(new BooleanJsonConverter());
+                //设置Decimal获取格式
+                options.JsonSerializerOptions.Converters.Add(new DecimalJsonConverter());
                 //设置数字
                 options.JsonSerializerOptions.Converters.Add(new IntJsonConverter());
                 options.JsonSerializerOptions.PropertyNamingPolicy = new UpperFirstCaseNamingPolicy();

@@ -174,7 +174,7 @@ export default {
 
 <style lang="scss" scoped>
 .tinymce-container {
-  position: relative;
+  position: relative !important;
   line-height: normal;
 }
 
@@ -195,7 +195,7 @@ export default {
   position: absolute;
   right: 4px;
   top: 4px;
-  /*z-index: 2005;*/
+  z-index: 2005;
 }
 
 .fullscreen .editor-custom-btn-container {

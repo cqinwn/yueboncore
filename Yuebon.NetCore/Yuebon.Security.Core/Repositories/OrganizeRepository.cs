@@ -26,7 +26,7 @@ namespace Yuebon.Security.Repositories
         public Organize GetRootOrganize(string id)
         {
             var sb = new StringBuilder(";WITH ");
-            if(dbConnectionOptions.DatabaseType == DatabaseType.SqlServer)
+            if(dbConnectionOptions.DatabaseType == DatabaseType.MySql)
             {
                 sb.Append(" Recursive ");
             }

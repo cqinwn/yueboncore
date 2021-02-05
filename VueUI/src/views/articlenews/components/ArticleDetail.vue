@@ -150,7 +150,7 @@ export default {
         this.editFrom = {
           CategoryId: '',
           Title: '',
-          Description: '333',
+          Description: '',
           SortCode: 99,
           EnabledMark: true
         }

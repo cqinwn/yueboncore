@@ -378,8 +378,8 @@ namespace Yuebon.WebApi
             services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
             //设置定时启动的任务
             services.AddHostedService<QuartzService>();
-            App.Services = services;
             #endregion
+            App.Services = services;
         }
 
         /// <summary>

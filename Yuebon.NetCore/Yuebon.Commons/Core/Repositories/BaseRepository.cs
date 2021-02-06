@@ -139,21 +139,11 @@ namespace Yuebon.Commons.Repositories
             _dbContextFactory = dbContextFactory;
         }
 
-        /// <summary>
-        /// EF 上下文接口，可读可写
-        /// </summary>
-        public virtual IDbContextCore DbContext
-        {
-            get { return _dbContext; }
-        }
+        #endregion
 
-        /// <summary>
-        /// EF 上下文接口，仅可读
-        /// </summary>
-        public virtual IDbContextCore DbContextRead
-        {
-            get { return _dbContextFactory.CreateContext<T>(WriteAndReadEnum.Read); }
-        }
+        #region Dapper 操作
+
+
         /// <summary>
         /// 用Dapper原生方法操作数据，支持读写操作
         /// </summary>
@@ -161,6 +151,7 @@ namespace Yuebon.Commons.Repositories
         {
             get { return new DapperDbContext().GetConnection<T>(); }
         }
+
         /// <summary>
         /// 用Dapper原生方法，仅用于只读数据库
         /// </summary>
@@ -168,9 +159,6 @@ namespace Yuebon.Commons.Repositories
         {
             get { return new DapperDbContext().GetConnection<T>(false); }
         }
-        #endregion
-
-        #region Dapper 操作
 
         #region 查询获得对象和列表
         /// <summary>
@@ -213,8 +201,8 @@ namespace Yuebon.Commons.Repositories
                 sql += " where " + where;
             }
             return DapperConnRead.QueryFirstOrDefault<T>(sql);
-
         }
+
         /// <summary>
         /// 根据条件异步获取一个对象
         /// </summary>
@@ -1547,6 +1535,7 @@ namespace Yuebon.Commons.Repositories
             Tuple<bool, string> result = await ExecuteTransactionAsync(param);
             return result.Item1;
         }
+        
         /// <summary>
         /// 多表多数据操作批量插入、更新、删除--事务
         /// </summary>
@@ -1648,6 +1637,22 @@ namespace Yuebon.Commons.Repositories
         #endregion
 
         #region EF操作
+
+        /// <summary>
+        /// EF 上下文接口，可读可写
+        /// </summary>
+        public virtual IDbContextCore DbContext
+        {
+            get { return _dbContext; }
+        }
+
+        /// <summary>
+        /// EF 上下文接口，仅可读
+        /// </summary>
+        public virtual IDbContextCore DbContextRead
+        {
+            get { return _dbContextFactory.CreateContext<T>(WriteAndReadEnum.Read); }
+        }
 
         #region 新增
         /// <summary>

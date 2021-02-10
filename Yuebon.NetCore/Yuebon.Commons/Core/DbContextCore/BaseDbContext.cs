@@ -95,7 +95,7 @@ namespace Yuebon.Commons.DbContextCore
             {
                 dbConnectionOptions = DBServerProvider.GeDbConnectionOptions();
             }
-            string defaultSqlConnectionString = dbConnectionOptions.ConnectionString;// Configs.GetConnectionString(dbConnections.MassterDB.ConnectionString);
+            string defaultSqlConnectionString = dbConnectionOptions.ConnectionString;
 
             DatabaseType dbType = dbConnectionOptions.DatabaseType;
             if (dbType == DatabaseType.SqlServer)
@@ -104,7 +104,7 @@ namespace Yuebon.Commons.DbContextCore
             }
             else if (dbType == DatabaseType.MySql)
             {
-                optionsBuilder.UseMySql(defaultSqlConnectionString, new MySqlServerVersion(new Version(8, 0, 21)), // use MariaDbServerVersion for MariaDB
+                optionsBuilder.UseMySql(defaultSqlConnectionString, new MySqlServerVersion(new Version(8, 0, 21)),
                         mySqlOptions => mySqlOptions
                             .CharSetBehavior(CharSetBehavior.NeverAppend));
             }

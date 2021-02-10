@@ -124,6 +124,7 @@ namespace Yuebon.Commons.IRepositories
         Task<bool> UpdateAsync(T entity, TKey primaryKey, IDbTransaction trans = null);
 
         #endregion
+
         #region 更新某一字段值
         /// <summary>
         /// 更新某一字段值

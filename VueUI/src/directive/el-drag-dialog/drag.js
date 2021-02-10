@@ -31,7 +31,7 @@ export default {
       const minDragDomTop = dragDom.offsetTop
       // rem by lianyi 20210208 const maxDragDomTop = screenHeight - dragDom.offsetTop - dragDomHeight
       // add by lianyi 20210208 解决问题：当弹出框高度大于屏幕显示高度时，拖拽时，弹出框的顶端会超出屏幕的上端，造成无法再拖拽
-      const maxDragDomTop = screenHeight - dragDom.offsetTop - dragDomHeight > screenHeight?screenHeight:dragDomHeight
+      const maxDragDomTop = screenHeight - dragDom.offsetTop - dragDomHeight > screenHeight ? screenHeight : dragDomHeight
 
       // 获取到的值带px 正则匹配替换
       let styL = getStyle(dragDom, 'left')

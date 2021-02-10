@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
+using Yuebon.Commons.DependencyInjection;
 using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Repositories;
@@ -15,7 +16,7 @@ namespace Yuebon.Quartz.Repositories
     /// <summary>
     /// 定时任务仓储接口的实现
     /// </summary>
-    public class TaskManagerRepository : BaseRepository<TaskManager, string>, ITaskManagerRepository
+    public class TaskManagerRepository : BaseRepository<TaskManager, string>, ITaskManagerRepository, IScopedDependency
     {
 		public TaskManagerRepository()
         {

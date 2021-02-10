@@ -8,7 +8,7 @@ using Yuebon.Commons.Enums;
 namespace Yuebon.Commons.Core.DataManager
 {
     /// <summary>
-    /// 数据库连接配置选项
+    /// 定义主数据和从数据库配置选项
     /// </summary>
     public class DbConnections
     {
@@ -16,16 +16,16 @@ namespace Yuebon.Commons.Core.DataManager
         /// 主数据库
         /// </summary>
         public DbConnectionOptions MassterDB {get;set; }
+
         /// <summary>
         /// 从数据库
         /// </summary>
         public List<DbConnectionOptions> ReadDB { get; set; }
-
     }
 
 
     /// <summary>
-    /// 数据库配置选项
+    /// 数据库配置选项,定义数据库连接字符串、数据库类型和访问权重
     /// </summary>
     public class DbConnectionOptions
     {
@@ -33,6 +33,7 @@ namespace Yuebon.Commons.Core.DataManager
         /// 数据库连接字符
         /// </summary>
         public string ConnectionString { get;set; }
+
         /// <summary>
         /// 数据库类型
         /// </summary>

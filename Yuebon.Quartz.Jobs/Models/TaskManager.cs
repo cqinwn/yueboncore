@@ -1,9 +1,7 @@
-using AutoMapper;
 
 using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 using Yuebon.Commons.Models;
 
 namespace Yuebon.Quartz.Models
@@ -31,6 +29,12 @@ namespace Yuebon.Quartz.Models
             this.DeptId = "";
             this.DeleteUserId = "";
         }
+
+        /// <summary>
+        /// 设置或获取 
+        /// </summary>
+        [Key]
+        public override string Id { get; set; }
         /// <summary>
         /// 设置或获取任务名称
         /// </summary>

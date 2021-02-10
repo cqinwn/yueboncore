@@ -2,6 +2,7 @@ using Quartz;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Yuebon.Commons.DependencyInjection;
 using Yuebon.Commons.Dtos;
 using Yuebon.Commons.Enums;
 using Yuebon.Commons.Extensions;
@@ -20,7 +21,7 @@ namespace Yuebon.Quartz.Services
     /// <summary>
     /// 定时任务服务接口实现
     /// </summary>
-    public class TaskManagerService: BaseService<TaskManager,TaskManagerOutputDto, string>, ITaskManagerService
+    public class TaskManagerService: BaseService<TaskManager,TaskManagerOutputDto, string>, ITaskManagerService, IScopedDependency
     {
 		private readonly ITaskManagerRepository _repository;
         private readonly ILogService _logService;
@@ -53,7 +54,7 @@ namespace Yuebon.Quartz.Services
         public void RecordRun(string jobId,JobAction jobAction, bool blresultTag = true,string msg="")
         {
             DateTime addTime = DateTime.Now;
-            var job = _repository.Get(jobId);
+            TaskManager job =  _repository.GetSingle(jobId);
             if (job == null)
             {
                 _taskJobsLogService.Insert(new TaskJobsLog
@@ -99,7 +100,7 @@ namespace Yuebon.Quartz.Services
                 JobAction = jobAction.ToString(),
                 Status = blresultTag,
                 Description = strDesc
-            }); ;
+            });
         }
 
         /// <summary>

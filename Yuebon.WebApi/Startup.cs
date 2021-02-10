@@ -156,7 +156,8 @@ namespace Yuebon.WebApi
                             }
                             ,new string[] { }
                         }
-                    });
+                    }
+                 );
                 //开启加权锁
                 options.OperationFilter<AddResponseHeadersFilter>();
                 options.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();

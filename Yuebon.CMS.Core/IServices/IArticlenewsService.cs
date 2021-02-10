@@ -15,12 +15,6 @@ namespace Yuebon.CMS.IServices
     public interface IArticlenewsService:IService<Articlenews,ArticlenewsOutputDto, string>
     {
         /// <summary>
-        /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
-        /// </summary>
-        /// <param name="search">查询的条件</param>
-        /// <returns>指定对象的集合</returns>
-        Task<PageResult<ArticlenewsOutputDto>> FindWithPagerAsync(SearchInputDto<Articlenews> search);
-        /// <summary>
         /// 根据用户角色获取分类及该分类的文章
         /// </summary>
         /// <returns></returns>

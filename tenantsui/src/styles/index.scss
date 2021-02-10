@@ -1,0 +1,316 @@
+@import './variables.scss';
+@import './mixin.scss';
+@import './transition.scss';
+@import './element-ui.scss';
+@import './sidebar.scss';
+@import './yuebonicons.scss';
+
+body {
+  height: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+}
+
+label {
+  font-weight: 700;
+}
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+#app {
+  height: 100%;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+a,
+a:focus,
+a:hover {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+}
+
+div:focus {
+  outline: none;
+}
+
+.clearfix {
+  &:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+  }
+}
+// main-container global css
+.app-container {
+  padding: 20px 10px;
+  .yuebon-app-leftcontainer,.yuebon-app-rigthcontainer{
+    width: 50%;
+  }
+  .yuebon-app-leftcontainer{
+    float: left;
+  }
+  .yuebon-app-rightcontainer{
+    float: left;
+  }
+}
+.yuebon-margin-bt10{
+  margin-bottom: 10px;
+}
+.filter-container {
+  margin-bottom: 10px;
+  .filter-item {
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 10px;
+  }
+  .el-form-item--small.el-form-item{
+    margin-bottom: 6px;
+  }
+  .filter-item-footer {
+	text-align: right;
+	float: right;
+  }
+}
+.list-btn-container {
+  margin-bottom: 10px;
+  .filter-item {
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 10px;
+  }
+}
+.pagination-container {
+  margin-top: 10px;
+}
+
+.el-button-modify {
+	color: #FFF;
+	background-color: #17a2b8;
+	border-color: #17a2b8
+}
+
+.el-button-modify:focus,.el-button-modify:hover {
+	background: #1cb3ca;
+	border-color: #1cb3ca;
+	color: #FFF
+}
+
+.el-button-modify.is-active,.el-button-modify:active {
+	background: #36ddf7;
+	border-color: #36ddf7;
+	color: #FFF
+}
+
+.el-button-modify:active {
+	outline: 0
+}
+
+.el-button-modify.is-disabled,.el-button-modify.is-disabled:active,.el-button-modify.is-disabled:focus,.el-button-modify.is-disabled:hover {
+	color: #FFF;
+	background-color: #a0cfff;
+	border-color: #a0cfff
+}
+
+.el-button-modify.is-plain {
+	color: #17a2b8;
+	background: #ecf5ff;
+	border-color: #b3d8ff
+}
+
+.el-button-modify.is-plain:focus,.el-button-modify.is-plain:hover {
+	background: #17a2b8;
+	border-color: #17a2b8;
+	color: #FFF
+}
+
+.el-button-modify.is-plain:active {
+	background: #36ddf7;
+	border-color: #36ddf7;
+	color: #FFF;
+	outline: 0
+}
+
+.el-button-modify.is-plain.is-disabled,.el-button-modify.is-plain.is-disabled:active,.el-button-modify.is-plain.is-disabled:focus,.el-button-modify.is-plain.is-disabled:hover {
+	color: #8cc5ff;
+	background-color: #ecf5ff;
+	border-color: #d9ecff
+}
+
+
+.el-button-group .el-button-modify:first-child {
+	border-right-color: rgba(255,255,255,.5)
+}
+
+.el-button-group .el-button-modify:last-child {
+	border-left-color: rgba(255,255,255,.5)
+}
+
+.el-button-group .el-button-modify:not(:first-child):not(:last-child) {
+	border-left-color: rgba(255,255,255,.5);
+	border-right-color: rgba(255,255,255,.5)
+}
+
+
+
+.el-button-print {
+	color: #FFF;
+	background-color: #245d9e;
+	border-color: #2f6fb8
+}
+
+.el-button-print:focus,.el-button-print:hover {
+	background: #478ad6;
+	border-color: #478ad6;
+	color: #FFF
+}
+
+.el-button-print.is-active,.el-button-print:active {
+	background: #478ad6;
+	border-color: #478ad6;
+	color: #FFF
+}
+
+.el-button-print:active {
+	outline: 0
+}
+
+.el-button-print.is-disabled,.el-button-print.is-disabled:active,.el-button-print.is-disabled:focus,.el-button-print.is-disabled:hover {
+	color: #FFF;
+	background-color: #a0cfff;
+	border-color: #a0cfff
+}
+
+.el-button-print.is-plain {
+	color: #17a2b8;
+	background: #ecf5ff;
+	border-color: #b3d8ff
+}
+
+.el-button-print.is-plain:focus,.el-button-print.is-plain:hover {
+	background: #17a2b8;
+	border-color: #17a2b8;
+	color: #FFF
+}
+
+.el-button-print.is-plain:active {
+	background: #36ddf7;
+	border-color: #36ddf7;
+	color: #FFF;
+	outline: 0
+}
+
+.el-button-print.is-plain.is-disabled,.el-button-print.is-plain.is-disabled:active,.el-button-print.is-plain.is-disabled:focus,.el-button-print.is-plain.is-disabled:hover {
+	color: #8cc5ff;
+	background-color: #ecf5ff;
+	border-color: #d9ecff
+}
+
+
+.el-button-group .el-button-print:first-child {
+	border-right-color: rgba(255,255,255,.5)
+}
+
+.el-button-group .el-button-print:last-child {
+	border-left-color: rgba(255,255,255,.5)
+}
+
+.el-button-group .el-button-print:not(:first-child):not(:last-child) {
+	border-left-color: rgba(255,255,255,.5);
+	border-right-color: rgba(255,255,255,.5)
+}
+.yuebon-editform {
+    width: 460px;
+}
+
+
+.yuebon-db-editform {
+    width: 560px;
+}
+/**重写el-dialog 样式*/
+.yuebon-dialog-wrapper{
+	position: fixed;
+}
+.yuebon-dialog-wrapper .el-dialog__header{
+	background-color: #E4E7ED !important;
+	padding: 10px 20px 10px;
+}
+.yuebon-dialog-wrapper .el-dialog__header .el-dialog__headerbtn{
+	top:10px;
+}
+.yuebon-dialog-wrapper .el-dialog__body{
+	padding:10px 20px !important;
+}
+
+.yuebon-dialog-wrapper .el-form-item {
+    margin-bottom: 20px;
+}
+
+.el-button [class*=icon-]+span {
+    margin-left: 5px;
+}
+
+.yuebon-yinzhang{
+	position: absolute;
+	top:70px;
+	right: 20px;
+	width: 150px;
+    height: 50px;
+    font-size: 2em;
+    text-align: center;
+    display: block;
+	line-height: 50px;
+	transform-origin: 20% 50%;
+	transform: rotate(30deg);
+	-webkit-transform: rotate(30deg);	/* Safari 和 Chrome */
+	-webkit-transform-origin:20% 50%;	/* Safari 和 Chrome */
+	z-index:2003;
+	border: 3px solid #ff0000;
+}
+
+.yuebon-order-status{
+	position: absolute;
+	top:160px;
+	right: 20px;
+	width: 150px;
+    height: 50px;
+    font-size: 2em;
+    text-align: center;
+    display: block;
+	line-height: 50px;
+	transform-origin: 20% 50%;
+	transform: rotate(30deg);
+	-webkit-transform: rotate(30deg);	/* Safari 和 Chrome */
+	-webkit-transform-origin:20% 50%;	/* Safari 和 Chrome */
+	z-index:2003;
+	border: 3px solid #478ad6;
+}
+
+
+input::-webkit-input-placeholder {
+    color: #ff0000;
+  }
+  input::-moz-input-placeholder {
+    color: #ff0000;
+  }
+  input::-ms-input-placeholder {
+    color: #ff0000;
+  }

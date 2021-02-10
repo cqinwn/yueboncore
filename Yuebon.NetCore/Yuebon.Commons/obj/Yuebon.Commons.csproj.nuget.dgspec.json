@@ -61,6 +61,10 @@
               "target": "Package",
               "version": "[2.0.78, )"
             },
+            "Devart.Data.Oracle.EFCore": {
+              "target": "Package",
+              "version": "[9.14.1180, )"
+            },
             "DotNetCore.NPOI": {
               "target": "Package",
               "version": "[1.2.3, )"
@@ -144,10 +148,6 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[5.0.2, )"
-            },
-            "Oracle.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[3.19.80, )"
             },
             "Oracle.ManagedDataAccess.Core": {
               "target": "Package",

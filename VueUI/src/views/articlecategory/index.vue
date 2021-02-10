@@ -166,7 +166,6 @@ export default {
       searchform: {
         keywords: ''
       },
-      loadBtnFunc: [],
       tableData: [],
       tableloading: true,
       pagination: {
@@ -205,7 +204,6 @@ export default {
     this.pagination.currentPage = 1
     this.InitDictItem()
     this.loadTableData()
-    this.loadBtnFunc = JSON.parse(localStorage.getItem('yueboncurrentfuns'))
   },
   methods: {
     /**

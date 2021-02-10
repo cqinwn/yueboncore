@@ -20,24 +20,7 @@ namespace Yuebon.Commons.DbContextCore
     /// </summary>
     public class MySqlDbContext: BaseDbContext, IMySqlDbContext
     {
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    string conStringEncrypt = Configs.GetConfigurationValue("AppSetting", "ConStringEncrypt");
-        //    this.isMultiTenant = Configs.GetConfigurationValue("AppSetting", "IsMultiTenant").ToBool();
-        //    if (string.IsNullOrEmpty(dbConfigName))
-        //    {
-        //        dbConfigName = Configs.GetConfigurationValue("AppSetting", "DefaultDataBase");
-        //    }
-        //    string defaultSqlConnectionString = Configs.GetConnectionString(dbConfigName);
-        //    if (conStringEncrypt == "true")
-        //    {
-        //        defaultSqlConnectionString = DEncrypt.Decrypt(defaultSqlConnectionString);
-        //    }
-        //    optionsBuilder.UseMySql(defaultSqlConnectionString, new MySqlServerVersion(new Version(8, 0, 21)), // use MariaDbServerVersion for MariaDB
-        //                mySqlOptions => mySqlOptions
-        //                    .CharSetBehavior(CharSetBehavior.NeverAppend));
-        //    base.OnConfiguring(optionsBuilder);
-        //}
+       
         /// <summary>
         /// 批量插入
         /// </summary>

@@ -1,5 +1,10 @@
 ### 如果对您有帮助，您可以点右上角 "Star" 支持一下，这样我们才有继续免费下去的动力，谢谢！
 
+### 概述
+YuebonCore是基于.Net5.0开发的权限管理及快速开发框架，整合应用最新技术包括Asp.NetCore MVC、Dapper、WebAPI、Swagger、EF、Vue等，核心模块包括：组织机构、角色用户、权限授权、多系统、多应用管理、定时任务、业务单据编码规则、代码生成器等。它的架构易于扩展，规范了一套业务实现的代码结构与操作流程，使YuebonCore框架更易于应用到实际项目开发中。
+
+YuebonCore FW其核心设计目标是开发迅速、代码量少、学习简单、功能强大、轻量级、易扩展，让Web开发更快速、简单，解决70%重复工作。轻松开发，专注您的业务，从YuebonCore FW开始！
+
 ### 在线体验
 
 Vue版本体验地址：[http://netvue.ts.yuebon.com/](http://netvue.ts.yuebon.com)（用户名：test，密码：test123）
@@ -15,16 +20,9 @@ WebApi接口地址：[http://netcoreapi.ts.yuebon.com](http://netcoreapi.ts.yueb
 
 更新日志 [点击查看](https://gitee.com/yuebon/YuebonNetCore/commits/master)
 
-### 概述
-YuebonCore是基于.Net5.0开发的权限管理及快速开发框架，整合应用最新技术包括Asp.NetCore MVC、Dapper、WebAPI、Swagger、EF、Vue等，核心模块包括：组织机构、角色用户、权限授权、多系统、多应用管理、定时任务、业务单据编码规则、代码生成器等。它的架构易于扩展，规范了一套业务实现的代码结构与操作流程，使 YuebonCore框架更易于应用到实际项目开发中。
+### 核心看点
 
-YuebonCore FW其核心设计目标是开发迅速、代码量少、学习简单、功能强大、轻量级、易扩展，让Web开发更快速、简单，解决70%重复工作。轻松开发，专注您的业务，从YuebonCore FW开始！
-
-### 项目简介
-
-YuebonCore是一套基于Net5.0 开发出来的框架，源代码完全开源！目前发布了Vue单页面版和mvc版两个版本，开发者可以根据自己的喜好选择。
-
-使用 MIT 协议，采用主流框架，容易上手，简单易学，学习成本低。可完全实现二次开发、基本满足80%项目需求。
+使用 MIT 协议，完整开源。采用主流框架，容易上手，简单易学，学习成本低。可完全实现二次开发、基本满足80%项目需求。
 
 代码生成器可以帮助解决.NET项目70%的重复工作，让开发更多关注业务逻辑。既能快速提高开发效率，帮助公司节省人力成本，同时又不失灵活性。
 
@@ -47,7 +45,7 @@ Vue版前端技术栈 ：基于vue、vuex、vue-router 、vue-cli 、axios 和 e
 
 #### 后端技术
 
-核心框架：.Net5.0 + Web API + Dapper + EF + AutoMapper+swagger
+核心框架：.Net5.0 + Web API + Dapper + EF + AutoMapper + swagger
 
 定时计划任务：Quartz.Net组件
 
@@ -64,6 +62,7 @@ Vue版前端技术栈 ：基于vue、vuex、vue-router 、vue-cli 、axios 和 e
 性能分析：MiniProfiler组件
 
 ### 项目结构
+
 Yuebon.NetCore解决方案包含：
 
 Yuebon.Commons[基础类库]：包框架的核心组件，包含一系列快速开发中经常用到的Utility辅助工具功能，框架各个组件的核心接口定义，部分核心功能的实现；
@@ -77,6 +76,7 @@ Yuebon.Cms.Core[CMS基础类库]，包含文章管理、广告管理等内容，
 Yuebon.WebApi[webapi接口]：为Vue版或其他三方系统提供接口服务。
 
 DataBase是最新数据库备份文件，目前支持MS SQL Server和MySql。
+
 
 ### 内置功能
 
@@ -109,6 +109,10 @@ DataBase是最新数据库备份文件，目前支持MS SQL Server和MySql。
 15、支持租户模式
 
 16、支持用户定义主题风格
+
+17、支持一主多从数据库读写分离
+
+
 
 ### 部分界面展示
 

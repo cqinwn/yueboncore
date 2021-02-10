@@ -196,10 +196,7 @@ namespace Yuebon.Commons.Repositories
                 where = "1=1";
             }
             string sql = $"select * from { tableName} ";
-            if (!string.IsNullOrWhiteSpace(where))
-            {
-                sql += " where " + where;
-            }
+            sql += " where " + where;
             return DapperConnRead.QueryFirstOrDefault<T>(sql);
         }
 
@@ -220,10 +217,7 @@ namespace Yuebon.Commons.Repositories
                 where = "1=1";
             }
             string  sql = $"select * from { tableName} ";
-            if (!string.IsNullOrWhiteSpace(where))
-            {
-                sql += " where "+where;
-            }
+            sql += " where "+where;
 
             return await DapperConnRead.QueryFirstOrDefaultAsync<T>(sql);
         }
@@ -979,7 +973,7 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual bool Update(T entity, TKey primaryKey, IDbTransaction trans=null)
         {
-           return DbContext.Update<T>(entity)>0;
+           return DbContext.Edit<T>(entity)>0;
         }
         /// <summary>
         /// 更新
@@ -989,7 +983,7 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual bool Update(T entity, IDbTransaction trans = null)
         {
-            return DbContext.Update(entity)>0;
+            return DbContext.Edit(entity)>0;
         }
         /// <summary>
         /// 

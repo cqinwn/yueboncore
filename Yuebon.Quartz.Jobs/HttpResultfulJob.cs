@@ -59,11 +59,6 @@ namespace Yuebon.Quartz.Jobs
             try
             {
                 Dictionary<string, string> header = new Dictionary<string, string>();
-                //if (!string.IsNullOrEmpty(taskOptions.AuthKey)
-                //    && !string.IsNullOrEmpty(taskOptions.AuthValue))
-                //{
-                //    header.Add(taskOptions.AuthKey.Trim(), taskOptions.AuthValue.Trim());
-                //}
                 if (!string.IsNullOrEmpty(taskManager.JobCallParams))
                 {
                     httpMessage = HttpRequestHelper.HttpPost(taskManager.JobCallAddress, taskManager.JobCallParams, null, header);

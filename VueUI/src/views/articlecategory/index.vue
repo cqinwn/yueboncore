@@ -261,7 +261,6 @@ export default {
     },
     bindEditInfo: function() {
       getArticlecategoryDetail(this.currentId).then(res => {
-        this.editFrom = res.ResData
         this.editFrom.Description = res.ResData.Description
         this.editFrom.EnabledMark = res.ResData.EnabledMark + ''
         this.editFrom.LinkUrl = res.ResData.LinkUrl

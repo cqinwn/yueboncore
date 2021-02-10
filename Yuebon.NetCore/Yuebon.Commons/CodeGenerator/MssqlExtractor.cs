@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Yuebon.Commons.Pages;
@@ -175,6 +175,9 @@ order by a.id,a.colorder", tableName);
                     break;
 
                 case "datetime":
+                case "date":
+                    val = "DateTime";
+                    break;   
                 case "smalldatetime":
                 case "timestamp":
                     val = "DateTime";

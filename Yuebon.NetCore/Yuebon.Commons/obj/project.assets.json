@@ -72,6 +72,48 @@
           "lib/net5.0/Dapper.SqlBuilder.dll": {}
         }
       },
+      "Devart.Data/5.0.2604": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Win32.Registry": "4.5.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Devart.Data.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Devart.Data.dll": {}
+        }
+      },
+      "Devart.Data.Oracle/9.14.1180": {
+        "type": "package",
+        "dependencies": {
+          "Devart.Data": "5.0.2604",
+          "Microsoft.Win32.Registry": "4.5.0",
+          "System.Diagnostics.PerformanceCounter": "4.5.0",
+          "System.Reflection.Emit": "4.3.0",
+          "System.Reflection.Emit.ILGeneration": "4.3.0",
+          "System.Text.Encoding.CodePages": "4.5.0"
+        },
+        "compile": {
+          "lib/netstandard2.1/Devart.Data.Oracle.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Devart.Data.Oracle.dll": {}
+        }
+      },
+      "Devart.Data.Oracle.EFCore/9.14.1180": {
+        "type": "package",
+        "dependencies": {
+          "Devart.Data.Oracle": "9.14.1180",
+          "Microsoft.EntityFrameworkCore.Relational": "[5.0.2, 6.0.0)"
+        },
+        "compile": {
+          "lib/netstandard2.1/Devart.Data.Oracle.Entity.EFCore.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Devart.Data.Oracle.Entity.EFCore.dll": {}
+        }
+      },
       "DotNetCore.NPOI/1.2.3": {
         "type": "package",
         "dependencies": {
@@ -1656,19 +1698,6 @@
         },
         "runtime": {
           "lib/netstandard2.0/NPinyin.Core.dll": {}
-        }
-      },
-      "Oracle.EntityFrameworkCore/3.19.80": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore.Relational": "[3.1.6, 4.0.0)",
-          "Oracle.ManagedDataAccess.Core": "[2.19.80, 2.20.0)"
-        },
-        "compile": {
-          "lib/netstandard2.0/Oracle.EntityFrameworkCore.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/Oracle.EntityFrameworkCore.dll": {}
         }
       },
       "Oracle.ManagedDataAccess.Core/2.19.101": {
@@ -3922,6 +3951,52 @@
         "lib/netstandard2.0/Dapper.SqlBuilder.dll"
       ]
     },
+    "Devart.Data/5.0.2604": {
+      "sha512": "dG11Cxn30OEdnbjmy3XNQ4vkknlZrbSVzPg5JwgQx9WZfYQJULYuUOU3Kvz4v3M4DpNvDnxbfrBWDkiWnW+C/Q==",
+      "type": "package",
+      "path": "devart.data/5.0.2604",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "dc.png",
+        "devart.data.5.0.2604.nupkg.sha512",
+        "devart.data.nuspec",
+        "lib/netstandard1.3/Devart.Data.dll",
+        "lib/netstandard2.0/Devart.Data.dll"
+      ]
+    },
+    "Devart.Data.Oracle/9.14.1180": {
+      "sha512": "vHzLKm+D8jsyvcLrPlbou+eEDdphYkFjwVBaghp4D+Bn4bq6o01d2QmAvKCNkDNb/Kf9djg77281glC7oqkC8g==",
+      "type": "package",
+      "path": "devart.data.oracle/9.14.1180",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/app.config.transform",
+        "content/web.config.transform",
+        "devart.data.oracle.9.14.1180.nupkg.sha512",
+        "devart.data.oracle.nuspec",
+        "lib/netstandard1.3/Devart.Data.Oracle.dll",
+        "lib/netstandard2.0/Devart.Data.Oracle.dll",
+        "lib/netstandard2.1/Devart.Data.Oracle.dll",
+        "oracle.png"
+      ]
+    },
+    "Devart.Data.Oracle.EFCore/9.14.1180": {
+      "sha512": "RpQDi0DUlNvWTvGuAHmJbwlby04PtbtSIHQkT4wNuzZfHhaya4T9Mf1/SDYWJ08AMgJw0j43oFQpL4+mU+hgXQ==",
+      "type": "package",
+      "path": "devart.data.oracle.efcore/9.14.1180",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devart.data.oracle.efcore.9.14.1180.nupkg.sha512",
+        "devart.data.oracle.efcore.nuspec",
+        "lib/netstandard1.3/Devart.Data.Oracle.Entity.EFCore.dll",
+        "lib/netstandard2.0/Devart.Data.Oracle.Entity.EFCore.dll",
+        "lib/netstandard2.1/Devart.Data.Oracle.Entity.EFCore.dll",
+        "oracle.png"
+      ]
+    },
     "DotNetCore.NPOI/1.2.3": {
       "sha512": "agXbYDkOvovMYBNqTcRAr6jrTtUXGYzVNdS9Yxy4PDZa8tBQiIeAD+54/Jdsc+3/Mln1L1Yj+SciO1TYwljcdQ==",
       "type": "package",
@@ -5933,20 +6008,6 @@
         "lib/netstandard2.0/NPinyin.Core.xml",
         "npinyin.core.3.0.0.nupkg.sha512",
         "npinyin.core.nuspec"
-      ]
-    },
-    "Oracle.EntityFrameworkCore/3.19.80": {
-      "sha512": "cPfr78kMwm5Zub6yGnoK+Uiej+tl+xnVAMP8RNEstx26vk26aj+0RRCPK6XxAo8wgAxXPGyYUa4qGSUG46TQaA==",
-      "type": "package",
-      "path": "oracle.entityframeworkcore/3.19.80",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "info.txt",
-        "lib/netstandard2.0/Oracle.EntityFrameworkCore.dll",
-        "oracle.entityframeworkcore.3.19.80.nupkg.sha512",
-        "oracle.entityframeworkcore.nuspec",
-        "readme.txt"
       ]
     },
     "Oracle.ManagedDataAccess.Core/2.19.101": {
@@ -11451,6 +11512,7 @@
       "CSRedisCore >= 3.6.6",
       "Dapper >= 2.0.78",
       "Dapper.SqlBuilder >= 2.0.78",
+      "Devart.Data.Oracle.EFCore >= 9.14.1180",
       "DotNetCore.NPOI >= 1.2.3",
       "HtmlAgilityPack >= 1.11.30",
       "Microsoft.AspNetCore.Mvc >= 2.2.0",
@@ -11472,7 +11534,6 @@
       "NPinyin.Core >= 3.0.0",
       "Npgsql >= 5.0.3",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 5.0.2",
-      "Oracle.EntityFrameworkCore >= 3.19.80",
       "Oracle.ManagedDataAccess.Core >= 2.19.101",
       "Pomelo.EntityFrameworkCore.MySql >= 5.0.0-alpha.2",
       "QRCoder >= 1.4.1",
@@ -11543,6 +11604,10 @@
           "Dapper.SqlBuilder": {
             "target": "Package",
             "version": "[2.0.78, )"
+          },
+          "Devart.Data.Oracle.EFCore": {
+            "target": "Package",
+            "version": "[9.14.1180, )"
           },
           "DotNetCore.NPOI": {
             "target": "Package",
@@ -11628,10 +11693,6 @@
             "target": "Package",
             "version": "[5.0.2, )"
           },
-          "Oracle.EntityFrameworkCore": {
-            "target": "Package",
-            "version": "[3.19.80, )"
-          },
           "Oracle.ManagedDataAccess.Core": {
             "target": "Package",
             "version": "[2.19.101, )"
@@ -11690,17 +11751,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1608",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "检测到的包版本在依赖项约束之外: Oracle.EntityFrameworkCore 3.19.80 需要 Microsoft.EntityFrameworkCore.Relational (>= 3.1.6 && < 4.0.0)，但版本 Microsoft.EntityFrameworkCore.Relational 5.0.3 已解决。",
-      "libraryId": "Microsoft.EntityFrameworkCore.Relational",
-      "targetGraphs": [
-        "net5.0"
-      ]
-    }
-  ]
+  }
 }

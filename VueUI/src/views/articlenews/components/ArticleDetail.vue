@@ -94,7 +94,7 @@ import { getArticlenewsDetail, saveArticlenews } from '@/api/cms/articlenews'
 import { GetAllCategoryTreeTable } from '@/api/cms/articlecategory'
 import Tinymce from '@/components/Tinymce'
 export default {
-  name: 'ArticleDetai',
+  name: 'ArticleDetail',
   components: {
     Tinymce
   },

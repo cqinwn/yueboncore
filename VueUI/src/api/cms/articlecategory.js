@@ -12,7 +12,8 @@ export function GetAllCategoryTreeTable(data) {
     params: data,
     baseURL: defaultSettings.apiCMSUrl // 直接通过覆盖的方式
   })
-}/**
+}
+/**
    * 获取所有可用的
    */
 export function getAllArticlecategoryList() {

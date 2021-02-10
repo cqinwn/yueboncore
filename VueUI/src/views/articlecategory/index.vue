@@ -166,7 +166,6 @@ export default {
       searchform: {
         keywords: ''
       },
-      loadBtnFunc: [],
       tableData: [],
       tableloading: true,
       pagination: {
@@ -205,7 +204,6 @@ export default {
     this.pagination.currentPage = 1
     this.InitDictItem()
     this.loadTableData()
-    this.loadBtnFunc = JSON.parse(localStorage.getItem('yueboncurrentfuns'))
   },
   methods: {
     /**
@@ -263,6 +261,7 @@ export default {
     },
     bindEditInfo: function() {
       getArticlecategoryDetail(this.currentId).then(res => {
+        this.editFrom = res.ResData
         this.editFrom.Description = res.ResData.Description
         this.editFrom.EnabledMark = res.ResData.EnabledMark + ''
         this.editFrom.LinkUrl = res.ResData.LinkUrl

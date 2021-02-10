@@ -27,7 +27,7 @@ using Yuebon.Security.Models;
 namespace Yuebon.AspNetCore.Mvc
 {
     /// <summary>
-    /// 功能权限授权验证筛选
+    /// 功能权限授权验证
     /// </summary>
     public class YuebonAuthorizationFilter : AuthorizeAttribute, IAuthorizationFilter
     {

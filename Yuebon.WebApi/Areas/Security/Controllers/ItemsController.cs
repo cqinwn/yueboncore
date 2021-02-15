@@ -50,7 +50,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// </summary>
         /// <param name="info"></param>
         protected override void OnBeforeInsert(Items info)
-        {
+        {            
             info.Id = GuidUtils.CreateNo();
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = CurrentUser.UserId;
@@ -84,6 +84,39 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.DeleteUserId = CurrentUser.UserId;
         }
 
+
+
+        /// <summary>
+        /// 异步新增数据
+        /// </summary>
+        /// <param name="tinfo"></param>
+        /// <returns></returns>
+        [HttpPost("Insert")]
+        [YuebonAuthorize("Add")]
+        public override async Task<IActionResult> InsertAsync(ItemsInputDto tinfo)
+        {
+            CommonResult result = new CommonResult();
+            Items isExsit = await iService.GetByEnCodAsynce(tinfo.EnCode);
+            if (isExsit != null)
+            {
+                result.ErrMsg = "字典分类编码不能重复";
+                return ToJsonContent(result);
+            }
+            Items info = tinfo.MapTo<Items>();
+            OnBeforeInsert(info);
+            long ln = await iService.InsertAsync(info).ConfigureAwait(false);
+            if (ln > 0)
+            {
+                result.ErrCode = ErrCode.successCode;
+                result.ErrMsg = ErrCode.err0;
+            }
+            else
+            {
+                result.ErrMsg = ErrCode.err43001;
+                result.ErrCode = "43001";
+            }
+            return ToJsonContent(result);
+        }
 
         /// <summary>
         /// 按字典分类编码查询树形展开，新增、修改需要
@@ -138,7 +171,12 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         public override async Task<IActionResult> UpdateAsync(ItemsInputDto tinfo, string id)
         {
             CommonResult result = new CommonResult();
-
+            Items isExsit = await iService.GetByEnCodAsynce(tinfo.EnCode,id);
+            if (isExsit != null)
+            {
+                result.ErrMsg = "字典分类编码不能重复";
+                return ToJsonContent(result);
+            }
             Items info = iService.Get(id);
             info.FullName = tinfo.FullName;
             info.EnCode = tinfo.EnCode;

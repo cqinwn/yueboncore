@@ -52,7 +52,16 @@ namespace Yuebon.Security.Services
         {
             return await _repository.GetByEnCodAsynce(enCode);
         }
-
+        /// <summary>
+        /// 更新时判断分类编码是否存在（排除自己）
+        /// </summary>
+        /// <param name="enCode">分类编码</param
+        /// <param name="id">主键Id</param>
+        /// <returns></returns>
+        public async Task<Items> GetByEnCodAsynce(string enCode, string id)
+        {
+            return await _repository.GetByEnCodAsynce(enCode,id);
+        }
 
         /// <summary>
         /// 获取子菜单，递归调用

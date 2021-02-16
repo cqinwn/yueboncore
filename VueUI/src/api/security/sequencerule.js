@@ -40,8 +40,9 @@ export function saveSequenceRule(data) {
    */
 export function getSequenceRuleDetail(id) {
   return http({
-    url: 'SequenceRule/GetById?id=' + id,
+    url: 'SequenceRule/GetById',
     method: 'get',
+    params: { id: id },
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

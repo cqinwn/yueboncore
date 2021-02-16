@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -43,6 +44,7 @@ namespace Yuebon.WebApi.Areas.Security
         private readonly IMenuService menuService;
         private readonly IRoleService roleService;
         private readonly ITaskManagerService taskManagerService;
+        private readonly IAPPService aPPService;
         /// <summary>
         /// 
         /// </summary>
@@ -51,13 +53,15 @@ namespace Yuebon.WebApi.Areas.Security
         /// <param name="_menuService"></param>
         /// <param name="_roleService"></param>
         /// <param name="_taskManagerService"></param>
-        public SysSettingController(IWebHostEnvironment hostingEnvironment, IUserService _userService, IMenuService _menuService, IRoleService _roleService, ITaskManagerService _taskManagerService)
+        /// <param name="_aPPService"></param>
+        public SysSettingController(IWebHostEnvironment hostingEnvironment, IUserService _userService, IMenuService _menuService, IRoleService _roleService, ITaskManagerService _taskManagerService, IAPPService _aPPService)
         {
             _hostingEnvironment = hostingEnvironment;
             userService = _userService;
             menuService = _menuService;
             roleService = _roleService;
             taskManagerService = _taskManagerService;
+            aPPService = _aPPService;
         }
 
         /// <summary>
@@ -122,6 +126,7 @@ namespace Yuebon.WebApi.Areas.Security
         /// <returns></returns>
         [HttpGet("GetInfo")]
         [NoPermissionRequired]
+        [NoSignRequired]
         public IActionResult GetInfo()
         {
             CommonResult result = new CommonResult();
@@ -151,6 +156,9 @@ namespace Yuebon.WebApi.Areas.Security
                 result.ErrMsg = ErrCode.err60001;
                 result.ErrCode = "60001";
             }
+
+            IEnumerable<APP> appList = aPPService.GetAllByIsNotDeleteAndEnabledMark();
+            yuebonCacheHelper.Add("AllowAppId", appList);
             return ToJsonContent(result);
         }
 

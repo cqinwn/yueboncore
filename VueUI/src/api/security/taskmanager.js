@@ -40,8 +40,9 @@ export function saveTaskManager(data, url) {
    */
 export function getTaskManagerDetail(id) {
   return http({
-    url: 'TaskManager/GetById?id=' + id,
+    url: 'TaskManager/GetById',
     method: 'get',
+    params: { id: id },
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

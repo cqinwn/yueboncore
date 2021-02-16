@@ -40,8 +40,9 @@ export function saveSequence(data, url) {
    */
 export function getSequenceDetail(id) {
   return http({
-    url: 'Sequence/GetById?id=' + id,
+    url: 'Sequence/GetById',
     method: 'get',
+    params: { id: id },
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

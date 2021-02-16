@@ -41,8 +41,9 @@ export function saveOrganize(data, url) {
    */
 export function getOrganizeDetail(id) {
   return http({
-    url: 'Organize/GetById?id=' + id,
+    url: 'Organize/GetById',
     method: 'get',
+    params: { id: id },
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

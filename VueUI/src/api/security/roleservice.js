@@ -40,8 +40,9 @@ export function saveRole(data, url) {
    */
 export function getRoleDetail(id) {
   return http({
-    url: 'Role/GetById?id=' + id,
+    url: 'Role/GetById',
     method: 'get',
+    params: { id: id },
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

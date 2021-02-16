@@ -40,8 +40,9 @@ export function saveSystemType(data, url) {
    */
 export function getSystemTypeDetail(id) {
   return http({
-    url: 'SystemType/GetById?id=' + id,
+    url: 'SystemType/GetById',
     method: 'get',
+    params: { id: id },
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

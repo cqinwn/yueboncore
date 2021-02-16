@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Caching.Memory;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,11 +15,11 @@ namespace Yuebon.Commons.Cache
     public class YuebonCacheHelper
     {
         /// <summary>
-        /// 
+        /// 缓存提供模式
         /// </summary>
         private static CacheProvider cacheProvider;
         /// <summary>
-        /// 
+        /// 缓存接口
         /// </summary>
         private ICacheService cacheservice;
         /// <summary>
@@ -38,6 +39,31 @@ namespace Yuebon.Commons.Cache
             }
         }
 
+        /// <summary>
+        /// 使用MemoryCache缓存操作
+        /// </summary>
+        /// <param name="isMemoryCache">是否使用MemoryCache</param>
+        public YuebonCacheHelper(bool isMemoryCache=false)
+        {
+
+            cacheProvider = App.GetService<CacheProvider>();
+            if (cacheProvider == null)
+            {
+                throw new ArgumentNullException(nameof(cacheProvider));
+            }
+            else
+            {
+                if (isMemoryCache)
+                {
+                    cacheservice = App.GetService<MemoryCacheService>();
+                }
+                else
+                {
+                    cacheservice = App.GetService<ICacheService>();
+
+                }
+            }
+        }
         #region 验证缓存项是否存在
         /// <summary>
         /// 验证缓存项是否存在,TryGetValue 来检测 Key是否存在的

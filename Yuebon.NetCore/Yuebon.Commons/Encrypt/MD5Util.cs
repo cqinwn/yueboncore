@@ -182,17 +182,5 @@ namespace Yuebon.Commons.Encrypt
         }
         #endregion
 
-        private void Test()
-        {
-            string o = "i love u";
-            o = AddMD5Profix(o);
-            //o += " ";
-            Console.WriteLine(o);
-            Console.WriteLine(ValidateValue(o));
-
-            o = RemoveMD5Profix(o);
-            Console.WriteLine(o);
-
-        }
     }
 }

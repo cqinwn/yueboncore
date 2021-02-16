@@ -40,8 +40,9 @@ export function saveTenant(data, url) {
    */
 export function getTenantDetail(id) {
   return http({
-    url: 'Tenants/Tenant/GetById?id=' + id,
+    url: 'Tenants/Tenant/GetById',
     method: 'get',
+    params: { id: id },
     baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
   })
 }

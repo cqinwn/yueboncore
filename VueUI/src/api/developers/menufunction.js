@@ -31,8 +31,9 @@ export function saveMenu(data, url) {
    */
 export function getMenuDetail(id) {
   return http({
-    url: 'Menu/GetById?id=' + id,
+    url: 'Menu/GetById',
     method: 'get',
+    params: { id: id },
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
@@ -116,8 +117,9 @@ export function saveFunction(data, url) {
    */
 export function getFunctionDetail(id) {
   return http({
-    url: 'Function/GetById?id=' + id,
+    url: 'Function/GetById',
     method: 'get',
+    params: { id: id },
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

@@ -40,8 +40,9 @@ export function saveAPP(data, url) {
    */
 export function getAPPDetail(id) {
   return http({
-    url: 'APP/GetById?id=' + id,
+    url: 'APP/GetById',
     method: 'get',
+    params: { id: id },
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

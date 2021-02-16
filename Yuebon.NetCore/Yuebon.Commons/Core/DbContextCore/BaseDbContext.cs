@@ -110,7 +110,7 @@ namespace Yuebon.Commons.DbContextCore
             }
             else if (dbType == DatabaseType.Oracle)
             {
-                optionsBuilder.UseOracle(defaultSqlConnectionString, o => o.UseOracleSQLCompatibility("11"));
+                optionsBuilder.UseOracle(defaultSqlConnectionString);
             }
             else if (dbType == DatabaseType.SQLite)
             {

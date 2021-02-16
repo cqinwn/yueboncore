@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
@@ -11,18 +9,14 @@ using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
-using System.Threading.Tasks;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
-using Yuebon.Commons.Json;
 using Yuebon.Commons.Models;
-using Yuebon.Security.Application;
 using Yuebon.Security.Dtos;
-using Yuebon.Security.Models;
 
 namespace Yuebon.AspNetCore.Mvc
 {
@@ -42,7 +36,7 @@ namespace Yuebon.AspNetCore.Mvc
             {
                 return;
             }
-            //匿名访问不需要token认证
+            //匿名访问，不需要token认证、签名和登录
             var allowanyone = controllerActionDescriptor.ControllerTypeInfo.GetCustomAttributes(typeof(IAllowAnonymous), true).Any()
             || controllerActionDescriptor.MethodInfo.GetCustomAttributes(typeof(IAllowAnonymous), true).Any();
             if (allowanyone)
@@ -74,7 +68,7 @@ namespace Yuebon.AspNetCore.Mvc
             else
             {
                 string token = string.Empty;
-                if (authHeader != null && authHeader.StartsWith("Bearer",StringComparison.Ordinal) && authHeader.Length > 10)
+                if (authHeader != null && authHeader.StartsWith("Bearer", StringComparison.Ordinal) && authHeader.Length > 10)
                 {
                     token = authHeader.Substring("Bearer ".Length).Trim();
                 }
@@ -83,10 +77,28 @@ namespace Yuebon.AspNetCore.Mvc
                 //token验证失败
                 if (!result.Success)
                 {
-                    context.Result = new JsonResult(result,options);
+                    context.Result = new JsonResult(result, options);
                 }
                 else
                 {
+
+                    #region 签名验证
+                    bool boolSign = context.HttpContext.Request.Headers["sign"].SingleOrDefault().ToBool(true);
+                    var isSign = controllerActionDescriptor.MethodInfo.GetCustomAttributes(inherit: true)
+                          .Any(a => a.GetType().Equals(typeof(NoSignRequiredAttribute)));
+                    //需要签名验证
+                    if (!isSign && boolSign)
+                    {
+                        CommonResult resultSign = SignHelper.CheckSign(context.HttpContext);
+                        if (!resultSign.Success)
+                        {
+                            context.Result = new JsonResult(resultSign, options);
+                            return;
+                        }
+                    }
+                    #endregion
+
+                    #region 是否需要验证用户登录以及相关的功能权限
                     //是否需要用户登录
                     var isDefined = controllerActionDescriptor.MethodInfo.GetCustomAttributes(inherit: true)
                           .Any(a => a.GetType().Equals(typeof(NoPermissionRequiredAttribute))) ;
@@ -147,10 +159,13 @@ namespace Yuebon.AspNetCore.Mvc
                         result.ErrMsg = ErrCode.err40008;
                         context.Result = new JsonResult(result, options);
                     }
+                    #endregion
+
                 }
                 return;
             }
 
         }
+
     }
 }

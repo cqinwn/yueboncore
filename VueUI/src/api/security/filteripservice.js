@@ -40,8 +40,9 @@ export function saveFilterIP(data, url) {
    */
 export function getFilterIPDetail(id) {
   return http({
-    url: 'FilterIP/GetById?id=' + id,
+    url: 'FilterIP/GetById',
     method: 'get',
+    params: { id: id },
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

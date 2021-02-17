@@ -246,6 +246,33 @@ namespace Yuebon.Commons.Extensions
             if (millis < 0 || millis >= MaxMillis) throw new ArgumentException("Arg_OleAutDateScale");
             return millis * TicksPerMillisecond;
         }
+
+        #region 时间对象与时间戳相互转换
+
+        /// <summary>
+        /// 将 DateTime 转换为 Unix 时间戳
+        /// </summary>
+        /// <param name="dateTime">需要转换的时间</param>
+        /// <returns>Unix 时间戳</returns>
+        public static long DateTimeToUnixTime(this DateTime dateTime)
+        {
+            return (long)(dateTime - TimeZoneInfo.ConvertTime(new DateTime(1970, 1, 1, 0, 0, 0), TimeZoneInfo.Local)).TotalSeconds;
+        }
+
+        /// <summary>
+        /// 将 Unix 时间戳转换为 DateTime
+        /// </summary>
+        /// <param name="timestamp">Unix 时间戳</param>
+        /// <returns>需要转换的时间</returns>
+        public static DateTime UnixTimeToDateTime(this long timestamp)
+        {
+            if (timestamp < 0)
+                throw new ArgumentOutOfRangeException("timestamp is out of range");
+
+            return TimeZoneInfo.ConvertTime(new DateTime(1970, 1, 1, 0, 0, 0), TimeZoneInfo.Local).AddSeconds(timestamp);
+        }
+
+        #endregion
     }
 
 }

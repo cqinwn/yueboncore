@@ -40,8 +40,9 @@ export function save{ModelTypeName}(data, url) {
    */
 export function get{ModelTypeName}Detail(id) {
   return http({
-    url: '{ModelTypeName}/GetById?id=' + id,
+    url: '{ModelTypeName}/GetById',
     method: 'get',
+    params: { id: id },
     baseURL: defaultSettings.api{fileClassName}Url // 直接通过覆盖的方式
   })
 }

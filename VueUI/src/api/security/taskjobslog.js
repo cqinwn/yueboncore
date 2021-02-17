@@ -40,8 +40,9 @@ export function saveTaskJobsLog(data, url) {
    */
 export function getTaskJobsLogDetail(id) {
   return http({
-    url: 'TaskJobsLog/GetById?id=' + id,
+    url: 'TaskJobsLog/GetById',
     method: 'get',
+    params: { id: id },
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

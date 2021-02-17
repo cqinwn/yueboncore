@@ -4,21 +4,31 @@ import router from '../router'
 import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
+import { sign, GetRandomString } from '@/utils/yuebon'
 
 // create an axios instance
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
-  timeout: 5000 // request timeout
+  timeout: 10000 // request timeout
 })
 
 service.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8'
-// request interceptor
+// request拦截器
 service.interceptors.request.use(
   config => {
     config.headers['Content-Type'] = 'application/json;charset=UTF-8'
     const token = getToken()
     if (token) {
       config.headers['Authorization'] = 'Bearer ' + token
+    }
+    const timeStamp = new Date().getTime().toString().substr(0, 10)
+    const nonce = GetRandomString()
+    const iSSign = config.headers['sign']
+    if (iSSign || iSSign === undefined) {
+      config.headers['appId'] = store.getters.appId
+      config.headers['nonce'] = nonce
+      config.headers['timeStamp'] = timeStamp
+      config.headers['signature'] = sign(config, nonce, timeStamp, store.getters.appId)
     }
     return config
   },

@@ -30,8 +30,9 @@ export function saveItems(data, url) {
    */
 export function getItemsDetail(id) {
   return http({
-    url: 'Items/GetById?id=' + id,
+    url: 'Items/GetById',
     method: 'get',
+    params: { id: id },
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
@@ -115,8 +116,9 @@ export function saveItemsDetail(data, url) {
    */
 export function getItemsDetailDetail(id) {
   return http({
-    url: 'ItemsDetail/GetById?id=' + id,
+    url: 'ItemsDetail/GetById',
     method: 'get',
+    params: { id: id },
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

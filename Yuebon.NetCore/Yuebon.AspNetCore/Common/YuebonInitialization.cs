@@ -11,12 +11,12 @@ namespace Yuebon.AspNetCore.Common
     /// <summary>
     /// 系统初始化内容
     /// </summary>
-    public static class YuebonInitialization
+    public abstract class YuebonInitialization
     {
         /// <summary>
         /// 初始化
         /// </summary>
-        public  static void Initial()
+        public virtual  void Initial()
         {
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
             SysSetting sysSetting = XmlConverter.Deserialize<SysSetting>("xmlconfig/sys.config");

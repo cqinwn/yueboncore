@@ -40,8 +40,9 @@ export function saveArticlenews(data, url) {
    */
 export function getArticlenewsDetail(id) {
   return http({
-    url: 'Articlenews/GetById?id=' + id,
+    url: 'Articlenews/GetById',
     method: 'get',
+    params: { id: id },
     baseURL: defaultSettings.apiCMSUrl // 直接通过覆盖的方式
   })
 }

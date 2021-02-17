@@ -31,8 +31,9 @@ export function saveUser(data, url) {
    */
 export function getUserDetail(id) {
   return http({
-    url: 'User/GetById?id=' + id,
+    url: 'User/GetById',
     method: 'get',
+    params: { id: id },
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

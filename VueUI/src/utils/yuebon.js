@@ -1,0 +1,50 @@
+import md5 from 'js-md5'
+
+/**
+ * 获取一个32位随机字符串
+ * @returns
+ */
+const GetRandomString = () => {
+  var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789'
+  var maxPos = chars.length
+  var pwd = ''
+  for (var i = 0; i < 32; i++) {
+    pwd += chars.charAt(Math.floor(Math.random() * maxPos))
+  }
+  return pwd
+}
+
+/**
+* 签名
+* @param config 请求配置
+* @param nonce 随机字符串
+* @param timestamp 签名时间戳
+* @param appId 应用Id
+* @param method 请求方式
+*/
+const sign = (config, nonce, timestamp, appId) => {
+  // 签名格式： timestamp + nonce + data(字典升序)+appId
+  const ret = []
+  if (config.params) {
+    const data = config.params
+    for (const it in data) {
+      let val = data[it]
+      if (typeof val === 'object' && //
+        (!(val instanceof Array) || (val.length > 0 && (typeof val[0] === 'object')))) {
+        val = JSON.stringify(val)
+      }
+      ret.push(it + val)
+    }
+    // 字典升序
+    ret.sort()
+  } else {
+    ret.push(JSON.stringify(config.data))
+  }
+  const signsrc = timestamp + nonce + ret.join('') + appId
+  return md5(signsrc)
+}
+
+export {
+  sign,
+  GetRandomString
+}

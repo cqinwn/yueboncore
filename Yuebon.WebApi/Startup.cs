@@ -46,6 +46,7 @@ using Yuebon.Commons.Log;
 using Yuebon.Commons.Module;
 using Yuebon.Commons.Options;
 using Yuebon.Quartz.Jobs;
+using Yuebon.WebApi.Controllers;
 
 namespace Yuebon.WebApi
 {
@@ -158,6 +159,7 @@ namespace Yuebon.WebApi
                         }
                     }
                  );
+                options.OperationFilter<AddRequiredHeaderParameter>();
                 //开启加权锁
                 options.OperationFilter<AddResponseHeadersFilter>();
                 options.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
@@ -264,7 +266,7 @@ namespace Yuebon.WebApi
                 });
                 app.UseStatusCodePages();
 
-                YuebonInitialization.Initial();
+               // new InitSystem().Initial();
             }
         }
 
@@ -327,6 +329,7 @@ namespace Yuebon.WebApi
                 services.Configure<MemoryCacheEntryOptions>(
                     options => options.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5)); //设置MemoryCache缓存有效时间为5分钟
             }
+            services.AddTransient<MemoryCacheService>();
             services.AddMemoryCache();// 启用MemoryCache
             #endregion
 

@@ -19,8 +19,9 @@ export function getLogListWithPager(data) {
    */
 export function getLogDetail(id) {
   return http({
-    url: 'Log/GetById?id=' + id,
+    url: 'Log/GetById',
     method: 'get',
+    params: { id: id },
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

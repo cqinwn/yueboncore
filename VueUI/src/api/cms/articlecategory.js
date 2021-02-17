@@ -41,8 +41,9 @@ export function saveArticlecategory(data, url) {
    */
 export function getArticlecategoryDetail(id) {
   return http({
-    url: 'Articlecategory/GetById?id=' + id,
+    url: 'Articlecategory/GetById',
     method: 'get',
+    params: { id: id },
     baseURL: defaultSettings.apiCMSUrl // 直接通过覆盖的方式
   })
 }

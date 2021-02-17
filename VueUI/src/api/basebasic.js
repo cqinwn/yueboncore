@@ -157,9 +157,13 @@ export function sysConnect(data) {
    * 根据字典编码获取字典内容
    */
 export function getListItemDetailsByCode(code) {
+  var data = {
+    itemCode: code
+  }
   return http({
-    url: 'Security/Items/GetListByItemCode?itemCode=' + code,
+    url: 'Security/Items/GetListByItemCode',
     method: 'get',
+    params: data,
     baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
   })
 }
@@ -168,8 +172,9 @@ export function getListItemDetailsByCode(code) {
    */
 export function getListMeunFuntionBymeunCode(code) {
   return http({
-    url: 'Function/GetListByParentEnCode?enCode=' + code,
+    url: 'Function/GetListByParentEnCode',
     method: 'get',
+    params: { enCode: code },
     baseURL: defaultSettings.apiHostUrl
   })
 }

@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <Compile Remove="Areas\Security\Controllers\FunctionController.cs" />
+    <Compile Remove="Controllers\InitSystem.cs" />
   </ItemGroup>
 
   <ItemGroup>

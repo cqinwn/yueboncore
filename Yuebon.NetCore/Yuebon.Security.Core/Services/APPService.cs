@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
+using Yuebon.Commons.Cache;
 using Yuebon.Commons.Dtos;
 using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Pages;
@@ -23,6 +25,45 @@ namespace Yuebon.Security.Services
         {
             _appRepository = repository;
             _logService = logService;
+        }
+
+        /// <summary>
+        /// 同步新增实体。
+        /// </summary>
+        /// <param name="entity">实体</param>
+        /// <param name="trans">事务对象</param>
+        /// <returns></returns>
+        public override long Insert(APP entity, IDbTransaction trans = null)
+        {
+            long result = repository.Insert(entity, trans); 
+            this.UpdateCacheAllowApp();
+            return result;
+        }
+
+        /// <summary>
+        /// 异步更新实体。
+        /// </summary>
+        /// <param name="entity">实体</param>
+        /// <param name="id">主键ID</param>
+        /// <param name="trans">事务对象</param>
+        /// <returns></returns>
+        public override async Task<bool> UpdateAsync(APP entity, string id, IDbTransaction trans = null)
+        {
+            bool result=await repository.UpdateAsync(entity, id, trans);
+            this.UpdateCacheAllowApp();
+            return result;
+        }
+        /// <summary>
+        /// 异步步新增实体。
+        /// </summary>
+        /// <param name="entity">实体</param>
+        /// <param name="trans">事务对象</param>
+        /// <returns></returns>
+        public override async Task<long> InsertAsync(APP entity, IDbTransaction trans = null)
+        {
+            long result = await repository.InsertAsync(entity, trans);
+            this.UpdateCacheAllowApp();
+            return result;
         }
         /// <summary>
         /// 获取app对象
@@ -75,6 +116,12 @@ namespace Yuebon.Security.Services
                 TotalItems = pagerInfo.RecordCount
             };
             return pageResult;
+        }
+        public void UpdateCacheAllowApp()
+        {
+            YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+            IEnumerable<APP> appList = repository.GetAllByIsNotDeleteAndEnabledMark();
+            yuebonCacheHelper.Add("AllowAppId", appList);
         }
     }
 }

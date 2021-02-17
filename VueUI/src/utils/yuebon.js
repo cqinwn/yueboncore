@@ -19,11 +19,11 @@ const GetRandomString = () => {
 * @param config 请求配置
 * @param nonce 随机字符串
 * @param timestamp 签名时间戳
-* @param appId 应用Id
+* @param appSecret 应用密钥
 * @param method 请求方式
 */
-const sign = (config, nonce, timestamp, appId) => {
-  // 签名格式： timestamp + nonce + data(字典升序)+appId
+const sign = (config, nonce, timestamp, appSecret) => {
+  // 签名格式： timestamp + nonce + data(字典升序)+appSecret
   const ret = []
   if (config.params) {
     const data = config.params
@@ -40,7 +40,7 @@ const sign = (config, nonce, timestamp, appId) => {
   } else {
     ret.push(JSON.stringify(config.data))
   }
-  const signsrc = timestamp + nonce + ret.join('') + appId
+  const signsrc = timestamp + nonce + ret.join('') + appSecret
   return md5(signsrc)
 }
 

@@ -12,6 +12,7 @@ using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Models;
+using Yuebon.Commons.Options;
 
 namespace Yuebon.Commons.Helpers
 {
@@ -50,7 +51,8 @@ namespace Yuebon.Commons.Helpers
             }
 
             //appId是否为可用的
-            if (!VerifyAppId(appId))
+            AllowCacheApp allowCacheApp = VerifyAppId(appId);
+            if (allowCacheApp == null)
             {
                 result.ErrCode = "40004";
                 result.ErrMsg = "AppId不被允许访问:" + appId;
@@ -84,7 +86,7 @@ namespace Yuebon.Commons.Helpers
                     data = GetQueryString(form);
                     break;
             }
-            bool blValidate = Validate(timeStamp.ToString(), nonce, appId, data, signature);
+            bool blValidate = Validate(timeStamp.ToString(), nonce, allowCacheApp.AppSecret, data, signature);
             if (!blValidate)
             {
                 result.ErrCode = "40004";
@@ -139,13 +141,13 @@ namespace Yuebon.Commons.Helpers
         /// </summary>
         /// <param name="timeStamp">时间戳</param>
         /// <param name="nonce">随机数</param>
-        /// <param name="appId">客户端应用唯一标识</param>
+        /// <param name="appSecret">客户端应用密钥</param>
         /// <param name="data">接口参数内容</param>
         /// <param name="signature">当前请求内容的数字签名</param>
         /// <returns></returns>
-        public static bool Validate(string timeStamp,string nonce,string appId,string data,string signature)
+        public static bool Validate(string timeStamp,string nonce,string appSecret, string data,string signature)
         {
-            var signStr = timeStamp + nonce  +  data + appId;
+            var signStr = timeStamp + nonce  +  data + appSecret;
             string signMd5 = MD5Util.GetMD5_32(signStr);
             return signMd5 == signature;
         }
@@ -156,11 +158,17 @@ namespace Yuebon.Commons.Helpers
         /// </summary>
         /// <param name="appId"></param>
         /// <returns></returns>
-        private static bool VerifyAppId(string appId)
+        private static AllowCacheApp VerifyAppId(string appId)
         {
-            if (string.IsNullOrEmpty(appId)) return false;
+            AllowCacheApp allowCacheApp = new AllowCacheApp();
+            if (string.IsNullOrEmpty(appId)) return allowCacheApp;
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            return yuebonCacheHelper.Get("AllowAppId").ToJson().Contains(appId);
+            List<AllowCacheApp> list = yuebonCacheHelper.Get("AllowAppId").ToJson().ToList<AllowCacheApp>();
+            if (list != null)
+            {
+                allowCacheApp = list.Where(s => s.AppId == appId).FirstOrDefault();
+            }
+            return allowCacheApp;
         }
     }
 }

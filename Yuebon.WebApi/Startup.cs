@@ -159,6 +159,7 @@ namespace Yuebon.WebApi
                         }
                     }
                  );
+                options.OperationFilter<AddRequiredHeaderParameter>();
                 //开启加权锁
                 options.OperationFilter<AddResponseHeadersFilter>();
                 options.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();

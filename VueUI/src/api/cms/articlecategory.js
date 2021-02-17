@@ -10,6 +10,7 @@ export function GetAllCategoryTreeTable(data) {
     url: 'Articlecategory/GetAllCategoryTreeTable',
     method: 'get',
     params: data,
+    headers: { sign: false },
     baseURL: defaultSettings.apiCMSUrl // 直接通过覆盖的方式
   })
 }

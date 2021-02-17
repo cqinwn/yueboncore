@@ -14,6 +14,7 @@ const getters = {
   permission_routes: state => state.permission.routes,
   addRouters: state => state.settings.addRouters,
   sidebarRouters: state => state.permission.sidebarRouters,
-  appId: state => state.settings.appId
+  appId: state => state.settings.appId,
+  appSecret: state => state.settings.appSecret
 }
 export default getters

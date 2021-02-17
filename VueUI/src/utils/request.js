@@ -28,7 +28,7 @@ service.interceptors.request.use(
       config.headers['appId'] = store.getters.appId
       config.headers['nonce'] = nonce
       config.headers['timeStamp'] = timeStamp
-      config.headers['signature'] = sign(config, nonce, timeStamp, store.getters.appId)
+      config.headers['signature'] = sign(config, nonce, timeStamp, store.getters.appSecret)
     }
     return config
   },

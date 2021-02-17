@@ -30,5 +30,9 @@ namespace Yuebon.Security.IServices
         /// </summary>
         /// <returns></returns>
         IList<AppOutputDto> SelectApp();
+        /// <summary>
+        /// 更新可用的应用到缓存
+        /// </summary>
+        void  UpdateCacheAllowApp();
     }
 }

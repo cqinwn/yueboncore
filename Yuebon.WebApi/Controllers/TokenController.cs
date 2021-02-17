@@ -50,7 +50,7 @@ namespace Yuebon.WebApi.Controllers
         /// 根据应用信息获得token令牌
         /// </summary>
         /// <param name="grant_type">获取access_token填写client_credential</param>
-        /// <param name="appid">用户唯一凭证，应用AppId</param>
+        /// <param name="appid">应用唯一凭证，应用AppId</param>
         /// <param name="secret">应用密钥AppSecret</param>
         /// <returns></returns>
         [HttpGet]

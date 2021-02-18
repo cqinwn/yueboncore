@@ -16,7 +16,7 @@ service.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8'
 // request拦截器
 service.interceptors.request.use(
   config => {
-    config.headers['Content-Type'] = 'application/json;charset=UTF-8'
+    if (config.headers['Content-Type'] === undefined) { config.headers['Content-Type'] = 'application/json;charset=UTF-8' }
     const token = getToken()
     if (token) {
       config.headers['Authorization'] = 'Bearer ' + token

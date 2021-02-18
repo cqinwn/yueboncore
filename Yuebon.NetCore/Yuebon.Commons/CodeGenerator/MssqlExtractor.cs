@@ -40,17 +40,23 @@ left join sys.extended_properties ds on ds.major_id=tbs.object_id and ds.minor_i
         /// <summary>
         /// 获取数据库的所有表的信息
         /// </summary>
-        /// <param name="strwhere"></param>
+        /// <param name="tablename"></param>
         /// <param name="fieldNameToSort"></param>
         /// <param name="isDescending"></param>
         /// <param name="info"></param>
         /// <returns></returns>
-        public List<DbTableInfo> GetAllTables(string strwhere, string fieldNameToSort, bool isDescending, PagerInfo info)
+        public List<DbTableInfo> GetAllTables(string tablename, string fieldNameToSort, bool isDescending, PagerInfo info)
         {
+
+            string where = "1=1";
+            if (!string.IsNullOrEmpty(tablename))
+            {
+                where += " and TableName like '%" + tablename + "%'";
+            }
             var sql = string.Format(@"SELECT tbs.name as TableName ,ds.value as Description FROM sys.tables tbs
 left join sys.extended_properties ds on ds.major_id=tbs.object_id and ds.minor_id=0");
            
-            string sqlcount = string.Format(@"select count(*) as Total from({0}) AA where {1}", sql, strwhere);
+            string sqlcount = string.Format(@"select count(*) as Total from({0}) AA where {1}", sql, where);
 
             string strOrder = string.Format(" order by {0} {1}", fieldNameToSort, isDescending ? "DESC" : "ASC");
             int minRow = info.PageSize * (info.CurrenetPageIndex - 1) + 1;
@@ -58,7 +64,7 @@ left join sys.extended_properties ds on ds.major_id=tbs.object_id and ds.minor_i
 
             string pagesql = string.Format(@"With Paging AS
                 ( SELECT ROW_NUMBER() OVER ({0}) as RowNumber, {1} FROM ({2}) AA Where {3})
-                SELECT * FROM Paging WHERE RowNumber Between {4} and {5}", strOrder, "*", sql, strwhere,
+                SELECT * FROM Paging WHERE RowNumber Between {4} and {5}", strOrder, "*", sql, where,
             minRow, maxRow);
             pagesql = sqlcount + ";" + pagesql;
             return GetAllTablesInternal(pagesql, info);

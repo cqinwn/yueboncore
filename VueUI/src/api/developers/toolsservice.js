@@ -27,9 +27,9 @@ export function codeGetDBList() {
    */
 export function codeGetTableList(data) {
   return http({
-    url: 'CodeGenerator/GetListTable',
-    method: 'get',
-    params: data,
+    url: 'CodeGenerator/FindListTable',
+    method: 'post',
+    data: data,
     baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
   })
 }

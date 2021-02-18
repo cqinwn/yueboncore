@@ -7,6 +7,7 @@ using System.IO;
 using System.Text.Json;
 using Yuebon.AspNetCore.Controllers;
 using Yuebon.AspNetCore.Models;
+using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Extend;
 using Yuebon.Commons.Extensions;
@@ -48,6 +49,7 @@ namespace Yuebon.WebApi.Controllers
         /// <param name="formCollection"></param>
         /// <returns>服务器存储的文件信息</returns>
         [HttpPost("Upload")]
+        [NoSignRequired]
         public IActionResult Upload([FromForm] IFormCollection formCollection)
         {
             CommonResult result = new CommonResult();

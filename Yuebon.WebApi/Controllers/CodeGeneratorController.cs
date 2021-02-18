@@ -119,12 +119,12 @@ namespace Yuebon.WebApi.Controllers
         /// </summary>
         /// <param name="search"></param>
         /// <returns></returns>
-        [HttpGet("GetListTable")]
-        [YuebonAuthorize("GetListTable")]
+        [HttpPost("FindListTable")]
+        [YuebonAuthorize("FindListTable")]
         [NoPermissionRequired]
-        public async Task<IActionResult> GetListTable([FromQuery]SearchModel search)
+        public CommonResult<PageResult<DbTableInfo>> FindListTable(SearchModel search)
         {
-            CommonResult result = new CommonResult();
+            CommonResult<PageResult<DbTableInfo>> result = new CommonResult<PageResult<DbTableInfo>>();
             if (!string.IsNullOrEmpty(search.EnCode))
             {
                 YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
@@ -142,17 +142,20 @@ namespace Yuebon.WebApi.Controllers
                     yuebonCacheHelper.Add("CodeGeneratorDbName", search.EnCode, expiresSliding, false);
                 }
             }
-            string orderByDir = Request.Query["Order"].ToString() == null ? "" : Request.Query["Order"].ToString();
-            string orderFlied = string.IsNullOrEmpty(Request.Query["Sort"].ToString()) ? "TableName" : Request.Query["Sort"].ToString();
+            string orderByDir =search.Order;// Request.Query["Order"].ToString() == null ? "" : Request.Query["Order"].ToString();
+            string orderFlied =string.IsNullOrEmpty(search.Sort)? "TableName": search.Sort;// string.IsNullOrEmpty(Request.Query["Sort"].ToString()) ? "TableName" : Request.Query["Sort"].ToString();
             bool order = orderByDir == "asc" ? false : true;
             string where = "1=1";
             if (!string.IsNullOrEmpty(search.Keywords))
             {
                 where += " and TableName like '%"+ search.Keywords + "%'";
             }
-            PagerInfo pagerInfo = GetPagerInfo();
+            PagerInfo pagerInfo = new PagerInfo { 
+                PageSize=search.PageSize,
+                CurrenetPageIndex=search.CurrenetPageIndex
+            };
             DbExtractor dbExtractor = new DbExtractor();
-            List<DbTableInfo> listTable = dbExtractor.GetTablesWithPage(where, orderFlied, order,pagerInfo);
+            List<DbTableInfo> listTable = dbExtractor.GetTablesWithPage(search.Keywords, orderFlied, order,pagerInfo);
            
             PageResult<DbTableInfo> pageResult = new PageResult<DbTableInfo>();
             pageResult.CurrentPage = pagerInfo.CurrenetPageIndex;
@@ -161,7 +164,7 @@ namespace Yuebon.WebApi.Controllers
             pageResult.TotalItems = pagerInfo.RecordCount;
             result.ResData = pageResult;
             result.ErrCode = ErrCode.successCode;
-            return ToJsonContent(result);
+            return result;
         }
         /// <summary>
         /// 代码生成器

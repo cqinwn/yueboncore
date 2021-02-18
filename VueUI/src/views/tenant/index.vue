@@ -71,8 +71,8 @@
         </el-form-item>
         <el-form-item label="是否可用" :label-width="formLabelWidth" prop="EnabledMark">
           <el-radio-group v-model="editFrom.EnabledMark">
-            <el-radio label="true">是</el-radio>
-            <el-radio label="false">否</el-radio>
+            <el-radio :label="true">是</el-radio>
+            <el-radio :label="false">否</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="租户介绍" :label-width="formLabelWidth" prop="Description">
@@ -118,16 +118,7 @@ export default {
       },
       dialogEditFormVisible: false,
       editFormTitle: '',
-      editFrom: {
-        TenantName: '',
-        CompanyName: '',
-        HostDomain: '',
-        LinkMan: '',
-        Telphone: '',
-        DataSource: '',
-        Description: '',
-        EnabledMark: 'true'
-      },
+      editFrom: {},
       rules: {
         TenantName: [
           { required: true, message: '请输入租户名称', trigger: 'blur' },
@@ -157,7 +148,6 @@ export default {
     this.pagination.currentPage = 1
     this.InitDictItem()
     this.loadTableData()
-    this.loadBtnFunc = JSON.parse(localStorage.getItem('yueboncurrentfuns'))
   },
   methods: {
     /**
@@ -189,16 +179,28 @@ export default {
       this.pagination.currentPage = 1
       this.loadTableData()
     },
+    // 表单重置
+    reset() {
+      this.editFrom = {
+        TenantName: '',
+        CompanyName: '',
+        HostDomain: '',
+        LinkMan: '',
+        Telphone: '',
+        DataSource: '',
+        Description: '',
+        EnabledMark: true
+      }
+      this.resetForm('editFrom')
+    },
 
     /**
      * 新增、修改或查看明细信息（绑定显示数据）     *
      */
     ShowEditOrViewDialog: function(view) {
+      this.reset()
       if (view !== undefined) {
-        if (
-          this.currentSelected.length > 1 ||
-          this.currentSelected.length === 0
-        ) {
+        if (this.currentSelected.length > 1 || this.currentSelected.length === 0) {
           this.$alert('请选择一条数据进行编辑/修改', '提示')
         } else {
           this.currentId = this.currentSelected[0].Id
@@ -214,14 +216,7 @@ export default {
     },
     bindEditInfo: function() {
       getTenantDetail(this.currentId).then((res) => {
-        this.editFrom.TenantName = res.ResData.TenantName
-        this.editFrom.CompanyName = res.ResData.CompanyName
-        this.editFrom.HostDomain = res.ResData.HostDomain
-        this.editFrom.LinkMan = res.ResData.LinkMan
-        this.editFrom.Telphone = res.ResData.Telphone
-        this.editFrom.DataSource = res.ResData.DataSource
-        this.editFrom.Description = res.ResData.Description
-        this.editFrom.EnabledMark = res.ResData.EnabledMark + ''
+        this.editFrom = res.ResData
       })
     },
     /**
@@ -253,7 +248,6 @@ export default {
               })
               this.dialogEditFormVisible = false
               this.currentSelected = ''
-              this.$refs['editFrom'].resetFields()
               this.loadTableData()
               this.InitDictItem()
             } else {

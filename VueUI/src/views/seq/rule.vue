@@ -181,8 +181,8 @@
         </el-form-item>
         <el-form-item label="是否启用" :label-width="formLabelWidth" prop="EnabledMark">
           <el-radio-group v-model="editFrom.EnabledMark">
-            <el-radio label="true">是</el-radio>
-            <el-radio label="false">否</el-radio>
+            <el-radio :label="true">是</el-radio>
+            <el-radio :label="false">否</el-radio>
           </el-radio-group>
         </el-form-item>
 
@@ -224,17 +224,7 @@ export default {
       },
       dialogEditFormVisible: false,
       editFormTitle: '',
-      editFrom: {
-        SequenceName: '',
-        RuleOrder: 1,
-        RuleType: 'date',
-        RuleValue: '',
-        PaddingSide: 'None',
-        PaddingWidth: 0,
-        PaddingChar: '',
-        Description: '',
-        EnabledMark: 'true'
-      },
+      editFrom: {},
       rules: {
         SequenceName: [
           { required: true, message: '请选择业务单据名称', trigger: 'blur' },
@@ -330,7 +320,25 @@ export default {
       this.pagination.currentPage = 1
       this.loadTableData()
     },
-
+    // 表单重置
+    reset() {
+      if (!this.currentId) {
+        this.editFrom = {
+          SequenceName: '',
+          RuleOrder: 1,
+          RuleType: 'date',
+          RuleValue: '',
+          PaddingSide: 'None',
+          PaddingWidth: 0,
+          PaddingChar: '',
+          Description: '',
+          EnabledMark: true
+        }
+        this.resetForm('editFrom')
+      } else {
+        this.bindEditInfo()
+      }
+    },
     /**
      * 新增、修改或查看明细信息（绑定显示数据）     *
      */
@@ -342,25 +350,17 @@ export default {
           this.currentId = this.currentSelected[0].Id
           this.editFormTitle = '编辑'
           this.dialogEditFormVisible = true
-          this.bindEditInfo()
         }
       } else {
         this.editFormTitle = '新增'
         this.currentId = ''
         this.dialogEditFormVisible = true
       }
+      this.reset()
     },
     bindEditInfo: function() {
       getSequenceRuleDetail(this.currentId).then(res => {
-        this.editFrom.SequenceName = res.ResData.SequenceName
-        this.editFrom.RuleOrder = res.ResData.RuleOrder
-        this.editFrom.RuleType = res.ResData.RuleType
-        this.editFrom.RuleValue = res.ResData.RuleValue
-        this.editFrom.PaddingSide = res.ResData.PaddingSide
-        this.editFrom.PaddingWidth = res.ResData.PaddingWidth
-        this.editFrom.PaddingChar = res.ResData.PaddingChar
-        this.editFrom.EnabledMark = res.ResData.EnabledMark + ''
-        this.editFrom.Description = res.ResData.Description
+        this.editFrom = res.ResData
       })
     },
     /**
@@ -389,7 +389,7 @@ export default {
               })
               this.dialogEditFormVisible = false
               this.currentSelected = ''
-              this.$refs['editFrom'].resetFields()
+              this.resetForm('editFrom')
               this.loadTableData()
               this.InitDictItem()
             } else {

@@ -10,7 +10,6 @@
                   <el-form-item>
                     <el-button-group>
                       <el-button type="default" icon="el-icon-refresh" size="small" @click="loadTableData()">刷新</el-button>
-
                       <el-button
                         v-hasPermi="['Items/Add']"
                         type="primary"
@@ -129,7 +128,6 @@
 
           <el-table
             ref="gridtable"
-            v-loading="tableloading"
             :data="tableData"
             style="width: 100%;margin-bottom: 20px;"
             row-key="Id"
@@ -245,8 +243,8 @@
           <el-input v-model.number="editItemsDetailFrom.SortCode" placeholder="请输入排序,默认为99" autocomplete="off" clearable />
         </el-form-item>
         <el-form-item label="属性" :label-width="formLabelWidth" prop="">
-          <el-checkbox v-model="editItemsFrom.EnabledMark">启用</el-checkbox>
-          <el-checkbox v-model="editItemsFrom.IsDefault">默认值</el-checkbox>
+          <el-checkbox v-model="editItemsDetailFrom.EnabledMark">启用</el-checkbox>
+          <el-checkbox v-model="editItemsDetailFrom.IsDefault">默认值</el-checkbox>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -297,12 +295,6 @@ export default {
       selectedItemsOptions: [],
       selectItemss: [],
       editItemsFrom: {
-        FullName: '',
-        EnCode: '',
-        ParentId: '',
-        IsTree: true,
-        EnabledMark: true,
-        SortCode: 99
       },
       rules: {
         FullName: [
@@ -321,15 +313,7 @@ export default {
       editItemsDetailFormTitle: '',
       selectedItemsDetailOptions: [],
       selectItemsDetails: [],
-      editItemsDetailFrom: {
-        ItemName: '',
-        ItemCode: '',
-        ParentId: '',
-        ItemId: '',
-        IsDefault: true,
-        EnabledMark: true,
-        SortCode: 99
-      },
+      editItemsDetailFrom: {},
       rulesfun: {
         ItemName: [
           { required: true, message: '请输入名称', trigger: 'blur' },
@@ -352,7 +336,6 @@ export default {
     this.pagination.currentPage = 1
     this.InitDictItem()
     this.loadTableData()
-    this.loadItemsBtnFunc = JSON.parse(localStorage.getItem('yueboncurrentfuns'))
   },
   methods: {
     /**
@@ -423,10 +406,25 @@ export default {
       }
       this.editItemsDetailFrom.ParentId = this.selectedItemsDetailOptions
     },
+
+    // 表单重置
+    reset() {
+      this.editItemsFrom = {
+        FullName: '',
+        EnCode: '',
+        ParentId: '',
+        IsTree: false,
+        EnabledMark: true,
+        SortCode: 99
+      }
+      this.selectedItemsOptions = ''
+      this.resetForm('editItemsFrom')
+    },
     /**
      * 新增、修改或查看明细信息（绑定显示数据）*
      */
     ShowItemsEditOrViewDialog: function(view) {
+      this.reset()
       if (view !== undefined) {
         if (this.currentItemsId === '') {
           this.$alert('请选择一条数据进行编辑/修改', '提示')
@@ -443,12 +441,7 @@ export default {
     },
     bindItemsEditInfo: function() {
       getItemsDetail(this.currentItemsId).then(res => {
-        this.editItemsFrom.FullName = res.ResData.FullName
-        this.editItemsFrom.EnCode = res.ResData.EnCode
-        this.editItemsFrom.EnabledMark = res.ResData.EnabledMark
-        this.editItemsFrom.SortCode = parseInt(res.ResData.SortCode)
-        this.editItemsFrom.IsTree = res.ResData.IsTree
-        this.editItemsFrom.ParentId = res.ResData.ParentId
+        this.editItemsFrom = res.ResData
         this.selectedItemsOptions = res.ResData.ParentId
       })
     },
@@ -581,10 +574,26 @@ export default {
         })
       }
     },
+
+    // 表单重置
+    resetDetails() {
+      this.editItemsDetailFrom = {
+        ItemName: '',
+        ItemCode: '',
+        ParentId: '',
+        ItemId: '',
+        IsDefault: false,
+        EnabledMark: true,
+        SortCode: 99
+      }
+      this.selectedItemsOptions = ''
+      this.resetForm('editItemsDetailFrom')
+    },
     /**
      * 新增、修改或查看明细信息（绑定显示数据）*
      */
     ShowItemsDetailEditOrViewDialog: function(view) {
+      this.resetDetails()
       if (view !== undefined) {
         if (this.currentSelected.length === 0) {
           this.$alert('请选择一条数据进行编辑/修改', '提示')
@@ -602,17 +611,11 @@ export default {
     },
     bindItemsDetailEditInfo: function() {
       getItemsDetailDetail(this.currentId).then(res => {
-        this.editItemsDetailFrom.ItemName = res.ResData.ItemName
-        this.editItemsDetailFrom.ItemCode = res.ResData.ItemCode
-        this.editItemsDetailFrom.IsDefault = res.ResData.IsDefault
-        this.editItemsDetailFrom.EnabledMark = res.ResData.EnabledMark
-        this.editItemsDetailFrom.SortCode = parseInt(res.ResData.SortCode)
-        this.editItemsDetailFrom.ParentId = res.ResData.ParentId
-        this.selectItemsId = res.ResData.ItemId
-        this.selectedItemsDetailOptions = res.ResData.ParentId
-        this.loadItemsDetailTree()
+        this.editItemsDetailFrom = res.ResData
         this.editItemsDetailFrom.ItemId = res.ResData.ItemId
         this.selectedItemsOptions = res.ResData.ItemId
+        this.selectItemsId = res.ResData.ItemId
+        this.loadItemsDetailTree()
       })
     },
     /**
@@ -645,7 +648,6 @@ export default {
               this.dialogItemsDetailEditFormVisible = false
               this.currentSelected = ''
               this.selectedItemsOptions = ''
-              this.$refs['editItemsDetailFrom'].resetFields()
               this.loadItemsDetailTableData()
               this.InitDictItem()
             } else {
@@ -787,7 +789,7 @@ export default {
     },
 
     /**
-     * 加载页面table数据
+     * 加载数据字典值列表数据
      */
     loadItemsDetailTableData: function() {
       this.tableloading = true

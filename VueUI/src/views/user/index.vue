@@ -98,8 +98,8 @@
         </el-form-item>
         <el-form-item label="性别" :label-width="formLabelWidth" prop="Gender">
           <el-radio-group v-model="editFrom.Gender">
-            <el-radio label="1">男</el-radio>
-            <el-radio label="0">女</el-radio>
+            <el-radio :label="1">男</el-radio>
+            <el-radio :label="0">女</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="手机号" :label-width="formLabelWidth" prop="MobilePhone">
@@ -233,21 +233,7 @@ export default {
       },
       dialogEditFormVisible: false,
       editFormTitle: '',
-      editFrom: {
-        Account: '',
-        RealName: '',
-        NickName: '',
-        Gender: '1',
-        Birthday: '',
-        MobilePhone: '',
-        Email: '',
-        WeChat: '',
-        DepartmentId: '',
-        RoleId: '',
-        IsAdministrator: true,
-        EnabledMark: true,
-        Description: ''
-      },
+      editFrom: {},
       rules: {
         Account: [
           { required: true, message: '请输入账号', trigger: 'blur' },
@@ -273,7 +259,6 @@ export default {
     this.pagination.currentPage = 1
     this.InitDictItem()
     this.loadTableData()
-    this.loadBtnFunc = JSON.parse(localStorage.getItem('yueboncurrentfuns'))
   },
   methods: {
     /**
@@ -315,10 +300,31 @@ export default {
       this.pagination.currentPage = 1
       this.loadTableData()
     },
+    // 表单重置
+    reset() {
+      this.editFrom = {
+        Account: '',
+        RealName: '',
+        NickName: '',
+        Gender: 1,
+        Birthday: '',
+        MobilePhone: '',
+        Email: '',
+        WeChat: '',
+        DepartmentId: '',
+        RoleId: '',
+        IsAdministrator: true,
+        EnabledMark: true,
+        Description: ''
+      }
+      this.selectedOrganizeOptions = ''
+      this.resetForm('editFrom')
+    },
     /**
      * 新增、修改或查看明细信息（绑定显示数据）     *
      */
     ShowEditOrViewDialog: function(view) {
+      this.reset()
       if (view !== undefined) {
         if (this.currentSelected.length > 1 || this.currentSelected.length === 0) {
           this.$alert('请选择一条数据进行编辑/修改', '提示')
@@ -337,19 +343,8 @@ export default {
     },
     bindEditInfo: function() {
       getUserDetail(this.currentId).then(res => {
-        this.editFrom.Account = res.ResData.Account
-        this.editFrom.RealName = res.ResData.RealName
-        this.editFrom.NickName = res.ResData.NickName
-        this.editFrom.Gender = res.ResData.Gender + ''
-        this.editFrom.Birthday = res.ResData.Birthday
-        this.editFrom.MobilePhone = res.ResData.MobilePhone
-        this.editFrom.Email = res.ResData.Email
-        this.editFrom.WeChat = res.ResData.WeChat
-        this.editFrom.DepartmentId = res.ResData.DepartmentId
-        this.editFrom.IsAdministrator = res.ResData.IsAdministrator
-        this.editFrom.EnabledMark = res.ResData.EnabledMark
+        this.editFrom = res.ResData
         this.editFrom.RoleId = res.ResData.RoleId.split(',')
-        this.editFrom.Description = res.ResData.Description
         this.selectedOrganizeOptions = res.ResData.DepartmentId
       })
     },
@@ -390,7 +385,6 @@ export default {
               this.dialogEditFormVisible = false
               this.currentSelected = ''
               this.selectedOrganizeOptions = ''
-              this.$refs['editFrom'].resetFields()
               this.loadTableData()
               this.InitDictItem()
             } else {

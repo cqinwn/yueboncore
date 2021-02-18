@@ -44,7 +44,7 @@ namespace Yuebon.AspNetCore.Mvc
         /// 直接通过appid和加密字符串获取访问令牌接口
         /// </summary>
         /// <param name="granttype">获取access_token填写client_credential</param>
-        /// <param name="appid">用户唯一凭证</param>
+        /// <param name="appid">用户唯一凭证AppId</param>
         /// <param name="secret">用户唯一凭证密钥，即appsecret</param>
         /// <returns></returns>
         public TokenResult GenerateToken(string granttype, string appid, string secret)
@@ -134,8 +134,8 @@ namespace Yuebon.AspNetCore.Mvc
         /// <summary>
         /// 根据用户获取token
         /// </summary>
-        /// <param name="userInfo"></param>
-        /// <param name="appid"></param>
+        /// <param name="userInfo">用户信息</param>
+        /// <param name="appid">应用Id</param>
         /// <returns></returns>
         public TokenResult LoginToken(User userInfo,string appid)
         {

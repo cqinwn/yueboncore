@@ -3,7 +3,7 @@ import defaultSettings from '@/settings'
 
 /**
  * 获取token
- * @param {} query
+ * @param query
  */
 export function getToken(query) {
   var data = {

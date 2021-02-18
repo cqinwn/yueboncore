@@ -31,7 +31,6 @@ namespace Yuebon.Commons.Helpers
             CommonResult result = new CommonResult();
             //从http请求的头里面获取参数
             var request = httpContext.Request;
-            var method = request.Method;
             var appId = ""; //客户端应用唯一标识
             string nonce = "";//随机字符串
             var signature = ""; //参数签名，去除空参数,按字母倒序排序进行Md5签名 为了提高传参过程中，防止参数被恶意修改，在请求接口的时候加上sign可以有效防止参数被篡改
@@ -71,21 +70,29 @@ namespace Yuebon.Commons.Helpers
 
             //根据请求类型拼接参数
             NameValueCollection form = HttpUtility.ParseQueryString(request.QueryString.ToString());
-
             var data = string.Empty;
-            switch (method)
+            if (form.Count > 0)
             {
-                case "POST":
-                    request.EnableBuffering();
-                    Stream stream =request.Body;
-                    StreamReader streamReader = new StreamReader(stream);
-                    data = streamReader.ReadToEnd();
-                    request.Body.Position = 0;
-                    break;
-                case "GET":
-                    data = GetQueryString(form);
-                    break;
+                data = GetQueryString(form);
             }
+            else
+            {
+                request.EnableBuffering();
+                Stream stream = request.Body;
+                StreamReader streamReader = new StreamReader(stream);
+                data = streamReader.ReadToEnd();
+                request.Body.Position = 0;
+            }
+            YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+            object reqtimeStampCache = yuebonCacheHelper.Get("request_" + timeStamp + nonce);
+            if (reqtimeStampCache != null)
+            {
+                result.ErrCode = "40004";
+                result.ErrMsg = "无效签名";
+                return result;
+            }
+            TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
+            yuebonCacheHelper.Add("request_" + timeStamp + nonce, timeStamp + nonce, expiresSliding);
             bool blValidate = Validate(timeStamp.ToString(), nonce, allowCacheApp.AppSecret, data, signature);
             if (!blValidate)
             {
@@ -101,9 +108,9 @@ namespace Yuebon.Commons.Helpers
             }
         }
         /// <summary>
-        /// 查询参数， url上直接接参数时,通过此方法获取
+        /// get请求查询参数， url上直接接参数时,通过此方法获取
         /// </summary>
-        /// <param name="form"></param>
+        /// <param name="form">请求参数</param>
         /// <returns></returns>
         public static string GetQueryString(NameValueCollection form)
         {
@@ -112,8 +119,8 @@ namespace Yuebon.Commons.Helpers
             for (int f = 0; f < form.Count; f++)
             {
                 var key = form.Keys[f];
-                if(key!=null)
-                parames.Add(key, form[key]);
+                if (key != null)
+                    parames.Add(key, form[key]);
             }
             // 第二步：把字典按Key的字母顺序排序
             IDictionary<string, string> sortedParams = new SortedDictionary<string, string>(parames);
@@ -121,18 +128,12 @@ namespace Yuebon.Commons.Helpers
 
             // 第三步：把所有参数名和参数值串在一起
             StringBuilder query = new StringBuilder("");  //签名字符串
-            StringBuilder queryStr = new StringBuilder(""); //url参数
-            if (parames == null || parames.Count == 0)
-                return query.ToString();
+            if (parames == null || parames.Count == 0) return query.ToString();
             while (dem.MoveNext())
             {
                 string key = dem.Current.Key;
                 string value = dem.Current.Value;
-                if (!string.IsNullOrEmpty(key))
-                {
-                    query.Append(key).Append(value);
-                    queryStr.Append("&").Append(key).Append("=").Append(value);
-                }
+                if (!string.IsNullOrEmpty(key)) query.Append(key).Append(value);
             }
             return query.ToString();
         }
@@ -140,7 +141,7 @@ namespace Yuebon.Commons.Helpers
         /// 签名验证
         /// </summary>
         /// <param name="timeStamp">时间戳</param>
-        /// <param name="nonce">随机数</param>
+        /// <param name="nonce">随机字符串</param>
         /// <param name="appSecret">客户端应用密钥</param>
         /// <param name="data">接口参数内容</param>
         /// <param name="signature">当前请求内容的数字签名</param>

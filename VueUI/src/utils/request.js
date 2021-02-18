@@ -23,6 +23,7 @@ service.interceptors.request.use(
     }
     const timeStamp = new Date().getTime().toString().substr(0, 10)
     const nonce = GetRandomString()
+    // 如果接口需要签名, 则通过请求时,headers中传递sign参数true
     const iSSign = config.headers['sign']
     if (iSSign || iSSign === undefined) {
       config.headers['appId'] = store.getters.appId

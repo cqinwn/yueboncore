@@ -26,8 +26,14 @@ const sign = (config, nonce, timestamp, appSecret) => {
   // 签名格式： timestamp + nonce + data(字典升序)+appSecret
   const ret = []
   if (config.params) {
+    const pArray = []
     const data = config.params
     for (const it in data) {
+      pArray.push(it)
+    }
+    // 字典升序
+    const sArray = pArray.sort()
+    for (const it of sArray) {
       let val = data[it]
       if (typeof val === 'object' && //
         (!(val instanceof Array) || (val.length > 0 && (typeof val[0] === 'object')))) {
@@ -35,8 +41,6 @@ const sign = (config, nonce, timestamp, appSecret) => {
       }
       ret.push(it + val)
     }
-    // 字典升序
-    ret.sort()
   } else {
     ret.push(JSON.stringify(config.data))
   }

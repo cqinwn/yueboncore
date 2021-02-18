@@ -94,6 +94,10 @@ export async function login(data) {
     baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
   })
 }
+/**
+ * 获取用户信息
+ * @returns
+ */
 export async function getUserInfo() {
   return http({
     url: 'Login/GetUserInfo',
@@ -102,6 +106,11 @@ export async function getUserInfo() {
     baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
   })
 }
+/**
+ * 保存修改密码
+ * @param data 密码
+ * @returns
+ */
 export function savePassword(data) {
   var query = data
   return http({
@@ -111,6 +120,10 @@ export function savePassword(data) {
     baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
   })
 }
+/**
+ * 清除缓存
+ * @returns
+ */
 export function clearCache() {
   return http({
     url: 'Security/User/ClearCache',
@@ -131,7 +144,7 @@ export function logout() {
 
 /**
    * 系统切换
-   * @param {id集合} ids
+   * @param ids id集合
    */
 export function yuebonConnecSys(data) {
   return http({
@@ -143,7 +156,7 @@ export function yuebonConnecSys(data) {
 }
 /**
    * 系统切换sso
-   * @param {id集合} ids
+   * @param ids id集合
    */
 export function sysConnect(data) {
   return http({
@@ -154,8 +167,10 @@ export function sysConnect(data) {
   })
 }
 /**
-   * 根据字典编码获取字典内容
-   */
+ * 根据字典编码获取字典内容
+ * @param  code 字典编码
+ * @returns
+ */
 export function getListItemDetailsByCode(code) {
   var data = {
     itemCode: code
@@ -168,8 +183,10 @@ export function getListItemDetailsByCode(code) {
   })
 }
 /**
-   * 根据菜单功能编码查询该页面操作功能
-   */
+ * 根据菜单功能编码查询该页面操作功能
+ * @param  code 字典编码
+ * @returns
+ */
 export function getListMeunFuntionBymeunCode(code) {
   return http({
     url: 'Function/GetListByParentEnCode',
@@ -181,7 +198,7 @@ export function getListMeunFuntionBymeunCode(code) {
 
 /**
    * 获取微信小程序二维码
-   * @param {查询条件} data
+   * @param data 查询条件
    */
 export function getWxAppletQrCode(data) {
   return http.request({
@@ -194,12 +211,26 @@ export function getWxAppletQrCode(data) {
 
 /**
    * 获取验证码
-   * @param {查询条件} data
+   * @param data 查询条件
    */
 export function getVerifyCode() {
   return http.request({
     url: 'Captcha',
     method: 'get',
     baseURL: defaultSettings.apiHostUrl// 直接通过覆盖的方式
+  })
+}
+
+/**
+ * 上传文件
+ * @returns
+ */
+export function UploadFile(formData) {
+  return http.request({
+    url: 'Files/Upload',
+    method: 'post',
+    data: formData,
+    baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
+
   })
 }

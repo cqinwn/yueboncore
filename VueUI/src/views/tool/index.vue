@@ -94,7 +94,6 @@
         <el-table-column
           prop="Description"
           label="表描述"
-          sortable
         />
       </el-table>
       <div class="pagination-container">
@@ -187,8 +186,8 @@ export default {
       if (this.searchform.dataBaseName !== '') {
         this.tableloading = true
         var seachdata = {
-          'CurrentPage': this.pagination.currentPage,
-          'length': this.pagination.pagesize,
+          'CurrenetPageIndex': this.pagination.currentPage,
+          'PageSize': this.pagination.pagesize,
           'Keywords': this.searchform.tableName,
           'EnCode': this.searchform.DbName,
           'Order': this.sortableData.order,

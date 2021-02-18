@@ -66,18 +66,18 @@ namespace Yuebon.Commons.CodeGenerator
             return list;
         }
 
-        public List<DbTableInfo> GetTablesWithPage(string strwhere, string fieldNameToSort, bool isDescending, PagerInfo info)
+        public List<DbTableInfo> GetTablesWithPage(string tablename, string fieldNameToSort, bool isDescending, PagerInfo info)
         {
             List<DbTableInfo> list = new List<DbTableInfo>();
             if (dbType == DatabaseType.SqlServer)
             {
                 MssqlExtractor mssqlExtractor = new MssqlExtractor();
-                list = mssqlExtractor.GetAllTables(strwhere, fieldNameToSort, isDescending, info);
+                list = mssqlExtractor.GetAllTables(tablename, fieldNameToSort, isDescending, info);
             }
             else if (dbType == DatabaseType.MySql)
             {
                 MySqlExtractor mysqlExtractor = new MySqlExtractor();
-                list = mysqlExtractor.GetAllTables(this.dbName, strwhere, fieldNameToSort, isDescending, info);
+                list = mysqlExtractor.GetAllTables(this.dbName, tablename, fieldNameToSort, isDescending, info);
             }
             return list;
         }

@@ -43,22 +43,27 @@ namespace Yuebon.Commons.CodeGenerator
         /// 获取数据库的所有表的信息
         /// </summary>
         /// <param name="dbName"></param>
-        /// <param name="strwhere"></param>
+        /// <param name="tablename"></param>
         /// <param name="fieldNameToSort"></param>
         /// <param name="isDescending"></param>
         /// <param name="info"></param>
         /// <returns></returns>
-        public List<DbTableInfo> GetAllTables(string dbName,string strwhere, string fieldNameToSort, bool isDescending, PagerInfo info)
+        public List<DbTableInfo> GetAllTables(string dbName,string tablename, string fieldNameToSort, bool isDescending, PagerInfo info)
         {
-            var sql = string.Format(@"select table_name AS TableName,TABLE_COMMENT as Description from information_schema.tables where table_schema='{0}'", dbName);
+            string where = "1=1";
+            if (!string.IsNullOrEmpty(tablename))
+            {
+                where += " and table_name like '%" + tablename + "%'";
+            }
+            var sql = string.Format(@"select table_name AS TableName,TABLE_COMMENT as Description from information_schema.tables where table_schema='{0}' and {1} ", dbName, where);
 
-            string sqlcount = string.Format(@"select count(*) as Total from({0}) AA where {1}", sql, strwhere);
+            string sqlcount = string.Format(@"select count(*) as Total from({0}) AA ", sql);
 
-            string strOrder = string.Format(" order by {0} {1}", fieldNameToSort, isDescending ? "DESC" : "ASC");
+            string strOrder = string.Format(" order by table_name {0}", isDescending ? "DESC" : "ASC");
             int minRow = info.PageSize * (info.CurrenetPageIndex - 1) + 1;
             int maxRow = info.PageSize * info.CurrenetPageIndex;
 
-            string pagesql = string.Format(@" {0} and  {1} {2} LIMIT {3},{4}", sql, strwhere, strOrder,minRow, maxRow);
+            string pagesql = string.Format(@" {0} and  {1} {2} LIMIT {3},{4}", sql, where, strOrder,minRow-1, maxRow);
             pagesql = sqlcount + ";" + pagesql;
             return GetAllTablesInternal(pagesql, info);
         }

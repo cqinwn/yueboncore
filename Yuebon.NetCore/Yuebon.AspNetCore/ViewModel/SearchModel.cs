@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Yuebon.Commons.Pages;
 
@@ -10,6 +11,7 @@ namespace Yuebon.AspNetCore.ViewModel
     /// 查询条件公共实体类
     /// </summary>
     [Serializable]
+    [DataContract]
     public class SearchModel: PagerInfo
     {
         /// <summary>

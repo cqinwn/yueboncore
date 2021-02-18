@@ -248,16 +248,7 @@ export default {
       },
       dialogEditFormVisible: false,
       editFormTitle: '',
-      editFrom: {
-        AppId: '',
-        AppSecret: '',
-        EncodingAESKey: '',
-        RequestUrl: '',
-        Token: '',
-        IsOpenAEKey: false,
-        EnabledMark: true,
-        Description: ''
-      },
+      editFrom: {},
       rules: {
         AppId: [
           { required: true, message: '请输入应用AppId', trigger: 'blur' },
@@ -311,6 +302,24 @@ export default {
       this.loadTableData()
     },
 
+    // 表单重置
+    reset() {
+      if (!this.currentId) {
+        this.editFrom = {
+          AppId: '',
+          AppSecret: '',
+          EncodingAESKey: '',
+          RequestUrl: '',
+          Token: '',
+          IsOpenAEKey: false,
+          EnabledMark: true,
+          Description: ''
+        }
+        this.resetForm('editFrom')
+      } else {
+        this.bindEditInfo()
+      }
+    },
     /**
      * 新增、修改或查看明细信息（绑定显示数据）     *
      */
@@ -327,19 +336,13 @@ export default {
       } else {
         this.editFormTitle = '新增'
         this.currentId = ''
+        this.reset()
         this.dialogEditFormVisible = true
       }
     },
     bindEditInfo: function() {
       getAPPDetail(this.currentId).then(res => {
-        this.editFrom.AppId = res.ResData.AppId
-        this.editFrom.AppSecret = res.ResData.AppSecret
-        this.editFrom.EncodingAESKey = res.ResData.EncodingAESKey
-        this.editFrom.RequestUrl = res.ResData.RequestUrl
-        this.editFrom.Token = res.ResData.Token
-        this.editFrom.IsOpenAEKey = res.ResData.IsOpenAEKey
-        this.editFrom.EnabledMark = res.ResData.EnabledMark
-        this.editFrom.Description = res.ResData.Description
+        this.editFrom = res.ResData
       })
     },
     /**
@@ -371,7 +374,7 @@ export default {
               })
               this.dialogEditFormVisible = false
               this.currentSelected = ''
-              this.$refs['editFrom'].resetFields()
+              this.reset()
               this.loadTableData()
               this.InitDictItem()
             } else {

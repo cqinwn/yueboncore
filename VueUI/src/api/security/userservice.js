@@ -43,8 +43,9 @@ export function getUserDetail(id) {
    */
 export function getByUserName(userName) {
   return http({
-    url: 'User/GetByUserName?userName=' + userName,
+    url: 'User/GetByUserName',
     method: 'get',
+    params: { userName: userName },
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

@@ -190,26 +190,7 @@ export default {
       tableloading: true,
       dialogEditFormVisible: false,
       editFormTitle: '',
-      editFrom: {
-        FullName: '',
-        EnCode: '',
-        ParentId: '',
-        ShortName: '',
-        CategoryId: '',
-        ManagerId: '',
-        TelePhone: '',
-        MobilePhone: '',
-        WeChat: '',
-        Fax: '',
-        Email: '',
-        Address: '',
-        AllowEdit: true,
-        AllowDelete: true,
-        SortCode: 99,
-        EnabledMark: true,
-        DeleteMark: false,
-        Description: ''
-      },
+      editFrom: {},
       rules: {
         FullName: [
           { required: true, message: '请输入名称', trigger: 'blur' },
@@ -227,7 +208,6 @@ export default {
   created() {
     this.InitDictItem()
     this.loadTableData()
-    this.loadBtnFunc = JSON.parse(localStorage.getItem('yueboncurrentfuns'))
   },
   methods: {
     /**
@@ -256,10 +236,36 @@ export default {
     handleSelectOrganizeChange: function() {
       this.editFrom.ParentId = this.selectedOrganizeOptions
     },
+    // 表单重置
+    reset() {
+      this.editFrom = {
+        FullName: '',
+        EnCode: '',
+        ParentId: '',
+        ShortName: '',
+        CategoryId: '',
+        ManagerId: '',
+        TelePhone: '',
+        MobilePhone: '',
+        WeChat: '',
+        Fax: '',
+        Email: '',
+        Address: '',
+        AllowEdit: true,
+        AllowDelete: true,
+        SortCode: 99,
+        EnabledMark: true,
+        DeleteMark: false,
+        Description: ''
+      }
+      this.selectedOrganizeOptions = ''
+      this.resetForm('editFrom')
+    },
     /**
      * 新增、修改或查看明细信息（绑定显示数据）     *
      */
     ShowEditOrViewDialog: function(view) {
+      this.reset()
       if (view !== undefined) {
         if (this.currentSelected.length > 1 || this.currentSelected.length === 0) {
           this.$alert('请选择一条数据进行编辑/修改', '提示')
@@ -273,28 +279,11 @@ export default {
         this.editFormTitle = '新增'
         this.currentId = ''
         this.dialogEditFormVisible = true
-        this.$refs['editFrom'].resetFields()
       }
     },
     bindEditInfo: function() {
       getOrganizeDetail(this.currentId).then(res => {
-        this.editFrom.FullName = res.ResData.FullName
-        this.editFrom.EnCode = res.ResData.EnCode
-        this.editFrom.ParentId = res.ResData.ParentId
-        this.editFrom.ShortName = res.ResData.ShortName
-        this.editFrom.CategoryId = res.ResData.CategoryId
-        this.editFrom.ManagerId = res.ResData.ManagerId
-        this.editFrom.TelePhone = res.ResData.TelePhone
-        this.editFrom.MobilePhone = res.ResData.MobilePhone
-        this.editFrom.WeChat = res.ResData.WeChat
-        this.editFrom.Fax = res.ResData.Fax
-        this.editFrom.Email = res.ResData.Email
-        this.editFrom.Address = res.ResData.Address
-        this.editFrom.AllowEdit = res.ResData.AllowEdit
-        this.editFrom.AllowDelete = res.ResData.AllowDelete
-        this.editFrom.SortCode = res.ResData.SortCode
-        this.editFrom.EnabledMark = res.ResData.EnabledMark
-        this.editFrom.DeleteMark = res.ResData.DeleteMark
+        this.editFrom = res.ResData
         this.selectedOrganizeOptions = res.ResData.ParentId
       })
     },
@@ -337,7 +326,6 @@ export default {
               })
               this.dialogEditFormVisible = false
               this.currentSelected = ''
-              this.$refs['editFrom'].resetFields()
               this.loadTableData()
               this.InitDictItem()
             } else {

@@ -157,8 +157,8 @@
       <el-form ref="editFrom" :model="editFrom" :rules="rules">
         <el-form-item label="控制策略" :label-width="formLabelWidth" prop="FilterType">
           <el-select v-model="editFrom.FilterType" placeholder="请选择">
-            <el-option label="允许访问" value="true" />
-            <el-option label="拒绝访问" value="false" />
+            <el-option label="允许访问" :value="true" />
+            <el-option label="拒绝访问" :value="false" />
           </el-select>
         </el-form-item>
         <el-form-item label="起始IP" :label-width="formLabelWidth" prop="StartIP">
@@ -177,8 +177,8 @@
         </el-form-item>
         <el-form-item label="是否启用" :label-width="formLabelWidth" prop="EnabledMark">
           <el-radio-group v-model="editFrom.EnabledMark">
-            <el-radio label="true">是</el-radio>
-            <el-radio label="false">否</el-radio>
+            <el-radio :label="true">是</el-radio>
+            <el-radio :label="false">否</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="描述" :label-width="formLabelWidth" prop="Description">
@@ -219,14 +219,7 @@ export default {
       },
       dialogEditFormVisible: false,
       editFormTitle: '',
-      editFrom: {
-        FilterType: '',
-        StartIP: '',
-        EndIP: '',
-        SortCode: 99,
-        EnabledMark: 'true',
-        Description: ''
-      },
+      editFrom: {},
       rules: {
         FilterType: [
           { required: true, message: '请选择控制策略', trigger: 'blur' }
@@ -282,11 +275,24 @@ export default {
       this.pagination.currentPage = 1
       this.loadTableData()
     },
+    // 表单重置
+    reset() {
+      this.editFrom = {
+        FilterType: false,
+        StartIP: '',
+        EndIP: '',
+        SortCode: 99,
+        EnabledMark: true,
+        Description: ''
+      }
+      this.resetForm('editFrom')
+    },
 
     /**
      * 新增、修改或查看明细信息（绑定显示数据）     *
      */
     ShowEditOrViewDialog: function(view) {
+      this.reset()
       if (view !== undefined) {
         if (this.currentSelected.length > 1 || this.currentSelected.length === 0) {
           this.$alert('请选择一条数据进行编辑/修改', '提示')
@@ -304,12 +310,7 @@ export default {
     },
     bindEditInfo: function() {
       getFilterIPDetail(this.currentId).then(res => {
-        this.editFrom.FilterType = res.ResData.FilterType + ''
-        this.editFrom.StartIP = res.ResData.StartIP
-        this.editFrom.EndIP = res.ResData.EndIP
-        this.editFrom.SortCode = res.ResData.SortCode
-        this.editFrom.EnabledMark = res.ResData.EnabledMark + ''
-        this.editFrom.Description = res.ResData.Description
+        this.editFrom = res.ResData
       })
     },
     /**

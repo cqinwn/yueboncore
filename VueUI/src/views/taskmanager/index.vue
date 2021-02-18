@@ -38,6 +38,7 @@
         @select="handleSelectChange"
         @select-all="handleSelectAllChange"
         @sort-change="handleSortChange"
+        @row-click="handleRowClick"
       >
         <el-table-column type="selection" width="30" />
         <el-table-column prop="Id" label="任务ID" sortable="custom" width="150" />
@@ -80,7 +81,7 @@
         <el-pagination background :current-page="pagination.currentPage" :page-sizes="[5, 10, 20, 50, 100, 200, 300, 400]" :page-size="pagination.pagesize" layout="total, sizes, prev, pager, next, jumper" :total="pagination.pageTotal" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
       </div>
     </el-card>
-    <el-dialog ref="dialogEditForm" :title="editFormTitle + '任务'" :visible.sync="dialogEditFormVisible" width="880px">
+    <el-dialog ref="dialogEditForm" :title="editFormTitle + '任务'" :visible.sync="dialogEditFormVisible" width="880px" append-to-body>
       <el-form ref="editFrom" :model="editFrom" :rules="rules">
         <el-row>
           <el-col :span="12">
@@ -106,20 +107,20 @@
           <el-col :span="12">
             <el-form-item label="执行方式" :label-width="formLabelWidth" prop="IsLocal">
               <el-radio-group v-model="editFrom.IsLocal" @change="changeIsLocal">
-                <el-radio label="true">本地任务</el-radio>
-                <el-radio label="false">外部接口任务</el-radio>
+                <el-radio :label="true">本地任务</el-radio>
+                <el-radio :label="false">外部接口任务</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item v-if="isShowSelect === 'true'" label="任务地址" :label-width="formLabelWidth" prop="JobCallAddress">
+            <el-form-item v-if="isShowSelect" label="任务地址" :label-width="formLabelWidth" prop="JobCallAddress">
               <el-select v-model="editFrom.JobCallAddress" clearable filterable placeholder="请输入任务地址" style="width: 300px">
                 <el-option v-for="item in selectLocalTask" :key="item.FullName" :label="item.FullName" :value="item.FullName" />
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item v-if="isShowSelect !== 'true'" label="任务地址" :label-width="formLabelWidth" prop="JobCallAddress">
+            <el-form-item v-if="!isShowSelect" label="任务地址" :label-width="formLabelWidth" prop="JobCallAddress">
               <el-input v-model="editFrom.JobCallAddress" placeholder="请输入外部接口任务地址" autocomplete="off" clearable />
             </el-form-item>
           </el-col>
@@ -134,12 +135,11 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-
             <el-form-item label="邮件通知" :label-width="formLabelWidth" prop="IsSendMail">
               <el-radio-group v-model="editFrom.SendMail">
-                <el-radio label="0">不通知</el-radio>
-                <el-radio label="1">异常通知</el-radio>
-                <el-radio label="2">所有通知</el-radio>
+                <el-radio :label="0">不通知</el-radio>
+                <el-radio :label="1">异常通知</el-radio>
+                <el-radio :label="2">所有通知</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -151,8 +151,8 @@
           <el-col :span="12">
             <el-form-item label="是否启用" :label-width="formLabelWidth" prop="EnabledMark">
               <el-radio-group v-model="editFrom.EnabledMark">
-                <el-radio label="true">是</el-radio>
-                <el-radio label="false">否</el-radio>
+                <el-radio :label="true">是</el-radio>
+                <el-radio :label="false">否</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -210,21 +210,7 @@ export default {
       dialogEditFormVisible: false,
       dialogShowLogFormVisible: false,
       editFormTitle: '',
-      editFrom: {
-        TaskName: '',
-        GroupName: '',
-        Cron: '',
-        JobCallAddress: '',
-        JobCallParams: '',
-        EnabledMark: 'true',
-        IsLocal: 'true',
-        Description: '',
-        SendMail: '0',
-        EmailAddress: '',
-        StartTime: '',
-        EndTime: '',
-        StartEndTime: ''
-      },
+      editFrom: {},
       rules: {
         TaskName: [
           { required: true, message: '请输入任务名称', trigger: 'blur' },
@@ -249,7 +235,7 @@ export default {
       formLabelWidth: '120px',
       currentId: '', // 当前操作对象的ID值，主要用于修改
       currentSelected: [],
-      isShowSelect: 'true',
+      isShowSelect: true,
       activities: [],
       reverse: true
     }
@@ -258,7 +244,6 @@ export default {
     this.pagination.currentPage = 1
     this.InitDictItem()
     this.loadTableData()
-    this.loadBtnFunc = JSON.parse(localStorage.getItem('yueboncurrentfuns'))
   },
   methods: {
     /**
@@ -313,38 +298,52 @@ export default {
         this.activities = res.ResData
       })
     },
+    // 表单重置
+    reset() {
+      if (!this.currentId) {
+        this.editFrom = {
+          TaskName: '',
+          GroupName: '',
+          Cron: '',
+          JobCallAddress: '',
+          JobCallParams: '',
+          EnabledMark: true,
+          IsLocal: true,
+          Description: '',
+          SendMail: 1,
+          EmailAddress: '',
+          StartTime: '',
+          EndTime: '',
+          StartEndTime: ''
+        }
+        this.resetForm('editFrom')
+      } else {
+        this.bindEditInfo()
+      }
+    },
+
     /**
      * 新增、修改或查看明细信息（绑定显示数据）     *
      */
     ShowEditOrViewDialog: function(view) {
       if (view !== undefined) {
-        if (this.currentSelected.length > 1 || this.currentSelected.length === 0) {
+        if (this.currentId.length === 0) {
           this.$alert('请选择一条数据进行编辑/修改', '提示')
         } else {
-          this.currentId = this.currentSelected[0].Id
           this.editFormTitle = '编辑'
           this.dialogEditFormVisible = true
-          this.bindEditInfo()
         }
       } else {
         this.editFormTitle = '新增'
         this.currentId = ''
         this.dialogEditFormVisible = true
       }
+      this.reset()
     },
     bindEditInfo: function() {
       getTaskManagerDetail(this.currentId).then(res => {
-        this.editFrom.TaskName = res.ResData.TaskName
-        this.editFrom.GroupName = res.ResData.GroupName
-        this.editFrom.Cron = res.ResData.Cron
-        this.editFrom.JobCallParams = res.ResData.JobCallParams
-        this.editFrom.EnabledMark = res.ResData.EnabledMark + ''
-        this.editFrom.IsLocal = res.ResData.IsLocal + ''
-        this.editFrom.Description = res.ResData.Description
-        this.editFrom.JobCallAddress = res.ResData.JobCallAddress
-        this.editFrom.SendMail = res.ResData.SendMail + ''
-        this.editFrom.EmailAddress = res.ResData.EmailAddress
-        this.isShowSelect = res.ResData.IsLocal + ''
+        this.editFrom = res.ResData
+        this.isShowSelect = res.ResData.IsLocal
         this.editFrom.StartEndTime = [res.ResData.StartTime, res.ResData.EndTime]
       })
     },
@@ -382,7 +381,7 @@ export default {
               this.dialogEditFormVisible = false
               this.currentSelected = ''
               this.editFrom.StartEndTime = ''
-              this.$refs['editFrom'].resetFields()
+              this.resetForm('editFrom')
               this.loadTableData()
               this.InitDictItem()
             } else {
@@ -537,12 +536,19 @@ export default {
      */
     handleSelectChange: function(selection, row) {
       this.currentSelected = selection
+      this.currentId = row.Id
     },
     /**
      * 当用户手动勾选全选checkbox事件
      */
     handleSelectAllChange: function(selection) {
       this.currentSelected = selection
+    },
+    /**
+     * 单击行
+     */
+    handleRowClick: function(row, column, event) {
+      this.currentId = row.Id
     },
     /**
      * 选择每页显示数量

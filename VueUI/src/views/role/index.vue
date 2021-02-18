@@ -148,8 +148,8 @@
         </el-form-item>
         <el-form-item label="是否启用" :label-width="formLabelWidth" prop="EnabledMark">
           <el-radio-group v-model="editFrom.EnabledMark">
-            <el-radio label="true">是</el-radio>
-            <el-radio label="false">否</el-radio>
+            <el-radio :label="true">是</el-radio>
+            <el-radio :label="false">否</el-radio>
           </el-radio-group>
         </el-form-item>
       </el-form>
@@ -223,15 +223,7 @@ export default {
       },
       dialogEditFormVisible: false,
       editFormTitle: '',
-      editFrom: {
-        FullName: '',
-        EnCode: '',
-        RoleType: '',
-        OrganizeId: '',
-        SortCode: 99,
-        EnabledMark: 'true',
-        Description: ''
-      },
+      editFrom: {},
       rules: {
         FullName: [
           { required: true, message: '请输入角色名称', trigger: 'blur' },
@@ -326,10 +318,25 @@ export default {
       console.log(this.selectedOrganizeOptions)
       this.editFrom.OrganizeId = this.selectedOrganizeOptions
     },
+    // 表单重置
+    reset() {
+      this.editFrom = {
+        FullName: '',
+        EnCode: '',
+        RoleType: '',
+        OrganizeId: '',
+        SortCode: 99,
+        EnabledMark: true,
+        Description: ''
+      }
+      this.selectedOrganizeOptions = ''
+      this.resetForm('editFrom')
+    },
     /**
      * 新增、修改或查看明细信息（绑定显示数据）     *
      */
     ShowEditOrViewDialog: function(view) {
+      this.reset()
       if (view !== undefined) {
         if (this.currentSelected.length > 1 || this.currentSelected.length === 0) {
           this.$alert('请选择一条数据进行编辑/修改', '提示')
@@ -347,13 +354,7 @@ export default {
     },
     bindEditInfo: function() {
       getRoleDetail(this.currentId).then(res => {
-        this.editFrom.FullName = res.ResData.FullName
-        this.editFrom.EnCode = res.ResData.EnCode
-        this.editFrom.OrganizeId = res.ResData.OrganizeId
-        this.editFrom.SortCode = res.ResData.SortCode
-        this.editFrom.EnabledMark = res.ResData.EnabledMark + ''
-        this.editFrom.RoleType = res.ResData.Type
-        this.editFrom.Description = res.ResData.Description
+        this.editFrom = res.ResData
         this.selectedOrganizeOptions = res.ResData.OrganizeId
       })
     },
@@ -392,7 +393,6 @@ export default {
               })
               this.dialogEditFormVisible = false
               this.currentSelected = ''
-              this.$refs['editFrom'].resetFields()
               this.loadTableData()
               this.InitDictItem()
             } else {

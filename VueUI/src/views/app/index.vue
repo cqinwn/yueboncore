@@ -331,14 +331,13 @@ export default {
           this.currentId = this.currentSelected[0].Id
           this.editFormTitle = '编辑'
           this.dialogEditFormVisible = true
-          this.bindEditInfo()
         }
       } else {
         this.editFormTitle = '新增'
         this.currentId = ''
-        this.reset()
         this.dialogEditFormVisible = true
       }
+      this.reset()
     },
     bindEditInfo: function() {
       getAPPDetail(this.currentId).then(res => {

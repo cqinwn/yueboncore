@@ -59,13 +59,7 @@
         />
       </div>
     </el-card>
-    <el-dialog
-      ref="dialogEditForm"
-      v-el-drag-dialog
-      :title="editFormTitle+'{ModelTypeDesc}'"
-      :visible.sync="dialogEditFormVisible"
-      width="660px"
-    >
+    <el-dialog ref="dialogEditForm" v-el-drag-dialog :title="editFormTitle+'{ModelTypeDesc}'" :visible.sync="dialogEditFormVisible"  width="660px" append-to-body>
       <el-form ref="editFrom" :model="editFrom" :rules="rules">
         {VueViewFromContent}
       </el-form>
@@ -136,7 +130,6 @@ export default {
       this.editFrom = {
         {VueViewEditFromContent}        
         //需个性化处理内容
-
       }
       this.resetForm('editFrom')
     },
@@ -216,7 +209,6 @@ export default {
               })
               this.dialogEditFormVisible = false
               this.currentSelected = ''
-              this.$refs['editFrom'].resetFields()
               this.loadTableData()
               this.InitDictItem()
             } else {

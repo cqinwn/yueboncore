@@ -80,7 +80,7 @@ namespace Yuebon.Commons.Helpers
                 request.EnableBuffering();
                 Stream stream = request.Body;
                 StreamReader streamReader = new StreamReader(stream);
-                data = streamReader.ReadToEnd();
+                data = streamReader.ReadToEndAsync().Result;
                 request.Body.Position = 0;
             }
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();

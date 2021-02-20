@@ -55,7 +55,7 @@ namespace Yuebon.WebApi
         /// <summary>
         /// 
         /// </summary>
-        public static ILoggerRepository loggerRepository { get; set; }
+        public static ILoggerRepository LoggerRepository { get; set; }
         string targetPath = string.Empty;
         IMvcBuilder mvcBuilder;
         /// <summary>
@@ -71,8 +71,8 @@ namespace Yuebon.WebApi
         {
             Configuration = configuration;
             //初始化log4net
-            loggerRepository = LogManager.CreateRepository("NETCoreRepository");
-            Log4NetHelper.SetConfig(loggerRepository, "log4net.config");
+            LoggerRepository = LogManager.CreateRepository("NETCoreRepository");
+            Log4NetHelper.SetConfig(LoggerRepository, "log4net.config");
         }
 
         /// <summary>

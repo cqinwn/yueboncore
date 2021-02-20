@@ -13,6 +13,7 @@ using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Pages;
 using Yuebon.Commons.Dtos;
 using Yuebon.Commons.Mapping;
+using Yuebon.Commons.Log;
 
 namespace Yuebon.Security.Services
 {
@@ -59,7 +60,7 @@ namespace Yuebon.Security.Services
             if (sequence != null)
             {
                 IEnumerable<SequenceRule> list = _repositoryRule.GetListWhere("SequenceName='" + sequenceName + "' order by RuleOrder asc");
-                if (list.Count() > 0)
+                if (list.Any())
                 {
                     int delimiterNum = 0;
                     foreach (SequenceRule item in list)
@@ -152,7 +153,7 @@ namespace Yuebon.Security.Services
             if (sequence != null)
             {
                 IEnumerable<SequenceRule> list = _repositoryRule.GetListWhere("SequenceName='" + sequenceName + "' order by RuleOrder asc");
-                if (list.Count() > 0)
+                if (list.Any())
                 {
                     int delimiterNum = 0;
                     foreach (SequenceRule item in list)
@@ -231,7 +232,7 @@ namespace Yuebon.Security.Services
         /// <param name="seq"></param>
         /// <param name="seqRule"></param>
         /// <returns></returns>
-        private int CurrentReset(Sequence seq, SequenceRule seqRule)
+        private static int CurrentReset(Sequence seq, SequenceRule seqRule)
         {
             int newNo = 0, ruleNo = 0;
             try
@@ -241,6 +242,7 @@ namespace Yuebon.Security.Services
             catch (Exception ex)
             {
                 newNo = 1;
+                Log4NetHelper.Error(ex.Message, ex);
             }
 
             switch (seq.SequenceReset)
@@ -298,7 +300,7 @@ namespace Yuebon.Security.Services
         /// <param name="seqRule"></param>
         /// <param name="code"></param>
         /// <returns></returns>
-        private string NumberingSeqRule(SequenceRule seqRule, int code)
+        private static string NumberingSeqRule(SequenceRule seqRule, int code)
         {
             string str = "";
             if (seqRule.PaddingSide == "Left")

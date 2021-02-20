@@ -24,7 +24,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="_iService"></param
+        /// <param name="_iService"></param>
         /// <param name="_organizeService"></param>
         public RoleController(IRoleService _iService, IOrganizeService _organizeService) : base(_iService)
         {

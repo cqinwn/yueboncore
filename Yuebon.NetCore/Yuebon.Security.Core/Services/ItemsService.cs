@@ -28,9 +28,8 @@ namespace Yuebon.Security.Services
         /// <returns></returns>
         public async Task<List<ItemsOutputDto>> GetAllItemsTreeTable()
         {
-            string where = "1=1";
             List<ItemsOutputDto> reslist = new List<ItemsOutputDto>();
-            IEnumerable<Items> elist = _repository.GetListWhere("1=1");
+            IEnumerable<Items> elist =await _repository.GetListWhereAsync("1=1");
             List<Items> list = elist.OrderBy(t => t.SortCode).ToList();
             List<Items> oneMenuList = list.FindAll(t => t.ParentId == "");
             foreach (Items item in oneMenuList)

@@ -484,8 +484,8 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
         public async Task<IActionResult> ContentPlayBillQrCode(ContentPlayBillModel info)
         {
             CommonResult result = new CommonResult();
-                YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                MemoryStream ms = new MemoryStream();
+            YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+            MemoryStream ms = new MemoryStream();
             try
             {
 

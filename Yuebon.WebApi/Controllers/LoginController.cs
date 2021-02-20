@@ -444,7 +444,7 @@ namespace Yuebon.WebApi.Controllers
         [HttpGet("SysConnect")]
         [AllowAnonymous]
         [NoPermissionRequired]
-        public async Task<IActionResult> SysConnect(string openmf, string appId, string systemCode)
+        public IActionResult SysConnect(string openmf, string appId, string systemCode)
         {
             CommonResult result = new CommonResult();
             RemoteIpParser remoteIpParser = new RemoteIpParser();

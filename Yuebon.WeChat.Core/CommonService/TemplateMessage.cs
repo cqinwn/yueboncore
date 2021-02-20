@@ -51,10 +51,10 @@ namespace Yuebon.WeChat.CommonService
             var data = new WxOpenTemplateMessage_PaySuccessNotice(title, SystemTime.Now, productName, orderNumber, price,
                             "400-031-8816", "https://sdk.senparc.weixin.com");
 
-            await Senparc.Weixin.WxOpen.AdvancedAPIs
-                 .Template.TemplateApi
-                 .SendTemplateMessageAsync(
-                     wxOpenAppId, openId, data.TemplateId, data, formId, "pages/index/index", "图书", "#fff00");
+            //await Senparc.Weixin.WxOpen.AdvancedAPIs
+            //     .Template.TemplateApi
+            //     .SendTemplateMessageAsync(
+            //         wxOpenAppId, openId, data.TemplateId, data, formId, "pages/index/index", "图书", "#fff00");
 
             return sessionBag;
 

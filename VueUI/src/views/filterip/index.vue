@@ -330,7 +330,7 @@ export default {
           }
           var url = 'FilterIP/Insert'
           if (this.currentId !== '') {
-            url = 'FilterIP/Update?id=' + this.currentId
+            url = 'FilterIP/Update'
           }
           saveFilterIP(data, url).then(res => {
             if (res.Success) {

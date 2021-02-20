@@ -99,15 +99,14 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// 异步更新数据
         /// </summary>
         /// <param name="tinfo"></param>
-        /// <param name="id">主键Id</param>
         /// <returns></returns>
         [HttpPost("Update")]
         [YuebonAuthorize("Edit")]
-        public override async Task<IActionResult> UpdateAsync(TaskManagerInputDto tinfo, string id)
+        public override async Task<IActionResult> UpdateAsync(TaskManagerInputDto tinfo)
         {
             CommonResult result = new CommonResult();
 
-            TaskManager info = iService.Get(id);
+            TaskManager info = iService.Get(tinfo.Id);
             info.TaskName = tinfo.TaskName;
             info.GroupName = tinfo.GroupName;
             info.JobCallAddress = tinfo.JobCallAddress;
@@ -123,7 +122,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
 
 
             OnBeforeUpdate(info);
-            bool bl = await iService.UpdateAsync(info, id).ConfigureAwait(false);
+            bool bl = await iService.UpdateAsync(info, tinfo.Id).ConfigureAwait(false);
             if (bl)
             {
                 result.ErrCode = ErrCode.successCode;
@@ -251,7 +250,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 foreach (var item in jobsId)
                 {
                     if (string.IsNullOrEmpty(item.ToString())) continue;
-                    TaskManager job = iService.Get(item);
+                    TaskManager job = iService.Get(item.ToString());
                     if (job == null)
                     {
                         throw new Exception("任务不存在");

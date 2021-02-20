@@ -214,16 +214,15 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// 异步更新数据
         /// </summary>
         /// <param name="tinfo"></param>
-        /// <param name="id">主键Id</param>
         /// <returns></returns>
         [HttpPost("Update")]
         [YuebonAuthorize("Edit")]
-        public override async Task<IActionResult> UpdateAsync(UserInputDto tinfo, string id)
+        public override async Task<IActionResult> UpdateAsync(UserInputDto tinfo)
         {
             CommonResult result = new CommonResult();
             if (!string.IsNullOrEmpty(tinfo.Account))
             {
-                string where = string.Format(" Account='{0}'  and id!='{1}' ", tinfo.Account, id);
+                string where = string.Format(" Account='{0}'  and id!='{1}' ", tinfo.Account, tinfo.Id);
                 User user = iService.GetWhere(where);
                 if (user != null)
                 {
@@ -236,7 +235,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 result.ErrMsg = "登录账号不能为空";
                 return ToJsonContent(result);
             }
-            User info = iService.Get(id);
+            User info = iService.Get(tinfo.Id);
             info.Account = tinfo.Account;
             info.HeadIcon = tinfo.HeadIcon;
             info.RealName = tinfo.RealName;
@@ -253,7 +252,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.Description = tinfo.Description;
 
             OnBeforeUpdate(info);
-            bool bl = await iService.UpdateAsync(info, id).ConfigureAwait(false);
+            bool bl = await iService.UpdateAsync(info, tinfo.Id).ConfigureAwait(false);
             if (bl)
             {
                 result.ErrCode = ErrCode.successCode;

@@ -104,15 +104,14 @@ namespace Yuebon.WebApi.Areas.CMS.Controllers
         /// 异步更新数据
         /// </summary>
         /// <param name="tinfo"></param>
-        /// <param name="id">主键Id</param>
         /// <returns></returns>
         [HttpPost("Update")]
         [YuebonAuthorize("Edit")]
-        public override async Task<IActionResult> UpdateAsync(ArticlecategoryInputDto tinfo, string id)
+        public override async Task<IActionResult> UpdateAsync(ArticlecategoryInputDto tinfo)
         {
             CommonResult result = new CommonResult();
 
-            Articlecategory info = iService.Get(id);
+            Articlecategory info = iService.Get(tinfo.Id);
             info.ParentId = tinfo.ParentId;
             info.Title = tinfo.Title;
             info.EnabledMark = tinfo.EnabledMark;
@@ -120,7 +119,7 @@ namespace Yuebon.WebApi.Areas.CMS.Controllers
             info.Description = tinfo.Description;
 
             OnBeforeUpdate(info);
-            bool bl = await iService.UpdateAsync(info, id).ConfigureAwait(false);
+            bool bl = await iService.UpdateAsync(info, tinfo.Id).ConfigureAwait(false);
             if (bl)
             {
                 result.ErrCode = ErrCode.successCode;

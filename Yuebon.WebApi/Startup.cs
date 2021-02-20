@@ -32,21 +32,17 @@ using System.Text.Unicode;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.Mvc.Filter;
-using Yuebon.Commons;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Core.App;
-using Yuebon.Commons.Core.DataManager;
 using Yuebon.Commons.DbContextCore;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IDbContext;
-using Yuebon.Commons.IoC;
 using Yuebon.Commons.Linq;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Module;
 using Yuebon.Commons.Options;
 using Yuebon.Quartz.Jobs;
-using Yuebon.WebApi.Controllers;
 
 namespace Yuebon.WebApi
 {

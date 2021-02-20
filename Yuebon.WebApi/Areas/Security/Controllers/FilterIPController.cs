@@ -77,15 +77,14 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// 异步更新数据
         /// </summary>
         /// <param name="tinfo"></param>
-        /// <param name="id">主键Id</param>
         /// <returns></returns>
         [HttpPost("Update")]
         [YuebonAuthorize("Edit")]
-        public override async Task<IActionResult> UpdateAsync(FilterIPInputDto tinfo, string id)
+        public override async Task<IActionResult> UpdateAsync(FilterIPInputDto tinfo)
         {
             CommonResult result = new CommonResult();
 
-            FilterIP info = iService.Get(id);
+            FilterIP info = iService.Get(tinfo.Id);
             info.FilterType = tinfo.FilterType;
             info.EndIP = tinfo.EndIP;
             info.StartIP = tinfo.StartIP;
@@ -94,7 +93,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.Description = tinfo.Description;
 
             OnBeforeUpdate(info);
-            bool bl = await iService.UpdateAsync(info, id).ConfigureAwait(true);
+            bool bl = await iService.UpdateAsync(info, tinfo.Id).ConfigureAwait(true);
             if (bl)
             {
                 result.ErrCode = ErrCode.successCode;

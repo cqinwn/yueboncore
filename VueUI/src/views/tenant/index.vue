@@ -238,7 +238,7 @@ export default {
 
           var url = 'Tenants/Tenant/Insert'
           if (this.currentId !== '') {
-            url = 'Tenants/Tenant/Update?id=' + this.currentId
+            url = 'Tenants/Tenant/Update'
           }
           saveTenant(data, url).then((res) => {
             if (res.Success) {

@@ -363,7 +363,7 @@ export default {
           }
           var url = 'APP/Insert'
           if (this.currentId !== '') {
-            url = 'APP/Update?id=' + this.currentId
+            url = 'APP/Update'
           }
           saveAPP(data, url).then(res => {
             if (res.Success) {

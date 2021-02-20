@@ -234,6 +234,96 @@ namespace Yuebon.Messages.Application
 
 
         /// <summary>
+        /// 阅读浏览提醒
+        /// </summary>
+        /// <param name="userId">接收者（用户）的 userId</param>
+        /// <param name="phone">接收者（用户）的电话号码</param>
+        /// <param name="title">更新内容,20个以内字符</param>
+        /// <param name="remark">备注,20个以内字符</param>
+        /// <param name="smsMessage">短信消息,可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为 "{\"name\":\"Tom\"， \"code\":\"123\"}"</param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        public static CommonResult SendReadNotice(string userId, string phone, string title, string remark,string smsMessage, string page = "")
+        {
+            CommonResult result = new CommonResult();
+            User user = new UserApp().GetUserById(userId);
+            if (user != null && !string.IsNullOrEmpty(title))
+            {
+                MessageTemplates template = messageTemplatesService.GetByMessageType("ReadNotice");
+
+                #region 发送小程序模板消息
+                if (!string.IsNullOrEmpty(template.InnerMessageSubject) && !string.IsNullOrEmpty(template.InnerMessageBody) && template.SendInnerMessage)
+                {
+                    MemberMessageBox memberMessageBox = new MemberMessageBox();
+                    memberMessageBox.Id = GuidUtils.CreateNo();
+                    memberMessageBox.IsRead = false;
+                    memberMessageBox.Sernder = "浏览阅读";
+                    memberMessageBox.Accepter = userId;
+                    memberMessageBox.MsgContent = string.Format(template.InnerMessageBody, title, remark);
+                    memberMessageBoxService.Insert(memberMessageBox);
+                }
+
+                if (!string.IsNullOrEmpty(template.WxAppletSubscribeTemplateId) && template.UseInWxApplet)
+                {
+                    MemberSubscribeMsg memberSubscribeMsg = memberSubscribeMsgService.GetByMessageTemplateIdAndUser(template.Id, userId, "WxApplet");
+                    if (memberSubscribeMsg != null)
+                    {
+                        if (memberSubscribeMsg.SubscribeStatus == "accept")
+                        {
+                            UserOpenIds userOpenIds = new UserApp().GetUserOpenIdById(userId, "yuebon.openid.wxapplet");
+                            if (userOpenIds != null)
+                            {
+                                WxJsonResult wxJsonResult = WxAppletSubscribeMessage.SendNewsMorningNotice(userOpenIds.OpenId, template.WxAppletSubscribeTemplateId, title, remark, page);
+                                if (wxJsonResult.errcode.ToString() == "请求成功" || wxJsonResult.errcode.ToString() == "用户拒绝接受消息")
+                                {
+                                    result.ErrCode = "0";
+                                    result.ErrMsg = wxJsonResult.errcode.ToString();
+                                }
+                                else
+                                {
+                                    result.ErrCode = "0";
+                                    result.ErrMsg = wxJsonResult.errcode.ToString() + wxJsonResult.ToJson();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            result.ErrCode = "0";
+                            result.ErrMsg = "用户拒绝";
+                        }
+                    }
+                    else
+                    {
+                        result.ErrCode = "0";
+                        result.ErrMsg = "用户未订阅";
+                    }
+                }
+                else
+                {
+                    result.ErrCode = "0";
+                    result.ErrMsg = "用户拒绝";
+                }
+                #endregion
+
+                #region 发送SMS短信
+                if (!string.IsNullOrEmpty(template.SMSTemplateCode) && template.SendSMS)
+                {
+                    AliYunSMS aliYunSMS = new AliYunSMS();
+                    string outmsg = string.Empty;
+                    bool sendRs = aliYunSMS.Send(phone, template.SMSTemplateCode, smsMessage, out outmsg);
+                    if (sendRs)
+                    {
+                        result.ErrCode = "0";
+                        result.Success = true;
+                        result.ErrMsg = "短信发送成功";
+                    }
+                }
+                #endregion
+            }
+            return result;
+        }
+
+        /// <summary>
         /// 拨打电话通知
         /// </summary>
         /// <param name="userId">接收者（用户）的 userId</param>
@@ -249,6 +339,7 @@ namespace Yuebon.Messages.Application
                 MessageTemplates template = messageTemplatesService.GetByMessageType("MakePhoneCallNotice");
                 if (template != null)
                 {
+                    #region 发送微信小程序模板消息
                     if (!string.IsNullOrEmpty(template.WxAppletSubscribeTemplateId) && template.UseInWxApplet)
                     {
                         MemberSubscribeMsg memberSubscribeMsg = memberSubscribeMsgService.GetByMessageTemplateIdAndUser(template.Id, userId, "WxApplet");
@@ -269,6 +360,9 @@ namespace Yuebon.Messages.Application
                         result.Success = true;
                         result.ErrCode = "用户拒绝或未订阅";
                     }
+                    #endregion
+
+                    #region 发送SMS短信
                     if (!string.IsNullOrEmpty(template.SMSTemplateCode) && template.SendSMS)
                     {
                         AliYunSMS aliYunSMS = new AliYunSMS();
@@ -281,6 +375,7 @@ namespace Yuebon.Messages.Application
                             result.ErrMsg = "短信发送成功";
                         }
                     }
+                    #endregion
                 }
             }
             return result;

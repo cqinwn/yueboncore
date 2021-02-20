@@ -66,16 +66,18 @@ const actions = {
   getUserInfo({ commit }) {
     return new Promise((resolve, reject) => {
       getUserInfo().then(response => {
-        const data = response.ResData
-        const avatar = data.HeadIcon === '' ? require('@/assets/images/profile.jpg') : process.env.VUE_APP_BASE_API + data.HeadIcon
-        commit('SET_TEMPNAME', data.Account)
-        commit('SET_AVATAR', avatar)
-        commit('SET_ROLES', data.Role)
-        commit('SET_SUBSYSTEM', data.SubSystemList)
-        commit('SET_ACTIVESYSTEMNAME', data.ActiveSystem)
-        commit('SET_MENUS', data.MenusRouter)
-        commit('SET_NAME', data.Account)
-        commit('SET_PERMISSIONS', data.Modules)
+        if (response.Success) {
+          const data = response.ResData
+          const avatar = data.HeadIcon === '' ? require('@/assets/images/profile.jpg') : process.env.VUE_APP_BASE_API + data.HeadIcon
+          commit('SET_TEMPNAME', data.Account)
+          commit('SET_AVATAR', avatar)
+          commit('SET_ROLES', data.Role)
+          commit('SET_SUBSYSTEM', data.SubSystemList)
+          commit('SET_ACTIVESYSTEMNAME', data.ActiveSystem)
+          commit('SET_MENUS', data.MenusRouter)
+          commit('SET_NAME', data.Account)
+          commit('SET_PERMISSIONS', data.Modules)
+        }
         resolve(response)
       }).catch(error => {
         reject(error)

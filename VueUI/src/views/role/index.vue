@@ -383,7 +383,7 @@ export default {
           }
           var url = 'Role/Insert'
           if (this.currentId !== '') {
-            url = 'Role/Update?id=' + this.currentId
+            url = 'Role/Update'
           }
           saveRole(data, url).then(res => {
             if (res.Success) {

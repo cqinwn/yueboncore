@@ -240,15 +240,14 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// 异步更新数据
         /// </summary>
         /// <param name="tinfo"></param>
-        /// <param name="id">主键Id</param>
         /// <returns></returns>
         [HttpPost("Update")]
         [YuebonAuthorize("Edit")]
-        public override async Task<IActionResult> UpdateAsync(MenuInputDto tinfo, string id)
+        public override async Task<IActionResult> UpdateAsync(MenuInputDto tinfo)
         {
             CommonResult result = new CommonResult();
 
-            Menu info = iService.Get(id);
+            Menu info = iService.Get(tinfo.Id);
             info.FullName = tinfo.FullName;
             info.EnCode = tinfo.EnCode;
             info.SystemTypeId = tinfo.SystemTypeId;
@@ -275,7 +274,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
 
 
             OnBeforeUpdate(info);
-            bool bl = await iService.UpdateAsync(info, id).ConfigureAwait(false);
+            bool bl = await iService.UpdateAsync(info, tinfo.Id).ConfigureAwait(false);
             if (bl)
             {
                 result.ErrCode = ErrCode.successCode;

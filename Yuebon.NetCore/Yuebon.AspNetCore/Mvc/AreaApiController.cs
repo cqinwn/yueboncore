@@ -127,21 +127,18 @@ namespace Yuebon.AspNetCore.Controllers
             return ToJsonContent(result);
         }
 
-
         /// <summary>
         /// 异步更新数据，需要在业务模块控制器重写该方法,否则更新无效
         /// </summary>
-        /// <param name="tinfo"></param>
-        /// <param name="id">主键Id</param>
+        /// <param name="inInfo"></param>
         /// <returns></returns>
         [HttpPost("Update")]
         [YuebonAuthorize("Edit")]
-        public virtual async Task<IActionResult> UpdateAsync(TIDto tinfo, TKey id)
+        public virtual async Task<IActionResult> UpdateAsync(TIDto inInfo)
         {
             CommonResult result = new CommonResult();
             return ToJsonContent(result);
         }
-
         /// <summary>
         /// 物理删除
         /// </summary>

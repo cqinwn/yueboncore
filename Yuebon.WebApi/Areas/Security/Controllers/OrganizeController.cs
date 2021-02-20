@@ -100,15 +100,14 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// 异步更新数据
         /// </summary>
         /// <param name="tinfo"></param>
-        /// <param name="id">主键Id</param>
         /// <returns></returns>
         [HttpPost("Update")]
         [YuebonAuthorize("Edit")]
-        public override async Task<IActionResult> UpdateAsync(OrganizeInputDto tinfo, string id)
+        public override async Task<IActionResult> UpdateAsync(OrganizeInputDto tinfo)
         {
             CommonResult result = new CommonResult();
 
-            Organize info = iService.Get(id);
+            Organize info = iService.Get(tinfo.Id);
             info.ParentId = tinfo.ParentId;
             info.FullName = tinfo.FullName;
             info.EnCode = tinfo.EnCode;
@@ -130,7 +129,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.Description = tinfo.Description;
 
             OnBeforeUpdate(info);
-            bool bl = await iService.UpdateAsync(info, id).ConfigureAwait(false);
+            bool bl = await iService.UpdateAsync(info, tinfo.Id).ConfigureAwait(false);
             if (bl)
             {
                 result.ErrCode = ErrCode.successCode;

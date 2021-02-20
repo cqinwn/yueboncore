@@ -199,7 +199,7 @@ export default {
           
           var url = '{ModelTypeName}/Insert'
           if (this.currentId !== '') {
-            url = '{ModelTypeName}/Update?id=' + this.currentId
+            url = '{ModelTypeName}/Update'
           }
           save{ModelTypeName}(data,url).then(res => {
             if (res.Success) {

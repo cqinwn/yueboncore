@@ -164,20 +164,19 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// 异步更新数据
         /// </summary>
         /// <param name="tinfo"></param>
-        /// <param name="id">主键Id</param>
         /// <returns></returns>
         [HttpPost("Update")]
         [YuebonAuthorize("Edit")]
-        public override async Task<IActionResult> UpdateAsync(ItemsInputDto tinfo, string id)
+        public override async Task<IActionResult> UpdateAsync(ItemsInputDto tinfo)
         {
             CommonResult result = new CommonResult();
-            Items isExsit = await iService.GetByEnCodAsynce(tinfo.EnCode,id);
+            Items isExsit = await iService.GetByEnCodAsynce(tinfo.EnCode, tinfo.Id);
             if (isExsit != null)
             {
                 result.ErrMsg = "字典分类编码不能重复";
                 return ToJsonContent(result);
             }
-            Items info = iService.Get(id);
+            Items info = iService.Get(tinfo.Id);
             info.FullName = tinfo.FullName;
             info.EnCode = tinfo.EnCode;
             info.ParentId = tinfo.ParentId;
@@ -188,7 +187,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
 
 
             OnBeforeUpdate(info);
-            bool bl = await iService.UpdateAsync(info, id).ConfigureAwait(false);
+            bool bl = await iService.UpdateAsync(info, tinfo.Id).ConfigureAwait(false);
             if (bl)
             {
                 result.ErrCode = ErrCode.successCode;

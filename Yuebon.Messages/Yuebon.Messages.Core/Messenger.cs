@@ -250,6 +250,8 @@ namespace Yuebon.Messages.Application
             if (user != null && !string.IsNullOrEmpty(title))
             {
                 MessageTemplates template = messageTemplatesService.GetByMessageType("ReadNotice");
+
+                #region 发送小程序模板消息
                 if (!string.IsNullOrEmpty(template.InnerMessageSubject) && !string.IsNullOrEmpty(template.InnerMessageBody) && template.SendInnerMessage)
                 {
                     MemberMessageBox memberMessageBox = new MemberMessageBox();
@@ -289,19 +291,6 @@ namespace Yuebon.Messages.Application
                             result.ErrCode = "0";
                             result.ErrMsg = "用户拒绝";
                         }
-
-                        if (!string.IsNullOrEmpty(template.SMSTemplateCode) && template.SendSMS)
-                        {
-                            AliYunSMS aliYunSMS = new AliYunSMS();
-                            string outmsg = string.Empty;
-                            bool sendRs = aliYunSMS.Send(phone, template.SMSTemplateCode, smsMessage, out outmsg);
-                            if (sendRs)
-                            {
-                                result.ErrCode = "0";
-                                result.Success = true;
-                                result.ErrMsg = "短信发送成功";
-                            }
-                        }
                     }
                     else
                     {
@@ -314,7 +303,22 @@ namespace Yuebon.Messages.Application
                     result.ErrCode = "0";
                     result.ErrMsg = "用户拒绝";
                 }
+                #endregion
 
+                #region 发送SMS短信
+                if (!string.IsNullOrEmpty(template.SMSTemplateCode) && template.SendSMS)
+                {
+                    AliYunSMS aliYunSMS = new AliYunSMS();
+                    string outmsg = string.Empty;
+                    bool sendRs = aliYunSMS.Send(phone, template.SMSTemplateCode, smsMessage, out outmsg);
+                    if (sendRs)
+                    {
+                        result.ErrCode = "0";
+                        result.Success = true;
+                        result.ErrMsg = "短信发送成功";
+                    }
+                }
+                #endregion
             }
             return result;
         }
@@ -335,6 +339,7 @@ namespace Yuebon.Messages.Application
                 MessageTemplates template = messageTemplatesService.GetByMessageType("MakePhoneCallNotice");
                 if (template != null)
                 {
+                    #region 发送微信小程序模板消息
                     if (!string.IsNullOrEmpty(template.WxAppletSubscribeTemplateId) && template.UseInWxApplet)
                     {
                         MemberSubscribeMsg memberSubscribeMsg = memberSubscribeMsgService.GetByMessageTemplateIdAndUser(template.Id, userId, "WxApplet");
@@ -355,6 +360,9 @@ namespace Yuebon.Messages.Application
                         result.Success = true;
                         result.ErrCode = "用户拒绝或未订阅";
                     }
+                    #endregion
+
+                    #region 发送SMS短信
                     if (!string.IsNullOrEmpty(template.SMSTemplateCode) && template.SendSMS)
                     {
                         AliYunSMS aliYunSMS = new AliYunSMS();
@@ -367,6 +375,7 @@ namespace Yuebon.Messages.Application
                             result.ErrMsg = "短信发送成功";
                         }
                     }
+                    #endregion
                 }
             }
             return result;

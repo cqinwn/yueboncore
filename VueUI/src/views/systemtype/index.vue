@@ -288,7 +288,7 @@ export default {
           }
           var url = 'SystemType/Insert'
           if (this.currentId !== '') {
-            url = 'SystemType/Update?id=' + this.currentId
+            url = 'SystemType/Update'
           }
           saveSystemType(data, url).then(res => {
             if (res.Success) {

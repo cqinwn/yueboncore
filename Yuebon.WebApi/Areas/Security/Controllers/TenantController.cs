@@ -77,11 +77,10 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
         /// 异步更新数据
         /// </summary>
         /// <param name="tinfo"></param>
-        /// <param name="id">主键Id</param>
         /// <returns></returns>
         [HttpPost("Update")]
         [YuebonAuthorize("Edit")]
-        public override async Task<IActionResult> UpdateAsync(TenantInputDto tinfo, string id)
+        public override async Task<IActionResult> UpdateAsync(TenantInputDto tinfo)
         {
             CommonResult result = new CommonResult();
             if (!tinfo.TenantName.ToLower().IsAlphanumeric())
@@ -90,7 +89,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
                 result.ErrCode = "43002";
                 return ToJsonContent(result);
             }
-            Tenant info = iService.Get(id);
+            Tenant info = iService.Get(tinfo.Id);
             info.TenantName = tinfo.TenantName;
             info.CompanyName = tinfo.CompanyName;
             info.HostDomain = tinfo.HostDomain;
@@ -100,7 +99,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
             info.EnabledMark = tinfo.EnabledMark;
             info.Description = tinfo.Description;
             OnBeforeUpdate(info);
-            bool bl = await iService.UpdateAsync(info, id).ConfigureAwait(false);
+            bool bl = await iService.UpdateAsync(info, tinfo.Id).ConfigureAwait(false);
             if (bl)
             {
                 result.ErrCode = ErrCode.successCode;

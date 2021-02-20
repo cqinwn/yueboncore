@@ -20,18 +20,21 @@ router.beforeEach(async(to, from, next) => {
       try {
         if (store.getters.roles.length === 0) {
           await store.dispatch('user/getUserInfo').then(res => {
-            store.dispatch('settings/loadUserSettingTheme', res.ResData.UserTheme).then(res => { })
-            store.dispatch('GenerateRoutes', store.getters.menus).then(accessRoutes => {
-              // 根据roles权限生成可访问的路由表
-              router.addRoutes(accessRoutes) // 动态添加可访问路由表
-              next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
-            })
+            if (res.Success) {
+              store.dispatch('settings/loadUserSettingTheme', res.ResData.UserTheme).then(res => { })
+              store.dispatch('GenerateRoutes', store.getters.menus).then(accessRoutes => {
+                // 根据roles权限生成可访问的路由表
+                router.addRoutes(accessRoutes) // 动态添加可访问路由表
+                next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
+              })
+            }
           }).catch(err => {
             Message.error({
               message: err || '出现错误，请稍后再试'
             })
-            store.dispatch('user/logout').then(() => {
-              Message.error(err)
+            store.dispatch('user/logout').then(res => {
+              console.log('logout:' + JSON.stringify(res))
+              // Message.error(err)
               next({ path: '/' })
             })
           })

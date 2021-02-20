@@ -175,7 +175,7 @@ export default {
         if (valid) {
           var url = 'Articlenews/Insert'
           if (this.currentId !== '') {
-            url = 'Articlenews/Update?id=' + this.currentId
+            url = 'Articlenews/Update'
           }
           saveArticlenews(this.editFrom, url).then(res => {
             if (res.Success) {

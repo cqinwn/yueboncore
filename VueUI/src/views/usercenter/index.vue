@@ -227,7 +227,7 @@ export default {
             HeadIcon: this.editFrom.HeadIcon,
             Id: this.currentId
           }
-          var url = 'User/Update?id=' + this.currentId
+          var url = 'User/Update'
           saveUser(data, url).then(res => {
             if (res.Success) {
               this.$message({

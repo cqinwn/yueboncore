@@ -288,7 +288,7 @@ export default {
 
           var url = 'Articlecategory/Insert'
           if (this.currentId !== '') {
-            url = 'Articlecategory/Update?id=' + this.currentId
+            url = 'Articlecategory/Update'
           }
           saveArticlecategory(data, url).then(res => {
             if (res.Success) {

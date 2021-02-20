@@ -505,7 +505,7 @@ export default {
           }
           var url = 'Menu/Insert'
           if (this.currentMenuId !== '') {
-            url = 'Menu/Update?id=' + this.currentMenuId
+            url = 'Menu/Update'
           }
           saveMenu(data, url).then(res => {
             if (res.Success) {

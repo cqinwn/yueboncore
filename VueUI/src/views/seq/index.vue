@@ -318,7 +318,7 @@ export default {
 
           var url = 'Sequence/Insert'
           if (this.currentId !== '') {
-            url = 'Sequence/Update?id=' + this.currentId
+            url = 'Sequence/Update'
           }
           saveSequence(data, url).then(res => {
             if (res.Success) {

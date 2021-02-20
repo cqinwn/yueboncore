@@ -316,7 +316,7 @@ export default {
           }
           var url = 'Organize/Insert'
           if (this.currentId !== '') {
-            url = 'Organize/Update?id=' + this.currentId
+            url = 'Organize/Update'
           }
           saveOrganize(data, url).then(res => {
             if (res.Success) {

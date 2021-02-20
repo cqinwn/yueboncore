@@ -369,12 +369,12 @@ export default {
             EnabledMark: this.editFrom.EnabledMark,
             RoleId: this.editFrom.RoleId.join(','),
             Description: this.editFrom.Description,
-            'Id': this.currentId
+            Id: this.currentId
           }
 
           var url = 'User/Insert'
           if (this.currentId !== '') {
-            url = 'User/Update?id=' + this.currentId
+            url = 'User/Update'
           }
           saveUser(data, url).then(res => {
             if (res.Success) {

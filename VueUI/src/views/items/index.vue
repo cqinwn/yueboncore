@@ -462,7 +462,7 @@ export default {
           }
           var url = 'Items/Insert'
           if (this.currentItemsId !== '') {
-            url = 'Items/Update?id=' + this.currentItemsId
+            url = 'Items/Update'
           }
           saveItems(data, url).then(res => {
             if (res.Success) {
@@ -637,7 +637,7 @@ export default {
 
           var url = 'ItemsDetail/Insert'
           if (this.currentId !== '') {
-            url = 'ItemsDetail/Update?id=' + this.currentId
+            url = 'ItemsDetail/Update'
           }
           saveItemsDetail(data, url).then(res => {
             if (res.Success) {

@@ -370,7 +370,7 @@ export default {
           }
           var url = 'TaskManager/Insert'
           if (this.currentId !== '') {
-            url = 'TaskManager/Update?id=' + this.currentId
+            url = 'TaskManager/Update'
           }
           saveTaskManager(data, url).then(res => {
             if (res.Success) {

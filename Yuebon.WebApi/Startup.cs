@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
@@ -54,7 +55,7 @@ namespace Yuebon.WebApi
         /// <summary>
         /// 
         /// </summary>
-        public static ILoggerRepository loggerRepository { get; set; }
+        public static ILoggerRepository LoggerRepository { get; set; }
         string targetPath = string.Empty;
         IMvcBuilder mvcBuilder;
         /// <summary>
@@ -70,8 +71,8 @@ namespace Yuebon.WebApi
         {
             Configuration = configuration;
             //初始化log4net
-            loggerRepository = LogManager.CreateRepository("NETCoreRepository");
-            Log4NetHelper.SetConfig(loggerRepository, "log4net.config");
+            LoggerRepository = LogManager.CreateRepository("NETCoreRepository");
+            Log4NetHelper.SetConfig(LoggerRepository, "log4net.config");
         }
 
         /// <summary>
@@ -85,7 +86,7 @@ namespace Yuebon.WebApi
             services.AddHttpContextAccessor();
             //services.AddSingleton(Configuration);
             //如果部署在linux系统上，需要加上下面的配置：
-            //services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
+            services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
             //如果部署在IIS上，需要加上下面的配置：
             services.AddOptions();
             services.Configure<IISServerOptions>(options => options.AllowSynchronousIO = true);

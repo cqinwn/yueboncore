@@ -147,7 +147,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <returns></returns>
         [HttpGet("YuebonConnecSys")]
         [YuebonAuthorize("")]
-        public async Task<IActionResult> YuebonConnecSys(string systype)
+        public IActionResult YuebonConnecSys(string systype)
         {
             CommonResult result = new CommonResult();
             try

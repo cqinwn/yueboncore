@@ -38,7 +38,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// 构造函数
         /// </summary>
         /// <param name="_iService"></param>
-        /// <param name="_scheduler"></param>
+        /// <param name="_schedulerFactory"></param>
         public TaskManagerController(ITaskManagerService _iService, ISchedulerFactory _schedulerFactory) : base(_iService)
         {
             iService = _iService;
@@ -227,11 +227,10 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
 
             return ToJsonContent(result);
         }
-        //// <summary>
+        /// <summary>
         /// 异步批量设为数据有效性，设置为禁用时会停止已在运行的任务
         /// </summary>
-        /// <param name="ids">主键Id集合</param>
-        /// <param name="bltag">有效标识，默认为1：即设为无效,0：有效</param>
+        /// <param name="info">主键Id集合和有效标识，默认为1：即设为无效,0：有效</param>
         [HttpPost("SetEnabledMarktBatchAsync")]
         [YuebonAuthorize("Enable")]
         public override async Task<IActionResult> SetEnabledMarktBatchAsync(UpdateEnableViewModel info)
@@ -332,7 +331,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// 返回系统的job接口
         /// </summary>
         /// <returns></returns>
-        private List<LocalTaskModel> QueryLocalHandlers()
+        private static List<LocalTaskModel> QueryLocalHandlers()
         {
             var implementationAssembly = Assembly.Load("Yuebon.Quartz.Jobs");
             var implementationTypes =implementationAssembly.DefinedTypes.Where(t =>t.GetInterfaces().Contains(typeof(IJob))).ToArray(); 

@@ -1,17 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using StackExchange.Profiling;
-using StackExchange.Profiling.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Yuebon.Commons.IoC;
-using Yuebon.Commons.Log;
-using Yuebon.Security.IRepositories;
+using Yuebon.Commons.Core.App;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
-using Yuebon.Security.Repositories;
 
 namespace Yuebon.AspNetCore.Mvc.Filter
 {
@@ -21,7 +16,7 @@ namespace Yuebon.AspNetCore.Mvc.Filter
     public class ActionFilter : IAsyncActionFilter
     {
 
-         ILogService _logService = Yuebon.Commons.Core.App.App.GetService<ILogService>();
+         ILogService _logService = App.GetService<ILogService>();
         /// <summary>
         /// 
         /// </summary>
@@ -51,12 +46,15 @@ namespace Yuebon.AspNetCore.Mvc.Filter
                 var root = profiler.Root;
                 if (root.HasChildren)
                 {
-                    dg(root.Children);
+                    GetSqlLog(root.Children);
                 }
             }
         }
-
-        private void dg(List<Timing> chil)
+        /// <summary>
+        /// 递归获取MiniProfiler内容
+        /// </summary>
+        /// <param name="chil"></param>
+        private void GetSqlLog(List<Timing> chil)
         {
             chil.ForEach(chill =>
             {
@@ -65,16 +63,12 @@ namespace Yuebon.AspNetCore.Mvc.Filter
                     StringBuilder logSql = new StringBuilder();
                     foreach (var customTiming in chill.CustomTimings)
                     {
-                        var all_sql = new List<string>();
-                        var err_sql = new List<string>();
-                        var all_log = new List<string>();
                         int i = 1;
                         customTiming.Value?.ForEach(value =>
                         {
                             if (value.ExecuteType != "OpenAsync"&& !value.CommandString.Contains("Connection"))
                             {
                                 logSql.Append($"【{customTiming.Key}{i++}】{value.CommandString} 耗时 :{value.DurationMilliseconds} ms,状态 :{(value.Errored?"失败":"成功")}");
-                               
                             }
                         });
                     }
@@ -84,13 +78,12 @@ namespace Yuebon.AspNetCore.Mvc.Filter
                     logEntity.Result = true;
                     logEntity.Description = logSql.ToString();
                     _logService.Insert(logEntity);
-                    //Log4NetHelper.Info(log.ToString());
                 }
                 else
                 {
                     if (chill.Children!=null)
                     {
-                        dg(chill.Children);
+                        GetSqlLog(chill.Children);
                     }
                 }
             });

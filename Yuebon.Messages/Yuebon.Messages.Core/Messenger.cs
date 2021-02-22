@@ -251,7 +251,6 @@ namespace Yuebon.Messages.Application
             {
                 MessageTemplates template = messageTemplatesService.GetByMessageType("ReadNotice");
 
-                #region 发送小程序模板消息
                 if (!string.IsNullOrEmpty(template.InnerMessageSubject) && !string.IsNullOrEmpty(template.InnerMessageBody) && template.SendInnerMessage)
                 {
                     MemberMessageBox memberMessageBox = new MemberMessageBox();
@@ -263,6 +262,7 @@ namespace Yuebon.Messages.Application
                     memberMessageBoxService.Insert(memberMessageBox);
                 }
 
+                #region 发送小程序模板消息
                 if (!string.IsNullOrEmpty(template.WxAppletSubscribeTemplateId) && template.UseInWxApplet)
                 {
                     MemberSubscribeMsg memberSubscribeMsg = memberSubscribeMsgService.GetByMessageTemplateIdAndUser(template.Id, userId, "WxApplet");

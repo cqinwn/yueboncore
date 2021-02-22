@@ -21,11 +21,11 @@ service.interceptors.request.use(
     if (token) {
       config.headers['Authorization'] = 'Bearer ' + token
     }
-    const timeStamp = new Date().getTime().toString().substr(0, 10)
-    const nonce = GetRandomString()
     // 如果接口需要签名, 则通过请求时,headers中传递sign参数true
     const iSSign = config.headers['sign']
     if (iSSign || iSSign === undefined) {
+      const timeStamp = new Date().getTime().toString().substr(0, 10)
+      const nonce = GetRandomString()
       config.headers['appId'] = store.getters.appId
       config.headers['nonce'] = nonce
       config.headers['timeStamp'] = timeStamp

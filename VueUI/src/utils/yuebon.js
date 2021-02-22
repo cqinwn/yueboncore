@@ -45,7 +45,6 @@ const sign = (config, nonce, timestamp, appSecret) => {
     ret.push(JSON.stringify(config.data))
   }
   const signsrc = timestamp + nonce + ret.join('') + appSecret
-  console.log(signsrc)
   return md5(signsrc)
 }
 

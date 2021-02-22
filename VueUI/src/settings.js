@@ -53,17 +53,17 @@ module.exports = {
   // fileUrl: 'http://netcoreapi.ts.yuebon.com/', // 文件访问路径
   // fileUploadUrl: 'http://netcoreapi.ts.yuebon.com/api/Files/Upload'// 文件上传路径
 
-  apiHostUrl: 'http://localhost:54678/api/', // 基础接口
-  apiSecurityUrl: 'http://localhost:54678/api/Security/', // 权限管理系统接口
-  apiCMSUrl: 'http://localhost:54678/api/CMS/', // 文章
-  fileUrl: 'http://localhost:54678/', // 文件访问路径
-  fileUploadUrl: 'http://localhost:54678/api/Files/Upload'// 文件上传路径
+  // apiHostUrl: 'http://localhost:54678/api/', // 基础接口
+  // apiSecurityUrl: 'http://localhost:54678/api/Security/', // 权限管理系统接口
+  // apiCMSUrl: 'http://localhost:54678/api/CMS/', // 文章
+  // fileUrl: 'http://localhost:54678/', // 文件访问路径
+  // fileUploadUrl: 'http://localhost:54678/api/Files/Upload'// 文件上传路径
 
-  // apiHostUrl: 'http://localhost:5000/api/', // 基础接口
-  // apiSecurityUrl: 'http://localhost:5000/api/Security/', // 权限管理系统接口
-  // apiCMSUrl: 'http://localhost:5000/api/CMS/', // 文章
-  // fileUrl: 'http://localhost:5000/', // 文件访问路径
-  // fileUploadUrl: 'http://localhost:5000/api/Files/Upload' // 文件上传路径
+  apiHostUrl: 'https://localhost:44304/api/', // 基础接口
+  apiSecurityUrl: 'https://localhost:44304/api/Security/', // 权限管理系统接口
+  apiCMSUrl: 'https://localhost:44304/api/CMS/', // 文章
+  fileUrl: 'https://localhost:44304/', // 文件访问路径
+  fileUploadUrl: 'https://localhost:44304/api/Files/Upload' // 文件上传路径
   // apiHostUrl: 'http://193.168.25.137:8082/api/', // 基础接口
   // apiSecurityUrl: 'http://193.168.25.137:8082/api/Security/', // 权限管理系统接口
   // apiCMSUrl: 'http://193.168.25.137:8082/api/CMS/', // 文章

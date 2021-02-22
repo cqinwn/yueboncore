@@ -13,7 +13,7 @@ WebApi接口地址：[http://netcoreapi.ts.yuebon.com](http://netcoreapi.ts.yueb
 
 官方文档：[http://docs.v.yuebon.com/](http://docs.v.yuebon.com/)
 
-视频教程：[点击观看学习](http://docs.v.yuebon.com/video/)
+视频教程：[点击观看](https://space.bilibili.com/1615836206)或QQ群下载观看
 
 交流QQ群: [90311523](https://jq.qq.com/?_wv=1027&k=p6IUTzDF)
 

@@ -276,6 +276,7 @@ namespace Yuebon.WebApi
         /// <returns></returns>
         private void InitIoC(IServiceCollection services)
         {
+
             #region 缓存
             CacheProvider cacheProvider = new CacheProvider
             {
@@ -328,8 +329,9 @@ namespace Yuebon.WebApi
             }
             services.AddTransient<MemoryCacheService>();
             services.AddMemoryCache();// 启用MemoryCache
-            #endregion
 
+            services.AddSingleton(cacheProvider);//注册缓存配置
+            #endregion
 
             #region 身份认证授权
 
@@ -361,13 +363,12 @@ namespace Yuebon.WebApi
                     ClockSkew = TimeSpan.FromMinutes(5)
                 };
             });
+            services.AddSingleton(jwtOption);//注册配置
             #endregion
 
             services.AddAutoScanInjection();//自动化注入仓储和服务
             services.AddTransient<IDbContextCore, MySqlDbContext>(); //注入EF上下文
 
-            services.AddSingleton(cacheProvider)//注册缓存配置
-                .AddSingleton(jwtOption);//注册配置
             #region automapper
             List<Assembly> myAssembly =RuntimeHelper.GetAllYuebonAssemblies().ToList();
             services.AddAutoMapper(myAssembly);

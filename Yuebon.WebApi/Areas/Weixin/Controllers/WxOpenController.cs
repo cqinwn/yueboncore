@@ -114,7 +114,6 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
                 var jsonResult = SnsApi.JsCode2Json(WxOpenAppId, WxOpenAppSecret, code);
                 if (jsonResult.errcode == ReturnCode.请求成功)
                 {
-                    //Session["WxOpenUser"] = jsonResult;//使用Session保存登陆信息（不推荐）
                     //使用SessionContainer管理登录信息（推荐）
                     var unionId = jsonResult.unionid;
                     var sessionBag = SessionContainer.UpdateSession(null, jsonResult.openid, jsonResult.session_key, unionId);

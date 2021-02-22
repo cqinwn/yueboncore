@@ -18,6 +18,7 @@ using System;
 
 namespace Yuebon.WeChat.MessageHandlers.WxOpenMessageHandler
 {
+
     /// <summary>
     /// 自定义MessageHandler
     /// 把MessageHandler作为基类，重写对应请求的处理方法

@@ -13,7 +13,7 @@ namespace Yuebon.Security.Models
     /// 第三方登录与用户绑定表，数据实体对象
     /// </summary>
     [Table("Sys_UserOpenIds")]
-    public class UserOpenIds
+    public class UserOpenIds:BaseEntity<string>
     {
         #region Property Members
         /// <summary>

@@ -29,13 +29,6 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         public OrganizeController(IOrganizeService _iService) : base(_iService)
         {
             iService = _iService;
-            AuthorizeKey.ListKey = "Organize/List";
-            AuthorizeKey.InsertKey = "Organize/Add";
-            AuthorizeKey.UpdateKey = "Organize/Edit";
-            AuthorizeKey.UpdateEnableKey = "Organize/Enable";
-            AuthorizeKey.DeleteKey = "Organize/Delete";
-            AuthorizeKey.DeleteSoftKey = "Organize/DeleteSoft";
-            AuthorizeKey.ViewKey = "Organize/View";
         }
         /// <summary>
         /// 新增前处理数据

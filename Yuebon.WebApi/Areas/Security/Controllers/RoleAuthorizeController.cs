@@ -39,13 +39,6 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             menuService = _menuService;
             roleDataService = _roleDataService;
             organizeService = _organizeService;
-            AuthorizeKey.ListKey = "RoleAuthorize/List";
-            AuthorizeKey.InsertKey = "RoleAuthorize/Add";
-            AuthorizeKey.UpdateKey = "RoleAuthorize/Edit";
-            AuthorizeKey.UpdateEnableKey = "RoleAuthorize/Enable";
-            AuthorizeKey.DeleteKey = "RoleAuthorize/Delete";
-            AuthorizeKey.DeleteSoftKey = "RoleAuthorize/DeleteSoft";
-            AuthorizeKey.ViewKey = "RoleAuthorize/View";
         }
         /// <summary>
         /// 新增前处理数据

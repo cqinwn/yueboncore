@@ -27,13 +27,6 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
         public SequenceRuleController(ISequenceRuleService _iService) : base(_iService)
         {
             iService = _iService;
-            AuthorizeKey.ListKey = "SequenceRule/List";
-            AuthorizeKey.InsertKey = "SequenceRule/Add";
-            AuthorizeKey.UpdateKey = "SequenceRule/Edit";
-            AuthorizeKey.UpdateEnableKey = "SequenceRule/Enable";
-            AuthorizeKey.DeleteKey = "SequenceRule/Delete";
-            AuthorizeKey.DeleteSoftKey = "SequenceRule/DeleteSoft";
-            AuthorizeKey.ViewKey = "SequenceRule/View";
         }
         /// <summary>
         /// 新增前处理数据

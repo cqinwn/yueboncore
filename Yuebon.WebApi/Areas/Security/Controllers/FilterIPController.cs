@@ -26,13 +26,6 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         public FilterIPController(IFilterIPService _iService) : base(_iService)
         {
             iService = _iService;
-            AuthorizeKey.ListKey = "FilterIP/List";
-            AuthorizeKey.InsertKey = "FilterIP/Add";
-            AuthorizeKey.UpdateKey = "FilterIP/Edit";
-            AuthorizeKey.UpdateEnableKey = "FilterIP/Enable";
-            AuthorizeKey.DeleteKey = "FilterIP/Delete";
-            AuthorizeKey.DeleteSoftKey = "FilterIP/DeleteSoft";
-            AuthorizeKey.ViewKey = "FilterIP/View";
         }
         /// <summary>
         /// 新增前处理数据

@@ -18,6 +18,11 @@ namespace Yuebon.AspNetCore.ViewModel
         [DataMember]
         public string DbAddress { get; set; }
         /// <summary>
+        /// 端口，默认SQLServer为1433；Mysql为3306
+        /// </summary>
+        [DataMember]
+        public int DbPort { get; set; }
+        /// <summary>
         /// 数据库名称
         /// </summary>
         [DataMember]

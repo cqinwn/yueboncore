@@ -35,13 +35,6 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         public MenuController(IMenuService _iService) : base(_iService)
         {
             iService = _iService;
-            AuthorizeKey.ListKey = "Menu/List";
-            AuthorizeKey.InsertKey = "Menu/Add";
-            AuthorizeKey.UpdateKey = "Menu/Edit";
-            AuthorizeKey.UpdateEnableKey = "Menu/Enable";
-            AuthorizeKey.DeleteKey = "Menu/Delete";
-            AuthorizeKey.DeleteSoftKey = "Menu/DeleteSoft";
-            AuthorizeKey.ViewKey = "Menu/View";
         }
         /// <summary>
         /// 新增前处理数据

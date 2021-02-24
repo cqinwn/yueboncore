@@ -28,13 +28,6 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
         public SequenceController(ISequenceService _iService) : base(_iService)
         {
             iService = _iService;
-            AuthorizeKey.ListKey = "Sequence/List";
-            AuthorizeKey.InsertKey = "Sequence/Add";
-            AuthorizeKey.UpdateKey = "Sequence/Edit";
-            AuthorizeKey.UpdateEnableKey = "Sequence/Enable";
-            AuthorizeKey.DeleteKey = "Sequence/Delete";
-            AuthorizeKey.DeleteSoftKey = "Sequence/DeleteSoft";
-            AuthorizeKey.ViewKey = "Sequence/View";
         }
         /// <summary>
         /// 新增前处理数据

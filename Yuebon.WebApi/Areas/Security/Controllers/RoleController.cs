@@ -30,13 +30,6 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         {
             iService = _iService;
             organizeService = _organizeService;
-            AuthorizeKey.ListKey = "Role/List";
-            AuthorizeKey.InsertKey = "Role/Add";
-            AuthorizeKey.UpdateKey = "Role/Edit";
-            AuthorizeKey.UpdateEnableKey = "Role/Enable";
-            AuthorizeKey.DeleteKey = "Role/Delete";
-            AuthorizeKey.DeleteSoftKey = "Role/DeleteSoft";
-            AuthorizeKey.ViewKey = "Role/View";
         }
         /// <summary>
         /// 新增前处理数据

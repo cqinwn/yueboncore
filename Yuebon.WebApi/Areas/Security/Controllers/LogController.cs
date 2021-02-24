@@ -31,14 +31,6 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         {
             iService = _iService;
             organizeService = _organizeService;
-
-            AuthorizeKey.ListKey = "Log/List";
-            AuthorizeKey.InsertKey = "Log/Add";
-            AuthorizeKey.UpdateKey = "Log/Edit";
-            AuthorizeKey.UpdateEnableKey = "Log/Enable";
-            AuthorizeKey.DeleteKey = "Log/Delete";
-            AuthorizeKey.DeleteSoftKey = "Log/DeleteSoft";
-            AuthorizeKey.ViewKey = "Log/View";
         }
         /// <summary>
         /// 新增前处理数据

@@ -27,13 +27,6 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         public APPController(IAPPService _iService) : base(_iService)
         {
             iService = _iService;
-            AuthorizeKey.ListKey = "APP/List";
-            AuthorizeKey.InsertKey = "APP/Add";
-            AuthorizeKey.UpdateKey = "APP/Edit";
-            AuthorizeKey.UpdateEnableKey = "APP/Enable";
-            AuthorizeKey.DeleteKey = "APP/Delete";
-            AuthorizeKey.DeleteSoftKey = "APP/DeleteSoft";
-            AuthorizeKey.ViewKey = "APP/View";
         }
         /// <summary>
         /// 新增前处理数据

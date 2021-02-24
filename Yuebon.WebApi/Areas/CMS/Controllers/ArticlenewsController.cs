@@ -33,14 +33,7 @@ namespace Yuebon.WebApi.Areas.CMS.Controllers
         public ArticlenewsController(IArticlenewsService _iService,IArticlecategoryService _articlecategoryService) : base(_iService)
         {
             iService = _iService;
-            articlecategoryService = _articlecategoryService;
-            AuthorizeKey.ListKey = "Articlenews/List";
-            AuthorizeKey.InsertKey = "Articlenews/Add";
-            AuthorizeKey.UpdateKey = "Articlenews/Edit";
-            AuthorizeKey.UpdateEnableKey = "Articlenews/Enable";
-            AuthorizeKey.DeleteKey = "Articlenews/Delete";
-            AuthorizeKey.DeleteSoftKey = "Articlenews/DeleteSoft";
-            AuthorizeKey.ViewKey = "Articlenews/View";
+            articlecategoryService = _articlecategoryService
         }
         /// <summary>
         /// 新增前处理数据

@@ -29,13 +29,6 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         public TaskJobsLogController(ITaskJobsLogService _iService) : base(_iService)
         {
             iService = _iService;
-            AuthorizeKey.ListKey = "TaskJobsLog/List";
-            AuthorizeKey.InsertKey = "TaskJobsLog/Add";
-            AuthorizeKey.UpdateKey = "TaskJobsLog/Edit";
-            AuthorizeKey.UpdateEnableKey = "TaskJobsLog/Enable";
-            AuthorizeKey.DeleteKey = "TaskJobsLog/Delete";
-            AuthorizeKey.DeleteSoftKey = "TaskJobsLog/DeleteSoft";
-            AuthorizeKey.ViewKey = "TaskJobsLog/View";
         }
         /// <summary>
         /// 新增前处理数据

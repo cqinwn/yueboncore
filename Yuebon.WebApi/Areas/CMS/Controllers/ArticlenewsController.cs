@@ -33,7 +33,7 @@ namespace Yuebon.WebApi.Areas.CMS.Controllers
         public ArticlenewsController(IArticlenewsService _iService,IArticlecategoryService _articlecategoryService) : base(_iService)
         {
             iService = _iService;
-            articlecategoryService = _articlecategoryService
+            articlecategoryService = _articlecategoryService;
         }
         /// <summary>
         /// 新增前处理数据

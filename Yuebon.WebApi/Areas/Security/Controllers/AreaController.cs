@@ -29,13 +29,6 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         public AreaController(IAreaService _iService) : base(_iService)
         {
             iService = _iService;
-            AuthorizeKey.ListKey = "Area/List";
-            AuthorizeKey.InsertKey = "Area/Add";
-            AuthorizeKey.UpdateKey = "Area/Edit";
-            AuthorizeKey.UpdateEnableKey = "Area/Enable";
-            AuthorizeKey.DeleteKey = "Area/Delete";
-            AuthorizeKey.DeleteSoftKey = "Area/DeleteSoft";
-            AuthorizeKey.ViewKey = "Area/View";
         }
         /// <summary>
         /// 新增前处理数据

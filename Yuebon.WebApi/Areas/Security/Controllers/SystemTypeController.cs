@@ -31,13 +31,6 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         public SystemTypeController(ISystemTypeService _iService) : base(_iService)
         {
             iService = _iService;
-            AuthorizeKey.ListKey = "SystemType/List";
-            AuthorizeKey.InsertKey = "SystemType/Add";
-            AuthorizeKey.UpdateKey = "SystemType/Edit";
-            AuthorizeKey.UpdateEnableKey = "SystemType/Enable";
-            AuthorizeKey.DeleteKey = "SystemType/Delete";
-            AuthorizeKey.DeleteSoftKey = "SystemType/DeleteSoft";
-            AuthorizeKey.ViewKey = "SystemType/View";
         }
         /// <summary>
         /// 新增前处理数据

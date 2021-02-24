@@ -30,13 +30,6 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         public RoleDataController(IRoleDataService _iService) : base(_iService)
         {
             iService = _iService;
-            AuthorizeKey.ListKey = "RoleData/List";
-            AuthorizeKey.InsertKey = "RoleData/Add";
-            AuthorizeKey.UpdateKey = "RoleData/Edit";
-            AuthorizeKey.UpdateEnableKey = "RoleData/Enable";
-            AuthorizeKey.DeleteKey = "RoleData/Delete";
-            AuthorizeKey.DeleteSoftKey = "RoleData/DeleteSoft";
-            AuthorizeKey.ViewKey = "RoleData/View";
         }
         /// <summary>
         /// 新增前处理数据

@@ -71,13 +71,23 @@ namespace Yuebon.WebApi.Controllers
                 {
                     result.ErrMsg = "访问密码不能为空";
                 }
+                if (string.IsNullOrEmpty(dbConnInfo.DbPort.ToString()))
+                {
+                    if (dbConnInfo.DbType == "SqlServer")
+                    {
+                        dbConnInfo.DbPort = 1433;
+                    }else if (dbConnInfo.DbType == "MySql")
+                    {
+                        dbConnInfo.DbPort = 3306;
+                    }
+                }
                 if (dbConnInfo.DbType == "SqlServer")
                 {
-                    dBConnResult.ConnStr = string.Format("Server={0};Database={1};User id={2}; password={3};MultipleActiveResultSets=True;", dbConnInfo.DbAddress, dbConnInfo.DbName, dbConnInfo.DbUserName, dbConnInfo.DbPassword);
+                    dBConnResult.ConnStr = string.Format("Server={0}:{1};Database={2};User id={3}; password={4};MultipleActiveResultSets=True;", dbConnInfo.DbAddress,dbConnInfo.DbPort, dbConnInfo.DbName, dbConnInfo.DbUserName, dbConnInfo.DbPassword);
                 }
                 else if (dbConnInfo.DbType == "MySql")
                 {
-                    dBConnResult.ConnStr = string.Format("server={0};database={1};uid={2}; pwd={3};", dbConnInfo.DbAddress, dbConnInfo.DbName, dbConnInfo.DbUserName, dbConnInfo.DbPassword);
+                    dBConnResult.ConnStr = string.Format("server={0};database={1};uid={2}; pwd={3};port={4};Allow User Variables=True;", dbConnInfo.DbAddress, dbConnInfo.DbName, dbConnInfo.DbUserName, dbConnInfo.DbPassword,dbConnInfo.DbPort);
                 }
                 YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
                 TimeSpan expiresSliding = DateTime.Now.AddMinutes(30) - DateTime.Now;
@@ -142,8 +152,8 @@ namespace Yuebon.WebApi.Controllers
                     yuebonCacheHelper.Add("CodeGeneratorDbName", search.EnCode, expiresSliding, false);
                 }
             }
-            string orderByDir =search.Order;// Request.Query["Order"].ToString() == null ? "" : Request.Query["Order"].ToString();
-            string orderFlied =string.IsNullOrEmpty(search.Sort)? "TableName": search.Sort;// string.IsNullOrEmpty(Request.Query["Sort"].ToString()) ? "TableName" : Request.Query["Sort"].ToString();
+            string orderByDir =search.Order;
+            string orderFlied =string.IsNullOrEmpty(search.Sort)? "TableName": search.Sort;
             bool order = orderByDir == "asc" ? false : true;
             string where = "1=1";
             if (!string.IsNullOrEmpty(search.Keywords))

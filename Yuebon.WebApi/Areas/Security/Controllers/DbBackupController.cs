@@ -22,13 +22,6 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         public DbBackupController(IDbBackupService _iService) : base(_iService)
         {
             iService = _iService;
-            AuthorizeKey.ListKey = "DbBackup/List";
-            AuthorizeKey.InsertKey = "DbBackup/Add";
-            AuthorizeKey.UpdateKey = "DbBackup/Edit";
-            AuthorizeKey.UpdateEnableKey = "DbBackup/Enable";
-            AuthorizeKey.DeleteKey = "DbBackup/Delete";
-            AuthorizeKey.DeleteSoftKey = "DbBackup/DeleteSoft";
-            AuthorizeKey.ViewKey = "DbBackup/View";
         }
         /// <summary>
         /// 新增前处理数据

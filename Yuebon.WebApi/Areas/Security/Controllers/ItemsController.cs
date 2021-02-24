@@ -37,13 +37,6 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         {
             iService = _iService;
             itemsDetailService=_itemsDetailService;
-            AuthorizeKey.ListKey = "Items/List";
-            AuthorizeKey.InsertKey = "Items/Add";
-            AuthorizeKey.UpdateKey = "Items/Edit";
-            AuthorizeKey.UpdateEnableKey = "Items/Enable";
-            AuthorizeKey.DeleteKey = "Items/Delete";
-            AuthorizeKey.DeleteSoftKey = "Items/DeleteSoft";
-            AuthorizeKey.ViewKey = "Items/View";
         }
         /// <summary>
         /// 新增前处理数据

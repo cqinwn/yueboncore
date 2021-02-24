@@ -41,10 +41,6 @@ namespace Yuebon.AspNetCore.Controllers
 
         #region 属性变量
 
-        /// <summary>
-        /// 定义常用功能的控制ID，方便基类控制器对用户权限的控制
-        /// </summary>
-        protected AuthorizeKey AuthorizeKey= new AuthorizeKey();
 
         /// <summary>
         /// 服务接口

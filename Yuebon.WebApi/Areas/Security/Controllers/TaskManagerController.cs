@@ -43,13 +43,6 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         {
             iService = _iService;
             schedulerFactory = _schedulerFactory;
-            AuthorizeKey.ListKey = "TaskManager/List";
-            AuthorizeKey.InsertKey = "TaskManager/Add";
-            AuthorizeKey.UpdateKey = "TaskManager/Edit";
-            AuthorizeKey.UpdateEnableKey = "TaskManager/Enable";
-            AuthorizeKey.DeleteKey = "TaskManager/Delete";
-            AuthorizeKey.DeleteSoftKey = "TaskManager/DeleteSoft";
-            AuthorizeKey.ViewKey = "TaskManager/View";
         }
         /// <summary>
         /// 新增前处理数据

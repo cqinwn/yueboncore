@@ -27,13 +27,6 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
         public TenantController(ITenantService _iService) : base(_iService)
         {
             iService = _iService;
-            AuthorizeKey.ListKey = "Tenant/List";
-            AuthorizeKey.InsertKey = "Tenant/Add";
-            AuthorizeKey.UpdateKey = "Tenant/Edit";
-            AuthorizeKey.UpdateEnableKey = "Tenant/Enable";
-            AuthorizeKey.DeleteKey = "Tenant/Delete";
-            AuthorizeKey.DeleteSoftKey = "Tenant/DeleteSoft";
-            AuthorizeKey.ViewKey = "Tenant/View";
         }
         /// <summary>
         /// 新增前处理数据

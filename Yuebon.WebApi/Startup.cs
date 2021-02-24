@@ -262,8 +262,6 @@ namespace Yuebon.WebApi
                     endpoints.MapControllerRoute("default", "api/{controller=Home}/{action=Index}/{id?}");
                 });
                 app.UseStatusCodePages();
-
-               // new InitSystem().Initial();
             }
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Threading.Tasks;
+using Yuebon.Commons.Enums;
 using Yuebon.Commons.IServices;
 using Yuebon.Commons.Pages;
 using Yuebon.Security.Dtos;
@@ -24,11 +25,21 @@ namespace Yuebon.Security.IServices
         Task<Tuple<User, string>> Validate(string userName, string password);
 
         /// <summary>
+        /// 用户登陆验证。
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        /// <param name="password">密码（第一次md5加密后）</param>
+        /// <param name="userType">用户类型</param>
+        /// <returns>验证成功返回用户实体，验证失败返回null|提示消息</returns>
+        Task<Tuple<User, string>> Validate(string userName, string password, UserType userType);
+
+        /// <summary>
         /// 根据用户账号查询用户信息
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
         Task<User> GetByUserName(string userName);
+
         /// <summary>
         /// 根据用户手机号码查询用户信息
         /// </summary>

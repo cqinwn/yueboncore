@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using Yuebon.Commons.Extend;
 using Yuebon.Commons.Pages;
 using Yuebon.Commons.Dtos;
+using Yuebon.Commons.Enums;
 
 namespace Yuebon.Security.Services
 {
@@ -99,6 +100,63 @@ namespace Yuebon.Security.Services
                 userLogOn.LastVisitTime = DateTime.Now;
                 userLogOn.UserOnLine = true;
                 await  _userSigninRepository.UpdateAsync(userLogOn,userLogOn.Id);
+                return new Tuple<User, string>(userEntity, "");
+            }
+        }
+
+        /// <summary>
+        /// 用户登陆验证。
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        /// <param name="password">密码（第一次md5加密后）</param>
+        /// <param name="userType">用户类型</param>
+        /// <returns>验证成功返回用户实体，验证失败返回null|提示消息</returns>
+        public async Task<Tuple<User, string>> Validate(string userName, string password, UserType userType)
+        {
+            var userEntity = await _userRepository.GetUserByLogin(userName);
+
+            if (userEntity == null)
+            {
+                return new Tuple<User, string>(null, "系统不存在该用户，请重新确认。");
+            }
+
+            if (!userEntity.EnabledMark)
+            {
+                return new Tuple<User, string>(null, "该用户已被禁用，请联系管理员。");
+            }
+
+            var userSinginEntity = _userSigninRepository.GetByUserId(userEntity.Id);
+
+            string inputPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(password).ToLower(), userSinginEntity.UserSecretkey).ToLower()).ToLower();
+
+            if (inputPassword != userSinginEntity.UserPassword)
+            {
+                return new Tuple<User, string>(null, "密码错误，请重新输入。");
+            }
+            else
+            {
+                UserLogOn userLogOn = _userSigninRepository.GetWhere("UserId='" + userEntity.Id + "'");
+                if (userLogOn.AllowEndTime < DateTime.Now)
+                {
+                    return new Tuple<User, string>(null, "您的账号已过期，请联系系统管理员！");
+                }
+                if (userLogOn.LockEndDate > DateTime.Now)
+                {
+                    string dateStr = userLogOn.LockEndDate.ToEasyStringDQ();
+                    return new Tuple<User, string>(null, "当前被锁定，请" + dateStr + "登录");
+                }
+                if (userLogOn.FirstVisitTime == null)
+                {
+                    userLogOn.FirstVisitTime = userLogOn.PreviousVisitTime = DateTime.Now;
+                }
+                else
+                {
+                    userLogOn.PreviousVisitTime = DateTime.Now;
+                }
+                userLogOn.LogOnCount++;
+                userLogOn.LastVisitTime = DateTime.Now;
+                userLogOn.UserOnLine = true;
+                await _userSigninRepository.UpdateAsync(userLogOn, userLogOn.Id);
                 return new Tuple<User, string>(userEntity, "");
             }
         }

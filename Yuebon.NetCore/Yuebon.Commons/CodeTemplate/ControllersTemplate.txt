@@ -29,13 +29,6 @@ namespace {ApiControllerNamespace}.Areas.{BaseNameSpaceEx}.Controllers
         public {ModelTypeName}Controller(I{ModelTypeName}Service _iService) : base(_iService)
         {
             iService = _iService;
-            AuthorizeKey.ListKey = "{ModelTypeName}/List";
-            AuthorizeKey.InsertKey = "{ModelTypeName}/Add";
-            AuthorizeKey.UpdateKey = "{ModelTypeName}/Edit";
-            AuthorizeKey.UpdateEnableKey = "{ModelTypeName}/Enable";
-            AuthorizeKey.DeleteKey = "{ModelTypeName}/Delete";
-            AuthorizeKey.DeleteSoftKey = "{ModelTypeName}/DeleteSoft";
-            AuthorizeKey.ViewKey = "{ModelTypeName}/View";
         }
         /// <summary>
         /// 新增前处理数据

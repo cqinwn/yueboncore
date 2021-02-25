@@ -92,7 +92,7 @@ namespace Yuebon.WebApi.Controllers
                 YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
                 TimeSpan expiresSliding = DateTime.Now.AddMinutes(30) - DateTime.Now;
                 yuebonCacheHelper.Add("CodeGeneratorDbConn", dBConnResult.ConnStr, expiresSliding, false);
-                yuebonCacheHelper.Add("CodeGeneratorDbType", dbConnInfo.DbType, expiresSliding, false);
+                yuebonCacheHelper.Add("CodeGeneratorDbType", dbConnInfo.DbType, expiresSliding, false); 
                 yuebonCacheHelper.Add("CodeGeneratorDbName", dbConnInfo.DbName, expiresSliding, false);
                 DbExtractor dbExtractor = new DbExtractor();
                 List<DataBaseInfo> listTable = dbExtractor.GetAllDataBases();

@@ -104,7 +104,7 @@ namespace Yuebon.Security.Services
                 {
                     where = string.Format("ParentId='{0}'", idsInfo.Ids[0]);
                     IEnumerable<Organize> list = _repository.GetListWhere(where);
-                    if (list != null)
+                    if (list.Count() > 0)
                     {
                         result.ErrMsg = "功能存在子集数据，不能删除";
                         return result;
@@ -136,7 +136,7 @@ namespace Yuebon.Security.Services
                 {
                     where = string.Format("ParentId='{0}'", idsInfo.Ids[0]);
                     IEnumerable<Organize> list = _repository.GetListWhere(where);
-                    if (list != null)
+                    if (list.Count()>0)
                     {
                         result.ErrMsg = "该机构存在子集数据，不能删除";
                         return result;

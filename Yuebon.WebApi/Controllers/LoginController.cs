@@ -159,8 +159,7 @@ namespace Yuebon.WebApi.Controllers
                                             Role = _roleService.GetRoleEnCode(user.RoleId),
                                             ActiveSystemId = systemType.Id,
                                             CurrentLoginIP = strIp,
-                                            IPAddressName = ipAddressName
-                                            
+                                            IPAddressName = ipAddressName                             
                                         };
                                         TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
                                         yuebonCacheHelper.Add("login_user_" + user.Id, currentSession, expiresSliding, true);

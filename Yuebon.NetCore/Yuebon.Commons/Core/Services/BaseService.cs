@@ -865,10 +865,17 @@ namespace Yuebon.Commons.Services
                 {
                     //如果公司过滤条件不为空，那么需要进行过滤
                     List<String> list = JsonSerializer.Deserialize<List<String>>(yuebonCacheHelper.Get("User_RoleData_" + claimlist[0].Value).ToJson());
-                    string DataFilterCondition = String.Join(",", list.ToArray());
-                    if (!string.IsNullOrEmpty(DataFilterCondition))
+                    if (list.Count() > 0)
                     {
-                        where += string.Format(" and (DeptId in ('{0}') or CreatorUserId='{1}')", DataFilterCondition.Replace(",", "','"), claimlist[0].Value);
+                        string DataFilterCondition = String.Join(",", list.ToArray());
+                        if (!string.IsNullOrEmpty(DataFilterCondition))
+                        {
+                            where += string.Format(" and (DeptId in ('{0}') or CreatorUserId='{1}')", DataFilterCondition.Replace(",", "','"), claimlist[0].Value);
+                        }
+                    }
+                    else
+                    {
+                        where += string.Format(" and CreatorUserId='{0}'",  claimlist[0].Value);
                     }
                     bool isMultiTenant = Configs.GetConfigurationValue("AppSetting", "IsMultiTenant").ToBool();
                     if (isMultiTenant)

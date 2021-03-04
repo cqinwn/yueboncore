@@ -72,7 +72,7 @@
           "lib/net5.0/Dapper.SqlBuilder.dll": {}
         }
       },
-      "Devart.Data/5.0.2604": {
+      "Devart.Data/5.0.2628": {
         "type": "package",
         "dependencies": {
           "Microsoft.Win32.Registry": "4.5.0"
@@ -84,10 +84,10 @@
           "lib/netstandard2.0/Devart.Data.dll": {}
         }
       },
-      "Devart.Data.Oracle/9.14.1180": {
+      "Devart.Data.Oracle/9.14.1204": {
         "type": "package",
         "dependencies": {
-          "Devart.Data": "5.0.2604",
+          "Devart.Data": "5.0.2628",
           "Microsoft.Win32.Registry": "4.5.0",
           "System.Diagnostics.PerformanceCounter": "4.5.0",
           "System.Reflection.Emit": "4.3.0",
@@ -101,11 +101,11 @@
           "lib/netstandard2.1/Devart.Data.Oracle.dll": {}
         }
       },
-      "Devart.Data.Oracle.EFCore/9.14.1180": {
+      "Devart.Data.Oracle.EFCore/9.14.1204": {
         "type": "package",
         "dependencies": {
-          "Devart.Data.Oracle": "9.14.1180",
-          "Microsoft.EntityFrameworkCore.Relational": "[5.0.2, 6.0.0)"
+          "Devart.Data.Oracle": "9.14.1204",
+          "Microsoft.EntityFrameworkCore.Relational": "[5.0.3, 6.0.0)"
         },
         "compile": {
           "lib/netstandard2.1/Devart.Data.Oracle.Entity.EFCore.dll": {}
@@ -185,7 +185,7 @@
           "lib/netstandard2.0/Google.Protobuf.dll": {}
         }
       },
-      "HtmlAgilityPack/1.11.30": {
+      "HtmlAgilityPack/1.11.31": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/HtmlAgilityPack.dll": {}
@@ -1766,13 +1766,19 @@
           "lib/netstandard2.0/NPinyin.Core.dll": {}
         }
       },
-      "Oracle.ManagedDataAccess.Core/2.19.101": {
+      "Oracle.ManagedDataAccess.Core/3.21.1": {
         "type": "package",
+        "dependencies": {
+          "System.Diagnostics.PerformanceCounter": "4.7.0",
+          "System.DirectoryServices": "4.7.0",
+          "System.DirectoryServices.Protocols": "4.7.0",
+          "System.Text.Json": "4.7.1"
+        },
         "compile": {
-          "lib/netstandard2.0/Oracle.ManagedDataAccess.dll": {}
+          "lib/netstandard2.1/Oracle.ManagedDataAccess.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.0/Oracle.ManagedDataAccess.dll": {}
+          "lib/netstandard2.1/Oracle.ManagedDataAccess.dll": {}
         }
       },
       "Pipelines.Sockets.Unofficial/2.0.17": {
@@ -2033,55 +2039,52 @@
           "lib/netstandard2.0/StackExchange.Redis.dll": {}
         }
       },
-      "Swashbuckle.AspNetCore/6.0.2": {
+      "Swashbuckle.AspNetCore/6.0.7": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.ApiDescription.Server": "3.0.0",
-          "Swashbuckle.AspNetCore.Swagger": "6.0.2",
-          "Swashbuckle.AspNetCore.SwaggerGen": "6.0.2",
-          "Swashbuckle.AspNetCore.SwaggerUI": "6.0.2"
+          "Swashbuckle.AspNetCore.Swagger": "6.0.7",
+          "Swashbuckle.AspNetCore.SwaggerGen": "6.0.7",
+          "Swashbuckle.AspNetCore.SwaggerUI": "6.0.7"
         },
         "build": {
           "build/Swashbuckle.AspNetCore.props": {}
         }
       },
-      "Swashbuckle.AspNetCore.Swagger/6.0.2": {
+      "Swashbuckle.AspNetCore.Swagger/6.0.7": {
         "type": "package",
         "dependencies": {
           "Microsoft.OpenApi": "1.2.3"
         },
         "compile": {
-          "lib/netcoreapp3.0/Swashbuckle.AspNetCore.Swagger.dll": {}
+          "lib/net5.0/Swashbuckle.AspNetCore.Swagger.dll": {}
         },
         "runtime": {
-          "lib/netcoreapp3.0/Swashbuckle.AspNetCore.Swagger.dll": {}
+          "lib/net5.0/Swashbuckle.AspNetCore.Swagger.dll": {}
         },
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
       },
-      "Swashbuckle.AspNetCore.SwaggerGen/6.0.2": {
+      "Swashbuckle.AspNetCore.SwaggerGen/6.0.7": {
         "type": "package",
         "dependencies": {
-          "Swashbuckle.AspNetCore.Swagger": "6.0.2"
+          "Swashbuckle.AspNetCore.Swagger": "6.0.7"
         },
         "compile": {
-          "lib/netcoreapp3.0/Swashbuckle.AspNetCore.SwaggerGen.dll": {}
+          "lib/net5.0/Swashbuckle.AspNetCore.SwaggerGen.dll": {}
         },
         "runtime": {
-          "lib/netcoreapp3.0/Swashbuckle.AspNetCore.SwaggerGen.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
+          "lib/net5.0/Swashbuckle.AspNetCore.SwaggerGen.dll": {}
+        }
       },
-      "Swashbuckle.AspNetCore.SwaggerUI/6.0.2": {
+      "Swashbuckle.AspNetCore.SwaggerUI/6.0.7": {
         "type": "package",
         "compile": {
-          "lib/netcoreapp3.0/Swashbuckle.AspNetCore.SwaggerUI.dll": {}
+          "lib/net5.0/Swashbuckle.AspNetCore.SwaggerUI.dll": {}
         },
         "runtime": {
-          "lib/netcoreapp3.0/Swashbuckle.AspNetCore.SwaggerUI.dll": {}
+          "lib/net5.0/Swashbuckle.AspNetCore.SwaggerUI.dll": {}
         },
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
@@ -2318,13 +2321,13 @@
           "lib/net5.0/System.Diagnostics.DiagnosticSource.dll": {}
         }
       },
-      "System.Diagnostics.PerformanceCounter/4.5.0": {
+      "System.Diagnostics.PerformanceCounter/4.7.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "2.0.0",
-          "Microsoft.Win32.Registry": "4.5.0",
-          "System.Configuration.ConfigurationManager": "4.5.0",
-          "System.Security.Principal.Windows": "4.5.0"
+          "Microsoft.NETCore.Platforms": "3.1.0",
+          "Microsoft.Win32.Registry": "4.7.0",
+          "System.Configuration.ConfigurationManager": "4.7.0",
+          "System.Security.Principal.Windows": "4.7.0"
         },
         "compile": {
           "ref/netstandard2.0/System.Diagnostics.PerformanceCounter.dll": {}
@@ -2374,6 +2377,47 @@
         },
         "compile": {
           "ref/netstandard1.5/_._": {}
+        }
+      },
+      "System.DirectoryServices/4.7.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "3.1.0",
+          "System.IO.FileSystem.AccessControl": "4.7.0",
+          "System.Security.AccessControl": "4.7.0",
+          "System.Security.Permissions": "4.7.0",
+          "System.Security.Principal.Windows": "4.7.0"
+        },
+        "compile": {
+          "ref/netstandard2.0/System.DirectoryServices.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.DirectoryServices.dll": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/netcoreapp2.0/System.DirectoryServices.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      },
+      "System.DirectoryServices.Protocols/4.7.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "3.1.0",
+          "System.Security.Principal.Windows": "4.7.0"
+        },
+        "compile": {
+          "ref/netstandard2.0/System.DirectoryServices.Protocols.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.DirectoryServices.Protocols.dll": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/netcoreapp2.0/System.DirectoryServices.Protocols.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
         }
       },
       "System.Drawing.Common/5.0.1": {
@@ -2498,6 +2542,25 @@
         },
         "compile": {
           "ref/netstandard1.3/_._": {}
+        }
+      },
+      "System.IO.FileSystem.AccessControl/4.7.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Security.AccessControl": "4.7.0",
+          "System.Security.Principal.Windows": "4.7.0"
+        },
+        "compile": {
+          "ref/netstandard2.0/System.IO.FileSystem.AccessControl.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.IO.FileSystem.AccessControl.dll": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/netstandard2.0/System.IO.FileSystem.AccessControl.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
         }
       },
       "System.IO.FileSystem.Primitives/4.3.0": {
@@ -3347,9 +3410,9 @@
           "CSRedisCore": "3.6.6",
           "Dapper": "2.0.78",
           "Dapper.SqlBuilder": "2.0.78",
-          "Devart.Data.Oracle.EFCore": "9.14.1180",
+          "Devart.Data.Oracle.EFCore": "9.14.1204",
           "DotNetCore.NPOI": "1.2.3",
-          "HtmlAgilityPack": "1.11.30",
+          "HtmlAgilityPack": "1.11.31",
           "Microsoft.AspNetCore.Mvc": "2.2.0",
           "Microsoft.Data.Sqlite": "5.0.3",
           "Microsoft.EntityFrameworkCore": "5.0.3",
@@ -3369,7 +3432,7 @@
           "NPinyin.Core": "3.0.0",
           "Npgsql": "5.0.3",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "5.0.2",
-          "Oracle.ManagedDataAccess.Core": "2.19.101",
+          "Oracle.ManagedDataAccess.Core": "3.21.1",
           "Pomelo.EntityFrameworkCore.MySql": "5.0.0-alpha.2",
           "QRCoder": "1.4.1",
           "Quartz": "3.2.4",
@@ -3384,10 +3447,7 @@
         },
         "runtime": {
           "bin/placeholder/Yuebon.Commons.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
+        }
       },
       "Yuebon.Security.Core/1.3.2.32": {
         "type": "project",
@@ -3400,10 +3460,7 @@
         },
         "runtime": {
           "bin/placeholder/Yuebon.Security.Core.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
+        }
       }
     }
   },
@@ -3510,30 +3567,30 @@
         "lib/netstandard2.0/Dapper.SqlBuilder.dll"
       ]
     },
-    "Devart.Data/5.0.2604": {
-      "sha512": "dG11Cxn30OEdnbjmy3XNQ4vkknlZrbSVzPg5JwgQx9WZfYQJULYuUOU3Kvz4v3M4DpNvDnxbfrBWDkiWnW+C/Q==",
+    "Devart.Data/5.0.2628": {
+      "sha512": "/qULddioocbwhUcE7tyPtAAG9BjV5yBjaVxBpdA/7H89JDEuYaEHIPDGPqdhZY+W4F7srGKrH6x1WmBw0XrWkw==",
       "type": "package",
-      "path": "devart.data/5.0.2604",
+      "path": "devart.data/5.0.2628",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "dc.png",
-        "devart.data.5.0.2604.nupkg.sha512",
+        "devart.data.5.0.2628.nupkg.sha512",
         "devart.data.nuspec",
         "lib/netstandard1.3/Devart.Data.dll",
         "lib/netstandard2.0/Devart.Data.dll"
       ]
     },
-    "Devart.Data.Oracle/9.14.1180": {
-      "sha512": "vHzLKm+D8jsyvcLrPlbou+eEDdphYkFjwVBaghp4D+Bn4bq6o01d2QmAvKCNkDNb/Kf9djg77281glC7oqkC8g==",
+    "Devart.Data.Oracle/9.14.1204": {
+      "sha512": "gy84W45Lxel6pz4H+rjMj18SuPUfkGc6F/XdnQO8S7XtdibsJMvtf11BXKNF3/k5VpyTqtwVOMMog5GDTn/MLQ==",
       "type": "package",
-      "path": "devart.data.oracle/9.14.1180",
+      "path": "devart.data.oracle/9.14.1204",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "content/app.config.transform",
         "content/web.config.transform",
-        "devart.data.oracle.9.14.1180.nupkg.sha512",
+        "devart.data.oracle.9.14.1204.nupkg.sha512",
         "devart.data.oracle.nuspec",
         "lib/netstandard1.3/Devart.Data.Oracle.dll",
         "lib/netstandard2.0/Devart.Data.Oracle.dll",
@@ -3541,14 +3598,14 @@
         "oracle.png"
       ]
     },
-    "Devart.Data.Oracle.EFCore/9.14.1180": {
-      "sha512": "RpQDi0DUlNvWTvGuAHmJbwlby04PtbtSIHQkT4wNuzZfHhaya4T9Mf1/SDYWJ08AMgJw0j43oFQpL4+mU+hgXQ==",
+    "Devart.Data.Oracle.EFCore/9.14.1204": {
+      "sha512": "BYSEeMxBp3CZiHL6+xaruQEDgXAzh70l/IL2rbMTVdkF6BHYCJsXmycMWaDKeKKSGJZ9cXVErPcZPJFfRDEtJA==",
       "type": "package",
-      "path": "devart.data.oracle.efcore/9.14.1180",
+      "path": "devart.data.oracle.efcore/9.14.1204",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "devart.data.oracle.efcore.9.14.1180.nupkg.sha512",
+        "devart.data.oracle.efcore.9.14.1204.nupkg.sha512",
         "devart.data.oracle.efcore.nuspec",
         "lib/netstandard1.3/Devart.Data.Oracle.Entity.EFCore.dll",
         "lib/netstandard2.0/Devart.Data.Oracle.Entity.EFCore.dll",
@@ -3631,14 +3688,14 @@
         "lib/netstandard2.0/Google.Protobuf.xml"
       ]
     },
-    "HtmlAgilityPack/1.11.30": {
-      "sha512": "IuOSVuuHCJKrnAjNe5rZnZCyR/NpXL6ExEL7UiM8h4fnhbt8tLqIKol9q5Lv0uoxWO8fl9Uq+1kpGfMDUdr5zA==",
+    "HtmlAgilityPack/1.11.31": {
+      "sha512": "yQO6Ero0AAeTrud/Lf9aubFNi9FBJnvC0P9tqH+hxw2vNz3hzENNMU9Ep4pm5m34m1MU8BMHj8wOJaB8OfWK8g==",
       "type": "package",
-      "path": "htmlagilitypack/1.11.30",
+      "path": "htmlagilitypack/1.11.31",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "htmlagilitypack.1.11.30.nupkg.sha512",
+        "htmlagilitypack.1.11.31.nupkg.sha512",
         "htmlagilitypack.nuspec",
         "lib/Net35/HtmlAgilityPack.dll",
         "lib/Net35/HtmlAgilityPack.pdb",
@@ -5780,18 +5837,18 @@
         "npinyin.core.nuspec"
       ]
     },
-    "Oracle.ManagedDataAccess.Core/2.19.101": {
-      "sha512": "gZM0WhFhx/XYjr4C+LoVrDIpQJb2OHKw1i4L75CXQORsvKziaKm6xcZWJI1V27lH879AwJop1eDehdybPI6bKw==",
+    "Oracle.ManagedDataAccess.Core/3.21.1": {
+      "sha512": "SJM0qRVz6a7xMJtPPHAObq7MEzo42T+6+MImuuUK7ZCTXc2BIXbc9cenN7006FcOuX8x4OeTpPbFfQTVlhk9bw==",
       "type": "package",
-      "path": "oracle.manageddataaccess.core/2.19.101",
+      "path": "oracle.manageddataaccess.core/3.21.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "PerfCounters/register_odpc_perfmon_counters.ps1",
         "PerfCounters/unregister_odpc_perfmon_counters.ps1",
         "info.txt",
-        "lib/netstandard2.0/Oracle.ManagedDataAccess.dll",
-        "oracle.manageddataaccess.core.2.19.101.nupkg.sha512",
+        "lib/netstandard2.1/Oracle.ManagedDataAccess.dll",
+        "oracle.manageddataaccess.core.3.21.1.nupkg.sha512",
         "oracle.manageddataaccess.core.nuspec",
         "readme.txt"
       ]
@@ -6124,66 +6181,75 @@
         "stackexchange.redis.nuspec"
       ]
     },
-    "Swashbuckle.AspNetCore/6.0.2": {
-      "sha512": "TNPXYE2hbXJ4bnage9jls2bOWjj9B3iD6vh9sAFyyjnQB48B10+OIW/gMCwKbeX2G+M/V0KswLDYSr3mJECGPw==",
+    "Swashbuckle.AspNetCore/6.0.7": {
+      "sha512": "Txpe0oaLHrbGYajEVMLlgbnE3MMXyfqmzlf3eD/N5sqyXHN11eFkL6oq6weEoRkAq/+dvLzh5EKR5ZHTKI+bUA==",
       "type": "package",
-      "path": "swashbuckle.aspnetcore/6.0.2",
+      "path": "swashbuckle.aspnetcore/6.0.7",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "build/Swashbuckle.AspNetCore.props",
-        "swashbuckle.aspnetcore.6.0.2.nupkg.sha512",
+        "swashbuckle.aspnetcore.6.0.7.nupkg.sha512",
         "swashbuckle.aspnetcore.nuspec"
       ]
     },
-    "Swashbuckle.AspNetCore.Swagger/6.0.2": {
-      "sha512": "j0uRMYKrMJN3v/4DUqXBHot9jGwvSDa4Y3/yo37MjSaQGrov2nenHyXQWdIV97oFX8LEL44/1WW9AUHjBujZFA==",
+    "Swashbuckle.AspNetCore.Swagger/6.0.7": {
+      "sha512": "gNSfl9GezGQF6lVrQik4WRMR1cOfLDk58+7Dq1UcFx3llLmIxOhzfCszH9lpiuxGDd+e3efBTOocpR/OYO9z0w==",
       "type": "package",
-      "path": "swashbuckle.aspnetcore.swagger/6.0.2",
+      "path": "swashbuckle.aspnetcore.swagger/6.0.7",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "lib/net5.0/Swashbuckle.AspNetCore.Swagger.dll",
+        "lib/net5.0/Swashbuckle.AspNetCore.Swagger.pdb",
+        "lib/net5.0/Swashbuckle.AspNetCore.Swagger.xml",
         "lib/netcoreapp3.0/Swashbuckle.AspNetCore.Swagger.dll",
         "lib/netcoreapp3.0/Swashbuckle.AspNetCore.Swagger.pdb",
         "lib/netcoreapp3.0/Swashbuckle.AspNetCore.Swagger.xml",
         "lib/netstandard2.0/Swashbuckle.AspNetCore.Swagger.dll",
         "lib/netstandard2.0/Swashbuckle.AspNetCore.Swagger.pdb",
         "lib/netstandard2.0/Swashbuckle.AspNetCore.Swagger.xml",
-        "swashbuckle.aspnetcore.swagger.6.0.2.nupkg.sha512",
+        "swashbuckle.aspnetcore.swagger.6.0.7.nupkg.sha512",
         "swashbuckle.aspnetcore.swagger.nuspec"
       ]
     },
-    "Swashbuckle.AspNetCore.SwaggerGen/6.0.2": {
-      "sha512": "ssPIP7Y9Ktc50vJB3ut3I06vBWEUWH5JgIJyzfJ9BTXEL5oTUbXtTq8qYj7yleZK8Nokj+N5LWGWMPWeR/S7jQ==",
+    "Swashbuckle.AspNetCore.SwaggerGen/6.0.7": {
+      "sha512": "J6TM1oj01pAHsIu0fNEMuUjBZoEvxt9+m9bRXZZM+u5Hnxb+aVYviclhhVIgbORy3SCr3n4++M47uc8TVSubbw==",
       "type": "package",
-      "path": "swashbuckle.aspnetcore.swaggergen/6.0.2",
+      "path": "swashbuckle.aspnetcore.swaggergen/6.0.7",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "lib/net5.0/Swashbuckle.AspNetCore.SwaggerGen.dll",
+        "lib/net5.0/Swashbuckle.AspNetCore.SwaggerGen.pdb",
+        "lib/net5.0/Swashbuckle.AspNetCore.SwaggerGen.xml",
         "lib/netcoreapp3.0/Swashbuckle.AspNetCore.SwaggerGen.dll",
         "lib/netcoreapp3.0/Swashbuckle.AspNetCore.SwaggerGen.pdb",
         "lib/netcoreapp3.0/Swashbuckle.AspNetCore.SwaggerGen.xml",
         "lib/netstandard2.0/Swashbuckle.AspNetCore.SwaggerGen.dll",
         "lib/netstandard2.0/Swashbuckle.AspNetCore.SwaggerGen.pdb",
         "lib/netstandard2.0/Swashbuckle.AspNetCore.SwaggerGen.xml",
-        "swashbuckle.aspnetcore.swaggergen.6.0.2.nupkg.sha512",
+        "swashbuckle.aspnetcore.swaggergen.6.0.7.nupkg.sha512",
         "swashbuckle.aspnetcore.swaggergen.nuspec"
       ]
     },
-    "Swashbuckle.AspNetCore.SwaggerUI/6.0.2": {
-      "sha512": "MPDxbnSXidRd7PTrGjrEm8L7DTLJj1wzWBZ9JwBP+uFyXPUge1Ktz1SbbFl69mLaFEJoxendcExRvbQV5lPSFA==",
+    "Swashbuckle.AspNetCore.SwaggerUI/6.0.7": {
+      "sha512": "zf1k5ZK962nKFtnDixm7tAWzUbXatxckBseAcPeeylXIY48W1K6EUMaIJkCbT+GTTMzCxqppXnIBShZz671k3Q==",
       "type": "package",
-      "path": "swashbuckle.aspnetcore.swaggerui/6.0.2",
+      "path": "swashbuckle.aspnetcore.swaggerui/6.0.7",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "lib/net5.0/Swashbuckle.AspNetCore.SwaggerUI.dll",
+        "lib/net5.0/Swashbuckle.AspNetCore.SwaggerUI.pdb",
+        "lib/net5.0/Swashbuckle.AspNetCore.SwaggerUI.xml",
         "lib/netcoreapp3.0/Swashbuckle.AspNetCore.SwaggerUI.dll",
         "lib/netcoreapp3.0/Swashbuckle.AspNetCore.SwaggerUI.pdb",
         "lib/netcoreapp3.0/Swashbuckle.AspNetCore.SwaggerUI.xml",
         "lib/netstandard2.0/Swashbuckle.AspNetCore.SwaggerUI.dll",
         "lib/netstandard2.0/Swashbuckle.AspNetCore.SwaggerUI.pdb",
         "lib/netstandard2.0/Swashbuckle.AspNetCore.SwaggerUI.xml",
-        "swashbuckle.aspnetcore.swaggerui.6.0.2.nupkg.sha512",
+        "swashbuckle.aspnetcore.swaggerui.6.0.7.nupkg.sha512",
         "swashbuckle.aspnetcore.swaggerui.nuspec"
       ]
     },
@@ -6979,10 +7045,10 @@
         "version.txt"
       ]
     },
-    "System.Diagnostics.PerformanceCounter/4.5.0": {
-      "sha512": "JUO5/moXgchWZBMBElgmPebZPKCgwW8kY3dFwVJavaNR2ftcc/YjXXGjOaCjly2KBXT7Ld5l/GTkMVzNv41yZA==",
+    "System.Diagnostics.PerformanceCounter/4.7.0": {
+      "sha512": "kE9szT4i3TYT9bDE/BPfzg9/BL6enMiZlcUmnUEBrhRtxWvurKoa8qhXkLTRhrxMzBqaDleWlRfIPE02tulU+w==",
       "type": "package",
-      "path": "system.diagnostics.performancecounter/4.5.0",
+      "path": "system.diagnostics.performancecounter/4.7.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -6991,7 +7057,9 @@
         "lib/MonoAndroid10/_._",
         "lib/MonoTouch10/_._",
         "lib/net461/System.Diagnostics.PerformanceCounter.dll",
+        "lib/net461/System.Diagnostics.PerformanceCounter.xml",
         "lib/netstandard2.0/System.Diagnostics.PerformanceCounter.dll",
+        "lib/netstandard2.0/System.Diagnostics.PerformanceCounter.xml",
         "lib/xamarinios10/_._",
         "lib/xamarinmac20/_._",
         "lib/xamarintvos10/_._",
@@ -7000,6 +7068,8 @@
         "ref/MonoTouch10/_._",
         "ref/net461/System.Diagnostics.PerformanceCounter.dll",
         "ref/net461/System.Diagnostics.PerformanceCounter.xml",
+        "ref/net472/System.Diagnostics.PerformanceCounter.dll",
+        "ref/net472/System.Diagnostics.PerformanceCounter.xml",
         "ref/netstandard2.0/System.Diagnostics.PerformanceCounter.dll",
         "ref/netstandard2.0/System.Diagnostics.PerformanceCounter.xml",
         "ref/xamarinios10/_._",
@@ -7007,7 +7077,8 @@
         "ref/xamarintvos10/_._",
         "ref/xamarinwatchos10/_._",
         "runtimes/win/lib/netcoreapp2.0/System.Diagnostics.PerformanceCounter.dll",
-        "system.diagnostics.performancecounter.4.5.0.nupkg.sha512",
+        "runtimes/win/lib/netcoreapp2.0/System.Diagnostics.PerformanceCounter.xml",
+        "system.diagnostics.performancecounter.4.7.0.nupkg.sha512",
         "system.diagnostics.performancecounter.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
@@ -7198,6 +7269,54 @@
         "ref/xamarinwatchos10/_._",
         "system.diagnostics.tracing.4.3.0.nupkg.sha512",
         "system.diagnostics.tracing.nuspec"
+      ]
+    },
+    "System.DirectoryServices/4.7.0": {
+      "sha512": "NRENC4ulDamI4DQtrYybxtQU3qnhGSTUdEKJkLyctHXY4RqNyS/egZpB9z8/CnFCiaQZmwLlqxfBmw80VlKBTA==",
+      "type": "package",
+      "path": "system.directoryservices/4.7.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net45/_._",
+        "lib/netstandard2.0/System.DirectoryServices.dll",
+        "lib/netstandard2.0/System.DirectoryServices.xml",
+        "ref/net45/_._",
+        "ref/netstandard2.0/System.DirectoryServices.dll",
+        "ref/netstandard2.0/System.DirectoryServices.xml",
+        "runtimes/win/lib/net45/_._",
+        "runtimes/win/lib/netcoreapp2.0/System.DirectoryServices.dll",
+        "runtimes/win/lib/netcoreapp2.0/System.DirectoryServices.xml",
+        "system.directoryservices.4.7.0.nupkg.sha512",
+        "system.directoryservices.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "System.DirectoryServices.Protocols/4.7.0": {
+      "sha512": "yy0a+E/yksdoMWfZEmWpI5LuCbJ/E6P5d4QRbqUDj/xC4MV7Vw5DiW3KREA9LFbWedoGx90KikUfSN0xhE1j1g==",
+      "type": "package",
+      "path": "system.directoryservices.protocols/4.7.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net45/_._",
+        "lib/netstandard2.0/System.DirectoryServices.Protocols.dll",
+        "lib/netstandard2.0/System.DirectoryServices.Protocols.xml",
+        "ref/net45/_._",
+        "ref/netstandard2.0/System.DirectoryServices.Protocols.dll",
+        "ref/netstandard2.0/System.DirectoryServices.Protocols.xml",
+        "runtimes/win/lib/net45/_._",
+        "runtimes/win/lib/netcoreapp2.0/System.DirectoryServices.Protocols.dll",
+        "runtimes/win/lib/netcoreapp2.0/System.DirectoryServices.Protocols.xml",
+        "system.directoryservices.protocols.4.7.0.nupkg.sha512",
+        "system.directoryservices.protocols.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
       ]
     },
     "System.Drawing.Common/5.0.1": {
@@ -7556,6 +7675,49 @@
         "ref/xamarinwatchos10/_._",
         "system.io.filesystem.4.3.0.nupkg.sha512",
         "system.io.filesystem.nuspec"
+      ]
+    },
+    "System.IO.FileSystem.AccessControl/4.7.0": {
+      "sha512": "vMToiarpU81LR1/KZtnT7VDPvqAZfw9oOS5nY6pPP78nGYz3COLsQH3OfzbR+SjTgltd31R6KmKklz/zDpTmzw==",
+      "type": "package",
+      "path": "system.io.filesystem.accesscontrol/4.7.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net46/System.IO.FileSystem.AccessControl.dll",
+        "lib/net461/System.IO.FileSystem.AccessControl.dll",
+        "lib/net461/System.IO.FileSystem.AccessControl.xml",
+        "lib/netstandard1.3/System.IO.FileSystem.AccessControl.dll",
+        "lib/netstandard2.0/System.IO.FileSystem.AccessControl.dll",
+        "lib/netstandard2.0/System.IO.FileSystem.AccessControl.xml",
+        "ref/net46/System.IO.FileSystem.AccessControl.dll",
+        "ref/net461/System.IO.FileSystem.AccessControl.dll",
+        "ref/net461/System.IO.FileSystem.AccessControl.xml",
+        "ref/netstandard1.3/System.IO.FileSystem.AccessControl.dll",
+        "ref/netstandard1.3/System.IO.FileSystem.AccessControl.xml",
+        "ref/netstandard1.3/de/System.IO.FileSystem.AccessControl.xml",
+        "ref/netstandard1.3/es/System.IO.FileSystem.AccessControl.xml",
+        "ref/netstandard1.3/fr/System.IO.FileSystem.AccessControl.xml",
+        "ref/netstandard1.3/it/System.IO.FileSystem.AccessControl.xml",
+        "ref/netstandard1.3/ja/System.IO.FileSystem.AccessControl.xml",
+        "ref/netstandard1.3/ko/System.IO.FileSystem.AccessControl.xml",
+        "ref/netstandard1.3/ru/System.IO.FileSystem.AccessControl.xml",
+        "ref/netstandard1.3/zh-hans/System.IO.FileSystem.AccessControl.xml",
+        "ref/netstandard1.3/zh-hant/System.IO.FileSystem.AccessControl.xml",
+        "ref/netstandard2.0/System.IO.FileSystem.AccessControl.dll",
+        "ref/netstandard2.0/System.IO.FileSystem.AccessControl.xml",
+        "runtimes/win/lib/net46/System.IO.FileSystem.AccessControl.dll",
+        "runtimes/win/lib/net461/System.IO.FileSystem.AccessControl.dll",
+        "runtimes/win/lib/net461/System.IO.FileSystem.AccessControl.xml",
+        "runtimes/win/lib/netstandard1.3/System.IO.FileSystem.AccessControl.dll",
+        "runtimes/win/lib/netstandard2.0/System.IO.FileSystem.AccessControl.dll",
+        "runtimes/win/lib/netstandard2.0/System.IO.FileSystem.AccessControl.xml",
+        "system.io.filesystem.accesscontrol.4.7.0.nupkg.sha512",
+        "system.io.filesystem.accesscontrol.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
       ]
     },
     "System.IO.FileSystem.Primitives/4.3.0": {
@@ -10307,13 +10469,14 @@
       "Microsoft.AspNetCore.Mvc.NewtonsoftJson >= 5.0.3",
       "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation >= 5.0.3",
       "Microsoft.IdentityModel.Tokens >= 6.8.0",
-      "Swashbuckle.AspNetCore >= 6.0.2",
+      "Swashbuckle.AspNetCore >= 6.0.7",
       "System.IdentityModel.Tokens.Jwt >= 6.8.0",
       "Yuebon.Security.Core >= 1.3.2.32"
     ]
   },
   "packageFolders": {
-    "D:\\Nuget\\.nuget\\packages": {}
+    "D:\\Nuget\\.nuget\\packages": {},
+    "d:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.3.1.37",
@@ -10324,8 +10487,12 @@
       "packagesPath": "D:\\Nuget\\.nuget\\packages",
       "outputPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.AspNetCore\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "d:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
         "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Nuget.config"
       ],
@@ -10378,7 +10545,7 @@
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
-            "version": "[6.0.2, )"
+            "version": "[6.0.7, )"
           },
           "System.IdentityModel.Tokens.Jwt": {
             "target": "Package",
@@ -10403,7 +10570,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -12,6 +12,8 @@ namespace Yuebon.Tenants.Dtos
         {
            CreateMap<Tenant, TenantOutputDto>();
            CreateMap<TenantInputDto, Tenant>();
+            CreateMap<TenantLogon, TenantLogonOutputDto>();
+            CreateMap<TenantLogonInputDto, TenantLogon>();
 
         }
     }

@@ -135,11 +135,6 @@ namespace Yuebon.Security.Models
         public virtual bool? IsAdministrator { get; set; }
 
         /// <summary>
-        /// 是否是租户
-        /// </summary>
-        public virtual bool? IsTenant { get; set; }
-
-        /// <summary>
         /// 是否会员
         /// </summary>
         public virtual bool? IsMember { get; set; }

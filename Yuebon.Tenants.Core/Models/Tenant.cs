@@ -11,13 +11,9 @@ namespace Yuebon.Tenants.Models
     [Serializable]
     public class Tenant:BaseEntity<string>, ICreationAudited, IModificationAudited, IDeleteAudited
     {
-        /// <summary>
-        /// 设置或获取 
-        /// </summary>
-        public string Id { get; set; }
 
         /// <summary>
-        /// 设置或获取租户名称
+        /// 设置或获取租户账号
         /// </summary>
         public string TenantName { get; set; }
 
@@ -30,6 +26,11 @@ namespace Yuebon.Tenants.Models
         /// 设置或获取访问域名
         /// </summary>
         public string HostDomain { get; set; }
+
+        /// <summary>
+        /// 设置或获取租户Email
+        /// </summary>
+        public string Email { get; set; }
 
         /// <summary>
         /// 设置或获取联系人
@@ -54,7 +55,7 @@ namespace Yuebon.Tenants.Models
         /// <summary>
         /// 设置或获取是否可用
         /// </summary>
-        public bool? EnabledMark { get; set; }
+        public bool EnabledMark { get; set; }
 
         /// <summary>
         /// 设置或获取删除标记

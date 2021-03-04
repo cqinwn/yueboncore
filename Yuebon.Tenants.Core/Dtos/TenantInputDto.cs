@@ -55,7 +55,7 @@ namespace Yuebon.Tenants.Dtos
         /// <summary>
         /// 设置或获取是否可用
         /// </summary>
-        public bool? EnabledMark { get; set; }
+        public bool EnabledMark { get; set; }
 
 
     }

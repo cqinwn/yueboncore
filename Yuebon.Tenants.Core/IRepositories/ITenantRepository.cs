@@ -1,5 +1,7 @@
 using System;
+using System.Threading.Tasks;
 using Yuebon.Commons.IRepositories;
+using Yuebon.Tenants.Dtos;
 using Yuebon.Tenants.Models;
 
 namespace Yuebon.Tenants.IRepositories
@@ -9,5 +11,19 @@ namespace Yuebon.Tenants.IRepositories
     /// </summary>
     public interface ITenantRepository:IRepository<Tenant, string>
     {
+        /// <summary>
+        /// 根据租户账号查询租户信息
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        Task<Tenant> GetByUserName(string userName);
+
+        /// <summary>
+        /// 注册租户户
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="tenantLogOnEntity"></param>
+        Task<bool> InsertAsync(Tenant entity, TenantLogon tenantLogOnEntity);
+
     }
 }

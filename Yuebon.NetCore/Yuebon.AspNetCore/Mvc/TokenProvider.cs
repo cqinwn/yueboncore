@@ -27,7 +27,6 @@ namespace Yuebon.AspNetCore.Mvc
     public class TokenProvider
     {
         JwtOption _jwtModel=App.GetService<JwtOption>();
-        private Type type = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType;
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -119,7 +118,7 @@ namespace Yuebon.AspNetCore.Mvc
                 }
                 catch (Exception ex)
                 {
-                    Log4NetHelper.Error(type, "验证token异常", ex);
+                    Log4NetHelper.Error("验证token异常", ex);
                     throw new MyApiException(ErrCode.err40004, "40004");
                 }
             }
@@ -138,6 +137,42 @@ namespace Yuebon.AspNetCore.Mvc
         /// <param name="appid">应用Id</param>
         /// <returns></returns>
         public TokenResult LoginToken(User userInfo,string appid)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.UTF8.GetBytes(_jwtModel.Secret);
+            var authTime = DateTime.UtcNow;//授权时间
+            var expires = authTime.Add(TimeSpan.FromMinutes(_jwtModel.Expiration));//过期时间
+            var tokenDescripor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[] {
+                    new Claim(JwtClaimTypes.Audience,appid),
+                    new Claim(JwtClaimTypes.Issuer,_jwtModel.Issuer),
+                    new Claim(JwtClaimTypes.Name, userInfo.Account),
+                    new Claim(JwtClaimTypes.Id, userInfo.Id),
+                    new Claim(JwtClaimTypes.Role, userInfo.RoleId),
+                    new Claim(JwtClaimTypes.Subject, GrantType.Password)
+                }),
+                Expires = expires,
+                //对称秘钥SymmetricSecurityKey
+                //签名证书(秘钥，加密算法)SecurityAlgorithms
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescripor);
+            var tokenString = tokenHandler.WriteToken(token);
+            TokenResult result = new TokenResult();
+            result.AccessToken = tokenString;
+            result.ExpiresIn = (int)TimeSpan.FromMinutes(_jwtModel.Expiration).TotalMinutes;
+            return result;
+        }
+
+
+        /// <summary>
+        /// 根据登录用户获取token
+        /// </summary>
+        /// <param name="userInfo">用户信息</param>
+        /// <param name="appid">应用Id</param>
+        /// <returns></returns>
+        public TokenResult GetUserToken(User userInfo, string appid)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.UTF8.GetBytes(_jwtModel.Secret);

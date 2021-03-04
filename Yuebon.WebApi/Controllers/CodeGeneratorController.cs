@@ -83,7 +83,7 @@ namespace Yuebon.WebApi.Controllers
                 }
                 if (dbConnInfo.DbType == "SqlServer")
                 {
-                    dBConnResult.ConnStr = string.Format("Server={0}:{1};Database={2};User id={3}; password={4};MultipleActiveResultSets=True;", dbConnInfo.DbAddress,dbConnInfo.DbPort, dbConnInfo.DbName, dbConnInfo.DbUserName, dbConnInfo.DbPassword);
+                    dBConnResult.ConnStr = string.Format("Server={0},{1};Database={2};User id={3}; password={4};MultipleActiveResultSets=True;", dbConnInfo.DbAddress,dbConnInfo.DbPort, dbConnInfo.DbName, dbConnInfo.DbUserName, dbConnInfo.DbPassword);
                 }
                 else if (dbConnInfo.DbType == "MySql")
                 {
@@ -92,7 +92,7 @@ namespace Yuebon.WebApi.Controllers
                 YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
                 TimeSpan expiresSliding = DateTime.Now.AddMinutes(30) - DateTime.Now;
                 yuebonCacheHelper.Add("CodeGeneratorDbConn", dBConnResult.ConnStr, expiresSliding, false);
-                yuebonCacheHelper.Add("CodeGeneratorDbType", dbConnInfo.DbType, expiresSliding, false);
+                yuebonCacheHelper.Add("CodeGeneratorDbType", dbConnInfo.DbType, expiresSliding, false); 
                 yuebonCacheHelper.Add("CodeGeneratorDbName", dbConnInfo.DbName, expiresSliding, false);
                 DbExtractor dbExtractor = new DbExtractor();
                 List<DataBaseInfo> listTable = dbExtractor.GetAllDataBases();

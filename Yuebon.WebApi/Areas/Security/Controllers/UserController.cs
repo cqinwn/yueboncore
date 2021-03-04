@@ -145,7 +145,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             result.Success = await iService.InsertAsync(info, userLogOn);
             if (result.Success)
             {
-                yuebonCacheHelper.Remove("LoginValidateCode");
+                yuebonCacheHelper.Remove("ValidateCode");
                 result.ErrCode = ErrCode.successCode;
                 result.ErrMsg = ErrCode.err0;
             }

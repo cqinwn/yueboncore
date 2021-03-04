@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <Compile Remove="Areas\Security\Controllers\FunctionController.cs" />
+    <Compile Remove="Areas\Security\Controllers\TenantController.cs" />
     <Compile Remove="Controllers\InitSystem.cs" />
   </ItemGroup>
 
@@ -52,9 +53,9 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="Quartz.AspNetCore" Version="3.2.4" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="6.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="6.1.0" />
   </ItemGroup>
 
   <ItemGroup>

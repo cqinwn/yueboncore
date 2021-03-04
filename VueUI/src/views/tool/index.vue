@@ -6,9 +6,6 @@
           <el-form-item label="数据库地址" prop="DbAddress">
             <el-input v-model="searchDbform.DbAddress" placeholder="请输入数据库地址" autocomplete="off" clearable />
           </el-form-item>
-          <el-form-item label="数据库端口" prop="DbPort">
-            <el-input v-model="searchDbform.DbPort" placeholder="请输入数据库端口" autocomplete="off" clearable />
-          </el-form-item>
           <el-form-item label="数据库名称" prop="DbName">
             <el-input v-model="searchDbform.DbName" placeholder="请输入数据库名称" autocomplete="off" clearable />
           </el-form-item>
@@ -27,6 +24,9 @@
                 :value="item.Id"
               />
             </el-select>
+          </el-form-item>
+          <el-form-item label="数据库端口" prop="DbPort">
+            <el-input v-model="searchDbform.DbPort" placeholder="请输入数据库端口" autocomplete="off" clearable />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="handleDbConn()">链接</el-button>
@@ -128,7 +128,7 @@ export default {
       searchDbform: {
         DbName: '',
         DbAddress: '',
-        DbPort: '',
+        DbPort: '1433',
         DbUserName: '',
         DbPassword: '',
         DbType: ''

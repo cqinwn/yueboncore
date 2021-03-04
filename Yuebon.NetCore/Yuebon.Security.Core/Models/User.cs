@@ -81,16 +81,19 @@ namespace Yuebon.Security.Models
         /// </summary>
         [DataMember]
         public virtual string Province { get; set; }
+
         /// <summary>
         /// 城市
         /// </summary>
         [DataMember]
         public virtual string City { get; set; }
+
         /// <summary>
         /// 地区
         /// </summary>
         [DataMember]
         public virtual string District { get; set; }
+
         /// <summary>
         /// 主管主键
         /// </summary>
@@ -130,10 +133,12 @@ namespace Yuebon.Security.Models
         /// 是否管理员
         /// </summary>
         public virtual bool? IsAdministrator { get; set; }
+
         /// <summary>
         /// 是否会员
         /// </summary>
         public virtual bool? IsMember { get; set; }
+
         /// <summary>
         /// 头像
         /// </summary>

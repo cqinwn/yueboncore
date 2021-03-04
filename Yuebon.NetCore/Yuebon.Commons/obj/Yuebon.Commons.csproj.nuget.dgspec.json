@@ -13,8 +13,12 @@
         "packagesPath": "D:\\Nuget\\.nuget\\packages",
         "outputPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "d:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
           "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Nuget.config"
         ],
@@ -63,7 +67,7 @@
             },
             "Devart.Data.Oracle.EFCore": {
               "target": "Package",
-              "version": "[9.14.1180, )"
+              "version": "[9.14.1204, )"
             },
             "DotNetCore.NPOI": {
               "target": "Package",
@@ -71,7 +75,7 @@
             },
             "HtmlAgilityPack": {
               "target": "Package",
-              "version": "[1.11.30, )"
+              "version": "[1.11.31, )"
             },
             "Microsoft.AspNetCore.Mvc": {
               "target": "Package",
@@ -151,7 +155,7 @@
             },
             "Oracle.ManagedDataAccess.Core": {
               "target": "Package",
-              "version": "[2.19.101, )"
+              "version": "[3.21.1, )"
             },
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
@@ -197,14 +201,11 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }

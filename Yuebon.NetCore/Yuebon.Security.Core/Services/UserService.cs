@@ -29,6 +29,7 @@ namespace Yuebon.Security.Services
         private readonly ILogService _logService;
         private readonly IRoleService _roleService;
         private IOrganizeService _organizeService;
+
         /// <summary>
         /// 
         /// </summary>
@@ -160,6 +161,7 @@ namespace Yuebon.Security.Services
                 return new Tuple<User, string>(userEntity, "");
             }
         }
+
         /// <summary>
         /// 根据用户账号查询用户信息
         /// </summary>

@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Text.Json;
@@ -15,6 +17,7 @@ using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
+using Yuebon.Commons.Log;
 using Yuebon.Commons.Models;
 using Yuebon.Security.Dtos;
 
@@ -32,14 +35,9 @@ namespace Yuebon.AspNetCore.Mvc
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             var controllerActionDescriptor = context.ActionDescriptor as ControllerActionDescriptor;
-            if (!(context.ActionDescriptor is ControllerActionDescriptor))
-            {
-                return;
-            }
             //匿名访问，不需要token认证、签名和登录
-            var allowanyone = controllerActionDescriptor.ControllerTypeInfo.GetCustomAttributes(typeof(IAllowAnonymous), true).Any()
-            || controllerActionDescriptor.MethodInfo.GetCustomAttributes(typeof(IAllowAnonymous), true).Any();
-            if (allowanyone)
+            var allowanyone = controllerActionDescriptor.MethodInfo.GetCustomAttribute(typeof(AllowAnonymousAttribute), true);
+            if (allowanyone!=null)
             {
                 return;
             }
@@ -55,11 +53,11 @@ namespace Yuebon.AspNetCore.Mvc
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
             };
             options.Converters.Add(new DateTimeJsonConverter());
+
             //需要token认证
             string authHeader = context.HttpContext.Request.Headers["Authorization"];//Header中的token
             if (string.IsNullOrEmpty(authHeader))
             {
-
                 result.ErrCode = "40004";
                 result.ErrMsg = ErrCode.err40004;
                 context.Result = new JsonResult(result, options);
@@ -68,9 +66,9 @@ namespace Yuebon.AspNetCore.Mvc
             else
             {
                 string token = string.Empty;
-                if (authHeader != null && authHeader.StartsWith("Bearer", StringComparison.Ordinal) && authHeader.Length > 10)
+                if (authHeader != null )
                 {
-                    token = authHeader.Substring("Bearer ".Length).Trim();
+                    token = authHeader.Substring(7);
                 }
                 TokenProvider tokenProvider = new TokenProvider();
                 result = tokenProvider.ValidateToken(token);
@@ -81,13 +79,11 @@ namespace Yuebon.AspNetCore.Mvc
                 }
                 else
                 {
-
                     #region 签名验证
                     bool boolSign = context.HttpContext.Request.Headers["sign"].SingleOrDefault().ToBool(true);
-                    var isSign = controllerActionDescriptor.MethodInfo.GetCustomAttributes(inherit: true)
-                          .Any(a => a.GetType().Equals(typeof(NoSignRequiredAttribute)));
+                    var isSign = controllerActionDescriptor.MethodInfo.GetCustomAttribute(typeof(NoSignRequiredAttribute), true);
                     //需要签名验证
-                    if (!isSign && boolSign)
+                    if (isSign == null && boolSign)
                     {
                         CommonResult resultSign = SignHelper.CheckSign(context.HttpContext);
                         if (!resultSign.Success)
@@ -97,13 +93,11 @@ namespace Yuebon.AspNetCore.Mvc
                         }
                     }
                     #endregion
-
                     #region 是否需要验证用户登录以及相关的功能权限
                     //是否需要用户登录
-                    var isDefined = controllerActionDescriptor.MethodInfo.GetCustomAttributes(inherit: true)
-                          .Any(a => a.GetType().Equals(typeof(NoPermissionRequiredAttribute))) ;
+                    var isDefined = controllerActionDescriptor.MethodInfo.GetCustomAttribute(typeof(NoPermissionRequiredAttribute));
                     //不需要登录
-                    if (isDefined)
+                    if (isDefined!=null)
                     {
                         return;
                     }
@@ -112,16 +106,13 @@ namespace Yuebon.AspNetCore.Mvc
                     {
                         List<Claim> claimlist = result.ResData as List<Claim>;
                         string userId = claimlist[3].Value;
-                        YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                        var user = yuebonCacheHelper.Get<YuebonCurrentUser>("login_user_" + userId);
-
-                        if (user == null)
+                        YuebonCurrentUser user = new YuebonCurrentUser
                         {
-                            result.ErrCode = "40008";
-                            result.ErrMsg = ErrCode.err40008;
-                            context.Result = new JsonResult(result, options);
-                            return;
-                        }
+                            UserId = userId,
+                            Account = claimlist[2].Value,
+                            Role = claimlist[4].Value
+                        };
+
                         var claims = new[] {
                            new Claim(YuebonClaimTypes.UserId,userId),
                            new Claim(YuebonClaimTypes.UserName,claimlist[2].Value),

@@ -77,11 +77,12 @@ namespace Yuebon.Commons.Helpers
             }
             else
             {
-                request.EnableBuffering();
+                //request.EnableBuffering();
+                request.Body.Seek(0, SeekOrigin.Begin);
                 Stream stream = request.Body;
                 StreamReader streamReader = new StreamReader(stream);
                 data = streamReader.ReadToEndAsync().Result;
-                request.Body.Position = 0;
+                request.Body.Seek(0, SeekOrigin.Begin);
             }
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
             object reqtimeStampCache = yuebonCacheHelper.Get("request_" + timeStamp + nonce);

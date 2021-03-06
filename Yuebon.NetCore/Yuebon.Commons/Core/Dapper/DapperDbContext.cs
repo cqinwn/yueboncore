@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Diagnostics;
 using System.Text;
 using Yuebon.Commons.Core.DataManager;
+using Yuebon.Commons.Log;
 
 namespace Yuebon.Commons.Core.Dapper
 {
@@ -29,10 +31,10 @@ namespace Yuebon.Commons.Core.Dapper
             {
                 dbConnection = DBServerProvider.GetDBConnection<T>(masterDb);
 
-                if (MiniProfiler.Current != null)
-                {
-                    dbConnection = new StackExchange.Profiling.Data.ProfiledDbConnection((DbConnection)dbConnection, MiniProfiler.Current);
-                }
+                //if (MiniProfiler.Current != null)
+                //{
+                //    dbConnection = new StackExchange.Profiling.Data.ProfiledDbConnection((DbConnection)dbConnection, MiniProfiler.Current);
+                //}
             }
             return dbConnection;
         }

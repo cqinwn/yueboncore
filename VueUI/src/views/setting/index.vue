@@ -74,10 +74,14 @@
           <el-form-item label="平台通信密钥" :label-width="formLabelWidth" prop="Smspassword">
             <el-input v-model="editFrom.Smspassword" placeholder="请输入平台通信密钥" autocomplete="off" clearable />
           </el-form-item>
+          <el-form-item label="签名" :label-width="formLabelWidth" prop="SmsSignName">
+            <el-input v-model="editFrom.SmsSignName" placeholder="请输入短信签名" autocomplete="off" clearable />
+          </el-form-item>
           <el-form-item label="短信平台说明" :label-width="formLabelWidth">
             请不要使用系统默认账户test，因为它是公用的测试账号；
             请在短信平台修改账户资料中绑定签名方可使用短信功能；
             如果您尚未申请开通，请点击这里注册成功后填写您的用户名和通讯密钥均可正常使用。
+            目前实现了阿里云短信和助通科技短信接口。
           </el-form-item>
         </el-tab-pane>
         <el-tab-pane label="邮件设置" name="four">

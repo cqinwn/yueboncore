@@ -97,6 +97,7 @@
     <Compile Remove="Extensions\SqlBuilder.cs" />
     <Compile Remove="Helpers\BoolNullableConverter.cs" />
     <Compile Remove="Helpers\CacheKey.cs" />
+    <Compile Remove="Helpers\HttpHelper.cs" />
     <Compile Remove="Helpers\RegistryHelper.cs" />
     <Compile Remove="IoC\AspectCoreContainer.cs" />
     <Compile Remove="IoC\AutofacModuleRegister.cs" />

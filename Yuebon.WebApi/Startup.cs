@@ -202,9 +202,9 @@ namespace Yuebon.WebApi
 
             mvcBuilder = services.AddMvc(option =>
             {
-                option.Filters.Add<YuebonAuthorizationFilter>();
+                //option.Filters.Add<YuebonAuthorizationFilter>();
                 option.Filters.Add(new ExceptionHandlingAttribute());
-                option.Filters.Add<ActionFilter>();
+                //option.Filters.Add<ActionFilter>();
             }).SetCompatibilityVersion(CompatibilityVersion.Latest).AddRazorRuntimeCompilation();
 
             services.AddMvcCore()
@@ -248,6 +248,11 @@ namespace Yuebon.WebApi
                     app.UseExceptionHandler("/Home/Error");
                     app.UseHsts();
                 }
+                app.Use((context, next) =>
+                {
+                    context.Request.EnableBuffering();
+                    return next();
+                });
                 app.UseStaticFiles();
                 app.UseRouting();
                 app.UseAuthentication();
@@ -255,7 +260,6 @@ namespace Yuebon.WebApi
                 //跨域
                 app.UseMiddleware<CorsMiddleware>();
                 app.UseCors("yuebonCors");
-
                 app.UseEndpoints(endpoints =>
                 {
                     endpoints.MapControllers();

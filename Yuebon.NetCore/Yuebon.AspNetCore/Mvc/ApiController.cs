@@ -6,18 +6,23 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
 using Yuebon.AspNetCore.Common;
+using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc;
+using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
+using Yuebon.Commons.Models;
 using Yuebon.Commons.Pages;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.IRepositories;
@@ -44,48 +49,113 @@ namespace Yuebon.AspNetCore.Controllers
         /// 重写基类在Action执行之前的事情
         /// 根据token获得当前用户，允许匿名的不需要获取用户
         /// </summary>
-        /// <param name="filterContext">重写方法的参数</param>
-        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        /// <param name="context">重写方法的参数</param>
+        public override void OnActionExecuting(ActionExecutingContext context)
         {
-            var controllerActionDescriptor = filterContext.ActionDescriptor as ControllerActionDescriptor;
-
             try
-            {   //匿名访问不需要token认证
-                var allowanyone = controllerActionDescriptor.ControllerTypeInfo.GetCustomAttributes(typeof(IAllowAnonymous), true).Any()
-                || controllerActionDescriptor.MethodInfo.GetCustomAttributes(typeof(IAllowAnonymous), true).Any();
-                if (!allowanyone)
+            {
+                var controllerActionDescriptor = context.ActionDescriptor as ControllerActionDescriptor;
+                //匿名访问，不需要token认证、签名和登录
+                var allowanyone = controllerActionDescriptor.MethodInfo.GetCustomAttribute(typeof(AllowAnonymousAttribute), true);
+                if (allowanyone != null) return;
+
+                CommonResult result = new CommonResult();
+                //需要token认证
+                string authHeader = context.HttpContext.Request.Headers["Authorization"];//Header中的token
+                if (string.IsNullOrEmpty(authHeader))
                 {
-                    var identities = filterContext.HttpContext.User.Identities;
-                    var claimsIdentity = identities.First<ClaimsIdentity>();
-                    if (claimsIdentity != null)
+                    result.ErrCode = "40004";
+                    result.ErrMsg = ErrCode.err40004;
+                    context.Result = ToJsonContent(result);
+                    return;
+                }
+                else
+                {
+                    string token = string.Empty;
+                    if (authHeader != null && authHeader.StartsWith("Bearer ", StringComparison.Ordinal)) token = authHeader.Substring(7);
+                    TokenProvider tokenProvider = new TokenProvider();
+                    result = tokenProvider.ValidateToken(token);
+                    //token验证失败
+                    if (!result.Success)
                     {
-                        List<Claim> claimlist= claimsIdentity.Claims as List<Claim>;
-                        if (claimlist.Count > 0)
+                        context.Result = ToJsonContent(result);
+                    }
+                    else
+                    {
+                        #region 签名验证
+                        bool boolSign = context.HttpContext.Request.Headers["sign"].SingleOrDefault().ToBool(true);
+                        var isSign = controllerActionDescriptor.MethodInfo.GetCustomAttribute(typeof(NoSignRequiredAttribute), true);
+                        //需要签名验证
+                        if (isSign == null && boolSign)
                         {
-                            string userId = claimlist[0].Value;
+                            CommonResult resultSign = SignHelper.CheckSign(context.HttpContext);
+                            if (!resultSign.Success)
+                            {
+                                context.Result = ToJsonContent(resultSign);
+                                return;
+                            }
+                        }
+                        #endregion
+
+                        #region 是否需要验证用户登录以及相关的功能权限
+                        //是否需要用户登录
+                        var isDefined = controllerActionDescriptor.MethodInfo.GetCustomAttribute(typeof(NoPermissionRequiredAttribute));
+                        //不需要登录
+                        if (isDefined != null) return;
+                        //需要登录和验证功能权限
+                        if (result.ResData != null)
+                        {
+                            List<Claim> claimlist = result.ResData as List<Claim>;
+                            string userId = claimlist[3].Value;
+
+                            var claims = new[] {
+                               new Claim(YuebonClaimTypes.UserId,userId),
+                               new Claim(YuebonClaimTypes.UserName,claimlist[2].Value),
+                               new Claim(YuebonClaimTypes.Role,claimlist[4].Value)
+                            };
+                            var identity = new ClaimsIdentity(claims);
+                            var principal = new ClaimsPrincipal(identity);
+                            context.HttpContext.User = principal;
                             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
                             var user = yuebonCacheHelper.Get<YuebonCurrentUser>("login_user_" + userId);
                             if (user != null)
                             {
                                 CurrentUser = user;
                             }
+                            bool isAdmin = Permission.IsAdmin(user);
+                            if (!isAdmin)
+                            {
+                                var authorizeAttributes = controllerActionDescriptor.MethodInfo.GetCustomAttributes(typeof(YuebonAuthorizeAttribute), true).OfType<YuebonAuthorizeAttribute>();
+                                if (authorizeAttributes.FirstOrDefault() != null)
+                                {
+                                    string function = authorizeAttributes.First().Function;
+                                    if (!string.IsNullOrEmpty(function))
+                                    {
+                                        string functionCode = controllerActionDescriptor.ControllerName + "/" + function;
+
+                                        bool bl = Permission.HasFunction(functionCode, userId);
+                                        if (!bl)
+                                        {
+                                            result.ErrCode = "40006";
+                                            result.ErrMsg = ErrCode.err40006;
+                                            context.Result = ToJsonContent(result);
+                                        }
+                                    }
+                                }
+                            }
+                            return;
                         }
+                        else
+                        {
+                            result.ErrCode = "40008";
+                            result.ErrMsg = ErrCode.err40008;
+                            context.Result = ToJsonContent(result);
+                        }
+                        #endregion
+
                     }
+                    return;
                 }
-                Log logEntity = new Log();
-                if (CurrentUser != null)
-                {
-                    logEntity.Account = CurrentUser.Account;
-                    logEntity.NickName = CurrentUser.NickName;
-                    logEntity.IPAddressName = CurrentUser.IPAddressName;
-                }
-                logEntity.IPAddress = filterContext.HttpContext.Connection.RemoteIpAddress.ToString();
-                logEntity.Date = logEntity.CreatorTime = DateTime.Now;
-                logEntity.Result = false;
-                logEntity.Description = filterContext.HttpContext.Request.Path + filterContext.HttpContext.Request.QueryString;
-                logEntity.Type = "Visit";
-                service.Insert(logEntity);
-                base.OnActionExecuting(filterContext);
             }
             catch (Exception ex)
             {

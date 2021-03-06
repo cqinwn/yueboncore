@@ -2,12 +2,8 @@
 using Aliyun.Acs.Core.Exceptions;
 using Aliyun.Acs.Core.Http;
 using Aliyun.Acs.Core.Profile;
-using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Text;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Json;

@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 namespace Yuebon.Commons.Helpers
 {
     /// <summary>
-    /// 
+    /// http请求类
     /// </summary>
     public static class HttpRequestHelper
     {
@@ -92,7 +92,6 @@ namespace Yuebon.Commons.Helpers
             stream.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             return HttpPost(url, stream, "application/json", encoding, headers);
         }
-
         /// <summary>
         /// 使用Post方法获取字符串结果
         /// </summary>
@@ -100,6 +99,7 @@ namespace Yuebon.Commons.Helpers
         /// <param name="postStream"></param>
         /// <param name="contentType"></param>
         /// <param name="encoding"></param>
+        /// <param name="headers"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         public static string HttpPost(string url, Stream postStream = null, string contentType = "application/x-www-form-urlencoded", Encoding encoding = null, Dictionary<string, string> headers=null, int timeOut = 60000)
@@ -192,77 +192,6 @@ namespace Yuebon.Commons.Helpers
                 }
             }
             return sb.ToString();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="apiPath"></param>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        public static string HttpEmployee_Post(string apiPath, string data)
-        {
-            string returnStr = "";
-            try
-            {
-
-                //对所有代码产生的垃圾资源进行强制回收-慎用
-                //System.GC.Collect();
-                //请求地址获取用户授权信息
-                WebRequest webRequest = System.Net.WebRequest.Create(apiPath);
-                webRequest.Timeout = 1000000;//设置请求超时时间10秒
-
-                HttpWebRequest httpRequest = webRequest as System.Net.HttpWebRequest;
-                httpRequest.Method = "post";
-                httpRequest.ContentType = "application/json";
-                httpRequest.KeepAlive = false;//设置不是常连接
-
-                System.Text.Encoding encoding = System.Text.Encoding.UTF8;
-                byte[] bytesToPost = encoding.GetBytes(data);
-                httpRequest.ContentLength = bytesToPost.Length;
-                System.IO.Stream requestStream = httpRequest.GetRequestStream();
-                requestStream.Write(bytesToPost, 0, bytesToPost.Length);
-
-                HttpWebResponse response = (HttpWebResponse)webRequest.GetResponse();
-                Stream stream = response.GetResponseStream();
-                StreamReader Reader = new StreamReader(stream, Encoding.UTF8);
-                returnStr = Reader.ReadToEnd();
-                if (!string.IsNullOrEmpty(returnStr))
-                {
-                    returnStr = returnStr.Replace("\\", "");
-                    returnStr = returnStr.TrimEnd('\"');
-                    returnStr = returnStr.TrimStart('\"');
-                }
-
-                if (webRequest != null)
-                {
-                    webRequest.Abort();
-                }
-                if (httpRequest != null)
-                {
-                    httpRequest.Abort();
-                }
-                if (response != null)
-                {
-                    response.Dispose();
-                    response.Close();
-                }
-                if (stream != null)
-                {
-                    stream.Dispose();
-                    stream.Close();
-                }
-                if (Reader != null)
-                {
-                    Reader.Dispose();
-                    Reader.Close();
-                }
-            }
-            catch
-            {
-                returnStr = "";
-            }
-            return returnStr;
         }
     }
 }

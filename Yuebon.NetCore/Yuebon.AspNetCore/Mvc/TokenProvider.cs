@@ -17,6 +17,7 @@ using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Models;
 using Yuebon.Commons.Options;
+using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
 
 namespace Yuebon.AspNetCore.Mvc
@@ -27,6 +28,7 @@ namespace Yuebon.AspNetCore.Mvc
     public class TokenProvider
     {
         JwtOption _jwtModel=App.GetService<JwtOption>();
+        IRoleService _roleService = App.GetService<IRoleService>();
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -149,7 +151,7 @@ namespace Yuebon.AspNetCore.Mvc
                     new Claim(JwtClaimTypes.Issuer,_jwtModel.Issuer),
                     new Claim(JwtClaimTypes.Name, userInfo.Account),
                     new Claim(JwtClaimTypes.Id, userInfo.Id),
-                    new Claim(JwtClaimTypes.Role, userInfo.RoleId),
+                    new Claim(JwtClaimTypes.Role, _roleService.GetRoleEnCode(userInfo.RoleId)),
                     new Claim(JwtClaimTypes.Subject, GrantType.Password)
                 }),
                 Expires = expires,

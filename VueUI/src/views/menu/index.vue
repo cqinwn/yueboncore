@@ -56,7 +56,7 @@
                 <el-table-column
                   prop="EnCode"
                   label="功能编码"
-                  width="180"
+                  width="268"
                 />
                 <el-table-column
                   prop="UrlAddress"

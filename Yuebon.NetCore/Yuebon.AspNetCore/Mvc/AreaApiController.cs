@@ -1,21 +1,15 @@
-﻿using Dapper;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Internal;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Text.Json;
 using System.Threading.Tasks;
-using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.AspNetCore.ViewModel;
-using Yuebon.Commons.Cache;
 using Yuebon.Commons.Core.Dtos;
 using Yuebon.Commons.Dtos;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.IServices;
-using Yuebon.Commons.Json;
 using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Models;
 using Yuebon.Commons.Pages;
@@ -388,7 +382,6 @@ namespace Yuebon.AspNetCore.Controllers
                 bl = true;
             }
             string where = string.Empty;
-            var sb = new SqlBuilder();
 
             if (typeof(TKey) == typeof(string))
             {

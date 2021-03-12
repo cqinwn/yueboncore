@@ -30,7 +30,7 @@ namespace Yuebon.Security.Repositories
         public APP GetAPP(string appid, string secret)
         {
             string sql = @"SELECT * FROM Sys_APP t WHERE t.AppId = @AppId and AppSecret=@AppSecret and EnabledMark=1";
-            return DapperConn.QueryFirstOrDefault<APP>(sql, new { AppId = appid, AppSecret = secret });
+            return DapperConnRead.QueryFirstOrDefault<APP>(sql, new { AppId = appid, AppSecret = secret });
         }
 
         /// <summary>
@@ -41,13 +41,13 @@ namespace Yuebon.Security.Repositories
         public APP GetAPP(string appid)
         {
             string sql = @"SELECT * FROM Sys_APP t WHERE t.AppId = @AppId and EnabledMark=1";
-            return DapperConn.QueryFirstOrDefault<APP>(sql, new { AppId = appid });
+            return DapperConnRead.QueryFirstOrDefault<APP>(sql, new { AppId = appid });
 
         }
         public IList<AppOutputDto> SelectApp()
         {
             const string query = @"select a.*,u.id as Id,u.NickName,u.Account,u.HeadIcon from Sys_APP a,Sys_User u where a.CreatorUserId=u.Id ";
-            return DapperConn.Query<AppOutputDto, User, AppOutputDto>(query, (app, user) => { app.UserInfo = user; return app; }, null, splitOn: "Id").ToList<AppOutputDto>();
+            return DapperConnRead.Query<AppOutputDto, User, AppOutputDto>(query, (app, user) => { app.UserInfo = user; return app; }, null, splitOn: "Id").ToList<AppOutputDto>();
         }
     }
 }

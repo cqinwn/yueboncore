@@ -143,7 +143,7 @@ namespace Yuebon.WebApi.Areas.CMS.Controllers
             }
             catch (Exception ex)
             {
-                Log4NetHelper.Error("获取组织结构异常", ex);
+                Log4NetHelper.Error("获取分类异常", ex);
                 result.ErrMsg = ErrCode.err40110;
                 result.ErrCode = "40110";
             }

@@ -237,6 +237,7 @@ namespace Yuebon.WebApi.Controllers
                 IPAddressName = CurrentUser.IPAddressName,
                 TenantId = ""
             };
+			CurrentUser = currentSession;
 
             CurrentUser.ActiveSystemId = systemType.Id;
             CurrentUser.ActiveSystem = systemType.FullName;

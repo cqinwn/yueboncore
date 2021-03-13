@@ -233,21 +233,22 @@ namespace Yuebon.WebApi
                 if (env.IsDevelopment())
                 {
                     app.UseDeveloperExceptionPage();
-                    app.UseSwagger();
-                    app.UseSwaggerUI(options =>
-                    {
-                        foreach (var description in apiVersionProvider.ApiVersionDescriptions)
-                        {
-                            options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", $"{Configuration.GetSection("SwaggerDoc:Title").Value+description.GroupName.ToUpperInvariant()}");
-                            options.RoutePrefix = string.Empty;//这里主要是不需要再输入swagger这个默认前缀
-                        }
-                    });
                 }
                 else
                 {
                     app.UseExceptionHandler("/Home/Error");
                     app.UseHsts();
                 }
+
+                app.UseSwagger();
+                app.UseSwaggerUI(options =>
+                {
+                    foreach (var description in apiVersionProvider.ApiVersionDescriptions)
+                    {
+                        options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", $"{Configuration.GetSection("SwaggerDoc:Title").Value + description.GroupName.ToUpperInvariant()}");
+                        options.RoutePrefix = string.Empty;//这里主要是不需要再输入swagger这个默认前缀
+                    }
+                });
                 app.Use((context, next) =>
                 {
                     context.Request.EnableBuffering();

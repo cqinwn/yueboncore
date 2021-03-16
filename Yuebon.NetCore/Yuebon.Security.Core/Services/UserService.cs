@@ -348,7 +348,7 @@ namespace Yuebon.Security.Services
             }
             if (!string.IsNullOrEmpty(search.CreatorTime2))
             {
-                where += " and CreatorTime <'" + search.CreatorTime2 + " 23:59:59'";
+                where += " and CreatorTime <='" + search.CreatorTime2 + " 23:59:59'";
             }
             PagerInfo pagerInfo = new PagerInfo
             {

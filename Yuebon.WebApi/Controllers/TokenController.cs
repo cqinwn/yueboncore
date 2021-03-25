@@ -79,7 +79,7 @@ namespace Yuebon.WebApi.Controllers
             }
             else
             {
-                if (!app.RequestUrl.Contains(strHost) && !strHost.Contains("localhost"))
+                if (!app.RequestUrl.Contains(strHost) || !strHost.Contains("localhost"))
                 {
                     result.ErrCode = "40002";
                     result.ErrMsg = ErrCode.err40002+"，你当前请求主机："+strHost;

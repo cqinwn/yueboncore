@@ -166,7 +166,7 @@ namespace Yuebon.Commons.Helpers
             if (string.IsNullOrEmpty(appId)) return allowCacheApp;
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
             List<AllowCacheApp> list = yuebonCacheHelper.Get("AllowAppId").ToJson().ToList<AllowCacheApp>();
-            if (list != null)
+            if (list.Count>0)
             {
                 allowCacheApp = list.Where(s => s.AppId == appId).FirstOrDefault();
             }

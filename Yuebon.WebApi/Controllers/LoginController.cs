@@ -11,6 +11,7 @@ using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Core.App;
 using Yuebon.Commons.IoC;
+using Yuebon.Commons.Json;
 using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Models;
 using Yuebon.Commons.Net;
@@ -163,6 +164,13 @@ namespace Yuebon.WebApi.Controllers
                                         };
                                         TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
                                         yuebonCacheHelper.Add("login_user_" + user.Id, currentSession, expiresSliding, true);
+
+                                        List<AllowCacheApp> list = yuebonCacheHelper.Get("AllowAppId").ToJson().ToList<AllowCacheApp>();
+                                        if (list.Count== 0)
+                                        {
+                                            IEnumerable<APP> appList = _appService.GetAllByIsNotDeleteAndEnabledMark();
+                                            yuebonCacheHelper.Add("AllowAppId", appList);
+                                        }
                                         CurrentUser = currentSession;
                                         result.ResData = currentSession;
                                         result.ErrCode = ErrCode.successCode;

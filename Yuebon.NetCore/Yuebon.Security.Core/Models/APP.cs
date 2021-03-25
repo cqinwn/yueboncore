@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Yuebon.Commons.Models;
@@ -26,24 +27,28 @@ namespace Yuebon.Security.Models
         /// 应用Id
         /// </summary>
         [MaxLength(50)]
+        [Description("应用Id")]
         public virtual string AppId { get; set; }
 
         /// <summary>
         /// 应用密钥
         /// </summary>
         [MaxLength(256)]
+        [Description("应用密钥")]
         public virtual string AppSecret { get; set; }
 
         /// <summary>
         /// 消息加解密密钥
         /// </summary>
         [MaxLength(256)]
+        [Description("消息加解密密钥")]
         public virtual string EncodingAESKey { get; set; }
 
         /// <summary>
-        /// 服务器地址url
+        /// 授权请求地址url
         /// </summary>
         [MaxLength(512)]
+        [Description("授权请求地址url")]
         public virtual string RequestUrl { get; set; }
 
         /// <summary>
@@ -51,17 +56,20 @@ namespace Yuebon.Security.Models
         /// </summary>
         [Display(Name = "Token令牌")]
         [MaxLength(64)]
+        [Description("Token令牌")]
         public virtual string Token { get; set; }
         /// <summary>
         /// 是否开启消息加解密
         /// </summary>
         [Display(Name = "是否开启消息加解密")]
+        [Description("是否开启消息加解密")]
         public virtual bool IsOpenAEKey { get; set; }
 
         /// <summary>
         /// 描述
         /// </summary>
         [Display(Name = "描述")]
+        [Description("描述")]
         [MaxLength(200)]
         public virtual string Description { get; set; }
         /// <summary>

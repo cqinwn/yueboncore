@@ -136,7 +136,7 @@ namespace Yuebon.WebApi.Areas.Security
             if (sysSetting == null)
             {
                 sysSetting = XmlConverter.Deserialize<SysSetting>("xmlconfig/sys.config");
-            }
+            } 
             sysSetting.Email = "";
             sysSetting.Emailsmtp = "";
             sysSetting.Emailpassword = "";

@@ -283,9 +283,9 @@ export default {
         Keywords: this.searchform.name,
         Order: this.sortableData.order,
         Sort: this.sortableData.sort,
-        'CreatorTime1': this.searchform.CreateTime[0],
-        'CreatorTime2': this.searchform.CreateTime[1],
-        'RoleId': this.searchform.RoleId
+        CreatorTime1: this.searchform.CreateTime !== '' ? this.searchform.CreateTime[0] : '',
+        CreatorTime2: this.searchform.CreateTime !== '' ? this.searchform.CreateTime[1] : '',
+        RoleId: this.searchform.RoleId
       }
       getUserListWithPager(seachdata).then(res => {
         this.tableData = res.ResData.Items

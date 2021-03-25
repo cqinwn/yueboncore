@@ -71,6 +71,7 @@ namespace Yuebon.Commons.DbContextCore
                     dbConnectionOptions = DBServerProvider.GeDbConnectionOptions(false);
                     break;
                 default:
+                    dbConnectionOptions = DBServerProvider.GeDbConnectionOptions(true);
                     break;
             }
             return new BaseDbContext(dbConnectionOptions);
@@ -95,6 +96,7 @@ namespace Yuebon.Commons.DbContextCore
                     dbConnectionOptions = DBServerProvider.GeDbConnectionOptions<TEntity>(false);
                     break;
                 default:
+                    dbConnectionOptions = DBServerProvider.GeDbConnectionOptions<TEntity>(true);
                     break;
             }
             return new BaseDbContext(dbConnectionOptions);

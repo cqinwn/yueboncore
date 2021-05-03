@@ -40,6 +40,7 @@ namespace Yuebon.Commons.DbContextCore
             }
             SqlBulkInsert<T>(entities, destinationTableName);
         }
+
         /// <summary>
         /// 批量插入
         /// </summary>

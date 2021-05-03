@@ -69,11 +69,24 @@ namespace Yuebon.Commons.DbContextCore
             conn.Close();
             File.Delete(csvFileName);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="cmdTimeout"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
         public override DataTable GetDataTable(string sql, int cmdTimeout = 30, params DbParameter[] parameters)
         {
             return GetDataTables(sql, cmdTimeout, parameters).FirstOrDefault();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="cmdTimeout"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
         public override List<DataTable> GetDataTables(string sql, int cmdTimeout = 30, params DbParameter[] parameters)
         {
             var dts = new List<DataTable>();

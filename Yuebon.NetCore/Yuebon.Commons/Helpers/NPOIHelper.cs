@@ -194,13 +194,28 @@ namespace Yuebon.Commons.Helpers
         /// <returns></returns>
         public static DataTable ImportExcel(string strFileName)
         {
+            int ii = strFileName.LastIndexOf(".");
+            string filetype = strFileName.Substring(ii + 1, strFileName.Length - ii - 1);
             DataTable dt = new DataTable();
-            HSSFWorkbook hssfworkbook;
-            using (FileStream file = new FileStream(strFileName, FileMode.Open, FileAccess.Read))
+            ISheet sheet;
+            if ("xlsx" == filetype)
             {
-                hssfworkbook = new HSSFWorkbook(file);
+                XSSFWorkbook xssfworkbook;
+                using (FileStream file = new FileStream(strFileName, FileMode.Open, FileAccess.Read))
+                {
+                    xssfworkbook = new XSSFWorkbook(file);
+                }
+                sheet = xssfworkbook.GetSheetAt(0);
             }
-            ISheet sheet = hssfworkbook.GetSheetAt(0);
+            else
+            {
+                HSSFWorkbook hssfworkbook;
+                using (FileStream file = new FileStream(strFileName, FileMode.Open, FileAccess.Read))
+                {
+                    hssfworkbook = new HSSFWorkbook(file);
+                }
+                sheet = hssfworkbook.GetSheetAt(0);
+            }
             System.Collections.IEnumerator rows = sheet.GetRowEnumerator();
             IRow headerRow = sheet.GetRow(0);
             int cellCount = headerRow.LastCellNum;

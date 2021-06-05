@@ -106,7 +106,7 @@ namespace Yuebon.SMS.AliYun
                 request.AddQueryParameters("TemplateParam", message);
 
                 //可选:outId为提供给业务方扩展字段,最终在短信回执消息中将此值带回给调用者
-                if (string.IsNullOrEmpty(OutId) || OutId.Length <= 0)
+                if (string.IsNullOrEmpty(OutId) || OutId.Length == 0)
                 {
                     OutId = DateTime.Now.Ticks.ToString();
                 }

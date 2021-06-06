@@ -50,7 +50,7 @@ namespace Yuebon.Commons.DbContextCore
                 Directory.CreateDirectory(tmpDir);
             var csvFileName = Path.Combine(tmpDir, $"{DateTime.Now:yyyyMMddHHmmssfff}.csv");
             if (!File.Exists(csvFileName))
-                File.Create(csvFileName);
+                File.Create(csvFileName).Close();
             var separator = ",";
             entities.SaveToCsv(csvFileName, separator);
             var conn = (MySqlConnection) Database.GetDbConnection();

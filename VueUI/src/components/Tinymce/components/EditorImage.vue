@@ -63,7 +63,7 @@ export default {
         this.$message('Please wait for all images to be uploaded successfully. If there is a network problem, please refresh the page and upload again!')
         return
       }
-      this.$emit('successCBK', arr)
+      this.$emit('successcbk', arr)
       this.listObj = {}
       this.fileList = []
       this.dialogVisible = false

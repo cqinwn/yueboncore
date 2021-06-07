@@ -67,7 +67,7 @@ export default {
         dragDom.style.cssText += `;left:${left + styL}px;top:${top + styT}px;`
 
         // emit onDrag event
-        vnode.child.$emit('dragDialog')
+        vnode.child.$emit('dragdialog')
       }
 
       document.onmouseup = function(e) {

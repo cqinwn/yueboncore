@@ -1,5 +1,5 @@
 <template>
-  <div style="padding: 0 15px;" @click="toggleClick">
+  <div style="padding: 0 15px;" @click="handleclick">
     <svg
       :class="{'is-active':isActive}"
       class="hamburger"
@@ -23,8 +23,8 @@ export default {
     }
   },
   methods: {
-    toggleClick() {
-      this.$emit('toggleclick')
+    handleclick() {
+      this.$emit('handleclick')
     }
   }
 }

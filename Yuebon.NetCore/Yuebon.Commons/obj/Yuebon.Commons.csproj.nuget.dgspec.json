@@ -59,7 +59,7 @@
             },
             "Dapper": {
               "target": "Package",
-              "version": "[2.0.78, )"
+              "version": "[2.0.90, )"
             },
             "Dapper.SqlBuilder": {
               "target": "Package",
@@ -67,7 +67,7 @@
             },
             "Devart.Data.Oracle.EFCore": {
               "target": "Package",
-              "version": "[9.14.1204, )"
+              "version": "[9.14.1273, )"
             },
             "DotNetCore.NPOI": {
               "target": "Package",
@@ -75,7 +75,7 @@
             },
             "HtmlAgilityPack": {
               "target": "Package",
-              "version": "[1.11.31, )"
+              "version": "[1.11.34, )"
             },
             "Microsoft.AspNetCore.Mvc": {
               "target": "Package",
@@ -83,23 +83,23 @@
             },
             "Microsoft.Data.Sqlite": {
               "target": "Package",
-              "version": "[5.0.4, )"
+              "version": "[5.0.7, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[5.0.4, )"
+              "version": "[5.0.7, )"
             },
             "Microsoft.EntityFrameworkCore.Relational": {
               "target": "Package",
-              "version": "[5.0.4, )"
+              "version": "[5.0.7, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[5.0.4, )"
+              "version": "[5.0.7, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[5.0.4, )"
+              "version": "[5.0.7, )"
             },
             "Microsoft.Extensions.Caching.Memory": {
               "target": "Package",
@@ -139,7 +139,7 @@
             },
             "MySql.Data": {
               "target": "Package",
-              "version": "[8.0.23, )"
+              "version": "[8.0.25, )"
             },
             "NPinyin.Core": {
               "target": "Package",
@@ -147,11 +147,11 @@
             },
             "Npgsql": {
               "target": "Package",
-              "version": "[5.0.3, )"
+              "version": "[5.0.5, )"
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
-              "version": "[5.0.2, )"
+              "version": "[5.0.6, )"
             },
             "Oracle.ManagedDataAccess.Core": {
               "target": "Package",
@@ -159,7 +159,7 @@
             },
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
-              "version": "[5.0.0-alpha.2, )"
+              "version": "[5.0.0, )"
             },
             "QRCoder": {
               "target": "Package",
@@ -167,7 +167,7 @@
             },
             "Quartz": {
               "target": "Package",
-              "version": "[3.2.4, )"
+              "version": "[3.3.2, )"
             },
             "SgmlReader.NetCore": {
               "target": "Package",

@@ -104,9 +104,7 @@ namespace Yuebon.Commons.DbContextCore
             }
             else if (dbType == DatabaseType.MySql)
             {
-                optionsBuilder.UseMySql(defaultSqlConnectionString, new MySqlServerVersion(new Version(8, 0, 21)),
-                        mySqlOptions => mySqlOptions
-                            .CharSetBehavior(CharSetBehavior.NeverAppend));
+                optionsBuilder.UseMySql(defaultSqlConnectionString, new MySqlServerVersion(new Version(8, 0, 21)));
             }
             else if (dbType == DatabaseType.Oracle)
             {

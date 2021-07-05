@@ -530,7 +530,7 @@ namespace Yuebon.Commons.IRepositories
         /// <param name="where">条件</param>
         /// <param name="trans">事务</param>
         /// <returns>返回字段的最大值</returns>
-        Task<dynamic> GetMaxValueByFieldAsync(string strField, string where, IDbTransaction trans = null);
+        Task<decimal> GetMaxValueByFieldAsync(string strField, string where, IDbTransaction trans = null);
 
         /// <summary>
         /// 根据条件统计某个字段之和,sum(字段)
@@ -539,7 +539,7 @@ namespace Yuebon.Commons.IRepositories
         /// <param name="where">条件</param>
         /// <param name="trans">事务</param>
         /// <returns>返回字段求和后的值</returns>
-        Task<dynamic> GetSumValueByFieldAsync(string strField, string where, IDbTransaction trans = null);
+        Task<decimal> GetSumValueByFieldAsync(string strField, string where, IDbTransaction trans = null);
 
         #endregion
 

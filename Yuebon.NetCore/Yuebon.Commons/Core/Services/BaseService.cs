@@ -809,7 +809,7 @@ namespace Yuebon.Commons.Services
         /// <param name="where">条件</param>
         /// <param name="trans">事务</param>
         /// <returns>返回字段的最大值</returns>
-        public virtual async Task<dynamic> GetMaxValueByFieldAsync(string strField, string where, IDbTransaction trans = null)
+        public virtual async Task<decimal> GetMaxValueByFieldAsync(string strField, string where, IDbTransaction trans = null)
         {
             return await repository.GetMaxValueByFieldAsync(strField, where);
         }
@@ -821,7 +821,7 @@ namespace Yuebon.Commons.Services
         /// <param name="where">条件</param>
         /// <param name="trans">事务</param>
         /// <returns>返回字段求和后的值</returns>
-        public virtual async Task<dynamic> GetSumValueByFieldAsync(string strField, string where, IDbTransaction trans = null)
+        public virtual async Task<decimal> GetSumValueByFieldAsync(string strField, string where, IDbTransaction trans = null)
         {
             return await repository.GetSumValueByFieldAsync(strField, where);
         }

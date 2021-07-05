@@ -886,7 +886,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">条件</param>
         /// <param name="trans">事务</param>
         /// <returns>返回字段的最大值</returns>
-        public virtual async Task<dynamic> GetMaxValueByFieldAsync(string strField, string where, IDbTransaction trans = null)
+        public virtual async Task<decimal> GetMaxValueByFieldAsync(string strField, string where, IDbTransaction trans = null)
         {
             string sql = $"select isnull(MAX({strField}),0) as maxVaule from {tableName} ";
             if (dbConnectionOptions.DatabaseType==DatabaseType.MySql)
@@ -898,7 +898,7 @@ namespace Yuebon.Commons.Repositories
                 sql += " where " + where;
             }
 
-            return await DapperConnRead.QueryFirstAsync<dynamic>(sql);
+            return await DapperConnRead.QueryFirstAsync<decimal>(sql);
         }
         /// <summary>
         /// 根据条件统计某个字段之和,sum(字段)
@@ -907,7 +907,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">条件</param>
         /// <param name="trans">事务</param>
         /// <returns>返回字段求和后的值</returns>
-        public virtual async Task<dynamic> GetSumValueByFieldAsync(string strField, string where, IDbTransaction trans = null)
+        public virtual async Task<decimal> GetSumValueByFieldAsync(string strField, string where, IDbTransaction trans = null)
         {
             string sql = $"select isnull(sum({strField}),0) as sumVaule from {tableName} ";
             if (dbConnectionOptions.DatabaseType == DatabaseType.MySql)
@@ -918,7 +918,7 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += " where " + where;
             }
-            return await DapperConnRead.QueryFirstAsync<dynamic>(sql);
+            return await DapperConnRead.QueryFirstAsync<decimal>(sql);
         }
         #endregion
 

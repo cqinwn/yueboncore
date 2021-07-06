@@ -197,7 +197,11 @@ DataBase是最新数据库备份文件，目前支持MS SQL Server和MySql。
 
 ### 友情链接
 
-[IoTClient](https://gitee.com/zhaopeiym/IoTClient)(这是一个物联网设备通讯协议实现客户端，将包括主流PLC通信读取、ModBus协议、Bacnet协议等常用工业通讯协议)
+[IoTClient](https://gitee.com/zhaopeiym/IoTClient)
+
+开源地址：[https://gitee.com/zhaopeiym/IoTClient](https://gitee.com/zhaopeiym/IoTClient)
+
+这是一个物联网设备通讯协议实现客户端，将包括主流PLC通信读取、ModBus协议、Bacnet协议等常用工业通讯协议
 
 ### 社区
 

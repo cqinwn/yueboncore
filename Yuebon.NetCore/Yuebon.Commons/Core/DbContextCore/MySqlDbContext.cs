@@ -38,11 +38,11 @@ namespace Yuebon.Commons.DbContextCore
             MySqlBulkInsert(entities, destinationTableName);
         }
         /// <summary>
-        /// 
+        /// 批量插入
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="entities"></param>
-        /// <param name="destinationTableName"></param>
+        /// <param name="entities">数据实体集合</param>
+        /// <param name="destinationTableName">数据库表名称</param>
         private void MySqlBulkInsert<T>(IList<T> entities, string destinationTableName) where T : class
         {
             var tmpDir = Path.Combine(AppContext.BaseDirectory, "Temp");
@@ -60,6 +60,7 @@ namespace Yuebon.Commons.DbContextCore
             {
                 NumberOfLinesToSkip = 0,
                 TableName = destinationTableName,
+                FileName=csvFileName,
                 FieldTerminator = separator,
                 FieldQuotationCharacter = '"',
                 EscapeCharacter = '"',

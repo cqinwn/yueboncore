@@ -25,7 +25,12 @@ namespace Yuebon.Commons.Linq
             }
             return source as List<T> ?? source.ToList();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="process"></param>
         public static void ForEach<T>(this IEnumerable<T> source, Action<T> process)
         {
             if (source == null)

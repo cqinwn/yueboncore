@@ -21,6 +21,7 @@ using Microsoft.OpenApi.Models;
 using Quartz;
 using Quartz.Impl;
 using Swashbuckle.AspNetCore.Filters;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -36,6 +37,7 @@ using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Core.App;
 using Yuebon.Commons.DbContextCore;
+using Yuebon.Commons.Enums;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IDbContext;
@@ -96,36 +98,45 @@ namespace Yuebon.WebApi
             // Api多版本版本配置
             services.AddApiVersioning(o =>
             {
-                o.ReportApiVersions = true;//是否在请求头中返回受支持的版本信息。
-                o.ApiVersionReader = new HeaderApiVersionReader("api-version");////版本信息放到header ,不写在不配置路由的情况下，版本信息放到response url 中
-                o.AssumeDefaultVersionWhenUnspecified = true;//请求没有指明版本的情况下是否使用默认的版本。
-                o.DefaultApiVersion = new ApiVersion(1, 0);//默认的版本号。
+                //是否在请求头中返回受支持的版本信息。
+                o.ReportApiVersions = true;
+                //请求中未指定版本时默认的版本号。
+                o.DefaultApiVersion = new ApiVersion(1, 0);
+                //版本号以什么形式，什么字段传递？版本信息放到header ,不写在不配置路由的情况下，版本信息放到response url 中
+                o.ApiVersionReader = new HeaderApiVersionReader("api-version");
+                //请求没有指明版本的情况下是否使用默认的版本。
+                o.AssumeDefaultVersionWhenUnspecified = true;
             }).AddVersionedApiExplorer(option =>
             {    // 版本名的格式：v+版本号
                 option.GroupNameFormat = "'v'V";
                 option.AssumeDefaultVersionWhenUnspecified = true;
             });
+
             //获取webapi版本信息，用于swagger多版本支持 
-            apiVersionProvider = services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
+            services.AddOptions<SwaggerGenOptions>().Configure<IApiVersionDescriptionProvider>((options, service) =>
+            {
+                options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+                apiVersionProvider = service;
+            });
             services.AddSwaggerGen(options =>
             {
                 string contactName = Configuration.GetSection("SwaggerDoc:ContactName").Value;
                 string contactNameEmail = Configuration.GetSection("SwaggerDoc:ContactEmail").Value;
                 string contactUrl = Configuration.GetSection("SwaggerDoc:ContactUrl").Value;
-
                 foreach (var description in apiVersionProvider.ApiVersionDescriptions)
                 {
                     options.SwaggerDoc(description.GroupName,
-                         new OpenApiInfo()
-                         {
-                             Title = $"{Configuration.GetSection("SwaggerDoc:Title").Value}v{description.ApiVersion}",
-                             Version = description.ApiVersion.ToString(),
-                             Description = Configuration.GetSection("SwaggerDoc:Description").Value,
-                             Contact = new OpenApiContact { Name = contactName, Email = contactNameEmail, Url = new Uri(contactUrl) },
-                             License = new OpenApiLicense { Name = contactName, Url = new Uri(contactUrl) }
-                         }
-                    );
+                        new OpenApiInfo()
+                        {
+                            Title = $"{Configuration.GetSection("SwaggerDoc:Title").Value}v{description.ApiVersion}",
+                            Version = description.ApiVersion.ToString(),
+                            Description = Configuration.GetSection("SwaggerDoc:Description").Value+ (description.IsDeprecated ? " - 此版本已放弃兼容":""),//描述
+                            Contact = new OpenApiContact { Name = contactName, Email = contactNameEmail, Url = new Uri(contactUrl) },
+                            License = new OpenApiLicense { Name = contactName, Url = new Uri(contactUrl) }
+                        });
                 }
+
+                //加载XML注释
                 Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.xml").ToList().ForEach(file =>
                 {
                     options.IncludeXmlComments(file, true);
@@ -219,7 +230,8 @@ namespace Yuebon.WebApi
         /// </summary>
         /// <param name="app"></param>
         /// <param name="env"></param>
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        /// <param name="apiVersionProvider"></param>
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider apiVersionProvider)
         {
             if (app != null)
             {
@@ -232,6 +244,7 @@ namespace Yuebon.WebApi
                 app.UseMiniProfiler();
                 if (env.IsDevelopment())
                 {
+                    //开发环境时才使用SwaggerUI，生产环境一般不开启
                     app.UseDeveloperExceptionPage();
                 }
                 else

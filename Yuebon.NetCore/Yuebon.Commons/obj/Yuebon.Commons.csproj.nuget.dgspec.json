@@ -1,26 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj": {}
+    "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj": {}
   },
   "projects": {
-    "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj": {
+    "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj": {
       "version": "1.3.1.32",
       "restore": {
-        "projectUniqueName": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj",
+        "projectUniqueName": "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj",
         "projectName": "Yuebon.Commons",
-        "projectPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj",
-        "packagesPath": "D:\\Nuget\\.nuget\\packages",
-        "outputPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\obj\\",
+        "projectPath": "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj",
+        "packagesPath": "C:\\Users\\yuebon\\.nuget\\packages\\",
+        "outputPath": "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.Commons\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "d:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Nuget.config"
+          "C:\\Users\\yuebon\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -67,7 +62,7 @@
             },
             "Devart.Data.Oracle.EFCore": {
               "target": "Package",
-              "version": "[9.14.1273, )"
+              "version": "[9.14.1353, )"
             },
             "DotNetCore.NPOI": {
               "target": "Package",
@@ -75,7 +70,7 @@
             },
             "HtmlAgilityPack": {
               "target": "Package",
-              "version": "[1.11.34, )"
+              "version": "[1.11.37, )"
             },
             "Microsoft.AspNetCore.Mvc": {
               "target": "Package",
@@ -83,23 +78,23 @@
             },
             "Microsoft.Data.Sqlite": {
               "target": "Package",
-              "version": "[5.0.7, )"
+              "version": "[5.0.11, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[5.0.7, )"
+              "version": "[5.0.11, )"
             },
             "Microsoft.EntityFrameworkCore.Relational": {
               "target": "Package",
-              "version": "[5.0.7, )"
+              "version": "[5.0.11, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[5.0.7, )"
+              "version": "[5.0.11, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[5.0.7, )"
+              "version": "[5.0.11, )"
             },
             "Microsoft.Extensions.Caching.Memory": {
               "target": "Package",
@@ -115,7 +110,7 @@
             },
             "Microsoft.Extensions.DependencyInjection": {
               "target": "Package",
-              "version": "[5.0.1, )"
+              "version": "[5.0.2, )"
             },
             "Microsoft.Extensions.DependencyModel": {
               "target": "Package",
@@ -139,7 +134,7 @@
             },
             "MySql.Data": {
               "target": "Package",
-              "version": "[8.0.25, )"
+              "version": "[8.0.26, )"
             },
             "NPinyin.Core": {
               "target": "Package",
@@ -147,19 +142,19 @@
             },
             "Npgsql": {
               "target": "Package",
-              "version": "[5.0.5, )"
+              "version": "[5.0.10, )"
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
-              "version": "[5.0.6, )"
+              "version": "[5.0.10, )"
             },
             "Oracle.ManagedDataAccess.Core": {
               "target": "Package",
-              "version": "[3.21.1, )"
+              "version": "[3.21.3, )"
             },
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
-              "version": "[5.0.0, )"
+              "version": "[5.0.2, )"
             },
             "QRCoder": {
               "target": "Package",
@@ -167,7 +162,7 @@
             },
             "Quartz": {
               "target": "Package",
-              "version": "[3.3.2, )"
+              "version": "[3.3.3, )"
             },
             "SgmlReader.NetCore": {
               "target": "Package",
@@ -175,7 +170,7 @@
             },
             "System.Data.SqlClient": {
               "target": "Package",
-              "version": "[4.8.2, )"
+              "version": "[4.8.3, )"
             },
             "System.Drawing.Common": {
               "target": "Package",
@@ -205,7 +200,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }

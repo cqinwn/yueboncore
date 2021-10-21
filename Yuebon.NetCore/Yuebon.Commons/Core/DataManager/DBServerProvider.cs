@@ -137,12 +137,7 @@ namespace Yuebon.Commons.Core.DataManager
         /// <param name="masterDb">是否访问主库，默认为是，否则访问从库即只读数据库</param>
         /// <returns></returns>
         public static DbConnectionOptions GeDbConnectionOptions<TEntity>(bool masterDb = true)
-        {
-            AppDBContextAttribute appDBContextAttribute= typeof(TEntity).GetCustomAttribute<AppDBContextAttribute>(false);
-            if (appDBContextAttribute != null)
-            {
-                dbConfigName = appDBContextAttribute.DbConfigName;
-            }
+        {          
             dbConfigName = typeof(TEntity).GetCustomAttribute<AppDBContextAttribute>(false)?.DbConfigName ?? dbConfigName;
             bool conStringEncrypt = Configs.GetConfigurationValue("AppSetting", "ConStringEncrypt").ToBool();
             if (string.IsNullOrEmpty(dbConfigName))

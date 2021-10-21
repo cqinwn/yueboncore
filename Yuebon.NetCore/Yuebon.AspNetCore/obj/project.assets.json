@@ -72,7 +72,7 @@
           "lib/net5.0/Dapper.SqlBuilder.dll": {}
         }
       },
-      "Devart.Data/5.0.2777": {
+      "Devart.Data/5.0.2793": {
         "type": "package",
         "dependencies": {
           "Microsoft.Win32.Registry": "4.5.0"
@@ -84,10 +84,10 @@
           "lib/netstandard2.0/Devart.Data.dll": {}
         }
       },
-      "Devart.Data.Oracle/9.14.1353": {
+      "Devart.Data.Oracle/9.14.1369": {
         "type": "package",
         "dependencies": {
-          "Devart.Data": "5.0.2777",
+          "Devart.Data": "5.0.2793",
           "Microsoft.Win32.Registry": "4.5.0",
           "System.Diagnostics.PerformanceCounter": "4.5.0",
           "System.Reflection.Emit": "4.3.0",
@@ -101,11 +101,11 @@
           "lib/netstandard2.1/Devart.Data.Oracle.dll": {}
         }
       },
-      "Devart.Data.Oracle.EFCore/9.14.1353": {
+      "Devart.Data.Oracle.EFCore/9.14.1369": {
         "type": "package",
         "dependencies": {
-          "Devart.Data.Oracle": "9.14.1353",
-          "Microsoft.EntityFrameworkCore.Relational": "[5.0.10, 6.0.0)"
+          "Devart.Data.Oracle": "9.14.1369",
+          "Microsoft.EntityFrameworkCore.Relational": "[5.0.11, 6.0.0)"
         },
         "compile": {
           "lib/netstandard2.1/Devart.Data.Oracle.Entity.EFCore.dll": {}
@@ -204,10 +204,10 @@
           "lib/net5.0/IdentityModel.dll": {}
         }
       },
-      "K4os.Compression.LZ4/1.1.11": {
+      "K4os.Compression.LZ4/1.2.6": {
         "type": "package",
         "dependencies": {
-          "System.Memory": "4.5.3"
+          "System.Memory": "4.5.4"
         },
         "compile": {
           "lib/netstandard2.0/K4os.Compression.LZ4.dll": {}
@@ -216,17 +216,17 @@
           "lib/netstandard2.0/K4os.Compression.LZ4.dll": {}
         }
       },
-      "K4os.Compression.LZ4.Streams/1.1.11": {
+      "K4os.Compression.LZ4.Streams/1.2.6": {
         "type": "package",
         "dependencies": {
-          "K4os.Compression.LZ4": "1.1.11",
+          "K4os.Compression.LZ4": "1.2.6",
           "K4os.Hash.xxHash": "1.0.6"
         },
         "compile": {
-          "lib/netstandard2.0/K4os.Compression.LZ4.Streams.dll": {}
+          "lib/netstandard2.1/K4os.Compression.LZ4.Streams.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.0/K4os.Compression.LZ4.Streams.dll": {}
+          "lib/netstandard2.1/K4os.Compression.LZ4.Streams.dll": {}
         }
       },
       "K4os.Hash.xxHash/1.0.6": {
@@ -1672,28 +1672,27 @@
           "lib/netstandard2.0/MiniProfiler.Shared.dll": {}
         }
       },
-      "MySql.Data/8.0.26": {
+      "MySql.Data/8.0.27": {
         "type": "package",
         "dependencies": {
           "BouncyCastle.NetCore": "1.8.5",
           "Google.Protobuf": "3.14.0",
-          "K4os.Compression.LZ4": "1.1.11",
-          "K4os.Compression.LZ4.Streams": "1.1.11",
-          "K4os.Hash.xxHash": "1.0.6",
+          "K4os.Compression.LZ4.Streams": "1.2.6",
           "System.Buffers": "4.5.1",
           "System.Configuration.ConfigurationManager": "4.4.1",
+          "System.Runtime.CompilerServices.Unsafe": "5.0.0",
           "System.Security.Permissions": "4.7.0",
           "System.Text.Encoding.CodePages": "4.4.0"
         },
         "compile": {
           "lib/net5.0/MySql.Data.dll": {},
           "lib/net5.0/Ubiety.Dns.Core.dll": {},
-          "lib/net5.0/Zstandard.Net.dll": {}
+          "lib/net5.0/ZstdNet.dll": {}
         },
         "runtime": {
           "lib/net5.0/MySql.Data.dll": {},
           "lib/net5.0/Ubiety.Dns.Core.dll": {},
-          "lib/net5.0/Zstandard.Net.dll": {}
+          "lib/net5.0/ZstdNet.dll": {}
         }
       },
       "MySqlConnector/1.3.13": {
@@ -2883,10 +2882,10 @@
           }
         }
       },
-      "System.Runtime.CompilerServices.Unsafe/4.7.1": {
+      "System.Runtime.CompilerServices.Unsafe/5.0.0": {
         "type": "package",
         "compile": {
-          "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {}
+          "ref/netstandard2.1/System.Runtime.CompilerServices.Unsafe.dll": {}
         },
         "runtime": {
           "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll": {}
@@ -3393,7 +3392,7 @@
           "CSRedisCore": "3.6.6",
           "Dapper": "2.0.90",
           "Dapper.SqlBuilder": "2.0.78",
-          "Devart.Data.Oracle.EFCore": "9.14.1353",
+          "Devart.Data.Oracle.EFCore": "9.14.1369",
           "DotNetCore.NPOI": "1.2.3",
           "HtmlAgilityPack": "1.11.37",
           "Microsoft.AspNetCore.Mvc": "2.2.0",
@@ -3411,7 +3410,7 @@
           "MiniProfiler.AspNetCore": "4.2.22",
           "MiniProfiler.AspNetCore.Mvc": "4.2.22",
           "MiniProfiler.EntityFrameworkCore": "4.2.22",
-          "MySql.Data": "8.0.26",
+          "MySql.Data": "8.0.27",
           "NPinyin.Core": "3.0.0",
           "Npgsql": "5.0.10",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "5.0.10",
@@ -3551,30 +3550,30 @@
         "lib/netstandard2.0/Dapper.SqlBuilder.dll"
       ]
     },
-    "Devart.Data/5.0.2777": {
-      "sha512": "8xbp2dDF/KjtFBSpHvGtFyyJmVfLGB84P8MEmBUpAyJprW4eGBAU7KZ8rAkBfRNx5SYmBtQQbvH2gsmxa2O6pQ==",
+    "Devart.Data/5.0.2793": {
+      "sha512": "2eFatjs3Ikeg8AGtaNSbrj6IkWioA3BZQPNH0gksphUJBRrqerJqItapjD/U+G+c3XV7rLmyOEMIMBZs4h+eJw==",
       "type": "package",
-      "path": "devart.data/5.0.2777",
+      "path": "devart.data/5.0.2793",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "dc.png",
-        "devart.data.5.0.2777.nupkg.sha512",
+        "devart.data.5.0.2793.nupkg.sha512",
         "devart.data.nuspec",
         "lib/netstandard1.3/Devart.Data.dll",
         "lib/netstandard2.0/Devart.Data.dll"
       ]
     },
-    "Devart.Data.Oracle/9.14.1353": {
-      "sha512": "b13qgYXHzWSglbH4SwPti7u2fGidAxx9MzqUgih/9bfgM7/nNtbzqpgiakvh7fUs6QLg/AeK1jBxhf37MxP/QQ==",
+    "Devart.Data.Oracle/9.14.1369": {
+      "sha512": "wQDgMJ5sOjIqd2Iy04F9LeG54wR3AJqooEL1ysZ0HiEtPwRCZ0FAYGfgolkuVCuYeVVZQubmL+jlRPi5AyHrPQ==",
       "type": "package",
-      "path": "devart.data.oracle/9.14.1353",
+      "path": "devart.data.oracle/9.14.1369",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "content/app.config.transform",
         "content/web.config.transform",
-        "devart.data.oracle.9.14.1353.nupkg.sha512",
+        "devart.data.oracle.9.14.1369.nupkg.sha512",
         "devart.data.oracle.nuspec",
         "lib/netstandard1.3/Devart.Data.Oracle.dll",
         "lib/netstandard2.0/Devart.Data.Oracle.dll",
@@ -3582,14 +3581,14 @@
         "oracle.png"
       ]
     },
-    "Devart.Data.Oracle.EFCore/9.14.1353": {
-      "sha512": "nUagUSpJjt9IiEx6XyZU99wLJjopsocbdAo7+8jr5Ixq8jhi63dIfeAd2r61OxvjhTvQ0X9UGqtcIGi7VJs1bw==",
+    "Devart.Data.Oracle.EFCore/9.14.1369": {
+      "sha512": "sPQNrJ03/zbe7g9kUexzmMZDOXSIxC6kJGwjL4ioSd6+POs+SaTzMFguVXq6n62XBqRe+iJgvMrDgab031s1HA==",
       "type": "package",
-      "path": "devart.data.oracle.efcore/9.14.1353",
+      "path": "devart.data.oracle.efcore/9.14.1369",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "devart.data.oracle.efcore.9.14.1353.nupkg.sha512",
+        "devart.data.oracle.efcore.9.14.1369.nupkg.sha512",
         "devart.data.oracle.efcore.nuspec",
         "lib/netstandard1.3/Devart.Data.Oracle.Entity.EFCore.dll",
         "lib/netstandard2.0/Devart.Data.Oracle.Entity.EFCore.dll",
@@ -3744,14 +3743,14 @@
         "lib/netstandard2.0/IdentityModel.xml"
       ]
     },
-    "K4os.Compression.LZ4/1.1.11": {
-      "sha512": "RNvJw0UGkedPhCqVBNIogtfQebY+bQt0PN7xDbVe5LWLra0ZEqPfjPSl7iStj3rgDnkqkkTTpm+vCX3hU1qKmA==",
+    "K4os.Compression.LZ4/1.2.6": {
+      "sha512": "4EN8EE6bZG2U8dFfeqn+Om3UNajK3cPYHvyQROCFm4jNFVLuRB7Nl5bDkjBSAjfctS6konm+ay3u5RafBzltDA==",
       "type": "package",
-      "path": "k4os.compression.lz4/1.1.11",
+      "path": "k4os.compression.lz4/1.2.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "k4os.compression.lz4.1.1.11.nupkg.sha512",
+        "k4os.compression.lz4.1.2.6.nupkg.sha512",
         "k4os.compression.lz4.nuspec",
         "lib/net45/K4os.Compression.LZ4.dll",
         "lib/net45/K4os.Compression.LZ4.xml",
@@ -3763,14 +3762,14 @@
         "lib/netstandard2.0/K4os.Compression.LZ4.xml"
       ]
     },
-    "K4os.Compression.LZ4.Streams/1.1.11": {
-      "sha512": "x+BidXriYsNP4HNTHKx+5cVQguHHwbfs6nM79fDHOCOrcNwnaBms4dwzAV/ZALmKsNKcHmY74PeUZiCC4qLKwQ==",
+    "K4os.Compression.LZ4.Streams/1.2.6": {
+      "sha512": "5KMcNFRHeRrnJ9c8k5fZcfAJJEY0FndMiDiHIYa35Mx5KCMkeSNo/PEXu7YmtCoVczJagx+Vt7J/F+//S1PcJQ==",
       "type": "package",
-      "path": "k4os.compression.lz4.streams/1.1.11",
+      "path": "k4os.compression.lz4.streams/1.2.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "k4os.compression.lz4.streams.1.1.11.nupkg.sha512",
+        "k4os.compression.lz4.streams.1.2.6.nupkg.sha512",
         "k4os.compression.lz4.streams.nuspec",
         "lib/net45/K4os.Compression.LZ4.Streams.dll",
         "lib/net45/K4os.Compression.LZ4.Streams.xml",
@@ -3779,7 +3778,9 @@
         "lib/netstandard1.6/K4os.Compression.LZ4.Streams.dll",
         "lib/netstandard1.6/K4os.Compression.LZ4.Streams.xml",
         "lib/netstandard2.0/K4os.Compression.LZ4.Streams.dll",
-        "lib/netstandard2.0/K4os.Compression.LZ4.Streams.xml"
+        "lib/netstandard2.0/K4os.Compression.LZ4.Streams.xml",
+        "lib/netstandard2.1/K4os.Compression.LZ4.Streams.dll",
+        "lib/netstandard2.1/K4os.Compression.LZ4.Streams.xml"
       ]
     },
     "K4os.Hash.xxHash/1.0.6": {
@@ -5658,34 +5659,34 @@
         "miniprofiler.shared.nuspec"
       ]
     },
-    "MySql.Data/8.0.26": {
-      "sha512": "iOxE24dI01JZlZ1EObkz9WwYMzX+0RnBf5a11OkPDCOGv2Yo0tTWmwAJfVXkuuSD47XngOir7l7+xZZ56lZyAA==",
+    "MySql.Data/8.0.27": {
+      "sha512": "Ef+sH12/nGAiF9yLZFkuXh7vtVvEPiLKyZNJiDk+VBULzLcXj0lmfU7qcmWNCSVX5n6zu5jMV+JaNf1C+a+T8g==",
       "type": "package",
-      "path": "mysql.data/8.0.26",
+      "path": "mysql.data/8.0.27",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/net452/MySql.Data.dll",
         "lib/net452/MySql.Data.xml",
         "lib/net452/Ubiety.Dns.Core.dll",
-        "lib/net452/Zstandard.Net.dll",
+        "lib/net452/ZstdNet.dll",
         "lib/net48/MySql.Data.dll",
         "lib/net48/MySql.Data.xml",
         "lib/net48/Ubiety.Dns.Core.dll",
-        "lib/net48/Zstandard.Net.dll",
+        "lib/net48/ZstdNet.dll",
         "lib/net5.0/MySql.Data.dll",
         "lib/net5.0/MySql.Data.xml",
         "lib/net5.0/Ubiety.Dns.Core.dll",
-        "lib/net5.0/Zstandard.Net.dll",
+        "lib/net5.0/ZstdNet.dll",
         "lib/netstandard2.0/MySql.Data.dll",
         "lib/netstandard2.0/MySql.Data.xml",
         "lib/netstandard2.0/Ubiety.Dns.Core.dll",
-        "lib/netstandard2.0/Zstandard.Net.dll",
+        "lib/netstandard2.0/ZstdNet.dll",
         "lib/netstandard2.1/MySql.Data.dll",
         "lib/netstandard2.1/MySql.Data.xml",
         "lib/netstandard2.1/Ubiety.Dns.Core.dll",
-        "lib/netstandard2.1/Zstandard.Net.dll",
-        "mysql.data.8.0.26.nupkg.sha512",
+        "lib/netstandard2.1/ZstdNet.dll",
+        "mysql.data.8.0.27.nupkg.sha512",
         "mysql.data.nuspec"
       ]
     },
@@ -8756,18 +8757,18 @@
         "version.txt"
       ]
     },
-    "System.Runtime.CompilerServices.Unsafe/4.7.1": {
-      "sha512": "zOHkQmzPCn5zm/BH+cxC1XbUS3P4Yoi3xzW7eRgVpDR2tPGSzyMZ17Ig1iRkfJuY0nhxkQQde8pgePNiA7z7TQ==",
+    "System.Runtime.CompilerServices.Unsafe/5.0.0": {
+      "sha512": "ZD9TMpsmYJLrxbbmdvhwt9YEgG5WntEnZ/d1eH8JBX9LBp+Ju8BSBhUGbZMNVHHomWo2KVImJhTDl2hIgw/6MA==",
       "type": "package",
-      "path": "system.runtime.compilerservices.unsafe/4.7.1",
+      "path": "system.runtime.compilerservices.unsafe/5.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
-        "lib/net461/System.Runtime.CompilerServices.Unsafe.dll",
-        "lib/net461/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/net45/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/net45/System.Runtime.CompilerServices.Unsafe.xml",
         "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll",
         "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.xml",
         "lib/netstandard1.0/System.Runtime.CompilerServices.Unsafe.dll",
@@ -8780,7 +8781,9 @@
         "ref/netstandard1.0/System.Runtime.CompilerServices.Unsafe.xml",
         "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
         "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml",
-        "system.runtime.compilerservices.unsafe.4.7.1.nupkg.sha512",
+        "ref/netstandard2.1/System.Runtime.CompilerServices.Unsafe.dll",
+        "ref/netstandard2.1/System.Runtime.CompilerServices.Unsafe.xml",
+        "system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512",
         "system.runtime.compilerservices.unsafe.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"

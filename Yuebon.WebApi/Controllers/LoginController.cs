@@ -549,5 +549,22 @@ namespace Yuebon.WebApi.Controllers
             }
             return ToJsonContent(result);
         }
+
+        /// <summary>
+        /// 弃用接口演示
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("TestLogin")]
+        [Obsolete]
+        [ApiVersion("2.0")]
+        public IActionResult TestLogin()
+        {
+            CommonResult result = new CommonResult();
+            result.Success = true;
+            result.ErrCode = ErrCode.successCode;
+            result.ResData = "弃用接口演示";
+            result.ErrMsg = "成功退出";
+            return ToJsonContent(result);
+        }
     }
 }

@@ -11676,26 +11676,20 @@
     ]
   },
   "packageFolders": {
-    "D:\\Nuget\\.nuget\\packages": {},
-    "d:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\yuebon\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.3.2.32",
     "restore": {
-      "projectUniqueName": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj",
+      "projectUniqueName": "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj",
       "projectName": "Yuebon.Security.Core",
-      "projectPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj",
-      "packagesPath": "D:\\Nuget\\.nuget\\packages",
-      "outputPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\obj\\",
+      "projectPath": "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj",
+      "packagesPath": "C:\\Users\\yuebon\\.nuget\\packages\\",
+      "outputPath": "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.Security.Core\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "d:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Nuget.config"
+        "C:\\Users\\yuebon\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
@@ -11708,8 +11702,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj": {
-              "projectPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj"
+            "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj": {
+              "projectPath": "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj"
             }
           }
         }

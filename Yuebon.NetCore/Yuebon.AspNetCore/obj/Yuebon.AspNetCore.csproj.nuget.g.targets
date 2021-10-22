@@ -5,6 +5,6 @@
   </PropertyGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <Import Project="$(NuGetPackageRoot)\microsoft.extensions.apidescription.server\3.0.0\build\Microsoft.Extensions.ApiDescription.Server.targets" Condition="Exists('$(NuGetPackageRoot)\microsoft.extensions.apidescription.server\3.0.0\build\Microsoft.Extensions.ApiDescription.Server.targets')" />
-    <Import Project="$(NuGetPackageRoot)\microsoft.aspnetcore.mvc.razor.runtimecompilation\5.0.7\buildTransitive\net5.0\Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.targets" Condition="Exists('$(NuGetPackageRoot)\microsoft.aspnetcore.mvc.razor.runtimecompilation\5.0.7\buildTransitive\net5.0\Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.targets')" />
+    <Import Project="$(NuGetPackageRoot)\microsoft.aspnetcore.mvc.razor.runtimecompilation\5.0.11\buildTransitive\net5.0\Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.targets" Condition="Exists('$(NuGetPackageRoot)\microsoft.aspnetcore.mvc.razor.runtimecompilation\5.0.11\buildTransitive\net5.0\Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.targets')" />
   </ImportGroup>
 </Project>

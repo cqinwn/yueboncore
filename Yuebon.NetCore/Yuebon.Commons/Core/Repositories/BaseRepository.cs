@@ -34,7 +34,7 @@ namespace Yuebon.Commons.Repositories
     /// </summary>
     /// <typeparam name="T">实体类型</typeparam>
     /// <typeparam name="TKey">实体主键类型</typeparam>
-    public abstract class BaseRepository<T, TKey> : IRepository<T, TKey> ,ITransientDependency
+    public abstract class BaseRepository<T, TKey> : IRepository<T, TKey>, ITransientDependency
         where T : Entity
     {
         #region 构造函数及基本配置
@@ -54,7 +54,7 @@ namespace Yuebon.Commons.Repositories
         /// <summary>
         /// 需要初始化的对象表名
         /// </summary>
-        protected string tableName= typeof(T).GetCustomAttribute<TableAttribute>(false)?.Name;
+        protected string tableName = typeof(T).GetCustomAttribute<TableAttribute>(false)?.Name;
         /// <summary>
         /// 数据库参数化访问的占位符
         /// </summary>
@@ -66,7 +66,7 @@ namespace Yuebon.Commons.Repositories
         /// <summary>
         /// 数据库的主键字段名,若主键不是Id请重载BaseRepository设置
         /// </summary>
-        protected string primaryKey="Id";
+        protected string primaryKey = "Id";
         /// <summary>
         /// 排序字段
         /// </summary>
@@ -127,7 +127,7 @@ namespace Yuebon.Commons.Repositories
         {
             if (dbContext == null) throw new ArgumentNullException(nameof(dbContext));
             _dbContext = dbContext;
-            _dbContext.EnsureCreated();
+            //_dbContext.EnsureCreated();
         }
 
         /// <summary>
@@ -175,7 +175,7 @@ namespace Yuebon.Commons.Repositories
         /// </summary>
         /// <param name="primaryKey">主键</param>
         /// <returns></returns>
-        public virtual async  Task<T> GetAsync(TKey primaryKey)
+        public virtual async Task<T> GetAsync(TKey primaryKey)
         {
             return await DapperConnRead.GetAsync<T>(primaryKey);
         }
@@ -216,8 +216,8 @@ namespace Yuebon.Commons.Repositories
             {
                 where = "1=1";
             }
-            string  sql = $"select * from { tableName} ";
-            sql += " where "+where;
+            string sql = $"select * from { tableName} ";
+            sql += " where " + where;
 
             return await DapperConnRead.QueryFirstOrDefaultAsync<T>(sql);
         }
@@ -227,7 +227,7 @@ namespace Yuebon.Commons.Repositories
         /// </summary>
         /// <param name="trans">事务</param>
         /// <returns></returns>
-        public virtual IEnumerable<T> GetAll(IDbTransaction trans=null)
+        public virtual IEnumerable<T> GetAll(IDbTransaction trans = null)
         {
             return GetListWhere();
         }
@@ -236,7 +236,7 @@ namespace Yuebon.Commons.Repositories
         /// </summary>
         /// <param name="trans"></param>
         /// <returns></returns>
-        public virtual async Task<IEnumerable<T>> GetAllAsync( IDbTransaction trans=null)
+        public virtual async Task<IEnumerable<T>> GetAllAsync(IDbTransaction trans = null)
         {
             return await GetListWhereAsync();
         }
@@ -248,7 +248,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual IEnumerable<T> GetListWhere(string where = null, IDbTransaction trans=null)
+        public virtual IEnumerable<T> GetListWhere(string where = null, IDbTransaction trans = null)
         {
             if (HasInjectionData(where))
             {
@@ -269,7 +269,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual async Task<IEnumerable<T>> GetListWhereAsync(string where = null, IDbTransaction trans=null)
+        public virtual async Task<IEnumerable<T>> GetListWhereAsync(string where = null, IDbTransaction trans = null)
         {
             if (HasInjectionData(where))
             {
@@ -298,9 +298,9 @@ namespace Yuebon.Commons.Repositories
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
-            
-            string sql =  $"select top {top} {selectedFields} from " + tableName; ;
-            if (dbConnectionOptions.DatabaseType==DatabaseType.SqlServer)
+
+            string sql = $"select top {top} {selectedFields} from " + tableName; ;
+            if (dbConnectionOptions.DatabaseType == DatabaseType.SqlServer)
             {
                 if (!string.IsNullOrWhiteSpace(where))
                 {
@@ -373,7 +373,7 @@ namespace Yuebon.Commons.Repositories
             {
                 sqlWhere += " and " + where;
             }
-            return GetListWhere(sqlWhere,trans);
+            return GetListWhere(sqlWhere, trans);
         }
 
         /// <summary>
@@ -382,7 +382,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual IEnumerable<T> GetAllByIsNotDeleteMark(string where = null, IDbTransaction trans=null)
+        public virtual IEnumerable<T> GetAllByIsNotDeleteMark(string where = null, IDbTransaction trans = null)
         {
             if (HasInjectionData(where))
             {
@@ -403,9 +403,9 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual IEnumerable<T> GetAllByIsEnabledMark(string where = null, IDbTransaction trans=null)
+        public virtual IEnumerable<T> GetAllByIsEnabledMark(string where = null, IDbTransaction trans = null)
         {
-            
+
             if (HasInjectionData(where))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
@@ -427,7 +427,7 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual IEnumerable<T> GetAllByIsNotEnabledMark(string where = null, IDbTransaction trans = null)
         {
-            
+
             if (HasInjectionData(where))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
@@ -448,7 +448,7 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual IEnumerable<T> GetAllByIsNotDeleteAndEnabledMark(string where = null, IDbTransaction trans = null)
         {
-            
+
             if (HasInjectionData(where))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
@@ -470,7 +470,7 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual async Task<IEnumerable<T>> GetAllByIsDeleteMarkAsync(string where = null, IDbTransaction trans = null)
         {
-            
+
             if (HasInjectionData(where))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
@@ -492,7 +492,7 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual async Task<IEnumerable<T>> GetAllByIsNotDeleteMarkAsync(string where = null, IDbTransaction trans = null)
         {
-            
+
             if (HasInjectionData(where))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
@@ -515,7 +515,7 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual async Task<IEnumerable<T>> GetAllByIsEnabledMarkAsync(string where = null, IDbTransaction trans = null)
         {
-            
+
             if (HasInjectionData(where))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
@@ -557,7 +557,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">查询条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual async Task<IEnumerable<T>> GetAllByIsNotDeleteAndEnabledMarkAsync(string where = null, IDbTransaction trans=null)
+        public virtual async Task<IEnumerable<T>> GetAllByIsNotDeleteAndEnabledMarkAsync(string where = null, IDbTransaction trans = null)
         {
             if (HasInjectionData(where))
             {
@@ -581,7 +581,7 @@ namespace Yuebon.Commons.Repositories
         /// <returns>指定对象的集合</returns>
         public virtual List<T> FindWithPager(string condition, PagerInfo info, IDbTransaction trans = null)
         {
-           return FindWithPager(condition, info, this.SortField, this.isDescending, trans);
+            return FindWithPager(condition, info, this.SortField, this.isDescending, trans);
         }
 
         /// <summary>
@@ -633,7 +633,7 @@ namespace Yuebon.Commons.Repositories
         public virtual List<T> FindWithPager(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
         {
             List<T> list = new List<T>();
-            
+
             if (HasInjectionData(condition))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", condition));
@@ -667,7 +667,7 @@ namespace Yuebon.Commons.Repositories
         {
 
             List<T> list = new List<T>();
-            
+
             if (HasInjectionData(condition))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", condition));
@@ -752,7 +752,7 @@ namespace Yuebon.Commons.Repositories
             sb.AppendFormat("SELECT * FROM ( SELECT ROW_NUMBER() OVER (order by {0}) AS rows ,{1} FROM {2} where {3}) AS main_temp where rows BETWEEN {4} and {5}", strOrder, selectedFields, tableName, condition, startRows, endNum);
             var reader = await DapperConnRead.QueryMultipleAsync(sb.ToString());
             info.RecordCount = reader.ReadFirst<int>();
-            List<T> list  = reader.Read<T>().AsList();
+            List<T> list = reader.Read<T>().AsList();
             return list;
         }
         /// <summary>
@@ -769,7 +769,7 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual List<object> FindWithPagerRelationUser(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
         {
-            
+
             if (HasInjectionData(condition))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", condition));
@@ -835,7 +835,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="condition">查询条件</param>
         /// <param name="fieldName">统计字段名称</param>
         /// <returns></returns>
-        public virtual int GetCountByWhere(string condition,string fieldName="*")
+        public virtual int GetCountByWhere(string condition, string fieldName = "*")
         {
             if (HasInjectionData(condition))
             {
@@ -889,7 +889,7 @@ namespace Yuebon.Commons.Repositories
         public virtual async Task<decimal> GetMaxValueByFieldAsync(string strField, string where, IDbTransaction trans = null)
         {
             string sql = $"select isnull(MAX({strField}),0) as maxVaule from {tableName} ";
-            if (dbConnectionOptions.DatabaseType==DatabaseType.MySql)
+            if (dbConnectionOptions.DatabaseType == DatabaseType.MySql)
             {
                 sql = $"select if(isnull(MAX({strField})),0,MAX({strField})) as maxVaule from {tableName} ";
             }
@@ -930,7 +930,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="entity"></param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual long Insert(T entity, IDbTransaction trans=null)
+        public virtual long Insert(T entity, IDbTransaction trans = null)
         {
             if (entity.KeyIsNull())
             {
@@ -946,7 +946,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="entity"></param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual async Task<long> InsertAsync(T entity, IDbTransaction trans=null)
+        public virtual async Task<long> InsertAsync(T entity, IDbTransaction trans = null)
         {
             if (entity.KeyIsNull())
             {
@@ -954,7 +954,7 @@ namespace Yuebon.Commons.Repositories
             }
             return await DapperConn.InsertAsync<T>(entity);
         }
-        
+
         /// <summary>
         /// 批量插入数据
         /// </summary>
@@ -971,9 +971,9 @@ namespace Yuebon.Commons.Repositories
         /// <param name="primaryKey">主键</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual bool Update(T entity, TKey primaryKey, IDbTransaction trans=null)
+        public virtual bool Update(T entity, TKey primaryKey, IDbTransaction trans = null)
         {
-           return DbContext.Edit<T>(entity)>0;
+            return DbContext.Edit<T>(entity) > 0;
         }
         /// <summary>
         /// 更新
@@ -983,7 +983,7 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual bool Update(T entity, IDbTransaction trans = null)
         {
-            return DbContext.Edit(entity)>0;
+            return DbContext.Edit(entity) > 0;
         }
         /// <summary>
         /// 
@@ -992,7 +992,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="primaryKey"></param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual async Task<bool> UpdateAsync(T entity, TKey primaryKey, IDbTransaction trans=null)
+        public virtual async Task<bool> UpdateAsync(T entity, TKey primaryKey, IDbTransaction trans = null)
         {
             return await DapperConn.UpdateAsync<T>(entity);
         }
@@ -1026,14 +1026,14 @@ namespace Yuebon.Commons.Repositories
         /// <param name="primaryKey"></param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual bool Delete(TKey primaryKey, IDbTransaction trans=null)
+        public virtual bool Delete(TKey primaryKey, IDbTransaction trans = null)
         {
             var param = new List<Tuple<string, object>>();
             string sql = $"delete from {tableName} where " + PrimaryKey + "=@PrimaryKey";
             Tuple<string, object> tupel = new Tuple<string, object>(sql, new { @PrimaryKey = primaryKey });
 
             param.Add(tupel);
-            Tuple<bool, string> result= ExecuteTransaction(param);
+            Tuple<bool, string> result = ExecuteTransaction(param);
             return result.Item1;
         }
         /// <summary>
@@ -1042,13 +1042,13 @@ namespace Yuebon.Commons.Repositories
         /// <param name="primaryKey"></param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual async Task<bool> DeleteAsync(TKey primaryKey, IDbTransaction trans=null)
+        public virtual async Task<bool> DeleteAsync(TKey primaryKey, IDbTransaction trans = null)
         {
             var param = new List<Tuple<string, object>>();
-            string sql = $"delete from {tableName} where " + PrimaryKey + "=@PrimaryKey" ;
+            string sql = $"delete from {tableName} where " + PrimaryKey + "=@PrimaryKey";
             Tuple<string, object> tupel = new Tuple<string, object>(sql, new { @PrimaryKey = primaryKey });
             param.Add(tupel);
-            Tuple<bool, string> result =await ExecuteTransactionAsync(param);
+            Tuple<bool, string> result = await ExecuteTransactionAsync(param);
             return result.Item1;
         }
 
@@ -1058,7 +1058,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="ids">主键Id List集合</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public  virtual bool DeleteBatch(IList<dynamic> ids, IDbTransaction trans = null)
+        public virtual bool DeleteBatch(IList<dynamic> ids, IDbTransaction trans = null)
         {
             var param = new List<Tuple<string, object>>();
             string sql = $"delete from {tableName} where PrimaryKey in (@PrimaryKey)";
@@ -1099,9 +1099,9 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">条件</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual  async Task<bool> DeleteBatchWhereAsync(string where, IDbTransaction trans = null)
+        public virtual async Task<bool> DeleteBatchWhereAsync(string where, IDbTransaction trans = null)
         {
-            if(HasInjectionData(where))
+            if (HasInjectionData(where))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
@@ -1125,7 +1125,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="userId">用户ID</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual bool DeleteByUser(TKey primaryKey, string userId, IDbTransaction trans=null)
+        public virtual bool DeleteByUser(TKey primaryKey, string userId, IDbTransaction trans = null)
         {
             var param = new List<Tuple<string, object>>();
             string sql = $"delete from {tableName} where " + PrimaryKey + " = @PrimaryKey";
@@ -1141,7 +1141,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="userId">用户ID</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual async Task<bool> DeleteByUserAsync(TKey primaryKey, string userId, IDbTransaction trans=null)
+        public virtual async Task<bool> DeleteByUserAsync(TKey primaryKey, string userId, IDbTransaction trans = null)
         {
             var param = new List<Tuple<string, object>>();
             string sql = $"delete from {tableName} where " + PrimaryKey + " = @PrimaryKey";
@@ -1175,7 +1175,7 @@ namespace Yuebon.Commons.Repositories
                 sql += ",DeleteUserId='" + userId + "'";
             }
             DateTime deleteTime = DateTime.Now;
-            sql += ",DeleteTime=@DeleteTime where " + PrimaryKey + "=@PrimaryKey" ;
+            sql += ",DeleteTime=@DeleteTime where " + PrimaryKey + "=@PrimaryKey";
             var param = new List<Tuple<string, object>>();
             Tuple<string, object> tupel = new Tuple<string, object>(sql, new { @PrimaryKey = primaryKey, @DeleteTime = deleteTime });
             param.Add(tupel);
@@ -1529,7 +1529,7 @@ namespace Yuebon.Commons.Repositories
             Tuple<bool, string> result = await ExecuteTransactionAsync(param);
             return result.Item1;
         }
-        
+
         /// <summary>
         /// 多表多数据操作批量插入、更新、删除--事务
         /// </summary>
@@ -1543,7 +1543,7 @@ namespace Yuebon.Commons.Repositories
             {
                 bool isClosed = connection.State == ConnectionState.Closed;
                 if (isClosed) connection.Open();
-                using (var transaction =  connection.BeginTransaction())
+                using (var transaction = connection.BeginTransaction())
                 {
                     try
                     {
@@ -1564,7 +1564,7 @@ namespace Yuebon.Commons.Repositories
                         connection.Dispose();
                         DapperConn.Close();
                         DapperConn.Dispose();
-                        throw ex;
+                        return new Tuple<bool, string>(false, ex.ToString());
                     }
                     finally
                     {
@@ -1879,7 +1879,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="asc">排序方式</param>
         /// <param name="orderby">排序字段</param>
         /// <returns></returns>
-        public virtual IEnumerable<T> GetByPagination(Expression<Func<T, bool>> @where, PagerInfo pagerInfo,  bool asc = false, params Expression<Func<T, object>>[] @orderby)
+        public virtual IEnumerable<T> GetByPagination(Expression<Func<T, bool>> @where, PagerInfo pagerInfo, bool asc = false, params Expression<Func<T, object>>[] @orderby)
         {
             var filter = DbContext.Get(where);
             if (orderby != null)
@@ -1961,7 +1961,7 @@ namespace Yuebon.Commons.Repositories
         /// 获取正则表达式
         /// </summary>
         /// <returns></returns>
-        private static string  GetRegexString()
+        private static string GetRegexString()
         {
             //构造SQL的注入关键字符
             string[] strBadChar =

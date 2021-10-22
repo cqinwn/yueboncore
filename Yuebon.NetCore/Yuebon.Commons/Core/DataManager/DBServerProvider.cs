@@ -10,7 +10,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Reflection;
+using System.Reflection.Metadata;
 using System.Text;
 using Yuebon.Commons.DbContextCore;
 using Yuebon.Commons.Encrypt;
@@ -138,7 +140,10 @@ namespace Yuebon.Commons.Core.DataManager
         /// <returns></returns>
         public static DbConnectionOptions GeDbConnectionOptions<TEntity>(bool masterDb = true)
         {
-            dbConfigName = typeof(TEntity).GetCustomAttribute<AppDBContextAttribute>(false)?.DbConfigName ?? dbConfigName;
+            //string dbConfigName1 = dbConfigName;
+            //System.Attribute[] attrs = System.Attribute.GetCustomAttributes(typeof(TEntity));  //反射获得用户自定义属性 
+            //string dbConfigName2 = typeof(TEntity).GetCustomAttribute<AppDBContextAttribute>(true)?.DbConfigName;
+            dbConfigName = typeof(TEntity).GetCustomAttribute<AppDBContextAttribute>(false)?.DbConfigName;
             bool conStringEncrypt = Configs.GetConfigurationValue("AppSetting", "ConStringEncrypt").ToBool();
             if (string.IsNullOrEmpty(dbConfigName))
             {
@@ -151,7 +156,7 @@ namespace Yuebon.Commons.Core.DataManager
             if (masterDb || !isDBReadWriteSeparate)
             {
                 dbConnectionOptions.ConnectionString = Configs.GetConfigurationValue("DbConnections:" + dbConfigName + ":MasterDB", "ConnectionString");
-                dbConnectionOptions.DatabaseType = (DatabaseType)Enum.Parse(typeof(DatabaseType), Configs.GetConfigurationValue("DbConnections:" + dbConfigName + ":MasterDB", "DatabaseType"));
+                dbConnectionOptions.DatabaseType = DatabaseType.SqlServer;//(DatabaseType)Enum.Parse(typeof(DatabaseType), Configs.GetConfigurationValue("DbConnections:" + dbConfigName + ":MasterDB", "DatabaseType"));
             }
             else
             {

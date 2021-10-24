@@ -44,7 +44,9 @@ namespace Yuebon.SMS.Zutong
         /// </summary>
         public List<record> records { get; set; }
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
     public class record{
 
         /// <summary>

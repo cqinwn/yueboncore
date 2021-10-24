@@ -119,24 +119,7 @@ namespace Yuebon.Commons.IDbContext
         /// <returns></returns>
         int Update<T>(T model, params string[] updateColumns) where T : class;
 
-        /// <summary>
-        /// 按条件更新，
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="where">条件</param>
-        /// <param name="updateFactory"></param>
-        /// <returns></returns>
-        //int Update<T>(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateFactory) where T : class;
-
-        /// <summary>
-        /// 按条件更新，
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="where">条件</param>
-        /// <param name="updateFactory"></param>
-        /// <returns></returns>
-       // Task<int> UpdateAsync<T>(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateFactory)
-        //    where T : class;
+        
         #endregion
 
         #region 查询

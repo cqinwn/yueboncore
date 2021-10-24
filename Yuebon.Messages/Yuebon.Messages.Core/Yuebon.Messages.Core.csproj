@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <Version>1.1.5.9</Version>
+    <Version>1.1.5.10</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -11,9 +11,11 @@
     <Authors>Yuebon</Authors>
     <Copyright>上海越邦网络科技有限公司 版权所有</Copyright>
     <PackageProjectUrl>https://gitee.com/yuebon/YuebonNetCore</PackageProjectUrl>
-    <PackageIconUrl>http://www.yuebon.com/upload/201804/01/201804011125140585.jpg</PackageIconUrl>
+    <PackageIconUrl></PackageIconUrl>
     <RepositoryUrl>https://gitee.com/yuebon/YuebonNetCore</RepositoryUrl>
     <PackageReleaseNotes>修复短信发送成功返回结果为false的bug</PackageReleaseNotes>
+    <PackageIcon>logo.png</PackageIcon>
+    <Description>消息推送类库</Description>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,6 +25,10 @@
     <EmbeddedResource Remove="SMS\**" />
     <None Remove="Mail\**" />
     <None Remove="SMS\**" />
+    <None Include="..\..\logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

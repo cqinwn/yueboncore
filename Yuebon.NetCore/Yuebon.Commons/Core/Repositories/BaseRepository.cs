@@ -1564,7 +1564,7 @@ namespace Yuebon.Commons.Repositories
                         connection.Dispose();
                         DapperConn.Close();
                         DapperConn.Dispose();
-                        throw ex;
+                        throw;
                     }
                     finally
                     {

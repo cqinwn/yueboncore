@@ -8,10 +8,12 @@
     <Description>YuebonNetCore开发框架定时处理库</Description>
     <Copyright>上海越邦网络科技有限公司</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <RootNamespace>Yuebon.Quartz.Jobs</RootNamespace>
     <AssemblyName>Yuebon.Quartz.Jobs</AssemblyName>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageProjectUrl>https://gitee.com/yuebon/YuebonNetCore</PackageProjectUrl>
+    <RepositoryUrl>https://gitee.com/yuebon/YuebonNetCore</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

@@ -145,7 +145,11 @@ namespace Yuebon.Commons.Extensions
 
             return context.GetDataTable(sql);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public static IList<DbTable> GetCurrentDatabaseTableList(this IDbContextCore context)
         {
             var tables = context.GetCurrentDatabaseAllTables().ToList<DbTable>();

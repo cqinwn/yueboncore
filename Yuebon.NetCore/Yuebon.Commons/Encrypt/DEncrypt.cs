@@ -88,7 +88,6 @@ namespace Yuebon.Commons.Encrypt
         /// 使用缺省密钥字符串解密byte[]
         /// </summary>
         /// <param name="encrypted">密文</param>
-        /// <param name="key">密钥</param>
         /// <returns>明文</returns>
         public static byte[] Decrypt(byte[] encrypted)
         {
@@ -99,7 +98,6 @@ namespace Yuebon.Commons.Encrypt
         /// 使用缺省密钥字符串加密
         /// </summary>
         /// <param name="original">原始数据</param>
-        /// <param name="key">密钥</param>
         /// <returns>密文</returns>
         public static byte[] Encrypt(byte[] original)
         {

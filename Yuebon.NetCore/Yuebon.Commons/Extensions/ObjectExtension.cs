@@ -14,6 +14,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Xml;
@@ -471,38 +472,6 @@ namespace Yuebon.Commons.Extensions
                 info = t;
             }
             return info;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public static byte[] ToBytes(this object obj)
-        {
-            if (obj == null)
-                return null;
-            var bf = new BinaryFormatter();
-            using (var ms = new MemoryStream())
-            {
-                bf.Serialize(ms, obj);
-                return ms.ToArray();
-            }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="source"></param>
-        /// <returns></returns>
-        public static object ToObject(this byte[] source)
-        {
-            using (var memStream = new MemoryStream())
-            {
-                var bf = new BinaryFormatter();
-                memStream.Write(source, 0, source.Length);
-                memStream.Seek(0, SeekOrigin.Begin);
-                var obj = bf.Deserialize(memStream);
-                return obj;
-            }
         }
 
         /// <summary>

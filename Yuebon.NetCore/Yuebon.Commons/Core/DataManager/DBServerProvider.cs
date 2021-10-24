@@ -1,4 +1,4 @@
-﻿using Microsoft.Data.Sqlite;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
@@ -156,7 +156,7 @@ namespace Yuebon.Commons.Core.DataManager
             if (masterDb || !isDBReadWriteSeparate)
             {
                 dbConnectionOptions.ConnectionString = Configs.GetConfigurationValue("DbConnections:" + dbConfigName + ":MasterDB", "ConnectionString");
-                dbConnectionOptions.DatabaseType = DatabaseType.SqlServer;//(DatabaseType)Enum.Parse(typeof(DatabaseType), Configs.GetConfigurationValue("DbConnections:" + dbConfigName + ":MasterDB", "DatabaseType"));
+                dbConnectionOptions.DatabaseType = (DatabaseType)Enum.Parse(typeof(DatabaseType), Configs.GetConfigurationValue("DbConnections:" + dbConfigName + ":MasterDB", "DatabaseType"));
             }
             else
             {

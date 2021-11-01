@@ -11660,20 +11660,26 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\yuebon\\.nuget\\packages\\": {}
+    "D:\\Nuget\\.nuget\\packages": {},
+    "d:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.3.1.34",
     "restore": {
-      "projectUniqueName": "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj",
+      "projectUniqueName": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj",
       "projectName": "Yuebon.Commons",
-      "projectPath": "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj",
-      "packagesPath": "C:\\Users\\yuebon\\.nuget\\packages\\",
-      "outputPath": "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.Commons\\obj\\",
+      "projectPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj",
+      "packagesPath": "D:\\Nuget\\.nuget\\packages",
+      "outputPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Commons\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "d:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\yuebon\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Nuget.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"

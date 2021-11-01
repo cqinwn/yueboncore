@@ -637,7 +637,6 @@ namespace Yuebon.Commons.IRepositories
         /// <summary>
         /// 更新指定字段的值
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="model">数据实体</param>
         /// <param name="updateColumns">指定字段</param>
         /// <returns></returns>

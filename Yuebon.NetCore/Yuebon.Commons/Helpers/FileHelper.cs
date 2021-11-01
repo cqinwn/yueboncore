@@ -97,6 +97,7 @@ namespace Yuebon.Commons.Helpers
         /// <param name="strDirectory">The directory.</param>
         /// <param name="s">The ZipOutputStream Object.</param>
         /// <param name="parentPath">The parent path.</param>
+        /// <param name="filetype"></param>
         private static void ZipSetp(string strDirectory, ZipOutputStream s, string parentPath, string filetype)
         {
             if (strDirectory[strDirectory.Length - 1] != Path.DirectorySeparatorChar)

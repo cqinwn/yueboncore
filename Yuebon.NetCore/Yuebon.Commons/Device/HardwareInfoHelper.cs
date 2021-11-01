@@ -170,7 +170,7 @@ namespace Yuebon.Commons.Device
                 }
                 catch (NotSupportedException e)
                 {
-                    throw e;
+                    throw new NotSupportedException("",e);
                 }
                 catch (Exception e)
                 {

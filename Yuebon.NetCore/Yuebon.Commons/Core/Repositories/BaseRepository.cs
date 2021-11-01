@@ -1,4 +1,4 @@
-﻿using Dapper;
+using Dapper;
 using Dapper.Contrib.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -1564,7 +1564,7 @@ namespace Yuebon.Commons.Repositories
                         connection.Dispose();
                         DapperConn.Close();
                         DapperConn.Dispose();
-                        return new Tuple<bool, string>(false, ex.ToString());
+                        throw;
                     }
                     finally
                     {

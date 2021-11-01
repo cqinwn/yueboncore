@@ -77,6 +77,7 @@ namespace Yuebon.Commons.Helpers
         /// <param name="url"></param>
         /// <param name="dataObj">传输对象，转换为JSON传输</param>
         /// <param name="encoding"></param>
+        /// <param name="headers"></param>
         /// <returns></returns>
         public static string HttpPost(string url, object dataObj, Encoding encoding = null, Dictionary<string, string> headers = null)
         {

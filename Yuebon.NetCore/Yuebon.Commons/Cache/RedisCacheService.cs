@@ -136,7 +136,12 @@ namespace Yuebon.Commons.Cache
             return _cache.StringSet(GetKeyForRedis(key), Encoding.UTF8.GetBytes(JsonSerializer.Serialize(value, _jsonOptions)), expiresIn);
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public Task<bool> AddAsync(string key, object value)
         {
             if (key == null)
@@ -146,7 +151,14 @@ namespace Yuebon.Commons.Cache
 
             return _cache.StringSetAsync(GetKeyForRedis(key), Encoding.UTF8.GetBytes(JsonSerializer.Serialize(value, _jsonOptions)));
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="expiresSliding"></param>
+        /// <param name="expiressAbsoulte"></param>
+        /// <returns></returns>
         public Task<bool> AddAsync(string key, object value, TimeSpan expiresSliding, TimeSpan expiressAbsoulte)
         {
             if (key == null)
@@ -156,7 +168,14 @@ namespace Yuebon.Commons.Cache
 
             return _cache.StringSetAsync(GetKeyForRedis(key), Encoding.UTF8.GetBytes(JsonSerializer.Serialize(value, _jsonOptions)), expiressAbsoulte);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="expiresIn"></param>
+        /// <param name="isSliding"></param>
+        /// <returns></returns>
         public Task<bool> AddAsync(string key, object value, TimeSpan expiresIn, bool isSliding = false)
         {
 
@@ -187,7 +206,7 @@ namespace Yuebon.Commons.Cache
         /// <summary>
         /// 批量删除缓存
         /// </summary>
-        /// <param name="key">缓存Key集合</param>
+        /// <param name="keys">缓存Key集合</param>
         /// <returns></returns>
         public void RemoveAll(IEnumerable<string> keys)
         {
@@ -199,7 +218,11 @@ namespace Yuebon.Commons.Cache
             keys.ToList().ForEach(item => Remove(item));
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public Task<bool> RemoveAsync(string key)
         {
             if (key == null)
@@ -208,7 +231,11 @@ namespace Yuebon.Commons.Cache
             }
             return _cache.KeyDeleteAsync(GetKeyForRedis(key));
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="keys"></param>
+        /// <returns></returns>
         public Task RemoveAllAsync(IEnumerable<string> keys)
         {
             //if (keys == null)
@@ -309,17 +336,30 @@ namespace Yuebon.Commons.Cache
             return dict;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public Task<T> GetAsync<T>(string key) where T : class
         {
             throw new NotImplementedException();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public Task<object> GetAsync(string key)
         {
             throw new NotImplementedException();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="keys"></param>
+        /// <returns></returns>
         public Task<IDictionary<string, object>> GetAllAsync(IEnumerable<string> keys)
         {
 
@@ -407,6 +447,9 @@ namespace Yuebon.Commons.Cache
         }
         #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Dispose()
         {
             if (_connection != null)

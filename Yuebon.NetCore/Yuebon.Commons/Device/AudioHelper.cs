@@ -9,8 +9,8 @@ namespace Yuebon.Commons.Device
 {
     /// <summary>
     /// WAV声音格式文件播放辅助类
+    /// 仅支持windows平台
     /// </summary>
-    [HostProtection(SecurityAction.LinkDemand, Resources = HostProtectionResource.ExternalProcessMgmt)]
     [Browsable(false)]
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     public class AudioHelper

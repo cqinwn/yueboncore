@@ -3,13 +3,17 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>Yuebon.SMS</RootNamespace>
-    <Version>1.0.2</Version>
+    <Version>1.0.3.1</Version>
     <PackageProjectUrl>https://gitee.com/yuebon/YuebonNetCore</PackageProjectUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>logo.png</PackageIcon>
     <RepositoryUrl>https://gitee.com/yuebon/YuebonNetCore</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Authors>Yuebon</Authors>
+    <Description>短信推送</Description>
+    <Company>上海越邦网络科技有限公司</Company>
+    <Copyright>上海越邦网络科技有限公司 版权所有</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

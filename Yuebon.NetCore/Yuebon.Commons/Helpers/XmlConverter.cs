@@ -30,7 +30,7 @@ namespace Yuebon.Commons.Helpers
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception("",ex);
             }
             finally
             {

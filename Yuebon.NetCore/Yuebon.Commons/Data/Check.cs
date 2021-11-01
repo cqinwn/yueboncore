@@ -214,6 +214,9 @@ namespace Yuebon.Commons.Data
         /// <summary>
         /// 检查<see cref="IInputDto{TKey}"/>各属性的合法性，否则抛出<see cref="ValidationException"/>异常
         /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="dto"></param>
+        /// <param name="paramName"></param>
         public static void Validate<TKey>(IInputDto<TKey> dto, string paramName)
         {
             NotNull(dto, paramName);
@@ -223,6 +226,10 @@ namespace Yuebon.Commons.Data
         /// <summary>
         /// 检查<see cref="IInputDto{TKey}"/>各属性的合法性，否则抛出<see cref="ValidationException"/>异常
         /// </summary>
+        /// <typeparam name="TInputDto"></typeparam>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="dtos"></param>
+        /// <param name="paramName"></param>
         public static void Validate<TInputDto, TKey>(TInputDto[] dtos, string paramName) where TInputDto : IInputDto<TKey>
         {
             NotNull(dtos, paramName);

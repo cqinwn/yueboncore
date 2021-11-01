@@ -66,20 +66,7 @@ namespace Yuebon.Commons.IDbContext
         /// <returns></returns>
         int Delete<T,TKey>(TKey key) where T : Entity;
 
-        /// <summary>
-        /// 根据条件删除一个实体，返回影响记录行数
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="where">条件</param>
-        /// <returns></returns>
-        ////int Delete<T>(Expression<Func<T, bool>> @where) where T : class;
-        /// <summary>
-        /// 根据条件删除一个实体，返回影响记录行数
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="where">条件</param>
-        /// <returns></returns>
-        //Task<int> DeleteAsync<T>(Expression<Func<T, bool>> @where) where T : class;
+        
         #endregion
 
         /// <summary>
@@ -132,24 +119,7 @@ namespace Yuebon.Commons.IDbContext
         /// <returns></returns>
         int Update<T>(T model, params string[] updateColumns) where T : class;
 
-        /// <summary>
-        /// 按条件更新，
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="where">条件</param>
-        /// <param name="updateFactory"></param>
-        /// <returns></returns>
-        //int Update<T>(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateFactory) where T : class;
-
-        /// <summary>
-        /// 按条件更新，
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="where">条件</param>
-        /// <param name="updateFactory"></param>
-        /// <returns></returns>
-       // Task<int> UpdateAsync<T>(Expression<Func<T, bool>> @where, Expression<Func<T, T>> updateFactory)
-        //    where T : class;
+        
         #endregion
 
         #region 查询

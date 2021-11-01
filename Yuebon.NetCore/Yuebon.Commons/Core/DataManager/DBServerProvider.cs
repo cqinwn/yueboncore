@@ -226,6 +226,7 @@ namespace Yuebon.Commons.Core.DataManager
             }
             return connectionOptions;
         }
+
         #endregion
     }
 }

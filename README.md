@@ -203,6 +203,12 @@ DataBase是最新数据库备份文件，目前支持MS SQL Server和MySql。
 
 这是一个物联网设备通讯协议实现客户端，将包括主流PLC通信读取、ModBus协议、Bacnet协议等常用工业通讯协议
 
+[aistudio.-wpf.-aclient](https://gitee.com/akwkevin/aistudio.-wpf.-aclient)
+
+开源地址：[https://gitee.com/akwkevin/aistudio.-wpf.-aclient](https://gitee.com/akwkevin/aistudio.-wpf.-aclient)
+
+使用Prism做MVVM实现Wpf客户端应用程序。目使用的控件库Util.Controls也是开源的， 完全兼容MahApps.Metro ，可以与MahApps.Metro同时使用。
+
 ### 社区
 
 

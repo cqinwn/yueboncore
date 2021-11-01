@@ -127,7 +127,7 @@ namespace Yuebon.Commons.Repositories
         {
             if (dbContext == null) throw new ArgumentNullException(nameof(dbContext));
             _dbContext = dbContext;
-            _dbContext.EnsureCreated();
+            //_dbContext.EnsureCreated();
         }
 
         /// <summary>

@@ -37,7 +37,6 @@ using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Core.App;
 using Yuebon.Commons.DbContextCore;
-using Yuebon.Commons.Enums;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IDbContext;
@@ -186,7 +185,6 @@ namespace Yuebon.WebApi
             //    policy => policy.WithOrigins(Configuration.GetSection("AppSetting:AllowOrigins").Value.Split(',', StringSplitOptions.RemoveEmptyEntries)).AllowAnyHeader().AllowAnyMethod()));
             #endregion
 
-
             #region MiniProfiler
             services.AddMiniProfiler(options => {
                 options.RouteBasePath = "/profiler";
@@ -301,20 +299,20 @@ namespace Yuebon.WebApi
                 InstanceName = Configuration.GetSection("CacheProvider:Redis_InstanceName").Value
             };
 
-            var options = new JsonSerializerOptions();
-            options.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All);
-            options.WriteIndented = true;
-            options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-            options.AllowTrailingCommas = true;
+            var jsonOptions = new JsonSerializerOptions();
+            jsonOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All);
+            jsonOptions.WriteIndented = true;
+            jsonOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+            jsonOptions.AllowTrailingCommas = true;
             //设置时间格式
-            options.Converters.Add(new DateTimeJsonConverter());
-            options.Converters.Add(new DateTimeNullableConverter());
+            jsonOptions.Converters.Add(new DateTimeJsonConverter());
+            jsonOptions.Converters.Add(new DateTimeNullableConverter());
             //设置bool获取格式
-            options.Converters.Add(new BooleanJsonConverter());
+            jsonOptions.Converters.Add(new BooleanJsonConverter());
             //设置数字
-            options.Converters.Add(new IntJsonConverter());
-            options.PropertyNamingPolicy = new UpperFirstCaseNamingPolicy();
-            options.PropertyNameCaseInsensitive = true;                     //忽略大小写
+            jsonOptions.Converters.Add(new IntJsonConverter());
+            jsonOptions.PropertyNamingPolicy = new UpperFirstCaseNamingPolicy();
+            jsonOptions.PropertyNameCaseInsensitive = true;                     //忽略大小写
             //判断是否使用Redis，如果不使用 Redis就默认使用 MemoryCache
             if (cacheProvider.IsUseRedis)
             {
@@ -328,7 +326,7 @@ namespace Yuebon.WebApi
                 {
                     Configuration = cacheProvider.ConnectionString,
                     InstanceName = cacheProvider.InstanceName
-                }, options, 0));
+                }, jsonOptions, 0));
                 services.Configure<DistributedCacheEntryOptions>(option => option.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5));//设置Redis缓存有效时间为5分钟。
             }
             else

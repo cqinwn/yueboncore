@@ -7,6 +7,7 @@ namespace Yuebon.Commons.Core.DataManager
     /// <summary>
     /// 数据库连接配置特性
     /// </summary>
+    [System.AttributeUsage(System.AttributeTargets.Class |System.AttributeTargets.Struct, AllowMultiple = true)]
     public class AppDBContextAttribute : Attribute
     {
         /// <summary>

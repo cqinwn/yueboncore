@@ -18,7 +18,8 @@ namespace Yuebon.Commons.Cache
         /// <summary>
         /// 
         /// </summary>
-        protected IMemoryCache _cache;
+        private readonly IMemoryCache _cache;
+
         /// <summary>
         /// 
         /// </summary>
@@ -26,6 +27,7 @@ namespace Yuebon.Commons.Cache
         public MemoryCacheService(IMemoryCache cache)
         {
             _cache = cache;
+
         }
 
         #region 验证缓存项是否存在
@@ -63,6 +65,7 @@ namespace Yuebon.Commons.Cache
             {
                 throw new ArgumentNullException(nameof(value));
             }
+            
             _cache.Set(key, value);
             return Exists(key);
         }

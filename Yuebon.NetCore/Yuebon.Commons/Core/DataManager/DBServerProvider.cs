@@ -29,7 +29,7 @@ namespace Yuebon.Commons.Core.DataManager
         /// <summary>
         /// 数据库配置名称
         /// </summary>
-        private static string dbConfigName = "";
+        private static string dbConfigName = "DefaultDb";
 
         /// <summary>
         /// 数据库连接
@@ -138,7 +138,7 @@ namespace Yuebon.Commons.Core.DataManager
         /// <returns></returns>
         public static DbConnectionOptions GeDbConnectionOptions<TEntity>(bool masterDb = true)
         {          
-            dbConfigName = typeof(TEntity).GetCustomAttribute<AppDBContextAttribute>(false)?.DbConfigName ?? dbConfigName;
+            dbConfigName = typeof(TEntity).GetCustomAttribute<AppDBContextAttribute>(false)?.DbConfigName ?? "DefaultDb";
             bool conStringEncrypt = Configs.GetConfigurationValue("AppSetting", "ConStringEncrypt").ToBool();
             if (string.IsNullOrEmpty(dbConfigName))
             {

@@ -25,7 +25,7 @@ namespace Yuebon.Commons.Helpers
         public static string CreateNo()
         {
             Random random = new Random();
-            string strRandom = random.Next(1000, 10000).ToString(); //生成随机编号 
+            string strRandom = random.Next(10000, 99999).ToString(); //生成随机编号 
             string code = DateTime.Now.ToString("yyyyMMddHHmmssffff") + strRandom;//形如2020052113254137177350
             return code;
         }

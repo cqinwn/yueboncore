@@ -2864,13 +2864,13 @@
           "ref/netstandard1.5/System.Runtime.dll": {}
         }
       },
-      "System.Runtime.Caching/4.7.0": {
+      "System.Runtime.Caching/5.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Configuration.ConfigurationManager": "4.7.0"
+          "System.Configuration.ConfigurationManager": "5.0.0"
         },
         "compile": {
-          "ref/netstandard2.0/_._": {}
+          "ref/netstandard2.0/System.Runtime.Caching.dll": {}
         },
         "runtime": {
           "lib/netstandard2.0/System.Runtime.Caching.dll": {}
@@ -3383,7 +3383,7 @@
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Yuebon.Commons/1.3.1.34": {
+      "Yuebon.Commons/1.3.1.36": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
@@ -3422,6 +3422,7 @@
           "System.Data.SqlClient": "4.8.3",
           "System.Drawing.Common": "5.0.2",
           "System.Management": "5.0.0",
+          "System.Runtime.Caching": "5.0.0",
           "log4net": "2.0.12"
         },
         "compile": {
@@ -3431,11 +3432,11 @@
           "bin/placeholder/Yuebon.Commons.dll": {}
         }
       },
-      "Yuebon.Security.Core/1.3.2.34": {
+      "Yuebon.Security.Core/1.3.2.36": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
-          "Yuebon.Commons": "1.3.1.34"
+          "Yuebon.Commons": "1.3.1.36"
         },
         "compile": {
           "bin/placeholder/Yuebon.Security.Core.dll": {}
@@ -8721,13 +8722,14 @@
         "system.runtime.nuspec"
       ]
     },
-    "System.Runtime.Caching/4.7.0": {
-      "sha512": "NdvNRjTPxYvIEhXQszT9L9vJhdQoX6AQ0AlhjTU+5NqFQVuacJTfhPVAvtGWNA2OJCqRiR/okBcZgMwI6MqcZg==",
+    "System.Runtime.Caching/5.0.0": {
+      "sha512": "30D6MkO8WF9jVGWZIP0hmCN8l9BTY4LCsAzLIe4xFSXzs+AjDotR7DpSmj27pFskDURzUvqYYY0ikModgBTxWw==",
       "type": "package",
-      "path": "system.runtime.caching/4.7.0",
+      "path": "system.runtime.caching/5.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "Icon.png",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
         "lib/MonoAndroid10/_._",
@@ -8751,7 +8753,7 @@
         "runtimes/win/lib/net45/_._",
         "runtimes/win/lib/netstandard2.0/System.Runtime.Caching.dll",
         "runtimes/win/lib/netstandard2.0/System.Runtime.Caching.xml",
-        "system.runtime.caching.4.7.0.nupkg.sha512",
+        "system.runtime.caching.5.0.0.nupkg.sha512",
         "system.runtime.caching.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
@@ -10401,12 +10403,12 @@
         "system.xml.xmlserializer.nuspec"
       ]
     },
-    "Yuebon.Commons/1.3.1.34": {
+    "Yuebon.Commons/1.3.1.36": {
       "type": "project",
       "path": "../Yuebon.Commons/Yuebon.Commons.csproj",
       "msbuildProject": "../Yuebon.Commons/Yuebon.Commons.csproj"
     },
-    "Yuebon.Security.Core/1.3.2.34": {
+    "Yuebon.Security.Core/1.3.2.36": {
       "type": "project",
       "path": "../Yuebon.Security.Core/Yuebon.Security.Core.csproj",
       "msbuildProject": "../Yuebon.Security.Core/Yuebon.Security.Core.csproj"
@@ -10421,30 +10423,24 @@
       "Microsoft.IdentityModel.Tokens >= 6.13.1",
       "Swashbuckle.AspNetCore >= 6.2.3",
       "System.IdentityModel.Tokens.Jwt >= 6.13.1",
-      "Yuebon.Security.Core >= 1.3.2.34"
+      "Yuebon.Security.Core >= 1.3.2.36"
     ]
   },
   "packageFolders": {
-    "D:\\Nuget\\.nuget\\packages": {},
-    "d:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\yuebon\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.3.1.39",
     "restore": {
-      "projectUniqueName": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.AspNetCore\\Yuebon.AspNetCore.csproj",
+      "projectUniqueName": "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.AspNetCore\\Yuebon.AspNetCore.csproj",
       "projectName": "Yuebon.AspNetCore",
-      "projectPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.AspNetCore\\Yuebon.AspNetCore.csproj",
-      "packagesPath": "D:\\Nuget\\.nuget\\packages",
-      "outputPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.AspNetCore\\obj\\",
+      "projectPath": "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.AspNetCore\\Yuebon.AspNetCore.csproj",
+      "packagesPath": "C:\\Users\\yuebon\\.nuget\\packages\\",
+      "outputPath": "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.AspNetCore\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "d:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Nuget.config"
+        "C:\\Users\\yuebon\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
@@ -10457,8 +10453,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj": {
-              "projectPath": "D:\\netcorespace\\权限管理\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj"
+            "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj": {
+              "projectPath": "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj"
             }
           }
         }

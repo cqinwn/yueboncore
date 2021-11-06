@@ -31,7 +31,7 @@ namespace Yuebon.Commons.Core.DataManager
         /// <summary>
         /// 数据库配置名称
         /// </summary>
-        private static string dbConfigName = "";
+        private static string dbConfigName = "DefaultDb";
 
         /// <summary>
         /// 数据库连接
@@ -139,11 +139,8 @@ namespace Yuebon.Commons.Core.DataManager
         /// <param name="masterDb">是否访问主库，默认为是，否则访问从库即只读数据库</param>
         /// <returns></returns>
         public static DbConnectionOptions GeDbConnectionOptions<TEntity>(bool masterDb = true)
-        {
-            //string dbConfigName1 = dbConfigName;
-            //System.Attribute[] attrs = System.Attribute.GetCustomAttributes(typeof(TEntity));  //反射获得用户自定义属性 
-            //string dbConfigName2 = typeof(TEntity).GetCustomAttribute<AppDBContextAttribute>(true)?.DbConfigName;
-            dbConfigName = typeof(TEntity).GetCustomAttribute<AppDBContextAttribute>(false)?.DbConfigName;
+        {          
+            dbConfigName = typeof(TEntity).GetCustomAttribute<AppDBContextAttribute>(false)?.DbConfigName ?? "DefaultDb";
             bool conStringEncrypt = Configs.GetConfigurationValue("AppSetting", "ConStringEncrypt").ToBool();
             if (string.IsNullOrEmpty(dbConfigName))
             {

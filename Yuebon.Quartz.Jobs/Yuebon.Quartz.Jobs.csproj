@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Company>上海越邦网络科技有限公司</Company>
     <Authors>Yuebon</Authors>
     <Product>YuebonNetCore开发框架定时处理库</Product>

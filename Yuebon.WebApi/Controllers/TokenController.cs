@@ -82,7 +82,7 @@ namespace Yuebon.WebApi.Controllers
                 if (!app.RequestUrl.Contains(strHost))
                 {
                     result.ErrCode = "40002";
-                    result.ErrMsg = ErrCode.err40002+"，你当前请求主机："+strHost;
+                    result.ErrMsg = ErrCode.err40002+"，你当前请求主机："+strHost+ ",请参考：http://docs.v.yuebon.com/guide/faq.html#%E6%8F%90%E7%A4%BA%E9%9C%80%E8%A6%81%E6%8E%88%E6%9D%83%E6%80%8E%E4%B9%88%E5%8A%9E";
                 }
                 else
                 {

@@ -1,7 +1,7 @@
 ### 如果对您有帮助，您可以点右上角 "Star" 支持一下，这样我们才有继续免费下去的动力，谢谢！
 
 ### 概述
-YuebonCore是基于.Net5.0开发的权限管理及快速开发框架，整合应用最新技术包括Asp.NetCore MVC、Dapper、WebAPI、Swagger、EF、Vue等，核心模块包括：组织机构、角色用户、权限授权、多系统、多应用管理、定时任务、业务单据编码规则、代码生成器等。它的架构易于扩展，规范了一套业务实现的代码结构与操作流程，使YuebonCore框架更易于应用到实际项目开发中。
+YuebonCore是基于.Net6.0开发的权限管理及快速开发框架，整合应用最新技术包括Asp.NetCore MVC、Dapper、WebAPI、Swagger、EF、Vue等，核心模块包括：组织机构、角色用户、权限授权、多系统、多应用管理、定时任务、业务单据编码规则、代码生成器等。它的架构易于扩展，规范了一套业务实现的代码结构与操作流程，使YuebonCore框架更易于应用到实际项目开发中。
 
 YuebonCore FW其核心设计目标是开发迅速、代码量少、学习简单、功能强大、轻量级、易扩展，让Web开发更快速、简单，解决70%重复工作。轻松开发，专注您的业务，从YuebonCore FW开始！
 
@@ -47,7 +47,7 @@ Vue版前端技术栈 ：基于vue、vuex、vue-router 、vue-cli 、axios 和 e
 
 #### 后端技术
 
-核心框架：.Net5.0 + Web API + Dapper + EF + AutoMapper + swagger
+核心框架：.Net6.0 + Web API + Dapper + EF + AutoMapper + swagger
 
 定时计划任务：Quartz.Net组件
 

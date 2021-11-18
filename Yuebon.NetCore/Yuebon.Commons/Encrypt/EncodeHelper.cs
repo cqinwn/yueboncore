@@ -69,10 +69,10 @@ namespace Yuebon.Commons.Encrypt
             byte[] IV = { 0x12, 0x34, 0x56, 0x78, 0x90, 0xAB, 0xCD, 0xEF };
 
             byKey = Encoding.UTF8.GetBytes(strEncrKey.Substring(0, 8));
-            DESCryptoServiceProvider des = new DESCryptoServiceProvider();
+            TripleDES TripleDESalg = TripleDES.Create();
             byte[] inputByteArray = Encoding.UTF8.GetBytes(strText);
             MemoryStream ms = new MemoryStream();
-            CryptoStream cs = new CryptoStream(ms, des.CreateEncryptor(byKey, IV), CryptoStreamMode.Write);
+            CryptoStream cs = new CryptoStream(ms, TripleDESalg.CreateEncryptor(byKey, IV), CryptoStreamMode.Write);
             cs.Write(inputByteArray, 0, inputByteArray.Length);
             cs.FlushFinalBlock();
             return Convert.ToBase64String(ms.ToArray());
@@ -91,10 +91,10 @@ namespace Yuebon.Commons.Encrypt
             byte[] inputByteArray = new Byte[strText.Length];
 
             byKey = Encoding.UTF8.GetBytes(sDecrKey.Substring(0, 8));
-            DESCryptoServiceProvider des = new DESCryptoServiceProvider();
+            TripleDES TripleDESalg = TripleDES.Create();
             inputByteArray = Convert.FromBase64String(strText);
             MemoryStream ms = new MemoryStream();
-            CryptoStream cs = new CryptoStream(ms, des.CreateDecryptor(byKey, IV), CryptoStreamMode.Write);
+            CryptoStream cs = new CryptoStream(ms, TripleDESalg.CreateDecryptor(byKey, IV), CryptoStreamMode.Write);
             cs.Write(inputByteArray, 0, inputByteArray.Length);
             cs.FlushFinalBlock();
             Encoding encoding = new UTF8Encoding();
@@ -122,8 +122,8 @@ namespace Yuebon.Commons.Encrypt
             long totlen = fin.Length; //This is the total length of the input file. 
             int len; //This is the number of bytes to be written at a time. 
 
-            DES des = new DESCryptoServiceProvider();
-            CryptoStream encStream = new CryptoStream(fout, des.CreateEncryptor(byKey, IV), CryptoStreamMode.Write);
+            TripleDES TripleDESalg = TripleDES.Create();
+            CryptoStream encStream = new CryptoStream(fout, TripleDESalg.CreateEncryptor(byKey, IV), CryptoStreamMode.Write);
 
             //Read from the input file, then encrypt and write to the output file. 
             while (rdlen < totlen)
@@ -158,8 +158,8 @@ namespace Yuebon.Commons.Encrypt
             long totlen = fin.Length; //This is the total length of the input file. 
             int len; //This is the number of bytes to be written at a time. 
 
-            DES des = new DESCryptoServiceProvider();
-            CryptoStream encStream = new CryptoStream(fout, des.CreateDecryptor(byKey, IV), CryptoStreamMode.Write);
+            TripleDES TripleDESalg = TripleDES.Create();
+            CryptoStream encStream = new CryptoStream(fout, TripleDESalg.CreateDecryptor(byKey, IV), CryptoStreamMode.Write);
 
             //Read from the input file, then encrypt and write to the output file. 
             while (rdlen < totlen)
@@ -174,7 +174,7 @@ namespace Yuebon.Commons.Encrypt
         }
         #endregion
 
-        #region 对称加密算法AES RijndaelManaged加密解密
+        #region 对称加密算法AES 加密解密
         private static readonly string Default_AES_Key = "@#yuebonqinwn123";
         private static byte[] Keys = { 0x41, 0x72, 0x65, 0x79, 0x6F, 0x75, 0x6D, 0x79,
                                              0x53,0x6E, 0x6F, 0x77, 0x6D, 0x61, 0x6E, 0x3F };
@@ -190,7 +190,7 @@ namespace Yuebon.Commons.Encrypt
         }
 
         /// <summary>
-        /// 对称加密算法AES RijndaelManaged加密(RijndaelManaged（AES）算法是块式加密算法)
+        /// 对称加密算法AES 加密(RijndaelManaged（AES）算法是块式加密算法)
         /// </summary>
         /// <param name="encryptString">待加密字符串</param>
         /// <param name="encryptKey">加密密钥，须半角字符</param>
@@ -199,14 +199,13 @@ namespace Yuebon.Commons.Encrypt
         {
             encryptKey = GetSubString(encryptKey, 32, "");
             encryptKey = encryptKey.PadRight(32, ' ');
-
-            RijndaelManaged rijndaelProvider = new RijndaelManaged();
-            rijndaelProvider.Key = Encoding.UTF8.GetBytes(encryptKey.Substring(0, 32));
-            rijndaelProvider.IV = Keys;
-            ICryptoTransform rijndaelEncrypt = rijndaelProvider.CreateEncryptor();
+            Aes aesAlg = Aes.Create();
+            aesAlg.Key = Encoding.UTF8.GetBytes(encryptKey.Substring(0, 32));
+            aesAlg.IV = Keys;
+            ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
 
             byte[] inputData = Encoding.UTF8.GetBytes(encryptString);
-            byte[] encryptedData = rijndaelEncrypt.TransformFinalBlock(inputData, 0, inputData.Length);
+            byte[] encryptedData = encryptor.TransformFinalBlock(inputData, 0, inputData.Length);
 
             return Convert.ToBase64String(encryptedData);
         }
@@ -234,10 +233,10 @@ namespace Yuebon.Commons.Encrypt
                 decryptKey = GetSubString(decryptKey, 32, "");
                 decryptKey = decryptKey.PadRight(32, ' ');
 
-                RijndaelManaged rijndaelProvider = new RijndaelManaged();
-                rijndaelProvider.Key = Encoding.UTF8.GetBytes(decryptKey);
-                rijndaelProvider.IV = Keys;
-                ICryptoTransform rijndaelDecrypt = rijndaelProvider.CreateDecryptor();
+                Aes aesAlg = Aes.Create();
+                aesAlg.Key = Encoding.UTF8.GetBytes(decryptKey);
+                aesAlg.IV = Keys;
+                ICryptoTransform rijndaelDecrypt = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV); ;
 
                 byte[] inputData = Convert.FromBase64String(decryptString);
                 byte[] decryptedData = rijndaelDecrypt.TransformFinalBlock(inputData, 0, inputData.Length);

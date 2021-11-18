@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Models;
 using Yuebon.Commons.Core.App;
+using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.IoC;
 using Yuebon.Commons.Json;
@@ -149,8 +150,8 @@ namespace Yuebon.AspNetCore.Mvc
                 Subject = new ClaimsIdentity(new Claim[] {
                     new Claim(JwtClaimTypes.Audience,appid),
                     new Claim(JwtClaimTypes.Issuer,_jwtModel.Issuer),
-                    new Claim(JwtClaimTypes.Name, userInfo.Account),
-                    new Claim(JwtClaimTypes.Id, userInfo.Id),
+                    new Claim(JwtClaimTypes.Name, EncodeHelper.AES_Encrypt(userInfo.Account)),
+                    new Claim(JwtClaimTypes.Id, EncodeHelper.AES_Encrypt(userInfo.Id)),
                     new Claim(JwtClaimTypes.Role, _roleService.GetRoleEnCode(userInfo.RoleId)),
                     new Claim(JwtClaimTypes.Subject, GrantType.Password)
                 }),
@@ -185,8 +186,8 @@ namespace Yuebon.AspNetCore.Mvc
                 Subject = new ClaimsIdentity(new Claim[] {
                     new Claim(JwtClaimTypes.Audience,appid),
                     new Claim(JwtClaimTypes.Issuer,_jwtModel.Issuer),
-                    new Claim(JwtClaimTypes.Name, userInfo.Account),
-                    new Claim(JwtClaimTypes.Id, userInfo.Id),
+                    new Claim(JwtClaimTypes.Name, EncodeHelper.AES_Encrypt(userInfo.Account)),
+                    new Claim(JwtClaimTypes.Id, EncodeHelper.AES_Encrypt(userInfo.Id)),
                     new Claim(JwtClaimTypes.Role, userInfo.RoleId),
                     new Claim(JwtClaimTypes.Subject, GrantType.Password)
                 }),

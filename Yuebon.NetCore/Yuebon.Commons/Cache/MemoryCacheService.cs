@@ -18,17 +18,17 @@ namespace Yuebon.Commons.Cache
         /// <summary>
         /// 
         /// </summary>
-        private readonly IMemoryCache _cache;
+        private readonly IMemoryCache _cache=new MemoryCache(new MemoryCacheOptions());
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="cache"></param>
-        public MemoryCacheService(IMemoryCache cache)
-        {
-            _cache = cache;
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="cache"></param>
+        ////public MemoryCacheService(IMemoryCache cache)
+        ////{
+        ////    _cache = cache;
 
-        }
+        ////}
 
         #region 验证缓存项是否存在
         /// <summary>
@@ -65,7 +65,6 @@ namespace Yuebon.Commons.Cache
             {
                 throw new ArgumentNullException(nameof(value));
             }
-            
             _cache.Set(key, value);
             return Exists(key);
         }

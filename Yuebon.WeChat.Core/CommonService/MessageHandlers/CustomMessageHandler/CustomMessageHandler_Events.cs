@@ -288,8 +288,8 @@ QQ群：289181996
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
                         try
                         {
-                            var result = MediaApi.UploadForeverMedia(appId, ServerUtility.ContentRootMapPath("~/Images/logo.jpg"));
-                            strongResponseMessage.Content = result.media_id;
+                            //var result = MediaApi.UploadForeverMedia(appId, ServerUtility.ContentRootMapPath("~/Images/logo.jpg"));
+                            //strongResponseMessage.Content = result.media_id;
                         }
                         catch (Exception e)
                         {

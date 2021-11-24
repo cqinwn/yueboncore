@@ -12,6 +12,7 @@ using System.Text.Unicode;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc.Filter;
+using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Models;
@@ -101,18 +102,18 @@ namespace Yuebon.AspNetCore.Mvc
                     if (result.ResData != null)
                     {
                         List<Claim> claimlist = result.ResData as List<Claim>;
-                        string userId = claimlist[3].Value;
+                        string userId = EncodeHelper.AES_Decrypt(claimlist[3].Value);
                         YuebonCurrentUser user = new YuebonCurrentUser
                         {
                             UserId = userId,
-                            Account = claimlist[2].Value,
+                            Account = EncodeHelper.AES_Decrypt(claimlist[2].Value),
                             Role = claimlist[4].Value
                         };
 
                         var claims = new[] {
                            new Claim(YuebonClaimTypes.UserId,userId),
-                           new Claim(YuebonClaimTypes.UserName,claimlist[2].Value),
-                           new Claim(YuebonClaimTypes.Role,claimlist[4].Value)
+                           new Claim(YuebonClaimTypes.UserName,user.Account),
+                           new Claim(YuebonClaimTypes.Role,user.Role)
                         };
                         var identity = new ClaimsIdentity(claims);
                         var principal = new ClaimsPrincipal(identity);

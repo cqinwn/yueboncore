@@ -63,6 +63,8 @@ module.exports = {
     }
   },
   chainWebpack(config) {
+    config.resolve.alias.set('vue', '@vue/compat')
+
     config.plugins.delete('preload') // TODO: need test
     config.plugins.delete('prefetch') // TODO: need test
 
@@ -89,8 +91,14 @@ module.exports = {
       .use('vue-loader')
       .loader('vue-loader')
       .tap(options => {
-        options.compilerOptions.preserveWhitespace = true
-        return options
+        return {
+          ...options,
+          compilerOptions: {
+            compatConfig: {
+              MODE: 2
+            }
+          }
+        }
       })
       .end()
 

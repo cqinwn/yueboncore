@@ -18,6 +18,7 @@ using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Json;
@@ -106,11 +107,11 @@ namespace Yuebon.AspNetCore.Controllers
                         if (result.ResData != null)
                         {
                             List<Claim> claimlist = result.ResData as List<Claim>;
-                            string userId = claimlist[3].Value;
+                            string userId = EncodeHelper.AES_Decrypt(claimlist[3].Value);
 
                             var claims = new[] {
                                new Claim(YuebonClaimTypes.UserId,userId),
-                               new Claim(YuebonClaimTypes.UserName,claimlist[2].Value),
+                               new Claim(YuebonClaimTypes.UserName,EncodeHelper.AES_Decrypt(claimlist[2].Value)),
                                new Claim(YuebonClaimTypes.Role,claimlist[4].Value)
                             };
                             var identity = new ClaimsIdentity(claims);
@@ -191,7 +192,6 @@ namespace Yuebon.AspNetCore.Controllers
             {
                 WriteIndented = true,                                   //格式化json字符串
                 AllowTrailingCommas = true,                             //可以结尾有逗号
-                IgnoreNullValues = true,                              //可以有空值,转换json去除空值属性
                 IgnoreReadOnlyProperties = true,                        //忽略只读属性
                 PropertyNameCaseInsensitive = true,                     //忽略大小写
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)

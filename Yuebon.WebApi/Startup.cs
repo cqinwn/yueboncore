@@ -214,7 +214,7 @@ namespace Yuebon.WebApi
                 //option.Filters.Add<YuebonAuthorizationFilter>();
                 option.Filters.Add(new ExceptionHandlingAttribute());
                 //option.Filters.Add<ActionFilter>();
-            }).SetCompatibilityVersion(CompatibilityVersion.Latest).AddRazorRuntimeCompilation();
+            }).AddRazorRuntimeCompilation();
 
             services.AddMvcCore()
                 .AddAuthorization().AddApiExplorer();
@@ -341,10 +341,10 @@ namespace Yuebon.WebApi
                 services.Configure<MemoryCacheEntryOptions>(
                     options => options.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5)); //设置MemoryCache缓存有效时间为5分钟
             }
+            services.AddSingleton(cacheProvider);//注册缓存配置
             services.AddTransient<MemoryCacheService>();
             services.AddMemoryCache();// 启用MemoryCache
 
-            services.AddSingleton(cacheProvider);//注册缓存配置
             #endregion
 
             #region 身份认证授权

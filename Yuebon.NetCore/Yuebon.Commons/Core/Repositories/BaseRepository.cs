@@ -1562,16 +1562,12 @@ namespace Yuebon.Commons.Repositories
                         transaction.Rollback();
                         connection.Close();
                         connection.Dispose();
-                        DapperConn.Close();
-                        DapperConn.Dispose();
                         throw;
                     }
                     finally
                     {
                         connection.Close();
                         connection.Dispose();
-                        DapperConn.Close();
-                        DapperConn.Dispose();
                     }
                 }
             }

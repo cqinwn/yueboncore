@@ -353,9 +353,9 @@ namespace Yuebon.WebApi
             var jwtOption = new JwtOption
             {
                 Issuer = jwtConfig["Issuer"],
-                Expiration = Convert.ToInt16(jwtConfig["Expiration"]),
+                Audience= jwtConfig["Audience"],
                 Secret = jwtConfig["Secret"],
-                Audience = jwtConfig["Audience"],
+                Expiration = Convert.ToInt16(jwtConfig["Expiration"]),
                 refreshJwtTime = Convert.ToInt16(jwtConfig["refreshJwtTime"])
             };
             services.AddAuthentication(options =>
@@ -363,19 +363,6 @@ namespace Yuebon.WebApi
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme; ;
 
-            }).AddJwtBearer(jwtBearerOptions =>
-            {
-                jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(jwtOption.Secret)),//秘钥
-                    ValidateIssuer = true,
-                    ValidIssuer = jwtOption.Issuer,
-                    ValidateAudience = true,
-                    ValidAudience = jwtOption.Audience,
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.FromMinutes(5)
-                };
             });
             services.AddSingleton(jwtOption);//注册配置
             #endregion
@@ -396,6 +383,7 @@ namespace Yuebon.WebApi
             services.AddHostedService<QuartzService>();
             #endregion
             App.Services = services;
+            new DefaultInitial().CacheAppList();
         }
 
         /// <summary>

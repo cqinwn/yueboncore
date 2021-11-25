@@ -165,7 +165,7 @@ namespace Yuebon.WebApi.Controllers
                     if (jwtToken.Subject == GrantType.Password)
                     {
                         var claimlist = jwtToken?.Payload.Claims as List<Claim>;
-                        User user = await userService.GetByUserName(EncodeHelper.AES_Decrypt(claimlist[2].Value));
+                        User user = await userService.GetByUserName(claimlist[2].Value);
                         TokenResult tokenResult = tokenProvider.LoginToken(user, claimlist[0].Value);
                         result.ResData = tokenResult;
                         result.ErrCode = "0";

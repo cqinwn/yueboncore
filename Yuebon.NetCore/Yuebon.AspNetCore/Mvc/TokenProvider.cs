@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Models;
+using Yuebon.Commons.Cache;
 using Yuebon.Commons.Core.App;
 using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Extensions;
@@ -51,7 +52,9 @@ namespace Yuebon.AspNetCore.Mvc
         /// <returns></returns>
         public TokenResult GenerateToken(string granttype, string appid, string secret)
         {
-            var keyByteArray = Encoding.UTF8.GetBytes(secret);
+            List<APP> list = MemoryCacheHelper.Get<List<APP>>("cacheAppList");
+            APP app = list.Find(o => o.AppId == appid);
+            var keyByteArray = Encoding.UTF8.GetBytes(app.AppSecret);
             var signingKey = new SymmetricSecurityKey(keyByteArray);
             var expires = DateTime.UtcNow.Add(TimeSpan.FromMinutes(_jwtModel.Expiration));
             var signingCredentials=new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
@@ -89,27 +92,57 @@ namespace Yuebon.AspNetCore.Mvc
                 try
                 {
                     JwtSecurityToken jwtToken = new JwtSecurityTokenHandler().ReadJwtToken(token);
+
+
                     if (jwtToken!=null)
                     {
                         #region 检查令牌对象内容
-                        DateTime now = DateTime.UtcNow;
-                        DateTime refreshTime = jwtToken.ValidFrom;
-                        refreshTime= refreshTime.Add(TimeSpan.FromMinutes(_jwtModel.refreshJwtTime));
-                        if (now > refreshTime && jwtToken.Issuer== _jwtModel.Issuer)
+
+                        List<APP> list = MemoryCacheHelper.Get<List<APP>>("cacheAppList");
+                        string appId = jwtToken.Claims.ToList()[0].Value;//Audience
+                        APP app = list.Find(o=>o.AppId== appId);
+                        if (app == null)
                         {
-                            result.ErrMsg = ErrCode.err40005;
-                            result.ErrCode = "40005";
+                            result.ErrMsg = ErrCode.err40004;
+                            result.ErrCode = "40004";
                         }
                         else
                         {
-                            if (jwtToken.Subject == GrantType.Password)
+                            var keyByteArray = Encoding.UTF8.GetBytes(app.AppSecret);
+                            new JwtSecurityTokenHandler().ValidateToken(token, new TokenValidationParameters()
                             {
-                                var claimlist = jwtToken?.Payload.Claims as List<Claim>;
-                                result.ResData= claimlist;
+                                RequireExpirationTime = true,//RequireExpirationTime = true, 
+                                ValidateIssuerSigningKey = true,
+                                IssuerSigningKey = new SymmetricSecurityKey(keyByteArray),
+                                ValidateAudience = true,
+                                ValidAudience = appId,
+                                ValidateIssuer = true,
+                                ValidIssuer = _jwtModel.Issuer,
+                                ValidateLifetime = true,
+                                ClockSkew = TimeSpan.Zero
+
+                            }, out SecurityToken validatedToken);
+
+                            var jwtToken2 = (JwtSecurityToken)validatedToken;
+                            DateTime now = DateTime.UtcNow;
+                            DateTime refreshTime = jwtToken.ValidFrom;
+                            refreshTime = refreshTime.Add(TimeSpan.FromMinutes(_jwtModel.refreshJwtTime));
+                            if (now > refreshTime && jwtToken.Issuer == _jwtModel.Issuer)
+                            {
+                                result.ErrMsg = ErrCode.err40005;
+                                result.ErrCode = "40005";
                             }
-                            result.ErrMsg = ErrCode.err0;
-                            result.ErrCode = ErrCode.successCode;
-                            
+                            else
+                            {
+                                if (jwtToken.Subject == GrantType.Password)
+                                {
+                                    var claimlist = jwtToken?.Payload.Claims as List<Claim>;
+                                    result.ResData = claimlist;
+                                }
+                                result.ErrMsg = ErrCode.err0;
+                                result.ErrCode = ErrCode.successCode;
+
+                            }
                         }
                         #endregion
                     }
@@ -118,6 +151,16 @@ namespace Yuebon.AspNetCore.Mvc
                         result.ErrMsg = ErrCode.err40004;
                         result.ErrCode = "40004";
                     }
+                }
+                catch (SecurityTokenExpiredException ex)
+                {
+                    result.ErrMsg = ErrCode.err40005;
+                    result.ErrCode = "40005";
+                }
+                catch (SecurityTokenInvalidLifetimeException ex)
+                {
+                    result.ErrMsg = ErrCode.err40005;
+                    result.ErrCode = "40005";
                 }
                 catch (Exception ex)
                 {
@@ -141,17 +184,19 @@ namespace Yuebon.AspNetCore.Mvc
         /// <returns></returns>
         public TokenResult LoginToken(User userInfo,string appid)
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.UTF8.GetBytes(_jwtModel.Secret);
+            List<APP> list = MemoryCacheHelper.Get<List<APP>>("cacheAppList");
+            APP app = list.Find(o => o.AppId == appid);
+            var key = Encoding.UTF8.GetBytes(app.AppSecret);
             var authTime = DateTime.UtcNow;//授权时间
             var expires = authTime.Add(TimeSpan.FromMinutes(_jwtModel.Expiration));//过期时间
+            var tokenHandler = new JwtSecurityTokenHandler();
             var tokenDescripor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[] {
                     new Claim(JwtClaimTypes.Audience,appid),
                     new Claim(JwtClaimTypes.Issuer,_jwtModel.Issuer),
-                    new Claim(JwtClaimTypes.Name, EncodeHelper.AES_Encrypt(userInfo.Account)),
-                    new Claim(JwtClaimTypes.Id, EncodeHelper.AES_Encrypt(userInfo.Id)),
+                    new Claim(JwtClaimTypes.Name, userInfo.Account),
+                    new Claim(JwtClaimTypes.Id, userInfo.Id),
                     new Claim(JwtClaimTypes.Role, _roleService.GetRoleEnCode(userInfo.RoleId)),
                     new Claim(JwtClaimTypes.Subject, GrantType.Password)
                 }),
@@ -178,7 +223,9 @@ namespace Yuebon.AspNetCore.Mvc
         public TokenResult GetUserToken(User userInfo, string appid)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.UTF8.GetBytes(_jwtModel.Secret);
+            List<APP> list = MemoryCacheHelper.Get<List<APP>>("cacheAppList");
+            APP app = list.Find(o => o.AppId == appid);
+            var key = Encoding.UTF8.GetBytes(app.AppSecret);
             var authTime = DateTime.UtcNow;//授权时间
             var expires = authTime.Add(TimeSpan.FromMinutes(_jwtModel.Expiration));//过期时间
             var tokenDescripor = new SecurityTokenDescriptor
@@ -186,8 +233,8 @@ namespace Yuebon.AspNetCore.Mvc
                 Subject = new ClaimsIdentity(new Claim[] {
                     new Claim(JwtClaimTypes.Audience,appid),
                     new Claim(JwtClaimTypes.Issuer,_jwtModel.Issuer),
-                    new Claim(JwtClaimTypes.Name, EncodeHelper.AES_Encrypt(userInfo.Account)),
-                    new Claim(JwtClaimTypes.Id, EncodeHelper.AES_Encrypt(userInfo.Id)),
+                    new Claim(JwtClaimTypes.Name, userInfo.Account),
+                    new Claim(JwtClaimTypes.Id, userInfo.Id),
                     new Claim(JwtClaimTypes.Role, userInfo.RoleId),
                     new Claim(JwtClaimTypes.Subject, GrantType.Password)
                 }),

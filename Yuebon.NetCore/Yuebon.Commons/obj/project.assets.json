@@ -11063,7 +11063,7 @@
     "C:\\Users\\yuebon\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "1.3.2",
+    "version": "1.3.2.1",
     "restore": {
       "projectUniqueName": "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj",
       "projectName": "Yuebon.Commons",

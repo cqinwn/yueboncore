@@ -23,15 +23,17 @@ namespace Yuebon.Security.Services
     {
         private readonly IOrganizeRepository _repository;
         private readonly ILogService _logService;
+        private readonly IUserRepository _userRepository;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="repository"></param>
         /// <param name="logService"></param>
-        public OrganizeService(IOrganizeRepository repository, ILogService logService) : base(repository)
+        public OrganizeService(IOrganizeRepository repository, ILogService logService, IUserRepository userRepository) : base(repository)
         {
             _repository = repository;
             _logService = logService;
+            _userRepository = userRepository;
         }
 
 
@@ -102,11 +104,15 @@ namespace Yuebon.Security.Services
             {
                 if (idsInfo.Ids[0] != null)
                 {
-                    where = string.Format("ParentId='{0}'", idsInfo.Ids[0]);
-                    IEnumerable<Organize> list = _repository.GetListWhere(where);
+                    if (_userRepository.GetCountByWhere(string.Format("OrganizeId='{0}' or DepartmentId='{0}'", idsInfo.Ids[0])) > 0)
+                    {
+                        result.ErrMsg = "该机构已有用户数据，不能删除";
+                        return result;
+                    }
+                    IEnumerable<Organize> list = _repository.GetListWhere(string.Format("ParentId='{0}'", idsInfo.Ids[0]));
                     if (list.Count() > 0)
                     {
-                        result.ErrMsg = "功能存在子集数据，不能删除";
+                        result.ErrMsg = "该机构存在子集数据，不能删除";
                         return result;
                     }
                 }
@@ -134,6 +140,11 @@ namespace Yuebon.Security.Services
             {
                 if (idsInfo.Ids[0].ToString().Length > 0)
                 {
+                    if(_userRepository.GetCountByWhere(string.Format("OrganizeId='{0}' or DepartmentId='{0}'", idsInfo.Ids[0])) > 0)
+                    {
+                        result.ErrMsg = "该机构已有用户数据，不能删除";
+                        return result;
+                    }
                     where = string.Format("ParentId='{0}'", idsInfo.Ids[0]);
                     IEnumerable<Organize> list = _repository.GetListWhere(where);
                     if (list.Count()>0)

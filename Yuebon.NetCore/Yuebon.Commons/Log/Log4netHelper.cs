@@ -80,7 +80,7 @@ namespace Yuebon.Commons.Log
                 var stackFrame = stackTrace.GetFrame(1);
                 var methodBase = stackFrame.GetMethod();
                 var message = "方法名称：" + methodBase.Name + "\r\n日志内容：" + msg;
-                logger.Info(message);
+                logger.Debug(message);
             }
         }
         /// <summary>
@@ -96,7 +96,7 @@ namespace Yuebon.Commons.Log
                 var stackFrame = stackTrace.GetFrame(1);
                 var methodBase = stackFrame.GetMethod();
                 var message = "方法名称：" + methodBase.Name + "\r\n日志内容：" + msg;
-                logger.Info(message);
+                logger.Error(message);
             }
         }
         /// <summary>
@@ -160,7 +160,7 @@ namespace Yuebon.Commons.Log
                 var stackFrame = stackTrace.GetFrame(1);
                 var methodBase = stackFrame.GetMethod();
                 var message = "方法名称：" + methodBase.Name + "\r\n日志内容：" + msg;
-                logger.Info(message);
+                logger.Warn(message);
             }
         }
         /// <summary>
@@ -176,7 +176,7 @@ namespace Yuebon.Commons.Log
                 var stackFrame = stackTrace.GetFrame(1);
                 var methodBase = stackFrame.GetMethod();
                 var message = "方法名称：" + methodBase.Name + "\r\n日志内容：" + msg;
-                logger.Info(message);
+                logger.Fatal(message);
             }
         }
         #endregion

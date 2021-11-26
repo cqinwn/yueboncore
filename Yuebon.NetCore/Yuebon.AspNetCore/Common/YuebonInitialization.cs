@@ -9,7 +9,7 @@ using Yuebon.Security.Models;
 namespace Yuebon.AspNetCore.Common
 {
     /// <summary>
-    /// 系统初始化内容
+    /// 系统初始化内容，根据需要继承实现
     /// </summary>
     public abstract class YuebonInitialization
     {
@@ -24,6 +24,7 @@ namespace Yuebon.AspNetCore.Common
             {
                 yuebonCacheHelper.Add("SysSetting", sysSetting);
             }
+
        }
     }
 }

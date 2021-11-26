@@ -12,12 +12,14 @@ using System.Reflection;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Text.Unicode;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Json;
@@ -191,7 +193,7 @@ namespace Yuebon.AspNetCore.Controllers
             {
                 WriteIndented = true,                                   //格式化json字符串
                 AllowTrailingCommas = true,                             //可以结尾有逗号
-                IgnoreNullValues = true,                              //可以有空值,转换json去除空值属性
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,//忽略 null 值 net6.0中IgnoreNullValues 已过时
                 IgnoreReadOnlyProperties = true,                        //忽略只读属性
                 PropertyNameCaseInsensitive = true,                     //忽略大小写
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)

@@ -1562,16 +1562,12 @@ namespace Yuebon.Commons.Repositories
                         transaction.Rollback();
                         connection.Close();
                         connection.Dispose();
-                        DapperConn.Close();
-                        DapperConn.Dispose();
                         throw;
                     }
                     finally
                     {
                         connection.Close();
                         connection.Dispose();
-                        DapperConn.Close();
-                        DapperConn.Dispose();
                     }
                 }
             }
@@ -1611,16 +1607,12 @@ namespace Yuebon.Commons.Repositories
                         transaction.Rollback();
                         connection.Close();
                         connection.Dispose();
-                        DapperConn.Close();
-                        DapperConn.Dispose();
                         return new Tuple<bool, string>(false, ex.ToString());
                     }
                     finally
                     {
                         connection.Close();
                         connection.Dispose();
-                        DapperConn.Close();
-                        DapperConn.Dispose();
                     }
                 }
             }

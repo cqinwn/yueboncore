@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc;
+using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Models;

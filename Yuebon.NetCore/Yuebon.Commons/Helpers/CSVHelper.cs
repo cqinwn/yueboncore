@@ -52,7 +52,7 @@ namespace Yuebon.Commons.Helpers
             string strline = null;
             string[] aryline;
 
-            using (StreamReader reader = new StreamReader(csvPath, FileUtil.GetEncoding(csvPath)))
+            using (StreamReader reader = new StreamReader(csvPath, FileHelper.GetEncoding(csvPath)))
             {
                 while (!string.IsNullOrEmpty((strline = reader.ReadLine())))
                 {

@@ -286,7 +286,9 @@ namespace Yuebon.Commons.Pages
 
                 int minRow = pageSize * (pageIndex - 1);
                 int maxRow = pageSize * pageIndex;
-                sql = string.Format("select {0} from {1} where Id IN(select t.Id from (select Id from {1} Where {2} {3} limit {4},{5})as t);",
+                //sql = string.Format("select {0} from {1} where Id IN(select t.Id from (select Id from {1} Where {2} {3} limit {4},{5})as t) {3};",
+                 //   fieldsToReturn, this.TableOrSqlWrapper, this.strwhere, strOrder, minRow, pageSize);
+                sql = string.Format("select {0} from {1} Where {2} {3} limit {4},{5};",
                     fieldsToReturn, this.TableOrSqlWrapper, this.strwhere, strOrder, minRow, pageSize);
             }
 

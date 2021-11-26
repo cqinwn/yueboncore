@@ -227,8 +227,67 @@ namespace Yuebon.Commons.Helpers
             }
             catch (Exception ex) // 异常处理
             {
-                Log4NetHelper.Error("代码生成异常", ex);
+                Log4NetHelper.Error("删除文件异常", ex);
             }
+        }
+
+        #endregion
+
+
+
+        #region 获取文件的编码类型
+
+        /// <summary>
+        /// 获取文件编码
+        /// </summary>
+        /// <param name="filePath">文件绝对路径</param>
+        /// <returns></returns>
+        public static Encoding GetEncoding(string filePath)
+        {
+            return GetEncoding(filePath, Encoding.Default);
+        }
+
+        /// <summary>
+        /// 获取文件编码
+        /// </summary>
+        /// <param name="filePath">文件绝对路径</param>
+        /// <param name="defaultEncoding">找不到则返回这个默认编码</param>
+        /// <returns></returns>
+        public static Encoding GetEncoding(string filePath, Encoding defaultEncoding)
+        {
+            Encoding targetEncoding = defaultEncoding;
+            using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read, 4))
+            {
+                if (fs != null && fs.Length >= 2)
+                {
+                    long pos = fs.Position;
+                    fs.Position = 0;
+                    int[] buffer = new int[4];
+                    //long x = fs.Seek(0, SeekOrigin.Begin);
+                    //fs.Read(buffer,0,4);
+                    buffer[0] = fs.ReadByte();
+                    buffer[1] = fs.ReadByte();
+                    buffer[2] = fs.ReadByte();
+                    buffer[3] = fs.ReadByte();
+
+                    fs.Position = pos;
+
+                    if (buffer[0] == 0xFE && buffer[1] == 0xFF)//UnicodeBe
+                    {
+                        targetEncoding = Encoding.BigEndianUnicode;
+                    }
+                    if (buffer[0] == 0xFF && buffer[1] == 0xFE)//Unicode
+                    {
+                        targetEncoding = Encoding.Unicode;
+                    }
+                    if (buffer[0] == 0xEF && buffer[1] == 0xBB && buffer[2] == 0xBF)//UTF8
+                    {
+                        targetEncoding = Encoding.UTF8;
+                    }
+                }
+            }
+
+            return targetEncoding;
         }
 
         #endregion

@@ -61,7 +61,7 @@ namespace Yuebon.Commons.Helpers
             //判断timespan是否有效，请求是否超时
             DateTime tonow= timeStamp.UnixTimeToDateTime();
             var expires_minute = tonow.Minute - DateTime.Now.Minute;
-            if (expires_minute > 5 || expires_minute < -5)
+            if (expires_minute > 2 || expires_minute < -2)
             {
                 result.ErrCode = "40004";
                 result.ErrMsg = "接口请求超时";

@@ -94,13 +94,13 @@ namespace Yuebon.AspNetCore.Mvc
                     JwtSecurityToken jwtToken = new JwtSecurityTokenHandler().ReadJwtToken(token);
 
 
-                    if (jwtToken!=null)
+                    if (jwtToken != null)
                     {
                         #region 检查令牌对象内容
 
                         List<APP> list = MemoryCacheHelper.Get<List<APP>>("cacheAppList");
                         string appId = jwtToken.Claims.ToList()[0].Value;//Audience
-                        APP app = list.Find(o=>o.AppId== appId);
+                        APP app = list.Find(o => o.AppId == appId);
                         if (app == null)
                         {
                             result.ErrMsg = ErrCode.err40004;
@@ -123,26 +123,15 @@ namespace Yuebon.AspNetCore.Mvc
 
                             }, out SecurityToken validatedToken);
 
-                            var jwtToken2 = (JwtSecurityToken)validatedToken;
-                            DateTime now = DateTime.UtcNow;
-                            DateTime refreshTime = jwtToken.ValidFrom;
-                            refreshTime = refreshTime.Add(TimeSpan.FromMinutes(_jwtModel.refreshJwtTime));
-                            if (now > refreshTime && jwtToken.Issuer == _jwtModel.Issuer)
-                            {
-                                result.ErrMsg = ErrCode.err40005;
-                                result.ErrCode = "40005";
-                            }
-                            else
-                            {
-                                if (jwtToken.Subject == GrantType.Password)
-                                {
-                                    var claimlist = jwtToken?.Payload.Claims as List<Claim>;
-                                    result.ResData = claimlist;
-                                }
-                                result.ErrMsg = ErrCode.err0;
-                                result.ErrCode = ErrCode.successCode;
 
+                            if (jwtToken.Subject == GrantType.Password)
+                            {
+                                var claimlist = jwtToken?.Payload.Claims as List<Claim>;
+                                result.ResData = claimlist;
                             }
+                            result.ErrMsg = ErrCode.err0;
+                            result.ErrCode = ErrCode.successCode;
+
                         }
                         #endregion
                     }

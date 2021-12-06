@@ -209,7 +209,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <param name="tinfo"></param>
         /// <returns></returns>
         [HttpPost("Update")]
-        [YuebonAuthorize("Edit")]
+        [YuebonAuthorize("")]
         public override async Task<IActionResult> UpdateAsync(UserInputDto tinfo)
         {
             CommonResult result = new CommonResult();
@@ -413,7 +413,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <param name="info">主题配置信息</param>
         /// <returns></returns>
         [HttpPost("SaveUserTheme")]
-        [YuebonAuthorize("SaveUserTheme")]
+        [YuebonAuthorize("")]
         public async Task<IActionResult> SaveUserTheme(UserThemeInputDto info)
         {
             CommonResult result = new CommonResult();

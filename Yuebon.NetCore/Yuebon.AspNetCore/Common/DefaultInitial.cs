@@ -19,9 +19,7 @@ namespace Yuebon.AspNetCore.Common
         /// </summary>
         public  void CacheAppList()
         {
-            List<APP> list= _aPPService.GetAll().ToList();
-            MemoryCacheHelper.Set("cacheAppList",list);
-            
+            _aPPService.UpdateCacheAllowApp();
         }
     }
 }

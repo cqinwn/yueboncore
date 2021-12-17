@@ -159,7 +159,6 @@ namespace Yuebon.WebApi.Areas.CMS.Controllers
         public override async Task<IActionResult> DeleteBatchAsync(DeletesInputDto info)
         {
             CommonResult result = new CommonResult();
-
             if (info.Ids.Length > 0)
             {
                 result = await iService.DeleteBatchWhereAsync(info).ConfigureAwait(false);

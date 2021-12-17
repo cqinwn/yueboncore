@@ -1232,7 +1232,12 @@ namespace Yuebon.Commons.Extensions
                 sw.Close();
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entityType"></param>
+        /// <param name="interfaceType"></param>
+        /// <returns></returns>
         public static bool IsImplement(this Type entityType, Type interfaceType)
         {
             return /*entityType.IsClass && !entityType.IsAbstract &&*/ entityType.GetTypeInfo().GetInterfaces().Any(t =>

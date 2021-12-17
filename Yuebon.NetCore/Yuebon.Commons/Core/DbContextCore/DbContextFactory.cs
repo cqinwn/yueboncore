@@ -82,7 +82,7 @@ namespace Yuebon.Commons.DbContextCore
         /// 创建数据库读写上下文
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
-        /// <param name="writeAndRead">指定读、写操作</param>
+        /// <param name="writeAndRead">指定读或写操作</param>
         /// <returns></returns>
         public BaseDbContext CreateContext<TEntity>(WriteAndReadEnum writeAndRead)
         {

@@ -34,7 +34,7 @@ namespace Yuebon.Commons.Repositories
     /// </summary>
     /// <typeparam name="T">实体类型</typeparam>
     /// <typeparam name="TKey">实体主键类型</typeparam>
-    public abstract class BaseRepository<T, TKey> : IRepository<T, TKey>, ITransientDependency
+    public abstract class BaseRepository<T, TKey> : IRepository<T, TKey>, IScopedDependency
         where T : Entity
     {
         #region 构造函数及基本配置
@@ -47,6 +47,7 @@ namespace Yuebon.Commons.Repositories
         /// 
         /// </summary>
         protected DbSet<T> DbSet => DbContext.GetDbSet<T>();
+
         /// <summary>
         /// 获取访问数据库配置
         /// </summary>
@@ -1603,7 +1604,7 @@ namespace Yuebon.Commons.Repositories
                     catch (Exception ex)
                     {
                         //回滚事务
-                        Log4NetHelper.Error("", ex);
+                        Log4NetHelper.Error("ExecuteTransaction", ex);
                         transaction.Rollback();
                         connection.Close();
                         connection.Dispose();

@@ -9,6 +9,9 @@ namespace Yuebon.Commons
     /// </summary>
     public class Configs
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public static  IConfiguration configuration;
         static Configs()
         {

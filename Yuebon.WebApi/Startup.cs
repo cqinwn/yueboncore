@@ -188,6 +188,11 @@ namespace Yuebon.WebApi
             #region MiniProfiler
             services.AddMiniProfiler(options => {
                 options.RouteBasePath = "/profiler";
+                options.ColorScheme = StackExchange.Profiling.ColorScheme.Auto;
+                options.PopupRenderPosition = StackExchange.Profiling.RenderPosition.BottomLeft;
+                options.PopupShowTimeWithChildren = true;
+                options.PopupShowTrivial = true;
+                options.SqlFormatter = new StackExchange.Profiling.SqlFormatters.InlineFormatter();
             }).AddEntityFramework();
             #endregion
 

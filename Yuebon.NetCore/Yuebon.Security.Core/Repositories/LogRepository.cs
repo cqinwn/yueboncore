@@ -23,7 +23,7 @@ namespace Yuebon.Security.Repositories
     /// <summary>
     /// 日志仓储实现
     /// </summary>
-    public class LogRepository : BaseRepository<Log, string>, ILogRepository
+    public class LogRepository : BaseRepository<Log, Int64>, ILogRepository
     {
         /// <summary>
         /// 
@@ -53,7 +53,7 @@ namespace Yuebon.Security.Repositories
             var sb = new StringBuilder(" EF 与Dapper常用方法性能分析 ： \n");
             Log logEntity1 = new Log()
             {
-                Id = GuidUtils.GuId(),
+                Id = GuidUtils.IdGenerator(),
                 Date = DateTime.Now,
                 Account = "admin",
                 NickName = "超级管理员",
@@ -75,7 +75,7 @@ namespace Yuebon.Security.Repositories
             }
                 Log logEntity2 = new Log()
                 {
-                    Id = GuidUtils.GuId(),
+                    Id = GuidUtils.IdGenerator(),
                     Date = DateTime.Now,
                     Account = "admin",
                     NickName = "超级管理员",
@@ -141,7 +141,7 @@ namespace Yuebon.Security.Repositories
             {
                 Log logEntity = new Log()
                 {
-                    Id = GuidUtils.GuId(),
+                    Id = GuidUtils.IdGenerator(),
                     Date = DateTime.Now,
                     Account = "admin",
                     NickName = "超级管理员",
@@ -160,7 +160,7 @@ namespace Yuebon.Security.Repositories
                 logList.Add(logEntity);
                 Log logEntity3 = new Log()
                 {
-                    Id = GuidUtils.GuId(),
+                    Id = GuidUtils.IdGenerator(),
                     Date = DateTime.Now,
                     Account = "admin",
                     NickName = "超级管理员",
@@ -179,7 +179,7 @@ namespace Yuebon.Security.Repositories
                 logList2.Add(logEntity3);
                 Log logEntity4 = new Log()
                 {
-                    Id = GuidUtils.GuId(),
+                    Id = GuidUtils.IdGenerator(),
                     Date = DateTime.Now,
                     Account = "admin",
                     NickName = "超级管理员",
@@ -198,7 +198,7 @@ namespace Yuebon.Security.Repositories
                 logList3.Add(logEntity4);
                 Log logEntity5 = new Log()
                 {
-                    Id = GuidUtils.GuId(),
+                    Id = GuidUtils.IdGenerator(),
                     Date = DateTime.Now,
                     Account = "admin",
                     NickName = "超级管理员",
@@ -217,7 +217,7 @@ namespace Yuebon.Security.Repositories
                 logList4.Add(logEntity5);
                 Log logEntity6 = new Log()
                 {
-                    Id = GuidUtils.GuId(),
+                    Id = GuidUtils.IdGenerator(),
                     Date = DateTime.Now,
                     Account = "admin",
                     NickName = "超级管理员",
@@ -341,7 +341,7 @@ namespace Yuebon.Security.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public override bool Delete(string id, IDbTransaction trans = null)
+        public override bool Delete(Int64 id, IDbTransaction trans = null)
         {
             int row = DapperConn.Execute($"delete from {tableName} where Id=@id", new { @id = id }, trans);
             return row > 0 ? true : false;

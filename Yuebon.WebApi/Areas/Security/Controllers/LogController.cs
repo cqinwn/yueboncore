@@ -18,7 +18,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
     /// </summary>
     [ApiController]
     [Route("api/Security/[controller]")]
-    public class LogController : AreaApiController<Log, LogOutputDto, LogInputDto, ILogService, string>
+    public class LogController : AreaApiController<Log, LogOutputDto, LogInputDto, ILogService, Int64>
     {
 
         private IOrganizeService organizeService;
@@ -38,7 +38,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <param name="info"></param>
         protected override void OnBeforeInsert(Log info)
         {
-            info.Id = GuidUtils.CreateNo();
+            info.Id = GuidUtils.IdGenerator();
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = CurrentUser.UserId;
             info.DeleteMark = false;

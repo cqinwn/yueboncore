@@ -10,7 +10,7 @@ namespace Yuebon.Security.IServices
     /// <summary>
     /// 日志记录
     /// </summary>
-    public interface ILogService:IService<Log, LogOutputDto, string>
+    public interface ILogService:IService<Log, LogOutputDto, Int64>
     {
         /// <summary>
         /// 根据相关信息，写入用户的操作日志记录

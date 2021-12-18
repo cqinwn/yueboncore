@@ -38,7 +38,7 @@
           "lib/netstandard2.0/BouncyCastle.Crypto.dll": {}
         }
       },
-      "CSRedisCore/3.6.6": {
+      "CSRedisCore/3.6.8": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "12.0.3",
@@ -51,25 +51,13 @@
           "lib/netstandard2.0/CSRedisCore.dll": {}
         }
       },
-      "Dapper/2.0.123": {
+      "Dapper.StrongName/2.0.123": {
         "type": "package",
         "compile": {
-          "lib/net5.0/Dapper.dll": {}
+          "lib/net5.0/Dapper.StrongName.dll": {}
         },
         "runtime": {
-          "lib/net5.0/Dapper.dll": {}
-        }
-      },
-      "Dapper.SqlBuilder/2.0.78": {
-        "type": "package",
-        "dependencies": {
-          "Dapper": "2.0.78"
-        },
-        "compile": {
-          "lib/net5.0/Dapper.SqlBuilder.dll": {}
-        },
-        "runtime": {
-          "lib/net5.0/Dapper.SqlBuilder.dll": {}
+          "lib/net5.0/Dapper.StrongName.dll": {}
         }
       },
       "DotNetCore.NPOI/1.2.3": {
@@ -911,10 +899,10 @@
           }
         }
       },
-      "Microsoft.Data.Sqlite/6.0.0": {
+      "Microsoft.Data.Sqlite/6.0.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Data.Sqlite.Core": "6.0.0",
+          "Microsoft.Data.Sqlite.Core": "6.0.1",
           "SQLitePCLRaw.bundle_e_sqlite3": "2.0.6"
         },
         "compile": {
@@ -924,7 +912,7 @@
           "lib/netstandard2.0/_._": {}
         }
       },
-      "Microsoft.Data.Sqlite.Core/6.0.0": {
+      "Microsoft.Data.Sqlite.Core/6.0.1": {
         "type": "package",
         "dependencies": {
           "SQLitePCLRaw.core": "2.0.6"
@@ -936,11 +924,11 @@
           "lib/net6.0/Microsoft.Data.Sqlite.dll": {}
         }
       },
-      "Microsoft.EntityFrameworkCore/6.0.0": {
+      "Microsoft.EntityFrameworkCore/6.0.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Abstractions": "6.0.0",
-          "Microsoft.EntityFrameworkCore.Analyzers": "6.0.0",
+          "Microsoft.EntityFrameworkCore.Abstractions": "6.0.1",
+          "Microsoft.EntityFrameworkCore.Analyzers": "6.0.1",
           "Microsoft.Extensions.Caching.Memory": "6.0.0",
           "Microsoft.Extensions.DependencyInjection": "6.0.0",
           "Microsoft.Extensions.Logging": "6.0.0",
@@ -954,7 +942,7 @@
           "lib/net6.0/Microsoft.EntityFrameworkCore.dll": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.Abstractions/6.0.0": {
+      "Microsoft.EntityFrameworkCore.Abstractions/6.0.1": {
         "type": "package",
         "compile": {
           "lib/net6.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {}
@@ -963,7 +951,7 @@
           "lib/net6.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.Analyzers/6.0.0": {
+      "Microsoft.EntityFrameworkCore.Analyzers/6.0.1": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/_._": {}
@@ -972,10 +960,10 @@
           "lib/netstandard2.0/_._": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.Relational/6.0.0": {
+      "Microsoft.EntityFrameworkCore.Relational/6.0.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore": "6.0.0",
+          "Microsoft.EntityFrameworkCore": "6.0.1",
           "Microsoft.Extensions.Configuration.Abstractions": "6.0.0"
         },
         "compile": {
@@ -985,10 +973,10 @@
           "lib/net6.0/Microsoft.EntityFrameworkCore.Relational.dll": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.Sqlite/6.0.0": {
+      "Microsoft.EntityFrameworkCore.Sqlite/6.0.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Sqlite.Core": "6.0.0",
+          "Microsoft.EntityFrameworkCore.Sqlite.Core": "6.0.1",
           "SQLitePCLRaw.bundle_e_sqlite3": "2.0.6"
         },
         "compile": {
@@ -998,11 +986,11 @@
           "lib/net6.0/_._": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.Sqlite.Core/6.0.0": {
+      "Microsoft.EntityFrameworkCore.Sqlite.Core/6.0.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Data.Sqlite.Core": "6.0.0",
-          "Microsoft.EntityFrameworkCore.Relational": "6.0.0",
+          "Microsoft.Data.Sqlite.Core": "6.0.1",
+          "Microsoft.EntityFrameworkCore.Relational": "6.0.1",
           "Microsoft.Extensions.DependencyModel": "6.0.0"
         },
         "compile": {
@@ -1012,11 +1000,11 @@
           "lib/net6.0/Microsoft.EntityFrameworkCore.Sqlite.dll": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.SqlServer/6.0.0": {
+      "Microsoft.EntityFrameworkCore.SqlServer/6.0.1": {
         "type": "package",
         "dependencies": {
           "Microsoft.Data.SqlClient": "2.1.4",
-          "Microsoft.EntityFrameworkCore.Relational": "6.0.0"
+          "Microsoft.EntityFrameworkCore.Relational": "6.0.1"
         },
         "compile": {
           "lib/net6.0/Microsoft.EntityFrameworkCore.SqlServer.dll": {}
@@ -1053,7 +1041,7 @@
           "lib/netstandard2.0/Microsoft.Extensions.Caching.Memory.dll": {}
         }
       },
-      "Microsoft.Extensions.Caching.StackExchangeRedis/6.0.0": {
+      "Microsoft.Extensions.Caching.StackExchangeRedis/6.0.1": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.Caching.Abstractions": "6.0.0",
@@ -1698,16 +1686,13 @@
           "lib/net6.0/Pomelo.EntityFrameworkCore.MySql.dll": {}
         }
       },
-      "QRCoder/1.4.2": {
+      "QRCoder/1.4.3": {
         "type": "package",
-        "dependencies": {
-          "System.Drawing.Common": "4.7.0"
-        },
         "compile": {
-          "lib/net5.0/QRCoder.dll": {}
+          "lib/net6.0/QRCoder.dll": {}
         },
         "runtime": {
-          "lib/net5.0/QRCoder.dll": {}
+          "lib/net6.0/QRCoder.dll": {}
         }
       },
       "Quartz/3.3.3": {
@@ -3757,14 +3742,14 @@
         "lib/xamarinios/BouncyCastle.Crypto.xml"
       ]
     },
-    "CSRedisCore/3.6.6": {
-      "sha512": "fxP+ZuW3wj1425iILLyF+L1oTjWRM5odFn0p/LFYkUWzEfYznjBB7xzn716kVH3SxD0cSv7fj9Jaf1kKaPduRA==",
+    "CSRedisCore/3.6.8": {
+      "sha512": "WZlIJ2vs2izKNuMq6XUgUwZPkTkOrMfwp2k81ZU6ynaI1Vr1FtDBbibeAw1JJit7r6kBvUhp0C1akpBj8nCoWA==",
       "type": "package",
-      "path": "csrediscore/3.6.6",
+      "path": "csrediscore/3.6.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "csrediscore.3.6.6.nupkg.sha512",
+        "csrediscore.3.6.8.nupkg.sha512",
         "csrediscore.nuspec",
         "lib/net40/CSRedisCore.dll",
         "lib/net40/CSRedisCore.xml",
@@ -3774,36 +3759,22 @@
         "lib/netstandard2.0/CSRedisCore.xml"
       ]
     },
-    "Dapper/2.0.123": {
-      "sha512": "RDFF4rBLLmbpi6pwkY7q/M6UXHRJEOerplDGE5jwEkP/JGJnBauAClYavNKJPW1yOTWRPIyfj4is3EaJxQXILQ==",
+    "Dapper.StrongName/2.0.123": {
+      "sha512": "1EjKxdzz5KvXRX6pIZ0Mzvze+Yy4Kz+WwdQFSwKfBw5mILblHbdOxCCWeOuD6Iakq+ujoctcg+IfNj52Omr8hQ==",
       "type": "package",
-      "path": "dapper/2.0.123",
+      "path": "dapper.strongname/2.0.123",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Dapper.png",
-        "dapper.2.0.123.nupkg.sha512",
-        "dapper.nuspec",
-        "lib/net461/Dapper.dll",
-        "lib/net461/Dapper.xml",
-        "lib/net5.0/Dapper.dll",
-        "lib/net5.0/Dapper.xml",
-        "lib/netstandard2.0/Dapper.dll",
-        "lib/netstandard2.0/Dapper.xml"
-      ]
-    },
-    "Dapper.SqlBuilder/2.0.78": {
-      "sha512": "07LHm+/YOLyFieN51mjwrrVPKX3q0k7RxG+8zi/5MKjy7mWid/DRlRFNgvcCffEcjLjkbgEdITHkKTKSxSmPnw==",
-      "type": "package",
-      "path": "dapper.sqlbuilder/2.0.78",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "dapper.sqlbuilder.2.0.78.nupkg.sha512",
-        "dapper.sqlbuilder.nuspec",
-        "lib/net461/Dapper.SqlBuilder.dll",
-        "lib/net5.0/Dapper.SqlBuilder.dll",
-        "lib/netstandard2.0/Dapper.SqlBuilder.dll"
+        "dapper.strongname.2.0.123.nupkg.sha512",
+        "dapper.strongname.nuspec",
+        "lib/net461/Dapper.StrongName.dll",
+        "lib/net461/Dapper.StrongName.xml",
+        "lib/net5.0/Dapper.StrongName.dll",
+        "lib/net5.0/Dapper.StrongName.xml",
+        "lib/netstandard2.0/Dapper.StrongName.dll",
+        "lib/netstandard2.0/Dapper.StrongName.xml"
       ]
     },
     "DotNetCore.NPOI/1.2.3": {
@@ -4786,23 +4757,23 @@
         "runtimes/win-x86/native/Microsoft.Data.SqlClient.SNI.dll"
       ]
     },
-    "Microsoft.Data.Sqlite/6.0.0": {
-      "sha512": "yhEhY1Vxf1EC7+l0s0fnfsePqXOhErDkwtT7YKeegrbdBmFTvljL1OZw8pgKpf1/ow+/NEZt5W2Lt0XHLsbEtg==",
+    "Microsoft.Data.Sqlite/6.0.1": {
+      "sha512": "PuH8SyfRgS19criO7/DnsMQZx0L915rl4mcMPtvIvCwQ1+V3HahBZl8VyGRK/N4tV399hkmNe7F+aCCdT2Ek8g==",
       "type": "package",
-      "path": "microsoft.data.sqlite/6.0.0",
+      "path": "microsoft.data.sqlite/6.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "lib/netstandard2.0/_._",
-        "microsoft.data.sqlite.6.0.0.nupkg.sha512",
+        "microsoft.data.sqlite.6.0.1.nupkg.sha512",
         "microsoft.data.sqlite.nuspec"
       ]
     },
-    "Microsoft.Data.Sqlite.Core/6.0.0": {
-      "sha512": "X6MCFkzJOBkcgzT00Bh7SAqbLM2rPuHgCWMivSRiZ0VGVfgf/l8nwGDe9wYSSjXVdw95JUggvWOQLcNfbBFuLA==",
+    "Microsoft.Data.Sqlite.Core/6.0.1": {
+      "sha512": "Z8MIjWmzxUjcc2HKTKFHfo7jqqVeVftkigrojGY4zEN8OwjLgJNb5/BqW3J2FiIiCrPBDGNkiVlOERazGfLizg==",
       "type": "package",
-      "path": "microsoft.data.sqlite.core/6.0.0",
+      "path": "microsoft.data.sqlite.core/6.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -4811,104 +4782,104 @@
         "lib/net6.0/Microsoft.Data.Sqlite.xml",
         "lib/netstandard2.0/Microsoft.Data.Sqlite.dll",
         "lib/netstandard2.0/Microsoft.Data.Sqlite.xml",
-        "microsoft.data.sqlite.core.6.0.0.nupkg.sha512",
+        "microsoft.data.sqlite.core.6.0.1.nupkg.sha512",
         "microsoft.data.sqlite.core.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore/6.0.0": {
-      "sha512": "BdHAtHzfQt3rltgSoYamSlHg2qawPtEDT677/bcSJlO8lQ/lj6XWlusM0TOt59O8Sbqm3hAC1a+4cEBxmv56pw==",
+    "Microsoft.EntityFrameworkCore/6.0.1": {
+      "sha512": "UmZBVaRbOgtbYkp4x8W9j8HBd7ywzPRPj5StSiqFt/nsH6nOf1eQmHFfjIRb70cxsuC0NbkFBAAoUHFRCscCKA==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore/6.0.0",
+      "path": "microsoft.entityframeworkcore/6.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "lib/net6.0/Microsoft.EntityFrameworkCore.dll",
         "lib/net6.0/Microsoft.EntityFrameworkCore.xml",
-        "microsoft.entityframeworkcore.6.0.0.nupkg.sha512",
+        "microsoft.entityframeworkcore.6.0.1.nupkg.sha512",
         "microsoft.entityframeworkcore.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Abstractions/6.0.0": {
-      "sha512": "MrMLWEw4JsZdkVci0MkkGj+fSjZrXnm3m6UNuIEwytiAAIZPvJs3iPpnzfK4qM7np82W374voYm96q7QCdL0ow==",
+    "Microsoft.EntityFrameworkCore.Abstractions/6.0.1": {
+      "sha512": "JM55+h9Ln9MZAFikvmgrmDoIt4Zz9ZWZpNrmyi9QTVuJMzQQOEnJkISKp5Ebvpno6Jt00Gkrfmvu8K5mFPO+dA==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.abstractions/6.0.0",
+      "path": "microsoft.entityframeworkcore.abstractions/6.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "lib/net6.0/Microsoft.EntityFrameworkCore.Abstractions.dll",
         "lib/net6.0/Microsoft.EntityFrameworkCore.Abstractions.xml",
-        "microsoft.entityframeworkcore.abstractions.6.0.0.nupkg.sha512",
+        "microsoft.entityframeworkcore.abstractions.6.0.1.nupkg.sha512",
         "microsoft.entityframeworkcore.abstractions.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Analyzers/6.0.0": {
-      "sha512": "BqWBL05PUDKwPwLeQCJdc2R4cIUycXV9UmuSjYfux2fcgyet8I2eYnOWlA7NgsDwRVcxW26vxvNQ0wuc8UAcLA==",
+    "Microsoft.EntityFrameworkCore.Analyzers/6.0.1": {
+      "sha512": "fp8VTLv1up7EGAa9Daf+IErpq63hiKtWeApoxgnkMjURdjkbVcwaA4AozwHjEqVVQugGqwroHes4HVp24cDDAw==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.analyzers/6.0.0",
+      "path": "microsoft.entityframeworkcore.analyzers/6.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "analyzers/dotnet/cs/Microsoft.EntityFrameworkCore.Analyzers.dll",
         "lib/netstandard2.0/_._",
-        "microsoft.entityframeworkcore.analyzers.6.0.0.nupkg.sha512",
+        "microsoft.entityframeworkcore.analyzers.6.0.1.nupkg.sha512",
         "microsoft.entityframeworkcore.analyzers.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Relational/6.0.0": {
-      "sha512": "rTRzrSbkUXoCGijlT9O7oq7JfuaU1/+VFyfSBjADQuOsfa0FCrWeB8ybue5CDvO/D6uW0kvPvlKfY2kwxXOOdg==",
+    "Microsoft.EntityFrameworkCore.Relational/6.0.1": {
+      "sha512": "abaCEEeeB0xlMYDD+m9kmhQh5aipJ5s3UbyQVBfMaZeCiZHXST0eWuJRX63E3e7K/mju5WEHiybV/hizng7q/w==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.relational/6.0.0",
+      "path": "microsoft.entityframeworkcore.relational/6.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "lib/net6.0/Microsoft.EntityFrameworkCore.Relational.dll",
         "lib/net6.0/Microsoft.EntityFrameworkCore.Relational.xml",
-        "microsoft.entityframeworkcore.relational.6.0.0.nupkg.sha512",
+        "microsoft.entityframeworkcore.relational.6.0.1.nupkg.sha512",
         "microsoft.entityframeworkcore.relational.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Sqlite/6.0.0": {
-      "sha512": "VwNbLaMpDD9s/tVmK/sivJsYoXdM3ARBjWMtFUXVExZ6AgZxPwSgILF2J4Y9CRvf/r6A0xitvFXQO6HPrZnwrg==",
+    "Microsoft.EntityFrameworkCore.Sqlite/6.0.1": {
+      "sha512": "29UZGMH/OquRfEQH6FskLC0hvFgCgbAQDSkXXiskzGQsK54w4EmeGd7Mn1hxHZ3Fl7u7PLCEfKnl+bCsZsqvbg==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.sqlite/6.0.0",
+      "path": "microsoft.entityframeworkcore.sqlite/6.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "lib/net6.0/_._",
-        "microsoft.entityframeworkcore.sqlite.6.0.0.nupkg.sha512",
+        "microsoft.entityframeworkcore.sqlite.6.0.1.nupkg.sha512",
         "microsoft.entityframeworkcore.sqlite.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Sqlite.Core/6.0.0": {
-      "sha512": "cx55qNWk5JmUMZgMfGvfwodW2z/t3Kix7Fbso9BxCPnPVaiVm8k9C4QLjegqJVvuRAA7RZigMYAqeRZ9Q4fWWQ==",
+    "Microsoft.EntityFrameworkCore.Sqlite.Core/6.0.1": {
+      "sha512": "Q9Y+hGdv8dZzR/Vx9HeGxeIPEZeARJJuroWYv7NaZcikgfXPp6PjKq5OriaJEu2AkDYDojhrqSx4a398HhSnhw==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.sqlite.core/6.0.0",
+      "path": "microsoft.entityframeworkcore.sqlite.core/6.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "lib/net6.0/Microsoft.EntityFrameworkCore.Sqlite.dll",
         "lib/net6.0/Microsoft.EntityFrameworkCore.Sqlite.xml",
-        "microsoft.entityframeworkcore.sqlite.core.6.0.0.nupkg.sha512",
+        "microsoft.entityframeworkcore.sqlite.core.6.0.1.nupkg.sha512",
         "microsoft.entityframeworkcore.sqlite.core.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.SqlServer/6.0.0": {
-      "sha512": "1rYYHrvOIN1bXyN9qAVd0WhmTjbZNosyrMoAL4wRiw5pu65QazwjuVV6K1IWKD4AXPxQD7+k4CxAMVTPY//UrA==",
+    "Microsoft.EntityFrameworkCore.SqlServer/6.0.1": {
+      "sha512": "bXmFi9F7GHT0dMUvuT2b5Pf8TtPnU6sQxZ5pvf3UElva+cD0YqsGI5bJGTx21pcMdw3bVhqzCLrpfA/zgHFyMw==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.sqlserver/6.0.0",
+      "path": "microsoft.entityframeworkcore.sqlserver/6.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "lib/net6.0/Microsoft.EntityFrameworkCore.SqlServer.dll",
         "lib/net6.0/Microsoft.EntityFrameworkCore.SqlServer.xml",
-        "microsoft.entityframeworkcore.sqlserver.6.0.0.nupkg.sha512",
+        "microsoft.entityframeworkcore.sqlserver.6.0.1.nupkg.sha512",
         "microsoft.entityframeworkcore.sqlserver.nuspec"
       ]
     },
@@ -4950,10 +4921,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Microsoft.Extensions.Caching.StackExchangeRedis/6.0.0": {
-      "sha512": "RKMfmo0a8thbKuPizV40slVWIEJFRyM94p9/ClgGEVTppwdnFFymrJJAr8G/FQ8fI062j08bpBlQedDLk2ePJw==",
+    "Microsoft.Extensions.Caching.StackExchangeRedis/6.0.1": {
+      "sha512": "Xzpa3qmpbqRLMgCy7/r56sVnsOZ8zi7tmbAtga3ep0aaJe27zA4pj9hgHyF3y3OFEav88UFMjldT3r/lhV1kkA==",
       "type": "package",
-      "path": "microsoft.extensions.caching.stackexchangeredis/6.0.0",
+      "path": "microsoft.extensions.caching.stackexchangeredis/6.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -4965,7 +4936,7 @@
         "lib/net6.0/Microsoft.Extensions.Caching.StackExchangeRedis.xml",
         "lib/netstandard2.0/Microsoft.Extensions.Caching.StackExchangeRedis.dll",
         "lib/netstandard2.0/Microsoft.Extensions.Caching.StackExchangeRedis.xml",
-        "microsoft.extensions.caching.stackexchangeredis.6.0.0.nupkg.sha512",
+        "microsoft.extensions.caching.stackexchangeredis.6.0.1.nupkg.sha512",
         "microsoft.extensions.caching.stackexchangeredis.nuspec"
       ]
     },
@@ -5905,10 +5876,10 @@
         "pomelo.entityframeworkcore.mysql.nuspec"
       ]
     },
-    "QRCoder/1.4.2": {
-      "sha512": "985OiJWb6Fft5r1AQ1NcpGgDDGZVKvWIF9ijV3N2lxJaTKpL2mAHAGvMXgcjRLMGSaldAcBiTFDGHCgDRpCW9A==",
+    "QRCoder/1.4.3": {
+      "sha512": "fWuFqjm8GTlEb2GqBl3Hi8HZZeZQwBSHxvRPtPjyNbT82H0ff0JwavKRBmMaXCno1Av6McPC8aJzri0Mj2w9Jw==",
       "type": "package",
-      "path": "qrcoder/1.4.2",
+      "path": "qrcoder/1.4.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5916,11 +5887,13 @@
         "lib/net40/QRCoder.dll",
         "lib/net5.0-windows7.0/QRCoder.dll",
         "lib/net5.0/QRCoder.dll",
+        "lib/net6.0-windows7.0/QRCoder.dll",
+        "lib/net6.0/QRCoder.dll",
         "lib/netstandard1.3/QRCoder.dll",
         "lib/netstandard2.0/QRCoder.dll",
         "nuget-icon.png",
         "nuget-readme.md",
-        "qrcoder.1.4.2.nupkg.sha512",
+        "qrcoder.1.4.3.nupkg.sha512",
         "qrcoder.nuspec"
       ]
     },
@@ -11010,19 +10983,18 @@
     "net6.0": [
       "AutoMapper >= 10.1.1",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 8.1.1",
-      "CSRedisCore >= 3.6.6",
-      "Dapper >= 2.0.123",
-      "Dapper.SqlBuilder >= 2.0.78",
+      "CSRedisCore >= 3.6.8",
+      "Dapper.StrongName >= 2.0.123",
       "DotNetCore.NPOI >= 1.2.3",
       "HtmlAgilityPack >= 1.11.39",
       "Microsoft.AspNetCore.Mvc >= 2.2.0",
-      "Microsoft.Data.Sqlite >= 6.0.0",
-      "Microsoft.EntityFrameworkCore >= 6.0.0",
-      "Microsoft.EntityFrameworkCore.Relational >= 6.0.0",
-      "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.0",
-      "Microsoft.EntityFrameworkCore.Sqlite >= 6.0.0",
+      "Microsoft.Data.Sqlite >= 6.0.1",
+      "Microsoft.EntityFrameworkCore >= 6.0.1",
+      "Microsoft.EntityFrameworkCore.Relational >= 6.0.1",
+      "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.1",
+      "Microsoft.EntityFrameworkCore.Sqlite >= 6.0.1",
       "Microsoft.Extensions.Caching.Memory >= 6.0.0",
-      "Microsoft.Extensions.Caching.StackExchangeRedis >= 6.0.0",
+      "Microsoft.Extensions.Caching.StackExchangeRedis >= 6.0.1",
       "Microsoft.Extensions.Configuration >= 6.0.0",
       "Microsoft.Extensions.DependencyInjection >= 6.0.0",
       "Microsoft.Extensions.DependencyModel >= 6.0.0",
@@ -11037,7 +11009,7 @@
       "Oracle.EntityFrameworkCore >= 6.21.4",
       "Oracle.ManagedDataAccess.Core >= 3.21.41",
       "Pomelo.EntityFrameworkCore.MySql >= 6.0.0",
-      "QRCoder >= 1.4.2",
+      "QRCoder >= 1.4.3",
       "Quartz >= 3.3.3",
       "SgmlReader.NetCore >= 1.0.0",
       "System.Data.OleDb >= 6.0.0",
@@ -11052,7 +11024,7 @@
     "C:\\Users\\yuebon\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "1.3.2.3",
+    "version": "1.3.2.5",
     "restore": {
       "projectUniqueName": "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj",
       "projectName": "Yuebon.Commons",
@@ -11097,15 +11069,11 @@
           },
           "CSRedisCore": {
             "target": "Package",
-            "version": "[3.6.6, )"
+            "version": "[3.6.8, )"
           },
-          "Dapper": {
+          "Dapper.StrongName": {
             "target": "Package",
             "version": "[2.0.123, )"
-          },
-          "Dapper.SqlBuilder": {
-            "target": "Package",
-            "version": "[2.0.78, )"
           },
           "DotNetCore.NPOI": {
             "target": "Package",
@@ -11121,23 +11089,23 @@
           },
           "Microsoft.Data.Sqlite": {
             "target": "Package",
-            "version": "[6.0.0, )"
+            "version": "[6.0.1, )"
           },
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",
-            "version": "[6.0.0, )"
+            "version": "[6.0.1, )"
           },
           "Microsoft.EntityFrameworkCore.Relational": {
             "target": "Package",
-            "version": "[6.0.0, )"
+            "version": "[6.0.1, )"
           },
           "Microsoft.EntityFrameworkCore.SqlServer": {
             "target": "Package",
-            "version": "[6.0.0, )"
+            "version": "[6.0.1, )"
           },
           "Microsoft.EntityFrameworkCore.Sqlite": {
             "target": "Package",
-            "version": "[6.0.0, )"
+            "version": "[6.0.1, )"
           },
           "Microsoft.Extensions.Caching.Memory": {
             "target": "Package",
@@ -11145,7 +11113,7 @@
           },
           "Microsoft.Extensions.Caching.StackExchangeRedis": {
             "target": "Package",
-            "version": "[6.0.0, )"
+            "version": "[6.0.1, )"
           },
           "Microsoft.Extensions.Configuration": {
             "target": "Package",
@@ -11205,7 +11173,7 @@
           },
           "QRCoder": {
             "target": "Package",
-            "version": "[1.4.2, )"
+            "version": "[1.4.3, )"
           },
           "Quartz": {
             "target": "Package",
@@ -11255,7 +11223,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

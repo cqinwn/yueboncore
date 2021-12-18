@@ -17,14 +17,14 @@ namespace Yuebon.Security.Models
     [AppDBContext("DefaultDb")]
     [Table("Sys_Log")]
     [Serializable]
-    public class Log: BaseEntity<string>, ICreationAudited, IModificationAudited, IDeleteAudited
+    public class Log: BaseEntity<Int64>, ICreationAudited, IModificationAudited, IDeleteAudited
     { 
         /// <summary>
         /// 默认构造函数（需要初始化属性的在此处理）
         /// </summary>
 	    public Log()
 		{
-            this.Id = GuidUtils.CreateNo();
+            this.Id = GuidUtils.IdGenerator();
             this.EnabledMark = true;
             this.DeleteMark = false;
             this.CreatorTime = DateTime.Now;

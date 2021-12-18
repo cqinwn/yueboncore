@@ -31,10 +31,10 @@ namespace Yuebon.Commons.Core.Dapper
             {
                 dbConnection = DBServerProvider.GetDBConnection<T>(masterDb);
 
-                //if (MiniProfiler.Current != null)
-                //{
-                //    dbConnection = new StackExchange.Profiling.Data.ProfiledDbConnection((DbConnection)dbConnection, MiniProfiler.Current);
-                //}
+                if (MiniProfiler.Current != null)
+                {
+                    dbConnection = new StackExchange.Profiling.Data.ProfiledDbConnection((DbConnection)dbConnection, MiniProfiler.Current);
+                }
             }
             return dbConnection;
         }

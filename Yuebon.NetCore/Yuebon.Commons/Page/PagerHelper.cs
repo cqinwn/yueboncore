@@ -207,8 +207,8 @@ namespace Yuebon.Commons.Pages
                 //SELECT * FROM Paging WHERE RowNumber Between {4} and {5}", strOrder, this.fieldsToReturn, this.TableOrSqlWrapper, this.strwhere,
                 //    minRow, maxRow);
 
-                    sql = String.Format("SELECT * FROM {0} WHERE {1} order by {2} offset (({3} - 1) * {4}) rows fetch next {4} rows only;", this.TableOrSqlWrapper, this.strwhere
-                        ,this.fieldNameToSort,pageIndex,pageSize);
+                    sql = String.Format("SELECT * FROM {0} WHERE {1} order by {2} {3} offset (({4} - 1) * {5}) rows fetch next {5} rows only;", this.TableOrSqlWrapper, this.strwhere
+                        ,this.fieldNameToSort, this.isDescending ? "DESC" : "ASC", pageIndex,pageSize);
                 }
             }
 

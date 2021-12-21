@@ -21,6 +21,7 @@ using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Models;
 using Yuebon.Commons.Pages;
+using Dapper.Contrib.Extensions;
 
 namespace Yuebon.Commons.Repositories
 {
@@ -29,7 +30,7 @@ namespace Yuebon.Commons.Repositories
     /// </summary>
     /// <typeparam name="T">实体类型</typeparam>
     /// <typeparam name="TKey">实体主键类型</typeparam>
-    public abstract class BaseRepository<T, TKey> : IRepository<T, TKey>, IScopedDependency
+    public abstract class BaseRepository<T, TKey> : IRepository<T, TKey>, ITransientDependency
         where T : Entity
     {
         #region 构造函数及基本配置
@@ -38,10 +39,6 @@ namespace Yuebon.Commons.Repositories
         /// </summary>
         private IDbContextCore _dbContext;
         private IDbContextFactory _dbContextFactory;
-        /// <summary>
-        /// 
-        /// </summary>
-        protected DbSet<T> DbSet => DbContext.GetDbSet<T>();
 
         /// <summary>
         /// 获取访问数据库配置
@@ -134,7 +131,10 @@ namespace Yuebon.Commons.Repositories
         {
             _dbContextFactory = dbContextFactory;
         }
-
+        private DbSet<T> DBSet
+        {
+            get { return _dbContext.GetDbSet<T>(); }
+        }
         #endregion
 
         #region Dapper 操作
@@ -930,7 +930,7 @@ namespace Yuebon.Commons.Repositories
             {
                 entity.GenerateDefaultKeyVal();
             }
-            return await DbContext.AddAsync<T>(entity);
+            return _dbContext.Add(entity);
         }
 
         /// <summary>
@@ -954,7 +954,7 @@ namespace Yuebon.Commons.Repositories
             return DbContext.Edit<T>(entity) > 0;
         }
         /// <summary>
-        /// 更新
+        /// 更新指定字段的值
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="trans">事务对象</param>
@@ -972,7 +972,7 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual async Task<bool> UpdateAsync(T entity, TKey primaryKey, IDbTransaction trans = null)
         {
-            return DbContext.Update<T>(entity)>0;
+            return DbContext.Edit<T>(entity)>0;
         }
 
         /// <summary>

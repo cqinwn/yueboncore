@@ -17,14 +17,14 @@ namespace Yuebon.Security.Models
     [AppDBContext("DefaultDb")]
     [Table("Sys_Log")]
     [Serializable]
-    public class Log: BaseEntity<Int64>, ICreationAudited, IModificationAudited, IDeleteAudited
+    public class Log: BaseEntity<long>, ICreationAudited, IModificationAudited, IDeleteAudited
     { 
         /// <summary>
         /// 默认构造函数（需要初始化属性的在此处理）
         /// </summary>
 	    public Log()
 		{
-            this.Id = GuidUtils.IdGenerator();
+            this.Id = IdGeneratorHelper.IdSnowflake();
             this.EnabledMark = true;
             this.DeleteMark = false;
             this.CreatorTime = DateTime.Now;
@@ -97,7 +97,7 @@ namespace Yuebon.Security.Models
         /// <summary>
         /// 有效标志
         /// </summary>
-        public virtual bool EnabledMark { get; set; }
+        public virtual bool? EnabledMark { get; set; }
 
         /// <summary>
         /// 创建日期

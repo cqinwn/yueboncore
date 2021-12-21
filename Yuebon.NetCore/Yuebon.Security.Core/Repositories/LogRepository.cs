@@ -23,7 +23,7 @@ namespace Yuebon.Security.Repositories
     /// <summary>
     /// 日志仓储实现
     /// </summary>
-    public class LogRepository : BaseRepository<Log, Int64>, ILogRepository
+    public class LogRepository : BaseRepository<Log, long>, ILogRepository
     {
         /// <summary>
         /// 

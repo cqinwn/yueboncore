@@ -5,7 +5,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.IRepositories
 {
-    public interface ILogRepository:IRepository<Log, Int64>
+    public interface ILogRepository:IRepository<Log, long>
     {
         long InsertTset(int len);
     }

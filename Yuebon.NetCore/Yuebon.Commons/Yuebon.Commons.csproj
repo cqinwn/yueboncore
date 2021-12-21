@@ -97,8 +97,6 @@
     <Compile Remove="Extensions\MvcExtension.cs" />
     <Compile Remove="Extensions\ServiceCollectionExtension.cs" />
     <Compile Remove="Extensions\SqlBuilder.cs" />
-    <Compile Remove="Extensions\SqlMapperExtensions.Async.cs" />
-    <Compile Remove="Extensions\SqlMapperExtensions.cs" />
     <Compile Remove="Helpers\BoolNullableConverter.cs" />
     <Compile Remove="Helpers\CacheKey.cs" />
     <Compile Remove="Helpers\HttpHelper.cs" />

@@ -21,6 +21,7 @@ namespace Yuebon.Commons.Helpers
         }
         /// <summary>
         /// 自动生成编号/唯一订单号生成，时间戳+随机数，时间戳精确到毫秒，形如2020052113254137177350
+        /// 高并发会出现重复Id
         /// </summary>
         /// <returns></returns>
         public static string CreateNo()

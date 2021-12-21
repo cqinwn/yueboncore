@@ -6,6 +6,7 @@ namespace Yuebon.Security.IRepositories
 {
     public interface IUserLogOnRepository:IRepository<UserLogOn, string>
     {
+
         /// <summary>
         /// 根据会员ID获取用户登录信息实体
         /// </summary>

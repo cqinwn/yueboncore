@@ -373,7 +373,7 @@ namespace Yuebon.WebApi
             #endregion
 
             services.AddAutoScanInjection();//自动化注入仓储和服务
-            services.AddTransient<IDbContextCore, MySqlDbContext>(); //注入EF上下文
+            services.AddTransient<IDbContextCore, SqlServerDbContext>(); //注入EF上下文
 
             #region automapper
             List<Assembly> myAssembly =RuntimeHelper.GetAllYuebonAssemblies().ToList();

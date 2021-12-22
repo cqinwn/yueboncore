@@ -37,7 +37,7 @@ namespace Yuebon.Commons.Repositories
         /// <summary>
         ///  EF DBContext
         /// </summary>
-        private IDbContextCore _dbContext;
+        public IDbContextCore _dbContext;
         private IDbContextFactory _dbContextFactory;
 
         /// <summary>

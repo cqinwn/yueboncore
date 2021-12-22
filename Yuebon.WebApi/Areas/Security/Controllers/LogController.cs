@@ -18,7 +18,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
     /// </summary>
     [ApiController]
     [Route("api/Security/[controller]")]
-    public class LogController : AreaApiController<Log, LogOutputDto, LogInputDto, ILogService, Int64>
+    public class LogController : AreaApiController<Log, LogOutputDto, LogInputDto, ILogService, long>
     {
 
         private IOrganizeService organizeService;

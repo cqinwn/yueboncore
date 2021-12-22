@@ -66,7 +66,7 @@ namespace Yuebon.Commons.DbContextCore
                             DestinationTableName = dt.TableName,
                         };
                         GenerateColumnMappings<T>(bulk.ColumnMappings);
-                        bulk.WriteToServerAsync(dt);
+                        bulk.WriteToServer(dt);
                         tran.Commit();
                     }
                     catch (Exception)
@@ -89,6 +89,7 @@ namespace Yuebon.Commons.DbContextCore
             var properties = typeof(T).GetProperties();
             foreach (var property in properties)
             {
+                if (property.GetCustomAttributes<NotMappedAttribute>().Any()) continue;
                 if (property.GetCustomAttributes<KeyAttribute>().Any())
                 {
                     mappings.Add(new SqlBulkCopyColumnMapping(property.Name, typeof(T).Name + property.Name));

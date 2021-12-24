@@ -187,7 +187,7 @@ namespace Yuebon.Commons.Services
         /// <returns></returns>
         public virtual TODto GetOutDto(TKey id)
         {
-            return repository.Get(id).MapTo<TODto>();
+            return repository.GetSingle(id).MapTo<TODto>();
         }
 
         /// <summary>

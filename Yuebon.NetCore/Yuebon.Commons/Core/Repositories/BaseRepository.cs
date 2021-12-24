@@ -1751,7 +1751,7 @@ namespace Yuebon.Commons.Repositories
         [Obsolete("此方法已过时，请用GetSingle()")]
         public virtual T Get(TKey primaryKey)
         {
-            return DbContext.Find<T, TKey>(primaryKey);
+            return DapperConnRead.Get<T>(primaryKey);
         }
         /// <summary>
         /// 异步根据id获取一个对象
@@ -1761,7 +1761,7 @@ namespace Yuebon.Commons.Repositories
         [Obsolete("此方法已过时，请用GetSingleAsync()")]
         public virtual async Task<T> GetAsync(TKey primaryKey)
         {
-            return await DbContext.FindAsync<T, TKey>(primaryKey);
+            return await DapperConnRead.GetAsync<T>(primaryKey);
         }
         /// <summary>
         /// 根据条件统计数量Count()

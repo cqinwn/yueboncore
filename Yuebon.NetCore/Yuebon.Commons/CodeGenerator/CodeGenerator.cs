@@ -576,6 +576,7 @@ namespace Yuebon.Commons.CodeGenerator
                 .Replace("{VueViewListContent}", vueViewListContent)
                 .Replace("{VueViewFromContent}", vueViewFromContent)
                 .Replace("{ModelTypeName}", modelTypeName)
+                .Replace("{ModelTypeDesc}", modelTypeDesc)
                 .Replace("{VueViewEditFromContent}", vueViewEditFromContent)
                 .Replace("{VueViewEditFromBindContent}", vueViewEditFromBindContent)
                 .Replace("{VueViewSaveBindContent}", vueViewSaveBindContent)

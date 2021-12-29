@@ -242,7 +242,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Sys_Log](
-	[Id] [varchar](50) NOT NULL,
+	[Id] [bigint] NOT NULL,
 	[Date] [datetime] NULL,
 	[Account] [varchar](50) NULL,
 	[NickName] [varchar](50) NULL,

@@ -248,7 +248,7 @@ CREATE TABLE `sys_itemsdetail`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_log`;
 CREATE TABLE `sys_log`  (
-  `Id` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `Id` bigint NOT NULL,
   `Date` datetime(0) NULL DEFAULT NULL,
   `Account` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `NickName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,

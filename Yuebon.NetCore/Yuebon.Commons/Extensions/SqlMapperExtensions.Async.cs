@@ -9,9 +9,6 @@ using Dapper;
 
 namespace Dapper.Contrib.Extensions
 {
-    /// <summary>
-    /// 修改mysql新增数据时返回影响记录数
-    /// </summary>
     public static partial class SqlMapperExtensions
     {
         /// <summary>
@@ -32,20 +29,21 @@ namespace Dapper.Contrib.Extensions
             {
                 var key = GetSingleKey<T>(nameof(GetAsync));
                 var name = GetTableName(type);
-                sql = $"SELECT * FROM {name} WHERE {key.Name} = @keyName";
+
+                sql = $"SELECT * FROM {name} WHERE {key.Name} = @id";
                 GetQueries[type.TypeHandle] = sql;
             }
 
-            var dynParms = new DynamicParameters();
-            dynParms.Add("@keyName", id);
+            var dynParams = new DynamicParameters();
+            dynParams.Add("@id", id);
 
             if (!type.IsInterface)
-                return (await connection.QueryAsync<T>(sql, dynParms, transaction, commandTimeout).ConfigureAwait(false)).FirstOrDefault();
+                return (await connection.QueryAsync<T>(sql, dynParams, transaction, commandTimeout).ConfigureAwait(false)).FirstOrDefault();
 
-            var res = (await connection.QueryAsync<dynamic>(sql, dynParms).ConfigureAwait(false)).FirstOrDefault() as IDictionary<string, object>;
-
-            if (res == null)
+            if (!((await connection.QueryAsync<dynamic>(sql, dynParams).ConfigureAwait(false)).FirstOrDefault() is IDictionary<string, object> res))
+            {
                 return null;
+            }
 
             var obj = ProxyGenerator.GetInterfaceProxy<T>();
 
@@ -70,7 +68,7 @@ namespace Dapper.Contrib.Extensions
         }
 
         /// <summary>
-        /// Returns a list of entites from table "Ts".  
+        /// Returns a list of entities from table "Ts".  
         /// Id of T must be marked with [Key] attribute.
         /// Entities created from interfaces are tracked/intercepted for changes and used by the Update() extension
         /// for optimal performance. 
@@ -103,7 +101,7 @@ namespace Dapper.Contrib.Extensions
 
         private static async Task<IEnumerable<T>> GetAllAsyncImpl<T>(IDbConnection connection, IDbTransaction transaction, int? commandTimeout, string sql, Type type) where T : class
         {
-            var result = await connection.QueryAsync(sql).ConfigureAwait(false);
+            var result = await connection.QueryAsync(sql, transaction: transaction, commandTimeout: commandTimeout).ConfigureAwait(false);
             var list = new List<T>();
             foreach (IDictionary<string, object> res in result)
             {
@@ -138,11 +136,11 @@ namespace Dapper.Contrib.Extensions
         /// <param name="commandTimeout">Number of seconds before command execution timeout</param>
         /// <param name="sqlAdapter">The specific ISqlAdapter to use, auto-detected based on connection if null</param>
         /// <returns>Identity of inserted entity</returns>
-        public static async Task<int> InsertAsync<T>(this IDbConnection connection, T entityToInsert, IDbTransaction transaction = null,
+        public static Task<int> InsertAsync<T>(this IDbConnection connection, T entityToInsert, IDbTransaction transaction = null,
             int? commandTimeout = null, ISqlAdapter sqlAdapter = null) where T : class
         {
             var type = typeof(T);
-            sqlAdapter = sqlAdapter ?? GetFormatter(connection);
+            sqlAdapter ??= GetFormatter(connection);
 
             var isList = false;
             if (type.IsArray)
@@ -169,7 +167,7 @@ namespace Dapper.Contrib.Extensions
             var allProperties = TypePropertiesCache(type);
             var keyProperties = KeyPropertiesCache(type).ToList();
             var computedProperties = ComputedPropertiesCache(type);
-            var allPropertiesExceptKeyAndComputed = allProperties.ToList();//.Except(keyProperties.Union(computedProperties)).ToList();
+            var allPropertiesExceptKeyAndComputed = allProperties.Except(keyProperties.Union(computedProperties)).ToList();
 
             for (var i = 0; i < allPropertiesExceptKeyAndComputed.Count; i++)
             {
@@ -188,23 +186,15 @@ namespace Dapper.Contrib.Extensions
                     sbParameterList.Append(", ");
             }
 
-            int returnVal=0;
-            var wasClosed = connection.State == ConnectionState.Closed;
-            if (wasClosed) connection.Open();
-
             if (!isList)    //single entity
             {
-                returnVal =await sqlAdapter.InsertAsync(connection, transaction, commandTimeout, name, sbColumnList.ToString(),
+                return sqlAdapter.InsertAsync(connection, transaction, commandTimeout, name, sbColumnList.ToString(),
                     sbParameterList.ToString(), keyProperties, entityToInsert);
             }
-            else
-            {
-                //insert list of entities
-                var cmd = $"insert into {name} ({sbColumnList}) values ({sbParameterList})";
-                returnVal =await  connection.ExecuteAsync(cmd, entityToInsert, transaction, commandTimeout);
-            }
-            if (wasClosed) connection.Close();
-            return returnVal;
+
+            //insert list of entities
+            var cmd = $"INSERT INTO {name} ({sbColumnList}) values ({sbParameterList})";
+            return connection.ExecuteAsync(cmd, entityToInsert, transaction, commandTimeout);
         }
 
         /// <summary>
@@ -317,18 +307,18 @@ namespace Dapper.Contrib.Extensions
                 throw new ArgumentException("Entity must have at least one [Key] or [ExplicitKey] property");
 
             var name = GetTableName(type);
-            keyProperties.AddRange(explicitKeyProperties);
+            var allKeyProperties = keyProperties.Concat(explicitKeyProperties).ToList();
 
             var sb = new StringBuilder();
             sb.AppendFormat("DELETE FROM {0} WHERE ", name);
 
             var adapter = GetFormatter(connection);
 
-            for (var i = 0; i < keyProperties.Count; i++)
+            for (var i = 0; i < allKeyProperties.Count; i++)
             {
-                var property = keyProperties[i];
+                var property = allKeyProperties[i];
                 adapter.AppendColumnNameEqualsValue(sb, property.Name);
-                if (i < keyProperties.Count - 1)
+                if (i < allKeyProperties.Count - 1)
                     sb.Append(" AND ");
             }
             var deleted = await connection.ExecuteAsync(sb.ToString(), entityToDelete, transaction, commandTimeout).ConfigureAwait(false);
@@ -386,15 +376,20 @@ public partial class SqlServerAdapter
     /// <returns>The Id of the row created.</returns>
     public async Task<int> InsertAsync(IDbConnection connection, IDbTransaction transaction, int? commandTimeout, string tableName, string columnList, string parameterList, IEnumerable<PropertyInfo> keyProperties, object entityToInsert)
     {
-        var cmd = $"INSERT INTO {tableName} ({columnList}) values ({parameterList}); select @@ROWCOUNT  num";
+        var cmd = $"INSERT INTO {tableName} ({columnList}) values ({parameterList}); SELECT SCOPE_IDENTITY() id";
         var multi = await connection.QueryMultipleAsync(cmd, entityToInsert, transaction, commandTimeout).ConfigureAwait(false);
 
-        var first = multi.Read().FirstOrDefault();
-        if (first == null || first.num == null) return 0;
+        var first = await multi.ReadFirstOrDefaultAsync().ConfigureAwait(false);
+        if (first == null || first.id == null) return 0;
 
-        var num = (int)first.num;
+        var id = (int)first.id;
+        var pi = keyProperties as PropertyInfo[] ?? keyProperties.ToArray();
+        if (pi.Length == 0) return id;
 
-        return num;
+        var idp = pi[0];
+        idp.SetValue(entityToInsert, Convert.ChangeType(id, idp.PropertyType), null);
+
+        return id;
     }
 }
 
@@ -414,15 +409,20 @@ public partial class SqlCeServerAdapter
     /// <returns>The Id of the row created.</returns>
     public async Task<int> InsertAsync(IDbConnection connection, IDbTransaction transaction, int? commandTimeout, string tableName, string columnList, string parameterList, IEnumerable<PropertyInfo> keyProperties, object entityToInsert)
     {
-        var cmd = $"INSERT INTO {tableName} ({columnList}) values ({parameterList}); select @@ROWCOUNT  num";
-        var multi = await connection.QueryMultipleAsync(cmd, entityToInsert, transaction, commandTimeout).ConfigureAwait(false);
+        var cmd = $"INSERT INTO {tableName} ({columnList}) VALUES ({parameterList})";
+        await connection.ExecuteAsync(cmd, entityToInsert, transaction, commandTimeout).ConfigureAwait(false);
+        var r = (await connection.QueryAsync<dynamic>("SELECT @@IDENTITY id", transaction: transaction, commandTimeout: commandTimeout).ConfigureAwait(false)).ToList();
 
-        var first = multi.Read().FirstOrDefault();
-        if (first == null || first.num == null) return 0;
+        if (r[0] == null || r[0].id == null) return 0;
+        var id = (int)r[0].id;
 
-        var num = (int)first.num;
+        var pi = keyProperties as PropertyInfo[] ?? keyProperties.ToArray();
+        if (pi.Length == 0) return id;
 
-        return num;
+        var idp = pi[0];
+        idp.SetValue(entityToInsert, Convert.ChangeType(id, idp.PropertyType), null);
+
+        return id;
     }
 }
 
@@ -443,27 +443,19 @@ public partial class MySqlAdapter
     public async Task<int> InsertAsync(IDbConnection connection, IDbTransaction transaction, int? commandTimeout, string tableName,
         string columnList, string parameterList, IEnumerable<PropertyInfo> keyProperties, object entityToInsert)
     {
-        var cmd = $"INSERT INTO {tableName} ({columnList}) VALUES ({parameterList});select ROW_COUNT() num";
-        var multi = await connection.QueryMultipleAsync(cmd, entityToInsert, transaction, commandTimeout).ConfigureAwait(false);
+        var cmd = $"INSERT INTO {tableName} ({columnList}) VALUES ({parameterList})";
+        await connection.ExecuteAsync(cmd, entityToInsert, transaction, commandTimeout).ConfigureAwait(false);
+        var r = await connection.QueryAsync<dynamic>("SELECT LAST_INSERT_ID() id", transaction: transaction, commandTimeout: commandTimeout).ConfigureAwait(false);
 
-        var first = multi.Read().FirstOrDefault();
-        if (first == null || first.num == null) return 0;
+        var id = r.First().id;
+        if (id == null) return 0;
+        var pi = keyProperties as PropertyInfo[] ?? keyProperties.ToArray();
+        if (pi.Length == 0) return Convert.ToInt32(id);
 
-        var num = (int)first.num;
+        var idp = pi[0];
+        idp.SetValue(entityToInsert, Convert.ChangeType(id, idp.PropertyType), null);
 
-        return num;
-        //await connection.ExecuteAsync(cmd, entityToInsert, transaction, commandTimeout).ConfigureAwait(false);
-        //var r = await connection.QueryAsync<dynamic>("SELECT LAST_INSERT_ID() id", transaction: transaction, commandTimeout: commandTimeout).ConfigureAwait(false);
-
-        //var id = r.First().id;
-        //if (id == null) return 0;
-        //var pi = keyProperties as PropertyInfo[] ?? keyProperties.ToArray();
-        //if (pi.Length == 0) return Convert.ToInt32(id);
-
-        //var idp = pi[0];
-        //idp.SetValue(entityToInsert, Convert.ChangeType(id, idp.PropertyType), null);
-
-        //return Convert.ToInt32(id);
+        return Convert.ToInt32(id);
     }
 }
 
@@ -507,7 +499,7 @@ public partial class PostgresAdapter
 
         var results = await connection.QueryAsync(sb.ToString(), entityToInsert, transaction, commandTimeout).ConfigureAwait(false);
 
-        // Return the key by assinging the corresponding property in the object - by product is that it supports compound primary keys
+        // Return the key by assigning the corresponding property in the object - by product is that it supports compound primary keys
         var id = 0;
         foreach (var p in propertyInfos)
         {
@@ -539,7 +531,7 @@ public partial class SQLiteAdapter
         var cmd = $"INSERT INTO {tableName} ({columnList}) VALUES ({parameterList}); SELECT last_insert_rowid() id";
         var multi = await connection.QueryMultipleAsync(cmd, entityToInsert, transaction, commandTimeout).ConfigureAwait(false);
 
-        var id = (int)multi.Read().First().id;
+        var id = (int)(await multi.ReadFirstAsync().ConfigureAwait(false)).id;
         var pi = keyProperties as PropertyInfo[] ?? keyProperties.ToArray();
         if (pi.Length == 0) return id;
 

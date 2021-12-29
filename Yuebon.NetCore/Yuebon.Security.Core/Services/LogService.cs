@@ -27,7 +27,7 @@ namespace Yuebon.Security.Services
     /// <summary>
     /// 
     /// </summary>
-    public class LogService : BaseService<Log, LogOutputDto, string>, ILogService
+    public class LogService : BaseService<Log, LogOutputDto, long>, ILogService
     {
         private readonly ILogRepository _iLogRepository;
         private readonly IUserRepository _iuserRepository;

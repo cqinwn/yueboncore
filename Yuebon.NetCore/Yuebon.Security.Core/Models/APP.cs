@@ -28,6 +28,7 @@ namespace Yuebon.Security.Models
         /// </summary>
         [MaxLength(50)]
         [Description("应用Id")]
+        [Required]
         public virtual string AppId { get; set; }
 
         /// <summary>

@@ -100,7 +100,7 @@ namespace Yuebon.Security.Services
                 userLogOn.LogOnCount++;
                 userLogOn.LastVisitTime = DateTime.Now;
                 userLogOn.UserOnLine = true;
-                await  _userSigninRepository.UpdateAsync(userLogOn,userLogOn.Id);
+                 _userSigninRepository.Edit(userLogOn);
                 return new Tuple<User, string>(userEntity, "");
             }
         }

@@ -138,7 +138,7 @@ namespace Yuebon.Commons.CodeGenerator
                     {
                         modelcontent += string.Format("        [MaxLength({0})]\n", dbFieldInfo.FieldMaxLength);
                     }
-                    modelcontent += string.Format("        public {0} {1}", dbFieldInfo.DataType, fieldName);
+                    modelcontent += string.Format("        public {0}{1} {2}", dbFieldInfo.DataType,dbFieldInfo.IsNullable?"":"?",fieldName);
                     modelcontent += " { get; set; }\n\r";
 
 
@@ -149,7 +149,7 @@ namespace Yuebon.Commons.CodeGenerator
                     {
                         outputDtocontent += string.Format("        [MaxLength({0})]\n", dbFieldInfo.FieldMaxLength);
                     }
-                    outputDtocontent += string.Format("        public {0} {1}", dbFieldInfo.DataType, fieldName);
+                    outputDtocontent += string.Format("        public {0}{1} {2}", dbFieldInfo.DataType, dbFieldInfo.IsNullable ? "" : "?", fieldName);
                     outputDtocontent += " { get; set; }\n\r";
                     if (dbFieldInfo.DataType == "bool"||dbFieldInfo.DataType== "tinyint")
                     {
@@ -203,7 +203,7 @@ namespace Yuebon.Commons.CodeGenerator
                     {
                         InputDtocontent += string.Format("        [MaxLength({0})]\n", dbFieldInfo.FieldMaxLength);
                     }
-                    InputDtocontent += string.Format("        public {0} {1}", dbFieldInfo.DataType, fieldName);
+                    InputDtocontent += string.Format("        public {0}{1} {2}", dbFieldInfo.DataType, dbFieldInfo.IsNullable ? "" : "?", fieldName);
                     InputDtocontent += " { get; set; }\n\r";
                 }
                 //
@@ -576,6 +576,7 @@ namespace Yuebon.Commons.CodeGenerator
                 .Replace("{VueViewListContent}", vueViewListContent)
                 .Replace("{VueViewFromContent}", vueViewFromContent)
                 .Replace("{ModelTypeName}", modelTypeName)
+                .Replace("{ModelTypeDesc}", modelTypeDesc)
                 .Replace("{VueViewEditFromContent}", vueViewEditFromContent)
                 .Replace("{VueViewEditFromBindContent}", vueViewEditFromBindContent)
                 .Replace("{VueViewSaveBindContent}", vueViewSaveBindContent)

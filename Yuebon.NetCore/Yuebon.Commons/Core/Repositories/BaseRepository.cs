@@ -1,11 +1,8 @@
 using Dapper;
-using Dapper.Contrib.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
-using System.Data.Common;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -15,7 +12,6 @@ using System.Threading.Tasks;
 using Yuebon.Commons.Core.Dapper;
 using Yuebon.Commons.Core.DataManager;
 using Yuebon.Commons.DataManager;
-using Yuebon.Commons.DbContextCore;
 using Yuebon.Commons.DependencyInjection;
 using Yuebon.Commons.Enums;
 using Yuebon.Commons.Extensions;
@@ -25,7 +21,7 @@ using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Models;
 using Yuebon.Commons.Pages;
-using static Dapper.SqlMapper;
+using Dapper.Contrib.Extensions;
 
 namespace Yuebon.Commons.Repositories
 {
@@ -34,19 +30,15 @@ namespace Yuebon.Commons.Repositories
     /// </summary>
     /// <typeparam name="T">实体类型</typeparam>
     /// <typeparam name="TKey">实体主键类型</typeparam>
-    public abstract class BaseRepository<T, TKey> : IRepository<T, TKey>, IScopedDependency
+    public abstract class BaseRepository<T, TKey> : IRepository<T, TKey>, ITransientDependency
         where T : Entity
     {
         #region 构造函数及基本配置
         /// <summary>
         ///  EF DBContext
         /// </summary>
-        private IDbContextCore _dbContext;
+        public IDbContextCore _dbContext;
         private IDbContextFactory _dbContextFactory;
-        /// <summary>
-        /// 
-        /// </summary>
-        protected DbSet<T> DbSet => DbContext.GetDbSet<T>();
 
         /// <summary>
         /// 获取访问数据库配置
@@ -55,7 +47,7 @@ namespace Yuebon.Commons.Repositories
         /// <summary>
         /// 需要初始化的对象表名
         /// </summary>
-        protected string tableName = typeof(T).GetCustomAttribute<TableAttribute>(false)?.Name;
+        protected string tableName = typeof(T).GetCustomAttribute<System.ComponentModel.DataAnnotations.Schema.TableAttribute>(false)?.Name;
         /// <summary>
         /// 数据库参数化访问的占位符
         /// </summary>
@@ -139,7 +131,10 @@ namespace Yuebon.Commons.Repositories
         {
             _dbContextFactory = dbContextFactory;
         }
-
+        private DbSet<T> DBSet
+        {
+            get { return _dbContext.GetDbSet<T>(); }
+        }
         #endregion
 
         #region Dapper 操作
@@ -162,24 +157,7 @@ namespace Yuebon.Commons.Repositories
         }
 
         #region 查询获得对象和列表
-        /// <summary>
-        /// 根据id获取一个对象
-        /// </summary>
-        /// <param name="primaryKey">主键</param>
-        /// <returns></returns>
-        public virtual T Get(TKey primaryKey)
-        {
-            return DapperConnRead.Get<T>(primaryKey);
-        }
-        /// <summary>
-        /// 异步根据id获取一个对象
-        /// </summary>
-        /// <param name="primaryKey">主键</param>
-        /// <returns></returns>
-        public virtual async Task<T> GetAsync(TKey primaryKey)
-        {
-            return await DapperConnRead.GetAsync<T>(primaryKey);
-        }
+       
         /// <summary>
         /// 根据条件获取一个对象
         /// </summary>
@@ -683,10 +661,9 @@ namespace Yuebon.Commons.Repositories
 
             string pageSql = pagerHelper.GetPagingSql(true, dbConnectionOptions.DatabaseType);
             pageSql += ";" + pagerHelper.GetPagingSql(false, dbConnectionOptions.DatabaseType);
-
             var reader = await DapperConnRead.QueryMultipleAsync(pageSql);
             info.RecordCount = reader.ReadFirst<int>();
-            list = reader.Read<T>().AsList();
+            list = reader.Read<T>().ToList();
             return list;
         }
 
@@ -937,7 +914,7 @@ namespace Yuebon.Commons.Repositories
             {
                 entity.GenerateDefaultKeyVal();
             }
-            return DapperConn.Insert<T>(entity);
+            return DbContext.Add<T>(entity);
         }
 
 
@@ -953,7 +930,7 @@ namespace Yuebon.Commons.Repositories
             {
                 entity.GenerateDefaultKeyVal();
             }
-            return await DapperConn.InsertAsync<T>(entity);
+            return _dbContext.Add(entity);
         }
 
         /// <summary>
@@ -977,7 +954,7 @@ namespace Yuebon.Commons.Repositories
             return DbContext.Edit<T>(entity) > 0;
         }
         /// <summary>
-        /// 更新
+        /// 更新指定字段的值
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="trans">事务对象</param>
@@ -995,7 +972,7 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual async Task<bool> UpdateAsync(T entity, TKey primaryKey, IDbTransaction trans = null)
         {
-            return await DapperConn.UpdateAsync<T>(entity);
+            return DbContext.Edit<T>(entity)>0;
         }
 
         /// <summary>
@@ -1765,6 +1742,27 @@ namespace Yuebon.Commons.Repositories
         #endregion
 
         #region Query
+
+        /// <summary>
+        /// 根据id获取一个对象
+        /// </summary>
+        /// <param name="primaryKey">主键</param>
+        /// <returns></returns>
+        [Obsolete("此方法已过时，请用GetSingle()")]
+        public virtual T Get(TKey primaryKey)
+        {
+            return DapperConnRead.Get<T>(primaryKey);
+        }
+        /// <summary>
+        /// 异步根据id获取一个对象
+        /// </summary>
+        /// <param name="primaryKey">主键</param>
+        /// <returns></returns>
+        [Obsolete("此方法已过时，请用GetSingleAsync()")]
+        public virtual async Task<T> GetAsync(TKey primaryKey)
+        {
+            return await DapperConnRead.GetAsync<T>(primaryKey);
+        }
         /// <summary>
         /// 根据条件统计数量Count()
         /// </summary>

@@ -7,13 +7,8 @@ using System.Text;
 using System.Collections.Concurrent;
 using System.Reflection.Emit;
 using System.Threading;
+
 using Dapper;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using StackExchange.Profiling.Data;
-#if NETSTANDARD1_3
-using DataException = System.InvalidOperationException;
-#endif
 
 namespace Dapper.Contrib.Extensions
 {
@@ -52,7 +47,7 @@ namespace Dapper.Contrib.Extensions
         /// <param name="connection">The connection to get a database type name from.</param>
         public delegate string GetDatabaseTypeDelegate(IDbConnection connection);
         /// <summary>
-        /// The function to get a a table name from a given <see cref="Type"/>
+        /// The function to get a table name from a given <see cref="Type"/>
         /// </summary>
         /// <param name="type">The <see cref="Type"/> to get a table name for.</param>
         public delegate string TableNameMapperDelegate(Type type);
@@ -66,7 +61,7 @@ namespace Dapper.Contrib.Extensions
 
         private static readonly ISqlAdapter DefaultAdapter = new SqlServerAdapter();
         private static readonly Dictionary<string, ISqlAdapter> AdapterDictionary
-            = new Dictionary<string, ISqlAdapter>
+            = new Dictionary<string, ISqlAdapter>(6)
             {
                 ["sqlconnection"] = new SqlServerAdapter(),
                 ["sqlceconnection"] = new SqlCeServerAdapter(),
@@ -101,11 +96,7 @@ namespace Dapper.Contrib.Extensions
             ExplicitKeyProperties[type.TypeHandle] = explicitKeyProperties;
             return explicitKeyProperties;
         }
-        /// <summary>
-        /// 查询主键,属性加了Key标签
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
+
         private static List<PropertyInfo> KeyPropertiesCache(Type type)
         {
             if (KeyProperties.TryGetValue(type.TypeHandle, out IEnumerable<PropertyInfo> pi))
@@ -118,7 +109,7 @@ namespace Dapper.Contrib.Extensions
 
             if (keyProperties.Count == 0)
             {
-                var idProp = allProperties.Find(p => string.Equals(p.Name, "Id", StringComparison.CurrentCultureIgnoreCase));
+                var idProp = allProperties.Find(p => string.Equals(p.Name, "id", StringComparison.CurrentCultureIgnoreCase));
                 if (idProp != null && !idProp.GetCustomAttributes(true).Any(a => a is ExplicitKeyAttribute))
                 {
                     keyProperties.Add(idProp);
@@ -154,14 +145,14 @@ namespace Dapper.Contrib.Extensions
         {
             var type = typeof(T);
             var keys = KeyPropertiesCache(type);
-            //var explicitKeys = ExplicitKeyPropertiesCache(type);
-            var keyCount = keys.Count;// + explicitKeys.Count;
+            var explicitKeys = ExplicitKeyPropertiesCache(type);
+            var keyCount = keys.Count + explicitKeys.Count;
             if (keyCount > 1)
-                throw new DataException($"{method}<T> only supports an entity with a single [Key]  property. [Key] Count: {keys.Count}");
+                throw new DataException($"{method}<T> only supports an entity with a single [Key] or [ExplicitKey] property. [Key] Count: {keys.Count}, [ExplicitKey] Count: {explicitKeys.Count}");
             if (keyCount == 0)
-                throw new DataException($"{method}<T> only supports an entity with a [Key]  property");
+                throw new DataException($"{method}<T> only supports an entity with a [Key] or an [ExplicitKey] property");
 
-            return keys[0];
+            return keys.Count > 0 ? keys[0] : explicitKeys[0];
         }
 
         /// <summary>
@@ -185,21 +176,21 @@ namespace Dapper.Contrib.Extensions
                 var key = GetSingleKey<T>(nameof(Get));
                 var name = GetTableName(type);
 
-                sql = $"select * from {name} where {key.Name} = @KeyName";
+                sql = $"select * from {name} where {key.Name} = @id";
                 GetQueries[type.TypeHandle] = sql;
             }
 
-            var dynParms = new DynamicParameters();
-            dynParms.Add("@KeyName", id);
+            var dynParams = new DynamicParameters();
+            dynParams.Add("@id", id);
 
             T obj;
 
             if (type.IsInterface)
             {
-                var res = connection.Query(sql, dynParms).FirstOrDefault() as IDictionary<string, object>;
-
-                if (res == null)
+                if (!(connection.Query(sql, dynParams).FirstOrDefault() is IDictionary<string, object> res))
+                {
                     return null;
+                }
 
                 obj = ProxyGenerator.GetInterfaceProxy<T>();
 
@@ -222,16 +213,16 @@ namespace Dapper.Contrib.Extensions
             }
             else
             {
-                obj = connection.Query<T>(sql, dynParms, transaction, commandTimeout: commandTimeout).FirstOrDefault();
+                obj = connection.Query<T>(sql, dynParams, transaction, commandTimeout: commandTimeout).FirstOrDefault();
             }
             return obj;
         }
 
         /// <summary>
-        /// Returns a list of entites from table "Ts".  
+        /// Returns a list of entities from table "Ts".
         /// Id of T must be marked with [Key] attribute.
         /// Entities created from interfaces are tracked/intercepted for changes and used by the Update() extension
-        /// for optimal performance. 
+        /// for optimal performance.
         /// </summary>
         /// <typeparam name="T">Interface or type to create and populate</typeparam>
         /// <param name="connection">Open SqlConnection</param>
@@ -282,7 +273,9 @@ namespace Dapper.Contrib.Extensions
         /// <summary>
         /// Specify a custom table name mapper based on the POCO type name
         /// </summary>
+#pragma warning disable CA2211 // Non-constant fields should not be visible - I agree with you, but we can't do that until we break the API
         public static TableNameMapperDelegate TableNameMapper;
+#pragma warning restore CA2211 // Non-constant fields should not be visible
 
         private static string GetTableName(Type type)
         {
@@ -294,15 +287,10 @@ namespace Dapper.Contrib.Extensions
             }
             else
             {
-#if NETSTANDARD1_3
-                var info = type.GetTypeInfo();
-#else
-                var info = type;
-#endif
                 //NOTE: This as dynamic trick falls back to handle both our own Table-attribute as well as the one in EntityFramework 
                 var tableAttrName =
-                    info.GetCustomAttribute<TableAttribute>(false)?.Name
-                    ?? (info.GetCustomAttributes(false).FirstOrDefault(attr => attr.GetType().Name == "TableAttribute") as dynamic)?.Name;
+                    type.GetCustomAttribute<TableAttribute>(false)?.Name
+                    ?? (type.GetCustomAttributes(false).FirstOrDefault(attr => attr.GetType().Name == "TableAttribute") as dynamic)?.Name;
 
                 if (tableAttrName != null)
                 {
@@ -359,7 +347,7 @@ namespace Dapper.Contrib.Extensions
             var allProperties = TypePropertiesCache(type);
             var keyProperties = KeyPropertiesCache(type);
             var computedProperties = ComputedPropertiesCache(type);
-            var allPropertiesExceptKeyAndComputed = allProperties.ToList();//.Except(keyProperties.Union(computedProperties)).ToList();
+            var allPropertiesExceptKeyAndComputed = allProperties.Except(keyProperties.Union(computedProperties)).ToList();
 
             var adapter = GetFormatter(connection);
 
@@ -548,27 +536,18 @@ namespace Dapper.Contrib.Extensions
         /// Specifies a custom callback that detects the database type instead of relying on the default strategy (the name of the connection type object).
         /// Please note that this callback is global and will be used by all the calls that require a database specific adapter.
         /// </summary>
+#pragma warning disable CA2211 // Non-constant fields should not be visible - I agree with you, but we can't do that until we break the API
         public static GetDatabaseTypeDelegate GetDatabaseType;
+#pragma warning restore CA2211 // Non-constant fields should not be visible
 
-        /// <summary>
-        /// 适配数据类型
-        /// 2020-11-09 集成MiniProfiler
-        /// </summary>
-        /// <param name="connection"></param>
-        /// <returns></returns>
         private static ISqlAdapter GetFormatter(IDbConnection connection)
         {
             var name = GetDatabaseType?.Invoke(connection).ToLower()
                        ?? connection.GetType().Name.ToLower();
-            if (name == "profileddbconnection")
-            {
-                ProfiledDbConnection pconn = (ProfiledDbConnection)connection;
-                name = pconn.WrappedConnection.GetType().Name.ToLower();
-            }
-            return !AdapterDictionary.ContainsKey(name)
-                ? DefaultAdapter
-                : AdapterDictionary[name];
 
+            return AdapterDictionary.TryGetValue(name, out var adapter)
+                ? adapter
+                : DefaultAdapter;
         }
 
         private static class ProxyGenerator
@@ -577,8 +556,11 @@ namespace Dapper.Contrib.Extensions
 
             private static AssemblyBuilder GetAsmBuilder(string name)
             {
+#if !NET461
                 return AssemblyBuilder.DefineDynamicAssembly(new AssemblyName { Name = name }, AssemblyBuilderAccess.Run);
-
+#else
+                return Thread.GetDomain().DefineDynamicAssembly(new AssemblyName { Name = name }, AssemblyBuilderAccess.Run);
+#endif
             }
 
             public static T GetInterfaceProxy<T>()
@@ -609,7 +591,7 @@ namespace Dapper.Contrib.Extensions
                     CreateProperty<T>(typeBuilder, property.Name, property.PropertyType, setIsDirtyMethod, isId);
                 }
 
-#if NETSTANDARD1_3 || NETSTANDARD2_0
+#if NETSTANDARD2_0
                 var generatedType = typeBuilder.CreateTypeInfo().AsType();
 #else
                 var generatedType = typeBuilder.CreateType();
@@ -703,8 +685,8 @@ namespace Dapper.Contrib.Extensions
                 if (isIdentity)
                 {
                     var keyAttribute = typeof(KeyAttribute);
-                    var myConstructorInfo = keyAttribute.GetConstructor(new Type[] { });
-                    var attributeBuilder = new CustomAttributeBuilder(myConstructorInfo, new object[] { });
+                    var myConstructorInfo = keyAttribute.GetConstructor(Type.EmptyTypes);
+                    var attributeBuilder = new CustomAttributeBuilder(myConstructorInfo, Array.Empty<object>());
                     property.SetCustomAttribute(attributeBuilder);
                 }
 
@@ -719,7 +701,36 @@ namespace Dapper.Contrib.Extensions
     }
 
     /// <summary>
-    /// Specifies that this field is a explicitly set primary key in the database
+    /// Defines the name of a table to use in Dapper.Contrib commands.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Class)]
+    public class TableAttribute : Attribute
+    {
+        /// <summary>
+        /// Creates a table mapping to a specific name for Dapper.Contrib commands
+        /// </summary>
+        /// <param name="tableName">The name of this table in the database.</param>
+        public TableAttribute(string tableName)
+        {
+            Name = tableName;
+        }
+
+        /// <summary>
+        /// The name of the table in the database
+        /// </summary>
+        public string Name { get; set; }
+    }
+
+    /// <summary>
+    /// Specifies that this field is a primary key in the database
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Property)]
+    public class KeyAttribute : Attribute
+    {
+    }
+
+    /// <summary>
+    /// Specifies that this field is an explicitly set primary key in the database
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class ExplicitKeyAttribute : Attribute
@@ -809,14 +820,20 @@ public partial class SqlServerAdapter : ISqlAdapter
     /// <returns>The Id of the row created.</returns>
     public int Insert(IDbConnection connection, IDbTransaction transaction, int? commandTimeout, string tableName, string columnList, string parameterList, IEnumerable<PropertyInfo> keyProperties, object entityToInsert)
     {
-        var cmd = $"insert into {tableName} ({columnList}) values ({parameterList}); select @@ROWCOUNT  num";
+        var cmd = $"insert into {tableName} ({columnList}) values ({parameterList});select SCOPE_IDENTITY() id";
         var multi = connection.QueryMultiple(cmd, entityToInsert, transaction, commandTimeout);
 
         var first = multi.Read().FirstOrDefault();
-        if (first == null || first.num == null) return 0;
+        if (first == null || first.id == null) return 0;
 
-        var num = (int)first.num;
-        return num;
+        var id = (int)first.id;
+        var propertyInfos = keyProperties as PropertyInfo[] ?? keyProperties.ToArray();
+        if (propertyInfos.Length == 0) return id;
+
+        var idProperty = propertyInfos[0];
+        idProperty.SetValue(entityToInsert, Convert.ChangeType(id, idProperty.PropertyType), null);
+
+        return id;
     }
 
     /// <summary>
@@ -859,14 +876,20 @@ public partial class SqlCeServerAdapter : ISqlAdapter
     /// <returns>The Id of the row created.</returns>
     public int Insert(IDbConnection connection, IDbTransaction transaction, int? commandTimeout, string tableName, string columnList, string parameterList, IEnumerable<PropertyInfo> keyProperties, object entityToInsert)
     {
-        var cmd = $"insert into {tableName} ({columnList}) values ({parameterList}); select @@ROWCOUNT  num";
-        var multi = connection.QueryMultiple(cmd, entityToInsert, transaction, commandTimeout);
+        var cmd = $"insert into {tableName} ({columnList}) values ({parameterList})";
+        connection.Execute(cmd, entityToInsert, transaction, commandTimeout);
+        var r = connection.Query("select @@IDENTITY id", transaction: transaction, commandTimeout: commandTimeout).ToList();
 
-        var first = multi.Read().FirstOrDefault();
-        if (first == null || first.num == null) return 0;
+        if (r[0].id == null) return 0;
+        var id = (int)r[0].id;
 
-        var num = (int)first.num;
-        return num;
+        var propertyInfos = keyProperties as PropertyInfo[] ?? keyProperties.ToArray();
+        if (propertyInfos.Length == 0) return id;
+
+        var idProperty = propertyInfos[0];
+        idProperty.SetValue(entityToInsert, Convert.ChangeType(id, idProperty.PropertyType), null);
+
+        return id;
     }
 
     /// <summary>
@@ -897,8 +920,6 @@ public partial class MySqlAdapter : ISqlAdapter
 {
     /// <summary>
     /// Inserts <paramref name="entityToInsert"/> into the database, returning the Id of the row created.
-    /// 
-    /// 2020-11-09 影响行数改为Select ROW_COUNT()
     /// </summary>
     /// <param name="connection">The connection to use.</param>
     /// <param name="transaction">The transaction to use.</param>
@@ -911,14 +932,19 @@ public partial class MySqlAdapter : ISqlAdapter
     /// <returns>The Id of the row created.</returns>
     public int Insert(IDbConnection connection, IDbTransaction transaction, int? commandTimeout, string tableName, string columnList, string parameterList, IEnumerable<PropertyInfo> keyProperties, object entityToInsert)
     {
-        var cmd = $"insert into {tableName} ({columnList}) values ({parameterList}); select ROW_COUNT()  num";
-        var multi = connection.QueryMultiple(cmd, entityToInsert, transaction, commandTimeout);
+        var cmd = $"insert into {tableName} ({columnList}) values ({parameterList})";
+        connection.Execute(cmd, entityToInsert, transaction, commandTimeout);
+        var r = connection.Query("Select LAST_INSERT_ID() id", transaction: transaction, commandTimeout: commandTimeout);
 
-        var first = multi.Read().FirstOrDefault();
-        if (first == null || first.num == null) return 0;
+        var id = r.First().id;
+        if (id == null) return 0;
+        var propertyInfos = keyProperties as PropertyInfo[] ?? keyProperties.ToArray();
+        if (propertyInfos.Length == 0) return Convert.ToInt32(id);
 
-        var num = (int)first.num;
-        return num;
+        var idp = propertyInfos[0];
+        idp.SetValue(entityToInsert, Convert.ChangeType(id, idp.PropertyType), null);
+
+        return Convert.ToInt32(id);
     }
 
     /// <summary>
@@ -985,7 +1011,7 @@ public partial class PostgresAdapter : ISqlAdapter
 
         var results = connection.Query(sb.ToString(), entityToInsert, transaction, commandTimeout: commandTimeout).ToList();
 
-        // Return the key by assinging the corresponding property in the object - by product is that it supports compound primary keys
+        // Return the key by assigning the corresponding property in the object - by product is that it supports compound primary keys
         var id = 0;
         foreach (var p in propertyInfos)
         {
@@ -1072,7 +1098,7 @@ public partial class SQLiteAdapter : ISqlAdapter
 }
 
 /// <summary>
-/// The Firebase SQL adapeter.
+/// The Firebase SQL adapter.
 /// </summary>
 public partial class FbAdapter : ISqlAdapter
 {

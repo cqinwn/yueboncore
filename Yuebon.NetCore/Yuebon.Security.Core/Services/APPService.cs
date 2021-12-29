@@ -119,9 +119,8 @@ namespace Yuebon.Security.Services
         }
         public void UpdateCacheAllowApp()
         {
-            YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
             IEnumerable<APP> appList = repository.GetAllByIsNotDeleteAndEnabledMark();
-            yuebonCacheHelper.Add("AllowAppId", appList);
+            MemoryCacheHelper.Set("AllowAppId", appList);
         }
     }
 }

@@ -17,6 +17,7 @@ namespace Yuebon.Security.Repositories
 
         public UserLogOnRepository(IDbContextCore dbContext) : base(dbContext)
         {
+         
         }
 
 

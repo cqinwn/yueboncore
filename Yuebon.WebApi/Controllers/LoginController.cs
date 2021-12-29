@@ -166,7 +166,7 @@ namespace Yuebon.WebApi.Controllers
                                         yuebonCacheHelper.Add("login_user_" + user.Id, currentSession, expiresSliding, true);
 
                                         List<AllowCacheApp> list = yuebonCacheHelper.Get("AllowAppId").ToJson().ToList<AllowCacheApp>();
-                                        if (list.Count== 0)
+                                        if (list== null)
                                         {
                                             IEnumerable<APP> appList = _appService.GetAllByIsNotDeleteAndEnabledMark();
                                             yuebonCacheHelper.Add("AllowAppId", appList);

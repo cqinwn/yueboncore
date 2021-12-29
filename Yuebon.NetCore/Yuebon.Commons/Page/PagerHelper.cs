@@ -177,9 +177,9 @@ namespace Yuebon.Commons.Pages
         /// 不依赖于存储过程的分页(SqlServer)
         /// </summary>
         /// <param name="isDoCount">如果isDoCount为True，返回总数统计Sql；否则返回分页语句Sql</param>
-        /// <param name="isSql2008">是否是Sql server2008及低版本，默认为false</param>
+        /// <param name="isSql2012">是否是Sql server2012及低版本，默认为false</param>
         /// <returns></returns>
-        private string GetSqlServerSql(bool isDoCount,bool isSql2008=false)
+        private string GetSqlServerSql(bool isDoCount,bool isSql2012=false)
         {
             string sql = "";
             if (string.IsNullOrEmpty(this.strwhere))
@@ -196,16 +196,19 @@ namespace Yuebon.Commons.Pages
                 string strOrder = string.Format(" order by {0} {1}", this.fieldNameToSort, this.isDescending ? "DESC" : "ASC");
                 int minRow = pageSize * (pageIndex - 1) + 1;
                 int maxRow = pageSize * pageIndex;
-                if (isSql2008)
+                if (isSql2012)
                 {
                     sql = string.Format("SELECT * FROM ( SELECT ROW_NUMBER() OVER (order by {0}) AS rows ,{1} FROM {2} where {3}) AS main_temp where rows BETWEEN {4} and {5}", strOrder, fieldsToReturn, TableOrSqlWrapper, strwhere, minRow, maxRow);
                 }
                 else
                 {
-                    sql = string.Format(@"With Paging AS
-                ( SELECT ROW_NUMBER() OVER ({0}) as RowNumber, {1} FROM {2} Where {3})
-                SELECT * FROM Paging WHERE RowNumber Between {4} and {5}", strOrder, this.fieldsToReturn, this.TableOrSqlWrapper, this.strwhere,
-                    minRow, maxRow);
+                //    sql = string.Format(@"With Paging AS
+                //( SELECT ROW_NUMBER() OVER ({0}) as RowNumber, {1} FROM {2} Where {3})
+                //SELECT * FROM Paging WHERE RowNumber Between {4} and {5}", strOrder, this.fieldsToReturn, this.TableOrSqlWrapper, this.strwhere,
+                //    minRow, maxRow);
+
+                    sql = String.Format("SELECT * FROM {0} WHERE {1} order by {2} {3} offset (({4} - 1) * {5}) rows fetch next {5} rows only;", this.TableOrSqlWrapper, this.strwhere
+                        ,this.fieldNameToSort, this.isDescending ? "DESC" : "ASC", pageIndex,pageSize);
                 }
             }
 

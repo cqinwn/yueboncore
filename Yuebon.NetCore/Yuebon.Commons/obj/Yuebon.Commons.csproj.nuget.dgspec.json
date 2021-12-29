@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj": {
-      "version": "1.3.2.3",
+      "version": "1.3.2.5",
       "restore": {
         "projectUniqueName": "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj",
         "projectName": "Yuebon.Commons",
@@ -50,15 +50,11 @@
             },
             "CSRedisCore": {
               "target": "Package",
-              "version": "[3.6.6, )"
+              "version": "[3.6.8, )"
             },
-            "Dapper": {
+            "Dapper.StrongName": {
               "target": "Package",
               "version": "[2.0.123, )"
-            },
-            "Dapper.SqlBuilder": {
-              "target": "Package",
-              "version": "[2.0.78, )"
             },
             "DotNetCore.NPOI": {
               "target": "Package",
@@ -74,23 +70,23 @@
             },
             "Microsoft.Data.Sqlite": {
               "target": "Package",
-              "version": "[6.0.0, )"
+              "version": "[6.0.1, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[6.0.0, )"
+              "version": "[6.0.1, )"
             },
             "Microsoft.EntityFrameworkCore.Relational": {
               "target": "Package",
-              "version": "[6.0.0, )"
+              "version": "[6.0.1, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[6.0.0, )"
+              "version": "[6.0.1, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[6.0.0, )"
+              "version": "[6.0.1, )"
             },
             "Microsoft.Extensions.Caching.Memory": {
               "target": "Package",
@@ -98,7 +94,7 @@
             },
             "Microsoft.Extensions.Caching.StackExchangeRedis": {
               "target": "Package",
-              "version": "[6.0.0, )"
+              "version": "[6.0.1, )"
             },
             "Microsoft.Extensions.Configuration": {
               "target": "Package",
@@ -158,7 +154,7 @@
             },
             "QRCoder": {
               "target": "Package",
-              "version": "[1.4.2, )"
+              "version": "[1.4.3, )"
             },
             "Quartz": {
               "target": "Package",
@@ -208,7 +204,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

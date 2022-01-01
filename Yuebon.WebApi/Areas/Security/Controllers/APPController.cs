@@ -159,6 +159,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 result.ErrMsg = ErrCode.err43002;
                 result.ErrCode = "43002";
             }
+            MemoryCacheHelper.Set("cacheAppList", iService.GetAll().ToList());
             return ToJsonContent(result);
         }
     }

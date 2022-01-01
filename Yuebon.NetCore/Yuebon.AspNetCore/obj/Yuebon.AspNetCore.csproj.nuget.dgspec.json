@@ -46,7 +46,7 @@
           "dependencies": {
             "IdentityModel": {
               "target": "Package",
-              "version": "[5.2.0, )"
+              "version": "[6.0.0, )"
             },
             "Microsoft.AspNetCore.Authorization": {
               "target": "Package",
@@ -57,6 +57,10 @@
               "version": "[6.0.1, )"
             },
             "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Microsoft.Extensions.Diagnostics.HealthChecks": {
               "target": "Package",
               "version": "[6.0.1, )"
             },

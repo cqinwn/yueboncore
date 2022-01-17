@@ -104,18 +104,18 @@ namespace Yuebon.AspNetCore.Mvc
                         }
                         secret = list.Find(o => o.AppId == appId)?.AppSecret;
                         var keyByteArray = Encoding.UTF8.GetBytes(secret);
-                        new JwtSecurityTokenHandler().ValidateToken(token, new TokenValidationParameters()
-                        {
-                            RequireExpirationTime = true,//RequireExpirationTime = true, 
-                            ValidateIssuerSigningKey = true,
-                            IssuerSigningKey = new SymmetricSecurityKey(keyByteArray),
-                            ValidateAudience = true,
-                            ValidAudience = appId,
-                            ValidateIssuer = true,
-                            ValidIssuer = _jwtModel.Issuer,
-                            ValidateLifetime = true,
-                            ClockSkew = TimeSpan.Zero
-                        }, out SecurityToken validatedToken);
+                        //new JwtSecurityTokenHandler().ValidateToken(token, new TokenValidationParameters()
+                        //{
+                        //    RequireExpirationTime = true,//RequireExpirationTime = true, 
+                        //    ValidateIssuerSigningKey = true,
+                        //    IssuerSigningKey = new SymmetricSecurityKey(keyByteArray),
+                        //    ValidateAudience = true,
+                        //    ValidAudience = appId,
+                        //    ValidateIssuer = true,
+                        //    ValidIssuer = _jwtModel.Issuer,
+                        //    ValidateLifetime = true,
+                        //    ClockSkew = TimeSpan.Zero
+                        //}, out SecurityToken validatedToken);
 
                         if (jwtToken.Subject == GrantType.Password)
                         {

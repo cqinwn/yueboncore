@@ -117,10 +117,13 @@ namespace Yuebon.Security.Services
             };
             return pageResult;
         }
+        /// <summary>
+        /// 更新可用应用缓存
+        /// </summary>
         public void UpdateCacheAllowApp()
         {
             IEnumerable<APP> appList = repository.GetAllByIsNotDeleteAndEnabledMark();
-            MemoryCacheHelper.Set("AllowAppId", appList);
+            MemoryCacheHelper.Set("cacheAppList", appList);
         }
     }
 }

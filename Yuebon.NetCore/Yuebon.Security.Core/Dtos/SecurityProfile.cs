@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Yuebon.Commons.Options;
 using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Dtos
@@ -15,6 +16,7 @@ namespace Yuebon.Security.Dtos
         {
             CreateMap<APP, AppOutputDto>();
             CreateMap<APPInputDto, APP>();
+            CreateMap<APP, AllowCacheApp>();
             CreateMap<Area, AreaOutputDto>();
             CreateMap<Area, AreaPickerOutputDto>()
                 .ForMember(s=>s.label,s=>s.MapFrom(o=>o.FullName))

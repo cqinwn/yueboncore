@@ -165,11 +165,11 @@ namespace Yuebon.WebApi.Controllers
                                         TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
                                         yuebonCacheHelper.Add("login_user_" + user.Id, currentSession, expiresSliding, true);
 
-                                        List<AllowCacheApp> list = yuebonCacheHelper.Get("AllowAppId").ToJson().ToList<AllowCacheApp>();
+                                        List<AllowCacheApp> list = MemoryCacheHelper.Get<object>("cacheAppList").ToJson().ToList<AllowCacheApp>();
                                         if (list== null)
                                         {
                                             IEnumerable<APP> appList = _appService.GetAllByIsNotDeleteAndEnabledMark();
-                                            yuebonCacheHelper.Add("AllowAppId", appList);
+                                            MemoryCacheHelper.Set("cacheAppList", appList);
                                         }
                                         CurrentUser = currentSession;
                                         result.ResData = currentSession;

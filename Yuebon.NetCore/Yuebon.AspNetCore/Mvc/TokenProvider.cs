@@ -31,6 +31,7 @@ namespace Yuebon.AspNetCore.Mvc
     {
         JwtOption _jwtModel=App.GetService<JwtOption>();
         IRoleService _roleService = App.GetService<IRoleService>();
+        IAPPService _appService = App.GetService<IAPPService>();
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -97,23 +98,24 @@ namespace Yuebon.AspNetCore.Mvc
                         string appId = jwtToken.Claims.ToList()[0].Value;//Audience
                         string secret = _jwtModel.Secret;
                         List<APP> list = MemoryCacheHelper.Get<List<APP>>("cacheAppList");
-                        if (list != null)
+                        if (list.Count== 0||list==null)
                         {
-                            secret = list.Find(o => o.AppId == appId)?.AppSecret;
+                            list = _appService.GetAll().ToList();
                         }
+                        secret = list.Find(o => o.AppId == appId)?.AppSecret;
                         var keyByteArray = Encoding.UTF8.GetBytes(secret);
-                        new JwtSecurityTokenHandler().ValidateToken(token, new TokenValidationParameters()
-                        {
-                            RequireExpirationTime = true,//RequireExpirationTime = true, 
-                            ValidateIssuerSigningKey = true,
-                            IssuerSigningKey = new SymmetricSecurityKey(keyByteArray),
-                            ValidateAudience = true,
-                            ValidAudience = appId,
-                            ValidateIssuer = true,
-                            ValidIssuer = _jwtModel.Issuer,
-                            ValidateLifetime = true,
-                            ClockSkew = TimeSpan.Zero
-                        }, out SecurityToken validatedToken);
+                        //new JwtSecurityTokenHandler().ValidateToken(token, new TokenValidationParameters()
+                        //{
+                        //    RequireExpirationTime = true,//RequireExpirationTime = true, 
+                        //    ValidateIssuerSigningKey = true,
+                        //    IssuerSigningKey = new SymmetricSecurityKey(keyByteArray),
+                        //    ValidateAudience = true,
+                        //    ValidAudience = appId,
+                        //    ValidateIssuer = true,
+                        //    ValidIssuer = _jwtModel.Issuer,
+                        //    ValidateLifetime = true,
+                        //    ClockSkew = TimeSpan.Zero
+                        //}, out SecurityToken validatedToken);
 
                         if (jwtToken.Subject == GrantType.Password)
                         {
@@ -134,11 +136,13 @@ namespace Yuebon.AspNetCore.Mvc
                 }
                 catch (SecurityTokenExpiredException ex)
                 {
+                    Log4NetHelper.Error("验证token异常 SecurityTokenExpiredException", ex);
                     result.ErrMsg = ErrCode.err40005;
                     result.ErrCode = "40005";
                 }
                 catch (SecurityTokenInvalidLifetimeException ex)
                 {
+                    Log4NetHelper.Error("验证token异常 SecurityTokenInvalidLifetimeException", ex);
                     result.ErrMsg = ErrCode.err40005;
                     result.ErrCode = "40005";
                 }

@@ -42,11 +42,11 @@
           "dependencies": {
             "AutoMapper": {
               "target": "Package",
-              "version": "[10.1.1, )"
+              "version": "[11.0.1, )"
             },
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
-              "version": "[8.1.1, )"
+              "version": "[11.0.0, )"
             },
             "CSRedisCore": {
               "target": "Package",
@@ -62,7 +62,7 @@
             },
             "HtmlAgilityPack": {
               "target": "Package",
-              "version": "[1.11.39, )"
+              "version": "[1.11.42, )"
             },
             "Microsoft.AspNetCore.Mvc": {
               "target": "Package",
@@ -70,31 +70,31 @@
             },
             "Microsoft.Data.Sqlite": {
               "target": "Package",
-              "version": "[6.0.1, )"
+              "version": "[6.0.2, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[6.0.1, )"
+              "version": "[6.0.2, )"
             },
             "Microsoft.EntityFrameworkCore.Relational": {
               "target": "Package",
-              "version": "[6.0.1, )"
+              "version": "[6.0.2, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[6.0.1, )"
+              "version": "[6.0.2, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[6.0.1, )"
+              "version": "[6.0.2, )"
             },
             "Microsoft.Extensions.Caching.Memory": {
               "target": "Package",
-              "version": "[6.0.0, )"
+              "version": "[6.0.1, )"
             },
             "Microsoft.Extensions.Caching.StackExchangeRedis": {
               "target": "Package",
-              "version": "[6.0.1, )"
+              "version": "[6.0.2, )"
             },
             "Microsoft.Extensions.Configuration": {
               "target": "Package",
@@ -126,7 +126,7 @@
             },
             "MySql.Data": {
               "target": "Package",
-              "version": "[8.0.27, )"
+              "version": "[8.0.28, )"
             },
             "NPinyin.Core": {
               "target": "Package",
@@ -134,23 +134,23 @@
             },
             "Npgsql": {
               "target": "Package",
-              "version": "[6.0.1, )"
+              "version": "[6.0.3, )"
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
-              "version": "[6.0.1, )"
+              "version": "[6.0.3, )"
             },
             "Oracle.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[6.21.4, )"
+              "version": "[6.21.5, )"
             },
             "Oracle.ManagedDataAccess.Core": {
               "target": "Package",
-              "version": "[3.21.41, )"
+              "version": "[3.21.50, )"
             },
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
-              "version": "[6.0.0, )"
+              "version": "[6.0.1, )"
             },
             "QRCoder": {
               "target": "Package",
@@ -186,7 +186,7 @@
             },
             "log4net": {
               "target": "Package",
-              "version": "[2.0.13, )"
+              "version": "[2.0.14, )"
             }
           },
           "imports": [
@@ -204,7 +204,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

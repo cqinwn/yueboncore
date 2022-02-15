@@ -266,7 +266,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <returns></returns>
 
         [HttpGet("GetByUserName")]
-        [YuebonAuthorize("Edit")]
+        [YuebonAuthorize("")]
         public async Task<IActionResult> GetByUserName(string userName)
         {
             CommonResult result = new CommonResult();

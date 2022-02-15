@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Yuebon.AspNetCore.Controllers;
 using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.Commons.Helpers;
+using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Models;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.IServices;
@@ -105,6 +107,24 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 result.ErrCode = "43002";
             }
             return ToJsonContent(result);
+        }
+
+
+        /// <summary>
+        /// 获取所有可用的
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetAllEnable")]
+        [YuebonAuthorize("")]
+        public override async Task<CommonResult<List<RoleOutputDto>>> GetAllEnable()
+        {
+            CommonResult<List<RoleOutputDto>> result = new CommonResult<List<RoleOutputDto>>();
+            IEnumerable<Role> list = await iService.GetAllByIsNotDeleteAndEnabledMarkAsync();
+            List<RoleOutputDto> resultList = list.MapTo<RoleOutputDto>();
+            result.ResData = resultList;
+            result.ErrCode = ErrCode.successCode;
+            result.ErrMsg = ErrCode.err0;
+            return result;
         }
     }
 }

@@ -140,7 +140,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetAllOrganizeTreeTable")]
-        [YuebonAuthorize("List")]
+        [YuebonAuthorize("")]
         public async Task<IActionResult> GetAllOrganizeTreeTable()
         {
             CommonResult result = new CommonResult();
@@ -166,7 +166,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetAllOrganizeTree")]
-        [YuebonAuthorize("List")]
+        [YuebonAuthorize("")]
         public async Task<IActionResult> GetAllOrganizeTree()
         {
             CommonResult result = new CommonResult();

@@ -221,6 +221,10 @@ namespace Yuebon.WebApi.Controllers
         public IActionResult GetUserInfo()
         {
             CommonResult result = new CommonResult();
+            if (CurrentUser == null)
+            {
+                return Logout();
+            }
             User user = _userService.Get(CurrentUser.UserId);
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
             SystemType systemType = _systemTypeService.Get(CurrentUser.ActiveSystemId);

@@ -104,18 +104,18 @@ namespace Yuebon.AspNetCore.Mvc
                         }
                         secret = list.Find(o => o.AppId == appId)?.AppSecret;
                         var keyByteArray = Encoding.UTF8.GetBytes(secret);
-                        //new JwtSecurityTokenHandler().ValidateToken(token, new TokenValidationParameters()
-                        //{
-                        //    RequireExpirationTime = true,//RequireExpirationTime = true, 
-                        //    ValidateIssuerSigningKey = true,
-                        //    IssuerSigningKey = new SymmetricSecurityKey(keyByteArray),
-                        //    ValidateAudience = true,
-                        //    ValidAudience = appId,
-                        //    ValidateIssuer = true,
-                        //    ValidIssuer = _jwtModel.Issuer,
-                        //    ValidateLifetime = true,
-                        //    ClockSkew = TimeSpan.Zero
-                        //}, out SecurityToken validatedToken);
+                        new JwtSecurityTokenHandler().ValidateToken(token, new TokenValidationParameters()
+                        {
+                            RequireExpirationTime = true,//token是否包含有效期 
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = new SymmetricSecurityKey(keyByteArray),// 生成token时的安全秘钥
+                            ValidateAudience = true,// 验证秘钥的接受人，如果要验证在这里提供接收人字符串即可
+                            ValidAudience = appId,
+                            ValidateIssuer = true,// 验证秘钥发行人，如果要验证在这里指定发行人字符串即可
+                            ValidIssuer = _jwtModel.Issuer,
+                            ValidateLifetime = true,
+                            ClockSkew = TimeSpan.Zero
+                        }, out SecurityToken validatedToken);
 
                         if (jwtToken.Subject == GrantType.Password)
                         {
@@ -149,7 +149,9 @@ namespace Yuebon.AspNetCore.Mvc
                 catch (Exception ex)
                 {
                     Log4NetHelper.Error("验证token异常", ex);
-                    throw new MyApiException(ErrCode.err40004, "40004");
+                    result.ErrMsg = ErrCode.err40004;
+                    result.ErrCode = "40004";
+                    //throw new MyApiException(ErrCode.err40004, "40004");
                 }
             }
             else

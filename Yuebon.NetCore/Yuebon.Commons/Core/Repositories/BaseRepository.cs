@@ -38,7 +38,10 @@ namespace Yuebon.Commons.Repositories
         ///  EF DBContext
         /// </summary>
         public IDbContextCore _dbContext;
-        private IDbContextFactory _dbContextFactory;
+        /// <summary>
+        /// 上下文工厂
+        /// </summary>
+        public IDbContextFactory _dbContextFactory;
 
         /// <summary>
         /// 获取访问数据库配置
@@ -972,7 +975,7 @@ namespace Yuebon.Commons.Repositories
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
         public virtual async Task<bool> UpdateAsync(T entity, TKey primaryKey, IDbTransaction trans = null)
         {
-            return DbContext.Edit<T>(entity)>0;
+            return _dbContext.Edit<T>(entity)>0;
         }
 
         /// <summary>
@@ -1607,7 +1610,7 @@ namespace Yuebon.Commons.Repositories
         /// </summary>
         public virtual IDbContextCore DbContext
         {
-            get { return _dbContext; }
+            get { return _dbContext;}
         }
 
         /// <summary>
@@ -1617,7 +1620,13 @@ namespace Yuebon.Commons.Repositories
         {
             get { return _dbContextFactory.CreateContext<T>(WriteAndReadEnum.Read); }
         }
-
+        /// <summary>
+        /// EF 上下文接口，仅写
+        /// </summary>
+        public virtual IDbContextCore DbContextWrite
+        {
+            get { return _dbContextFactory.CreateContext<T>(WriteAndReadEnum.Write); }
+        }
         #region 新增
         /// <summary>
         /// 新增实体

@@ -13,7 +13,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
     /// </summary>
     [ApiController]
     [Route("api/Security/[controller]")]
-    public class DbBackupController : AreaApiController<DbBackup, DbBackupOutputDto, DbBackupInputDto, IDbBackupService, string>
+    public class DbBackupController : AreaApiController<DbBackup, DbBackupOutputDto, DbBackupInputDto, IDbBackupService>
     {
         /// <summary>
         /// 构造函数

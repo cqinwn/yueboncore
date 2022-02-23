@@ -10,7 +10,7 @@ namespace Yuebon.Security.IServices
     /// <summary>
     /// 定义单据编码服务接口
     /// </summary>
-    public interface ISequenceService:IService<Sequence,SequenceOutputDto, string>
+    public interface ISequenceService:IService<Sequence,SequenceOutputDto>
     {
         /// <summary>
         /// 获取最新业务单据编码

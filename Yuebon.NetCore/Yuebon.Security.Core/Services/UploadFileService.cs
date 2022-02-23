@@ -17,7 +17,7 @@ namespace Yuebon.Security.Services
     /// <summary>
     /// 
     /// </summary>
-    public class UploadFileService : BaseService<UploadFile, UploadFileOutputDto, string>, IUploadFileService
+    public class UploadFileService : BaseService<UploadFile, UploadFileOutputDto>, IUploadFileService
     {
         private readonly IUploadFileRepository _uploadFileRepository;
         private readonly ILogService _logService;

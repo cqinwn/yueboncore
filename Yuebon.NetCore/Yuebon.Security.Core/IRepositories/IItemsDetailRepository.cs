@@ -4,7 +4,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.IRepositories
 {
-    public interface IItemsDetailRepository:IRepository<ItemsDetail, string>
+    public interface IItemsDetailRepository:IRepository<ItemsDetail>
     {
     }
 }

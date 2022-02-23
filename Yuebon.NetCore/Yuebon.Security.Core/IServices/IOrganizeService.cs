@@ -13,7 +13,7 @@ namespace Yuebon.Security.IServices
     /// <summary>
     /// 组织机构
     /// </summary>
-    public interface IOrganizeService:IService<Organize, OrganizeOutputDto, string>
+    public interface IOrganizeService:IService<Organize, OrganizeOutputDto>
     {
 
         /// <summary>

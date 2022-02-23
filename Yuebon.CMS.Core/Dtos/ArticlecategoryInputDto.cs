@@ -13,7 +13,7 @@ namespace Yuebon.CMS.Dtos
     /// </summary>
     [AutoMap(typeof(Articlecategory))]
     [Serializable]
-    public class ArticlecategoryInputDto: IInputDto<string>
+    public class ArticlecategoryInputDto: IInputDto
     {
         /// <summary>
         /// 设置或获取主键

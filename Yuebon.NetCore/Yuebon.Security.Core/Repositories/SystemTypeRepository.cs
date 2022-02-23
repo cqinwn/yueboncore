@@ -13,7 +13,7 @@ namespace Yuebon.Security.Repositories
     /// <summary>
     /// 系统类型，也是子系统
     /// </summary>
-    public class SystemTypeRepository : BaseRepository<SystemType, string>, ISystemTypeRepository
+    public class SystemTypeRepository : BaseRepository<SystemType>, ISystemTypeRepository
     {
         public SystemTypeRepository()
         {

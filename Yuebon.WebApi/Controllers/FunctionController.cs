@@ -23,7 +23,7 @@ namespace Yuebon.WebApi.Controllers
     [ApiController]
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class FunctionController: AreaApiController<Menu, MenuOutputDto, MenuInputDto, IMenuService, string>
+    public class FunctionController: AreaApiController<Menu, MenuOutputDto, MenuInputDto, IMenuService>
     {
         /// <summary>
         /// 

@@ -6,7 +6,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.IServices
 {
-    public interface IRoleDataService:IService<RoleData, RoleDataOutputDto, string>
+    public interface IRoleDataService:IService<RoleData, RoleDataOutputDto>
     {
 
         /// <summary>

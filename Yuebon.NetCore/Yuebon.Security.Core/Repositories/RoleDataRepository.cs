@@ -12,7 +12,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Repositories
 {
-    public class RoleDataRepository : BaseRepository<RoleData, string>, IRoleDataRepository
+    public class RoleDataRepository : BaseRepository<RoleData>, IRoleDataRepository
     {
 		public RoleDataRepository()
         {
@@ -40,7 +40,7 @@ namespace Yuebon.Security.Repositories
             {
                 bool isClosed = connection.State == ConnectionState.Closed;
                 if (isClosed) connection.Open();
-                IEnumerable<String> resultList = connection.Query<String>(sql);
+                IEnumerable<string> resultList = connection.Query<string>(sql);
                 return resultList.ToList();
             }
         }

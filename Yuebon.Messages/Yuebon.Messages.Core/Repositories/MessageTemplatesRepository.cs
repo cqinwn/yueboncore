@@ -13,7 +13,7 @@ namespace Yuebon.Messages.Repositories
     /// <summary>
     /// 仓储接口的实现
     /// </summary>
-    public class MessageTemplatesRepository : BaseRepository<MessageTemplates, string>, IMessageTemplatesRepository
+    public class MessageTemplatesRepository : BaseRepository<MessageTemplates>, IMessageTemplatesRepository
     {
 		public MessageTemplatesRepository()
         {

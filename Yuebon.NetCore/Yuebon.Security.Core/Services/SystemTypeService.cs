@@ -16,7 +16,7 @@ namespace Yuebon.Security.Services
     /// <summary>
     /// 
     /// </summary>
-    public class SystemTypeService : BaseService<SystemType, SystemTypeOutputDto, string>, ISystemTypeService
+    public class SystemTypeService : BaseService<SystemType, SystemTypeOutputDto>, ISystemTypeService
     {
         private readonly ISystemTypeRepository _repository;
         private readonly IRoleAuthorizeService roleAuthorizeService;

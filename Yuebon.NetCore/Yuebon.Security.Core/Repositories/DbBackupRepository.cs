@@ -5,7 +5,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Repositories
 {
-    public class DbBackupRepository : BaseRepository<DbBackup, string>, IDbBackupRepository
+    public class DbBackupRepository : BaseRepository<DbBackup>, IDbBackupRepository
     {
         public DbBackupRepository()
         {

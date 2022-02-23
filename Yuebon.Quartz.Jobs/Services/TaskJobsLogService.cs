@@ -15,7 +15,7 @@ namespace Yuebon.Quartz.Services
     /// <summary>
     /// 定时任务执行日志服务接口实现
     /// </summary>
-    public class TaskJobsLogService: BaseService<TaskJobsLog,TaskJobsLogOutputDto, string>, ITaskJobsLogService
+    public class TaskJobsLogService: BaseService<TaskJobsLog,TaskJobsLogOutputDto>, ITaskJobsLogService
     {
 		private readonly ITaskJobsLogRepository _repository;
         private readonly ILogService _logService;

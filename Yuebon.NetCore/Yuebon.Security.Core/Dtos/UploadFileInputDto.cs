@@ -13,7 +13,7 @@ namespace Yuebon.Security.Dtos
     /// </summary>
     [AutoMap(typeof(UploadFile))]
     [Serializable]
-    public class UploadFileInputDto: IInputDto<string>
+    public class UploadFileInputDto: IInputDto
     {
         /// <summary>
         /// 设置或获取 

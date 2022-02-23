@@ -12,7 +12,7 @@ namespace Yuebon.Security.IRepositories
     /// <summary>
     /// 
     /// </summary>
-    public interface IUserRepository:IRepository<User, string>
+    public interface IUserRepository:IRepository<User>
     {
         /// <summary>
         /// 根据用户账号查询用户信息

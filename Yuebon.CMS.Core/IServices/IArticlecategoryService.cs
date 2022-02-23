@@ -13,7 +13,7 @@ namespace Yuebon.CMS.IServices
     /// <summary>
     /// 定义文章分类服务接口
     /// </summary>
-    public interface IArticlecategoryService:IService<Articlecategory,ArticlecategoryOutputDto, string>
+    public interface IArticlecategoryService:IService<Articlecategory,ArticlecategoryOutputDto>
     {
 
         /// <summary>

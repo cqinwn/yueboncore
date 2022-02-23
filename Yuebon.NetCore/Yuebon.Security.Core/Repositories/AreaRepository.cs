@@ -5,7 +5,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Repositories
 {
-    public class AreaRepository : BaseRepository<Area, string>, IAreaRepository
+    public class AreaRepository : BaseRepository<Area>, IAreaRepository
     {
         public AreaRepository()
         {

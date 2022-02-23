@@ -11,7 +11,7 @@ namespace Yuebon.Messages.Services
     /// <summary>
     /// 服务接口实现
     /// </summary>
-    public class MessageMailBoxService: BaseService<MessageMailBox,MessageMailBoxOutputDto, string>, IMessageMailBoxService
+    public class MessageMailBoxService: BaseService<MessageMailBox,MessageMailBoxOutputDto>, IMessageMailBoxService
     {
 		private readonly IMessageMailBoxRepository _repository;
         private readonly ILogService _logService;

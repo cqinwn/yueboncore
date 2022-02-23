@@ -13,7 +13,7 @@ namespace Yuebon.Security.Dtos
     /// </summary>
     [AutoMap(typeof(ItemsDetail))]
     [Serializable]
-    public class ItemsDetailInputDto: IInputDto<string>
+    public class ItemsDetailInputDto: IInputDto
     {
         /// <summary>
         /// 设置或获取 

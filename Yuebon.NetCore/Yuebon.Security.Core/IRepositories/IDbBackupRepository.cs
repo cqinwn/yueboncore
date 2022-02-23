@@ -4,7 +4,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.IRepositories
 {
-    public interface IDbBackupRepository:IRepository<DbBackup, string>
+    public interface IDbBackupRepository:IRepository<DbBackup>
     {
     }
 }

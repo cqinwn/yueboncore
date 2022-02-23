@@ -10,7 +10,7 @@ namespace Yuebon.Tenants.Dtos
     /// </summary>
     [AutoMap(typeof(Tenant))]
     [Serializable]
-    public class TenantInputDto: IInputDto<string>
+    public class TenantInputDto: IInputDto
     {
         /// <summary>
         /// 设置或获取 

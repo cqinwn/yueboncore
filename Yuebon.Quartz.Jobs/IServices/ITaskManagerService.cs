@@ -10,7 +10,7 @@ namespace Yuebon.Quartz.IServices
     /// <summary>
     /// 定义定时任务服务接口
     /// </summary>
-    public interface ITaskManagerService:IService<TaskManager,TaskManagerOutputDto, string>
+    public interface ITaskManagerService:IService<TaskManager,TaskManagerOutputDto>
     {
         /// <summary>
         /// 记录任务运行结果

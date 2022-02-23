@@ -12,7 +12,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Services
 {
-    public class RoleService: BaseService<Role, RoleOutputDto, string>, IRoleService
+    public class RoleService: BaseService<Role, RoleOutputDto>, IRoleService
     {
         private  IRoleRepository _repository;
         private  ILogService _logService;

@@ -9,7 +9,7 @@ namespace Yuebon.Messages.Models
     /// </summary>
     [Table("Sys_MessageTemplates")]
     [Serializable]
-    public class MessageTemplates:BaseEntity<string>
+    public class MessageTemplates:BaseEntity
     {
         /// <summary>
         /// 设置或获取 

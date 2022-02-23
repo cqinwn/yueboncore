@@ -14,7 +14,7 @@ namespace Yuebon.Security.Services
     /// <summary>
     /// 
     /// </summary>
-    public class ItemsDetailService: BaseService<ItemsDetail, ItemsDetailOutputDto, string>, IItemsDetailService
+    public class ItemsDetailService: BaseService<ItemsDetail, ItemsDetailOutputDto>, IItemsDetailService
     {
         private readonly IItemsDetailRepository _repository;
         private readonly ILogService _logService;

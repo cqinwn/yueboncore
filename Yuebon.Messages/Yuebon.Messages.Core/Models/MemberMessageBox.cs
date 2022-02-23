@@ -9,7 +9,7 @@ namespace Yuebon.Messages.Models
     /// </summary>
     [Table("Sys_MemberMessageBox")]
     [Serializable]
-    public class MemberMessageBox:BaseEntity<string>
+    public class MemberMessageBox:BaseEntity
     {
         /// <summary>
         /// 设置或获取消息内容Id

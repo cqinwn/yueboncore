@@ -14,7 +14,7 @@ namespace Yuebon.Security.Dtos
     /// </summary>
     [AutoMap(typeof(Log))]
     [Serializable]
-    public class LogInputDto: IInputDto<string>
+    public class LogInputDto: IInputDto
     {
         /// <summary>
         /// 设置或获取 

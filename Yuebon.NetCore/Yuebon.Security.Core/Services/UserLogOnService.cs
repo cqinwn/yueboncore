@@ -9,7 +9,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Services
 {
-    public class UserLogOnService: BaseService<UserLogOn, UserLogOnOutputDto, string>, IUserLogOnService
+    public class UserLogOnService: BaseService<UserLogOn, UserLogOnOutputDto>, IUserLogOnService
     {
         private readonly IUserLogOnRepository _userLogOnRepository;
         private readonly ILogService _logService;

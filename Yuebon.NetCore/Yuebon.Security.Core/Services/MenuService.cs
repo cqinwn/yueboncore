@@ -18,7 +18,7 @@ namespace Yuebon.Security.Services
     /// <summary>
     /// ²Ëµ¥
     /// </summary>
-    public class MenuService: BaseService<Menu, MenuOutputDto, string>, IMenuService
+    public class MenuService: BaseService<Menu, MenuOutputDto>, IMenuService
     {
         private readonly IMenuRepository _MenuRepository;
         private readonly IUserRepository userRepository;

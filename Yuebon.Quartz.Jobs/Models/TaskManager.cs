@@ -11,7 +11,7 @@ namespace Yuebon.Quartz.Models
     /// </summary>
     [Table("Sys_TaskManager")]
     [Serializable]
-    public class TaskManager:BaseEntity<string>, ICreationAudited, IModificationAudited, IDeleteAudited
+    public class TaskManager:BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited
     {
         /// <summary>
         /// 构造函数

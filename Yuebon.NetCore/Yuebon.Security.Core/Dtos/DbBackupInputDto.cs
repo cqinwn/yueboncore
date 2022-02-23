@@ -13,7 +13,7 @@ namespace Yuebon.Security.Dtos
     /// </summary>
     [AutoMap(typeof(DbBackup))]
     [Serializable]
-    public class DbBackupInputDto: IInputDto<string>
+    public class DbBackupInputDto: IInputDto
     {
         /// <summary>
         /// 设置或获取 

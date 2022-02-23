@@ -1,45 +1,47 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
+using Yuebon.Commons.Models;
 
 namespace Yuebon.Commons.Models
 {
     /// <summary>
-    /// 定义领域对象框架实体类的基类，系统默认主键为Id
+    /// long型主键实体
     /// </summary>
-
-    [Serializable]
-    public abstract class BaseEntity:Entity,IBaseEntity
+    public class LongEntity : Entity
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        protected BaseEntity()
-        {
-        }
-
         /// <summary>
         /// 获取或设置 编号
         /// </summary>
         [DisplayName("编号")]
         [Key]
-        [Column("Id")]
+        [Column("Id",TypeName ="bigint")]
         [Comment("主键")]
         [MaxLength(50)]
-        public virtual string Id { get; set; }
-
+        public virtual long Id { get; set; }
 
         /// <summary>
-        /// 判断主键是否为空
+        /// 生成默认主键值
+        /// </summary>
+        public override void GenerateDefaultKeyVal()
+        {
+            Id = IdGeneratorHelper.IdSnowflake();
+        }
+        /// <summary>
+        /// 主键是否为空
         /// </summary>
         /// <returns></returns>
         public override bool KeyIsNull()
         {
-            if (Id == null)
+            if (Id>0)
             {
                 return true;
             }
@@ -47,14 +49,6 @@ namespace Yuebon.Commons.Models
             {
                 return string.IsNullOrEmpty(Id.ToString());
             }
-        }
-
-        /// <summary>
-        /// 创建默认的主键值
-        /// </summary>
-        public override void GenerateDefaultKeyVal()
-        {
-           Id = GuidUtils.CreateNo();
         }
     }
 }

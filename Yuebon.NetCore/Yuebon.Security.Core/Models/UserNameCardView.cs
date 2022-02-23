@@ -15,7 +15,7 @@ namespace Yuebon.Security.Models
     [Table("Sys_Vw_NameCard")]
     [Serializable]
     [NotMapped]
-    public class UserNameCardView : BaseEntity<string>
+    public class UserNameCardView : BaseEntity
     { 
         /// <summary>
         /// 默认构造函数（需要初始化属性的在此处理）

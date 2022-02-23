@@ -9,7 +9,7 @@ namespace Yuebon.Messages.Models
     /// </summary>
     [Table("Sys_MessageMailBox")]
     [Serializable]
-    public class MessageMailBox:BaseEntity<string>, ICreationAudited, IModificationAudited, IDeleteAudited
+    public class MessageMailBox:BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited
     {
         /// <summary>
         /// 设置或获取 

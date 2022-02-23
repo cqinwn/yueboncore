@@ -15,8 +15,7 @@ namespace Yuebon.Commons.IRepositories
     /// 定义泛型接口,实体仓储模型的数据标准操作
     /// </summary>
     /// <typeparam name="T">实体类型</typeparam>
-    /// <typeparam name="TKey">主键类型</typeparam>
-    public interface IRepository<T, TKey>:IDisposable where T : Entity
+    public interface IRepository<T>:IDisposable where T : Entity
     {
         #region dapper 操作
 
@@ -67,7 +66,7 @@ namespace Yuebon.Commons.IRepositories
         /// <param name="primaryKey">主键</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        bool Delete(TKey primaryKey, IDbTransaction trans=null);
+        bool Delete(object primaryKey, IDbTransaction trans=null);
 
         /// <summary>
         /// 异步物理删除实体。
@@ -75,7 +74,7 @@ namespace Yuebon.Commons.IRepositories
         /// <param name="primaryKey">主键</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        Task<bool> DeleteAsync(TKey primaryKey, IDbTransaction trans=null);
+        Task<bool> DeleteAsync(object primaryKey, IDbTransaction trans=null);
 
         /// <summary>
         /// 按主键批量删除
@@ -112,7 +111,7 @@ namespace Yuebon.Commons.IRepositories
         /// <param name="primaryKey">主键ID</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        bool Update(T entity, TKey primaryKey, IDbTransaction trans = null);
+        bool Update(T entity, object primaryKey, IDbTransaction trans = null);
 
         /// <summary>
         /// 异步更新实体。
@@ -121,7 +120,7 @@ namespace Yuebon.Commons.IRepositories
         /// <param name="primaryKey">主键ID</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        Task<bool> UpdateAsync(T entity, TKey primaryKey, IDbTransaction trans = null);
+        Task<bool> UpdateAsync(T entity, object primaryKey, IDbTransaction trans = null);
 
         #endregion
 
@@ -174,7 +173,7 @@ namespace Yuebon.Commons.IRepositories
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        bool DeleteSoft(bool bl, TKey primaryKey,string userId=null, IDbTransaction trans=null);
+        bool DeleteSoft(bool bl, object primaryKey,string userId=null, IDbTransaction trans=null);
 
         /// <summary>
         /// 异步软删除信息，将DeleteMark设置为1-删除，0-恢复删除
@@ -184,7 +183,7 @@ namespace Yuebon.Commons.IRepositories
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        Task<bool> DeleteSoftAsync(bool bl, TKey primaryKey, string userId = null, IDbTransaction trans=null);
+        Task<bool> DeleteSoftAsync(bool bl, object primaryKey, string userId = null, IDbTransaction trans=null);
 
         /// <summary>
         /// 异步批量软删除信息，将DeleteMark设置为1-删除，0-恢复删除
@@ -207,7 +206,7 @@ namespace Yuebon.Commons.IRepositories
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        bool SetEnabledMark(bool bl, TKey primaryKey, string userId = null, IDbTransaction trans=null);
+        bool SetEnabledMark(bool bl, object primaryKey, string userId = null, IDbTransaction trans=null);
 
         /// <summary>
         /// 异步设置数据有效性，将EnabledMark设置为1:有效，0-为无效
@@ -217,7 +216,7 @@ namespace Yuebon.Commons.IRepositories
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        Task<bool> SetEnabledMarkAsync(bool bl, TKey primaryKey, string userId = null, IDbTransaction trans=null);
+        Task<bool> SetEnabledMarkAsync(bool bl, object primaryKey, string userId = null, IDbTransaction trans=null);
 
 
         /// <summary>
@@ -253,14 +252,14 @@ namespace Yuebon.Commons.IRepositories
         /// </summary>
         /// <param name="primaryKey">主键</param>
         /// <returns></returns>
-        T Get(TKey primaryKey);
+        T Get(object primaryKey);
 
         /// <summary>
         /// 异步查询单个实体。
         /// </summary>
         /// <param name="primaryKey">主键</param>
         /// <returns></returns>
-        Task<T> GetAsync(TKey primaryKey);
+        Task<T> GetAsync(object primaryKey);
 
         /// <summary>
         /// 同步查询单个实体。
@@ -612,7 +611,7 @@ namespace Yuebon.Commons.IRepositories
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        int Delete(TKey key);
+        int Delete(object key);
         /// <summary>
         /// 执行删除数据Sql语句
         /// </summary>
@@ -640,7 +639,7 @@ namespace Yuebon.Commons.IRepositories
         /// <param name="model">数据实体</param>
         /// <param name="updateColumns">指定字段</param>
         /// <returns></returns>
-        int Update(T model, params string[] updateColumns);
+        int UpdateColumns(T model, params string[] updateColumns);
         /// <summary>
         /// 执行更新数据的Sql语句
         /// </summary>
@@ -681,13 +680,13 @@ namespace Yuebon.Commons.IRepositories
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        T GetSingle(TKey key);
+        T GetSingle(object key);
         /// <summary>
         ///  根据主键获取实体。建议：如需使用Include和ThenInclude请重载此方法。
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        Task<T> GetSingleAsync(TKey key);
+        Task<T> GetSingleAsync(object key);
         /// <summary>
         /// 获取单个实体。建议：如需使用Include和ThenInclude请重载此方法。
         /// </summary>

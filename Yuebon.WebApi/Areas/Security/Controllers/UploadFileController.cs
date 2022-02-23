@@ -22,7 +22,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
     /// </summary>
     [Route("api/Security/[controller]")]
     [ApiController]
-    public class UploadFileController : AreaApiController<UploadFile, UploadFileOutputDto, UploadFileInputDto, IUploadFileService, string>
+    public class UploadFileController : AreaApiController<UploadFile, UploadFileOutputDto, UploadFileInputDto, IUploadFileService>
     {
         /// <summary>
         /// 

@@ -14,7 +14,7 @@ namespace Yuebon.Quartz.Dtos
     /// </summary>
     [AutoMap(typeof(TaskJobsLog))]
     [Serializable]
-    public class TaskJobsLogInputDto: IInputDto<string>
+    public class TaskJobsLogInputDto: IInputDto
     {
         /// <summary>
         /// 设置或获取 

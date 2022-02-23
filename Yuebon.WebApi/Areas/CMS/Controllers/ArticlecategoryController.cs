@@ -23,7 +23,7 @@ namespace Yuebon.WebApi.Areas.CMS.Controllers
     /// </summary>
     [ApiController]
     [Route("api/CMS/[controller]")]
-    public class ArticlecategoryController : AreaApiController<Articlecategory, ArticlecategoryOutputDto,ArticlecategoryInputDto,IArticlecategoryService,string>
+    public class ArticlecategoryController : AreaApiController<Articlecategory, ArticlecategoryOutputDto,ArticlecategoryInputDto,IArticlecategoryService>
     {
         /// <summary>
         /// 构造函数

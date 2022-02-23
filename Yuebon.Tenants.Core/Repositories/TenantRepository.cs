@@ -14,7 +14,7 @@ namespace Yuebon.Tenants.Repositories
     /// <summary>
     /// 租户仓储接口的实现
     /// </summary>
-    public class TenantRepository : BaseRepository<Tenant, string>, ITenantRepository
+    public class TenantRepository : BaseRepository<Tenant>, ITenantRepository
     {
 		public TenantRepository()
         {

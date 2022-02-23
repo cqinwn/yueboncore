@@ -926,7 +926,7 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
             CommonResult result = new CommonResult();
             try
             {
-                var fileDic = new Dictionary<string, string>();
+                var fileDic = new Dictionary<string,string>();
                 WxJsonResult res = WxAppApi.ImgSecCheck(WxOpenAppId, filePath);
                 if (res.errcode == ReturnCode.请求成功)
                 {

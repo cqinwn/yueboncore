@@ -20,7 +20,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
     /// </summary>
     [ApiController]
     [Route("api/Security/[controller]")]
-    public class APPController : AreaApiController<APP, AppOutputDto, APPInputDto, IAPPService,string>
+    public class APPController : AreaApiController<APP, AppOutputDto, APPInputDto, IAPPService>
     {
         /// <summary>
         /// 构造函数

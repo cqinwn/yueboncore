@@ -139,7 +139,7 @@ namespace Yuebon.WebApi.Controllers
                             }
                             else
                             {
-                                Tuple<User, string> userLogin = await this._userService.Validate(username, password);
+                                Tuple<User,string> userLogin = await this._userService.Validate(username, password);
                                 if (userLogin != null)
                                 {
                                     string ipAddressName = IpAddressUtil.GetCityByIp(strIp);
@@ -354,7 +354,7 @@ namespace Yuebon.WebApi.Controllers
                             }
                             else
                             {
-                                Tuple<User, string> userLogin = await this._userService.Validate(username, password);
+                                Tuple<User,string> userLogin = await this._userService.Validate(username, password);
                                 if (userLogin != null)
                                 {
 

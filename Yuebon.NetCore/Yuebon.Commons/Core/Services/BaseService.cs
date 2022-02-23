@@ -25,23 +25,21 @@ namespace Yuebon.Commons.Services
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="TODto"></typeparam>
-    /// <typeparam name="TKey"></typeparam>
-    public abstract class BaseService<T, TODto, TKey> : IService<T, TODto, TKey>, ITransientDependency
+    public abstract class BaseService<T, TODto> : IService<T, TODto>, ITransientDependency
         where T : Entity
         where TODto : class
-        where TKey : IEquatable<TKey>
     {
         private readonly IHttpContextAccessor _accessor;
         /// <summary>
         /// 
         /// </summary>
-        protected IRepository<T, TKey> repository;
+        protected IRepository<T> repository;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="iRepository"></param>
-        protected BaseService(IRepository<T, TKey> iRepository)
+        protected BaseService(IRepository<T> iRepository)
         {
             repository = iRepository;
         }
@@ -50,7 +48,7 @@ namespace Yuebon.Commons.Services
         /// </summary>
         /// <param name="iRepository"></param>
         /// <param name="accessor"></param>
-        protected BaseService(IRepository<T, TKey> iRepository, IHttpContextAccessor accessor)
+        protected BaseService(IRepository<T> iRepository, IHttpContextAccessor accessor)
         {
             _accessor = accessor;
             repository = iRepository;
@@ -72,7 +70,7 @@ namespace Yuebon.Commons.Services
         /// <param name="id">主键</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual bool Delete(TKey id, IDbTransaction trans = null)
+        public virtual bool Delete(object id, IDbTransaction trans = null)
         {
             return repository.Delete(id, trans);
         }
@@ -83,7 +81,7 @@ namespace Yuebon.Commons.Services
         /// <param name="id">主键</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual Task<bool> DeleteAsync(TKey id, IDbTransaction trans = null)
+        public virtual Task<bool> DeleteAsync(object id, IDbTransaction trans = null)
         {
             return repository.DeleteAsync(id, trans);
         }
@@ -141,7 +139,7 @@ namespace Yuebon.Commons.Services
         /// <param name="userId">操作用户</param>
         /// <param name="trans"></param>
         /// <returns></returns>
-        public virtual bool DeleteSoft(bool bl, TKey id, string userId, IDbTransaction trans = null)
+        public virtual bool DeleteSoft(bool bl, object id, string userId, IDbTransaction trans = null)
         {
             return repository.DeleteSoft(bl, id, userId, trans);
         }
@@ -154,7 +152,7 @@ namespace Yuebon.Commons.Services
         /// <param name="userId">操作用户</param>
         /// <param name="trans"></param>
         /// <returns></returns>
-        public virtual async Task<bool> DeleteSoftAsync(bool bl, TKey id, string userId, IDbTransaction trans = null)
+        public virtual async Task<bool> DeleteSoftAsync(bool bl, object id, string userId, IDbTransaction trans = null)
         {
             return await repository.DeleteSoftAsync(bl, id, userId, trans);
         }
@@ -175,7 +173,7 @@ namespace Yuebon.Commons.Services
         /// </summary>
         /// <param name="id">主键</param>
         /// <returns></returns>
-        public virtual T Get(TKey id)
+        public virtual T Get(object id)
         {
             return repository.Get(id);
         }
@@ -185,7 +183,7 @@ namespace Yuebon.Commons.Services
         /// </summary>
         /// <param name="id">主键</param>
         /// <returns></returns>
-        public virtual TODto GetOutDto(TKey id)
+        public virtual TODto GetOutDto(object id)
         {
             return repository.GetSingle(id).MapTo<TODto>();
         }
@@ -281,7 +279,7 @@ namespace Yuebon.Commons.Services
         /// </summary>
         /// <param name="id">主键</param>
         /// <returns></returns>
-        public virtual async Task<T> GetAsync(TKey id)
+        public virtual async Task<T> GetAsync(object id)
         {
             return await repository.GetAsync(id);
         }
@@ -290,7 +288,7 @@ namespace Yuebon.Commons.Services
         /// </summary>
         /// <param name="id">主键</param>
         /// <returns></returns>
-        public virtual async Task<TODto> GetOutDtoAsync(TKey id)
+        public virtual async Task<TODto> GetOutDtoAsync(object id)
         {
             T info = await repository.GetAsync(id);
             return info.MapTo<TODto>();
@@ -353,7 +351,7 @@ namespace Yuebon.Commons.Services
         /// <param name="id">主键ID</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual bool Update(T entity, TKey id, IDbTransaction trans = null)
+        public virtual bool Update(T entity, object id, IDbTransaction trans = null)
         {
             return repository.Update(entity, id, trans);
         }
@@ -366,7 +364,7 @@ namespace Yuebon.Commons.Services
         /// <param name="id">主键ID</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual Task<bool> UpdateAsync(T entity, TKey id, IDbTransaction trans = null)
+        public virtual Task<bool> UpdateAsync(T entity, object id, IDbTransaction trans = null)
         {
             return repository.UpdateAsync(entity, id, trans);
         }
@@ -540,7 +538,7 @@ namespace Yuebon.Commons.Services
         /// <param name="userId">操作用户</param>
         /// <param name="trans"></param>
         /// <returns></returns>
-        public virtual bool SetEnabledMark(bool bl, TKey id, string userId = null, IDbTransaction trans = null)
+        public virtual bool SetEnabledMark(bool bl, object id, string userId = null, IDbTransaction trans = null)
         {
             return repository.SetEnabledMark(bl, id, userId, trans);
         }
@@ -553,7 +551,7 @@ namespace Yuebon.Commons.Services
         /// <param name="userId">操作用户</param>
         /// <param name="trans"></param>
         /// <returns></returns>
-        public virtual async Task<bool> SetEnabledMarkAsync(bool bl, TKey id, string userId = null, IDbTransaction trans = null)
+        public virtual async Task<bool> SetEnabledMarkAsync(bool bl, object id, string userId = null, IDbTransaction trans = null)
         {
             return await repository.SetEnabledMarkAsync(bl, id, userId, trans);
         }

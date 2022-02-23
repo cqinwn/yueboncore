@@ -9,7 +9,7 @@ namespace Yuebon.Messages.Repositories
     /// <summary>
     /// 仓储接口的实现
     /// </summary>
-    public class MessageMailBoxRepository : BaseRepository<MessageMailBox, string>, IMessageMailBoxRepository
+    public class MessageMailBoxRepository : BaseRepository<MessageMailBox>, IMessageMailBoxRepository
     {
 		public MessageMailBoxRepository()
         {

@@ -151,6 +151,7 @@ namespace Yuebon.Commons.DbContextCore
                     if (modelBuilder.Model.FindEntityType(entityType) != null || entityType.Name == "Entity" || entityType.Name == "BaseEntity`1")
                         continue;
                     var table = entityType.GetCustomAttributes<TableAttribute>().FirstOrDefault();
+                    if (table == null) continue;
                     modelBuilder.Model.AddEntityType(entityType).SetTableName(table.Name);
 
                     var ientityTypes = modelBuilder.Model.FindEntityType(entityType);

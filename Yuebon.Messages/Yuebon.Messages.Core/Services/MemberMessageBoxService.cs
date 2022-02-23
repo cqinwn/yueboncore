@@ -11,7 +11,7 @@ namespace Yuebon.Messages.Services
     /// <summary>
     /// 服务接口实现
     /// </summary>
-    public class MemberMessageBoxService: BaseService<MemberMessageBox,MemberMessageBoxOutputDto, string>, IMemberMessageBoxService
+    public class MemberMessageBoxService: BaseService<MemberMessageBox,MemberMessageBoxOutputDto>, IMemberMessageBoxService
     {
 		private readonly IMemberMessageBoxRepository _repository;
         private readonly ILogService _logService;

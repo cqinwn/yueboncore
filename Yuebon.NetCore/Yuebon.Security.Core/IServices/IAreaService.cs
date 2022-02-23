@@ -9,7 +9,7 @@ namespace Yuebon.Security.IServices
     /// <summary>
     /// 
     /// </summary>
-    public interface IAreaService:IService<Area, AreaOutputDto, string>
+    public interface IAreaService:IService<Area, AreaOutputDto>
     {
 
         #region 用于uniapp下拉选项

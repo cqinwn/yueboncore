@@ -8,7 +8,7 @@ namespace Yuebon.Messages.IServices
     /// <summary>
     /// 定义服务接口
     /// </summary>
-    public interface IMemberSubscribeMsgService:IService<MemberSubscribeMsg,MemberSubscribeMsgOutputDto, string>
+    public interface IMemberSubscribeMsgService:IService<MemberSubscribeMsg,MemberSubscribeMsgOutputDto>
     {
 
         /// <summary>

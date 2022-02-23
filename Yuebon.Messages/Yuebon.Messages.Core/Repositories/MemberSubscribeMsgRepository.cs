@@ -11,7 +11,7 @@ namespace Yuebon.Messages.Repositories
     /// <summary>
     /// 仓储接口的实现
     /// </summary>
-    public class MemberSubscribeMsgRepository : BaseRepository<MemberSubscribeMsg, string>, IMemberSubscribeMsgRepository
+    public class MemberSubscribeMsgRepository : BaseRepository<MemberSubscribeMsg>, IMemberSubscribeMsgRepository
     {
 		public MemberSubscribeMsgRepository()
         {

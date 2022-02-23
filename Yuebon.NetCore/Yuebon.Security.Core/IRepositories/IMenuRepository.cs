@@ -5,7 +5,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.IRepositories
 {
-    public interface IMenuRepository:IRepository<Menu, string>
+    public interface IMenuRepository:IRepository<Menu>
     {
 
         /// <summary>

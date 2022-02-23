@@ -13,7 +13,7 @@ namespace Yuebon.Security.Dtos
     /// </summary>
     [AutoMap(typeof(SequenceRule))]
     [Serializable]
-    public class SequenceRuleInputDto: IInputDto<string>
+    public class SequenceRuleInputDto: IInputDto
     {
         /// <summary>
         /// 设置或获取 

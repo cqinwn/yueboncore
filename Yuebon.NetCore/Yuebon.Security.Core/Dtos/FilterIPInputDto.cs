@@ -13,7 +13,7 @@ namespace Yuebon.Security.Dtos
     /// </summary>
     [AutoMap(typeof(FilterIP))]
     [Serializable]
-    public class FilterIPInputDto: IInputDto<string>
+    public class FilterIPInputDto: IInputDto
     {
         /// <summary>
         /// 设置或获取 

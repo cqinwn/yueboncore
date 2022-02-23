@@ -6,7 +6,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Repositories
 {
-    public class FilterIPRepository : BaseRepository<FilterIP, string>, IFilterIPRepository
+    public class FilterIPRepository : BaseRepository<FilterIP>, IFilterIPRepository
     {
         public FilterIPRepository()
         {

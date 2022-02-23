@@ -7,7 +7,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.IServices
 {
-    public interface IItemsService:IService<Items, ItemsOutputDto, string>
+    public interface IItemsService:IService<Items, ItemsOutputDto>
     {
 
         /// <summary>

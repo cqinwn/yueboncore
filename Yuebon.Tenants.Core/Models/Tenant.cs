@@ -9,7 +9,7 @@ namespace Yuebon.Tenants.Models
     /// </summary>
     [Table("Sys_Tenant")]
     [Serializable]
-    public class Tenant:BaseEntity<string>, ICreationAudited, IModificationAudited, IDeleteAudited
+    public class Tenant:BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited
     {
 
         /// <summary>

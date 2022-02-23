@@ -22,7 +22,7 @@ namespace Yuebon.Security.Services
     /// <summary>
     /// 
     /// </summary>
-    public class UserService : BaseService<User, UserOutputDto, string>, IUserService
+    public class UserService : BaseService<User, UserOutputDto>, IUserService
     {
         private readonly IUserRepository _userRepository;
         private readonly IUserLogOnRepository _userSigninRepository;
@@ -55,7 +55,7 @@ namespace Yuebon.Security.Services
         /// <param name="userName">用户名</param>
         /// <param name="password">密码（第一次md5加密后）</param>
         /// <returns>验证成功返回用户实体，验证失败返回null|提示消息</returns>
-        public async Task<Tuple<User, string>> Validate(string userName, string password)
+        public async Task<Tuple<User,string>> Validate(string userName, string password)
         {
             var userEntity = await _userRepository.GetUserByLogin(userName);
 

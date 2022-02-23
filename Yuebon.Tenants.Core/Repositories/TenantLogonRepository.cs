@@ -10,7 +10,7 @@ namespace Yuebon.Tenants.Repositories
     /// <summary>
     /// 用户登录信息仓储接口的实现
     /// </summary>
-    public class TenantLogonRepository : BaseRepository<TenantLogon, string>, ITenantLogonRepository
+    public class TenantLogonRepository : BaseRepository<TenantLogon>, ITenantLogonRepository
     {
 		public TenantLogonRepository()
         {

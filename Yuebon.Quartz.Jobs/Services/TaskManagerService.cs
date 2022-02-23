@@ -21,7 +21,7 @@ namespace Yuebon.Quartz.Services
     /// <summary>
     /// 定时任务服务接口实现
     /// </summary>
-    public class TaskManagerService: BaseService<TaskManager,TaskManagerOutputDto, string>, ITaskManagerService, IScopedDependency
+    public class TaskManagerService: BaseService<TaskManager,TaskManagerOutputDto>, ITaskManagerService, IScopedDependency
     {
 		private readonly ITaskManagerRepository _repository;
         private readonly ILogService _logService;

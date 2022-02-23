@@ -13,7 +13,7 @@ namespace Yuebon.Security.Repositories
     /// <summary>
     /// 应用仓储实现
     /// </summary>
-    public class APPRepository : BaseRepository<APP,string>, IAPPRepository
+    public class APPRepository : BaseRepository<APP>, IAPPRepository
     {
         public APPRepository()
         {

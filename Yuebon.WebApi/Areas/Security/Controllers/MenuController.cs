@@ -26,7 +26,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
     /// </summary>
     [ApiController]
     [Route("api/Security/[controller]")]
-    public class MenuController : AreaApiController<Menu, MenuOutputDto, MenuInputDto, IMenuService, string>
+    public class MenuController : AreaApiController<Menu, MenuOutputDto, MenuInputDto, IMenuService>
     {
         /// <summary>
         /// 构造函数

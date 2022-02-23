@@ -17,7 +17,7 @@ namespace Yuebon.Tenants.Services
     /// <summary>
     /// 租户服务接口实现
     /// </summary>
-    public class TenantService: BaseService<Tenant,TenantOutputDto, string>, ITenantService
+    public class TenantService: BaseService<Tenant,TenantOutputDto>, ITenantService
     {
 		private readonly ITenantRepository _repository;
         private readonly ITenantLogonRepository _repositoryLogon;

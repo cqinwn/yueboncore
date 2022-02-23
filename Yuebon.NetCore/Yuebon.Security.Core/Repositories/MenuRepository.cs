@@ -7,7 +7,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Repositories
 {
-    public class MenuRepository : BaseRepository<Menu, string>, IMenuRepository
+    public class MenuRepository : BaseRepository<Menu>, IMenuRepository
     {
         public MenuRepository()
         {

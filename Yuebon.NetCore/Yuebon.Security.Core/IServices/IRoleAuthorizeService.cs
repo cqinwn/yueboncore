@@ -11,7 +11,7 @@ namespace Yuebon.Security.IServices
     /// <summary>
     /// 
     /// </summary>
-    public interface IRoleAuthorizeService:IService<RoleAuthorize, RoleAuthorizeOutputDto, string>
+    public interface IRoleAuthorizeService:IService<RoleAuthorize, RoleAuthorizeOutputDto>
     {
         /// <summary>
         /// 根据角色和项目类型查询权限

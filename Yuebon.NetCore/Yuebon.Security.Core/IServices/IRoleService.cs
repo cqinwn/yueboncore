@@ -9,7 +9,7 @@ namespace Yuebon.Security.IServices
     /// <summary>
     /// 
     /// </summary>
-    public interface IRoleService:IService<Role, RoleOutputDto, string>
+    public interface IRoleService:IService<Role, RoleOutputDto>
     {
         /// <summary>
         /// 根据角色编码获取角色

@@ -15,7 +15,7 @@ namespace Yuebon.Security.Services
     /// <summary>
     /// 
     /// </summary>
-    public class RoleAuthorizeService: BaseService<RoleAuthorize, RoleAuthorizeOutputDto, string>, IRoleAuthorizeService
+    public class RoleAuthorizeService: BaseService<RoleAuthorize, RoleAuthorizeOutputDto>, IRoleAuthorizeService
     {
         private readonly IRoleAuthorizeRepository _repository;
 

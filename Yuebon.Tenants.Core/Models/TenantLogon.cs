@@ -12,7 +12,7 @@ namespace Yuebon.Tenants.Models
     /// </summary>
     [Table("sys_TenantLogon")]
     [Serializable]
-    public class TenantLogon:BaseEntity<string>
+    public class TenantLogon:BaseEntity
     {
         /// <summary>
         /// 设置或获取

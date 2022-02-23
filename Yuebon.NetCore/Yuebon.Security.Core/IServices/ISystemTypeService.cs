@@ -10,7 +10,7 @@ namespace Yuebon.Security.IServices
     /// <summary>
     /// 子系统服务接口
     /// </summary>
-    public interface ISystemTypeService : IService<SystemType, SystemTypeOutputDto, string>
+    public interface ISystemTypeService : IService<SystemType, SystemTypeOutputDto>
     {
 
         /// <summary>

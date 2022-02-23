@@ -19,7 +19,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
     /// </summary>
     [Route("api/Security/[controller]")]
     [ApiController]
-    public class ItemsDetailController : AreaApiController<ItemsDetail, ItemsDetailOutputDto, ItemsDetailInputDto, IItemsDetailService, string>
+    public class ItemsDetailController : AreaApiController<ItemsDetail, ItemsDetailOutputDto, ItemsDetailInputDto, IItemsDetailService>
     {
         private readonly IItemsService itemsService;
 

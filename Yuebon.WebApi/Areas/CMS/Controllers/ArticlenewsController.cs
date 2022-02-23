@@ -22,7 +22,7 @@ namespace Yuebon.WebApi.Areas.CMS.Controllers
     /// </summary>
     [ApiController]
     [Route("api/CMS/[controller]")]
-    public class ArticlenewsController : AreaApiController<Articlenews, ArticlenewsOutputDto,ArticlenewsInputDto,IArticlenewsService,string>
+    public class ArticlenewsController : AreaApiController<Articlenews, ArticlenewsOutputDto,ArticlenewsInputDto,IArticlenewsService>
     {
         private IArticlecategoryService articlecategoryService;
         /// <summary>

@@ -6,7 +6,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.IServices
 {
-    public interface IUserLogOnService:IService<UserLogOn, UserLogOnOutputDto, string>
+    public interface IUserLogOnService:IService<UserLogOn, UserLogOnOutputDto>
     {
 
         /// <summary>

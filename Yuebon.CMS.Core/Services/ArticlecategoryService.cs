@@ -20,7 +20,7 @@ namespace Yuebon.CMS.Services
     /// <summary>
     /// 文章分类服务接口实现
     /// </summary>
-    public class ArticlecategoryService: BaseService<Articlecategory,ArticlecategoryOutputDto, string>, IArticlecategoryService
+    public class ArticlecategoryService: BaseService<Articlecategory,ArticlecategoryOutputDto>, IArticlecategoryService
     {
 		private readonly IArticlecategoryRepository _repository;
         private readonly IArticlenewsRepository _articleRepository;

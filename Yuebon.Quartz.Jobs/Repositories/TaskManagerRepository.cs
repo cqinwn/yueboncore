@@ -16,7 +16,7 @@ namespace Yuebon.Quartz.Repositories
     /// <summary>
     /// 定时任务仓储接口的实现
     /// </summary>
-    public class TaskManagerRepository : BaseRepository<TaskManager, string>, ITaskManagerRepository, IScopedDependency
+    public class TaskManagerRepository : BaseRepository<TaskManager>, ITaskManagerRepository, IScopedDependency
     {
 		public TaskManagerRepository()
         {

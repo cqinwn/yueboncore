@@ -23,7 +23,7 @@ namespace Yuebon.Security.Repositories
     /// <summary>
     /// 日志仓储实现
     /// </summary>
-    public class LogRepository : BaseRepository<Log, long>, ILogRepository
+    public class LogRepository : BaseRepository<Log>, ILogRepository
     {
         /// <summary>
         /// 
@@ -341,7 +341,7 @@ namespace Yuebon.Security.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public override bool Delete(Int64 id, IDbTransaction trans = null)
+        public override bool Delete(object id, IDbTransaction trans = null)
         {
             int row = DapperConn.Execute($"delete from {tableName} where Id=@id", new { @id = id }, trans);
             return row > 0 ? true : false;

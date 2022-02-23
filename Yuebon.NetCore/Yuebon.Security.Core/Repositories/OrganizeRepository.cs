@@ -8,7 +8,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Repositories
 {
-    public class OrganizeRepository : BaseRepository<Organize, string>, IOrganizeRepository
+    public class OrganizeRepository : BaseRepository<Organize>, IOrganizeRepository
     {
         public OrganizeRepository()
         {

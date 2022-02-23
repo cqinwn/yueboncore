@@ -14,7 +14,7 @@ namespace Yuebon.Security.IServices
     /// <summary>
     /// 用户服务接口
     /// </summary>
-    public interface IUserService:IService<User, UserOutputDto, string>
+    public interface IUserService:IService<User, UserOutputDto>
     {
         /// <summary>
         /// 用户登陆验证。
@@ -22,7 +22,7 @@ namespace Yuebon.Security.IServices
         /// <param name="userName">用户名</param>
         /// <param name="password">密码（第一次md5加密后）</param>
         /// <returns>验证成功返回用户实体，验证失败返回null|提示消息</returns>
-        Task<Tuple<User, string>> Validate(string userName, string password);
+        Task<Tuple<User,string>> Validate(string userName, string password);
 
         /// <summary>
         /// 用户登陆验证。

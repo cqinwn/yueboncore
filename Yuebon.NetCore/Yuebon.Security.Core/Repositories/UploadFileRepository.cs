@@ -8,7 +8,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Repositories
 {
-    public class UploadFileRepository : BaseRepository<UploadFile, string>, IUploadFileRepository
+    public class UploadFileRepository : BaseRepository<UploadFile>, IUploadFileRepository
     {
         public UploadFileRepository()
         {

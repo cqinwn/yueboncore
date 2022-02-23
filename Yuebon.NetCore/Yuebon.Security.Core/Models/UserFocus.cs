@@ -10,11 +10,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Yuebon.Security.Models
 {
     /// <summary>
-    /// 用户表，数据实体对象
+    /// 用户关注表，数据实体对象
     /// </summary>
     [Table("Sys_UserFocus")]
     [Serializable]
-    public class UserFocus : BaseEntity<string>,ICreationAudited
+    public class UserFocus : BaseEntity,ICreationAudited
     { 
         /// <summary>
         /// 默认构造函数（需要初始化属性的在此处理）

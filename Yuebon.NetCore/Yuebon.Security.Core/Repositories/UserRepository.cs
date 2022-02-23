@@ -16,7 +16,7 @@ namespace Yuebon.Security.Repositories
     /// <summary>
     /// 
     /// </summary>
-    public class UserRepository : BaseRepository<User, string>, IUserRepository
+    public class UserRepository : BaseRepository<User>, IUserRepository
     {
         /// <summary>
         /// 

@@ -10,7 +10,7 @@ namespace Yuebon.Security.Dtos
     /// </summary>
     [AutoMap(typeof(Sequence))]
     [Serializable]
-    public class SequenceInputDto: IInputDto<string>
+    public class SequenceInputDto: IInputDto
     {
         /// <summary>
         /// 设置或获取 

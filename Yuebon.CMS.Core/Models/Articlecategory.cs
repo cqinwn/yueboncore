@@ -12,7 +12,7 @@ namespace Yuebon.CMS.Models
     /// </summary>
     [Table("cms_articlecategory")]
     [Serializable]
-    public class Articlecategory:BaseEntity<string>, ICreationAudited, IModificationAudited, IDeleteAudited
+    public class Articlecategory:BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited
     {
         /// <summary>
         /// 设置或获取标题

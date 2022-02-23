@@ -21,7 +21,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
     /// </summary>
     [ApiController]
     [Route("api/Security/[controller]")]
-    public class RoleDataController : AreaApiController<RoleData, RoleDataOutputDto, RoleDataInputDto, IRoleDataService, string>
+    public class RoleDataController : AreaApiController<RoleData, RoleDataOutputDto, RoleDataInputDto, IRoleDataService>
     {
         /// <summary>
         /// 构造函数

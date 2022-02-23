@@ -24,7 +24,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
     /// </summary>
     [ApiController]
     [Route("api/Security/[controller]")]
-    public class UserController : AreaApiController<User, UserOutputDto, UserInputDto, IUserService,string>
+    public class UserController : AreaApiController<User, UserOutputDto, UserInputDto, IUserService>
     {
         private IOrganizeService organizeService;
         private IRoleService roleService;

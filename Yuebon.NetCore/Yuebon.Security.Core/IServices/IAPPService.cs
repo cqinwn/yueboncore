@@ -9,7 +9,7 @@ namespace Yuebon.Security.IServices
     /// <summary>
     /// 
     /// </summary>
-    public interface IAPPService:IService<APP, AppOutputDto, string>
+    public interface IAPPService:IService<APP, AppOutputDto>
     {
         /// <summary>
         /// 获取app对象

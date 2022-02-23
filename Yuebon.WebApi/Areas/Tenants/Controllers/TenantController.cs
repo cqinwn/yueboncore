@@ -27,7 +27,7 @@ namespace Yuebon.SecurityApi.Areas.Tenants.Controllers
     /// </summary>
     [ApiController]
     [Route("api/Tenants/[controller]")]
-    public class TenantController : AreaApiController<Tenant, TenantOutputDto,TenantInputDto,ITenantService,string>
+    public class TenantController : AreaApiController<Tenant, TenantOutputDto,TenantInputDto,ITenantService>
     {
 
         private IFilterIPService _filterIPService;
@@ -275,7 +275,7 @@ namespace Yuebon.SecurityApi.Areas.Tenants.Controllers
             //                }
             //                else
             //                {
-            //                    Tuple<Tenant, string> userLogin = await this.iService.Validate(username, password);
+            //                    Tuple<Tenant> userLogin = await this.iService.Validate(username, password);
             //                    if (userLogin != null)
             //                    {
             //                        string ipAddressName = IpAddressUtil.GetCityByIp(strIp);

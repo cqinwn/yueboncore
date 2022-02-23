@@ -15,7 +15,7 @@ namespace Yuebon.CMS.Services
     /// <summary>
     /// 文章服务接口实现
     /// </summary>
-    public class ArticlenewsService : BaseService<Articlenews, ArticlenewsOutputDto, string>, IArticlenewsService
+    public class ArticlenewsService : BaseService<Articlenews, ArticlenewsOutputDto>, IArticlenewsService
     {
         private readonly IArticlenewsRepository _repository;
         private readonly IArticlecategoryRepository _articlecategoryRepository;

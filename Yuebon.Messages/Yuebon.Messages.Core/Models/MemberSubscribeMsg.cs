@@ -9,7 +9,7 @@ namespace Yuebon.Messages.Models
     /// </summary>
     [Table("Sys_MemberSubscribeMsg")]
     [Serializable]
-    public class MemberSubscribeMsg:BaseEntity<string>
+    public class MemberSubscribeMsg:BaseEntity
     {
 
         /// <summary>

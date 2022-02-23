@@ -13,7 +13,7 @@ namespace Yuebon.Security.Dtos
     /// </summary>
     [AutoMap(typeof(Role))]
     [Serializable]
-    public class RoleInputDto: IInputDto<string>
+    public class RoleInputDto: IInputDto
     {
         /// <summary>
         /// 设置或获取 

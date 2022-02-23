@@ -13,7 +13,7 @@ namespace Yuebon.Messages.Dtos
     /// </summary>
     [AutoMap(typeof(MessageMailBox))]
     [Serializable]
-    public class MessageMailBoxInputDto: IInputDto<string>
+    public class MessageMailBoxInputDto: IInputDto
     {
         /// <summary>
         /// 设置或获取 

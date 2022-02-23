@@ -13,7 +13,7 @@ namespace Yuebon.Quartz.Models
     /// </summary>
     [Table("Sys_TaskJobsLog")]
     [Serializable]
-    public class TaskJobsLog:BaseEntity<string>
+    public class TaskJobsLog:BaseEntity
     {
         /// <summary>
         /// 设置或获取任务Id

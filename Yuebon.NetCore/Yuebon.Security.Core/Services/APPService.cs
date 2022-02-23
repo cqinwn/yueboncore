@@ -17,7 +17,7 @@ namespace Yuebon.Security.Services
     /// <summary>
     /// 
     /// </summary>
-    public class APPService: BaseService<APP,AppOutputDto,string>, IAPPService
+    public class APPService: BaseService<APP,AppOutputDto>, IAPPService
     {
         private readonly IAPPRepository _appRepository;
         private readonly ILogService _logService;
@@ -47,7 +47,7 @@ namespace Yuebon.Security.Services
         /// <param name="id">主键ID</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public override async Task<bool> UpdateAsync(APP entity, string id, IDbTransaction trans = null)
+        public override async Task<bool> UpdateAsync(APP entity, object id, IDbTransaction trans = null)
         {
             bool result=await repository.UpdateAsync(entity, id, trans);
             this.UpdateCacheAllowApp();

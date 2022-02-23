@@ -14,7 +14,7 @@ namespace Yuebon.Quartz.Dtos
     /// </summary>
     [AutoMap(typeof(TaskManager))]
     [Serializable]
-    public class TaskManagerInputDto: IInputDto<string>
+    public class TaskManagerInputDto: IInputDto
     {
         /// <summary>
         /// 设置或获取 

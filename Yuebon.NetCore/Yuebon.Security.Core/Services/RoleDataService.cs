@@ -8,7 +8,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Services
 {
-    public class RoleDataService: BaseService<RoleData, RoleDataOutputDto, string>, IRoleDataService
+    public class RoleDataService: BaseService<RoleData, RoleDataOutputDto>, IRoleDataService
     {
 		private readonly IRoleDataRepository _repository;
         private readonly ILogService _logService;

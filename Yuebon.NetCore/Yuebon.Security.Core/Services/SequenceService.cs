@@ -20,7 +20,7 @@ namespace Yuebon.Security.Services
     /// <summary>
     /// 单据编码服务接口实现
     /// </summary>
-    public class SequenceService : BaseService<Sequence, SequenceOutputDto, string>, ISequenceService
+    public class SequenceService : BaseService<Sequence, SequenceOutputDto>, ISequenceService
     {
         private readonly ISequenceRepository _repository;
         private readonly ISequenceRuleRepository _repositoryRule;

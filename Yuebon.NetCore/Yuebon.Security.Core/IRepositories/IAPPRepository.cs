@@ -9,7 +9,7 @@ namespace Yuebon.Security.IRepositories
     /// <summary>
     /// 
     /// </summary>
-    public interface IAPPRepository:IRepository<APP,string>
+    public interface IAPPRepository:IRepository<APP>
     {
         /// <summary>
         /// 获取app对象

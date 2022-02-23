@@ -64,6 +64,8 @@
     <Compile Remove="Models\TaskJobsLog.cs" />
     <Compile Remove="Models\TaskManager.cs" />
     <Compile Remove="Models\Tenant.cs" />
+    <Compile Remove="Models\UserFocus.cs" />
+    <Compile Remove="Models\UserNameCardView.cs" />
     <Compile Remove="Repositories\FunctionRepository.cs" />
     <Compile Remove="Repositories\TaskJobsLogRepository.cs" />
     <Compile Remove="Repositories\TaskManagerRepository.cs" />

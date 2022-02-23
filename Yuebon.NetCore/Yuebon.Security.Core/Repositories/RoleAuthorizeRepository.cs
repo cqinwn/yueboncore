@@ -11,7 +11,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Repositories
 {
-    public class RoleAuthorizeRepository : BaseRepository<RoleAuthorize, string>, IRoleAuthorizeRepository
+    public class RoleAuthorizeRepository : BaseRepository<RoleAuthorize>, IRoleAuthorizeRepository
     {
         public RoleAuthorizeRepository()
         {

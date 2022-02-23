@@ -13,8 +13,7 @@ namespace Yuebon.Commons.IServices
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="TODto"></typeparam>
-    /// <typeparam name="TKey"></typeparam>
-    public interface IService<T,TODto, TKey> : IDisposable where T : Entity
+    public interface IService<T,TODto> : IDisposable where T : Entity
         where TODto : class
     {
         /// <summary>
@@ -22,26 +21,26 @@ namespace Yuebon.Commons.IServices
         /// </summary>
         /// <param name="id">主键</param>
         /// <returns></returns>
-        T Get(TKey id);
+        T Get(object id);
         /// <summary>
         /// 同步查询单个实体。
         /// </summary>
         /// <param name="id">主键</param>
         /// <returns></returns>
-        TODto GetOutDto(TKey id);
+        TODto GetOutDto(object id);
 
         /// <summary>
         /// 异步查询单个实体。
         /// </summary>
         /// <param name="id">主键</param>
         /// <returns></returns>
-        Task<TODto> GetOutDtoAsync(TKey id);
+        Task<TODto> GetOutDtoAsync(object id);
         /// <summary>
         /// 异步查询单个实体。
         /// </summary>
         /// <param name="id">主键</param>
         /// <returns></returns>
-        Task<T> GetAsync(TKey id);
+        Task<T> GetAsync(object id);
         /// <summary>
         /// 同步查询单个实体。
         /// </summary>
@@ -148,7 +147,7 @@ namespace Yuebon.Commons.IServices
         /// <param name="id">主键ID</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        bool Update(T entity, TKey id, IDbTransaction trans = null);
+        bool Update(T entity, object id, IDbTransaction trans = null);
 
         /// <summary>
         /// 异步更新实体。
@@ -157,7 +156,7 @@ namespace Yuebon.Commons.IServices
         /// <param name="id">主键ID</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        Task<bool> UpdateAsync(T entity, TKey id, IDbTransaction trans = null);
+        Task<bool> UpdateAsync(T entity, object id, IDbTransaction trans = null);
 
         /// <summary>
         /// 更新某一字段值
@@ -218,7 +217,7 @@ namespace Yuebon.Commons.IServices
         /// <param name="id">主键</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        bool Delete(TKey id, IDbTransaction trans = null);
+        bool Delete(object id, IDbTransaction trans = null);
 
         /// <summary>
         /// 异步物理删除实体。
@@ -226,7 +225,7 @@ namespace Yuebon.Commons.IServices
         /// <param name="id">主键</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        Task<bool> DeleteAsync(TKey id, IDbTransaction trans = null);
+        Task<bool> DeleteAsync(object id, IDbTransaction trans = null);
 
         /// <summary>
         /// 按主键批量删除
@@ -258,7 +257,7 @@ namespace Yuebon.Commons.IServices
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        bool DeleteSoft(bool bl, TKey id, string userId = null, IDbTransaction trans = null);
+        bool DeleteSoft(bool bl, object id, string userId = null, IDbTransaction trans = null);
 
         /// <summary>
         /// 异步软删除信息，将DeleteMark设置为1-删除，0-恢复删除
@@ -268,7 +267,7 @@ namespace Yuebon.Commons.IServices
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        Task<bool> DeleteSoftAsync(bool bl, TKey id, string userId = null, IDbTransaction trans = null);
+        Task<bool> DeleteSoftAsync(bool bl, object id, string userId = null, IDbTransaction trans = null);
 
         /// <summary>
         /// 异步批量软删除信息，将DeleteMark设置为1-删除，0-恢复删除
@@ -287,7 +286,7 @@ namespace Yuebon.Commons.IServices
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        bool SetEnabledMark(bool bl, TKey id, string userId = null, IDbTransaction trans = null);
+        bool SetEnabledMark(bool bl, object id, string userId = null, IDbTransaction trans = null);
 
         /// <summary>
         /// 异步设置数据有效性，将EnabledMark设置为1:有效，0-为无效
@@ -297,7 +296,7 @@ namespace Yuebon.Commons.IServices
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        Task<bool> SetEnabledMarkAsync(bool bl, TKey id, string userId = null, IDbTransaction trans = null);
+        Task<bool> SetEnabledMarkAsync(bool bl, object id, string userId = null, IDbTransaction trans = null);
 
 
         /// <summary>

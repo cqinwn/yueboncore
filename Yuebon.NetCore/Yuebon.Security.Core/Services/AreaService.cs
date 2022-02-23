@@ -15,7 +15,7 @@ namespace Yuebon.Security.Services
     /// <summary>
     /// 地区信息
     /// </summary>
-    public class AreaService: BaseService<Area, AreaOutputDto, string>, IAreaService
+    public class AreaService: BaseService<Area, AreaOutputDto>, IAreaService
     {
         private readonly IAreaRepository _repository;
         private readonly ILogService _logService;

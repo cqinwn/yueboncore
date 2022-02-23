@@ -19,7 +19,7 @@ namespace Yuebon.Security.Services
     /// <summary>
     /// 组织机构
     /// </summary>
-    public class OrganizeService: BaseService<Organize, OrganizeOutputDto, string>, IOrganizeService
+    public class OrganizeService: BaseService<Organize, OrganizeOutputDto>, IOrganizeService
     {
         private readonly IOrganizeRepository _repository;
         private readonly ILogService _logService;

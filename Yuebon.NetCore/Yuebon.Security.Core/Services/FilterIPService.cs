@@ -12,7 +12,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Services
 {
-    public class FilterIPService: BaseService<FilterIP, FilterIPOutputDto, string>, IFilterIPService
+    public class FilterIPService: BaseService<FilterIP, FilterIPOutputDto>, IFilterIPService
     {
         private readonly IFilterIPRepository _repository;
         private readonly ILogService _logService;

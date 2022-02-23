@@ -4,7 +4,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.IRepositories
 {
-    public interface IUserLogOnRepository:IRepository<UserLogOn, string>
+    public interface IUserLogOnRepository:IRepository<UserLogOn>
     {
 
         /// <summary>

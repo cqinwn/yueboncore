@@ -7,7 +7,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.IRepositories
 {
-    public interface IRoleAuthorizeRepository:IRepository<RoleAuthorize,string>
+    public interface IRoleAuthorizeRepository:IRepository<RoleAuthorize>
     {
         /// <summary>
         /// ±£´æ½ÇÉ«ÊÚÈ¨

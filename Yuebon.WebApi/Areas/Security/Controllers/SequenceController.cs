@@ -19,7 +19,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
     /// </summary>
     [ApiController]
     [Route("api/Security/[controller]")]
-    public class SequenceController : AreaApiController<Sequence, SequenceOutputDto, SequenceInputDto, ISequenceService,string>
+    public class SequenceController : AreaApiController<Sequence, SequenceOutputDto, SequenceInputDto, ISequenceService>
     {
         /// <summary>
         /// 构造函数

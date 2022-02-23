@@ -8,7 +8,7 @@ namespace Yuebon.Messages.IRepositories
     /// <summary>
     /// 定义仓储接口
     /// </summary>
-    public interface IMemberSubscribeMsgRepository:IRepository<MemberSubscribeMsg, string>
+    public interface IMemberSubscribeMsgRepository:IRepository<MemberSubscribeMsg>
     {
 
         /// <summary>

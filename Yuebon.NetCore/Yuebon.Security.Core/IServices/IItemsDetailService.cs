@@ -10,7 +10,7 @@ namespace Yuebon.Security.IServices
     /// <summary>
     /// 数据字典明细
     /// </summary>
-    public interface IItemsDetailService:IService<ItemsDetail, ItemsDetailOutputDto, string>
+    public interface IItemsDetailService:IService<ItemsDetail, ItemsDetailOutputDto>
     {
         /// <summary>
         /// 根据数据字典分类编码获取该分类可用内容

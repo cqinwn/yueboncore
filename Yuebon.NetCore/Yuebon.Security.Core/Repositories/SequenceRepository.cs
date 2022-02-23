@@ -9,7 +9,7 @@ namespace Yuebon.Security.Repositories
     /// <summary>
     /// 单据编码仓储接口的实现
     /// </summary>
-    public class SequenceRepository : BaseRepository<Sequence, string>, ISequenceRepository
+    public class SequenceRepository : BaseRepository<Sequence>, ISequenceRepository
     {
 		public SequenceRepository()
         {

@@ -5,7 +5,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.IRepositories
 {
-    public interface IItemsRepository:IRepository<Items, string>
+    public interface IItemsRepository:IRepository<Items>
     {
         /// <summary>
         /// 根据编码查询字典分类

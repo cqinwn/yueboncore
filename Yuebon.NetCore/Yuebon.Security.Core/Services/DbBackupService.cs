@@ -7,7 +7,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Services
 {
-    public class DbBackupService: BaseService<DbBackup, DbBackupOutputDto, string>, IDbBackupService
+    public class DbBackupService: BaseService<DbBackup, DbBackupOutputDto>, IDbBackupService
     {
         private readonly IDbBackupRepository _repository;
         private readonly ILogService _logService;

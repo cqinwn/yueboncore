@@ -6,7 +6,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Repositories
 {
-    public class ItemsRepository : BaseRepository<Items, string>, IItemsRepository
+    public class ItemsRepository : BaseRepository<Items>, IItemsRepository
     {
         public ItemsRepository()
         {

@@ -29,8 +29,7 @@ namespace Yuebon.Commons.Repositories
     /// 泛型仓储，实现泛型仓储接口
     /// </summary>
     /// <typeparam name="T">实体类型</typeparam>
-    /// <typeparam name="TKey">实体主键类型</typeparam>
-    public abstract class BaseRepository<T, TKey> : IRepository<T, TKey>, ITransientDependency
+    public abstract class BaseRepository<T> : IRepository<T>, ITransientDependency
         where T : Entity
     {
         #region 构造函数及基本配置
@@ -123,7 +122,7 @@ namespace Yuebon.Commons.Repositories
         {
             if (dbContext == null) throw new ArgumentNullException(nameof(dbContext));
             _dbContext = dbContext;
-            //_dbContext.EnsureCreated();
+            _dbContext.GetDatabase().EnsureCreated();//初始化数据库
         }
 
         /// <summary>
@@ -952,7 +951,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="primaryKey">主键</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual bool Update(T entity, TKey primaryKey, IDbTransaction trans = null)
+        public virtual bool Update(T entity, object primaryKey, IDbTransaction trans = null)
         {
             return DbContext.Edit<T>(entity) > 0;
         }
@@ -973,7 +972,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="primaryKey"></param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual async Task<bool> UpdateAsync(T entity, TKey primaryKey, IDbTransaction trans = null)
+        public virtual async Task<bool> UpdateAsync(T entity, object primaryKey, IDbTransaction trans = null)
         {
             return _dbContext.Edit<T>(entity)>0;
         }
@@ -1007,7 +1006,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="primaryKey"></param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual bool Delete(TKey primaryKey, IDbTransaction trans = null)
+        public virtual bool Delete(object primaryKey, IDbTransaction trans = null)
         {
             var param = new List<Tuple<string, object>>();
             string sql = $"delete from {tableName} where " + PrimaryKey + "=@PrimaryKey";
@@ -1023,7 +1022,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="primaryKey"></param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual async Task<bool> DeleteAsync(TKey primaryKey, IDbTransaction trans = null)
+        public virtual async Task<bool> DeleteAsync(object primaryKey, IDbTransaction trans = null)
         {
             var param = new List<Tuple<string, object>>();
             string sql = $"delete from {tableName} where " + PrimaryKey + "=@PrimaryKey";
@@ -1106,7 +1105,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="userId">用户ID</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual bool DeleteByUser(TKey primaryKey, string userId, IDbTransaction trans = null)
+        public virtual bool DeleteByUser(object primaryKey, string userId, IDbTransaction trans = null)
         {
             var param = new List<Tuple<string, object>>();
             string sql = $"delete from {tableName} where " + PrimaryKey + " = @PrimaryKey";
@@ -1122,7 +1121,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="userId">用户ID</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual async Task<bool> DeleteByUserAsync(TKey primaryKey, string userId, IDbTransaction trans = null)
+        public virtual async Task<bool> DeleteByUserAsync(object primaryKey, string userId, IDbTransaction trans = null)
         {
             var param = new List<Tuple<string, object>>();
             string sql = $"delete from {tableName} where " + PrimaryKey + " = @PrimaryKey";
@@ -1140,7 +1139,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual bool DeleteSoft(bool bl, TKey primaryKey, string userId = null, IDbTransaction trans = null)
+        public virtual bool DeleteSoft(bool bl, object primaryKey, string userId = null, IDbTransaction trans = null)
         {
             string sql = $"update {tableName} set ";
             if (bl)
@@ -1172,7 +1171,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual async Task<bool> DeleteSoftAsync(bool bl, TKey primaryKey, string userId = null, IDbTransaction trans = null)
+        public virtual async Task<bool> DeleteSoftAsync(bool bl, object primaryKey, string userId = null, IDbTransaction trans = null)
         {
             string sql = $"update {tableName} set ";
             if (bl)
@@ -1245,7 +1244,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual bool SetEnabledMark(bool bl, TKey primaryKey, string userId = null, IDbTransaction trans = null)
+        public virtual bool SetEnabledMark(bool bl, object primaryKey, string userId = null, IDbTransaction trans = null)
         {
             string sql = $"update {tableName} set ";
             if (bl)
@@ -1278,7 +1277,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual async Task<bool> SetEnabledMarkAsync(bool bl, TKey primaryKey, string userId = null, IDbTransaction trans = null)
+        public virtual async Task<bool> SetEnabledMarkAsync(bool bl, object primaryKey, string userId = null, IDbTransaction trans = null)
         {
             string sql = $"update {tableName} set ";
             if (bl)
@@ -1711,7 +1710,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="model">数据实体</param>
         /// <param name="updateColumns">指定字段</param>
         /// <returns></returns>
-        public virtual int Update(T model, params string[] updateColumns)
+        public virtual int UpdateColumns(T model, params string[] updateColumns)
         {
             DbContext.Update(model, updateColumns);
             return DbContext.SaveChanges();
@@ -1734,9 +1733,9 @@ namespace Yuebon.Commons.Repositories
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public virtual int Delete(TKey key)
+        public virtual int Delete(object key)
         {
-            return DbContext.Delete<T, TKey>(key);
+            return DbContext.Delete<T, object>(key);
         }
         /// <summary>
         /// 执行删除数据Sql语句
@@ -1758,7 +1757,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="primaryKey">主键</param>
         /// <returns></returns>
         [Obsolete("此方法已过时，请用GetSingle()")]
-        public virtual T Get(TKey primaryKey)
+        public virtual T Get(object primaryKey)
         {
             return DapperConnRead.Get<T>(primaryKey);
         }
@@ -1768,7 +1767,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="primaryKey">主键</param>
         /// <returns></returns>
         [Obsolete("此方法已过时，请用GetSingleAsync()")]
-        public virtual async Task<T> GetAsync(TKey primaryKey)
+        public virtual async Task<T> GetAsync(object primaryKey)
         {
             return await DapperConnRead.GetAsync<T>(primaryKey);
         }
@@ -1816,9 +1815,9 @@ namespace Yuebon.Commons.Repositories
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public virtual T GetSingle(TKey key)
+        public virtual T GetSingle(object key)
         {
-            return DbContext.Find<T, TKey>(key);
+            return DbContext.Find<T, object>(key);
         }
 
 
@@ -1827,9 +1826,9 @@ namespace Yuebon.Commons.Repositories
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public virtual async Task<T> GetSingleAsync(TKey key)
+        public virtual async Task<T> GetSingleAsync(object key)
         {
-            return await DbContext.FindAsync<T, TKey>(key);
+            return await DbContext.FindAsync<T, object>(key);
         }
 
         /// <summary>

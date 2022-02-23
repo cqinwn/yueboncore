@@ -406,7 +406,7 @@ namespace Yuebon.Commons.Extensions
                     var implType = GetRepositoryType(type, pkType);
                     if (pkType != null)
                     {
-                        services.TryAddScoped(typeof(IRepository<,>).MakeGenericType(type, pkType), implType);
+                        services.TryAddScoped(typeof(IRepository<>).MakeGenericType(type, pkType), implType);
                     }
                 }
             }
@@ -420,7 +420,7 @@ namespace Yuebon.Commons.Extensions
         /// <returns></returns>
         private static Type GetRepositoryType(Type entityType, Type primaryKeyType)
         {
-            return typeof(BaseRepository<,>).MakeGenericType(entityType, primaryKeyType);
+            return typeof(BaseRepository<>).MakeGenericType(entityType, primaryKeyType);
         }
 
 

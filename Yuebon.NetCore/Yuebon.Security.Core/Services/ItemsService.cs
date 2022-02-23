@@ -11,7 +11,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Services
 {
-    public class ItemsService: BaseService<Items, ItemsOutputDto, string>, IItemsService
+    public class ItemsService: BaseService<Items, ItemsOutputDto>, IItemsService
     {
         private readonly IItemsRepository _repository;
         private readonly ILogService _logService;

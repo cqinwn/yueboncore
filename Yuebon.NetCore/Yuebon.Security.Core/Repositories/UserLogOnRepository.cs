@@ -9,7 +9,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Repositories
 {
-    public class UserLogOnRepository : BaseRepository<UserLogOn, string>, IUserLogOnRepository
+    public class UserLogOnRepository : BaseRepository<UserLogOn>, IUserLogOnRepository
     {
         public UserLogOnRepository()
         {

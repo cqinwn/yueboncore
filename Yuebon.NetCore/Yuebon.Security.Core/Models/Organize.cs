@@ -46,7 +46,6 @@ namespace Yuebon.Security.Models
         /// </summary>
         [MaxLength(50)]
         [Comment("编码")]
-        [Required]
         public virtual string EnCode { get; set; }
 
         /// <summary>

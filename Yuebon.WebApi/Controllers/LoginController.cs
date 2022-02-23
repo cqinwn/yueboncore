@@ -433,12 +433,15 @@ namespace Yuebon.WebApi.Controllers
         public IActionResult Logout()
         {
             CommonResult result = new CommonResult();
-            YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            yuebonCacheHelper.Remove("login_user_" + CurrentUser.UserId);
-            yuebonCacheHelper.Remove("User_Function_" + CurrentUser.UserId);
-            UserLogOn userLogOn = _userLogOnService.GetWhere("UserId='"+ CurrentUser.UserId + "'");
-            userLogOn.UserOnLine = false;
-            _userLogOnService.Update(userLogOn,userLogOn.Id);
+            if (CurrentUser != null)
+            {
+                YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+                yuebonCacheHelper.Remove("login_user_" + CurrentUser.UserId);
+                yuebonCacheHelper.Remove("User_Function_" + CurrentUser.UserId);
+                UserLogOn userLogOn = _userLogOnService.GetWhere("UserId='" + CurrentUser.UserId + "'");
+                userLogOn.UserOnLine = false;
+                _userLogOnService.Update(userLogOn, userLogOn.Id);
+            }
             CurrentUser = null;
             result.Success = true;
             result.ErrCode = ErrCode.successCode;

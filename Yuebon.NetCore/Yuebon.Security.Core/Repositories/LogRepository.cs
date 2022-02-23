@@ -6,6 +6,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using Yuebon.Commons.DataManager;
 using Yuebon.Commons.DbContextCore;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
@@ -36,9 +37,23 @@ namespace Yuebon.Security.Repositories
         /// 
         /// </summary>
         /// <param name="dbContext"></param>
-        public LogRepository(IDbContextCore dbContext) : base(dbContext)
+        public LogRepository(IDbContextFactory dbContextFactory)
         {
+            _dbContextFactory= dbContextFactory;
+            _dbContext = _dbContextFactory.CreateContext<Log>(WriteAndReadEnum.Default);
+        }
+        public override IDbContextCore DbContext
+        {
+            get { return _dbContext; }
+        }
 
+        public override long Insert(Log entity, IDbTransaction trans = null)
+        {
+            if (entity.KeyIsNull())
+            {
+                entity.GenerateDefaultKeyVal();
+            }
+            return DbContext.Add<Log>(entity);
         }
         /// <summary>
         /// 测试性能，建议删除

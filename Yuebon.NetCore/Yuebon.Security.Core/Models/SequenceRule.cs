@@ -23,6 +23,7 @@ namespace Yuebon.Security.Models
         /// </summary>
         [MaxLength(50)]
         [Comment("编码规则名称")]
+        [Column(TypeName = "NVARCHAR(50)")]
         [Required]
         public string SequenceName { get; set; }
 
@@ -38,6 +39,7 @@ namespace Yuebon.Security.Models
         [MaxLength(50)]
         [Comment("取规则类别，timestamp、const、bumber")]
         [Required]
+        [Column(TypeName = "NVARCHAR(50)")]
         public string RuleType { get; set; }
 
         /// <summary>
@@ -45,6 +47,7 @@ namespace Yuebon.Security.Models
         /// </summary>
         [MaxLength(50)]
         [Comment("规则参数，如YYMMDD")]
+        [Column(TypeName = "NVARCHAR(50)")]
         public string RuleValue { get; set; }
 
         /// <summary>
@@ -67,6 +70,7 @@ namespace Yuebon.Security.Models
         /// </summary>
         [MaxLength(50)]
         [Comment("填充字符")]
+        [Column(TypeName = "NVARCHAR(50)")]
         public string PaddingChar { get; set; }
 
 
@@ -75,6 +79,7 @@ namespace Yuebon.Security.Models
         /// </summary>
         [MaxLength(500)]
         [Comment("描述")]
+        [Column(TypeName = "NVARCHAR(500)")]
         public virtual string Description { get; set; }
 
         /// <summary>

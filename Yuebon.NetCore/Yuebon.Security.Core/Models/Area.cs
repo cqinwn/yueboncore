@@ -10,6 +10,7 @@ namespace Yuebon.Security.Models
     /// 行政区域表，数据实体对象
     /// </summary>
     [Table("Sys_Area")]
+    [Comment("地区信息")]
     [Serializable]
     public class Area:BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited
     { 

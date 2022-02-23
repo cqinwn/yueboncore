@@ -141,13 +141,15 @@ namespace Yuebon.Security.Models
         /// </summary>
         [MaxLength(50)]
         [Comment("系统语言")]
+        [Column(TypeName = "NVARCHAR(500)")]
         public virtual string Language { get; set; }
 
         /// <summary>
         /// 系统样式
         /// </summary>
-        [MaxLength(50)]
+        [MaxLength(500)]
         [Comment("系统样式")]
+        [Column(TypeName = "NVARCHAR(500)")]
         public virtual string Theme { get; set; }
 
         #endregion

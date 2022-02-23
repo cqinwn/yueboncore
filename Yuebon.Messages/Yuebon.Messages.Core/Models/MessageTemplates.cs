@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using Yuebon.Commons.Models;
@@ -5,74 +6,75 @@ using Yuebon.Commons.Models;
 namespace Yuebon.Messages.Models
 {
     /// <summary>
-    /// ，数据实体对象
+    /// 消息模板，数据实体对象
     /// </summary>
     [Table("Sys_MessageTemplates")]
+    [Comment("消息模板")]
     [Serializable]
     public class MessageTemplates:BaseEntity
     {
         /// <summary>
-        /// 设置或获取 
+        /// 设置或获取 消息类型
         /// </summary>
         public string MessageType { get; set; }
 
         /// <summary>
-        /// 设置或获取 
+        /// 设置或获取 名称
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// 设置或获取 
+        /// 设置或获取 发送Email邮件
         /// </summary>
         public bool SendEmail { get; set; }
 
         /// <summary>
-        /// 设置或获取 
+        /// 设置或获取 发送短信
         /// </summary>
         public bool SendSMS { get; set; }
 
         /// <summary>
-        /// 设置或获取 
+        /// 设置或获取 发送站内消息
         /// </summary>
         public bool SendInnerMessage { get; set; }
 
         /// <summary>
-        /// 设置或获取 
+        /// 设置或获取 发送微信消息
         /// </summary>
         public bool SendWeixin { get; set; }
 
         /// <summary>
-        /// 设置或获取 
+        /// 设置或获取 微信消息模板Id
         /// </summary>
         public string WeixinTemplateId { get; set; }
 
         /// <summary>
-        /// 设置或获取 
+        /// 设置或获取 标签
         /// </summary>
         public string TagDescription { get; set; }
 
         /// <summary>
-        /// 设置或获取 
+        /// 设置或获取 Email标题
         /// </summary>
         public string EmailSubject { get; set; }
 
         /// <summary>
-        /// 设置或获取 
+        /// 设置或获取 Email内容
         /// </summary>
         public string EmailBody { get; set; }
 
         /// <summary>
-        /// 设置或获取 
+        /// 设置或获取 站内消息标题
         /// </summary>
         public string InnerMessageSubject { get; set; }
 
         /// <summary>
-        /// 设置或获取 
+        /// 设置或获取 站内消息内容
         /// </summary>
         public string InnerMessageBody { get; set; }
 
         /// <summary>
-        /// 设置或获取 
+        /// 设置或获取 短信消息内容
         /// </summary>
         public string SMSBody { get; set; }
 
@@ -122,12 +124,12 @@ namespace Yuebon.Messages.Models
         public string WxAppletSubscribeTemplateName { get; set; }
 
         /// <summary>
-        /// 设置或获取 
+        /// 设置或获取 短消息模板编码
         /// </summary>
         public string SMSTemplateCode { get; set; }
 
         /// <summary>
-        /// 设置或获取 
+        /// 设置或获取 短信模板
         /// </summary>
         public string SMSTemplateContent { get; set; }
 

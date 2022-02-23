@@ -156,7 +156,7 @@ namespace Yuebon.AspNetCore.Controllers
         /// <param name="id">主键Id</param>
         [HttpDelete("DeleteAsync")]
         [YuebonAuthorize("Delete")]
-        public virtual async Task<IActionResult> DeleteAsync(object id)
+        public virtual async Task<IActionResult> DeleteAsync(string id)
         {
             CommonResult result = new CommonResult();
                 bool bl = await iService.DeleteAsync(id).ConfigureAwait(false);
@@ -182,14 +182,7 @@ namespace Yuebon.AspNetCore.Controllers
         {
             CommonResult result = new CommonResult();
             string where = string.Empty;
-            if (typeof(object) == typeof(string))
-            {
-                where = "id in ('" + info.Ids.Join(",").Trim(',').Replace(",", "','") + "')";
-            }
-            else if (typeof(object) == typeof(int))
-            {
-                where = "id in (" + info.Ids.Join(",") + ")";
-            }
+            where = "id in ('" + info.Ids.Join(",").Trim(',').Replace(",", "','") + "')";
             if (!string.IsNullOrEmpty(where))
             {
                 bool bl = await iService.DeleteBatchWhereAsync(where).ConfigureAwait(false);
@@ -214,7 +207,7 @@ namespace Yuebon.AspNetCore.Controllers
         /// <param name="bltag">删除标识，默认为1：即设为删除,0：未删除</param>
         [HttpPost("DeleteSoft")]
         [YuebonAuthorize("DeleteSoft")]
-        public virtual IActionResult DeleteSoft(object id, string bltag = "1")
+        public virtual IActionResult DeleteSoft(string id, string bltag = "1")
         {
             CommonResult result = new CommonResult();
             bool bl = false;
@@ -243,7 +236,7 @@ namespace Yuebon.AspNetCore.Controllers
         /// <param name="bltag">删除标识，默认为1：即设为删除,0：未删除</param>
         [HttpPost("DeleteSoftAsync")]
         [YuebonAuthorize("DeleteSoft")]
-        public virtual async Task<IActionResult> DeleteSoftAsync(object id, string bltag = "1")
+        public virtual async Task<IActionResult> DeleteSoftAsync(string id, string bltag = "1")
         {
             CommonResult result = new CommonResult();
             bool bl = false;
@@ -276,14 +269,7 @@ namespace Yuebon.AspNetCore.Controllers
         {
             CommonResult result = new CommonResult();
             string where = string.Empty;
-            if (typeof(object) == typeof(string))
-            {
-                where = "id in ('" + info.Ids.Join(",").Trim(',').Replace(",", "','") + "')";
-            }
-            else if (typeof(object) == typeof(int))
-            {
-                where = "id in (" + info.Ids.Join(",") + ")";
-            }
+            where = "id in ('" + info.Ids.Join(",").Trim(',').Replace(",", "','") + "')";
             if (!string.IsNullOrEmpty(where))
             {
                 bool bl = false;
@@ -313,7 +299,7 @@ namespace Yuebon.AspNetCore.Controllers
         /// <param name="bltag">有效标识，默认为1：即设为无效,0：有效</param>
         [HttpPost("SetEnabledMark")]
         [YuebonAuthorize("Enable")]
-        public virtual IActionResult SetEnabledMark(object id, string bltag="1")
+        public virtual IActionResult SetEnabledMark(string id, string bltag="1")
         {
             CommonResult result = new CommonResult();
             bool bl = false;
@@ -342,7 +328,7 @@ namespace Yuebon.AspNetCore.Controllers
         /// <param name="bltag">有效标识，默认为1：即设为无效,0：有效</param>
         [HttpPost("SetEnabledMarkAsync")]
         [YuebonAuthorize("Enable")]
-        public virtual async Task<IActionResult> SetEnabledMarkAsync(object id, string bltag = "1")
+        public virtual async Task<IActionResult> SetEnabledMarkAsync(string id, string bltag = "1")
         {
             CommonResult result = new CommonResult();
             bool bl = false;
@@ -380,15 +366,7 @@ namespace Yuebon.AspNetCore.Controllers
                 bl = true;
             }
             string where = string.Empty;
-
-            if (typeof(object) == typeof(string))
-            {
-                where = "id in ('" + info.Ids.Join(",").Replace(",", "','") + "')";
-            }
-            else if (typeof(object) == typeof(int))
-            {
-                where = "id in (" + info.Ids.Join(",") + ")";
-            }
+            where = "id in ('" + info.Ids.Join(",").Replace(",", "','") + "')";
             if (!string.IsNullOrEmpty(where))
             {
                 bool blresut = await iService.SetEnabledMarkByWhereAsync(bl,where,CurrentUser.UserId);
@@ -416,7 +394,7 @@ namespace Yuebon.AspNetCore.Controllers
         [HttpGet("GetById")]
         [YuebonAuthorize("")]
         [NoPermissionRequired]
-        public virtual async Task<CommonResult<TODto>> GetById(object id)
+        public virtual async Task<CommonResult<TODto>> GetById(string id)
         {
             CommonResult<TODto> result = new CommonResult<TODto>();
             TODto info = await iService.GetOutDtoAsync(id);

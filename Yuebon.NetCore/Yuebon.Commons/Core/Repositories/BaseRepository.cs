@@ -122,7 +122,8 @@ namespace Yuebon.Commons.Repositories
         {
             if (dbContext == null) throw new ArgumentNullException(nameof(dbContext));
             _dbContext = dbContext;
-            _dbContext.GetDatabase().EnsureCreated();//初始化数据库
+            //_dbContext.GetDatabase().EnsureCreated();//初始化数据库
+            //_dbContext.GetDatabase().MigrateAsync();
         }
 
         /// <summary>

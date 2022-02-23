@@ -25,7 +25,6 @@ namespace Yuebon.Commons.Models
         [Key]
         [Column("Id",TypeName ="bigint")]
         [Comment("主键")]
-        [MaxLength(50)]
         public virtual long Id { get; set; }
 
         /// <summary>

@@ -43,25 +43,30 @@ namespace Yuebon.Security.Models
         [MaxLength(200)]
         [Comment("文件名称")]
         [Required]
+        [Column(TypeName = "NVARCHAR(200)")]
         public string FileName { get; set; }
         /// <summary>
 	    /// 文件路径
 	    /// </summary>
-        [MaxLength(250)]
+        [MaxLength(500)]
         [Comment("文件路径")]
         [Required]
+        [Unicode(true)]
+        [Column(TypeName = "NVARCHAR(500)")]
         public string FilePath { get; set; }
         /// <summary>
 	    /// 描述
 	    /// </summary>
         [MaxLength(500)]
         [Comment("描述")]
+        [Unicode(true)]
         public string Description { get; set; }
         /// <summary>
 	    /// 文件类型
 	    /// </summary>
         [MaxLength(20)]
         [Comment("文件类型")]
+        [Column(TypeName = "NVARCHAR(20)")]
         public string FileType { get; set; }
         /// <summary>
 	    /// 文件大小
@@ -73,6 +78,7 @@ namespace Yuebon.Security.Models
 	    /// </summary>
         [MaxLength(20)]
         [Comment("扩展名称")]
+        [Column(TypeName = "NVARCHAR(20)")]
         public string Extension { get; set; }
 
         /// <summary>
@@ -105,8 +111,9 @@ namespace Yuebon.Security.Models
         /// <summary>
 	    /// 缩略图
 	    /// </summary>
-        [MaxLength(250)]
+        [MaxLength(500)]
         [Comment("缩略图")]
+        [Column(TypeName =("NVARCHAR(500)"))]
         public string Thumbnail { get; set; }
         /// <summary>
 	    /// 所属应用

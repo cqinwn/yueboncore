@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using Yuebon.Commons.Models;
@@ -5,9 +6,10 @@ using Yuebon.Commons.Models;
 namespace Yuebon.Messages.Models
 {
     /// <summary>
-    /// ，数据实体对象
+    /// 用户消息接收表，数据实体对象
     /// </summary>
     [Table("Sys_MemberMessageBox")]
+    [Comment("用户消息接收表")]
     [Serializable]
     public class MemberMessageBox:BaseEntity
     {
@@ -17,7 +19,7 @@ namespace Yuebon.Messages.Models
         public long? ContentId { get; set; }
 
         /// <summary>
-        /// 设置或获取 
+        /// 设置或获取 消息内容
         /// </summary>
         public string MsgContent { get; set; }
 
@@ -37,7 +39,7 @@ namespace Yuebon.Messages.Models
         public bool IsRead { get; set; }
 
         /// <summary>
-        /// 设置或获取 
+        /// 设置或获取 阅读时间
         /// </summary>
         public DateTime? ReadDate { get; set; }
 

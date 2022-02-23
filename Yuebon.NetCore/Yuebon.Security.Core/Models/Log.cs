@@ -39,7 +39,6 @@ namespace Yuebon.Security.Models
         /// </summary>
         [MaxLength(50)]
         [Comment("日期")]
-        [Required]
         public virtual DateTime? Date { get; set; }
 
         /// <summary>
@@ -67,7 +66,6 @@ namespace Yuebon.Security.Models
         /// </summary>
         [MaxLength(50)]
         [Comment("类型")]
-        [Required]
         public virtual string Type { get; set; }
 
         /// <summary>
@@ -107,7 +105,6 @@ namespace Yuebon.Security.Models
         /// <summary>
         /// 描述
         /// </summary>
-        [MaxLength(500)]
         [Comment("描述")]
         public virtual string Description { get; set; }
 

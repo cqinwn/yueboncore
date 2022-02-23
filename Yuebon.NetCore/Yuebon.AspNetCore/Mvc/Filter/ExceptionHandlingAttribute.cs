@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Models;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.Core.App;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
@@ -29,7 +30,7 @@ namespace Yuebon.AspNetCore.Mvc.Filter
     public class ExceptionHandlingAttribute : ExceptionFilterAttribute
     {
 
-        private ILogRepository service = new LogRepository();
+        private readonly ILogRepository service = App.GetService<ILogRepository>();
         /// <summary>
         /// 
         /// </summary>

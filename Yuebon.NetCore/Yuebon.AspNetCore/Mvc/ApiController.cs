@@ -88,7 +88,7 @@ namespace Yuebon.AspNetCore.Controllers
                         if (isSign == null && boolSign)
                         {
                             CommonResult resultSign = SignHelper.CheckSign(context.HttpContext);
-                            if (!resultSign.Success)
+                             if (!resultSign.Success)
                             {
                                 context.Result = ToJsonContent(resultSign);
                                 return;
@@ -190,7 +190,7 @@ namespace Yuebon.AspNetCore.Controllers
             {
                 WriteIndented = true,                                   //格式化json字符串
                 AllowTrailingCommas = true,                             //可以结尾有逗号
-                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,//忽略 null 值 net6.0中IgnoreNullValues 已过时
+                //DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,//忽略 null 值 net6.0中IgnoreNullValues 已过时
                 IgnoreReadOnlyProperties = true,                        //忽略只读属性
                 PropertyNameCaseInsensitive = true,                     //忽略大小写
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)

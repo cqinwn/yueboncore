@@ -47,12 +47,12 @@ left join sys.extended_properties ds on ds.major_id=tbs.object_id and ds.minor_i
         /// <returns></returns>
         public List<DbTableInfo> GetAllTables(string tablename, string fieldNameToSort, bool isDescending, PagerInfo info)
         {
-
             string where = "1=1";
             if (!string.IsNullOrEmpty(tablename))
             {
                 where += " and TableName like '%" + tablename + "%'";
             }
+
             var sql = string.Format(@"SELECT tbs.name as TableName ,ds.value as Description FROM sys.tables tbs
 left join sys.extended_properties ds on ds.major_id=tbs.object_id and ds.minor_id=0");
            

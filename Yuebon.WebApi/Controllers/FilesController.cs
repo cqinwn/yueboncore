@@ -231,6 +231,10 @@ namespace Yuebon.WebApi.Controllers
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
             SysSetting sysSetting = yuebonCacheHelper.Get("SysSetting").ToJson().ToObject<SysSetting>();
             string folder = DateTime.Now.ToString("yyyyMMdd");
+            if (sysSetting == null)
+            {
+                sysSetting = XmlConverter.Deserialize<SysSetting>("xmlconfig/sys.config");
+            }
             _filePath = _hostingEnvironment.WebRootPath;
             var _tempfilepath = sysSetting.Filepath;
 

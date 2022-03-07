@@ -98,7 +98,7 @@ namespace Yuebon.AspNetCore.Mvc
                         string appId = jwtToken.Claims.ToList()[0].Value;//Audience
                         string secret = _jwtModel.Secret;
                         List<APP> list = MemoryCacheHelper.Get<List<APP>>("cacheAppList");
-                        if (list.Count== 0||list==null)
+                        if (list==null)
                         {
                             list = _appService.GetAll().ToList();
                         }

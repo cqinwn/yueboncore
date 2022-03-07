@@ -123,7 +123,7 @@ namespace Yuebon.Security.Services
         public void UpdateCacheAllowApp()
         {
             IEnumerable<APP> appList = repository.GetAllByIsNotDeleteAndEnabledMark();
-            MemoryCacheHelper.Set("cacheAppList", appList);
+            MemoryCacheHelper.Set("cacheAppList", appList,72000);
         }
     }
 }

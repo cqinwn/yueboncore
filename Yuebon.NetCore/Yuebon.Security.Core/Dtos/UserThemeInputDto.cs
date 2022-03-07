@@ -33,5 +33,13 @@ namespace Yuebon.Security.Dtos
         /// 是否显示 Logo
         /// </summary>
         public bool SidebarLogo { set; get; }
+        /// <summary>
+        /// 是否显示动态标题
+        /// </summary>
+        public bool DynamicTitle { set; get; }
+        /// <summary>
+        /// 是否开启头部导航TopNav
+        /// </summary>
+        public bool TopNav { set; get; }
     }
 }

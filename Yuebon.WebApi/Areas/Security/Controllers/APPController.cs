@@ -56,6 +56,9 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <returns></returns>
         protected override void OnBeforeUpdate(APP info)
         {
+            if (info.IsOpenAEKey && string.IsNullOrEmpty(info.EncodingAESKey)){
+                info.EncodingAESKey = MD5Util.GetMD5_32(GuidUtils.NewGuidFormatN()).ToUpper();
+            }
             info.LastModifyUserId = CurrentUser.UserId;
             info.LastModifyTime = DateTime.Now;
         }
@@ -89,6 +92,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.RequestUrl = tinfo.RequestUrl;
             info.Token = tinfo.Token;
             info.EnabledMark = tinfo.EnabledMark;
+            info.IsOpenAEKey=tinfo.IsOpenAEKey;
             info.Description = tinfo.Description;
 
             OnBeforeUpdate(info);

@@ -53,7 +53,6 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             {
                 info.Layers = iService.Get(info.ParentId).Layers + 1;
             }
-
         }
 
         /// <summary>

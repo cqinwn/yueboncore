@@ -162,6 +162,18 @@ namespace Yuebon.WebApi.Controllers
                                             CurrentLoginIP = strIp,
                                             IPAddressName = ipAddressName                             
                                         };
+
+                                        SysSetting sysSetting = yuebonCacheHelper.Get("SysSetting").ToJson().ToObject<SysSetting>();
+                                        if (sysSetting != null)
+                                        {
+                                            if (sysSetting.Webstatus == "1"&&!currentSession.Role.Contains("administrators"))
+                                            {
+                                                result.ErrCode = "40900";
+                                                result.ErrMsg = sysSetting.Webclosereason;
+                                                return ToJsonContent(result);
+
+                                            }
+                                        }
                                         TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
                                         yuebonCacheHelper.Add("login_user_" + user.Id, currentSession, expiresSliding, true);
 
@@ -250,6 +262,7 @@ namespace Yuebon.WebApi.Controllers
                 TenantId = ""
             };
 			CurrentUser = currentSession;
+            CurrentUser.HeadIcon = user.HeadIcon;
 
             CurrentUser.ActiveSystemId = systemType.Id;
             CurrentUser.ActiveSystem = systemType.FullName;
@@ -290,7 +303,24 @@ namespace Yuebon.WebApi.Controllers
             result.Success = true;
             return ToJsonContent(result, true);
         }
-
+        /// <summary>
+        /// 获取用户信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetProfile")]
+        public IActionResult GetProfile()
+        {
+            CommonResult result = new CommonResult();
+            if (CurrentUser == null)
+            {
+                return Logout();
+            }
+            User user = _userService.Get(CurrentUser.UserId);
+            result.ResData = user.MapTo<UserOutputDto>();
+            result.ErrCode = ErrCode.successCode;
+            result.ErrMsg = ErrCode.err0;
+            return ToJsonContent(result, true);
+        }
         /// <summary>
         /// 用户登录，无验证码，主要用于app登录
         /// </summary>

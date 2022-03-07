@@ -59,7 +59,7 @@ namespace Yuebon.Security.Models
         /// <summary>
         /// 性别,1=男，0=未知，2=女
         /// </summary>
-        [Comment("性别,1=男，0=未知，2=女")]
+        [Comment("性别,1=男，0=女，2=未知")]
         public virtual int? Gender { get; set; }
 
         /// <summary>
@@ -158,7 +158,7 @@ namespace Yuebon.Security.Models
         /// <summary>
         /// 角色主键
         /// </summary>
-        [MaxLength(50)]
+        [MaxLength(500)]
         [Comment("角色主键")]
         public virtual string RoleId { get; set; }
 

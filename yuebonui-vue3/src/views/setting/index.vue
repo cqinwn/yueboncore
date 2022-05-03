@@ -235,7 +235,11 @@ function saveEditForm() {
     }
   })
 }
+function created() {
+  headers.value = { Authorization: 'Bearer ' + (getToken() || '') }
+}
 loadSettingData()
+created()
 </script>
 <style lang="scss" scoped>
 .yuebon-setting-form .el-form-item{

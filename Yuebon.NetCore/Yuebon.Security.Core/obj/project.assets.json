@@ -11028,7 +11028,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\yuebon\\.nuget\\packages\\": {}
+    "D:\\nuget\\packages": {}
   },
   "project": {
     "version": "1.3.2.41",
@@ -11036,7 +11036,7 @@
       "projectUniqueName": "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj",
       "projectName": "Yuebon.Security.Core",
       "projectPath": "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.Security.Core\\Yuebon.Security.Core.csproj",
-      "packagesPath": "C:\\Users\\yuebon\\.nuget\\packages\\",
+      "packagesPath": "D:\\nuget\\packages",
       "outputPath": "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.Security.Core\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
@@ -11084,7 +11084,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }

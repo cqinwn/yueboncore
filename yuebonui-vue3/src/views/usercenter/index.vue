@@ -175,8 +175,11 @@ function bindEditInfo() {
 function saveEditForm() {
   proxy.$refs['editFromRef'].validate((valid) => {
     if (valid) {
-      editFrom.value.RoleId= editFrom.value.RoleId.join(',')
+      //editFrom.value.RoleId= editFrom.value.RoleId.join(',')
       var url = 'User/Update'
+      
+      const data =editFrom.value
+      data.RoleId= editFrom.value.RoleId.join(',')
       saveUser(editFrom.value, url).then(res => {
         if (res.Success) {
           proxy.$modal.msgSuccess('恭喜你，操作成功')

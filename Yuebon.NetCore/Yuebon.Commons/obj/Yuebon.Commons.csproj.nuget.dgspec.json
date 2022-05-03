@@ -10,7 +10,7 @@
         "projectUniqueName": "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj",
         "projectName": "Yuebon.Commons",
         "projectPath": "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj",
-        "packagesPath": "C:\\Users\\yuebon\\.nuget\\packages\\",
+        "packagesPath": "D:\\nuget\\packages",
         "outputPath": "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.Commons\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
@@ -204,7 +204,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -164,10 +164,13 @@ function handleLogin(){
       const data = editFrom.value
       registerUser(data).then(res => {
         if (res.Success) {
-          proxy.$modal.msgSuccess('恭喜你，注册成功')
-          setTimeout(
-            router.push('/login')
-            , 1000)
+          const username = registerForm.value.username;
+          ElMessageBox.alert("<font color='red'>恭喜你，您的账号 " + username + " 注册成功！</font>", "系统提示", {
+            dangerouslyUseHTMLString: true,
+            type: "success",
+          }).then(() => {
+            router.push("/login");
+          }).catch(() => {});
         } else {
           proxy.$modal.msgError(res.ErrMsg)
         }

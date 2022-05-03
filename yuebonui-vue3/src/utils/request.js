@@ -57,7 +57,6 @@ service.interceptors.response.use(
           }
         }).catch(() => { })
       } else if (res.ErrCode === '40000' || res.ErrCode === '40008') {
-        console.log("isRelogin.show:"+isRelogin.show)
         if (!isRelogin.show) {
           isRelogin.show = true;
           // to re-login
@@ -74,8 +73,8 @@ service.interceptors.response.use(
             isRelogin.show = false;
           });
         }
-        //return Promise.reject('无效的会话，或者会话已过期，请重新登录。')
-          return res
+        return Promise.reject('无效的会话，或者会话已过期，请重新登录。')
+        //return res
       } else {
         isRelogin.show = false;
         ElMessage({

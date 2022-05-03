@@ -3,11 +3,9 @@ import { useDynamicTitle } from '@/utils/dynamicTitle'
 
 const { sideTheme, showSettings, topNav, tagsView, fixedHeader, sidebarLogo, dynamicTitle, appId, appSecret, subSystem, activeSystemCode, activeSystemName } = defaultSettings
 
-const storageSetting = ''
-let layoutsetting = localStorage.getItem('layout-setting')
-if (!layoutsetting) {
-  storageSetting=JSON.parse(layoutsetting)
-}
+
+const layoutsetting = localStorage.getItem('layout-setting')
+const storageSetting = (layoutsetting!==null)?JSON.parse(layoutsetting):''
 const state = {
   title: '',
   theme: storageSetting.Theme || '#409EFF',

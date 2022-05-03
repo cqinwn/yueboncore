@@ -98,7 +98,16 @@
           </el-col>
           <el-col :span="24">
             <el-form-item label="Cron表达式" :label-width="formLabelWidth" prop="Cron">
-              <cron-input v-model="editFrom.Cron" placeholder="请输入Cron表达式" />
+              <template #reference>
+                <el-input
+                  @focus="togglePopover(true)"
+                  v-model="editFrom.Cron"
+                  placeholder="请输入Cron表达式"
+                ></el-input>
+              </template>
+              <el-popover v-model:visible="cronPopover"  trigger="manual">
+              <vue3Cron @change="changeCron" @close="togglePopover(false)" max-height="400px" i18n="cn"></vue3Cron>
+              </el-popover>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -180,7 +189,9 @@ import {
   deleteTaskManager, changeStatus, getLocalTaskJobs, getTaskJobLogListWithPager
 } from '@/api/security/taskmanager'
 
-import CronInput from '@/components/cron/cron-input'
+import { Vue3Cron } from 'vue3-cron'
+import { ref } from '@vue/reactivity'
+//import 'vue3-cron/lib/vue3Cron.css' // 引入样式
 
 const { proxy } = getCurrentInstance()
 const tableData=ref([])
@@ -202,7 +213,7 @@ const dialogShowLogFormVisible=ref(false)
 const isShowSelect = ref(true)
 const activities=ref([])
 const reverse = ref(true)
-
+const cronPopover=ref(false)
 const data = reactive({
   searchform: {
     name: ''
@@ -495,9 +506,26 @@ function handleSelectChange(selection, row) {
 function handleRowClick(row, column, event) {
   currentId.value = row.Id
 }
+const changeCron = (val) => {
+  if(typeof(val) !== 'string') return false
+  editFrom.val.Cron = val
+}
+const togglePopover = (bol) => {
+  cronPopover.value = bol
+}
 InitDictItem()
 loadTableData()
 </script>
 
-<style>
+
+<style lang="scss" scoped>
+.cron {
+  width: 400px;
+  margin: 0 auto;
+  margin-top: 100px;
+  h1 {
+    font-size: 50px;
+    text-align: center;
+  }
+}
 </style>

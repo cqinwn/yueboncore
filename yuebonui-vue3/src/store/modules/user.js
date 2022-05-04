@@ -1,6 +1,7 @@
 import { login, logout, refreshToken, getListMeunFuntionBymeunCode, sysConnect, getUserInfo } from '@/api/basebasic'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import defAva from '@/assets/images/profile.jpg'
+import defaultSettings from '@/settings'
 
 const user = {
   state: {
@@ -66,7 +67,7 @@ const user = {
         getUserInfo().then(res => {
           if (res.Success) {
             const user = res.ResData
-            const avatar = user.HeadIcon === null ? defAva : import.meta.env.VITE_APP_BASE_API + user.HeadIcon
+            const avatar = user.HeadIcon === null ? defAva : defaultSettings.fileUrl + user.HeadIcon
             //commit('SET_TEMPNAME', user.Account)
             localStorage.setItem("layout-setting", user.UserTheme);
             commit('SET_AVATAR', avatar)

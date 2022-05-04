@@ -105,7 +105,7 @@
       :limit="pagination.pageSize"
       @pagination="loadTableData"
     />
-    <el-dialog ref="dialogEditForm" draggable :title="editFormTitle + '角色'" v-model="dialogEditFormVisible">
+    <el-dialog ref="dialogEditForm" draggable :title="editFormTitle + '角色'" v-model="dialogEditFormVisible" width="20%">
       <el-form ref="editFromRef" :inline="true" :model="editFrom" :rules="rules" class="demo-form-inline">
         <el-form-item label="角色名称" :label-width="formLabelWidth" prop="FullName">
           <el-input v-model="editFrom.FullName" placeholder="请输入角色名称" autocomplete="off" clearable />

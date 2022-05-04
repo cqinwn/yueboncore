@@ -50,7 +50,7 @@
         @select-all="handleSelectAllChange"
         @sort-change="handleSortChange"
       >
-        <el-table-column type="selection" width="30" />
+        <el-table-column type="selection" width="40" />
         <el-table-column prop="CreatorTime" label="操作时间" sortable="custom" width="180" />
         <el-table-column prop="Description" label="详情" />
       </el-table>

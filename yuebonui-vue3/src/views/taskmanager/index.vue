@@ -34,7 +34,7 @@
       @sort-change="handleSortChange"
       @row-click="handleRowClick"
     >
-      <el-table-column type="selection" width="30" />
+      <el-table-column type="selection" width="40" />
       <el-table-column prop="Id" label="任务ID" sortable="custom" width="150" />
       <el-table-column prop="TaskName" label="任务名称" sortable="custom" width="150" />
       <el-table-column prop="GroupName" label="分组名称" sortable="custom" width="150" />
@@ -78,7 +78,7 @@
       :limit="pagination.pageSize"
       @pagination="loadTableData"
     />
-    <el-dialog ref="dialogEditForm" :title="editFormTitle + '任务'" v-model="dialogEditFormVisible" width="880px" append-to-body>
+    <el-dialog ref="dialogEditForm" :title="editFormTitle + '定时任务'" v-model="dialogEditFormVisible" width="880px" append-to-body>
       <el-form ref="editFromRef" :model="editFrom" :rules="rules">
         <el-row>
           <el-col :span="12">
@@ -93,21 +93,17 @@
           </el-col>
           <el-col :span="24">
             <el-form-item label="起止时间" :label-width="formLabelWidth" prop="StartEndTime">
-              <el-date-picker v-model="editFrom.StartEndTime" type="datetimerange" start-placeholder="开始时间" end-placeholder="结束结束" :default-time="['12:00:00']" />
+              <el-date-picker 
+              v-model="editFrom.StartEndTime" 
+              type="datetimerange" 
+              start-placeholder="开始时间" 
+              end-placeholder="结束结束" 
+              :default-time="defaultTime" />
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="Cron表达式" :label-width="formLabelWidth" prop="Cron">
-              <template #reference>
-                <el-input
-                  @focus="togglePopover(true)"
-                  v-model="editFrom.Cron"
-                  placeholder="请输入Cron表达式"
-                ></el-input>
-              </template>
-              <el-popover v-model:visible="cronPopover"  trigger="manual">
-              <vue3Cron @change="changeCron" @close="togglePopover(false)" max-height="400px" i18n="cn"></vue3Cron>
-              </el-popover>
+                <el-input v-model="editFrom.Cron" placeholder="请输入Cron表达式"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -189,10 +185,6 @@ import {
   deleteTaskManager, changeStatus, getLocalTaskJobs, getTaskJobLogListWithPager
 } from '@/api/security/taskmanager'
 
-import { Vue3Cron } from 'vue3-cron'
-import { ref } from '@vue/reactivity'
-//import 'vue3-cron/lib/vue3Cron.css' // 引入样式
-
 const { proxy } = getCurrentInstance()
 const tableData=ref([])
 const tableloading=ref(true)
@@ -206,7 +198,10 @@ const formLabelWidth=ref("100px")
 const currentId=ref("")// 当前操作对象的ID值，主要用于修改
 const ids=ref([])
 
-
+const defaultTime = [
+  new Date(2000, 1, 1, 0, 0, 1),
+  new Date(2000, 2, 1, 23, 59, 59),
+] 
 const selectLocalTask=ref([])
 const dialogShowLogFormVisible=ref(false)
 
@@ -354,7 +349,7 @@ function ShowEditOrViewDialog(view) {
   }
 }
 function bindEditInfo() {
-  getTaskManagerDetail(currentId).then(res => {
+  getTaskManagerDetail(currentId.value).then(res => {
     editFrom.value = res.ResData
     isShowSelect.value = res.ResData.IsLocal
     editFrom.value.StartEndTime = [res.ResData.StartTime, res.ResData.EndTime]
@@ -364,22 +359,22 @@ function bindEditInfo() {
  * 新增/修改保存
  */
 function saveEditForm() {
-  proxy.$refs['editFrom'].validate((valid) => {
+  proxy.$refs['editFromRef'].validate((valid) => {
     if (valid) {
       const data = {
-        'TaskName': editFrom.TaskName,
-        'GroupName': editFrom.GroupName,
-        'Cron': editFrom.Cron,
-        'JobCallAddress': editFrom.JobCallAddress,
-        'JobCallParams': editFrom.JobCallParams,
-        'StartTime': editFrom.StartEndTime[0],
-        'EndTime': editFrom.StartEndTime[1],
-        'IsLocal': editFrom.IsLocal,
-        'Description': editFrom.Description,
-        'SendMail': editFrom.SendMail,
-        'EmailAddress': editFrom.EmailAddress,
-        'EnabledMark': editFrom.EnabledMark,
-        'Id': currentId
+        'TaskName': editFrom.value.TaskName,
+        'GroupName': editFrom.value.GroupName,
+        'Cron': editFrom.value.Cron,
+        'JobCallAddress': editFrom.value.JobCallAddress,
+        'JobCallParams': editFrom.value.JobCallParams,
+        'StartTime': editFrom.value.StartEndTime[0],
+        'EndTime': editFrom.value.StartEndTime[1],
+        'IsLocal': editFrom.value.IsLocal,
+        'Description': editFrom.value.Description,
+        'SendMail': editFrom.value.SendMail,
+        'EmailAddress': editFrom.value.EmailAddress,
+        'EnabledMark': editFrom.value.EnabledMark,
+        'Id': currentId.value
       }
       var url = 'TaskManager/Insert'
       if (currentId.value !== '') {
@@ -390,6 +385,7 @@ function saveEditForm() {
           proxy.$modal.msgSuccess('恭喜你，操作成功')
           dialogEditFormVisible.value = false
           editFrom.value.StartEndTime = ''
+          reset()
           loadTableData()
         } else {
           proxy.$modal.msgError(res.ErrMsg)

@@ -437,7 +437,7 @@ function ShowItemsEditOrViewDialog(view) {
   }
 }
 function bindItemsEditInfo() {
-  getItemsDetail(currentItemsId).then(res => {
+  getItemsDetail(currentItemsId.value).then(res => {
     editItemsFrom.value = res.ResData
     selectedItemsOptions.value = res.ResData.ParentId
   })
@@ -591,7 +591,7 @@ function  bindItemsDetailEditInfo() {
  * 新增/修改保存
  */
 function saveEditItemsDetailForm() {
-  $refs['editItemsDetailFrom'].validate((valid) => {
+  proxy.$refs['editItemsDetailFromRef'].validate((valid) => {
     if (valid) {
       const data = {
         'ItemName': editItemsDetailFrom.value.ItemName,

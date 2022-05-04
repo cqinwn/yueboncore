@@ -372,17 +372,12 @@ function showSelectIcon() {
 /** 选择图标 */
 function selected(name) {
   editMenuFrom.value.icon = name;
-  console.log("editMenuFrom.value.icon:"+editMenuFrom.value.icon)
   showChooseIcon.value = false;
 }
 /** 关闭弹窗隐藏图标选择 */
 function handleClose() {
   cancel();
   showChooseIcon.value = false;
-}
-/** 搜索按钮操作 */
-function handleQuery() {
-  getList();
 }
 // 取消按钮
 function cancel() {
@@ -420,7 +415,8 @@ function loadTableData() {
   var data = {
     systemTypeId: searchform.value.systemTypeId
   }
-  getAllMenuTreeTable(data).then(res => {
+  var sysId=searchform.value.systemTypeId
+  getAllMenuTreeTable(sysId).then(res => {
     tableDataMenus.value = res.ResData
   })
 }

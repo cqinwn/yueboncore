@@ -5,11 +5,11 @@ import defaultSettings from '@/settings'
    * 获取功能菜单
    * @param {查询条件} data
    */
-export function getAllMenuTreeTable(data) {
+export function getAllMenuTreeTable(sysId) {
   return http.request({
     url: 'Menu/GetAllMenuTreeTable',
     method: 'get',
-    params: data,
+    params: {systemTypeId:sysId},
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }

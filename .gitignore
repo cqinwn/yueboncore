@@ -14,6 +14,7 @@ upload/
 **/bin/**
 **/obj/**
 .vs/*
+.PublishFiles/*
 **/wwwroot/Generatecode/**
 **/wwwroot/upload/**
 

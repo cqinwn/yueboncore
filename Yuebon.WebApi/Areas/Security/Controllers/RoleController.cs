@@ -95,7 +95,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.Type = tinfo.Type;
 
             OnBeforeUpdate(info);
-            bool bl = await iService.UpdateAsync(info, tinfo.Id).ConfigureAwait(false);
+            bool bl = await iService.UpdateAsync(info);
             if (bl)
             {
                 result.ErrCode = ErrCode.successCode;

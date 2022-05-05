@@ -10,7 +10,6 @@ using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Core.App;
-using Yuebon.Commons.IoC;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Models;
@@ -142,7 +141,7 @@ namespace Yuebon.WebApi.Controllers
                                 Tuple<User,string> userLogin = await this._userService.Validate(username, password);
                                 if (userLogin != null)
                                 {
-                                    string ipAddressName = IpAddressUtil.GetCityByIp(strIp);
+                                    string ipAddressName =await IpAddressUtil.GetCityByIp(strIp);
                                     if (userLogin.Item1 != null)
                                     {
                                         result.Success = true;
@@ -303,6 +302,8 @@ namespace Yuebon.WebApi.Controllers
             result.Success = true;
             return ToJsonContent(result, true);
         }
+
+
         /// <summary>
         /// 获取用户信息
         /// </summary>
@@ -388,7 +389,7 @@ namespace Yuebon.WebApi.Controllers
                                 if (userLogin != null)
                                 {
 
-                                    string ipAddressName = IpAddressUtil.GetCityByIp(strIp);
+                                    string ipAddressName =await IpAddressUtil.GetCityByIp(strIp);
                                     if (userLogin.Item1 != null)
                                     {
                                         result.Success = true;
@@ -470,7 +471,7 @@ namespace Yuebon.WebApi.Controllers
                 yuebonCacheHelper.Remove("User_Function_" + CurrentUser.UserId);
                 UserLogOn userLogOn = _userLogOnService.GetWhere("UserId='" + CurrentUser.UserId + "'");
                 userLogOn.UserOnLine = false;
-                _userLogOnService.Update(userLogOn, userLogOn.Id);
+                _userLogOnService.Update(userLogOn);
             }
             CurrentUser = null;
             result.Success = true;
@@ -489,7 +490,7 @@ namespace Yuebon.WebApi.Controllers
         [HttpGet("SysConnect")]
         [AllowAnonymous]
         [NoPermissionRequired]
-        public IActionResult SysConnect(string openmf, string appId, string systemCode)
+        public async Task<IActionResult> SysConnect(string openmf, string appId, string systemCode)
         {
             CommonResult result = new CommonResult();
             RemoteIpParser remoteIpParser = new RemoteIpParser();
@@ -506,7 +507,7 @@ namespace Yuebon.WebApi.Controllers
             }
             else
             {
-                string ipAddressName = IpAddressUtil.GetCityByIp(strIp);
+                string ipAddressName =await IpAddressUtil.GetCityByIp(strIp);
                 if (string.IsNullOrEmpty(systemCode))
                 {
                     result.ErrMsg = ErrCode.err40006;

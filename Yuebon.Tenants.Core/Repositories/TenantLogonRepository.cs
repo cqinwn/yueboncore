@@ -1,6 +1,4 @@
-using Dapper;
-using System;
-using Yuebon.Commons.IDbContext;
+using Yuebon.Commons.Core.UnitOfWork;
 using Yuebon.Commons.Repositories;
 using Yuebon.Tenants.IRepositories;
 using Yuebon.Tenants.Models;
@@ -12,19 +10,11 @@ namespace Yuebon.Tenants.Repositories
     /// </summary>
     public class TenantLogonRepository : BaseRepository<TenantLogon>, ITenantLogonRepository
     {
-		public TenantLogonRepository()
-        {
-        }
 
-        public TenantLogonRepository(IDbContextCore context) : base(context)
+        public TenantLogonRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
 
         }
-
-        #region Dapper 操作
-
-        //DapperConn 用于读写操作
-        //DapperConnRead 用于只读操作
 
         /// <summary>
         /// 根据租户ID获取租户登录信息实体
@@ -34,16 +24,8 @@ namespace Yuebon.Tenants.Repositories
         public TenantLogon GetByTenantId(string tenantId)
         {
             string sql = $"SELECT * FROM {this.tableName} t WHERE t.TenantId = @TenantId";
-            return DapperConn.QueryFirst<TenantLogon>(sql, new { @TenantId = tenantId });
+            return Db.Ado.SqlQuerySingle<TenantLogon>(sql, new { @TenantId = tenantId });
         }
-        #endregion
 
-
-        #region EF 操作
-
-        //DbContext 用于读写操作
-        //DbContextRead 用于只读操作
-
-        #endregion
     }
 }

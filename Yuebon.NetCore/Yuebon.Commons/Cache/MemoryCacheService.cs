@@ -1,9 +1,11 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿
+using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Caching;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -18,7 +20,7 @@ namespace Yuebon.Commons.Cache
         /// <summary>
         /// 
         /// </summary>
-        private readonly IMemoryCache _cache=new MemoryCache(new MemoryCacheOptions());
+        private readonly IMemoryCache _cache = new Microsoft.Extensions.Caching.Memory.MemoryCache(new MemoryCacheOptions());
 
         ///// <summary>
         ///// 
@@ -123,6 +125,34 @@ namespace Yuebon.Commons.Cache
                 .SetAbsoluteExpiration(expiresIn)
                 );
 
+            return Exists(key);
+        }
+
+
+        /// <summary>
+        /// 用键和值将某个缓存项插入缓存中，并指定基于时间的过期详细信息
+        /// </summary>
+        /// <param name="key">缓存Key</param>
+        /// <param name="obj">缓存Value</param>
+        /// <param name="seconds">缓存时长</param>
+        public  bool Add(string key, object obj, int seconds = 7200)
+        {
+            if (key == null)
+            {
+                throw new ArgumentNullException(nameof(key));
+            }
+            if (obj == null)
+            {
+                throw new ArgumentNullException(nameof(obj));
+            }
+            var cache = System.Runtime.Caching.MemoryCache.Default;
+
+            var policy = new CacheItemPolicy
+            {
+                AbsoluteExpiration = DateTime.Now.AddSeconds(seconds)
+            };
+
+            cache.Set(key, obj, policy);
             return Exists(key);
         }
         #endregion

@@ -23,5 +23,7 @@ namespace Yuebon.Security.IServices
         /// <param name="userId">ÓÃ»§Id</param>
         /// <returns></returns>
         Task<bool> SaveUserTheme(UserThemeInputDto info, string userId);
+        Task<bool> UpdateAsync(UserLogOn entity,string id);
+        
     }
 }

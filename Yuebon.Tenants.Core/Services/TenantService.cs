@@ -21,7 +21,7 @@ namespace Yuebon.Tenants.Services
     {
 		private readonly ITenantRepository _repository;
         private readonly ITenantLogonRepository _repositoryLogon;
-        public TenantService(ITenantRepository repository, ITenantLogonRepository repositoryLogon) : base(repository)
+        public TenantService(ITenantRepository repository, ITenantLogonRepository repositoryLogon)
         {
 			_repository=repository;
             _repositoryLogon = repositoryLogon;
@@ -123,7 +123,7 @@ namespace Yuebon.Tenants.Services
                 CurrenetPageIndex = search.CurrenetPageIndex,
                 PageSize = search.PageSize
             };
-            List<Tenant> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+            List<Tenant> list = await _repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
             PageResult<TenantOutputDto> pageResult = new PageResult<TenantOutputDto>
             {
                 CurrentPage = pagerInfo.CurrenetPageIndex,

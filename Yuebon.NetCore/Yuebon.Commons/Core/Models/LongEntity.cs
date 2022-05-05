@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,6 +26,7 @@ namespace Yuebon.Commons.Models
         [Key]
         [Column("Id",TypeName ="bigint")]
         [Comment("主键")]
+        [SugarColumn(IsPrimaryKey = true)]
         public virtual long Id { get; set; }
 
         /// <summary>

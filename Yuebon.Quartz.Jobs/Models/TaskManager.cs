@@ -1,8 +1,8 @@
 
 using Microsoft.EntityFrameworkCore;
+using SqlSugar;
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Yuebon.Commons.Models;
 
 namespace Yuebon.Quartz.Models
@@ -10,7 +10,7 @@ namespace Yuebon.Quartz.Models
     /// <summary>
     /// 定时任务，数据实体对象
     /// </summary>
-    [Table("Sys_TaskManager")]
+    [SugarTable("Sys_TaskManager")]
     [Comment("定时任务")]
     [Serializable]
     public class TaskManager:BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited
@@ -32,13 +32,6 @@ namespace Yuebon.Quartz.Models
             this.DeleteUserId = "";
         }
 
-        /// <summary>
-        /// 设置或获取 主键Id
-        /// </summary>
-        [Key]
-        [MaxLength(50)]
-        [Comment("主键Id")]
-        public override string Id { get; set; }
         /// <summary>
         /// 设置或获取任务名称
         /// </summary>

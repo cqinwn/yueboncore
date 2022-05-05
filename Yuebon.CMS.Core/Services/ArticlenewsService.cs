@@ -19,7 +19,7 @@ namespace Yuebon.CMS.Services
     {
         private readonly IArticlenewsRepository _repository;
         private readonly IArticlecategoryRepository _articlecategoryRepository;
-        public ArticlenewsService(IArticlenewsRepository repository, IArticlecategoryRepository articlecategoryRepository) : base(repository)
+        public ArticlenewsService(IArticlenewsRepository repository, IArticlecategoryRepository articlecategoryRepository)
         {
             _repository = repository;
             _articlecategoryRepository = articlecategoryRepository;

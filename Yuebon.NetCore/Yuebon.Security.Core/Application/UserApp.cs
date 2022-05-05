@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Yuebon.Commons.Core.App;
 using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Helpers;
-using Yuebon.Commons.IoC;
 using Yuebon.Commons.Mapping;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.IServices;

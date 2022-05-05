@@ -29,6 +29,6 @@ namespace Yuebon.Security.IRepositories
         /// 
         /// </summary>
         /// <returns></returns>
-        IList<AppOutputDto> SelectApp();
+        //IList<AppOutputDto> SelectApp();
     }
 }

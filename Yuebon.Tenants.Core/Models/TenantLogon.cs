@@ -6,13 +6,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Yuebon.Commons.Models;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using SqlSugar;
 
 namespace Yuebon.Tenants.Models
 {
     /// <summary>
     /// 租户用户登录信息，数据实体对象
     /// </summary>
-    [Table("Sys_TenantLogon")]
+    [SugarTable("Sys_TenantLogon")]
     [Comment("租户信息表")]
     [Serializable]
     public class TenantLogon:BaseEntity

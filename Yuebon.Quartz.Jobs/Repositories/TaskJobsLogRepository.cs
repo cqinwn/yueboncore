@@ -1,10 +1,7 @@
-using System;
-using Yuebon.Commons.IDbContext;
+using Yuebon.Commons.Core.UnitOfWork;
 using Yuebon.Commons.Repositories;
 using Yuebon.Quartz.IRepositories;
 using Yuebon.Quartz.Models;
-using Yuebon.Security.IRepositories;
-using Yuebon.Security.Models;
 
 namespace Yuebon.Quartz.Repositories
 {
@@ -13,11 +10,7 @@ namespace Yuebon.Quartz.Repositories
     /// </summary>
     public class TaskJobsLogRepository : BaseRepository<TaskJobsLog>, ITaskJobsLogRepository
     {
-		public TaskJobsLogRepository()
-        {
-        }
-
-        public TaskJobsLogRepository(IDbContextCore dbContext) : base(dbContext)
+        public TaskJobsLogRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
     }

@@ -24,9 +24,10 @@ namespace Yuebon.Security.Services
         /// </summary>
         /// <param name="repository"></param>
         /// <param name="logService"></param>
-        public ItemsDetailService(IItemsDetailRepository repository, ILogService logService, IItemsService _itemsService) : base(repository)
+        public ItemsDetailService(IItemsDetailRepository itemsDetailRepository, ILogService logService, IItemsService _itemsService)
         {
-            _repository = repository;
+            repository=itemsDetailRepository;
+            _repository = itemsDetailRepository;
             _logService = logService;
             itemsService = _itemsService;
         }

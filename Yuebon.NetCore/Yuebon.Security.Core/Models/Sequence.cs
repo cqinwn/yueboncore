@@ -7,13 +7,14 @@ using Yuebon.Commons.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using SqlSugar;
 
 namespace Yuebon.Security.Models
 {
     /// <summary>
     /// 单据编码，数据实体对象
     /// </summary>
-    [Table("Sys_Sequence")]
+    [SugarTable("Sys_Sequence")]
     [Serializable]
     [Comment("单据编码")]
     public class Sequence:BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited

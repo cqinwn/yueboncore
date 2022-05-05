@@ -8,13 +8,11 @@
     <Description>YuebonNetCore开发框架基础库</Description>
     <Copyright>上海越邦网络科技有限公司 版权所有</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageProjectUrl>https://gitee.com/yuebon/YuebonNetCore</PackageProjectUrl>
+    <PackageProjectUrl></PackageProjectUrl>
     <Version>1.3.2.5</Version>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageIconUrl></PackageIconUrl>
-    <RepositoryUrl>https://gitee.com/yuebon/YuebonNetCore</RepositoryUrl>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <RepositoryUrl></RepositoryUrl>
     <PackageIcon>logo.png</PackageIcon>
     <AssemblyVersion>1.3.2.5</AssemblyVersion>
   </PropertyGroup>
@@ -33,6 +31,9 @@
 
   <ItemGroup>
     <Compile Remove="AutoMapper\**" />
+    <Compile Remove="Core\Dapper\**" />
+    <Compile Remove="Core\DbContextCore\**" />
+    <Compile Remove="Core\IDbContext\**" />
     <Compile Remove="Dependency\**" />
     <Compile Remove="Entity\**" />
     <Compile Remove="Exceptions\**" />
@@ -41,6 +42,9 @@
     <Compile Remove="Middlewares\**" />
     <Compile Remove="Reflection\**" />
     <EmbeddedResource Remove="AutoMapper\**" />
+    <EmbeddedResource Remove="Core\Dapper\**" />
+    <EmbeddedResource Remove="Core\DbContextCore\**" />
+    <EmbeddedResource Remove="Core\IDbContext\**" />
     <EmbeddedResource Remove="Dependency\**" />
     <EmbeddedResource Remove="Entity\**" />
     <EmbeddedResource Remove="Exceptions\**" />
@@ -49,6 +53,9 @@
     <EmbeddedResource Remove="Middlewares\**" />
     <EmbeddedResource Remove="Reflection\**" />
     <None Remove="AutoMapper\**" />
+    <None Remove="Core\Dapper\**" />
+    <None Remove="Core\DbContextCore\**" />
+    <None Remove="Core\IDbContext\**" />
     <None Remove="Dependency\**" />
     <None Remove="Entity\**" />
     <None Remove="Exceptions\**" />
@@ -76,21 +83,28 @@
     <Compile Remove="Attributes\TableAttribute.cs" />
     <Compile Remove="Attributes\UnitOfWorkIInterceptor.cs" />
     <Compile Remove="Attributes\WriteAttribute.cs" />
+    <Compile Remove="CodeGenerator\CodeGenerator.cs" />
+    <Compile Remove="CodeGenerator\DbExtractor.cs" />
+    <Compile Remove="CodeGenerator\DbExtractorAbstract.cs" />
+    <Compile Remove="CodeGenerator\IDbExtractor.cs" />
+    <Compile Remove="CodeGenerator\MssqlExtractor.cs" />
+    <Compile Remove="CodeGenerator\MySqlExtractor.cs" />
     <Compile Remove="Core\App\AppContext.cs" />
     <Compile Remove="Core\App\IAppContext.cs" />
     <Compile Remove="Core\App\InternalApp.cs" />
-    <Compile Remove="Core\Dapper\ISqlDapper.cs" />
-    <Compile Remove="Core\Dapper\SqlDapper.cs" />
-    <Compile Remove="Core\DbContextCore\InMemoryDbContext.cs" />
-    <Compile Remove="Core\DbContextCore\MongoDbContext.cs" />
-    <Compile Remove="Core\DbContextCore\ShardDbContextFactory.cs" />
+    <Compile Remove="Core\DataManager\BaseDBConfig.cs" />
+    <Compile Remove="Core\DataManager\YuebonDbOptions.cs" />
+    <Compile Remove="Core\DataManager\YuebonDbOptionsSetup.cs" />
     <Compile Remove="Core\Dtos\InputDtoValidateExtensions.cs" />
-    <Compile Remove="Core\IDbContext\IInMemoryDbContext.cs" />
-    <Compile Remove="Core\IDbContext\IMongoDbContext.cs" />
+    <Compile Remove="Core\IRepositories\ISqlSugarBaseRepository.cs" />
+    <Compile Remove="Core\IServices\ISqlSugarService.cs" />
     <Compile Remove="Core\Module\MoudleService.cs" />
+    <Compile Remove="Core\Repositories\SqlSugarBaseRepository.cs" />
+    <Compile Remove="Core\Services\SqlSugarBaseService.cs" />
     <Compile Remove="DependencyInjection\AspectCoreContainer.cs" />
     <Compile Remove="Extensions\AutoMapperExtension.cs" />
     <Compile Remove="Extensions\ComparisonHelper.cs" />
+    <Compile Remove="Extensions\EntityFrameworkCoreExtensions.cs" />
     <Compile Remove="Extensions\EnumerableExtensions.cs" />
     <Compile Remove="Extensions\GenericExtension.cs" />
     <Compile Remove="Extensions\IoCContainerExtensions.cs" />
@@ -98,12 +112,12 @@
     <Compile Remove="Extensions\MvcExtension.cs" />
     <Compile Remove="Extensions\ServiceCollectionExtension.cs" />
     <Compile Remove="Extensions\SqlBuilder.cs" />
+    <Compile Remove="Extensions\SqlMapperExtensions.Async.cs" />
+    <Compile Remove="Extensions\SqlMapperExtensions.cs" />
     <Compile Remove="Helpers\BoolNullableConverter.cs" />
     <Compile Remove="Helpers\CacheKey.cs" />
-    <Compile Remove="Helpers\HttpHelper.cs" />
+    <Compile Remove="Helpers\HttpRequestHelper.cs" />
     <Compile Remove="Helpers\RegistryHelper.cs" />
-    <Compile Remove="IoC\AspectCoreContainer.cs" />
-    <Compile Remove="IoC\AutofacModuleRegister.cs" />
     <Compile Remove="Mapping\AutoMapperModule.cs" />
     <Compile Remove="Mapping\IAutoMapperConfiguration.cs" />
     <Compile Remove="Mapping\IMapFromAttributeTypeFinder.cs" />
@@ -172,38 +186,29 @@
   <ItemGroup>
 
     <PackageReference Include="AutoMapper" Version="11.0.1" />
-
-    <PackageReference Include="CSRedisCore" Version="3.6.8" />
-    <PackageReference Include="Dapper.StrongName" Version="2.0.123" />
     <PackageReference Include="DotNetCore.NPOI" Version="1.2.3" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.42" />
     <PackageReference Include="log4net" Version="2.0.14" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.2" />
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="6.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="6.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.4" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
     <PackageReference Include="MiniProfiler.AspNetCore" Version="4.2.22" />
     <PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.2.22" />
-    <PackageReference Include="MiniProfiler.EntityFrameworkCore" Version="4.2.22" />
-    <PackageReference Include="MySql.Data" Version="8.0.28" />
+    <PackageReference Include="MySql.Data" Version="8.0.29" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-    <PackageReference Include="Npgsql" Version="6.0.3" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.3" />
     <PackageReference Include="NPinyin.Core" Version="3.0.0" />
-    <PackageReference Include="Oracle.EntityFrameworkCore" Version="6.21.5" />
-    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.50" />
-    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.1" />
     <PackageReference Include="QRCoder" Version="1.4.3" />
-    <PackageReference Include="Quartz" Version="3.3.3" />
+    <PackageReference Include="Quartz" Version="3.4.0" />
     <PackageReference Include="SgmlReader.NetCore" Version="1.0.0" />
+    <PackageReference Include="SqlSugarCore" Version="5.0.7.6" />
     <PackageReference Include="System.Data.OleDb" Version="6.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
     <PackageReference Include="System.Drawing.Common" Version="6.0.0" />

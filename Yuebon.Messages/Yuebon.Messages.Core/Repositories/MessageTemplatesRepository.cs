@@ -1,7 +1,5 @@
-using Dapper;
-using System;
 using System.Collections.Generic;
-using System.Data.Common;
+using Yuebon.Commons.Core.UnitOfWork;
 using Yuebon.Commons.Linq;
 using Yuebon.Commons.Repositories;
 using Yuebon.Messages.Dtos;
@@ -15,7 +13,7 @@ namespace Yuebon.Messages.Repositories
     /// </summary>
     public class MessageTemplatesRepository : BaseRepository<MessageTemplates>, IMessageTemplatesRepository
     {
-		public MessageTemplatesRepository()
+        public MessageTemplatesRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
             this.tableName = "Sys_MessageTemplates";
             this.primaryKey = "Id";
@@ -31,7 +29,7 @@ namespace Yuebon.Messages.Repositories
             string sqlStr = @"select a.*,b.Id as MemberSubscribeMsgId,b.SubscribeStatus as SubscribeStatus  from Sys_MessageTemplates as a 
 LEFT join Sys_MemberSubscribeMsg as b on a.Id = b.MessageTemplateId and a.UseInWxApplet =1 and b.SubscribeUserId='" + userId + "'  where  a.WxAppletSubscribeTemplateId is not null";
 
-            return DapperConn.Query<MemberMessageTemplatesOuputDto>(sqlStr).AsToList();
+            return Db.Ado.SqlQuery<MemberMessageTemplatesOuputDto>(sqlStr).AsToList();
         }
     }
 }

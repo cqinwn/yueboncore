@@ -1,11 +1,6 @@
-﻿using Microsoft.Extensions.Caching.Memory;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Yuebon.Commons.Core.App;
-using Yuebon.Commons.IoC;
-using Yuebon.Commons.Json;
 
 namespace Yuebon.Commons.Cache
 {

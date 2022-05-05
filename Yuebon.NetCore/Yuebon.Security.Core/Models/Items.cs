@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,7 +13,7 @@ namespace Yuebon.Security.Models
     /// <summary>
     /// 数据字典选项主表，数据实体对象
     /// </summary>
-    [Table("Sys_Items")]
+    [SugarTable("Sys_Items")]
     [Serializable]
     [Comment("数据字典选项主表")]
     public class Items : BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited

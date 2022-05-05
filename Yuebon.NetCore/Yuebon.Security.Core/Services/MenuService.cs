@@ -34,9 +34,10 @@ namespace Yuebon.Security.Services
         /// <param name="_roleAuthorizeRepository"></param>
         /// <param name="_systemTypeRepository"></param>
         /// <param name="logService"></param>
-        public MenuService(IMenuRepository repository,IUserRepository _userRepository, IRoleAuthorizeRepository _roleAuthorizeRepository, ISystemTypeRepository _systemTypeRepository, ILogService logService) : base(repository)
+        public MenuService(IMenuRepository menuRepository,IUserRepository _userRepository, IRoleAuthorizeRepository _roleAuthorizeRepository, ISystemTypeRepository _systemTypeRepository, ILogService logService)
         {
-            _MenuRepository = repository;
+            repository=menuRepository;
+            _MenuRepository = menuRepository;
             userRepository = _userRepository;
             roleAuthorizeRepository = _roleAuthorizeRepository;
             systemTypeRepository = _systemTypeRepository;

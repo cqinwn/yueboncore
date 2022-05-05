@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using SqlSugar;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,7 +12,7 @@ namespace Yuebon.Security.Models
     /// <summary>
     /// 用户扩展信息表，数据实体对象
     /// </summary>
-    [Table("Sys_UserExtend")]
+    [SugarTable("Sys_UserExtend")]
     [Comment("用户扩展信息表")]
     [Serializable]
     public class UserExtend : BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited

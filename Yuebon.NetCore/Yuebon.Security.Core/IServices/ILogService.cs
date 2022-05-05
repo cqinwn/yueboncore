@@ -20,7 +20,7 @@ namespace Yuebon.Security.IServices
         /// <param name="operationType">操作类型</param>
         /// <param name="note">操作详细表述</param>
         /// <returns></returns>
-         bool OnOperationLog(string tableName, string operationType, string note);
+         Task<bool> OnOperationLog(string tableName, string operationType, string note);
 
         /// <summary>
         /// 根据相关信息，写入用户的操作日志记录
@@ -31,7 +31,7 @@ namespace Yuebon.Security.IServices
         /// <param name="note">操作详细表述</param>
         /// <param name="currentUser">操作用户</param>
         /// <returns></returns>
-        bool OnOperationLog(string module, string operationType,  string note, YuebonCurrentUser currentUser);
+        Task<bool> OnOperationLog(string module, string operationType,  string note, YuebonCurrentUser currentUser);
         /// <summary>
         /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
         /// </summary>

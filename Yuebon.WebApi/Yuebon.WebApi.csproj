@@ -29,6 +29,7 @@
   <ItemGroup>
     <Compile Remove="Areas\Security\Controllers\FunctionController.cs" />
     <Compile Remove="Areas\Security\Controllers\TenantController.cs" />
+    <Compile Remove="Controllers\CodeGeneratorController.cs" />
     <Compile Remove="Controllers\InitSystem.cs" />
   </ItemGroup>
 
@@ -59,6 +60,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Analysis\Controllers\" />
     <Folder Include="Areas\CMS\Data\" />
     <Folder Include="Areas\CMS\Models\" />
     <Folder Include="Areas\CMS\Views\" />

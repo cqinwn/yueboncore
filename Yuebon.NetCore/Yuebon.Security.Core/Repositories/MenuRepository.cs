@@ -1,6 +1,5 @@
-using Dapper;
 using System.Collections.Generic;
-using Yuebon.Commons.IDbContext;
+using Yuebon.Commons.Core.UnitOfWork;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
 using Yuebon.Security.Models;
@@ -9,13 +8,10 @@ namespace Yuebon.Security.Repositories
 {
     public class MenuRepository : BaseRepository<Menu>, IMenuRepository
     {
-        public MenuRepository()
+        public MenuRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
 
-        public MenuRepository(IDbContextCore dbContext) : base(dbContext)
-        {
-        }
 
 
         /// <summary>
@@ -40,7 +36,7 @@ namespace Yuebon.Security.Repositories
             {
                 sql = sql + string.Format(" AND SystemTypeId='{0}' ", typeID);
             }
-            return DapperConnRead.Query<Menu>(sql);
+            return Db.Ado.SqlQuery<Menu>(sql);
         }
 
 
@@ -56,7 +52,7 @@ namespace Yuebon.Security.Repositories
             {
                 sql = sql + string.Format(" Where SystemTypeId='{0}' ", typeID);
             }
-            return DapperConnRead.Query<Menu>(sql);
+            return Db.Ado.SqlQuery<Menu>(sql);
         }
     }
 }

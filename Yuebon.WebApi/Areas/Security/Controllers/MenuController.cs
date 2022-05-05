@@ -267,7 +267,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
 
 
             OnBeforeUpdate(info);
-            bool bl = await iService.UpdateAsync(info, tinfo.Id).ConfigureAwait(false);
+            bool bl = await iService.UpdateAsync(info);
             if (bl)
             {
                 result.ErrCode = ErrCode.successCode;
@@ -318,7 +318,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
              
             if (info.Ids.Length>0)
             {
-                result = await iService.DeleteBatchWhereAsync(info).ConfigureAwait(false);
+                result = await iService.DeleteBatchWhereAsync(info);
                 if (result.Success)
                 {
                     result.ErrCode = ErrCode.successCode;

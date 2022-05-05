@@ -12,9 +12,10 @@ namespace Yuebon.Security.Services
     {
 		private readonly IRoleDataRepository _repository;
         private readonly ILogService _logService;
-        public RoleDataService(IRoleDataRepository repository,ILogService logService) : base(repository)
+        public RoleDataService(IRoleDataRepository roleDataRepository,ILogService logService)
         {
-			_repository=repository;
+            repository=roleDataRepository;
+            _repository = roleDataRepository;
 			_logService=logService;
         }
         /// <summary>

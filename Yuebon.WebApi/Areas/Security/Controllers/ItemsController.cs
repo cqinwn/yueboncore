@@ -97,7 +97,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             }
             Items info = tinfo.MapTo<Items>();
             OnBeforeInsert(info);
-            long ln = await iService.InsertAsync(info).ConfigureAwait(false);
+            long ln = await iService.InsertAsync(info);
             if (ln > 0)
             {
                 result.ErrCode = ErrCode.successCode;
@@ -180,7 +180,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
 
 
             OnBeforeUpdate(info);
-            bool bl = await iService.UpdateAsync(info, tinfo.Id).ConfigureAwait(false);
+            bool bl = await iService.UpdateAsync(info);
             if (bl)
             {
                 result.ErrCode = ErrCode.successCode;

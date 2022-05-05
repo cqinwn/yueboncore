@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,7 +13,7 @@ namespace Yuebon.Security.Models
     /// <summary>
     /// 组织表，数据实体对象
     /// </summary>
-    [Table("Sys_Organize")]
+    [SugarTable("Sys_Organize")]
     [Comment("组织机构表")]
     [Serializable]
     public class Organize: BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited
@@ -202,6 +203,12 @@ namespace Yuebon.Security.Models
         [MaxLength(50)]
         [Comment("删除用户")]
         public virtual string DeleteUserId { get; set; }
+
+        /// <summary>
+        /// 子级
+        /// </summary>
+        [SugarColumn(IsIgnore = true)]
+        public List<Organize> Child { get; set; }
         #endregion
 
     }

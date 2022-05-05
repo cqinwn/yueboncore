@@ -18,10 +18,11 @@ namespace Yuebon.Security.Services
     {
 		private readonly ISequenceRuleRepository _repository;
         private readonly ILogService _logService;
-        public SequenceRuleService(ISequenceRuleRepository repository,ILogService logService) : base(repository)
+        public SequenceRuleService(ISequenceRuleRepository sequenceRuleRepository, ILogService logService)
         {
-			_repository=repository;
-			_logService=logService;
+            repository = sequenceRuleRepository;
+            _repository = sequenceRuleRepository;
+            _logService = logService;
         }
 
 

@@ -1,7 +1,6 @@
-﻿using Dapper;
-using System;
+﻿using System;
 using System.Data;
-using Yuebon.Commons.IDbContext;
+using Yuebon.Commons.Core.UnitOfWork;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
 using Yuebon.Security.Models;
@@ -10,11 +9,7 @@ namespace Yuebon.Security.Repositories
 {
     public class UploadFileRepository : BaseRepository<UploadFile>, IUploadFileRepository
     {
-        public UploadFileRepository()
-        {
-        }
-
-        public UploadFileRepository(IDbContextCore dbContext) : base(dbContext)
+        public UploadFileRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
 
@@ -30,15 +25,12 @@ namespace Yuebon.Security.Repositories
         {
             try
             {
-                trans = DapperConn.BeginTransaction();
                 string sqlStr = string.Format("update {0} set beLongAppId='{1}' where beLongAppId='{2}'", this.tableName, beLongAppId, oldBeLongAppId);
                 if (!string.IsNullOrEmpty(belongApp))
                 {
                     sqlStr = string.Format(" and BelongApp='{0}'", belongApp);
                 }
-                int num = DapperConn.Execute(sqlStr, null, trans);
-                trans.Commit();
-                return num >= 0;
+                return Db.Ado.ExecuteCommand(sqlStr)>0;
             }
             catch (Exception)
             {

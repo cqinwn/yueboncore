@@ -1,19 +1,16 @@
-using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-using Yuebon.Commons.Models;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
+using SqlSugar;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Yuebon.Commons.Models;
 
 namespace Yuebon.Security.Models
 {
     /// <summary>
     /// 序号编码规则表，数据实体对象
     /// </summary>
-    [Table("Sys_SequenceRule")]
+    [SugarTable("Sys_SequenceRule")]
     [Comment("序号编码规则表")]
     [Serializable]
     public class SequenceRule:BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited

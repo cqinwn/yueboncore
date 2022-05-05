@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using Yuebon.Commons.Core.App;
 using Yuebon.Commons.Extend;
-using Yuebon.Commons.IoC;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Mapping;

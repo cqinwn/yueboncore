@@ -29,9 +29,10 @@ namespace Yuebon.Security.Services
         /// </summary>
         /// <param name="repository"></param>
         /// <param name="logService"></param>
-        public OrganizeService(IOrganizeRepository repository, ILogService logService, IUserRepository userRepository) : base(repository)
+        public OrganizeService(IOrganizeRepository organizeRepository, ILogService logService, IUserRepository userRepository)
         {
-            _repository = repository;
+            repository = organizeRepository;
+            _repository = organizeRepository;
             _logService = logService;
             _userRepository = userRepository;
         }

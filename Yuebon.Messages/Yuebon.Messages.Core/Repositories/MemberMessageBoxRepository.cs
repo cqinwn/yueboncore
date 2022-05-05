@@ -1,7 +1,6 @@
-using Dapper;
 using System;
 using System.Collections.Generic;
-using System.Data.Common;
+using Yuebon.Commons.Core.UnitOfWork;
 using Yuebon.Commons.Repositories;
 using Yuebon.Messages.IRepositories;
 using Yuebon.Messages.Models;
@@ -13,7 +12,8 @@ namespace Yuebon.Messages.Repositories
     /// </summary>
     public class MemberMessageBoxRepository : BaseRepository<MemberMessageBox>, IMemberMessageBoxRepository
     {
-		public MemberMessageBoxRepository()
+
+        public MemberMessageBoxRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
             this.tableName = "Sys_MemberMessageBox";
             this.primaryKey = "Id";
@@ -39,7 +39,7 @@ namespace Yuebon.Messages.Repositories
                 sql += sql + " where " + strwhere;
             }
 
-            return DapperConn.Execute(sql) > 0 ? true : false;
+            return Db.Ado.ExecuteCommand(sql) > 0 ? true : false;
 
         }
 
@@ -63,11 +63,11 @@ namespace Yuebon.Messages.Repositories
                 sql = sql + " where " + strwhere;
             }
 
-            IEnumerable<MemberMessageBox> list = DapperConn.Query<MemberMessageBox>(sql);
+            List<MemberMessageBox> list = Db.Ado.SqlQuery<MemberMessageBox>(sql);
 
             if (list != null)
             {
-                return list.AsList().Count;
+                return list.Count;
             }
             else
             {

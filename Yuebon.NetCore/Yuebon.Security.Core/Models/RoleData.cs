@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,7 +14,7 @@ namespace Yuebon.Security.Models
     /// <summary>
     /// 角色的数据权限，数据实体对象
     /// </summary>
-    [Table("Sys_RoleData")]
+    [SugarTable("Sys_RoleData")]
     [Comment("角色的数据权限")]
     public class RoleData:BaseEntity
     { 

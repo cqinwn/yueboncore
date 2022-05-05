@@ -1,27 +1,17 @@
-using Dapper;
-using Microsoft.EntityFrameworkCore;
+using SqlSugar;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Yuebon.Commons.Core.Dapper;
 using Yuebon.Commons.Core.DataManager;
-using Yuebon.Commons.DataManager;
+using Yuebon.Commons.Core.UnitOfWork;
 using Yuebon.Commons.DependencyInjection;
-using Yuebon.Commons.Enums;
-using Yuebon.Commons.Extensions;
-using Yuebon.Commons.IDbContext;
+using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IRepositories;
-using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
-using Yuebon.Commons.Models;
 using Yuebon.Commons.Pages;
-using Dapper.Contrib.Extensions;
 
 namespace Yuebon.Commons.Repositories
 {
@@ -29,35 +19,15 @@ namespace Yuebon.Commons.Repositories
     /// 泛型仓储，实现泛型仓储接口
     /// </summary>
     /// <typeparam name="T">实体类型</typeparam>
-    public abstract class BaseRepository<T> : IRepository<T>, ITransientDependency
-        where T : Entity
+    public abstract class BaseRepository<T> : IRepository<T>, ITransientDependency where T : class, new ()
     {
         #region 构造函数及基本配置
-        /// <summary>
-        ///  EF DBContext
-        /// </summary>
-        public IDbContextCore _dbContext;
-        /// <summary>
-        /// 上下文工厂
-        /// </summary>
-        public IDbContextFactory _dbContextFactory;
 
-        /// <summary>
-        /// 获取访问数据库配置
-        /// </summary>
-        protected DbConnectionOptions dbConnectionOptions = DBServerProvider.GeDbConnectionOptions<T>();
         /// <summary>
         /// 需要初始化的对象表名
         /// </summary>
-        protected string tableName = typeof(T).GetCustomAttribute<System.ComponentModel.DataAnnotations.Schema.TableAttribute>(false)?.Name;
-        /// <summary>
-        /// 数据库参数化访问的占位符
-        /// </summary>
-        protected string parameterPrefix = "@";
-        /// <summary>
-        /// 防止和保留字、关键字同名的字段格式，如[value]
-        /// </summary>
-        protected string safeFieldFormat = "[{0}]";
+        protected string tableName =typeof(T).GetCustomAttribute<SugarTable>()?.TableName; //typeof(T).GetCustomAttribute<System.ComponentModel.DataAnnotations.Schema.TableAttribute>(false)?.Name;
+        
         /// <summary>
         /// 数据库的主键字段名,若主键不是Id请重载BaseRepository设置
         /// </summary>
@@ -75,9 +45,9 @@ namespace Yuebon.Commons.Repositories
         /// </summary>
         protected string selectedFields = " * ";
         /// <summary>
-        /// 是否开启多租户
+        /// 数据库配置名称
         /// </summary>
-        protected bool isMultiTenant = false;
+        private static string dbConfigName = "DefaultDb";
 
 
         /// <summary>
@@ -105,62 +75,73 @@ namespace Yuebon.Commons.Repositories
                 return primaryKey;
             }
         }
-
-
         /// <summary>
-        /// 构造方法
+        /// 
+        /// </summary> 
+        private readonly IUnitOfWork _unitOfWork;
+        /// <summary>
+        /// 
         /// </summary>
-        public BaseRepository()
+        private SqlSugarScope _dbBase;
+
+        private ISqlSugarClient _db
         {
+            get
+            {
+                string t = typeof(T).Name;
+                dbConfigName = typeof(T).GetCustomAttribute<AppDBContextAttribute>(false)?.DbConfigName ?? "DefaultDb";
+                if (Configs.GetValue("AppSetting:MutiDBEnabled").ObjToBool())
+                {
+                    _dbBase.ChangeDatabase(dbConfigName.ToLower());                    
+                }
+
+                return _dbBase;
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public ISqlSugarClient Db
+        {
+            get { return _db; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="unitOfWork"></param>
+        public BaseRepository(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+            _dbBase = unitOfWork.GetDbClient();
         }
 
-        /// <summary>
-        /// 构造方法，注入上下文
-        /// </summary>
-        /// <param name="dbContext">上下文</param>
-        public BaseRepository(IDbContextCore dbContext)
-        {
-            if (dbContext == null) throw new ArgumentNullException(nameof(dbContext));
-            _dbContext = dbContext;
-            //_dbContext.GetDatabase().EnsureCreated();//初始化数据库
-            //_dbContext.GetDatabase().MigrateAsync();
-        }
-
-        /// <summary>
-        /// 构造方法，注入上下文
-        /// </summary>
-        /// <param name="dbContextFactory">上下文</param>
-        public BaseRepository(IDbContextFactory dbContextFactory)
-        {
-            _dbContextFactory = dbContextFactory;
-        }
-        private DbSet<T> DBSet
-        {
-            get { return _dbContext.GetDbSet<T>(); }
-        }
         #endregion
 
-        #region Dapper 操作
+        #region SqlSugar 操作
 
-
-        /// <summary>
-        /// 用Dapper原生方法操作数据，支持读写操作
-        /// </summary>
-        public IDbConnection DapperConn
-        {
-            get { return new DapperDbContext().GetConnection<T>(); }
-        }
-
-        /// <summary>
-        /// 用Dapper原生方法，仅用于只读数据库
-        /// </summary>
-        public IDbConnection DapperConnRead
-        {
-            get { return new DapperDbContext().GetConnection<T>(false); }
-        }
 
         #region 查询获得对象和列表
-       
+
+        #region 单个实体
+        /// <summary>
+        /// 同步查询单个实体。
+        /// </summary>
+        /// <param name="primaryKey">主键</param>
+        /// <returns></returns>
+        public T Get(object primaryKey)
+        {
+            return Db.Queryable<T>().InSingle(primaryKey);
+        }
+
+        /// <summary>
+        /// 异步查询单个实体。
+        /// </summary>
+        /// <param name="primaryKey">主键</param>
+        /// <returns></returns>
+        public async Task<T> GetAsync(object primaryKey)
+        {
+            return await Db.Queryable<T>().InSingleAsync(primaryKey);
+        }
         /// <summary>
         /// 根据条件获取一个对象
         /// </summary>
@@ -179,7 +160,7 @@ namespace Yuebon.Commons.Repositories
             }
             string sql = $"select * from { tableName} ";
             sql += " where " + where;
-            return DapperConnRead.QueryFirstOrDefault<T>(sql);
+            return Db.Ado.SqlQuerySingle<T>(sql);
         }
 
         /// <summary>
@@ -201,24 +182,23 @@ namespace Yuebon.Commons.Repositories
             string sql = $"select * from { tableName} ";
             sql += " where " + where;
 
-            return await DapperConnRead.QueryFirstOrDefaultAsync<T>(sql);
+            return await Db.Ado.SqlQuerySingleAsync<T>(sql);
         }
+        #endregion
 
         /// <summary>
         /// 获取所有数据，谨慎使用
         /// </summary>
-        /// <param name="trans">事务</param>
         /// <returns></returns>
-        public virtual IEnumerable<T> GetAll(IDbTransaction trans = null)
+        public virtual IEnumerable<T> GetAll()
         {
             return GetListWhere();
         }
         /// <summary>
         /// 获取所有数据，谨慎使用
         /// </summary>
-        /// <param name="trans"></param>
         /// <returns></returns>
-        public virtual async Task<IEnumerable<T>> GetAllAsync(IDbTransaction trans = null)
+        public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
             return await GetListWhereAsync();
         }
@@ -228,9 +208,8 @@ namespace Yuebon.Commons.Repositories
         /// 根据查询条件获取数据集合
         /// </summary>
         /// <param name="where">查询条件</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual IEnumerable<T> GetListWhere(string where = null, IDbTransaction trans = null)
+        public virtual IEnumerable<T> GetListWhere(string where = null)
         {
             if (HasInjectionData(where))
             {
@@ -242,16 +221,16 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += " where " + where;
             }
-            return DapperConnRead.Query<T>(sql, trans);
+            return Db.Ado.SqlQuery<T>(sql);
         }
 
         /// <summary>
         /// 根据查询条件获取数据集合
+        /// SQL语句
         /// </summary>
         /// <param name="where">查询条件</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual async Task<IEnumerable<T>> GetListWhereAsync(string where = null, IDbTransaction trans = null)
+        public virtual async Task<IEnumerable<T>> GetListWhereAsync(string where = null)
         {
             if (HasInjectionData(where))
             {
@@ -263,17 +242,17 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += " where " + where;
             }
-            return await DapperConnRead.QueryAsync<T>(sql, trans);
+            return await Db.Ado.SqlQueryAsync<T>(sql);
         }
 
         /// <summary>
         /// 根据查询条件查询前多少条数据
+        /// SQL语句，仅支持SqlServer和Mysql
         /// </summary>
         /// <param name="top">多少条数据</param>
         /// <param name="where">查询条件</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual IEnumerable<T> GetListTopWhere(int top, string where = null, IDbTransaction trans = null)
+        public virtual  IEnumerable<T> GetListTopWhere(int top, string where = null)
         {
             if (HasInjectionData(where))
             {
@@ -281,25 +260,7 @@ namespace Yuebon.Commons.Repositories
                 throw new Exception("检测出SQL注入的恶意数据");
             }
 
-            string sql = $"select top {top} {selectedFields} from " + tableName; ;
-            if (dbConnectionOptions.DatabaseType == DatabaseType.SqlServer)
-            {
-                if (!string.IsNullOrWhiteSpace(where))
-                {
-                    sql += " where " + where;
-                }
-            }
-            else if (dbConnectionOptions.DatabaseType == DatabaseType.MySql)
-            {
-                sql = $"select {selectedFields} from " + tableName;
-
-                if (!string.IsNullOrWhiteSpace(where))
-                {
-                    sql += " where " + where;
-                }
-                sql += $"  LIMIT 0,{top}; ";
-            }
-            return DapperConnRead.Query<T>(sql, trans);
+            return Db.Queryable<T>().Take(top).WhereIF(!string.IsNullOrEmpty(where), where).ToList();
         }
 
 
@@ -308,42 +269,23 @@ namespace Yuebon.Commons.Repositories
         /// </summary>
         /// <param name="top">多少条数据</param>
         /// <param name="where">查询条件</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual async Task<IEnumerable<T>> GetListTopWhereAsync(int top, string where = null, IDbTransaction trans = null)
+        public virtual async Task<IEnumerable<T>> GetListTopWhereAsync(int top, string where = null)
         {
             if (HasInjectionData(where))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
-            string sql = $"select top {top} {selectedFields} from " + tableName;
-            if (dbConnectionOptions.DatabaseType == DatabaseType.SqlServer)
-            {
-                if (!string.IsNullOrWhiteSpace(where))
-                {
-                    sql += " where " + where;
-                }
-            }
-            else if (dbConnectionOptions.DatabaseType == DatabaseType.MySql)
-            {
-                sql = $"select {selectedFields} from " + tableName;
 
-                if (!string.IsNullOrWhiteSpace(where))
-                {
-                    sql += " where " + where;
-                }
-                sql += $"  LIMIT 0,{top}; ";
-            }
-            return await DapperConnRead.QueryAsync<T>(sql, trans);
+            return await Db.Queryable<T>().Take(top).WhereIF(!string.IsNullOrEmpty(where), where).ToListAsync();
         }
         /// <summary>
         /// 查询软删除的数据，如果查询条件为空，即查询所有软删除的数据
         /// </summary>
         /// <param name="where">查询条件</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual IEnumerable<T> GetAllByIsDeleteMark(string where = null, IDbTransaction trans = null)
+        public virtual IEnumerable<T> GetAllByIsDeleteMark(string where = null)
         {
             if (HasInjectionData(where))
             {
@@ -355,16 +297,15 @@ namespace Yuebon.Commons.Repositories
             {
                 sqlWhere += " and " + where;
             }
-            return GetListWhere(sqlWhere, trans);
+            return GetListWhere(sqlWhere);
         }
 
         /// <summary>
         /// 查询未软删除的数据，如果查询条件为空，即查询所有未软删除的数据
         /// </summary>
         /// <param name="where">查询条件</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual IEnumerable<T> GetAllByIsNotDeleteMark(string where = null, IDbTransaction trans = null)
+        public virtual IEnumerable<T> GetAllByIsNotDeleteMark(string where = null)
         {
             if (HasInjectionData(where))
             {
@@ -376,16 +317,15 @@ namespace Yuebon.Commons.Repositories
             {
                 sqlWhere += " and " + where;
             }
-            return GetListWhere(sqlWhere, trans);
+            return GetListWhere(sqlWhere);
         }
 
         /// <summary>
         /// 查询有效的数据，如果查询条件为空，即查询所有有效的数据
         /// </summary>
         /// <param name="where">查询条件</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual IEnumerable<T> GetAllByIsEnabledMark(string where = null, IDbTransaction trans = null)
+        public virtual IEnumerable<T> GetAllByIsEnabledMark(string where = null)
         {
 
             if (HasInjectionData(where))
@@ -398,16 +338,15 @@ namespace Yuebon.Commons.Repositories
             {
                 sqlWhere += " and " + where;
             }
-            return GetListWhere(sqlWhere, trans);
+            return GetListWhere(sqlWhere);
         }
 
         /// <summary>
         /// 查询无效的数据，如果查询条件为空，即查询所有无效的数据
         /// </summary>
         /// <param name="where">查询条件</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual IEnumerable<T> GetAllByIsNotEnabledMark(string where = null, IDbTransaction trans = null)
+        public virtual IEnumerable<T> GetAllByIsNotEnabledMark(string where = null)
         {
 
             if (HasInjectionData(where))
@@ -420,15 +359,14 @@ namespace Yuebon.Commons.Repositories
             {
                 sqlWhere += " and " + where;
             }
-            return GetListWhere(sqlWhere, trans);
+            return GetListWhere(sqlWhere);
         }
         /// <summary>
         /// 查询未软删除且有效的数据，如果查询条件为空，即查询所有数据
         /// </summary>
         /// <param name="where">查询条件</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual IEnumerable<T> GetAllByIsNotDeleteAndEnabledMark(string where = null, IDbTransaction trans = null)
+        public virtual IEnumerable<T> GetAllByIsNotDeleteAndEnabledMark(string where = null)
         {
 
             if (HasInjectionData(where))
@@ -441,16 +379,15 @@ namespace Yuebon.Commons.Repositories
             {
                 sqlWhere += " and " + where;
             }
-            return GetListWhere(sqlWhere, trans);
+            return GetListWhere(sqlWhere);
         }
 
         /// <summary>
         /// 查询软删除的数据，如果查询条件为空，即查询所有软删除的数据
         /// </summary>
         /// <param name="where">查询条件</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual async Task<IEnumerable<T>> GetAllByIsDeleteMarkAsync(string where = null, IDbTransaction trans = null)
+        public virtual async Task<IEnumerable<T>> GetAllByIsDeleteMarkAsync(string where = null)
         {
 
             if (HasInjectionData(where))
@@ -463,16 +400,15 @@ namespace Yuebon.Commons.Repositories
             {
                 sqlWhere += " and " + where;
             }
-            return await GetListWhereAsync(sqlWhere, trans);
+            return await GetListWhereAsync(sqlWhere);
         }
 
         /// <summary>
         /// 查询未软删除的数据，如果查询条件为空，即查询所有未软删除的数据
         /// </summary>
         /// <param name="where">查询条件</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual async Task<IEnumerable<T>> GetAllByIsNotDeleteMarkAsync(string where = null, IDbTransaction trans = null)
+        public virtual async Task<IEnumerable<T>> GetAllByIsNotDeleteMarkAsync(string where = null)
         {
 
             if (HasInjectionData(where))
@@ -486,16 +422,15 @@ namespace Yuebon.Commons.Repositories
             {
                 sqlWhere += " and " + where;
             }
-            return await GetListWhereAsync(sqlWhere, trans);
+            return await GetListWhereAsync(sqlWhere);
         }
 
         /// <summary>
         /// 查询有效的数据，如果查询条件为空，即查询所有有效的数据
         /// </summary>
         /// <param name="where">查询条件</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual async Task<IEnumerable<T>> GetAllByIsEnabledMarkAsync(string where = null, IDbTransaction trans = null)
+        public virtual async Task<IEnumerable<T>> GetAllByIsEnabledMarkAsync(string where = null)
         {
 
             if (HasInjectionData(where))
@@ -509,16 +444,15 @@ namespace Yuebon.Commons.Repositories
             {
                 sqlWhere += " and " + where;
             }
-            return await GetListWhereAsync(sqlWhere, trans);
+            return await GetListWhereAsync(sqlWhere);
         }
 
         /// <summary>
         /// 查询无效的数据，如果查询条件为空，即查询所有无效的数据
         /// </summary>
         /// <param name="where">查询条件</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual async Task<IEnumerable<T>> GetAllByIsNotEnabledMarkAsync(string where = null, IDbTransaction trans = null)
+        public virtual async Task<IEnumerable<T>> GetAllByIsNotEnabledMarkAsync(string where = null)
         {
 
             if (HasInjectionData(where))
@@ -531,15 +465,14 @@ namespace Yuebon.Commons.Repositories
             {
                 sqlWhere += " and " + where;
             }
-            return await GetListWhereAsync(sqlWhere, trans);
+            return await GetListWhereAsync(sqlWhere);
         }
         /// <summary>
         /// 查询未软删除且有效的数据，如果查询条件为空，即查询所有数据
         /// </summary>
         /// <param name="where">查询条件</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual async Task<IEnumerable<T>> GetAllByIsNotDeleteAndEnabledMarkAsync(string where = null, IDbTransaction trans = null)
+        public virtual async Task<IEnumerable<T>> GetAllByIsNotDeleteAndEnabledMarkAsync(string where = null)
         {
             if (HasInjectionData(where))
             {
@@ -551,7 +484,7 @@ namespace Yuebon.Commons.Repositories
             {
                 sqlWhere += " and " + where;
             }
-            return await GetListWhereAsync(sqlWhere, trans);
+            return await GetListWhereAsync(sqlWhere);
         }
 
         /// <summary>
@@ -559,24 +492,10 @@ namespace Yuebon.Commons.Repositories
         /// </summary>
         /// <param name="condition">查询的条件</param>
         /// <param name="info">分页实体</param>
-        /// <param name="trans">事务对象</param>
         /// <returns>指定对象的集合</returns>
-        public virtual List<T> FindWithPager(string condition, PagerInfo info, IDbTransaction trans = null)
+        public virtual List<T> FindWithPager(string condition, PagerInfo info)
         {
-            return FindWithPager(condition, info, this.SortField, this.isDescending, trans);
-        }
-
-        /// <summary>
-        /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
-        /// </summary>
-        /// <param name="condition">查询的条件</param>
-        /// <param name="info">分页实体</param>
-        /// <param name="fieldToSort">排序字段</param>
-        /// <param name="trans">事务对象</param>
-        /// <returns>指定对象的集合</returns>
-        public virtual List<T> FindWithPager(string condition, PagerInfo info, string fieldToSort, IDbTransaction trans = null)
-        {
-            return FindWithPager(condition, info, fieldToSort, this.isDescending, trans);
+            return FindWithPager(condition, info, this.SortField, this.isDescending);
         }
 
         /// <summary>
@@ -585,11 +504,10 @@ namespace Yuebon.Commons.Repositories
         /// <param name="condition">查询的条件</param>
         /// <param name="info">分页实体</param>
         /// <param name="fieldToSort">排序字段</param>
-        /// <param name="trans">事务对象</param>
         /// <returns>指定对象的集合</returns>
-        public virtual async Task<List<T>> FindWithPagerAsync(string condition, PagerInfo info, string fieldToSort, IDbTransaction trans = null)
+        public virtual List<T> FindWithPager(string condition, PagerInfo info, string fieldToSort)
         {
-            return await FindWithPagerAsync(condition, info, fieldToSort, this.isDescending, trans);
+            return FindWithPager(condition, info, fieldToSort, this.isDescending);
         }
 
         /// <summary>
@@ -597,22 +515,32 @@ namespace Yuebon.Commons.Repositories
         /// </summary>
         /// <param name="condition">查询的条件</param>
         /// <param name="info">分页实体</param>
-        /// <param name="trans">事务对象</param>
+        /// <param name="fieldToSort">排序字段</param>
         /// <returns>指定对象的集合</returns>
-        public virtual async Task<List<T>> FindWithPagerAsync(string condition, PagerInfo info, IDbTransaction trans = null)
+        public virtual async Task<List<T>> FindWithPagerAsync(string condition, PagerInfo info, string fieldToSort)
         {
-            return await FindWithPagerAsync(condition, info, this.SortField, trans);
+            return await FindWithPagerAsync(condition, info, fieldToSort, this.isDescending);
+        }
+
+        /// <summary>
+        /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
+        /// </summary>
+        /// <param name="condition">查询的条件</param>
+        /// <param name="info">分页实体</param>
+        /// <returns>指定对象的集合</returns>
+        public virtual async Task<List<T>> FindWithPagerAsync(string condition, PagerInfo info)
+        {
+            return await FindWithPagerAsync(condition, info, this.SortField);
         }
         /// <summary>
         /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
         /// </summary>
         /// <param name="condition">查询的条件</param>
         /// <param name="info">分页实体</param>
-        /// <param name="fieldToSort">排序字段</param>
+        /// <param name="fieldToSort">排序字段，如name asc,age desc</param>
         /// <param name="desc">排序方式 true为desc，false为asc</param>
-        /// <param name="trans">事务对象</param>
         /// <returns>指定对象的集合</returns>
-        public virtual List<T> FindWithPager(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
+        public virtual List<T> FindWithPager(string condition, PagerInfo info, string fieldToSort, bool desc)
         {
             List<T> list = new List<T>();
 
@@ -625,14 +553,14 @@ namespace Yuebon.Commons.Repositories
             {
                 condition = "1=1";
             }
-            PagerHelper pagerHelper = new PagerHelper(this.tableName, this.selectedFields, fieldToSort, info.PageSize, info.CurrenetPageIndex, desc, condition);
+            if (desc)
+            {
+                fieldToSort += " desc";
+            }
 
-            string pageSql = pagerHelper.GetPagingSql(true, dbConnectionOptions.DatabaseType);
-            pageSql += ";" + pagerHelper.GetPagingSql(false, dbConnectionOptions.DatabaseType);
-
-            var reader = DapperConnRead.QueryMultiple(pageSql);
-            info.RecordCount = reader.ReadFirst<int>();
-            list = reader.Read<T>().AsList();
+            int totalCount = 0;
+            list= Db.Queryable<T>().OrderByIF(!string.IsNullOrEmpty(fieldToSort), fieldToSort).WhereIF(!string.IsNullOrEmpty(condition), condition).ToPageList(info.CurrenetPageIndex, info.PageSize,ref totalCount);
+            info.RecordCount = totalCount;
             return list;
         }
 
@@ -643,13 +571,13 @@ namespace Yuebon.Commons.Repositories
         /// <param name="info">分页实体</param>
         /// <param name="fieldToSort">排序字段</param>
         /// <param name="desc">排序方式 true为desc，false为asc</param>
-        /// <param name="trans">事务对象</param>
         /// <returns>指定对象的集合</returns>
-        public virtual async Task<List<T>> FindWithPagerAsync(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
+        public virtual async Task<List<T>> FindWithPagerAsync(string condition, PagerInfo info, string fieldToSort, bool desc)
         {
 
             List<T> list = new List<T>();
 
+            string t = typeof(T).Name;
             if (HasInjectionData(condition))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", condition));
@@ -659,157 +587,16 @@ namespace Yuebon.Commons.Repositories
             {
                 condition = "1=1";
             }
-
-            PagerHelper pagerHelper = new PagerHelper(this.tableName, this.selectedFields, fieldToSort, info.PageSize, info.CurrenetPageIndex, desc, condition);
-
-            string pageSql = pagerHelper.GetPagingSql(true, dbConnectionOptions.DatabaseType);
-            pageSql += ";" + pagerHelper.GetPagingSql(false, dbConnectionOptions.DatabaseType);
-            var reader = await DapperConnRead.QueryMultipleAsync(pageSql);
-            info.RecordCount = reader.ReadFirst<int>();
-            list = reader.Read<T>().ToList();
+            if (desc)
+            {
+                fieldToSort += " desc";
+            }
+            RefAsync<int> totalCount = 0;
+            list = await Db.Queryable<T>().OrderByIF(!string.IsNullOrEmpty(fieldToSort), fieldToSort).WhereIF(!string.IsNullOrEmpty(condition), condition).ToPageListAsync(info.CurrenetPageIndex, info.PageSize, totalCount);
+            info.RecordCount = totalCount;
             return list;
         }
 
-        /// <summary>
-        /// 分页查询，自行封装sql语句(仅支持sql server)
-        /// 非常复杂的查询，可在具体业务模块重写该方法
-        /// </summary>
-        /// <param name="condition">查询条件</param>
-        /// <param name="info">分页信息</param>
-        /// <param name="fieldToSort">排序字段</param>
-        /// <param name="desc">排序方式 true为desc，false为asc</param>
-        /// <param name="trans"></param>
-        /// <returns></returns>
-        public virtual List<T> FindWithPagerSql(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
-        {
-            List<T> list = new List<T>();
-            if (HasInjectionData(condition))
-            {
-                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", condition));
-                throw new Exception("检测出SQL注入的恶意数据");
-            }
-            if (string.IsNullOrEmpty(condition))
-            {
-                condition = "1=1";
-            }
-            StringBuilder sb = new StringBuilder();
-            int startRows = (info.CurrenetPageIndex - 1) * info.PageSize + 1;//起始记录
-            int endNum = info.CurrenetPageIndex * info.PageSize;//结束记录
-            string strOrder = string.Format(" {0} {1}", fieldToSort, desc ? "DESC" : "ASC");
-            sb.AppendFormat("SELECT count(*) as RecordCount FROM (select {0} FROM {1} where {2})  AS main_temp;", primaryKey, tableName, condition);
-            sb.AppendFormat("SELECT * FROM ( SELECT ROW_NUMBER() OVER (order by {0}) AS rows ,{1} FROM {2} where {3}) AS main_temp where rows BETWEEN {4} and {5}", strOrder, selectedFields, tableName, condition, startRows, endNum);
-            var reader = DapperConnRead.QueryMultiple(sb.ToString());
-            info.RecordCount = reader.ReadFirst<int>();
-            list = reader.Read<T>().AsList();
-            return list;
-        }
-
-        /// <summary>
-        /// 分页查询，自行封装sql语句(仅支持sql server)
-        /// 非常复杂的查询，可在具体业务模块重写该方法
-        /// </summary>
-        /// <param name="condition">查询条件</param>
-        /// <param name="info">分页信息</param>
-        /// <param name="fieldToSort">排序字段</param>
-        /// <param name="desc">排序方式 true为desc，false为asc</param>
-        /// <param name="trans"></param>
-        /// <returns></returns>
-        public virtual async Task<List<T>> FindWithPagerSqlAsync(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
-        {
-            if (HasInjectionData(condition))
-            {
-                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", condition));
-                throw new Exception("检测出SQL注入的恶意数据");
-            }
-            if (string.IsNullOrEmpty(condition))
-            {
-                condition = "1=1";
-            }
-            StringBuilder sb = new StringBuilder();
-            int startRows = (info.CurrenetPageIndex - 1) * info.PageSize + 1;//起始记录
-            int endNum = info.CurrenetPageIndex * info.PageSize;//结束记录
-            string strOrder = string.Format(" {0} {1}", fieldToSort, desc ? "DESC" : "ASC");
-            sb.AppendFormat("SELECT count(*) as RecordCount FROM (select {0} FROM {1} where {2})  AS main_temp;", primaryKey, tableName, condition);
-            sb.AppendFormat("SELECT * FROM ( SELECT ROW_NUMBER() OVER (order by {0}) AS rows ,{1} FROM {2} where {3}) AS main_temp where rows BETWEEN {4} and {5}", strOrder, selectedFields, tableName, condition, startRows, endNum);
-            var reader = await DapperConnRead.QueryMultipleAsync(sb.ToString());
-            info.RecordCount = reader.ReadFirst<int>();
-            List<T> list = reader.Read<T>().AsList();
-            return list;
-        }
-        /// <summary>
-        /// 分页查询包含用户信息(仅支持sql server)
-        /// 查询主表别名为t1,用户表别名为t2，在查询字段需要注意使用t1.xxx格式，xx表示主表字段
-        /// 用户信息主要有用户账号：Account、昵称：NickName、真实姓名：RealName、头像：HeadIcon、手机号：MobilePhone
-        /// 输出对象请在Dtos中进行自行封装，不能是使用实体Model类
-        /// </summary>
-        /// <param name="condition">查询条件字段需要加表别名</param>
-        /// <param name="info">分页信息</param>
-        /// <param name="fieldToSort">排序字段，也需要加表别名</param>
-        /// <param name="desc">排序方式</param>
-        /// <param name="trans">事务</param>
-        /// <returns></returns>
-        public virtual List<object> FindWithPagerRelationUser(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
-        {
-
-            if (HasInjectionData(condition))
-            {
-                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", condition));
-                throw new Exception("检测出SQL注入的恶意数据");
-            }
-            if (string.IsNullOrEmpty(condition))
-            {
-                condition = "1=1";
-            }
-            StringBuilder sb = new StringBuilder();
-            int startRows = (info.CurrenetPageIndex - 1) * info.PageSize + 1;//起始记录
-            int endNum = info.CurrenetPageIndex * info.PageSize;//结束记录
-            string strOrder = string.Format(" {0} {1}", fieldToSort, desc ? "DESC" : "ASC");
-            sb.AppendFormat("SELECT count(*) as RecordCount FROM (select t1.{0} FROM {1} t1 inner join Sys_User t2 on t1.CreatorUserId = t2.Id where {2})  AS main_temp;", primaryKey, tableName, condition);
-            sb.AppendFormat("SELECT * FROM (SELECT ROW_NUMBER() OVER (order by  {0}) AS rows ,t1.{1},t2.Account as Account,t2.NickName as NickName,t2.RealName as RealName,t2.HeadIcon as HeadIcon ,t2.MobilePhone as MobilePhone  FROM {2} t1 inner join Sys_User t2 on t1.CreatorUserId = t2.Id " +
-                "where {3}) AS main_temp where rows BETWEEN {4} and {5}", strOrder, selectedFields, tableName, condition, startRows, endNum);
-
-            var reader = DapperConnRead.QueryMultiple(sb.ToString());
-            info.RecordCount = reader.ReadFirst<int>();
-            List<object> list = reader.Read<object>().AsList();
-            return list;
-        }
-
-        /// <summary>
-        /// 分页查询包含用户信息(仅支持sql server)
-        /// 查询主表别名为t1,用户表别名为t2，在查询字段需要注意使用t1.xxx格式，xx表示主表字段
-        /// 用户信息主要有用户账号：Account、昵称：NickName、真实姓名：RealName、头像：HeadIcon、手机号：MobilePhone
-        /// 输出对象请在Dtos中进行自行封装，不能是使用实体Model类
-        /// </summary>
-        /// <param name="condition">查询条件字段需要加表别名</param>
-        /// <param name="info">分页信息</param>
-        /// <param name="fieldToSort">排序字段，也需要加表别名</param>
-        /// <param name="desc">排序方式</param>
-        /// <param name="trans">事务</param>
-        /// <returns></returns>
-        public virtual async Task<List<object>> FindWithPagerRelationUserAsync(string condition, PagerInfo info, string fieldToSort, bool desc, IDbTransaction trans = null)
-        {
-            if (HasInjectionData(condition))
-            {
-                Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", condition));
-                throw new Exception("检测出SQL注入的恶意数据");
-            }
-            if (string.IsNullOrEmpty(condition))
-            {
-                condition = "1=1";
-            }
-            StringBuilder sb = new StringBuilder();
-            int startRows = (info.CurrenetPageIndex - 1) * info.PageSize + 1;//起始记录
-            int endNum = info.CurrenetPageIndex * info.PageSize;//结束记录
-            string strOrder = string.Format(" {0} {1}", fieldToSort, desc ? "DESC" : "ASC");
-            sb.AppendFormat("SELECT count(*) as RecordCount FROM (select t1.{0} FROM {1} t1 inner join Sys_User t2 on t1.CreatorUserId = t2.Id where {2})  AS main_temp;", primaryKey, tableName, condition);
-            sb.AppendFormat("SELECT * FROM (SELECT ROW_NUMBER() OVER (order by  {0}) AS rows ,t1.{1},t2.Account as Account,t2.NickName as NickName,t2.RealName as RealName,t2.HeadIcon as HeadIcon ,t2.MobilePhone as MobilePhone  FROM {2} t1 inner join Sys_User t2 on t1.CreatorUserId = t2.Id " +
-                "where {3}) AS main_temp where rows BETWEEN {4} and {5}", strOrder, selectedFields, tableName, condition, startRows, endNum);
-
-            var reader = await DapperConnRead.QueryMultipleAsync(sb.ToString());
-            info.RecordCount = reader.ReadFirst<int>();
-            List<object> list = reader.Read<object>().AsList();
-            return list;
-        }
         /// <summary>
         /// 根据条件统计数据
         /// </summary>
@@ -832,7 +619,7 @@ namespace Yuebon.Commons.Repositories
             {
                 sql = sql + condition;
             }
-            return DapperConnRead.Query<int>(sql).FirstOrDefault();
+            return Db.Ado.GetInt(sql);
         }
 
         /// <summary>
@@ -857,7 +644,7 @@ namespace Yuebon.Commons.Repositories
             {
                 sql = sql + condition;
             }
-            return await DapperConnRead.QueryFirstAsync<int>(sql);
+            return await Db.Ado.GetIntAsync(sql);
         }
 
         /// <summary>
@@ -865,41 +652,20 @@ namespace Yuebon.Commons.Repositories
         /// </summary>
         /// <param name="strField">字段</param>
         /// <param name="where">条件</param>
-        /// <param name="trans">事务</param>
         /// <returns>返回字段的最大值</returns>
-        public virtual async Task<decimal> GetMaxValueByFieldAsync(string strField, string where, IDbTransaction trans = null)
+        public virtual async Task<decimal> GetMaxValueByFieldAsync(string strField, string where)
         {
-            string sql = $"select isnull(MAX({strField}),0) as maxVaule from {tableName} ";
-            if (dbConnectionOptions.DatabaseType == DatabaseType.MySql)
-            {
-                sql = $"select if(isnull(MAX({strField})),0,MAX({strField})) as maxVaule from {tableName} ";
-            }
-            if (!string.IsNullOrEmpty(where))
-            {
-                sql += " where " + where;
-            }
-
-            return await DapperConnRead.QueryFirstAsync<decimal>(sql);
+            return await Db.Queryable<T>().WhereIF(!string.IsNullOrEmpty(where),where).MaxAsync<decimal>(strField);
         }
         /// <summary>
         /// 根据条件统计某个字段之和,sum(字段)
         /// </summary>
         /// <param name="strField">字段</param>
         /// <param name="where">条件</param>
-        /// <param name="trans">事务</param>
         /// <returns>返回字段求和后的值</returns>
-        public virtual async Task<decimal> GetSumValueByFieldAsync(string strField, string where, IDbTransaction trans = null)
+        public virtual async Task<decimal> GetSumValueByFieldAsync(string strField, string where)
         {
-            string sql = $"select isnull(sum({strField}),0) as sumVaule from {tableName} ";
-            if (dbConnectionOptions.DatabaseType == DatabaseType.MySql)
-            {
-                sql = $"select if(isnull(sum({strField})),0,sum({strField})) as sumVaule from {tableName} ";
-            }
-            if (!string.IsNullOrEmpty(where))
-            {
-                sql += " where " + where;
-            }
-            return await DapperConnRead.QueryFirstAsync<decimal>(sql);
+            return await Db.Queryable<T>().WhereIF(!string.IsNullOrEmpty(where), where).SumAsync<decimal>(strField);
         }
         #endregion
 
@@ -909,15 +675,10 @@ namespace Yuebon.Commons.Repositories
         /// 新增
         /// </summary>
         /// <param name="entity"></param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual long Insert(T entity, IDbTransaction trans = null)
+        public virtual int Insert(T entity)
         {
-            if (entity.KeyIsNull())
-            {
-                entity.GenerateDefaultKeyVal();
-            }
-            return DbContext.Add<T>(entity);
+            return Db.Insertable(entity).ExecuteCommand();
         }
 
 
@@ -925,15 +686,10 @@ namespace Yuebon.Commons.Repositories
         /// 异步新增
         /// </summary>
         /// <param name="entity"></param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual async Task<long> InsertAsync(T entity, IDbTransaction trans = null)
+        public virtual async Task<int> InsertAsync(T entity)
         {
-            if (entity.KeyIsNull())
-            {
-                entity.GenerateDefaultKeyVal();
-            }
-            return _dbContext.Add(entity);
+            return await Db.Insertable(entity).ExecuteCommandAsync();
         }
 
         /// <summary>
@@ -941,43 +697,94 @@ namespace Yuebon.Commons.Repositories
         /// </summary>
         /// <param name="entities"></param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual void Insert(List<T> entities)
+        public virtual async void Insert(List<T> entities)
         {
-            DbContext.BulkInsert<T>(entities);
+            if (entities.Count <= 500)
+            {
+                await  Db.Insertable(entities).UseParameter().ExecuteCommandAsync();
+            }
+            else
+            {
+                await Db.Fastest<T>().BulkCopyAsync(entities);
+            }
         }
+
         /// <summary>
-        /// 更新
+        /// 新增或更新
         /// </summary>
-        /// <param name="entity"></param>
-        /// <param name="primaryKey">主键</param>
-        /// <param name="trans">事务对象</param>
-        /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual bool Update(T entity, object primaryKey, IDbTransaction trans = null)
+        /// <param name="entities">数据集合</param>
+        /// <param name="insertNum">返回新增数量</param>
+        /// <param name="updateNum">返回更新数量</param>
+        public virtual  void InsertOrUpdate(List<T> entities, out int insertNum, out int updateNum)
         {
-            return DbContext.Edit<T>(entity) > 0;
+            var x = Db.Storageable(entities).ToStorage(); //将数据进行分组 
+            insertNum=  x.AsInsertable.ExecuteCommand(); //执行插入 （可以换成雪花ID和自增）
+            updateNum=  x.AsUpdateable.ExecuteCommand(); //执行更新　
         }
         /// <summary>
         /// 更新指定字段的值
         /// </summary>
         /// <param name="entity"></param>
-        /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual bool Update(T entity, IDbTransaction trans = null)
+        public virtual bool Update(T entity)
         {
-            return DbContext.Edit(entity) > 0;
+            return Db.Updateable<T>(entity).ExecuteCommandHasChange();
+        }
+
+        /// <summary>
+        /// 异步更新实体。
+        /// </summary>
+        /// <param name="entity">实体</param>
+        /// <returns></returns>
+        public virtual Task<bool> UpdateAsync(T entity)
+        {
+            return Db.Updateable<T>(entity).ExecuteCommandHasChangeAsync();
+        }
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="strWhere">条件</param>
+        /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
+        public virtual bool Update(T entity, string strWhere)
+        {
+            return Db.Updateable<T>(entity).Where(strWhere).ExecuteCommandHasChange();
+        }
+        /// <summary>
+        /// 按条件更新
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="strWhere">条件</param>
+        /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
+        public virtual async Task<bool> UpdateAsync(T entity, string strWhere)
+        {
+            return await Db.Updateable<T>(entity).Where(strWhere).ExecuteCommandHasChangeAsync();
         }
         /// <summary>
         /// 
         /// </summary>
         /// <param name="entity"></param>
-        /// <param name="primaryKey"></param>
-        /// <param name="trans">事务对象</param>
-        /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual async Task<bool> UpdateAsync(T entity, object primaryKey, IDbTransaction trans = null)
+        /// <param name="lstColumns"></param>
+        /// <param name="lstIgnoreColumns"></param>
+        /// <param name="strWhere"></param>
+        /// <returns></returns>
+        public async Task<bool> Update(T entity, List<string> lstColumns = null, List<string> lstIgnoreColumns = null, string strWhere = "")
         {
-            return _dbContext.Edit<T>(entity)>0;
+            IUpdateable<T> up = Db.Updateable(entity);
+            if (lstIgnoreColumns != null && lstIgnoreColumns.Count > 0)
+            {
+                up = up.IgnoreColumns(lstIgnoreColumns.ToArray());
+            }
+            if (lstColumns != null && lstColumns.Count > 0)
+            {
+                up = up.UpdateColumns(lstColumns.ToArray());
+            }
+            if (!string.IsNullOrEmpty(strWhere))
+            {
+                up = up.Where(strWhere);
+            }
+            return await up.ExecuteCommandHasChangeAsync();
         }
-
         /// <summary>
         /// 同步物理删除实体。
         /// </summary>
@@ -985,61 +792,46 @@ namespace Yuebon.Commons.Repositories
         /// <returns></returns>
         public virtual bool Delete(T entity)
         {
-            DbContext.GetDbSet<T>().Remove(entity);
-            return DbContext.SaveChanges() > 0;
+
+            return Db.Deleteable<T>().ExecuteCommandHasChange();
         }
 
         /// <summary>
         /// 异步物理删除实体。
         /// </summary>
         /// <param name="entity">实体</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual async Task<bool> DeleteAsync(T entity, IDbTransaction trans = null)
+        public virtual async Task<bool> DeleteAsync(T entity)
         {
-            DbContext.GetDbSet<T>().Remove(entity);
-            return await DbContext.SaveChangesAsync() > 0;
+            return await Db.Deleteable<T>().ExecuteCommandHasChangeAsync();
         }
 
         /// <summary>
         /// 物理删除信息
         /// </summary>
         /// <param name="primaryKey"></param>
-        /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual bool Delete(object primaryKey, IDbTransaction trans = null)
+        public virtual bool Delete(object primaryKey)
         {
-            var param = new List<Tuple<string, object>>();
-            string sql = $"delete from {tableName} where " + PrimaryKey + "=@PrimaryKey";
-            Tuple<string, object> tupel = new Tuple<string, object>(sql, new { @PrimaryKey = primaryKey });
-
-            param.Add(tupel);
-            Tuple<bool, string> result = ExecuteTransaction(param);
-            return result.Item1;
+            return  Db.Deleteable<T>(primaryKey).ExecuteCommandHasChange();
         }
         /// <summary>
         /// 异步物理删除信息
         /// </summary>
         /// <param name="primaryKey"></param>
-        /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual async Task<bool> DeleteAsync(object primaryKey, IDbTransaction trans = null)
+        public virtual async Task<bool> DeleteAsync(object primaryKey)
         {
-            var param = new List<Tuple<string, object>>();
-            string sql = $"delete from {tableName} where " + PrimaryKey + "=@PrimaryKey";
-            Tuple<string, object> tupel = new Tuple<string, object>(sql, new { @PrimaryKey = primaryKey });
-            param.Add(tupel);
-            Tuple<bool, string> result = await ExecuteTransactionAsync(param);
-            return result.Item1;
+            return await Db.Deleteable<T>(primaryKey).ExecuteCommandHasChangeAsync();
+           
         }
 
         /// <summary>
         /// 按主键批量删除
         /// </summary>
         /// <param name="ids">主键Id List集合</param>
-        /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual bool DeleteBatch(IList<dynamic> ids, IDbTransaction trans = null)
+        public virtual bool DeleteBatch(IList<dynamic> ids)
         {
             var param = new List<Tuple<string, object>>();
             string sql = $"delete from {tableName} where PrimaryKey in (@PrimaryKey)";
@@ -1053,9 +845,8 @@ namespace Yuebon.Commons.Repositories
         /// 按条件批量删除
         /// </summary>
         /// <param name="where">条件</param>
-        /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual bool DeleteBatchWhere(string where, IDbTransaction trans = null)
+        public virtual bool DeleteBatchWhere(string where)
         {
             if (HasInjectionData(where))
             {
@@ -1078,59 +869,17 @@ namespace Yuebon.Commons.Repositories
         /// 按条件批量删除
         /// </summary>
         /// <param name="where">条件</param>
-        /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual async Task<bool> DeleteBatchWhereAsync(string where, IDbTransaction trans = null)
+        public virtual async Task<bool> DeleteBatchWhereAsync(string where)
         {
             if (HasInjectionData(where))
             {
                 Log4NetHelper.Info(string.Format("检测出SQL注入的恶意数据, {0}", where));
                 throw new Exception("检测出SQL注入的恶意数据");
             }
-            if (string.IsNullOrEmpty(where))
-            {
-                where = "1=1";
-            }
-            var param = new List<Tuple<string, object>>();
-            string sql = $"delete from {tableName} where " + where;
-            Tuple<string, object> tupel = new Tuple<string, object>(sql, null);
-            param.Add(tupel);
-            Tuple<bool, string> result = await ExecuteTransactionAsync(param);
-            return result.Item1;
+            return await Db.Deleteable<T>().Where(where).ExecuteCommandHasChangeAsync();
         }
 
-        /// <summary>
-        /// 根据指定对象的ID和用户ID,从数据库中删除指定对象(用于记录人员的操作日志）
-        /// </summary>
-        /// <param name="primaryKey">指定对象的ID</param>
-        /// <param name="userId">用户ID</param>
-        /// <param name="trans">事务对象</param>
-        /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual bool DeleteByUser(object primaryKey, string userId, IDbTransaction trans = null)
-        {
-            var param = new List<Tuple<string, object>>();
-            string sql = $"delete from {tableName} where " + PrimaryKey + " = @PrimaryKey";
-            Tuple<string, object> tupel = new Tuple<string, object>(sql, new { @PrimaryKey = primaryKey });
-            param.Add(tupel);
-            Tuple<bool, string> result = ExecuteTransaction(param);
-            return result.Item1;
-        }
-        /// <summary>
-        /// 异步根据指定对象的ID和用户ID,从数据库中删除指定对象(用于记录人员的操作日志）
-        /// </summary>
-        /// <param name="primaryKey">指定对象的ID</param>
-        /// <param name="userId">用户ID</param>
-        /// <param name="trans">事务对象</param>
-        /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual async Task<bool> DeleteByUserAsync(object primaryKey, string userId, IDbTransaction trans = null)
-        {
-            var param = new List<Tuple<string, object>>();
-            string sql = $"delete from {tableName} where " + PrimaryKey + " = @PrimaryKey";
-            Tuple<string, object> tupel = new Tuple<string, object>(sql, new { @PrimaryKey = primaryKey });
-            param.Add(tupel);
-            Tuple<bool, string> result = await ExecuteTransactionAsync(param);
-            return result.Item1;
-        }
 
         /// <summary>
         /// 逻辑删除信息，bl为true时将DeleteMark设置为1删除，bl为flase时将DeleteMark设置为10-恢复删除
@@ -1138,9 +887,8 @@ namespace Yuebon.Commons.Repositories
         /// <param name="bl">true为不删除，false删除</param>
         /// <param name="primaryKey">主键ID</param>
         /// <param name="userId">操作用户</param>
-        /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual bool DeleteSoft(bool bl, object primaryKey, string userId = null, IDbTransaction trans = null)
+        public virtual bool DeleteSoft(bool bl, object primaryKey, string userId = null)
         {
             string sql = $"update {tableName} set ";
             if (bl)
@@ -1170,9 +918,8 @@ namespace Yuebon.Commons.Repositories
         /// <param name="bl">true为不删除，false删除</param>
         /// <param name="primaryKey">主键ID</param>
         /// <param name="userId">操作用户</param>
-        /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual async Task<bool> DeleteSoftAsync(bool bl, object primaryKey, string userId = null, IDbTransaction trans = null)
+        public virtual async Task<bool> DeleteSoftAsync(bool bl, object primaryKey, string userId = null)
         {
             string sql = $"update {tableName} set ";
             if (bl)
@@ -1202,9 +949,8 @@ namespace Yuebon.Commons.Repositories
         /// <param name="bl">true为不删除，false删除</param> c
         /// <param name="where">条件</param>
         /// <param name="userId">操作用户</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual async Task<bool> DeleteSoftBatchAsync(bool bl, string where, string userId = null, IDbTransaction trans = null)
+        public virtual async Task<bool> DeleteSoftBatchAsync(bool bl, string where, string userId = null)
         {
             if (HasInjectionData(where))
             {
@@ -1243,9 +989,8 @@ namespace Yuebon.Commons.Repositories
         /// <param name="bl">true为有效，false无效</param>
         /// <param name="primaryKey">主键ID</param>
         /// <param name="userId">操作用户</param>
-        /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual bool SetEnabledMark(bool bl, object primaryKey, string userId = null, IDbTransaction trans = null)
+        public virtual bool SetEnabledMark(bool bl, object primaryKey, string userId = null)
         {
             string sql = $"update {tableName} set ";
             if (bl)
@@ -1276,9 +1021,8 @@ namespace Yuebon.Commons.Repositories
         /// <param name="bl">true为有效，false无效</param>
         /// <param name="primaryKey">主键ID</param>
         /// <param name="userId">操作用户</param>
-        /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual async Task<bool> SetEnabledMarkAsync(bool bl, object primaryKey, string userId = null, IDbTransaction trans = null)
+        public virtual async Task<bool> SetEnabledMarkAsync(bool bl, object primaryKey, string userId = null)
         {
             string sql = $"update {tableName} set ";
             if (bl)
@@ -1309,9 +1053,8 @@ namespace Yuebon.Commons.Repositories
         /// <param name="bl">true为有效，false无效</param>
         /// <param name="where">条件</param>
         /// <param name="userId">操作用户</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public virtual async Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, string userId = null, IDbTransaction trans = null)
+        public virtual async Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, string userId = null)
         {
             if (HasInjectionData(where))
             {
@@ -1351,9 +1094,8 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">条件</param>
         /// <param name="paramparameters"></param>
         /// <param name="userId"></param>
-        /// <param name="trans"></param>
         /// <returns></returns>
-        public virtual async Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, object paramparameters = null, string userId = null, IDbTransaction trans = null)
+        public virtual async Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, object paramparameters = null, string userId = null)
         {
             if (HasInjectionData(where))
             {
@@ -1392,9 +1134,8 @@ namespace Yuebon.Commons.Repositories
         /// <param name="strField">字段</param>
         /// <param name="fieldValue">字段值字符类型</param>
         /// <param name="where">条件,为空更新所有内容</param>
-        /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual bool UpdateTableField(string strField, string fieldValue, string where, IDbTransaction trans = null)
+        public virtual bool UpdateTableField(string strField, string fieldValue, string where)
         {
             if (HasInjectionData(where))
             {
@@ -1424,9 +1165,8 @@ namespace Yuebon.Commons.Repositories
         /// <param name="strField">字段</param>
         /// <param name="fieldValue">字段值字符类型</param>
         /// <param name="where">条件,为空更新所有内容</param>
-        /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual async Task<bool> UpdateTableFieldAsync(string strField, string fieldValue, string where, IDbTransaction trans = null)
+        public virtual async Task<bool> UpdateTableFieldAsync(string strField, string fieldValue, string where)
         {
             if (HasInjectionData(where))
             {
@@ -1454,9 +1194,8 @@ namespace Yuebon.Commons.Repositories
         /// <param name="strField">字段</param>
         /// <param name="fieldValue">字段值数字</param>
         /// <param name="where">条件,为空更新所有内容</param>
-        /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual bool UpdateTableField(string strField, int fieldValue, string where, IDbTransaction trans = null)
+        public virtual bool UpdateTableField(string strField, int fieldValue, string where)
         {
             if (HasInjectionData(where))
             {
@@ -1486,9 +1225,8 @@ namespace Yuebon.Commons.Repositories
         /// <param name="strField">字段</param>
         /// <param name="fieldValue">字段值数字</param>
         /// <param name="where">条件,为空更新所有内容</param>
-        /// <param name="trans">事务对象</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual async Task<bool> UpdateTableFieldAsync(string strField, int fieldValue, string where, IDbTransaction trans = null)
+        public virtual async Task<bool> UpdateTableFieldAsync(string strField, int fieldValue, string where)
         {
             if (HasInjectionData(where))
             {
@@ -1520,37 +1258,23 @@ namespace Yuebon.Commons.Repositories
         public async Task<Tuple<bool, string>> ExecuteTransactionAsync(List<Tuple<string, object>> trans, int? commandTimeout = null)
         {
             if (!trans.Any()) return new Tuple<bool, string>(false, "执行事务SQL语句不能为空！");
-            using (IDbConnection connection = DapperConn)
+            _unitOfWork.BeginTran();
+            try
             {
-                bool isClosed = connection.State == ConnectionState.Closed;
-                if (isClosed) connection.Open();
-                using (var transaction = connection.BeginTransaction())
+                foreach (var tran in trans)
                 {
-                    try
-                    {
-                        foreach (var tran in trans)
-                        {
-                            await connection.ExecuteAsync(tran.Item1, tran.Item2, transaction, commandTimeout);
-                        }
-                        //提交事务
-                        transaction.Commit();
-                        return new Tuple<bool, string>(true, string.Empty);
-                    }
-                    catch (Exception ex)
-                    {
-                        //回滚事务
-                        Log4NetHelper.Error("", ex);
-                        transaction.Rollback();
-                        connection.Close();
-                        connection.Dispose();
-                        throw;
-                    }
-                    finally
-                    {
-                        connection.Close();
-                        connection.Dispose();
-                    }
+                    await Db.Ado.ExecuteCommandAsync(tran.Item1, tran.Item2);
                 }
+                //提交事务
+                _unitOfWork.CommitTran();
+                return new Tuple<bool, string>(true, string.Empty);
+            }
+            catch (Exception ex)
+            {
+                //回滚事务
+                Log4NetHelper.Error("", ex);
+                _unitOfWork.RollbackTran();
+                throw;
             }
         }
 
@@ -1564,373 +1288,27 @@ namespace Yuebon.Commons.Repositories
         public Tuple<bool, string> ExecuteTransaction(List<Tuple<string, object>> trans, int? commandTimeout = null)
         {
             if (!trans.Any()) return new Tuple<bool, string>(false, "执行事务SQL语句不能为空！");
-            using (IDbConnection connection = DapperConn)
+            _unitOfWork.BeginTran();
+            try
             {
-                bool isClosed = connection.State == ConnectionState.Closed;
-                if (isClosed) connection.Open();
-                //开启事务
-                using (var transaction = connection.BeginTransaction())
+                foreach (var tran in trans)
                 {
-                    try
-                    {
-                        foreach (var tran in trans)
-                        {
-                            connection.Execute(tran.Item1, tran.Item2, transaction, commandTimeout);
-                        }
-                        //提交事务
-                        transaction.Commit();
-                        return new Tuple<bool, string>(true, string.Empty);
-                    }
-                    catch (Exception ex)
-                    {
-                        //回滚事务
-                        Log4NetHelper.Error("ExecuteTransaction", ex);
-                        transaction.Rollback();
-                        connection.Close();
-                        connection.Dispose();
-                        return new Tuple<bool, string>(false, ex.ToString());
-                    }
-                    finally
-                    {
-                        connection.Close();
-                        connection.Dispose();
-                    }
+                    Db.Ado.ExecuteCommand(tran.Item1, tran.Item2);
                 }
+                //提交事务
+                _unitOfWork.CommitTran();
+                return new Tuple<bool, string>(true, string.Empty);
             }
-        }
-
-        #endregion
-
-        #endregion
-
-        #region EF操作
-
-        /// <summary>
-        /// EF 上下文接口，可读可写
-        /// </summary>
-        public virtual IDbContextCore DbContext
-        {
-            get { return _dbContext;}
-        }
-
-        /// <summary>
-        /// EF 上下文接口，仅可读
-        /// </summary>
-        public virtual IDbContextCore DbContextRead
-        {
-            get { return _dbContextFactory.CreateContext<T>(WriteAndReadEnum.Read); }
-        }
-        /// <summary>
-        /// EF 上下文接口，仅写
-        /// </summary>
-        public virtual IDbContextCore DbContextWrite
-        {
-            get { return _dbContextFactory.CreateContext<T>(WriteAndReadEnum.Write); }
-        }
-        #region 新增
-        /// <summary>
-        /// 新增实体
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        public virtual int Add(T entity)
-        {
-            return DbContext.Add<T>(entity);
-        }
-        /// <summary>
-        /// 新增实体
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        public virtual async Task<int> AddAsync(T entity)
-        {
-            return await DbContext.AddAsync(entity);
-        }
-        /// <summary>
-        /// 批量新增实体，数量量较多是推荐使用BulkInsert()
-        /// </summary>
-        /// <param name="entities"></param>
-        /// <returns></returns>
-        public virtual int AddRange(ICollection<T> entities)
-        {
-            return DbContext.AddRange(entities);
-        }
-        /// <summary>
-        /// 批量新增实体，数量量较多是推荐使用BulkInsert()
-        /// </summary>
-        /// <param name="entities"></param>
-        /// <returns></returns>
-        public virtual async Task<int> AddRangeAsync(ICollection<T> entities)
-        {
-            return await DbContext.AddRangeAsync(entities);
-        }
-        /// <summary>
-        /// 批量新增SqlBulk方式，效率最高
-        /// </summary>
-        /// <param name="entities">数据实体集合</param>
-        /// <param name="destinationTableName">数据库表名称，默认为实体名称</param>
-        public virtual void BulkInsert(IList<T> entities, string destinationTableName = null)
-        {
-            DbContext.BulkInsert<T>(entities, destinationTableName);
-        }
-        /// <summary>
-        /// 执行新增的sql语句
-        /// </summary>
-        /// <param name="sql">新增Sql语句</param>
-        /// <returns></returns>
-        public int AddBySql(string sql)
-        {
-            return DbContext.ExecuteSqlWithNonQuery(sql);
-        }
-
-        #endregion
-
-        #region Update
-
-        /// <summary>
-        /// 更新数据实体
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        public virtual int Edit(T entity)
-        {
-            return DbContext.Edit<T>(entity);
-        }
-        /// <summary>
-        /// 批量更新数据实体
-        /// </summary>
-        /// <param name="entities"></param>
-        /// <returns></returns>
-        public virtual int EditRange(ICollection<T> entities)
-        {
-            return DbContext.EditRange(entities);
-        }
-        /// <summary>
-        /// 更新指定字段的值
-        /// </summary>
-        /// <param name="model">数据实体</param>
-        /// <param name="updateColumns">指定字段</param>
-        /// <returns></returns>
-        public virtual int UpdateColumns(T model, params string[] updateColumns)
-        {
-            DbContext.Update(model, updateColumns);
-            return DbContext.SaveChanges();
-        }
-        /// <summary>
-        /// 执行更新数据的Sql语句
-        /// </summary>
-        /// <param name="sql">更新数据的Sql语句</param>
-        /// <returns></returns>
-        public int UpdateBySql(string sql)
-        {
-            return DbContext.ExecuteSqlWithNonQuery(sql);
-        }
-        #endregion
-
-        #region Delete
-
-        /// <summary>
-        /// 根据主键删除数据
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        public virtual int Delete(object key)
-        {
-            return DbContext.Delete<T, object>(key);
-        }
-        /// <summary>
-        /// 执行删除数据Sql语句
-        /// </summary>
-        /// <param name="sql">删除的Sql语句</param>
-        /// <returns></returns>
-        public int DeleteBySql(string sql)
-        {
-            return DbContext.ExecuteSqlWithNonQuery(sql);
-        }
-
-        #endregion
-
-        #region Query
-
-        /// <summary>
-        /// 根据id获取一个对象
-        /// </summary>
-        /// <param name="primaryKey">主键</param>
-        /// <returns></returns>
-        [Obsolete("此方法已过时，请用GetSingle()")]
-        public virtual T Get(object primaryKey)
-        {
-            return DapperConnRead.Get<T>(primaryKey);
-        }
-        /// <summary>
-        /// 异步根据id获取一个对象
-        /// </summary>
-        /// <param name="primaryKey">主键</param>
-        /// <returns></returns>
-        [Obsolete("此方法已过时，请用GetSingleAsync()")]
-        public virtual async Task<T> GetAsync(object primaryKey)
-        {
-            return await DapperConnRead.GetAsync<T>(primaryKey);
-        }
-        /// <summary>
-        /// 根据条件统计数量Count()
-        /// </summary>
-        /// <param name="where"></param>
-        /// <returns></returns>
-        public virtual int Count(Expression<Func<T, bool>> @where = null)
-        {
-            return DbContext.Count(where);
-        }
-
-        /// <summary>
-        /// 根据条件统计数量Count()
-        /// </summary>
-        /// <param name="where"></param>
-        /// <returns></returns>
-        public virtual async Task<int> CountAsync(Expression<Func<T, bool>> @where = null)
-        {
-            return await DbContext.CountAsync(where);
-        }
-        /// <summary>
-        /// 是否存在,存在返回true，不存在返回false
-        /// </summary>
-        /// <param name="where"></param>
-        /// <returns></returns>
-
-        public virtual bool Exist(Expression<Func<T, bool>> @where = null)
-        {
-            return DbContext.Exist(where);
-        }
-        /// <summary>
-        /// 是否存在,存在返回true，不存在返回false
-        /// </summary>
-        /// <param name="where"></param>
-        /// <returns></returns>
-        public virtual async Task<bool> ExistAsync(Expression<Func<T, bool>> @where = null)
-        {
-            return await DbContext.ExistAsync(where);
-        }
-
-        /// <summary>
-        /// 根据主键获取实体。建议：如需使用Include和ThenInclude请重载此方法。
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        public virtual T GetSingle(object key)
-        {
-            return DbContext.Find<T, object>(key);
-        }
-
-
-        /// <summary>
-        /// 根据主键获取实体。建议：如需使用Include和ThenInclude请重载此方法。
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        public virtual async Task<T> GetSingleAsync(object key)
-        {
-            return await DbContext.FindAsync<T, object>(key);
-        }
-
-        /// <summary>
-        /// 获取单个实体。建议：如需使用Include和ThenInclude请重载此方法。
-        /// </summary>
-        /// <param name="where"></param>
-        /// <returns></returns>
-        public virtual T GetSingleOrDefault(Expression<Func<T, bool>> @where = null)
-        {
-            return DbContext.GetSingleOrDefault(@where);
-        }
-
-        /// <summary>
-        /// 获取单个实体。建议：如需使用Include和ThenInclude请重载此方法。
-        /// </summary>
-        /// <param name="where"></param>
-        /// <returns></returns>
-        public virtual async Task<T> GetSingleOrDefaultAsync(Expression<Func<T, bool>> @where = null)
-        {
-            return await DbContext.GetSingleOrDefaultAsync(where);
-        }
-
-        /// <summary>
-        /// 获取实体列表。建议：如需使用Include和ThenInclude请重载此方法。
-        /// </summary>
-        /// <param name="where"></param>
-        /// <returns></returns>
-        public virtual IList<T> Get(Expression<Func<T, bool>> @where = null)
-        {
-            return DbContext.GetByCompileQuery(where);
-        }
-        /// <summary>
-        /// 获取实体列表。建议：如需使用Include和ThenInclude请重载此方法。
-        /// </summary>
-        /// <param name="where"></param>
-        /// <returns></returns>
-        public virtual async Task<List<T>> GetAsync(Expression<Func<T, bool>> @where = null)
-        {
-            return await DbContext.GetByCompileQueryAsync(where);
-        }
-
-        /// <summary>
-        ///  分页获取实体列表。建议：如需使用Include和ThenInclude请重载此方法。
-        /// </summary>
-        /// <param name="where">查询条件</param>
-        /// <param name="pagerInfo">分页信息</param>
-        /// <param name="asc">排序方式</param>
-        /// <param name="orderby">排序字段</param>
-        /// <returns></returns>
-        public virtual IEnumerable<T> GetByPagination(Expression<Func<T, bool>> @where, PagerInfo pagerInfo, bool asc = false, params Expression<Func<T, object>>[] @orderby)
-        {
-            var filter = DbContext.Get(where);
-            if (orderby != null)
+            catch (Exception ex)
             {
-                foreach (var func in orderby)
-                {
-                    filter = asc ? filter.OrderBy(func).AsQueryable() : filter.OrderByDescending(func).AsQueryable();
-                }
+                //回滚事务
+                Log4NetHelper.Error("ExecuteTransaction", ex);
+                _unitOfWork.RollbackTran();
+                return new Tuple<bool, string>(false, ex.ToString());
             }
-            pagerInfo.RecordCount = filter.Count();
-            return filter.Skip(pagerInfo.PageSize * (pagerInfo.CurrenetPageIndex - 1)).Take(pagerInfo.PageSize);
         }
-        /// <summary>
-        /// sql语句查询数据集
-        /// </summary>
-        /// <param name="sql"></param>
-        /// <returns></returns>
-        public List<T> GetBySql(string sql)
-        {
-            return DbContext.SqlQuery<T, T>(sql);
-        }
-        /// <summary>
-        /// sql语句查询数据集，返回输出Dto实体
-        /// </summary>
-        /// <typeparam name="TView"></typeparam>
-        /// <param name="sql"></param>
-        /// <returns></returns>
-        public List<TView> GetViews<TView>(string sql)
-        {
-            var list = DbContext.SqlQuery<T, TView>(sql);
-            return list;
-        }
-        /// <summary>
-        /// 查询视图
-        /// </summary>
-        /// <typeparam name="TView">返回结果对象</typeparam>
-        /// <param name="viewName">视图名称</param>
-        /// <param name="where">查询条件</param>
-        /// <returns></returns>
-        public List<TView> GetViews<TView>(string viewName, Func<TView, bool> @where)
-        {
-            var list = DbContext.SqlQuery<T, TView>($"select * from {viewName}");
-            if (where != null)
-            {
-                return list.Where(where).ToList();
-            }
-
-            return list;
-        }
-
         #endregion
+
         #endregion
 
         #region 辅助类方法
@@ -1998,14 +1376,8 @@ namespace Yuebon.Commons.Repositories
         }
 
 
-        #endregion
-
         #region IDisposable Support
         private bool disposedValue = false; // 要检测冗余调用
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="disposing"></param>
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
@@ -2020,21 +1392,7 @@ namespace Yuebon.Commons.Repositories
 
                 disposedValue = true;
             }
-            if (DbContext != null)
-            {
-                DbContext.Dispose();
-            }
-            if (DapperConn != null)
-            {
-                DapperConn?.Dispose();
-            }
         }
-
-        // TODO: 仅当以上 Dispose(bool disposing) 拥有用于释放未托管资源的代码时才替代终结器。
-        // ~BaseRepository() {
-        //   // 请勿更改此代码。将清理代码放入以上 Dispose(bool disposing) 中。
-        //   Dispose(false);
-        // }
 
         /// <summary>
         /// 
@@ -2043,12 +1401,11 @@ namespace Yuebon.Commons.Repositories
         {
             // 请勿更改此代码。将清理代码放入以上 Dispose(bool disposing) 中。
             Dispose(true);
-
-            DbContext?.Dispose();
-            DapperConn?.Dispose();
             // TODO: 如果在以上内容中替代了终结器，则取消注释以下行。
             // GC.SuppressFinalize(this);
         }
+
+        #endregion
         #endregion
     }
 }

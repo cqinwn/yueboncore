@@ -1,10 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyModel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
 using System.Text;
+using Yuebon.Commons.Log;
 using Yuebon.Commons.Options;
 
 namespace Yuebon.Commons.Helpers
@@ -64,6 +66,25 @@ namespace Yuebon.Commons.Helpers
                     // ignored
                 }
             }
+            //string targetPath = AppDomain.CurrentDomain.BaseDirectory + "Modules";
+            //string[] dlls = Directory.GetFiles(targetPath, "*.dll");
+            //foreach (string dll in dlls)
+            //{
+            //    try
+            //    {
+            //        //解决插件还引用其他主程序没有引用的第三方dll问题System.IO.FileNotFoundException
+            //        var assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(dll);
+            //        if (assembly.FullName.StartsWith("Yuebon.WCS") && !list.Contains(assembly) && assembly.GetName().Name != "Yuebon.Commons")
+            //        {
+            //            list.Add(assembly);
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        //非.net程序集类型的dll关联load时会报错，这里忽略就可以
+            //        Log4NetHelper.Error(ex.Message);
+            //    }
+            //}
             return list;
         }
         /// <summary>

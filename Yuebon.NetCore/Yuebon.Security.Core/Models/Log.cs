@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using SqlSugar;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,7 +15,7 @@ namespace Yuebon.Security.Models
     /// 系统日志，数据实体对象
     /// </summary>
     [AppDBContext("DefaultDb")]
-    [Table("Sys_Log")]
+    [SugarTable("Sys_Log")]
     [Serializable]
     [Comment("系统日志")]
     public class Log: LongEntity, ICreationAudited, IModificationAudited, IDeleteAudited

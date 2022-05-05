@@ -11,7 +11,6 @@ using System.Reflection;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Text.Unicode;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Models;
@@ -25,8 +24,6 @@ using Yuebon.Commons.Log;
 using Yuebon.Commons.Models;
 using Yuebon.Commons.Pages;
 using Yuebon.Security.Dtos;
-using Yuebon.Security.IRepositories;
-using Yuebon.Security.Repositories;
 
 namespace Yuebon.AspNetCore.Controllers
 {
@@ -41,7 +38,6 @@ namespace Yuebon.AspNetCore.Controllers
         /// 当前登录的用户属性
         /// </summary>
         public YuebonCurrentUser CurrentUser;
-        private ILogRepository service = new LogRepository();
 
         #region 
         /// <summary>

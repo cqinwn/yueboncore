@@ -13,9 +13,10 @@ namespace Yuebon.Security.Services
     {
         private readonly IUserLogOnRepository _userLogOnRepository;
         private readonly ILogService _logService;
-        public UserLogOnService(IUserLogOnRepository repository, ILogService logService) : base(repository)
+        public UserLogOnService(IUserLogOnRepository userLogOnRepository, ILogService logService)
         {
-            _userLogOnRepository = repository;
+            repository = userLogOnRepository;
+            _userLogOnRepository = userLogOnRepository;
             _logService = logService;
         }
 
@@ -40,6 +41,16 @@ namespace Yuebon.Security.Services
             string themeJsonStr = info.ToJson();
             string where = $"UserId='{userId}'";
             return await _userLogOnRepository.UpdateTableFieldAsync("Theme",themeJsonStr, where);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public override Task<bool> UpdateAsync(UserLogOn entity, string id)
+        {
+            return repository.Db.Updateable<UserLogOn>(entity).Where(t=>t.Id==id).ExecuteCommandHasChangeAsync();
         }
     }
 }

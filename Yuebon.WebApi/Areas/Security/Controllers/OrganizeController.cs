@@ -53,6 +53,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             {
                 info.Layers = iService.Get(info.ParentId).Layers + 1;
             }
+
         }
 
         /// <summary>
@@ -121,7 +122,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.Description = tinfo.Description;
 
             OnBeforeUpdate(info);
-            bool bl = await iService.UpdateAsync(info, tinfo.Id).ConfigureAwait(false);
+            bool bl = await iService.UpdateAsync(info);
             if (bl)
             {
                 result.ErrCode = ErrCode.successCode;

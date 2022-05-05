@@ -11,9 +11,10 @@ namespace Yuebon.Security.Services
     {
         private readonly IDbBackupRepository _repository;
         private readonly ILogService _logService;
-        public DbBackupService(IDbBackupRepository repository, ILogService logService) : base(repository)
+        public DbBackupService(IDbBackupRepository dbBackupRepository, ILogService logService)
         {
-            _repository = repository;
+            repository=dbBackupRepository;
+            _repository = dbBackupRepository;
             _logService = logService;
         }
     }

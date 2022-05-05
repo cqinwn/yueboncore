@@ -7,13 +7,14 @@ using Yuebon.Commons.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using SqlSugar;
 
 namespace Yuebon.Security.Models
 {
     /// <summary>
     /// 第三方登录与用户绑定表，数据实体对象
     /// </summary>
-    [Table("Sys_UserOpenIds")]
+    [SugarTable("Sys_UserOpenIds")]
     [Comment("第三方登录与用户绑定表")]
     public class UserOpenIds:BaseEntity
     {

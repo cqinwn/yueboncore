@@ -36,9 +36,10 @@ namespace Yuebon.Security.Services
         /// </summary>
         /// <param name="repository"></param>
         /// <param name="userRepository"></param>
-        public LogService(ILogRepository repository, IUserRepository userRepository) : base(repository)
+        public LogService(ILogRepository logRepositor, IUserRepository userRepository)
         {
-            _iLogRepository = repository;
+            repository=logRepositor;
+            _iLogRepository = logRepositor;
             _iuserRepository = userRepository;
         }
 
@@ -105,7 +106,7 @@ namespace Yuebon.Security.Services
         /// <param name="operationType">操作类型</param>
         /// <param name="note">操作详细表述</param>
         /// <returns></returns>
-        public bool OnOperationLog(string tableName, string operationType, string note)
+        public async Task<bool> OnOperationLog(string tableName, string operationType, string note)
         {
             try
             {
@@ -146,7 +147,7 @@ namespace Yuebon.Security.Services
                         info.IPAddress = CurrentUser.CurrentLoginIP;
                         info.IPAddressName = CurrentUser.IPAddressName;
                         info.Result = true;
-                        long lg = _iLogRepository.Insert(info);
+                        long lg =await _iLogRepository.InsertAsync(info);
                         if (lg > 0)
                         {
                             return true;
@@ -171,7 +172,7 @@ namespace Yuebon.Security.Services
         /// <param name="note">操作详细表述</param>
         /// <param name="currentUser">操作用户</param>
         /// <returns></returns>
-        public bool OnOperationLog(string module, string operationType, string note, YuebonCurrentUser currentUser)
+        public async Task<bool> OnOperationLog(string module, string operationType, string note, YuebonCurrentUser currentUser)
         {
             //虽然实现了这个事件，但是我们还需要判断该表是否在配置表里面，如果不在，则不记录操作日志。
             //OperationLogSettingInfo settingInfo = BLLFactory<OperationLogSetting>.Instance.FindByTableName(tableName, trans);
@@ -199,7 +200,7 @@ namespace Yuebon.Security.Services
                     info.NickName = currentUser.NickName;
                     info.OrganizeId = currentUser.OrganizeId;
                     info.IPAddress = currentUser.CurrentLoginIP;
-                    info.IPAddressName = IpAddressUtil.GetCityByIp(currentUser.CurrentLoginIP);
+                    info.IPAddressName =await IpAddressUtil.GetCityByIp(currentUser.CurrentLoginIP);
                     info.Result = true;
                     long lg = _iLogRepository.Insert(info);
                     if (lg > 0)

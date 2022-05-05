@@ -7,13 +7,14 @@ using Yuebon.Commons.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using SqlSugar;
 
 namespace Yuebon.Quartz.Models
 {
     /// <summary>
     /// 定时任务执行日志，数据实体对象
     /// </summary>
-    [Table("Sys_TaskJobsLog")]
+    [SugarTable("Sys_TaskJobsLog")]
     [Comment("定时任务执行日志")]
     [Serializable]
     public class TaskJobsLog:BaseEntity

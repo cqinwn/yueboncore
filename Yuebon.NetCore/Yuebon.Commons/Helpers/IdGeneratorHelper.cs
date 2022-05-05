@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
+using Yuebon.Commons.Extensions;
 
 namespace Yuebon.Commons.Helpers
 {
@@ -33,30 +34,24 @@ namespace Yuebon.Commons.Helpers
             string code = DateTime.Now.ToString("yyyyMMddHHmmssffff") + strRandom;//形如2020052113254137177350
             return code;
         }
+
+        /// <summary>
+        /// 自动生成编号/唯一订单号生成，时间戳+随机数，时间戳精确到毫秒，形如20052113254137177350
+        /// </summary>
+        /// <returns></returns>
+        public static long CreateNoLong()
+        {
+            Random random = new Random();
+            string strRandom = random.Next(10000, 99999).ToString(); //生成随机编号 
+            string code = DateTime.Now.ToString("yyMMddHHmmssffff") + strRandom;//形如20052113254137177350
+            return code.ToLong();
+        }
         /// <summary>
         /// 雪花飘逸算法生成ID
         /// </summary>
         public static long IdSnowflake()
         {
-            var options = new IdGeneratorOptions()
-            {
-                WorkerId = 1,
-                WorkerIdBitLength = 10,
-                SeqBitLength = 6,
-                DataCenterIdBitLength = 1,
-                TopOverCostCount = 2000,
-
-                //TimestampType = 1,
-
-                // MinSeqNumber = 1,
-                // MaxSeqNumber = 200,
-
-                // BaseTime = DateTime.Now.AddYears(-10),
-            };
-
-            IIdGenerator IdGen = new DefaultIdGenerator(options);
-            return IdGen.NewLong();
-
+            return YitIdHelper.NextId();
         }
         #endregion
     }

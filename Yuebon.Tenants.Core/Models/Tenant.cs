@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using SqlSugar;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,7 +10,7 @@ namespace Yuebon.Tenants.Models
     /// <summary>
     /// 租户，数据实体对象
     /// </summary>
-    [Table("Sys_Tenant")]
+    [SugarTable("Sys_Tenant")]
     [Comment("租户信息表")]
     [Serializable]
     public class Tenant:BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited

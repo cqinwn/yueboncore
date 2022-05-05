@@ -15,9 +15,10 @@ namespace Yuebon.Security.Services
     {
         private readonly IItemsRepository _repository;
         private readonly ILogService _logService;
-        public ItemsService(IItemsRepository repository, ILogService logService) : base(repository)
+        public ItemsService(IItemsRepository itemsRepository, ILogService logService)
         {
-            _repository = repository;
+            repository = itemsRepository;
+            _repository = itemsRepository;
             _logService = logService;
         }
 

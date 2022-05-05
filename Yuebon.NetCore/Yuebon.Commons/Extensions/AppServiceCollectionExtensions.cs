@@ -7,15 +7,10 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using System.Linq;
 using System.Reflection;
-using Yuebon.Commons.Core.App;
-using Yuebon.Commons.DbContextCore;
 using Yuebon.Commons.DependencyInjection;
 using Yuebon.Commons.Helpers;
-using Yuebon.Commons.IDbContext;
-using Yuebon.Commons.IoC;
 using Yuebon.Commons.IRepositories;
 using Yuebon.Commons.Models;
-using Yuebon.Commons.Options;
 using Yuebon.Commons.Repositories;
 
 namespace Yuebon.Commons.Extensions
@@ -317,68 +312,68 @@ namespace Yuebon.Commons.Extensions
 
 
         #region 数据库上下文相关服务注入
-        /// <summary>
-        /// 注册数据库上下文工厂
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="action"></param>
-        /// <returns></returns>
-        public static IServiceCollection AddDbContextFactory(this IServiceCollection services,
-            Action<DbContextFactory> action)
-        {
-            if (services == null) throw new ArgumentNullException(nameof(services));
-            var factory = DbContextFactory.Instance;
-            factory.ServiceCollection = services;
-            action?.Invoke(factory);
-            return factory.ServiceCollection;
-        }
+        ///// <summary>
+        ///// 注册数据库上下文工厂
+        ///// </summary>
+        ///// <param name="services"></param>
+        ///// <param name="action"></param>
+        ///// <returns></returns>
+        //public static IServiceCollection AddDbContextFactory(this IServiceCollection services,
+        //    Action<DbContextFactory> action)
+        //{
+        //    if (services == null) throw new ArgumentNullException(nameof(services));
+        //    var factory = DbContextFactory.Instance;
+        //    factory.ServiceCollection = services;
+        //    action?.Invoke(factory);
+        //    return factory.ServiceCollection;
+        //}
 
-        /// <summary>
-        /// 注入数据库上下文
-        /// </summary>
-        /// <typeparam name="IT"></typeparam>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="services"></param>
-        /// <param name="option">数据库上下文配置参数</param>
-        /// <returns></returns>
-        public static IServiceCollection AddDbContext<IT, T>(this IServiceCollection services, DbContextOption option) where IT : IDbContextCore where T : BaseDbContext, IT
-        {
-            if (services == null) throw new ArgumentNullException(nameof(services));
-            if (option == null) throw new ArgumentNullException(nameof(option));
-            services.AddSingleton(option);
-            return services.AddDbContext<IT, T>(option);
-        }
+        ///// <summary>
+        ///// 注入数据库上下文
+        ///// </summary>
+        ///// <typeparam name="IT"></typeparam>
+        ///// <typeparam name="T"></typeparam>
+        ///// <param name="services"></param>
+        ///// <param name="option">数据库上下文配置参数</param>
+        ///// <returns></returns>
+        //public static IServiceCollection AddDbContext<IT, T>(this IServiceCollection services, DbContextOption option) where IT : IDbContextCore where T : BaseDbContext, IT
+        //{
+        //    if (services == null) throw new ArgumentNullException(nameof(services));
+        //    if (option == null) throw new ArgumentNullException(nameof(option));
+        //    services.AddSingleton(option);
+        //    return services.AddDbContext<IT, T>(option);
+        //}
 
-        /// <summary>
-        /// 注入数据库上下文
-        /// </summary>
-        /// <typeparam name="IT"></typeparam>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="services"></param>
-        /// <returns></returns>
-        public static IServiceCollection AddDbContext<IT, T>(this IServiceCollection services) where IT : IDbContextCore where T : BaseDbContext, IT
-        {
-            if (services == null) throw new ArgumentNullException(nameof(services));
-            return services.AddDbContext<IT, T>();
-        }
+        ///// <summary>
+        ///// 注入数据库上下文
+        ///// </summary>
+        ///// <typeparam name="IT"></typeparam>
+        ///// <typeparam name="T"></typeparam>
+        ///// <param name="services"></param>
+        ///// <returns></returns>
+        //public static IServiceCollection AddDbContext<IT, T>(this IServiceCollection services) where IT : IDbContextCore where T : BaseDbContext, IT
+        //{
+        //    if (services == null) throw new ArgumentNullException(nameof(services));
+        //    return services.AddDbContext<IT, T>();
+        //}
 
-        /// <summary>
-        /// 获取数据库上下文
-        /// </summary>
-        /// <param name="provider"></param>
-        /// <param name="dbContextTagName">上下文标签名称</param>
-        /// <param name="serviceType"></param>
-        /// <returns></returns>
-        public static object GetDbContext(this IServiceProvider provider, string dbContextTagName, Type serviceType)
-        {
-            if (provider == null) throw new ArgumentNullException(nameof(provider));
-            var implService = provider.GetRequiredService(serviceType);
-            var option = provider.GetServices<DbContextOption>().FirstOrDefault(m => m.dbConfigName == dbContextTagName);
+        ///// <summary>
+        ///// 获取数据库上下文
+        ///// </summary>
+        ///// <param name="provider"></param>
+        ///// <param name="dbContextTagName">上下文标签名称</param>
+        ///// <param name="serviceType"></param>
+        ///// <returns></returns>
+        //public static object GetDbContext(this IServiceProvider provider, string dbContextTagName, Type serviceType)
+        //{
+        //    if (provider == null) throw new ArgumentNullException(nameof(provider));
+        //    var implService = provider.GetRequiredService(serviceType);
+        //    var option = provider.GetServices<DbContextOption>().FirstOrDefault(m => m.dbConfigName == dbContextTagName);
 
-            var context = Activator.CreateInstance(implService.GetType(), option);
+        //    var context = Activator.CreateInstance(implService.GetType(), option);
 
-            return context;
-        }
+        //    return context;
+        //}
         #endregion
 
 
@@ -460,6 +455,14 @@ namespace Yuebon.Commons.Extensions
                 a.GetTypes().Where(t => typeof(IPrivateDependency).IsAssignableFrom(t) && t.IsClass).ToList().ForEach(t =>
                 {
                     var serviceType = t.GetInterface($"I{t.Name}");
+                    //if (serviceType != null)
+                    //{
+                    //    services.AddScoped(serviceType, t);
+                    //}
+                    //else
+                    //{
+                    //    services.AddScoped(t);
+                    //}
                     if ((serviceType ?? t).GetInterface(typeof(ISingletonDependency).Name) != null)
                     {
                         if (serviceType != null)

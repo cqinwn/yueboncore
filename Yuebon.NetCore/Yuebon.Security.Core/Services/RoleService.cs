@@ -17,9 +17,10 @@ namespace Yuebon.Security.Services
         private  IRoleRepository _repository;
         private  ILogService _logService;
         private IOrganizeService _organizeService;
-        public RoleService(IRoleRepository repository, ILogService logService,IOrganizeService organizeService) : base(repository)
+        public RoleService(IRoleRepository roleRepository, ILogService logService,IOrganizeService organizeService)
         {
-            _repository = repository;
+            repository=roleRepository;
+            _repository = roleRepository;
             _logService = logService;
             _organizeService = organizeService;
         }

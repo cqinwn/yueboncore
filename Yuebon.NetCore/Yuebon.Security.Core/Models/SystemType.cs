@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,7 +14,7 @@ namespace Yuebon.Security.Models
     /// <summary>
     /// 子系统
     /// </summary>
-    [Table("Sys_SystemType")]
+    [SugarTable("Sys_SystemType")]
     [Comment("子系统")]
     [Serializable]
     public class SystemType : BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited

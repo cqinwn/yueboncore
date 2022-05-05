@@ -28,12 +28,13 @@ namespace Yuebon.Security.Services
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="repository"></param>
+        /// <param name="sequenceRepository"></param>
         /// <param name="repositoryRule"></param>
         /// <param name="logService"></param>
-        public SequenceService(ISequenceRepository repository, ISequenceRuleRepository repositoryRule, ILogService logService) : base(repository)
+        public SequenceService(ISequenceRepository sequenceRepository, ISequenceRuleRepository repositoryRule, ILogService logService)
         {
-            _repository = repository;
+            repository= sequenceRepository;
+            _repository = sequenceRepository;
             _logService = logService;
             _repositoryRule = repositoryRule;
         }

@@ -16,9 +16,10 @@ namespace Yuebon.Security.Services
     {
         private readonly IFilterIPRepository _repository;
         private readonly ILogService _logService;
-        public FilterIPService(IFilterIPRepository repository, ILogService logService) : base(repository)
+        public FilterIPService(IFilterIPRepository filterIPRepository, ILogService logService)
         {
-            _repository = repository;
+            repository=filterIPRepository;
+            _repository = filterIPRepository;
             _logService = logService;
         }
         /// <summary>

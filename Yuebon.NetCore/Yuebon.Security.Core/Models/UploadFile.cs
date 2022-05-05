@@ -7,13 +7,14 @@ using Yuebon.Commons.Models;
 using Yuebon.Commons.Helpers;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using SqlSugar;
 
 namespace Yuebon.Security.Models
 {
     /// <summary>
 	/// 用户上传附件管理，文件、图片等
 	/// </summary>
-    [Table("Sys_UploadFile")]
+    [SugarTable("Sys_UploadFile")]
     [Comment("用户上传附件管理")]
     public class UploadFile : BaseEntity, ICreationAudited
     {

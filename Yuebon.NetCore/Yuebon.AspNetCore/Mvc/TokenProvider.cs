@@ -4,17 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Reflection;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
-using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Models;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Core.App;
-using Yuebon.Commons.Encrypt;
-using Yuebon.Commons.Extensions;
-using Yuebon.Commons.IoC;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Models;
@@ -98,7 +92,7 @@ namespace Yuebon.AspNetCore.Mvc
                         string appId = jwtToken.Claims.ToList()[0].Value;//Audience
                         string secret = _jwtModel.Secret;
                         List<APP> list = MemoryCacheHelper.Get<List<APP>>("cacheAppList");
-                        if (list==null)
+                        if (list==null||list.Count==0)
                         {
                             list = _appService.GetAll().ToList();
                         }

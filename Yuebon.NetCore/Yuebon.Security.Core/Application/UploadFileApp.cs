@@ -10,7 +10,6 @@ using System.Text;
 using Yuebon.Commons.Core.App;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
-using Yuebon.Commons.IoC;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Options;
@@ -92,10 +91,10 @@ namespace Yuebon.Security.Application
         /// <param name="fieldToSort">排序字段</param>
         /// <param name="desc">是否降序</param>
         /// <returns>指定对象的集合</returns>
-        public List<UploadFileOutputDto> FindWithPager(string condition, PagerInfo info, string fieldToSort, bool desc)
-        {
-            return service.FindWithPager(condition,info,fieldToSort, desc,null).MapTo<UploadFileOutputDto>();
-        }
+        //public List<UploadFileOutputDto> FindWithPager(string condition, PagerInfo info, string fieldToSort, bool desc)
+        //{
+        //    return service.FindWithPager(condition,info,fieldToSort, desc,null).MapTo<UploadFileOutputDto>();
+        //}
         /// <summary>
         /// 批量上传文件
         /// </summary>

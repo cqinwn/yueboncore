@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using Senparc.Weixin.Entities;
+using Yuebon.Commons.Core.App;
 using Yuebon.Commons.Helpers;
-using Yuebon.Commons.IoC;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Models;
 using Yuebon.Messages.IServices;
@@ -8,10 +8,8 @@ using Yuebon.Messages.Models;
 using Yuebon.Security.Application;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
-using Yuebon.WeChat.CommonService.SubscribeMessage.WxApplet;
-using Senparc.Weixin.Entities;
 using Yuebon.SMS.AliYun;
-using Yuebon.Commons.Core.App;
+using Yuebon.WeChat.CommonService.SubscribeMessage.WxApplet;
 
 namespace Yuebon.Messages.Application
 {

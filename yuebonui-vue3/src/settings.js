@@ -66,12 +66,12 @@ export default {
    */
   activeSystemName: '',
 
-  baseUrl:'https://localhost:52299/api/Files/Upload',
-  apiHostUrl: 'https://localhost:52299/api/', // 基础接口
-  apiSecurityUrl: 'https://localhost:52299/api/Security/', // 权限管理系统接口
-  apiCMSUrl: 'https://localhost:52299/api/CMS/', // 文章
-  fileUrl: 'https://localhost:52299/', // 文件访问路径
-  fileUploadUrl: 'https://localhost:52299/api/Files/Upload'// 文件上传路径
+  baseUrl:'http://localhost:5002/api/Files/Upload',
+  apiHostUrl: 'http://localhost:5002/api/', // 基础接口
+  apiSecurityUrl: 'http://localhost:5002/api/Security/', // 权限管理系统接口
+  apiCMSUrl: 'http://localhost:5002/api/CMS/', // 文章
+  fileUrl: 'http://localhost:5002/', // 文件访问路径
+  fileUploadUrl: 'http://localhost:5002/api/Files/Upload'// 文件上传路径
   
   // baseUrl:'http://netcoreapi.ts.yuebon.com/api/Files/Upload',
   // apiHostUrl: 'http://netcoreapi.ts.yuebon.com/api/', // 基础接口

@@ -1,8 +1,7 @@
-using System;
-using Yuebon.Commons.Repositories;
 using Yuebon.CMS.IRepositories;
 using Yuebon.CMS.Models;
-using Yuebon.Commons.IDbContext;
+using Yuebon.Commons.Core.UnitOfWork;
+using Yuebon.Commons.Repositories;
 
 namespace Yuebon.CMS.Repositories
 {
@@ -11,11 +10,8 @@ namespace Yuebon.CMS.Repositories
     /// </summary>
     public class ArticlecategoryRepository : BaseRepository<Articlecategory>, IArticlecategoryRepository
     {
-		public ArticlecategoryRepository()
-        {
-        }
 
-        public ArticlecategoryRepository(IDbContextCore context) : base(context)
+        public ArticlecategoryRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
     }

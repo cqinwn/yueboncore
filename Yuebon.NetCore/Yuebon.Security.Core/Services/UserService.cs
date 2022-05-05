@@ -16,6 +16,7 @@ using Yuebon.Commons.Extend;
 using Yuebon.Commons.Pages;
 using Yuebon.Commons.Dtos;
 using Yuebon.Commons.Enums;
+using Yuebon.Commons.Core.UnitOfWork;
 
 namespace Yuebon.Security.Services
 {
@@ -29,6 +30,7 @@ namespace Yuebon.Security.Services
         private readonly ILogService _logService;
         private readonly IRoleService _roleService;
         private IOrganizeService _organizeService;
+        private readonly IUnitOfWork _unitOfWork;
 
         /// <summary>
         /// 
@@ -38,9 +40,11 @@ namespace Yuebon.Security.Services
         /// <param name="logService"></param>
         /// <param name="roleService"></param>
         /// <param name="organizeService"></param>
-        public UserService(IUserRepository repository, IUserLogOnRepository userLogOnRepository, ILogService logService, IRoleService roleService, IOrganizeService organizeService) : base(repository)
+        public UserService(IUnitOfWork unitOfWork,IUserRepository userRepository, IUserLogOnRepository userLogOnRepository, ILogService logService, IRoleService roleService, IOrganizeService organizeService)
         {
-            _userRepository = repository;
+            _unitOfWork= unitOfWork;
+            repository = userRepository;
+            _userRepository = userRepository;
             _userSigninRepository = userLogOnRepository;
             _logService = logService;
             _roleService = roleService;
@@ -100,7 +104,7 @@ namespace Yuebon.Security.Services
                 userLogOn.LogOnCount++;
                 userLogOn.LastVisitTime = DateTime.Now;
                 userLogOn.UserOnLine = true;
-                 _userSigninRepository.Edit(userLogOn);
+                 _userSigninRepository.Update(userLogOn);
                 return new Tuple<User, string>(userEntity, "");
             }
         }

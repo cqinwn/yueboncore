@@ -51,6 +51,10 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         protected override void OnBeforeInsert(TaskManager info)
         {
             info.Id = new SequenceApp().GetSequenceNext("TaskManager");
+            if (string.IsNullOrEmpty(info.Id))
+            {
+                info.Id=IdGeneratorHelper.IdSnowflake().ToString();
+            }
             info.DeleteMark = false;
             info.RunCount = 0;
             info.Status = 0;
@@ -115,7 +119,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
 
 
             OnBeforeUpdate(info);
-            bool bl = await iService.UpdateAsync(info, tinfo.Id).ConfigureAwait(false);
+            bool bl = await iService.UpdateAsync(info);
             if (bl)
             {
                 result.ErrCode = ErrCode.successCode;
@@ -242,7 +246,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 foreach (var item in jobsId)
                 {
                     if (string.IsNullOrEmpty(item.ToString())) continue;
-                    TaskManager job = iService.Get(item.ToString());
+                    TaskManager job = await iService.GetAsync(item.ToString());
                     if (job == null)
                     {
                         throw new Exception("任务不存在");
@@ -288,7 +292,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             foreach (var item in jobsId)
             {
                 if (string.IsNullOrEmpty(item.ToString())) continue;
-                TaskManager job = iService.Get(item.ToString());
+                TaskManager job = await iService.GetAsync(item.ToString());
                 if (job == null)
                 {
                     throw new Exception("任务不存在");

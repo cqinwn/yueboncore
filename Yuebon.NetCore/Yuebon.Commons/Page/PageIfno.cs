@@ -30,7 +30,7 @@ namespace Yuebon.Commons.Pages
         /// <summary>
         /// 每页显示的记录
         /// </summary>
-        private int pageSize;
+        private int pageSize=50;
         /// <summary>
         /// 记录总数
         /// </summary>
@@ -93,6 +93,14 @@ namespace Yuebon.Commons.Pages
             }
         }
 
+        /// <summary>
+        /// 排序字段(例如:id desc,time asc)
+        /// </summary>
+        public string StrOrderByFileds { get; set; }
+        /// <summary>
+        /// 查询条件( 例如:id = 1 and name = 小明)
+        /// </summary>
+        public string Conditions { get; set; }
         #endregion
     }
 }

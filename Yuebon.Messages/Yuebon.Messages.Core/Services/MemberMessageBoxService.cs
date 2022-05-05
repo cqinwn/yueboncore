@@ -15,7 +15,7 @@ namespace Yuebon.Messages.Services
     {
 		private readonly IMemberMessageBoxRepository _repository;
         private readonly ILogService _logService;
-        public MemberMessageBoxService(IMemberMessageBoxRepository repository,ILogService logService) : base(repository)
+        public MemberMessageBoxService(IMemberMessageBoxRepository repository,ILogService logService)
         {
 			_repository=repository;
 			_logService=logService;

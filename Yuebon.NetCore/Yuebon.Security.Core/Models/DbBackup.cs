@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SqlSugar;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,7 +11,7 @@ namespace Yuebon.Security.Models
     /// 数据库备份，数据实体对象
     /// </summary>
 
-    [Table("Sys_DbBackup")]
+    [SugarTable("Sys_DbBackup")]
     [Serializable]
     [Comment("数据库备份记录")]
     public class DbBackup : BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited

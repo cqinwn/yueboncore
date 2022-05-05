@@ -125,7 +125,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
                 sequenceRule.EnabledMark = info.EnabledMark;
                 sequenceRule.Description = info.Description;
                 OnBeforeUpdate(sequenceRule);
-                result.Success = await iService.UpdateAsync(sequenceRule, info.Id).ConfigureAwait(true);
+                result.Success = await iService.UpdateAsync(sequenceRule);
             }
             if (result.Success)
             {

@@ -36,9 +36,10 @@ namespace Yuebon.Quartz.Services
         /// <param name="repository"></param>
         /// <param name="logService"></param>
         /// <param name="taskJobsLogService"></param>
-        public TaskManagerService(ITaskManagerRepository repository,ILogService logService, ITaskJobsLogService taskJobsLogService, ISchedulerFactory _schedulerFactory) : base(repository)
+        public TaskManagerService(ITaskManagerRepository taskManagerRepository,ILogService logService, ITaskJobsLogService taskJobsLogService, ISchedulerFactory _schedulerFactory)
         {
-			_repository=repository;
+            repository= taskManagerRepository;
+			_repository= taskManagerRepository;
 			_logService=logService;
             _taskJobsLogService = taskJobsLogService;
             schedulerFactory = _schedulerFactory;
@@ -54,7 +55,7 @@ namespace Yuebon.Quartz.Services
         public void RecordRun(string jobId,JobAction jobAction, bool blresultTag = true,string msg="")
         {
             DateTime addTime = DateTime.Now;
-            TaskManager job =  _repository.GetSingle(jobId);
+            TaskManager job =  _repository.Db.Queryable<TaskManager>().First(t=>t.Id== jobId);
             if (job == null)
             {
                 _taskJobsLogService.Insert(new TaskJobsLog

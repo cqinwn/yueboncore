@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using SqlSugar;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,7 +11,7 @@ namespace Yuebon.Security.Models
     /// <summary>
     /// 角色表，数据实体对象
     /// </summary>
-    [Table("Sys_Role")]
+    [SugarTable("Sys_Role")]
     [Comment("角色表")]
     public class Role: BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited
     { 

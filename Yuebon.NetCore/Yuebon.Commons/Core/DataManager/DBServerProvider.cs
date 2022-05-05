@@ -1,25 +1,17 @@
 using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using Npgsql;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
-using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
-using System.Reflection.Metadata;
-using System.Text;
-using Yuebon.Commons.DbContextCore;
 using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Enums;
 using Yuebon.Commons.Extensions;
-using Yuebon.Commons.IDbContext;
-using Yuebon.Commons.Json;
 
 namespace Yuebon.Commons.Core.DataManager
 {
@@ -146,14 +138,17 @@ namespace Yuebon.Commons.Core.DataManager
             {
                 dbConfigName = Configs.GetConfigurationValue("AppSetting", "DefaultDataBase");
             }
-            Dictionary<string, DbConnectionOptions> dictRead = Configs.GetSection("DbConnections:" + dbConfigName + ":ReadDb").Get<Dictionary<string, DbConnectionOptions>>();
+
+            List<DbConnections> listdatabase = Configs.app<DbConnections>("DbConnections").Where(i => i.Enabled).ToList();
+            List<DbConnectionOptions> dictRead = listdatabase.Where(m => m.ConnId == dbConfigName).FirstOrDefault().ReadDB;
 
             DbConnectionOptions dbConnectionOptions = new DbConnectionOptions();
             bool isDBReadWriteSeparate = Configs.GetConfigurationValue("AppSetting", "IsDBReadWriteSeparate").ToBool();
             if (masterDb || !isDBReadWriteSeparate)
             {
-                dbConnectionOptions.ConnectionString = Configs.GetConfigurationValue("DbConnections:" + dbConfigName + ":MasterDB", "ConnectionString");
-                dbConnectionOptions.DatabaseType = (DatabaseType)Enum.Parse(typeof(DatabaseType), Configs.GetConfigurationValue("DbConnections:" + dbConfigName + ":MasterDB", "DatabaseType"));
+                DbConnections conn = listdatabase.Where(m => m.ConnId == dbConfigName).FirstOrDefault();
+                dbConnectionOptions.ConnectionString = conn.MasterDB.ConnectionString;// Configs.GetConfigurationValue("DbConnections:" + dbConfigName+":MasterDB", "ConnectionString");
+                dbConnectionOptions.DatabaseType = conn.MasterDB.DatabaseType;//(DatabaseType)Enum.Parse(typeof(DatabaseType), Configs.GetConfigurationValue("DbConnections:" + dbConfigName + ":MasterDB", "DatabaseType"));
             }
             else
             {
@@ -179,14 +174,17 @@ namespace Yuebon.Commons.Core.DataManager
             {
                 dbConfigName = Configs.GetConfigurationValue("AppSetting", "DefaultDataBase");
             }
-            Dictionary<string, DbConnectionOptions> dictRead = Configs.GetSection("DbConnections:" + dbConfigName + ":ReadDb").Get<Dictionary<string, DbConnectionOptions>>();
+
+            List<DbConnections> listdatabase = Configs.app<DbConnections>("DbConnections").Where(i => i.Enabled).ToList();
+            List<DbConnectionOptions> dictRead =listdatabase.Where(m=>m.ConnId== dbConfigName).FirstOrDefault().ReadDB;
 
             DbConnectionOptions dbConnectionOptions = new DbConnectionOptions();
             bool isDBReadWriteSeparate = Configs.GetConfigurationValue("AppSetting", "IsDBReadWriteSeparate").ToBool();
             if (masterDb || !isDBReadWriteSeparate)
             {
-                dbConnectionOptions.ConnectionString = Configs.GetConfigurationValue("DbConnections:" + dbConfigName+":MasterDB", "ConnectionString");
-                dbConnectionOptions.DatabaseType = (DatabaseType)Enum.Parse(typeof(DatabaseType), Configs.GetConfigurationValue("DbConnections:" + dbConfigName + ":MasterDB", "DatabaseType"));
+                DbConnections conn = listdatabase.Where(m => m.ConnId == dbConfigName).FirstOrDefault();
+                dbConnectionOptions.ConnectionString = conn.MasterDB.ConnectionString;
+                dbConnectionOptions.DatabaseType = conn.MasterDB.DatabaseType;
             }
             else
             {
@@ -204,14 +202,14 @@ namespace Yuebon.Commons.Core.DataManager
         /// </summary>
         /// <param name="slaveData"></param>
         /// <returns></returns>
-        private static DbConnectionOptions GetReadConn(Dictionary<string, DbConnectionOptions> slaveData)
+        private static DbConnectionOptions GetReadConn(List<DbConnectionOptions> slaveData)
         {
             DbConnectionOptions connectionOptions = new DbConnectionOptions();
             string queryDBStrategy = Configs.GetConfigurationValue("AppSetting", "QueryDBStrategy");
             if(queryDBStrategy== "Random")//随机策略
             {
                 int index = new Random().Next(0, slaveData.Count - 1);
-                connectionOptions = slaveData[index.ToString()];
+                connectionOptions = slaveData[index];
             }
             else if (queryDBStrategy == "Polling")//轮询策略
             {
@@ -225,5 +223,15 @@ namespace Yuebon.Commons.Core.DataManager
         }
 
         #endregion
+
+        /// <summary>
+        /// 获取所有数据库连接配置
+        /// </summary>
+        /// <returns></returns>
+        public static List<DbConnections> GetAllDbConnections()
+        {
+            List<DbConnections> listdatabase = Configs.app<DbConnections>("DbConnections").Where(i => i.Enabled).ToList();
+            return listdatabase;
+        }
     }
 }

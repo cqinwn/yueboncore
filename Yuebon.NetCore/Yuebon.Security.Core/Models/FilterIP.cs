@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SqlSugar;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,7 +11,7 @@ namespace Yuebon.Security.Models
     /// 过滤IP，数据实体对象
     /// </summary>
 
-    [Table("Sys_FilterIP")]
+    [SugarTable("Sys_FilterIP")]
     [Serializable]
     [Comment("可访问系统IP地址黑白名单")]
     public class FilterIP : BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited

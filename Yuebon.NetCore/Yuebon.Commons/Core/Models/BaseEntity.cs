@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SqlSugar;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 
 namespace Yuebon.Commons.Models
@@ -29,6 +29,7 @@ namespace Yuebon.Commons.Models
         [Key]
         [Column("Id")]
         [Comment("主键")]
+        [SugarColumn(IsPrimaryKey = true)]
         [MaxLength(50)]
         public virtual string Id { get; set; }
 

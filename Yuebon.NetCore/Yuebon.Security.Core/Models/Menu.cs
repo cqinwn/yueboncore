@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,7 +14,7 @@ namespace Yuebon.Security.Models
     /// <summary>
     /// 系统菜单，数据实体对象
     /// </summary>
-    [Table("Sys_Menu")]
+    [SugarTable("Sys_Menu")]
     [Comment("系统菜单")]
     [Serializable]
     public class Menu: BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited

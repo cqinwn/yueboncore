@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SqlSugar;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -10,7 +11,7 @@ namespace Yuebon.Security.Models
     /// <summary>
     /// 系统应用表，数据实体对象
     /// </summary>
-    [Table("Sys_APP")]
+    [SugarTable("Sys_APP")]
     [Comment("系统应用表")]
     [Serializable]
     public class APP :BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited

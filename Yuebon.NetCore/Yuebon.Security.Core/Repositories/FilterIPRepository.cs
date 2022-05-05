@@ -1,5 +1,5 @@
+using Yuebon.Commons.Core.UnitOfWork;
 using Yuebon.Commons.Extensions;
-using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
 using Yuebon.Security.Models;
@@ -8,11 +8,7 @@ namespace Yuebon.Security.Repositories
 {
     public class FilterIPRepository : BaseRepository<FilterIP>, IFilterIPRepository
     {
-        public FilterIPRepository()
-        {
-        }
-
-        public FilterIPRepository(IDbContextCore dbContext) : base(dbContext)
+        public FilterIPRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
 

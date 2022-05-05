@@ -7,13 +7,14 @@ using Yuebon.Commons.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using SqlSugar;
 
 namespace Yuebon.Security.Models
 {
     /// <summary>
     /// 用户表，数据实体对象
     /// </summary>
-    [Table("Sys_User")]
+    [SugarTable("Sys_User")]
     [Comment("用户表")]
     [Serializable]
     public class User: BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited

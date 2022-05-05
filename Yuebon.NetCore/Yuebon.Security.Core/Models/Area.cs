@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SqlSugar;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,7 +10,7 @@ namespace Yuebon.Security.Models
     /// <summary>
     /// 行政区域表，数据实体对象
     /// </summary>
-    [Table("Sys_Area")]
+    [SugarTable("Sys_Area")]
     [Comment("地区信息")]
     [Serializable]
     public class Area:BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited

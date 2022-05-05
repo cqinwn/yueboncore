@@ -94,9 +94,9 @@ namespace Yuebon.WebApi.Controllers
                 yuebonCacheHelper.Add("CodeGeneratorDbConn", dBConnResult.ConnStr, expiresSliding, false);
                 yuebonCacheHelper.Add("CodeGeneratorDbType", dbConnInfo.DbType, expiresSliding, false); 
                 yuebonCacheHelper.Add("CodeGeneratorDbName", dbConnInfo.DbName, expiresSliding, false);
-                DbExtractor dbExtractor = new DbExtractor();
-                List<DataBaseInfo> listTable = dbExtractor.GetAllDataBases();
-                result.ResData = listTable;
+                //DbExtractor dbExtractor = new DbExtractor();
+                //List<DataBaseInfo> listTable = dbExtractor.GetAllDataBases();
+                //result.ResData = listTable;
                 result.Success = true;
                 result.ErrCode = ErrCode.successCode;
                
@@ -117,9 +117,9 @@ namespace Yuebon.WebApi.Controllers
             yuebonCacheHelper.Remove("CodeGeneratorDbConn");
             yuebonCacheHelper.Remove("CodeGeneratorDbName");
             CommonResult result = new CommonResult();
-            DbExtractor dbExtractor = new DbExtractor();
-            List<DataBaseInfo> listTable = dbExtractor.GetAllDataBases();
-            result.ResData = listTable;
+            //DbExtractor dbExtractor = new DbExtractor();
+            //List<DataBaseInfo> listTable = dbExtractor.GetAllDataBases();
+            //result.ResData = listTable;
             result.ErrCode = ErrCode.successCode;
             return ToJsonContent(result);
         }

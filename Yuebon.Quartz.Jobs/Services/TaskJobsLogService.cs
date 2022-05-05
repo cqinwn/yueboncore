@@ -19,9 +19,10 @@ namespace Yuebon.Quartz.Services
     {
 		private readonly ITaskJobsLogRepository _repository;
         private readonly ILogService _logService;
-        public TaskJobsLogService(ITaskJobsLogRepository repository,ILogService logService) : base(repository)
+        public TaskJobsLogService(ITaskJobsLogRepository taskJobsLogRepository,ILogService logService)
         {
-			_repository=repository;
+            repository = taskJobsLogRepository;
+            _repository = taskJobsLogRepository;
 			_logService=logService;
         }
 

@@ -3,7 +3,6 @@ using Senparc.Weixin.Entities;
 using Senparc.Weixin.Entities.TemplateMessage;
 using Senparc.Weixin.WxOpen.AdvancedAPIs;
 using Yuebon.Commons.Core.App;
-using Yuebon.Commons.IoC;
 
 namespace Yuebon.WeChat.CommonService.SubscribeMessage.WxApplet
 {

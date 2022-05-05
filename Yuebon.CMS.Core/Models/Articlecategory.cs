@@ -6,13 +6,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Yuebon.Commons.Models;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using SqlSugar;
 
 namespace Yuebon.CMS.Models
 {
     /// <summary>
     /// 文章分类，数据实体对象
     /// </summary>
-    [Table("CMS_Articlecategory")]
+    [SugarTable("CMS_Articlecategory")]
     [Comment("文章分类")]
     [Serializable]
     public class Articlecategory:BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited

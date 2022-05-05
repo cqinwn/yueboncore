@@ -1,5 +1,4 @@
-using System;
-using Yuebon.Commons.IDbContext;
+using Yuebon.Commons.Core.UnitOfWork;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
 using Yuebon.Security.Models;
@@ -11,11 +10,7 @@ namespace Yuebon.Security.Repositories
     /// </summary>
     public class SequenceRuleRepository : BaseRepository<SequenceRule>, ISequenceRuleRepository
     {
-		public SequenceRuleRepository()
-        {
-        }
-
-        public SequenceRuleRepository(IDbContextCore dbContext) : base(dbContext)
+        public SequenceRuleRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
     }

@@ -37,7 +37,10 @@ namespace Yuebon.WebApi.Controllers
         private string _belongAppId;//所属应用ID 
         private string _fileName;//文件名称
         private readonly IWebHostEnvironment _hostingEnvironment;
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="hostingEnvironment"></param>
         public FilesController(IWebHostEnvironment hostingEnvironment)
         {
             _hostingEnvironment = hostingEnvironment;
@@ -231,10 +234,6 @@ namespace Yuebon.WebApi.Controllers
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
             SysSetting sysSetting = yuebonCacheHelper.Get("SysSetting").ToJson().ToObject<SysSetting>();
             string folder = DateTime.Now.ToString("yyyyMMdd");
-            if (sysSetting == null)
-            {
-                sysSetting = XmlConverter.Deserialize<SysSetting>("xmlconfig/sys.config");
-            }
             _filePath = _hostingEnvironment.WebRootPath;
             var _tempfilepath = sysSetting.Filepath;
 

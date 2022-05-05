@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,7 +14,7 @@ namespace Yuebon.Security.Models
     /// <summary>
     /// 用户登录信息表，数据实体对象
     /// </summary>
-    [Table("Sys_UserLogOn")]
+    [SugarTable("Sys_UserLogOn")]
     [Comment("用户登录信息表")]
     [Serializable]
     public class UserLogOn: BaseEntity

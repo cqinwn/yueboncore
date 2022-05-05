@@ -4,14 +4,13 @@
  * Description: Yuebon快速开发平台
  * Website：http://www.yuebon.com
 *********************************************************************************/
+using log4net;
+using log4net.Config;
+using log4net.Repository;
 using System;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.IO;
-using log4net;
-using log4net.Config;
-using log4net.Repository;
-using Yuebon.Commons.IoC;
 
 namespace Yuebon.Commons.Log
 {

@@ -2,14 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
+using Yuebon.Commons.Core.UnitOfWork;
 using Yuebon.Commons.DependencyInjection;
-using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Repositories;
 using Yuebon.Quartz.IRepositories;
 using Yuebon.Quartz.Models;
-using Yuebon.Security.IRepositories;
-using Yuebon.Security.Models;
 
 namespace Yuebon.Quartz.Repositories
 {
@@ -18,14 +16,7 @@ namespace Yuebon.Quartz.Repositories
     /// </summary>
     public class TaskManagerRepository : BaseRepository<TaskManager>, ITaskManagerRepository, IScopedDependency
     {
-		public TaskManagerRepository()
-        {
-        }
-        /// <summary>
-        /// EF 数据操作注入
-        /// </summary>
-        /// <param name="context"></param>
-        public TaskManagerRepository(IDbContextCore context) : base(context)
+        public TaskManagerRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
 
@@ -40,7 +31,7 @@ namespace Yuebon.Quartz.Repositories
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public override async Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, string userId = null, IDbTransaction trans = null)
+        public  async Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, string userId = null, IDbTransaction trans = null)
         {
             
             if (HasInjectionData(where))
@@ -85,7 +76,7 @@ namespace Yuebon.Quartz.Repositories
         /// <param name="userId">操作用户</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public override async Task<bool> DeleteSoftBatchAsync(bool bl, string where, string userId = null, IDbTransaction trans = null)
+        public  async Task<bool> DeleteSoftBatchAsync(bool bl, string where, string userId = null, IDbTransaction trans = null)
         {
             if (HasInjectionData(where))
             {

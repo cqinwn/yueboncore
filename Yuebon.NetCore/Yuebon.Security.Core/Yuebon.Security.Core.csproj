@@ -37,6 +37,7 @@
 
   <ItemGroup>
     <Compile Remove="Application\APPApp.cs" />
+    <Compile Remove="Application\AreaApp.cs" />
     <Compile Remove="Application\FunctionApp.cs" />
     <Compile Remove="Application\ItemsApp.cs" />
     <Compile Remove="Application\LogApp.cs" />

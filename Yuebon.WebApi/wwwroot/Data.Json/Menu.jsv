@@ -1,8 +1,8 @@
 ﻿[
   {
-    "Id": 1010612383675183980,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 7612383675183980,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 0,
     "Layers": 1,
     "EnCode": "Cms",
@@ -30,10 +30,10 @@
     "DeleteUserId": null
   },
   {
-    "Id": 1010612464998158840,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 1010612383675183980,
+    "Id": 7612464998158840,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 7612383675183980,
     "Layers": 2,
     "EnCode": "Articlecategory",
     "FullName": "文章分类",
@@ -61,10 +61,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010612491819924157,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 1010612464998158840,
+    "Id": 7612491819924157,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 7612464998158840,
     "Layers": 3,
     "EnCode": "Articlecategory/Add",
     "FullName": "新增",
@@ -93,10 +93,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010612491822062867,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 1010612464998158840,
+    "Id": 7612491822062867,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 7612464998158840,
     "Layers": 3,
     "EnCode": "Articlecategory/Edit",
     "FullName": "修改",
@@ -124,10 +124,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010612491831898409,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 1010612464998158840,
+    "Id": 7612491831898409,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 7612464998158840,
     "Layers": 3,
     "EnCode": "Articlecategory/Enable",
     "FullName": "禁用",
@@ -156,10 +156,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010612491833636611,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 1010612464998158840,
+    "Id": 7612491833636611,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 7612464998158840,
     "Layers": 3,
     "EnCode": "Articlecategory/Enable",
     "FullName": "启用",
@@ -188,10 +188,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010612491835335516,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 1010612464998158840,
+    "Id": 7612491835335516,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 7612464998158840,
     "Layers": 3,
     "EnCode": "Articlecategory/DeleteSoft",
     "FullName": "软删除",
@@ -219,10 +219,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010612491836859838,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 1010612464998158840,
+    "Id": 7612491836859838,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 7612464998158840,
     "Layers": 3,
     "EnCode": "Articlecategory/Delete",
     "FullName": "删除",
@@ -250,10 +250,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010612491813391450,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 1010612464998158840,
+    "Id": 7612491813391450,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 7612464998158840,
     "Layers": 3,
     "EnCode": "Articlecategory/List",
     "FullName": "列表",
@@ -283,10 +283,10 @@
 
   },
   {
-    "Id": 1010612514163234452,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 1010612383675183980,
+    "Id": 7612514163234452,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 7612383675183980,
     "Layers": 2,
     "EnCode": "Articlenews",
     "FullName": "文章列表",
@@ -314,10 +314,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010612522824805771,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 1010612514163234452,
+    "Id": 7612522824805771,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 7612514163234452,
     "Layers": 3,
     "EnCode": "Articlenews/Add",
     "FullName": "新增",
@@ -345,10 +345,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010612522826599230,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 1010612514163234452,
+    "Id": 7612522826599230,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 7612514163234452,
     "Layers": 3,
     "EnCode": "Articlenews/Edit",
     "FullName": "修改",
@@ -376,10 +376,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010612522828498318,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 1010612514163234452,
+    "Id": 7612522828498318,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 7612514163234452,
     "Layers": 3,
     "EnCode": "Articlenews/Enable",
     "FullName": "禁用",
@@ -407,10 +407,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010612522830229383,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 1010612514163234452,
+    "Id": 7612522830229383,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 7612514163234452,
     "Layers": 3,
     "EnCode": "Articlenews/Enable",
     "FullName": "启用",
@@ -438,10 +438,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010612522832039767,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 1010612514163234452,
+    "Id": 7612522832039767,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 7612514163234452,
     "Layers": 3,
     "EnCode": "Articlenews/DeleteSoft",
     "FullName": "软删除",
@@ -469,10 +469,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010612522833744963,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 1010612514163234452,
+    "Id": 7612522833744963,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 7612514163234452,
     "Layers": 3,
     "EnCode": "Articlenews/Delete",
     "FullName": "删除",
@@ -500,10 +500,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010612522823068793,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 1010612514163234452,
+    "Id": 7612522823068793,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 7612514163234452,
     "Layers": 3,
     "EnCode": "Articlenews/List",
     "FullName": "列表",
@@ -531,10 +531,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1012119163234195693,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 1010612383675183980,
+    "Id": 119163234195693,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 7612383675183980,
     "Layers": 2,
     "EnCode": "CreateArticle",
     "FullName": "创建文章",
@@ -562,10 +562,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1012119171088554534,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 1010612383675183980,
+    "Id": 119171088554534,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 7612383675183980,
     "Layers": 2,
     "EnCode": "EditArticle",
     "FullName": "编辑文章",
@@ -595,8 +595,8 @@
   },
   {
     "Id": 1,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 0,
     "Layers": 1,
     "EnCode": "Security",
@@ -625,9 +625,9 @@
     "SystemTag": false
   },
   {
-    "Id": 201905041649159560,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 841649159560,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 1,
     "Layers": 2,
     "EnCode": "SysSetting",
@@ -656,10 +656,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010314265872439474,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 201905041649159560,
+    "Id": 14265872439474,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 841649159560,
     "Layers": 3,
     "EnCode": "SysSetting/GetSysInfo",
     "FullName": "获取系统信息",
@@ -687,10 +687,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010314280909099314,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 201905041649159560,
+    "Id": 14280909099314,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 841649159560,
     "Layers": 3,
     "EnCode": "SysSetting/Edit",
     "FullName": "修改",
@@ -720,8 +720,8 @@
   },
   {
     "Id": 3,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 1,
     "Layers": 2,
     "EnCode": "Organize",
@@ -750,9 +750,9 @@
     "SystemTag": false
   },
   {
-    "Id": 1010314293148672477,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 14293148672477,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 3,
     "Layers": 3,
     "EnCode": "Organize/Add",
@@ -781,9 +781,9 @@
     "SystemTag": false
   },
   {
-    "Id": 1010314302276644526,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 14302276644526,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 3,
     "Layers": 3,
     "EnCode": "Organize/Edit",
@@ -813,9 +813,9 @@
     "SystemTag": false
   },
   {
-    "Id": 1010314473160136431,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 14473160136431,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 3,
     "Layers": 3,
     "EnCode": "Organize/Delete",
@@ -844,9 +844,9 @@
     "SystemTag": false
   },
   {
-    "Id": 1010314525585211515,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 14525585211515,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 3,
     "Layers": 3,
     "EnCode": "Organize/Enable",
@@ -876,9 +876,9 @@
     "SystemTag": false
   },
   {
-    "Id": 1010314535010864350,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 14535010864350,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 3,
     "Layers": 3,
     "EnCode": "Organize/Enable",
@@ -908,9 +908,9 @@
     "SystemTag": false
   },
   {
-    "Id": 1010320121395837658,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 20121395837658,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 3,
     "Layers": 3,
     "EnCode": "Organize/List",
@@ -941,8 +941,8 @@
   },
   {
     "Id": 4,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 1,
     "Layers": 2,
     "EnCode": "User",
@@ -971,9 +971,9 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315063387468705,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 15063387468705,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 4,
     "Layers": 3,
     "EnCode": "User/Add",
@@ -1003,10 +1003,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315063389314029,
+    "Id": 15063389314029,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 4,
     "Layers": 3,
     "EnCode": "User/Edit",
@@ -1036,9 +1036,9 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315063392168016,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 15063392168016,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 4,
     "Layers": 3,
     "EnCode": "User/Enable",
@@ -1068,9 +1068,9 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315063394048962,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 15063394048962,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 4,
     "Layers": 3,
     "EnCode": "User/Enable",
@@ -1100,10 +1100,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315063395829111,
+    "Id": 15063395829111,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 4,
     "Layers": 3,
     "EnCode": "User/DeleteSoft",
@@ -1133,10 +1133,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315063397424616,
+    "Id": 15063397424616,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 4,
     "Layers": 3,
     "EnCode": "User/Delete",
@@ -1166,9 +1166,9 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315063384478437,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 15063384478437,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 4,
     "Layers": 3,
     "EnCode": "User/List",
@@ -1198,10 +1198,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010316040698162073,
+    "Id": 16040698162073,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 4,
     "Layers": 3,
     "EnCode": "User/ModifyPassword",
@@ -1231,9 +1231,9 @@
     "SystemTag": false
   },
   {
-    "Id": 1010316051714119704,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 16051714119704,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 4,
     "Layers": 3,
     "EnCode": "User/ResetPassword",
@@ -1263,10 +1263,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1012310395135928004,
+    "Id": 310395135928004,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 4,
     "Layers": 3,
     "EnCode": "User/SaveUserTheme",
@@ -1298,8 +1298,8 @@
   },
   {
     "Id": 5,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 1,
     "Layers": 2,
     "EnCode": "Role",
@@ -1328,9 +1328,9 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315075515608293,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 15075515608293,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 5,
     "Layers": 3,
     "EnCode": "Role/List",
@@ -1360,9 +1360,9 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315075517418867,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 15075517418867,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 5,
     "Layers": 3,
     "EnCode": "Role/Add",
@@ -1392,9 +1392,9 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315075519656824,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 15075519656824,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 5,
     "Layers": 3,
     "EnCode": "Role/Edit",
@@ -1424,9 +1424,9 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315075521218314,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 15075521218314,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 5,
     "Layers": 3,
     "EnCode": "Role/Enable",
@@ -1456,9 +1456,9 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315075522857783,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 15075522857783,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 5,
     "Layers": 3,
     "EnCode": "Role/Enable",
@@ -1488,9 +1488,9 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315075524463436,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 15075524463436,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 5,
     "Layers": 3,
     "EnCode": "Role/DeleteSoft",
@@ -1520,9 +1520,9 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315075525983094,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 15075525983094,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 5,
     "Layers": 3,
     "EnCode": "Role/Delete",
@@ -1552,10 +1552,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315105223757513,
+    "Id": 15105223757513,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 5,
     "Layers": 3,
     "EnCode": "Role/SetAuthorize",
@@ -1585,10 +1585,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315100806775237,
+    "Id": 15100806775237,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 5,
     "Layers": 3,
     "EnCode": "RoleAuthorize/List",
@@ -1619,8 +1619,8 @@
   },
   {
     "Id": 6,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 1,
     "Layers": 2,
     "EnCode": "Items",
@@ -1649,10 +1649,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315132783165373,
+    "Id": 15132783165373,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 6,
     "Layers": 3,
     "EnCode": "Items/Add",
@@ -1681,10 +1681,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315132784647036,
+    "Id": 15132784647036,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 6,
     "Layers": 3,
     "EnCode": "Items/Edit",
@@ -1714,10 +1714,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315132786229265,
+    "Id": 15132786229265,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 6,
     "Layers": 3,
     "EnCode": "Items/Enable",
@@ -1747,10 +1747,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315132787977688,
+    "Id": 15132787977688,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 6,
     "Layers": 3,
     "EnCode": "Items/Enable",
@@ -1780,10 +1780,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315132789912350,
+    "Id": 15132789912350,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 6,
     "Layers": 3,
     "EnCode": "Items/DeleteSoft",
@@ -1813,10 +1813,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315132791643307,
+    "Id": 15132791643307,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 6,
     "Layers": 3,
     "EnCode": "Items/Delete",
@@ -1846,10 +1846,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315132781838294,
+    "Id": 15132781838294,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 6,
     "Layers": 3,
     "EnCode": "Items/List",
@@ -1879,10 +1879,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010316083259762810,
+    "Id": 16083259762810,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 6,
     "Layers": 3,
     "EnCode": "ItemsDetail",
@@ -1911,11 +1911,11 @@
     "SystemTag": false
   },
   {
-    "Id": 1010316100011385581,
+    "Id": 16100011385581,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 1010316083259762810,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 16083259762810,
     "Layers": 4,
     "EnCode": "ItemsDetail/Add",
     "FullName": "明细新增",
@@ -1944,11 +1944,11 @@
     "SystemTag": false
   },
   {
-    "Id": 1010316100012707325,
+    "Id": 16100012707325,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 1010316083259762810,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 16083259762810,
     "Layers": 4,
     "EnCode": "ItemsDetail/Edit",
     "FullName": "修改",
@@ -1977,11 +1977,11 @@
     "SystemTag": false
   },
   {
-    "Id": 1010316100014008890,
+    "Id": 16100014008890,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 1010316083259762810,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 16083259762810,
     "Layers": 4,
     "EnCode": "ItemsDetail/Enable",
     "FullName": "禁用",
@@ -2010,11 +2010,11 @@
     "SystemTag": false
   },
   {
-    "Id": 1010316100015306916,
+    "Id": 16100015306916,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 1010316083259762810,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 16083259762810,
     "Layers": 4,
     "EnCode": "ItemsDetail/Enable",
     "FullName": "启用",
@@ -2043,11 +2043,11 @@
     "SystemTag": false
   },
   {
-    "Id": 1010316100016609991,
+    "Id": 16100016609991,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 1010316083259762810,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 16083259762810,
     "Layers": 4,
     "EnCode": "ItemsDetail/DeleteSoft",
     "FullName": "软删除",
@@ -2076,11 +2076,11 @@
     "SystemTag": false
   },
   {
-    "Id": 1010316100018015698,
+    "Id": 16100018015698,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 1010316083259762810,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 16083259762810,
     "Layers": 4,
     "EnCode": "ItemsDetail/Delete",
     "FullName": "删除",
@@ -2109,11 +2109,11 @@
     "SystemTag": false
   },
   {
-    "Id": 1010316100009998659,
+    "Id": 16100009998659,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 1010316083259762810,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 16083259762810,
     "Layers": 4,
     "EnCode": "ItemsDetail/List",
     "FullName": "列表",
@@ -2142,10 +2142,10 @@
     "SystemTag": false
   },
   {
-    "Id": 42316122987266087,
+    "Id": 43161229872697,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 1,
     "Layers": 2,
     "EnCode": "UploadFile",
@@ -2174,11 +2174,11 @@
     "SystemTag": false
   },
   {
-    "Id": 1010316453713145150,
+    "Id": 16453713145150,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 42316122987266087,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 43161229872697,
     "Layers": 3,
     "EnCode": "UploadFile/Add",
     "FullName": "新增",
@@ -2207,11 +2207,11 @@
     "SystemTag": false
   },
   {
-    "Id": 1010316453714778755,
+    "Id": 16453714778755,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 42316122987266087,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 43161229872697,
     "Layers": 3,
     "EnCode": "UploadFile/Edit",
     "FullName": "修改",
@@ -2240,11 +2240,11 @@
     "SystemTag": false
   },
   {
-    "Id": 1010316453715932821,
+    "Id": 16453715932821,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 42316122987266087,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 43161229872697,
     "Layers": 3,
     "EnCode": "UploadFile/Enable",
     "FullName": "禁用",
@@ -2273,11 +2273,11 @@
     "SystemTag": false
   },
   {
-    "Id": 1010316453717238579,
+    "Id": 16453717238579,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 42316122987266087,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 43161229872697,
     "Layers": 3,
     "EnCode": "UploadFile/Enable",
     "FullName": "启用",
@@ -2306,11 +2306,11 @@
     "SystemTag": false
   },
   {
-    "Id": 1010316453718652652,
+    "Id": 16453718652652,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 42316122987266087,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 43161229872697,
     "Layers": 3,
     "EnCode": "UploadFile/DeleteSoft",
     "FullName": "软删除",
@@ -2339,11 +2339,11 @@
     "SystemTag": false
   },
   {
-    "Id": 1010316453719872053,
+    "Id": 16453719872053,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 42316122987266087,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 43161229872697,
     "Layers": 3,
     "EnCode": "UploadFile/Delete",
     "FullName": "删除",
@@ -2372,11 +2372,11 @@
     "SystemTag": false
   },
   {
-    "Id": 1010316453710775564,
+    "Id": 16453710775564,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 42316122987266087,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 43161229872697,
     "Layers": 3,
     "EnCode": "UploadFile/List",
     "FullName": "列表",
@@ -2405,9 +2405,9 @@
     "SystemTag": false
   },
   {
-    "Id": 110314123396328561,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 14123396328561,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 1,
     "Layers": 2,
     "EnCode": "Tenant",
@@ -2436,11 +2436,11 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315175286366578,
+    "Id": 15175286366578,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314123396328561,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14123396328561,
     "Layers": 3,
     "EnCode": "Tenant/Add",
     "FullName": "新增",
@@ -2469,11 +2469,11 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315175287647040,
+    "Id": 15175287647040,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314123396328561,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14123396328561,
     "Layers": 3,
     "EnCode": "Tenant/Edit",
     "FullName": "修改",
@@ -2502,11 +2502,11 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315175288886376,
+    "Id": 15175288886376,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314123396328561,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14123396328561,
     "Layers": 3,
     "EnCode": "Tenant/Enable",
     "FullName": "禁用",
@@ -2535,11 +2535,11 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315175290104050,
+    "Id": 15175290104050,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314123396328561,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14123396328561,
     "Layers": 3,
     "EnCode": "Tenant/Enable",
     "FullName": "启用",
@@ -2568,11 +2568,11 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315175292201815,
+    "Id": 15175292201815,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314123396328561,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14123396328561,
     "Layers": 3,
     "EnCode": "Tenant/DeleteSoft",
     "FullName": "软删除",
@@ -2601,11 +2601,11 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315175293736914,
+    "Id": 15175293736914,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314123396328561,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14123396328561,
     "Layers": 3,
     "EnCode": "Tenant/Delete",
     "FullName": "删除",
@@ -2634,11 +2634,11 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315175285146141,
+    "Id": 15175285146141,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314123396328561,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14123396328561,
     "Layers": 3,
     "EnCode": "Tenant/List",
     "FullName": "列表",
@@ -2669,8 +2669,8 @@
   {
     "Id": 8,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 1,
     "Layers": 2,
     "EnCode": "FilterIP",
@@ -2699,10 +2699,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315183150312981,
+    "Id": 15183150312981,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 8,
     "Layers": 3,
     "EnCode": "FilterIP/List",
@@ -2732,10 +2732,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315183151659795,
+    "Id": 15183151659795,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 8,
     "Layers": 3,
     "EnCode": "FilterIP/Add",
@@ -2765,10 +2765,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315183153249546,
+    "Id": 15183153249546,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 8,
     "Layers": 3,
     "EnCode": "FilterIP/Edit",
@@ -2798,10 +2798,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315183154826786,
+    "Id": 15183154826786,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 8,
     "Layers": 3,
     "EnCode": "FilterIP/Enable",
@@ -2831,10 +2831,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315183156352951,
+    "Id": 15183156352951,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 8,
     "Layers": 3,
     "EnCode": "FilterIP/Enable",
@@ -2864,10 +2864,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315183157889290,
+    "Id": 15183157889290,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 8,
     "Layers": 3,
     "EnCode": "FilterIP/DeleteSoft",
@@ -2897,10 +2897,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315183159324286,
+    "Id": 15183159324286,
 
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 8,
     "Layers": 3,
     "EnCode": "FilterIP/Delete",
@@ -2930,9 +2930,9 @@
     "SystemTag": false
   },
   {
-    "Id": 110314142274602075,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 14142274602075,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 0,
     "Layers": 1,
     "EnCode": "Task",
@@ -2961,10 +2961,10 @@
     "SystemTag": false
   },
   {
-    "Id": 110314161523904459,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314142274602075,
+    "Id": 14161523904459,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14142274602075,
     "Layers": 2,
     "EnCode": "TaskManager",
     "FullName": "任务列表",
@@ -2992,10 +2992,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315194792606013,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314161523904459,
+    "Id": 15194792606013,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14161523904459,
     "Layers": 3,
     "EnCode": "TaskManager/List",
     "FullName": "列表",
@@ -3024,10 +3024,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315204129496922,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314161523904459,
+    "Id": 15204129496922,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14161523904459,
     "Layers": 3,
     "EnCode": "TaskManager/ChangeStatus",
     "FullName": "启动",
@@ -3056,10 +3056,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315194793896582,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314161523904459,
+    "Id": 15194793896582,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14161523904459,
     "Layers": 3,
     "EnCode": "TaskManager/Add",
     "FullName": "新增",
@@ -3088,10 +3088,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315194795273488,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314161523904459,
+    "Id": 15194795273488,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14161523904459,
     "Layers": 3,
     "EnCode": "TaskManager/Edit",
     "FullName": "修改",
@@ -3120,10 +3120,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315194797086431,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314161523904459,
+    "Id": 15194797086431,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14161523904459,
     "Layers": 3,
     "EnCode": "TaskManager/Enable",
     "FullName": "禁用",
@@ -3152,10 +3152,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315194798698862,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314161523904459,
+    "Id": 15194798698862,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14161523904459,
     "Layers": 3,
     "EnCode": "TaskManager/Enable",
     "FullName": "启用",
@@ -3184,10 +3184,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315194799827547,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314161523904459,
+    "Id": 15194799827547,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14161523904459,
     "Layers": 3,
     "EnCode": "TaskManager/DeleteSoft",
     "FullName": "软删除",
@@ -3216,10 +3216,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315194800999273,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314161523904459,
+    "Id": 15194800999273,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14161523904459,
     "Layers": 3,
     "EnCode": "TaskManager/Delete",
     "FullName": "删除",
@@ -3248,10 +3248,10 @@
     "SystemTag": false
   },
   {
-    "Id": 110314165224964779,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314142274602075,
+    "Id": 14165224964779,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14142274602075,
     "Layers": 2,
     "EnCode": "TaskJobsLog",
     "FullName": "任务日志",
@@ -3279,10 +3279,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315212004586381,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314165224964779,
+    "Id": 15212004586381,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14165224964779,
     "Layers": 3,
     "EnCode": "TaskJobsLog/Delete",
     "FullName": "删除",
@@ -3311,10 +3311,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010321015604704406,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314165224964779,
+    "Id": 21015604704406,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14165224964779,
     "Layers": 3,
     "EnCode": "TaskJobsLog/List",
     "FullName": "列表",
@@ -3343,9 +3343,9 @@
     "SystemTag": false
   },
   {
-    "Id": 110314182794069057,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 14182794069057,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 0,
     "Layers": 1,
     "EnCode": "DocumentConfig",
@@ -3374,10 +3374,10 @@
     "SystemTag": false
   },
   {
-    "Id": 110314190914102881,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314182794069057,
+    "Id": 14190914102881,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14182794069057,
     "Layers": 2,
     "EnCode": "Sequence",
     "FullName": "业务单据编码",
@@ -3405,10 +3405,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315215315394611,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314190914102881,
+    "Id": 15215315394611,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14190914102881,
     "Layers": 3,
     "EnCode": "Sequence/List",
     "FullName": "列表",
@@ -3437,10 +3437,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315215327767703,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314190914102881,
+    "Id": 15215327767703,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14190914102881,
     "Layers": 3,
     "EnCode": "Sequence/Add",
     "FullName": "新增",
@@ -3469,10 +3469,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315215328948079,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314190914102881,
+    "Id": 15215328948079,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14190914102881,
     "Layers": 3,
     "EnCode": "Sequence/Edit",
     "FullName": "修改",
@@ -3501,10 +3501,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315215330182636,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314190914102881,
+    "Id": 15215330182636,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14190914102881,
     "Layers": 3,
     "EnCode": "Sequence/Enable",
     "FullName": "禁用",
@@ -3533,10 +3533,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315215331498258,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314190914102881,
+    "Id": 15215331498258,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14190914102881,
     "Layers": 3,
     "EnCode": "Sequence/Enable",
     "FullName": "启用",
@@ -3565,10 +3565,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315215332842957,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314190914102881,
+    "Id": 15215332842957,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14190914102881,
     "Layers": 3,
     "EnCode": "Sequence/DeleteSoft",
     "FullName": "软删除",
@@ -3597,10 +3597,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315215334061002,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314190914102881,
+    "Id": 15215334061002,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14190914102881,
     "Layers": 3,
     "EnCode": "Sequence/Delete",
     "FullName": "删除",
@@ -3629,10 +3629,10 @@
     "SystemTag": false
   },
   {
-    "Id": 110314195207514356,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314182794069057,
+    "Id": 31419520751435,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14182794069057,
     "Layers": 2,
     "EnCode": "SequenceRule",
     "FullName": "单据编码规则",
@@ -3660,10 +3660,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315222503738750,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314195207514356,
+    "Id": 15222503738750,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 31419520751435,
     "Layers": 3,
     "EnCode": "SequenceRule/List",
     "FullName": "列表",
@@ -3692,10 +3692,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315222505099926,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314195207514356,
+    "Id": 15222505099926,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 31419520751435,
     "Layers": 3,
     "EnCode": "SequenceRule/Add",
     "FullName": "新增",
@@ -3724,10 +3724,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315222506982025,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314195207514356,
+    "Id": 15222506982025,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 31419520751435,
     "Layers": 3,
     "EnCode": "SequenceRule/Edit",
     "FullName": "修改",
@@ -3756,10 +3756,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315222508743670,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314195207514356,
+    "Id": 15222508743670,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 31419520751435,
     "Layers": 3,
     "EnCode": "SequenceRule/Enable",
     "FullName": "禁用",
@@ -3788,10 +3788,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315222510354377,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314195207514356,
+    "Id": 15222510354377,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 31419520751435,
     "Layers": 3,
     "EnCode": "SequenceRule/Enable",
     "FullName": "启用",
@@ -3820,10 +3820,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315222511918449,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314195207514356,
+    "Id": 15222511918449,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 31419520751435,
     "Layers": 3,
     "EnCode": "SequenceRule/DeleteSoft",
     "FullName": "软删除",
@@ -3852,10 +3852,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315222513987026,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314195207514356,
+    "Id": 15222513987026,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 31419520751435,
     "Layers": 3,
     "EnCode": "SequenceRule/Delete",
     "FullName": "删除",
@@ -3884,9 +3884,9 @@
     "SystemTag": false
   },
   {
-    "Id": 201806120821141288,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 612082114128889,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 0,
     "Layers": 1,
     "EnCode": "SysLog",
@@ -3916,9 +3916,9 @@
   },
   {
     "Id": 7,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 201806120821141288,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 612082114128889,
     "Layers": 2,
     "EnCode": "LogLogin",
     "FullName": "登录日志",
@@ -3946,9 +3946,9 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315340190128841,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 15340190128841,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 7,
     "Layers": 3,
     "EnCode": "Log/Delete",
@@ -3979,10 +3979,10 @@
 
   },
   {
-    "Id": 110314220971767837,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 201806120821141288,
+    "Id": 14220971767837,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 612082114128889,
     "Layers": 2,
     "EnCode": "LogList",
     "FullName": "操作日志",
@@ -4010,10 +4010,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010321100441931251,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314220971767837,
+    "Id": 21100441931251,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14220971767837,
     "Layers": 3,
     "EnCode": "Log/Delete",
     "FullName": "删除",
@@ -4043,10 +4043,10 @@
 
   },
   {
-    "Id": 110314224299715445,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 201806120821141288,
+    "Id": 14224299715445,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 612082114128889,
     "Layers": 2,
     "EnCode": "LogException",
     "FullName": "异常日志",
@@ -4074,10 +4074,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010321102869902680,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314224299715445,
+    "Id": 21102869902680,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14224299715445,
     "Layers": 3,
     "EnCode": "Log/Delete",
     "FullName": "删除",
@@ -4107,10 +4107,10 @@
 
   },
   {
-    "Id": 110314231504343408,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 201806120821141288,
+    "Id": 14231504343408,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 612082114128889,
     "Layers": 2,
     "EnCode": "LogSQL",
     "FullName": "SQL日志",
@@ -4138,10 +4138,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010321105884295252,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 110314231504343408,
+    "Id": 21105884295252,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14231504343408,
     "Layers": 3,
     "EnCode": "Log/Delete",
     "FullName": "删除",
@@ -4172,8 +4172,8 @@
   },
   {
     "Id": 9,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 0,
     "Layers": 1,
     "EnCode": "Tools",
@@ -4202,9 +4202,9 @@
     "SystemTag": false
   },
   {
-    "Id": 201806141351101389,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 41351101389,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 9,
     "Layers": 2,
     "EnCode": "SystemType",
@@ -4233,10 +4233,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315233975086228,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 201806141351101389,
+    "Id": 15233975086228,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 41351101389,
     "Layers": 3,
     "EnCode": "SystemType/List",
     "FullName": "列表",
@@ -4265,10 +4265,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315233976493618,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 201806141351101389,
+    "Id": 15233976493618,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 41351101389,
     "Layers": 3,
     "EnCode": "SystemType/Add",
     "FullName": "新增",
@@ -4297,10 +4297,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315233978026300,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 201806141351101389,
+    "Id": 15233978026300,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 41351101389,
     "Layers": 3,
     "EnCode": "SystemType/Edit",
     "FullName": "修改",
@@ -4329,10 +4329,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315233979627999,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 201806141351101389,
+    "Id": 15233979627999,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 41351101389,
     "Layers": 3,
     "EnCode": "SystemType/Enable",
     "FullName": "禁用",
@@ -4361,10 +4361,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315233981246649,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 201806141351101389,
+    "Id": 15233981246649,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 41351101389,
     "Layers": 3,
     "EnCode": "SystemType/Enable",
     "FullName": "启用",
@@ -4393,10 +4393,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315233982801956,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 201806141351101389,
+    "Id": 15233982801956,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 41351101389,
     "Layers": 3,
     "EnCode": "SystemType/DeleteSoft",
     "FullName": "软删除",
@@ -4425,10 +4425,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315233984299075,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 201806141351101389,
+    "Id": 15233984299075,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 41351101389,
     "Layers": 3,
     "EnCode": "SystemType/Delete",
     "FullName": "删除",
@@ -4458,9 +4458,9 @@
 
   },
   {
-    "Id": 201806291506346894,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 41506346894,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 9,
     "Layers": 2,
     "EnCode": "APP",
@@ -4489,10 +4489,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315295372466127,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 201806291506346894,
+    "Id": 15295372466127,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 41506346894,
     "Layers": 3,
     "EnCode": "APP/List",
     "FullName": "列表",
@@ -4521,10 +4521,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315295385481609,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 201806291506346894,
+    "Id": 15295385481609,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 41506346894,
     "Layers": 3,
     "EnCode": "APP/Add",
     "FullName": "新增",
@@ -4553,10 +4553,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315295389238874,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 201806291506346894,
+    "Id": 15295389238874,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 41506346894,
     "Layers": 3,
     "EnCode": "APP/Edit",
     "FullName": "修改",
@@ -4585,10 +4585,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315295390992753,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 201806291506346894,
+    "Id": 15295390992753,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 41506346894,
     "Layers": 3,
     "EnCode": "APP/Enable",
     "FullName": "禁用",
@@ -4617,10 +4617,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315295392674499,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 201806291506346894,
+    "Id": 15295392674499,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 41506346894,
     "Layers": 3,
     "EnCode": "APP/Enable",
     "FullName": "启用",
@@ -4649,10 +4649,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315295394456942,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 201806291506346894,
+    "Id": 15295394456942,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 41506346894,
     "Layers": 3,
     "EnCode": "APP/DeleteSoft",
     "FullName": "软删除",
@@ -4681,10 +4681,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315295396508020,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 201806291506346894,
+    "Id": 15295396508020,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 41506346894,
     "Layers": 3,
     "EnCode": "APP/Delete",
     "FullName": "删除",
@@ -4713,10 +4713,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315315773909706,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 201806291506346894,
+    "Id": 15315773909706,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 41506346894,
     "Layers": 3,
     "EnCode": "APP/ResetAppSecret",
     "FullName": "重置AppSecret",
@@ -4745,10 +4745,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315323086026943,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 201806291506346894,
+    "Id": 15323086026943,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 41506346894,
     "Layers": 3,
     "EnCode": "APP/ResetEncodingAESKey",
     "FullName": "重置消息密钥",
@@ -4778,9 +4778,9 @@
 
   },
   {
-    "Id": 201806121608404625,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 6121608404625,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 9,
     "Layers": 2,
     "EnCode": "Menu",
@@ -4809,10 +4809,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315304419294420,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 201806121608404625,
+    "Id": 15304419294420,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 6121608404625,
     "Layers": 3,
     "EnCode": "Menu/Add",
     "FullName": "新增",
@@ -4841,10 +4841,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315304421057774,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 201806121608404625,
+    "Id": 15304421057774,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 6121608404625,
     "Layers": 3,
     "EnCode": "Menu/Edit",
     "FullName": "修改",
@@ -4873,10 +4873,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315304422692928,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 201806121608404625,
+    "Id": 15304422692928,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 6121608404625,
     "Layers": 3,
     "EnCode": "Menu/Enable",
     "FullName": "禁用",
@@ -4905,10 +4905,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315304424338490,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 201806121608404625,
+    "Id": 15304424338490,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 6121608404625,
     "Layers": 3,
     "EnCode": "Menu/Enable",
     "FullName": "启用",
@@ -4937,10 +4937,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315304425833907,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 201806121608404625,
+    "Id": 15304425833907,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 6121608404625,
     "Layers": 3,
     "EnCode": "Menu/DeleteSoft",
     "FullName": "软删除",
@@ -4969,10 +4969,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315304436069801,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 201806121608404625,
+    "Id": 15304436069801,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 6121608404625,
     "Layers": 3,
     "EnCode": "Menu/Delete",
     "FullName": "删除",
@@ -5001,10 +5001,10 @@
     "SystemTag": false
   },
   {
-    "Id": 1010315304417212621,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
-    "ParentId": 201806121608404625,
+    "Id": 15304417212621,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 6121608404625,
     "Layers": 3,
     "EnCode": "Menu/List",
     "FullName": "列表",
@@ -5034,9 +5034,9 @@
 
   },
   {
-    "Id": 42216381028741066,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 6381028741066,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 9,
     "Layers": 2,
     "EnCode": "CodeGenerator",
@@ -5066,9 +5066,9 @@
     "SystemTag": false
   },
   {
-    "Id": 201806040726499682,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 40726499682,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 9,
     "Layers": 2,
     "EnCode": "DbTools",
@@ -5099,9 +5099,9 @@
 
   },
   {
-    "Id": 1012413432839994939,
-    "SystemTypeId": 1,
-    "SystemTypeName": null,
+    "Id": 13432839994939,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
     "ParentId": 0,
     "Layers": 1,
     "EnCode": "netdocs",

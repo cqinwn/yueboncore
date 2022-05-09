@@ -312,7 +312,7 @@ const data = reactive({
     code: ''
   },
   searchmenuform: {
-    systemTypeId: ''
+    systemTypeId: 0n
   },
   pagination: {
     currentPage: 1,
@@ -389,8 +389,8 @@ function reset() {
   editMenuFrom.value = {
     FullName: '',
     EnCode: '',
-    ParentId: '',
-    SystemTypeId: '',
+    ParentId: 0n,
+    SystemTypeId: 0n,
     Icon: undefined,
     UrlAddress: '',
     Component: '',
@@ -447,7 +447,7 @@ function handleSystemTypeChange() {
   getAllMenuTreeTable(selectSystemTypeId.value).then(res => {
     selectMenus.value = res.ResData
   })
-  editMenuFrom.value.SystemTypeId = selectSystemTypeId.value
+  editMenuFrom.value.SystemTypeId = selectSystemTypeId.value+n
 }
 /**
  * 添加模块式选择菜单

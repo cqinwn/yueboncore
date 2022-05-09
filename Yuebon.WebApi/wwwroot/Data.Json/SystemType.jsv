@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Id": 2,
+    "Id": 9166287964471366,
     "EnCode": "YuebonWcs",
     "FullName": "易分拣",
     "Url": "http://localhost:9529",
@@ -18,25 +18,7 @@
     "DeleteUserId": null
   },
   {
-    "Id": 3,
-    "EnCode": "TestSystem",
-    "FullName": "测试系统",
-    "Url": "http://netvue.ts.yuebon.com/",
-    "AllowEdit": null,
-    "AllowDelete": null,
-    "SortCode": 99,
-    "DeleteMark": false,
-    "EnabledMark": false,
-    "Description": "",
-    "CreatorTime": "2022-03-17 10:40:26",
-    "CreatorUserId": 1,
-    "LastModifyTime": "2022-04-26 20:33:24",
-    "LastModifyUserId": 1,
-    "DeleteTime": null,
-    "DeleteUserId": null
-  },
-  {
-    "Id": 1,
+    "Id": 9166287964471363,
     "EnCode": "openauth",
     "FullName": "权限系统",
     "Url": "http://localhost:9528",

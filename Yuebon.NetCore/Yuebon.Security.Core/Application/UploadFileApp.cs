@@ -32,7 +32,7 @@ namespace Yuebon.Security.Application
         private string _dbThumbnail;   //数据库中的缩略图路径
         private string _belongApp;//所属应用
         private string _belongAppId;//所属应用ID
-        IUploadFileService service = App.GetService<IUploadFileService>();
+        IUploadFileService service = Appsettings.GetService<IUploadFileService>();
         /// <summary>
         /// 
         /// </summary>
@@ -79,7 +79,7 @@ namespace Yuebon.Security.Application
         /// </summary>
         /// <param name="id">主键</param>
         /// <returns></returns>
-        public UploadFile Get(string id)
+        public UploadFile Get(long id)
         {
             return service.Get(id);
         }

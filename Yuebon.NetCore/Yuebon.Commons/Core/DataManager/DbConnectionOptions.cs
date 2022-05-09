@@ -39,6 +39,10 @@ namespace Yuebon.Commons.Core.DataManager
     public class DbConnectionOptions
     {
         /// <summary>
+        /// 连接ID
+        /// </summary>
+        public string ConnId { get; set; }
+        /// <summary>
         /// 数据库连接字符
         /// </summary>
         public string ConnectionString { get;set; }

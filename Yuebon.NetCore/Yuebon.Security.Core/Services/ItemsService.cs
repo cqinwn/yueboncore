@@ -32,7 +32,7 @@ namespace Yuebon.Security.Services
             List<ItemsOutputDto> reslist = new List<ItemsOutputDto>();
             IEnumerable<Items> elist =await _repository.GetListWhereAsync("1=1");
             List<Items> list = elist.OrderBy(t => t.SortCode).ToList();
-            List<Items> oneMenuList = list.FindAll(t => t.ParentId == "");
+            List<Items> oneMenuList = list.FindAll(t => t.ParentId == 0);
             foreach (Items item in oneMenuList)
             {
                 ItemsOutputDto menuTreeTableOutputDto = new ItemsOutputDto();
@@ -58,7 +58,7 @@ namespace Yuebon.Security.Services
         /// <param name="enCode">分类编码</param
         /// <param name="id">主键Id</param>
         /// <returns></returns>
-        public async Task<Items> GetByEnCodAsynce(string enCode, string id)
+        public async Task<Items> GetByEnCodAsynce(string enCode, long id)
         {
             return await _repository.GetByEnCodAsynce(enCode,id);
         }
@@ -69,7 +69,7 @@ namespace Yuebon.Security.Services
         /// <param name="data"></param>
         /// <param name="parentId">父级Id</param>
         /// <returns></returns>
-        private List<ItemsOutputDto> GetSubMenus(List<Items> data, string parentId)
+        private List<ItemsOutputDto> GetSubMenus(List<Items> data, long parentId)
         {
             List<ItemsOutputDto> list = new List<ItemsOutputDto>();
             ItemsOutputDto menuTreeTableOutputDto = new ItemsOutputDto();

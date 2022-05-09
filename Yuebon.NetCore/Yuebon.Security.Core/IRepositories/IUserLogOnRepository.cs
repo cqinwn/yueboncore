@@ -12,6 +12,6 @@ namespace Yuebon.Security.IRepositories
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        UserLogOn GetByUserId(string userId);
+        UserLogOn GetByUserId(long userId);
     }
 }

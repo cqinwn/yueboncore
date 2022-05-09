@@ -404,7 +404,7 @@ namespace Yuebon.WebApi
             #endregion
 
             services.AddSingleton<IUnitOfWork, UnitOfWork>();
-            App.Services = services;
+            Appsettings.Services = services;
             services.AddSqlsugarSetup();
             new DefaultInitial().CacheAppList();
 

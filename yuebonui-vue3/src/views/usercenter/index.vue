@@ -150,7 +150,7 @@ function InitDictItem() {
  *选择组织
   */
 function handleSelectOrganizeChange() {
-  editFrom.value.OrganizeId = selectedOrganizeOptions
+  editFrom.value.DepartmentId = selectedOrganizeOptions
 }
 function handleRemove(file, fileList) {
   editFrom.value.SysLogo = file.url

@@ -15,6 +15,6 @@ namespace Yuebon.Security.IRepositories
         /// </summary>
         /// <param name="id">×éÖ¯Id</param>
         /// <returns></returns>
-        Organize GetRootOrganize(string id);
+        Organize GetRootOrganize(long? id);
     }
 }

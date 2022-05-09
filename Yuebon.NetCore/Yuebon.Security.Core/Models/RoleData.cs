@@ -1,12 +1,5 @@
-﻿
-using Microsoft.EntityFrameworkCore;
-using SqlSugar;
-using System;
-using System.Collections.Generic;
+﻿using SqlSugar;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.Serialization;
-using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Models;
 
 namespace Yuebon.Security.Models
@@ -14,8 +7,7 @@ namespace Yuebon.Security.Models
     /// <summary>
     /// 角色的数据权限，数据实体对象
     /// </summary>
-    [SugarTable("Sys_RoleData")]
-    [Comment("角色的数据权限")]
+    [SugarTable("Sys_RoleData", "角色的数据权限")]
     public class RoleData:BaseEntity
     { 
         /// <summary>
@@ -32,15 +24,15 @@ namespace Yuebon.Security.Models
         /// 角色ID
         /// </summary>
         [MaxLength(50)]
-        [Comment("角色ID")]
+        [SugarColumn(ColumnDescription= "角色ID")]
         [Required]
-        public virtual string RoleId { get; set; }
+        public virtual long RoleId { get; set; }
 
         /// <summary>
         /// 类型，company-公司，dept-部门，person-个人
         /// </summary>
         [MaxLength(50)]
-        [Comment("类型，company-公司，dept-部门，person-个人")]
+        [SugarColumn(ColumnDescription= "类型，company-公司，dept-部门，person-个人")]
         [Required]
         public virtual string DType { get; set; }
 
@@ -48,9 +40,9 @@ namespace Yuebon.Security.Models
         /// 数据数据，部门ID或个人ID
         /// </summary>
         [MaxLength(50)]
-        [Comment("数据数据，部门ID或个人ID")]
+        [SugarColumn(ColumnDescription= "数据数据，部门ID或个人ID")]
         [Required]
-        public virtual string AuthorizeData { get; set; }
+        public virtual long AuthorizeData { get; set; }
 
 
 

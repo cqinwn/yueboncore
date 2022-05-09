@@ -42,7 +42,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <param name="info"></param>
         protected override void OnBeforeInsert(Menu info)
         {
-            info.Id = GuidUtils.CreateNo();
+            info.Id =IdGeneratorHelper.IdSnowflake();
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = CurrentUser.UserId;
             info.DeleteMark = false;
@@ -50,10 +50,10 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             {
                 info.SortCode = 99;
             }
-            if (string.IsNullOrEmpty(info.ParentId))
+            if (info.ParentId==0)
             {
                 info.Layers = 1;
-                info.ParentId = "";
+                info.ParentId = 0;
             }
             else
             {
@@ -90,12 +90,12 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 listInfo.EnCode = strEnCode + "/List";
                 listInfo.Icon = "list";
                 OnBeforeInsert(listInfo);
-                string listId = info.ParentId;
+                long listId = info.ParentId;
                 ln = iService.Insert(listInfo);
 
                 Menu addInfo = new Menu();
                 addInfo = menu;
-                addInfo.Id = GuidUtils.CreateNo();
+                addInfo.Id = IdGeneratorHelper.IdSnowflake();
                 addInfo.FullName = "新增";
                 addInfo.EnCode = strEnCode + "/Add";
                 addInfo.ParentId = listId;
@@ -106,7 +106,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
 
                 Menu viewInfo = new Menu();
                 viewInfo = menu;
-                viewInfo.Id = GuidUtils.CreateNo();
+                viewInfo.Id = IdGeneratorHelper.IdSnowflake();
                 viewInfo.FullName = "查看";
                 viewInfo.EnCode = strEnCode + "/View";
                 viewInfo.ParentId = listId;
@@ -117,7 +117,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
 
                 Menu editnfo = new Menu();
                 editnfo = menu;
-                editnfo.Id = GuidUtils.CreateNo();
+                editnfo.Id = IdGeneratorHelper.IdSnowflake();
                 editnfo.FullName = "修改";
                 editnfo.EnCode = strEnCode + "/Edit";
                 editnfo.ParentId = listId;
@@ -129,7 +129,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
 
                 Menu enableInfo = new Menu();
                 enableInfo = menu;
-                enableInfo.Id = GuidUtils.CreateNo();
+                enableInfo.Id = IdGeneratorHelper.IdSnowflake();
                 enableInfo.FullName = "禁用";
                 enableInfo.EnCode = strEnCode + "/Enable";
                 enableInfo.ParentId = listId;
@@ -141,7 +141,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
 
                 Menu enableInfo1 = new Menu();
                 enableInfo1 = menu;
-                enableInfo1.Id = GuidUtils.CreateNo();
+                enableInfo1.Id = IdGeneratorHelper.IdSnowflake();
                 enableInfo1.FullName = "启用";
                 enableInfo1.EnCode = strEnCode + "/Enable";
                 enableInfo1.ParentId = listId;
@@ -153,7 +153,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
 
                 Menu deleteSoftInfo = new Menu();
                 deleteSoftInfo = menu;
-                deleteSoftInfo.Id = GuidUtils.CreateNo();
+                deleteSoftInfo.Id = IdGeneratorHelper.IdSnowflake();
                 deleteSoftInfo.FullName = "软删除";
                 deleteSoftInfo.EnCode = strEnCode + "/DeleteSoft";
                 deleteSoftInfo.ParentId = listId;
@@ -165,7 +165,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
 
                 Menu deleteInfo = new Menu();
                 deleteInfo = menu;
-                deleteInfo.Id = GuidUtils.CreateNo();
+                deleteInfo.Id = IdGeneratorHelper.IdSnowflake();
                 deleteInfo.FullName = "删除";
                 deleteInfo.EnCode = strEnCode + "/Delete";
                 deleteInfo.ParentId = listId;
@@ -205,10 +205,10 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             {
                 info.SortCode = 99;
             }
-            if (string.IsNullOrEmpty(info.ParentId))
+            if (info.ParentId==0)
             {
                 info.Layers = 1;
-                info.ParentId = "";
+                info.ParentId = 0;
             }
             else
             {
@@ -287,7 +287,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <returns></returns>
         [HttpGet("GetAllMenuTreeTable")]
         [YuebonAuthorize("List")]
-        public async Task<IActionResult> GetAllMenuTreeTable(string systemTypeId)
+        public async Task<IActionResult> GetAllMenuTreeTable(long systemTypeId)
         {
             CommonResult result = new CommonResult();
             try

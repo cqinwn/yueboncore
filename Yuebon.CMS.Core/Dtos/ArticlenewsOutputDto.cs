@@ -15,13 +15,13 @@ namespace Yuebon.CMS.Dtos
         /// 设置或获取主键
         /// </summary>
         [MaxLength(50)]
-        public string Id { get; set; }
+        public long Id { get; set; }
 
         /// <summary>
         /// 设置或获取文章分类
         /// </summary>
         [MaxLength(500)]
-        public string CategoryId { get; set; }
+        public long CategoryId { get; set; }
 
         /// <summary>
         /// 设置或获取分类名称
@@ -175,19 +175,19 @@ namespace Yuebon.CMS.Dtos
         /// 设置或获取创建人
         /// </summary>
         [MaxLength(50)]
-        public string CreatorUserId { get; set; }
+        public long CreatorUserId { get; set; }
 
         /// <summary>
         /// 设置或获取所属公司
         /// </summary>
         [MaxLength(50)]
-        public string CompanyId { get; set; }
+        public long CompanyId { get; set; }
 
         /// <summary>
         /// 设置或获取所属部门
         /// </summary>
         [MaxLength(50)]
-        public string DeptId { get; set; }
+        public long DeptId { get; set; }
 
         /// <summary>
         /// 设置或获取最近修改时间

@@ -18,17 +18,17 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 设置或获取 
         /// </summary>
-        public string Id { get; set; }
+        public long Id { get; set; }
 
         /// <summary>
         /// 设置或获取 
         /// </summary>
-        public string SystemTypeId { get; set; }
+        public long SystemTypeId { get; set; }
 
         /// <summary>
         /// 设置或获取 
         /// </summary>
-        public string ParentId { get; set; }
+        public long ParentId { get; set; }
 
         /// <summary>
         /// 设置或获取 

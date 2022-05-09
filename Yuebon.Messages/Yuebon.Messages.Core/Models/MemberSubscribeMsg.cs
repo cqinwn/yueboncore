@@ -1,6 +1,5 @@
-using Microsoft.EntityFrameworkCore;
+using SqlSugar;
 using System;
-using System.ComponentModel.DataAnnotations.Schema;
 using Yuebon.Commons.Models;
 
 namespace Yuebon.Messages.Models
@@ -8,8 +7,7 @@ namespace Yuebon.Messages.Models
     /// <summary>
     /// 用户订阅消息表，数据实体对象
     /// </summary>
-    [Table("Sys_MemberSubscribeMsg")]
-    [Comment("用户订阅消息表")]
+    [SugarTable("Sys_MemberSubscribeMsg", "用户订阅消息表")]
     [Serializable]
     public class MemberSubscribeMsg:BaseEntity
     {

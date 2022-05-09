@@ -100,7 +100,7 @@ namespace Yuebon.Security.Services
             List<RoleOutputDto> listResult = new List<RoleOutputDto>();
             foreach (RoleOutputDto item in resultList)
             {
-                if (!string.IsNullOrEmpty(item.OrganizeId))
+                if (item.OrganizeId>0)
                 {
                     item.OrganizeName = _organizeService.Get(item.OrganizeId).FullName;
                 }

@@ -15,10 +15,10 @@ namespace Yuebon.Messages.Application
 {
     public static class Messenger
     {
-        static IMessageTemplatesService messageTemplatesService = App.GetService<IMessageTemplatesService>();
-        static IMemberMessageBoxService memberMessageBoxService = App.GetService<IMemberMessageBoxService>();
-        static IMemberSubscribeMsgService memberSubscribeMsgService = App.GetService<IMemberSubscribeMsgService>();
-        static IUserService userService = App.GetService<IUserService>();
+        static IMessageTemplatesService messageTemplatesService = Appsettings.GetService<IMessageTemplatesService>();
+        static IMemberMessageBoxService memberMessageBoxService = Appsettings.GetService<IMemberMessageBoxService>();
+        static IMemberSubscribeMsgService memberSubscribeMsgService = Appsettings.GetService<IMemberSubscribeMsgService>();
+        static IUserService userService = Appsettings.GetService<IUserService>();
 
         /// <summary>
         /// 留言提醒
@@ -27,7 +27,7 @@ namespace Yuebon.Messages.Application
         /// <param name="text">留言内容,20个以内字符</param>
         /// <param name="date">留言时间,4小时制时间格式（支持+年月日）	例如：15:01，或：2019年10月1日 15:01</param>
         /// <param name="page">点击模板卡片后的跳转页面，仅限本小程序内的页面。支持带参数,（示例index?foo=bar）。该字段不填则模板无跳转。</param>
-        public static CommonResult SendCommentNotice(string userId, string text,string date,string page="")
+        public static CommonResult SendCommentNotice(long userId, string text,string date,string page="")
         {
             CommonResult result = new CommonResult();
             User user = new UserApp().GetUserById(userId);
@@ -37,7 +37,7 @@ namespace Yuebon.Messages.Application
                 if (!string.IsNullOrEmpty(template.InnerMessageSubject) && !string.IsNullOrEmpty(template.InnerMessageBody) && template.SendInnerMessage)
                 {
                     MemberMessageBox memberMessageBox = new MemberMessageBox();
-                    memberMessageBox.Id = GuidUtils.CreateNo();
+                    memberMessageBox.Id = IdGeneratorHelper.IdSnowflake();
                     memberMessageBox.IsRead = false;
                     memberMessageBox.Sernder = "系统消息";
                     memberMessageBox.Accepter = userId;
@@ -80,7 +80,7 @@ namespace Yuebon.Messages.Application
         /// <param name="date">评论时间，4小时制时间格式（支持+年月日）	例如：15:01，或：2019年10月1日 15:01</param>
         /// <param name="remarkUserId">评论者（用户）的 userId</param>
         /// <param name="page"></param>
-        public static CommonResult SendRemarkNotice(string userId, string title, string desc, string date,string remarkUserId, string page)
+        public static CommonResult SendRemarkNotice(long userId, string title, string desc, string date, long remarkUserId, string page)
         {
             CommonResult result = new CommonResult();
             UserApp userApp = new UserApp();
@@ -93,7 +93,7 @@ namespace Yuebon.Messages.Application
                 if (!string.IsNullOrEmpty(template.InnerMessageSubject) && !string.IsNullOrEmpty(template.InnerMessageBody) && template.SendInnerMessage)
                 {
                     MemberMessageBox memberMessageBox = new MemberMessageBox();
-                    memberMessageBox.Id = GuidUtils.CreateNo();
+                    memberMessageBox.Id = IdGeneratorHelper.IdSnowflake();
                     memberMessageBox.IsRead = false;
                     memberMessageBox.Sernder = "系统消息";
                     memberMessageBox.Accepter = userId;
@@ -129,7 +129,7 @@ namespace Yuebon.Messages.Application
         /// <param name="userId">接收者（用户）的 userId</param>
         /// <param name="date">点赞时间,4小时制时间格式（支持+年月日）	例如：15:01，或：2019年10月1日 15:01</param>
         /// <param name="page"></param>
-        public static CommonResult SendGoodNotice(string userId, string date, string page)
+        public static CommonResult SendGoodNotice(long userId, string date, string page)
         {
             CommonResult result = new CommonResult();
             User user = new UserApp().GetUserById(userId);
@@ -167,7 +167,7 @@ namespace Yuebon.Messages.Application
         /// <param name="remark">备注,20个以内字符</param>
         /// <param name="page"></param>
         /// <returns></returns>
-        public static CommonResult SendNewsMorningNotice(string userId, string title, string remark, string page = "")
+        public static CommonResult SendNewsMorningNotice(long userId, string title, string remark, string page = "")
         {
             CommonResult result = new CommonResult();
             User user = new UserApp().GetUserById(userId);
@@ -177,7 +177,7 @@ namespace Yuebon.Messages.Application
                 if (!string.IsNullOrEmpty(template.InnerMessageSubject) && !string.IsNullOrEmpty(template.InnerMessageBody) && template.SendInnerMessage)
                 {
                     MemberMessageBox memberMessageBox = new MemberMessageBox();
-                    memberMessageBox.Id = GuidUtils.CreateNo();
+                    memberMessageBox.Id = IdGeneratorHelper.IdSnowflake();
                     memberMessageBox.IsRead = false;
                     memberMessageBox.Sernder = "资讯早报";
                     memberMessageBox.Accepter = userId;
@@ -241,7 +241,7 @@ namespace Yuebon.Messages.Application
         /// <param name="smsMessage">短信消息,可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为 "{\"name\":\"Tom\"， \"code\":\"123\"}"</param>
         /// <param name="page"></param>
         /// <returns></returns>
-        public static CommonResult SendReadNotice(string userId, string phone, string title, string remark,string smsMessage, string page = "")
+        public static CommonResult SendReadNotice(long userId, string phone, string title, string remark,string smsMessage, string page = "")
         {
             CommonResult result = new CommonResult();
             User user = new UserApp().GetUserById(userId);
@@ -252,7 +252,7 @@ namespace Yuebon.Messages.Application
                 if (!string.IsNullOrEmpty(template.InnerMessageSubject) && !string.IsNullOrEmpty(template.InnerMessageBody) && template.SendInnerMessage)
                 {
                     MemberMessageBox memberMessageBox = new MemberMessageBox();
-                    memberMessageBox.Id = GuidUtils.CreateNo();
+                    memberMessageBox.Id = IdGeneratorHelper.IdSnowflake();
                     memberMessageBox.IsRead = false;
                     memberMessageBox.Sernder = "浏览阅读";
                     memberMessageBox.Accepter = userId;
@@ -328,7 +328,7 @@ namespace Yuebon.Messages.Application
         /// <param name="phone">接收者（用户）的电话号码</param>
         /// <param name="message">可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为 "{\"name\":\"Tom\"， \"code\":\"123\"}"</param>
         /// <param name="page"></param>
-        public static CommonResult SendMakePhoneCallNotice(string userId, string phone, string message, string page)
+        public static CommonResult SendMakePhoneCallNotice(long userId, string phone, string message, string page)
         {
             CommonResult result = new CommonResult();
             User user = new UserApp().GetUserById(userId);

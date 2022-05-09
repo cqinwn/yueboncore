@@ -27,6 +27,7 @@ namespace Yuebon.WebApi.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
     public class FilesController : ApiController
     {
 
@@ -107,7 +108,7 @@ namespace Yuebon.WebApi.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("DeleteFile")]
-        public IActionResult DeleteFile(string id)
+        public IActionResult DeleteFile(long id)
         {
             CommonResult result = new CommonResult();
             try
@@ -187,7 +188,7 @@ namespace Yuebon.WebApi.Controllers
                     ;
                     UploadFile filedb = new UploadFile
                     {
-                        Id = GuidUtils.CreateNo(),
+                        Id = IdGeneratorHelper.IdSnowflake(),
                         FilePath = _dbFilePath,
                         Thumbnail = _dbThumbnail,
                         FileName = fileName,
@@ -264,7 +265,7 @@ namespace Yuebon.WebApi.Controllers
                 }
             }
             string ext = Path.GetExtension(fileName).ToLower();
-            string newName = GuidUtils.CreateNo();
+            long newName = IdGeneratorHelper.IdSnowflake();
             string newfileName= newName + ext;
 
             using (var fs = new FileStream(uploadPath + newfileName, FileMode.Create))

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Yuebon.Commons.Core.App;
 using Yuebon.Commons.Core.DataManager;
 using Yuebon.Commons.Core.UnitOfWork;
 using Yuebon.Commons.DependencyInjection;
@@ -90,7 +91,7 @@ namespace Yuebon.Commons.Repositories
             {
                 string t = typeof(T).Name;
                 dbConfigName = typeof(T).GetCustomAttribute<AppDBContextAttribute>(false)?.DbConfigName ?? "DefaultDb";
-                if (Configs.GetValue("AppSetting:MutiDBEnabled").ObjToBool())
+                if (Appsettings.GetValue("AppSetting:MutiDBEnabled").ObjToBool())
                 {
                     _dbBase.ChangeDatabase(dbConfigName.ToLower());                    
                 }
@@ -128,7 +129,7 @@ namespace Yuebon.Commons.Repositories
         /// </summary>
         /// <param name="primaryKey">主键</param>
         /// <returns></returns>
-        public T Get(object primaryKey)
+        public T Get(long primaryKey)
         {
             return Db.Queryable<T>().InSingle(primaryKey);
         }
@@ -138,7 +139,7 @@ namespace Yuebon.Commons.Repositories
         /// </summary>
         /// <param name="primaryKey">主键</param>
         /// <returns></returns>
-        public async Task<T> GetAsync(object primaryKey)
+        public async Task<T> GetAsync(long primaryKey)
         {
             return await Db.Queryable<T>().InSingleAsync(primaryKey);
         }
@@ -888,7 +889,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="primaryKey">主键ID</param>
         /// <param name="userId">操作用户</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual bool DeleteSoft(bool bl, object primaryKey, string userId = null)
+        public virtual bool DeleteSoft(bool bl, object primaryKey, long userId)
         {
             string sql = $"update {tableName} set ";
             if (bl)
@@ -899,10 +900,7 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += "DeleteMark=1 ";
             }
-            if (!string.IsNullOrEmpty(userId))
-            {
-                sql += ",DeleteUserId='" + userId + "'";
-            }
+            sql += ",DeleteUserId=" + userId;
             DateTime deleteTime = DateTime.Now;
             sql += ",DeleteTime=@DeleteTime where " + PrimaryKey + "=@PrimaryKey";
             var param = new List<Tuple<string, object>>();
@@ -919,7 +917,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="primaryKey">主键ID</param>
         /// <param name="userId">操作用户</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual async Task<bool> DeleteSoftAsync(bool bl, object primaryKey, string userId = null)
+        public virtual async Task<bool> DeleteSoftAsync(bool bl, object primaryKey, long userId)
         {
             string sql = $"update {tableName} set ";
             if (bl)
@@ -930,10 +928,7 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += "DeleteMark=1 ";
             }
-            if (!string.IsNullOrEmpty(userId))
-            {
-                sql += ",DeleteUserId='" + userId + "'";
-            }
+            sql += ",DeleteUserId=" + userId;
             DateTime deleteTime = DateTime.Now;
             sql += ",DeleteTime=@DeleteTime where " + PrimaryKey + "=@PrimaryKey";
             var param = new List<Tuple<string, object>>();
@@ -950,7 +945,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">条件</param>
         /// <param name="userId">操作用户</param>
         /// <returns></returns>
-        public virtual async Task<bool> DeleteSoftBatchAsync(bool bl, string where, string userId = null)
+        public virtual async Task<bool> DeleteSoftBatchAsync(bool bl, string where, long userId)
         {
             if (HasInjectionData(where))
             {
@@ -970,10 +965,7 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += "DeleteMark=1 ";
             }
-            if (!string.IsNullOrEmpty(userId))
-            {
-                sql += ",DeleteUserId='" + userId + "'";
-            }
+            sql += ",DeleteUserId=" + userId;
             DateTime deleteTime = DateTime.Now;
             sql += ",DeleteTime=@DeleteTime where " + where;
 
@@ -990,7 +982,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="primaryKey">主键ID</param>
         /// <param name="userId">操作用户</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual bool SetEnabledMark(bool bl, object primaryKey, string userId = null)
+        public virtual bool SetEnabledMark(bool bl, object primaryKey, long userId)
         {
             string sql = $"update {tableName} set ";
             if (bl)
@@ -1001,10 +993,7 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += "EnabledMark=0 ";
             }
-            if (!string.IsNullOrEmpty(userId))
-            {
-                sql += ",LastModifyUserId='" + userId + "'";
-            }
+                sql += ",LastModifyUserId=" + userId;
             DateTime lastModifyTime = DateTime.Now;
             sql += ",LastModifyTime=@lastModifyTime where " + PrimaryKey + "=@PrimaryKey";
 
@@ -1022,7 +1011,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="primaryKey">主键ID</param>
         /// <param name="userId">操作用户</param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public virtual async Task<bool> SetEnabledMarkAsync(bool bl, object primaryKey, string userId = null)
+        public virtual async Task<bool> SetEnabledMarkAsync(bool bl, object primaryKey, long userId)
         {
             string sql = $"update {tableName} set ";
             if (bl)
@@ -1033,10 +1022,7 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += "EnabledMark=0 ";
             }
-            if (!string.IsNullOrEmpty(userId))
-            {
-                sql += ",LastModifyUserId='" + userId + "'";
-            }
+                sql += ",LastModifyUserId=" + userId;
             DateTime lastModifyTime = DateTime.Now;
             sql += ",LastModifyTime=@LastModifyTime where " + PrimaryKey + "=@PrimaryKey";
 
@@ -1054,7 +1040,7 @@ namespace Yuebon.Commons.Repositories
         /// <param name="where">条件</param>
         /// <param name="userId">操作用户</param>
         /// <returns></returns>
-        public virtual async Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, string userId = null)
+        public virtual async Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, long userId)
         {
             if (HasInjectionData(where))
             {
@@ -1074,10 +1060,7 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += "EnabledMark=0 ";
             }
-            if (!string.IsNullOrEmpty(userId))
-            {
-                sql += ",LastModifyUserId='" + userId + "'";
-            }
+                sql += ",LastModifyUserId=" + userId;
             DateTime lastModifyTime = DateTime.Now;
             sql += ",LastModifyTime=@LastModifyTime where " + where;
 
@@ -1092,10 +1075,10 @@ namespace Yuebon.Commons.Repositories
         /// </summary>
         /// <param name="bl">true为有效，false无效</param>
         /// <param name="where">条件</param>
-        /// <param name="paramparameters"></param>
         /// <param name="userId"></param>
+        /// <param name="paramparameters"></param>
         /// <returns></returns>
-        public virtual async Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, object paramparameters = null, string userId = null)
+        public virtual async Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, long userId, object paramparameters = null)
         {
             if (HasInjectionData(where))
             {
@@ -1115,10 +1098,7 @@ namespace Yuebon.Commons.Repositories
             {
                 sql += "EnabledMark=0 ";
             }
-            if (!string.IsNullOrEmpty(userId))
-            {
-                sql += ",LastModifyUserId='" + userId + "'";
-            }
+            sql += ",LastModifyUserId=" + userId;
             DateTime lastModifyTime = DateTime.Now;
             sql += ",LastModifyTime=@LastModifyTime  " + where;
 

@@ -38,7 +38,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <param name="info"></param>
         protected override void OnBeforeInsert(SystemType info)
         {
-            info.Id = GuidUtils.CreateNo();
+            info.Id = IdGeneratorHelper.IdSnowflake();
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = CurrentUser.UserId;
             info.DeleteMark = false;
@@ -148,7 +148,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 if (!string.IsNullOrEmpty(systype))
                 {
                     SystemType systemType = iService.GetByCode(systype);
-                    string openmf = MD5Util.GetMD5_32(DEncrypt.Encrypt(CurrentUser.UserId + systemType.Id, GuidUtils.NewGuidFormatN())).ToLower();
+                    string openmf = MD5Util.GetMD5_32(DEncrypt.Encrypt(CurrentUser.UserId.ToString() + systemType.Id.ToString(), GuidUtils.NewGuidFormatN())).ToLower();
                     YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
                     TimeSpan expiresSliding = DateTime.Now.AddSeconds(20) - DateTime.Now;
                     yuebonCacheHelper.Add("openmf" + openmf, CurrentUser.UserId,expiresSliding, false);

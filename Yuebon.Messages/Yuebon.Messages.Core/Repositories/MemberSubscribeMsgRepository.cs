@@ -26,10 +26,10 @@ namespace Yuebon.Messages.Repositories
         /// <param name="messageType">消息类型</param>
         /// <param name="userId">用户Id</param>
         /// <returns></returns>
-        public MemberMessageTemplatesOuputDto GetByMessageTypeWithUser(string messageType, string userId)
+        public MemberMessageTemplatesOuputDto GetByMessageTypeWithUser(string messageType, long userId)
         {
             string sqlStr = @"select a.*,b.Id as MemberSubscribeMsgId,b.SubscribeStatus as SubscribeStatus,b.SubscribeType as SubscribeType  from Sys_MessageTemplates as a 
-LEFT join Sys_MemberSubscribeMsg as b on a.Id = b.MessageTemplateId where a.UseInWxApplet =1 and a.WxAppletSubscribeTemplateId is not null and a.messageType = '" + messageType + "' and b.SubscribeUserId='" + userId + "'";
+LEFT join Sys_MemberSubscribeMsg as b on a.Id = b.MessageTemplateId where a.UseInWxApplet =1 and a.WxAppletSubscribeTemplateId is not null and a.messageType = '" + messageType + "' and b.SubscribeUserId=" + userId ;
             return Db.Ado.SqlQuerySingle<MemberMessageTemplatesOuputDto>(sqlStr);
         }
         /// <summary>
@@ -39,9 +39,9 @@ LEFT join Sys_MemberSubscribeMsg as b on a.Id = b.MessageTemplateId where a.UseI
         /// <param name="userId">用户</param>
         /// <param name="messageTemplateId">模板Id主键</param>
         /// <returns></returns>
-        public MemberMessageTemplatesOuputDto GetByWithUser(string subscribeType, string userId, string messageTemplateId)
+        public MemberMessageTemplatesOuputDto GetByWithUser(string subscribeType, long userId, long messageTemplateId)
         {
-            string sqlStr = @"select * from [dbo].[Sys_MemberSubscribeMsg]   where SubscribeUserId = '" + userId + "' and SubscribeType='" + subscribeType + "' and MessageTemplateId='" + messageTemplateId + "'";
+            string sqlStr = @"select * from [dbo].[Sys_MemberSubscribeMsg]   where SubscribeUserId = '" + userId + "' and SubscribeType='" + subscribeType + "' and MessageTemplateId=" + messageTemplateId;
             return Db.Ado.SqlQuerySingle<MemberMessageTemplatesOuputDto>(sqlStr);
         }
     }

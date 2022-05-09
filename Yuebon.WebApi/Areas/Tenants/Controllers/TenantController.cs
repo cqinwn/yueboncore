@@ -61,7 +61,7 @@ namespace Yuebon.SecurityApi.Areas.Tenants.Controllers
         /// <param name="info"></param>
         protected override void OnBeforeInsert(Tenant info)
         {
-            info.Id = GuidUtils.CreateNo();
+            info.Id = IdGeneratorHelper.IdSnowflake();
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = CurrentUser.UserId;
             info.CompanyId = CurrentUser.OrganizeId;
@@ -119,7 +119,7 @@ namespace Yuebon.SecurityApi.Areas.Tenants.Controllers
             info.EnabledMark = tinfo.EnabledMark;
             info.Description = tinfo.Description;
             OnBeforeUpdate(info);
-            bool bl = await iService.UpdateAsync(info, tinfo.Id).ConfigureAwait(false);
+            bool bl = await iService.UpdateAsync(info);
             if (bl)
             {
                 result.ErrCode = ErrCode.successCode;
@@ -173,7 +173,7 @@ namespace Yuebon.SecurityApi.Areas.Tenants.Controllers
                 return ToJsonContent(result);
             }
             Tenant tenant = new Tenant();
-            tenant.Id = GuidUtils.CreateNo();
+            tenant.Id = IdGeneratorHelper.IdSnowflake();
             tenant.TenantName = info.Account;
             tenant.Email = info.Email;
             tenant.CreatorTime = DateTime.Now;

@@ -40,7 +40,7 @@ namespace Yuebon.Security.Services
             if (list == null || list.Count <= 0)
             {
                 List<Area> listFunction = _repository.GetAllByIsNotDeleteAndEnabledMark("Layers in (0,1,2)").OrderBy(t => t.SortCode).ToList();
-                list = UniappViewJson(listFunction, "");
+                list = UniappViewJson(listFunction, 0);
                 yuebonCacheHelper.Add("Area_Enable_Uniapp", list);
             }
             return list;
@@ -60,11 +60,11 @@ namespace Yuebon.Security.Services
                 List<Area> listFunction = new List<Area>();
                 foreach (Area item in listFunctionTemp)
                 {
-                    if (item.Layers == 1) { item.ParentId = ""; }
+                    if (item.Layers == 1) { item.ParentId = 0; }
                     listFunction.Add(item);
                 }
 
-                list = UniappViewJson(listFunction, "");
+                list = UniappViewJson(listFunction, 0);
                 yuebonCacheHelper.Add("Area_ProvinceToArea_Enable_Uniapp", list);
             }
             return list;
@@ -75,7 +75,7 @@ namespace Yuebon.Security.Services
         /// <param name="data"></param>
         /// <param name="parentId"></param>
         /// <returns></returns>
-        public List<AreaPickerOutputDto> UniappViewJson(List<Area> data, string parentId)
+        public List<AreaPickerOutputDto> UniappViewJson(List<Area> data, long parentId)
         {
             List<AreaPickerOutputDto> list = new List<AreaPickerOutputDto>();
             var ChildNodeList = data.FindAll(t => t.ParentId == parentId).ToList();
@@ -96,7 +96,7 @@ namespace Yuebon.Security.Services
         /// <param name="data"></param>
         /// <param name="parentId"></param>
         /// <returns></returns>
-        public List<AreaPickerOutputDto> ChildrenUniappViewList(List<Area> data, string parentId)
+        public List<AreaPickerOutputDto> ChildrenUniappViewList(List<Area> data, long parentId)
         {
             List<AreaPickerOutputDto> listChildren = new List<AreaPickerOutputDto>();
             var ChildNodeList = data.FindAll(t => t.ParentId == parentId).ToList();

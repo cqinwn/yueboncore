@@ -15,7 +15,7 @@ namespace Yuebon.Security.Dtos
         /// 设置或获取 
         /// </summary>
         [MaxLength(50)]
-        public string Id { get; set; }
+        public long Id { get; set; }
 
         /// <summary>
         /// 设置或获取 
@@ -64,7 +64,7 @@ namespace Yuebon.Security.Dtos
         /// 设置或获取 
         /// </summary>
         [MaxLength(50)]
-        public string CreatorUserId { get; set; }
+        public long CreatorUserId { get; set; }
 
         /// <summary>
         /// 设置或获取 
@@ -75,7 +75,7 @@ namespace Yuebon.Security.Dtos
         /// 设置或获取 
         /// </summary>
         [MaxLength(50)]
-        public string LastModifyUserId { get; set; }
+        public long LastModifyUserId { get; set; }
 
         /// <summary>
         /// 设置或获取 
@@ -86,7 +86,7 @@ namespace Yuebon.Security.Dtos
         /// 设置或获取 
         /// </summary>
         [MaxLength(500)]
-        public string DeleteUserId { get; set; }
+        public long DeleteUserId { get; set; }
 
 
     }

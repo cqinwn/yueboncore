@@ -29,7 +29,7 @@ namespace Yuebon.Security.Repositories
         /// <param name="enCode">·ÖÀà±àÂë</param
         /// <param name="id">Ö÷¼üId</param>
         /// <returns></returns>
-        public async Task<Items> GetByEnCodAsynce(string enCode,string id)
+        public async Task<Items> GetByEnCodAsynce(string enCode,long id)
         {
             return await Db.Queryable<Items>().FirstAsync(u => u.EnCode == enCode&&u.Id!=id);
         }

@@ -137,7 +137,7 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
                     if (user != null && string.IsNullOrEmpty(user.UnionId))
                     {
                         user.UnionId = jsonResult.unionid;
-                        result.Success = userService.Update(user,user.Id);
+                        result.Success = userService.Update(user);
                     }
                     string userId = string.Empty;
                     if (result.ResData != null)
@@ -152,7 +152,7 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
                     var currentSession = (YuebonCurrentUser)(yuebonCacheHelper.Get("login_user_" + userId));
                     if (currentSession == null || string.IsNullOrWhiteSpace(currentSession.AccessToken))
                     {
-                        JwtOption jwtModel = App.GetService<JwtOption>();
+                        JwtOption jwtModel = Appsettings.GetService<JwtOption>();
                         TokenProvider tokenProvider = new TokenProvider(jwtModel);
                         TokenResult tokenResult = tokenProvider.LoginToken(user, "wxapplet");
                         currentSession = new YuebonCurrentUser
@@ -297,7 +297,7 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
                 {
                     user.NickName =tell;
                 }
-                result.Success =await  userService.UpdateAsync(user,user.Id);
+                result.Success =await  userService.UpdateAsync(user);
                 if (result.Success)
                 {
                     result.ErrCode = ErrCode.successCode;
@@ -398,7 +398,7 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
                 string scene = "Ref=" + CurrentUser.UserId;//储存OpenId后缀，以及codeType。scene最多允许32个字符
 
                 //图片名称
-                string picname = "ref_" + GuidUtils.CreateNo() + ".jpg";
+                string picname = "ref_" + IdGeneratorHelper.IdSnowflake() + ".jpg";
                 var _tempfilepath = "/upload/" + CurrentUser.UserId + "/qrcode/";
                 var uploadPath = _filePath + _tempfilepath;
                 if (!Directory.Exists(uploadPath))
@@ -492,7 +492,7 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
                 string scene = info.Scene; ;//id=xxxxxx,scene最多允许32个字符
 
                 //图片名称
-                string picname = "ref_" + GuidUtils.CreateNo() + ".jpg";
+                string picname = "ref_" + IdGeneratorHelper.IdSnowflake() + ".jpg";
                 var _tempfilepath = "/upload/" + scene + "/contentqrcode/";
                 var uploadPath = _filePath + _tempfilepath;
                 if (!Directory.Exists(uploadPath))
@@ -503,7 +503,7 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
                 var resultImg = await WxAppApi.GetWxaCodeUnlimitAsync(WxOpenAppId, qrcodePicPath, scene, page, 280);
                 if (resultImg.errcode == ReturnCode.请求成功)
                 {
-                    string picnameh = "c_" + GuidUtils.CreateNo() + ".jpg";
+                    string picnameh = "c_" + IdGeneratorHelper.IdSnowflake() + ".jpg";
                     var sor = _filePath + "/images/";
                     string qrcodebg = "share_content_bg.jpg";
 
@@ -577,7 +577,7 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
                 int width = string.IsNullOrEmpty(info.Width.ToString()) ? 480 : info.Width.ToInt();
 
                 //图片名称
-                string picname = "ref" +width+GuidUtils.CreateNo()+ ".png";
+                string picname = "ref" +width+IdGeneratorHelper.IdSnowflake()+ ".png";
                 var _tempfilepath = "/upload/contentqrcode/";
                 var uploadPath = _filePath + _tempfilepath;
                 if (!Directory.Exists(uploadPath))
@@ -705,7 +705,7 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
                     user = userService.GetUserByOpenId(info.openIdType, info.openId);
                     if (user != null)
                     {
-                        JwtOption jwtModel = App.GetService<JwtOption>();
+                        JwtOption jwtModel = Appsettings.GetService<JwtOption>();
                         TokenProvider tokenProvider = new TokenProvider(jwtModel);
                         TokenResult tokenResult = tokenProvider.LoginToken(user, "wxapplet");
                         var currentSession = new YuebonCurrentUser
@@ -784,7 +784,7 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
                 var currentSession =(YuebonCurrentUser)yuebonCacheHelper.Get("login_user_" + user.Id);
                 if (currentSession == null || string.IsNullOrWhiteSpace(currentSession.AccessToken))
                 {
-                    JwtOption jwtModel = App.GetService<JwtOption>();
+                    JwtOption jwtModel = Appsettings.GetService<JwtOption>();
                     TokenProvider tokenProvider = new TokenProvider(jwtModel);
                     TokenResult tokenResult = tokenProvider.LoginToken(user, "wxapplet");
                     currentSession = new YuebonCurrentUser

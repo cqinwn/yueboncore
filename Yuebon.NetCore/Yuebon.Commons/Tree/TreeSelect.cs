@@ -34,7 +34,7 @@ namespace Yuebon.Commons.Tree
             StringBuilder sb = new StringBuilder();
             var ChildNodeList = data.FindAll(t => t.parentId == parentId);
             var tabline = "";
-            if (!string.IsNullOrEmpty(parentId))
+            if (parentId==null)
             {
                 tabline = "　　";
             }

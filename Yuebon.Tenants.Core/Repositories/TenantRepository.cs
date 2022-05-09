@@ -44,7 +44,7 @@ namespace Yuebon.Tenants.Repositories
         /// <param name="tenantLogOnEntity"></param>
         public async Task<bool> InsertAsync(Tenant entity, TenantLogon tenantLogOnEntity)
         {
-            tenantLogOnEntity.Id = GuidUtils.CreateNo();
+            tenantLogOnEntity.Id = IdGeneratorHelper.IdSnowflake();
             tenantLogOnEntity.TenantId = entity.Id;
             tenantLogOnEntity.TenantSecretkey = MD5Util.GetMD5_16(GuidUtils.NewGuidFormatN()).ToLower();
             tenantLogOnEntity.TenantPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(tenantLogOnEntity.TenantPassword).ToLower(), tenantLogOnEntity.TenantSecretkey).ToLower()).ToLower();

@@ -12,6 +12,6 @@ namespace Yuebon.Commons.Models
         /// <summary>
         /// 获取 实体唯一标识，主键
         /// </summary>
-        string Id { get; }
+        long Id { get; }
     }
 }

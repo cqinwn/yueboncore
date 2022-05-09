@@ -104,19 +104,19 @@ namespace Yuebon.CMS.Dtos
         /// 设置或获取创建人
         /// </summary>
         [MaxLength(50)]
-        public string CreatorUserId { get; set; }
+        public long CreatorUserId { get; set; }
 
         /// <summary>
         /// 设置或获取所属公司
         /// </summary>
         [MaxLength(50)]
-        public string CompanyId { get; set; }
+        public long CompanyId { get; set; }
 
         /// <summary>
         /// 设置或获取所属部门
         /// </summary>
         [MaxLength(50)]
-        public string DeptId { get; set; }
+        public long DeptId { get; set; }
 
         /// <summary>
         /// 设置或获取最近修改时间

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import store from '@/store'
 import { ElNotification , ElMessageBox, ElMessage, ElLoading } from 'element-plus'
-
+import JSONbig from 'json-bigint'//解决超过 16 位数字精度丢失问题
 import { getToken } from '@/utils/auth'
 import { sign, GetRandomString } from '@/utils/yuebon'
 
@@ -40,7 +40,10 @@ service.interceptors.request.use(
   }
 )
 
-// response interceptor
+/**
+ * 
+ * 响应拦截
+ */
 service.interceptors.response.use(
   response => {
     const res = response.data

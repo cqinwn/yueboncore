@@ -21,7 +21,7 @@ namespace Yuebon.Tenants.Repositories
         /// </summary>
         /// <param name="tenantId"></param>
         /// <returns></returns>
-        public TenantLogon GetByTenantId(string tenantId)
+        public TenantLogon GetByTenantId(long tenantId)
         {
             string sql = $"SELECT * FROM {this.tableName} t WHERE t.TenantId = @TenantId";
             return Db.Ado.SqlQuerySingle<TenantLogon>(sql, new { @TenantId = tenantId });

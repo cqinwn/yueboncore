@@ -17,11 +17,11 @@ namespace Yuebon.CMS.Services
     /// </summary>
     public class ArticlenewsService : BaseService<Articlenews, ArticlenewsOutputDto>, IArticlenewsService
     {
-        private readonly IArticlenewsRepository _repository;
         private readonly IArticlecategoryRepository _articlecategoryRepository;
-        public ArticlenewsService(IArticlenewsRepository repository, IArticlecategoryRepository articlecategoryRepository)
+        
+        public ArticlenewsService(IArticlenewsRepository _repository, IArticlecategoryRepository articlecategoryRepository)
         {
-            _repository = repository;
+            repository = _repository;
             _articlecategoryRepository = articlecategoryRepository;
         }
 
@@ -44,7 +44,7 @@ namespace Yuebon.CMS.Services
                 CurrenetPageIndex = search.CurrenetPageIndex,
                 PageSize = search.PageSize
             };
-            List<Articlenews> list = await _repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+            List<Articlenews> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
             PageResult<ArticlenewsOutputDto> pageResult = new PageResult<ArticlenewsOutputDto>
             {
                 CurrentPage = pagerInfo.CurrenetPageIndex,
@@ -70,9 +70,9 @@ namespace Yuebon.CMS.Services
                 categoryArticleOutputDto.Id = item.Id;
                 categoryArticleOutputDto.Title = item.Title;
                 categoryArticleOutputDto.SubTitle = item.SeoTitle;
-                categoryArticleOutputDto.ParentId = "";
+                categoryArticleOutputDto.ParentId = 0;
                 where = $"CategoryId='{item.Id}'";
-                IEnumerable<Articlenews> articleList = await _repository.GetAllByIsNotDeleteAndEnabledMarkAsync(where);
+                IEnumerable<Articlenews> articleList = await repository.GetAllByIsNotDeleteAndEnabledMarkAsync(where);
                 List<CategoryArticleOutputDto> subList = new List<CategoryArticleOutputDto>();
                 foreach (Articlenews sItem in articleList)
                 {

@@ -29,7 +29,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <param name="info"></param>
         protected override void OnBeforeInsert(DbBackup info)
         {
-            info.Id = GuidUtils.CreateNo();
+            info.Id = IdGeneratorHelper.IdSnowflake();
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = CurrentUser.UserId;
             info.DeleteMark = false;

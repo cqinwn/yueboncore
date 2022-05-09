@@ -15,13 +15,13 @@ namespace Yuebon.Security.IRepositories
         /// <param name="typeID">系统类型ID</param>
         /// <param name="isMenu">是否是菜单</param>
         /// <returns></returns>
-        IEnumerable<Menu> GetFunctions(string roleIds, string typeID, bool isMenu = false);
+        IEnumerable<Menu> GetFunctions(string roleIds, long typeID, bool isMenu = false);
 
         /// <summary>
         /// 根据系统类型ID，获取对应的操作功能列表
         /// </summary>
         /// <param name="typeID">系统类型ID</param>
         /// <returns></returns>
-        IEnumerable<Menu> GetFunctions(string typeID);
+        IEnumerable<Menu> GetFunctions(long typeID);
     }
 }

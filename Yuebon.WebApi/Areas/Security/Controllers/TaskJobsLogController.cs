@@ -36,7 +36,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <param name="info"></param>
         protected override void OnBeforeInsert(TaskJobsLog info)
         {
-            info.Id = GuidUtils.CreateNo();
+            info.Id = IdGeneratorHelper.IdSnowflake();
             info.CreatorTime = DateTime.Now;
         }
         

@@ -15,7 +15,7 @@ namespace Yuebon.Commons.Models
         /// <summary>
         /// 获取或设置 删除实体的用户
         /// </summary>
-        string DeleteUserId { get; set; }
+        long? DeleteUserId { get; set; }
 
         /// <summary>
         /// 获取或设置 删除实体时间

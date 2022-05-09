@@ -49,7 +49,7 @@ namespace Yuebon.Security.Services
         /// </summary>
         /// <param name="userId">用户ID</param>
         /// <returns></returns>
-        public List<Menu> GetMenuByUser(string userId)
+        public List<Menu> GetMenuByUser(long userId)
         {
             List<Menu> result = new List<Menu>();
             List<Menu> allMenuls = new List<Menu>();
@@ -57,10 +57,7 @@ namespace Yuebon.Security.Services
             string where = string.Format("Layers=1");
             IEnumerable<Menu> allMenus = _MenuRepository.GetAllByIsNotDeleteAndEnabledMark();
             allMenuls = allMenus.ToList();
-            if (userId == string.Empty) //超级管理员
-            {
-                return allMenuls;
-            }
+            
             var user = userRepository.Get(userId);
             if (user == null)
                 return result;
@@ -84,19 +81,25 @@ namespace Yuebon.Security.Services
         /// </summary>
         /// <param name="systemTypeId">子系统Id</param>
         /// <returns></returns>
-        public async Task<List<MenuTreeTableOutputDto>> GetAllMenuTreeTable(string systemTypeId)
+        public async Task<List<MenuTreeTableOutputDto>> GetAllMenuTreeTable(long systemTypeId)
         {
             string where = "1=1";
             List<MenuTreeTableOutputDto> reslist = new List<MenuTreeTableOutputDto>();
-            if (!string.IsNullOrEmpty(systemTypeId))
+            if (!string.IsNullOrEmpty(systemTypeId.ToString()))
             {
-                IEnumerable<Menu> elist = await _MenuRepository.GetListWhereAsync("SystemTypeId='" + systemTypeId + "'");
+                IEnumerable<Menu> elist = await _MenuRepository.GetListWhereAsync("SystemTypeId=" + systemTypeId);
                 List<Menu> list = elist.OrderBy(t => t.SortCode).ToList();
-                List<Menu> oneMenuList = list.FindAll(t => t.ParentId == "");
+                List<Menu> oneMenuList = list.FindAll(t => t.ParentId == 0);
                 foreach (Menu item in oneMenuList)
                 {
                     MenuTreeTableOutputDto menuTreeTableOutputDto = new MenuTreeTableOutputDto();
+
                     menuTreeTableOutputDto = item.MapTo<MenuTreeTableOutputDto>();
+                    menuTreeTableOutputDto.Id = item.Id;
+                    menuTreeTableOutputDto.FullName = item.FullName;
+                    menuTreeTableOutputDto.EnCode = item.EnCode;
+                    menuTreeTableOutputDto.UrlAddress = item.UrlAddress;
+                    menuTreeTableOutputDto.EnabledMark = item.EnabledMark;
                     menuTreeTableOutputDto.Children = GetSubMenus(list, item.Id).ToList<MenuTreeTableOutputDto>();
                     reslist.Add(menuTreeTableOutputDto);
                 }
@@ -117,11 +120,11 @@ namespace Yuebon.Security.Services
 
                     menuTreeTableOutputDto.SystemTag = true;
 
-                    IEnumerable<Menu> elist = await _MenuRepository.GetListWhereAsync("SystemTypeId='" + systemType.Id + "'");
+                    IEnumerable<Menu> elist = await _MenuRepository.GetListWhereAsync("SystemTypeId=" + systemType.Id);
                     if (elist.Count() > 0)
                     {
                         List<Menu> list = elist.OrderBy(t => t.SortCode).ToList();
-                        menuTreeTableOutputDto.Children = GetSubMenus(list, "").ToList<MenuTreeTableOutputDto>();
+                        menuTreeTableOutputDto.Children = GetSubMenus(list, 0).ToList<MenuTreeTableOutputDto>();
                     }
                     reslist.Add(menuTreeTableOutputDto);
                 }
@@ -136,7 +139,7 @@ namespace Yuebon.Security.Services
         /// <param name="data"></param>
         /// <param name="parentId">父级Id</param>
         /// <returns></returns>
-        private List<MenuTreeTableOutputDto> GetSubMenus(List<Menu> data, string parentId)
+        private List<MenuTreeTableOutputDto> GetSubMenus(List<Menu> data, long parentId)
         {
             List<MenuTreeTableOutputDto> list = new List<MenuTreeTableOutputDto>();
             MenuTreeTableOutputDto menuTreeTableOutputDto = new MenuTreeTableOutputDto();
@@ -157,7 +160,7 @@ namespace Yuebon.Security.Services
         /// <param name="typeID">系统类型ID</param>
         /// <param name="isMenu">是否是菜单</param>
         /// <returns></returns>
-        public List<Menu> GetFunctions(string roleIds, string typeID,bool isMenu=false)
+        public List<Menu> GetFunctions(string roleIds, long typeID,bool isMenu=false)
         {
             return _MenuRepository.GetFunctions(roleIds, typeID, isMenu).ToList();
         }
@@ -168,7 +171,7 @@ namespace Yuebon.Security.Services
         /// </summary>
         /// <param name="typeID">系统类型ID</param>
         /// <returns></returns>
-        public List<Menu> GetFunctions(string typeID)
+        public List<Menu> GetFunctions(long typeID)
         {
             return _MenuRepository.GetFunctions(typeID).ToList();
         }
@@ -191,9 +194,8 @@ namespace Yuebon.Security.Services
         /// 按条件批量删除
         /// </summary>
         /// <param name="idsInfo">主键Id集合</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public CommonResult DeleteBatchWhere(DeletesInputDto idsInfo, IDbTransaction trans = null)
+        public CommonResult DeleteBatchWhere(DeletesInputDto idsInfo)
         {
             CommonResult result = new CommonResult();
             string where = string.Empty;
@@ -223,9 +225,8 @@ namespace Yuebon.Security.Services
         /// 按条件批量删除
         /// </summary>
         /// <param name="idsInfo">主键Id集合</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public async Task<CommonResult> DeleteBatchWhereAsync(DeletesInputDto idsInfo,IDbTransaction trans = null)
+        public async Task<CommonResult> DeleteBatchWhereAsync(DeletesInputDto idsInfo)
         {
             CommonResult result = new CommonResult();
             string where =string.Empty;

@@ -13,7 +13,7 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 任务ID
         /// </summary>
-        public string Id { get; set; }
+        public long Id { get; set; }
 
         /// <summary>
         /// 改变任务状态

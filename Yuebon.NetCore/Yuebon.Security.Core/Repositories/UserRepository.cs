@@ -69,10 +69,9 @@ namespace Yuebon.Security.Repositories
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="userLogOnEntity"></param>
-        /// <param name="trans"></param>
-        public  bool Insert(User entity, UserLogOn userLogOnEntity, IDbTransaction trans = null)
+        public  bool Insert(User entity, UserLogOn userLogOnEntity)
         {
-            userLogOnEntity.Id = GuidUtils.CreateNo();
+            userLogOnEntity.Id = IdGeneratorHelper.IdSnowflake();
             userLogOnEntity.UserId = entity.Id;
             userLogOnEntity.UserSecretkey = MD5Util.GetMD5_16(GuidUtils.NewGuidFormatN()).ToLower();
             userLogOnEntity.UserPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(userLogOnEntity.UserPassword).ToLower(), userLogOnEntity.UserSecretkey).ToLower()).ToLower();
@@ -86,15 +85,14 @@ namespace Yuebon.Security.Repositories
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="userLogOnEntity"></param>
-        /// <param name="trans"></param>
-        public async Task<bool> InsertAsync(User entity, UserLogOn userLogOnEntity, IDbTransaction trans = null)
+        public async Task<bool> InsertAsync(User entity, UserLogOn userLogOnEntity)
         {
-            userLogOnEntity.Id = GuidUtils.CreateNo();
+            userLogOnEntity.Id = IdGeneratorHelper.IdSnowflake();
             userLogOnEntity.UserId = entity.Id;
             userLogOnEntity.UserSecretkey = MD5Util.GetMD5_16(GuidUtils.NewGuidFormatN()).ToLower();
             userLogOnEntity.UserPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(userLogOnEntity.UserPassword).ToLower(), userLogOnEntity.UserSecretkey).ToLower()).ToLower();
             Insert(entity);
-            return Db.Insertable<UserLogOn>(userLogOnEntity).ExecuteCommand() > 0;
+            return await Db.Insertable<UserLogOn>(userLogOnEntity).ExecuteCommandAsync() > 0;
         }
         /// <summary>
         /// 注册用户,第三方平台
@@ -102,8 +100,7 @@ namespace Yuebon.Security.Repositories
         /// <param name="entity"></param>
         /// <param name="userLogOnEntity"></param>
         /// <param name="userOpenIds"></param>
-        /// <param name="trans"></param>
-        public bool Insert(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds, IDbTransaction trans = null)
+        public bool Insert(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds)
         {
 
             //Db.Insertable<User>().Add(entity);
@@ -147,7 +144,7 @@ namespace Yuebon.Security.Repositories
         /// <param name="openIdType">第三方类型</param>
         /// <param name="userId">userId</param>
         /// <returns></returns>
-        public UserOpenIds GetUserOpenIdByuserId(string openIdType, string userId)
+        public UserOpenIds GetUserOpenIdByuserId(string openIdType, long userId)
         {
             string sql = string.Format("select * from Sys_UserOpenIds  where OpenIdType = '{0}' and UserId = '{1}'", openIdType, userId);
             return Db.Ado.SqlQuerySingle<UserOpenIds>(sql);
@@ -158,8 +155,7 @@ namespace Yuebon.Security.Repositories
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="userLogOnEntity"></param>
-        /// <param name="trans"></param>
-        public bool UpdateUserByOpenId(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds, IDbTransaction trans = null)
+        public bool UpdateUserByOpenId(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds)
         {
             //DbContext.GetDbSet<User>().Add(entity);
             //DbContext.GetDbSet<UserOpenIds>().Add(userOpenIds);

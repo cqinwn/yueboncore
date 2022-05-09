@@ -30,7 +30,7 @@ namespace Yuebon.AspNetCore.Mvc.Filter
     public class ExceptionHandlingAttribute : ExceptionFilterAttribute
     {
 
-        private readonly ILogRepository service = App.GetService<ILogRepository>();
+        private readonly ILogRepository service = Appsettings.GetService<ILogRepository>();
         /// <summary>
         /// 
         /// </summary>

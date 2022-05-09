@@ -9,6 +9,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
+using Yuebon.Commons.Core.App;
 using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Enums;
 using Yuebon.Commons.Extensions;
@@ -139,7 +140,7 @@ namespace Yuebon.Commons.Core.DataManager
                 dbConfigName = Configs.GetConfigurationValue("AppSetting", "DefaultDataBase");
             }
 
-            List<DbConnections> listdatabase = Configs.app<DbConnections>("DbConnections").Where(i => i.Enabled).ToList();
+            List<DbConnections> listdatabase = Appsettings.app<DbConnections>("DbConnections").Where(i => i.Enabled).ToList();
             List<DbConnectionOptions> dictRead = listdatabase.Where(m => m.ConnId == dbConfigName).FirstOrDefault().ReadDB;
 
             DbConnectionOptions dbConnectionOptions = new DbConnectionOptions();
@@ -175,7 +176,7 @@ namespace Yuebon.Commons.Core.DataManager
                 dbConfigName = Configs.GetConfigurationValue("AppSetting", "DefaultDataBase");
             }
 
-            List<DbConnections> listdatabase = Configs.app<DbConnections>("DbConnections").Where(i => i.Enabled).ToList();
+            List<DbConnections> listdatabase = Appsettings.app<DbConnections>("DbConnections").Where(i => i.Enabled).ToList();
             List<DbConnectionOptions> dictRead =listdatabase.Where(m=>m.ConnId== dbConfigName).FirstOrDefault().ReadDB;
 
             DbConnectionOptions dbConnectionOptions = new DbConnectionOptions();
@@ -230,7 +231,7 @@ namespace Yuebon.Commons.Core.DataManager
         /// <returns></returns>
         public static List<DbConnections> GetAllDbConnections()
         {
-            List<DbConnections> listdatabase = Configs.app<DbConnections>("DbConnections").Where(i => i.Enabled).ToList();
+            List<DbConnections> listdatabase = Appsettings.app<DbConnections>("DbConnections").Where(i => i.Enabled).ToList();
             return listdatabase;
         }
     }

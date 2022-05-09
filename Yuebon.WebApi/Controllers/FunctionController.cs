@@ -21,6 +21,7 @@ namespace Yuebon.WebApi.Controllers
     /// 功能模块接口
     /// </summary>
     [ApiController]
+    [ApiVersion("1.0")]
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class FunctionController: AreaApiController<Menu, MenuOutputDto, MenuInputDto, IMenuService>

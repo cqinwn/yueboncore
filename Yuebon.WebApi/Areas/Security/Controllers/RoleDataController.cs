@@ -37,7 +37,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <param name="info"></param>
         protected override void OnBeforeInsert(RoleData info)
         {
-            info.Id = GuidUtils.CreateNo();
+            info.Id = IdGeneratorHelper.IdSnowflake();
         }
         
         /// <summary>
@@ -70,7 +70,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         {
             CommonResult result = new CommonResult();
             string where = string.Format("RoleId='{0}'", roleId); 
-            List<string> resultlist = new List<string>();
+            List<long> resultlist = new List<long>();
             IEnumerable<RoleData> list =await iService.GetListWhereAsync(where);
             foreach (RoleData info in list)
             {

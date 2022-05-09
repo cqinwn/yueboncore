@@ -60,7 +60,7 @@ namespace Yuebon.Quartz.Services
             {
                 _taskJobsLogService.Insert(new TaskJobsLog
                 {
-                    Id = GuidUtils.CreateNo(),
+                    Id = IdGeneratorHelper.IdSnowflake(),
                     CreatorTime = DateTime.Now,
                     TaskId = jobId,
                     TaskName = "",
@@ -94,7 +94,7 @@ namespace Yuebon.Quartz.Services
 
             _taskJobsLogService.Insert(new TaskJobsLog
             {
-                Id = GuidUtils.CreateNo(),
+                Id = IdGeneratorHelper.IdSnowflake(),
                 CreatorTime = DateTime.Now,
                 TaskId = job.Id,
                 TaskName = job.TaskName,

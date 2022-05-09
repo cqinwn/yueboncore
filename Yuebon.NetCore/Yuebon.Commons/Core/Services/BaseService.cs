@@ -33,7 +33,7 @@ namespace Yuebon.Commons.Services
         /// <summary>
         /// 
         /// </summary>
-        protected IRepository<T> repository;//通过在子类的构造函数中注入，这里是基类，不用构造函数
+        public IRepository<T> repository;//通过在子类的构造函数中注入，这里是基类，不用构造函数
 
        
         /// <summary>
@@ -121,7 +121,7 @@ namespace Yuebon.Commons.Services
         /// <param name="userId">操作用户</param>
         
         /// <returns></returns>
-        public virtual bool DeleteSoft(bool bl, object id, string userId)
+        public virtual bool DeleteSoft(bool bl, object id,long userId)
         {
             return repository.DeleteSoft(bl, id, userId);
         }
@@ -134,7 +134,7 @@ namespace Yuebon.Commons.Services
         /// <param name="userId">操作用户</param>
         
         /// <returns></returns>
-        public virtual async Task<bool> DeleteSoftAsync(bool bl, object id, string userId)
+        public virtual async Task<bool> DeleteSoftAsync(bool bl, object id, long userId)
         {
             return await repository.DeleteSoftAsync(bl, id, userId);
         }
@@ -146,7 +146,7 @@ namespace Yuebon.Commons.Services
         /// <param name="userId">操作用户</param>
         
         /// <returns></returns>
-        public virtual async Task<bool> DeleteSoftBatchAsync(bool bl, string where, string userId = null)
+        public virtual async Task<bool> DeleteSoftBatchAsync(bool bl, string where, long userId)
         {
             return await repository.DeleteSoftBatchAsync(bl, where, userId);
         }
@@ -155,7 +155,7 @@ namespace Yuebon.Commons.Services
         /// </summary>
         /// <param name="id">主键</param>
         /// <returns></returns>
-        public virtual T Get(object id)
+        public virtual T Get(long id)
         {
             return repository.Get(id);
         }
@@ -165,7 +165,7 @@ namespace Yuebon.Commons.Services
         /// </summary>
         /// <param name="id">主键</param>
         /// <returns></returns>
-        public virtual TODto GetOutDto(object id)
+        public virtual TODto GetOutDto(long id)
         {
             return repository.Get(id).MapTo<TODto>();
         }
@@ -173,8 +173,7 @@ namespace Yuebon.Commons.Services
         /// <summary>
         /// 同步查询单个实体。
         /// </summary>
-        /// <param name="where">查询条件</param>
-        
+        /// <param name="where">查询条件</param>        
         /// <returns></returns>
         public virtual T GetWhere(string where)
         {
@@ -183,8 +182,7 @@ namespace Yuebon.Commons.Services
         /// <summary>
         /// 同步查询单个实体。
         /// </summary>
-        /// <param name="where">查询条件</param>
-        
+        /// <param name="where">查询条件</param>        
         /// <returns></returns>
         public virtual TODto GetOutDtoWhere(string where)
         {
@@ -194,8 +192,7 @@ namespace Yuebon.Commons.Services
         /// <summary>
         /// 异步查询单个实体。
         /// </summary>
-        /// <param name="where">查询条件</param>
-        
+        /// <param name="where">查询条件</param>        
         /// <returns></returns>
         public virtual async Task<T> GetWhereAsync(string where)
         {
@@ -205,20 +202,19 @@ namespace Yuebon.Commons.Services
         /// <summary>
         /// 异步查询单个实体。
         /// </summary>
-        /// <param name="where">查询条件</param>
-        
+        /// <param name="where">查询条件</param>        
         /// <returns></returns>
         public virtual async Task<TODto> GetOutDtoWhereAsync(string where)
         {
             T info = await repository.GetWhereAsync(where);
             return info.MapTo<TODto>();
         }
+
         /// <summary>
         /// 根据查询条件查询前多少条数据
         /// </summary>
         /// <param name="top">多少条数据</param>
-        /// <param name="where">查询条件</param>
-        
+        /// <param name="where">查询条件</param>        
         /// <returns></returns>
         public virtual IEnumerable<T> GetListTopWhere(int top, string where = null)
         {
@@ -229,17 +225,16 @@ namespace Yuebon.Commons.Services
         /// 根据查询条件查询前多少条数据
         /// </summary>
         /// <param name="top">多少条数据</param>
-        /// <param name="where">查询条件</param>
-        
+        /// <param name="where">查询条件</param>        
         /// <returns></returns>
         public virtual async Task<IEnumerable<T>> GetListTopWhereAsync(int top, string where = null)
         {
             return await repository.GetListTopWhereAsync(top, where);
         }
+
         /// <summary>
         /// 同步查询所有实体。
-        /// </summary>
-        
+        /// </summary>        
         /// <returns></returns>
         public virtual IEnumerable<T> GetAll()
         {
@@ -248,8 +243,7 @@ namespace Yuebon.Commons.Services
 
         /// <summary>
         /// 异步步查询所有实体。
-        /// </summary>
-        
+        /// </summary>        
         /// <returns></returns>
         public virtual Task<IEnumerable<T>> GetAllAsync()
         {
@@ -261,7 +255,7 @@ namespace Yuebon.Commons.Services
         /// </summary>
         /// <param name="id">主键</param>
         /// <returns></returns>
-        public virtual async Task<T> GetAsync(object id)
+        public virtual async Task<T> GetAsync(long id)
         {
             return await repository.GetAsync(id);
         }
@@ -270,7 +264,7 @@ namespace Yuebon.Commons.Services
         /// </summary>
         /// <param name="id">主键</param>
         /// <returns></returns>
-        public virtual async Task<TODto> GetOutDtoAsync(object id)
+        public virtual async Task<TODto> GetOutDtoAsync(long id)
         {
             T info = await repository.GetAsync(id);
             return info.MapTo<TODto>();
@@ -545,7 +539,7 @@ namespace Yuebon.Commons.Services
         /// <param name="userId">操作用户</param>
         
         /// <returns></returns>
-        public virtual bool SetEnabledMark(bool bl, object id, string userId = null)
+        public virtual bool SetEnabledMark(bool bl, object id, long userId)
         {
             return repository.SetEnabledMark(bl, id, userId);
         }
@@ -558,7 +552,7 @@ namespace Yuebon.Commons.Services
         /// <param name="userId">操作用户</param>
         
         /// <returns></returns>
-        public virtual async Task<bool> SetEnabledMarkAsync(bool bl, object id, string userId = null)
+        public virtual async Task<bool> SetEnabledMarkAsync(bool bl, object id, long userId)
         {
             return await repository.SetEnabledMarkAsync(bl, id, userId);
         }
@@ -572,7 +566,7 @@ namespace Yuebon.Commons.Services
         /// <param name="userId">操作用户</param>
         
         /// <returns></returns>
-        public virtual async Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, string userId = null)
+        public virtual async Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, long userId)
         {
             return await this.repository.SetEnabledMarkByWhereAsync(bl, where, userId);
         }
@@ -585,9 +579,9 @@ namespace Yuebon.Commons.Services
         /// <param name="userId"></param>
         
         /// <returns></returns>
-        public virtual async Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, object paramparameters = null, string userId = null)
+        public virtual async Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, long userId, object paramparameters = null)
         {
-            return await this.repository.SetEnabledMarkByWhereAsync(bl, where, paramparameters, userId);
+            return await this.repository.SetEnabledMarkByWhereAsync(bl, where, userId, paramparameters);
         }
 
         /// <summary>
@@ -762,7 +756,6 @@ namespace Yuebon.Commons.Services
         /// </summary>
         /// <param name="strField">字段</param>
         /// <param name="where">条件</param>
-        /// <param name="trans">事务</param>
         /// <returns>返回字段的最大值</returns>
         public virtual async Task<decimal> GetMaxValueByFieldAsync(string strField, string where)
         {
@@ -774,7 +767,6 @@ namespace Yuebon.Commons.Services
         /// </summary>
         /// <param name="strField">字段</param>
         /// <param name="where">条件</param>
-        /// <param name="trans">事务</param>
         /// <returns>返回字段求和后的值</returns>
         public virtual async Task<decimal> GetSumValueByFieldAsync(string strField, string where)
         {

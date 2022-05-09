@@ -23,14 +23,14 @@ namespace Yuebon.Commons.Cache
         public YuebonCacheHelper()
         {
 
-            cacheProvider = App.GetService<CacheProvider>();
+            cacheProvider = Appsettings.GetService<CacheProvider>();
             if (cacheProvider == null)
             {
                 throw new ArgumentNullException(nameof(cacheProvider));
             }
             else
             {
-                cacheservice= App.GetService<ICacheService>();
+                cacheservice= Appsettings.GetService<ICacheService>();
             }
         }
 
@@ -41,7 +41,7 @@ namespace Yuebon.Commons.Cache
         public YuebonCacheHelper(bool isMemoryCache=false)
         {
 
-            cacheProvider = App.GetService<CacheProvider>();
+            cacheProvider = Appsettings.GetService<CacheProvider>();
             if (cacheProvider == null)
             {
                 throw new ArgumentNullException(nameof(cacheProvider));
@@ -50,11 +50,11 @@ namespace Yuebon.Commons.Cache
             {
                 if (isMemoryCache)
                 {
-                    cacheservice = App.GetService<MemoryCacheService>();
+                    cacheservice = Appsettings.GetService<MemoryCacheService>();
                 }
                 else
                 {
-                    cacheservice = App.GetService<ICacheService>();
+                    cacheservice = Appsettings.GetService<ICacheService>();
 
                 }
             }

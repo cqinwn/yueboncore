@@ -27,7 +27,7 @@ namespace Yuebon.Messages.Services
         /// <param name="messageType">消息类型</param>
         /// <param name="userId">用户Id</param>
         /// <returns></returns>
-        public MemberMessageTemplatesOuputDto GetByMessageTypeWithUser(string messageType, string userId)
+        public MemberMessageTemplatesOuputDto GetByMessageTypeWithUser(string messageType, long userId)
         {
             return _repository.GetByMessageTypeWithUser(messageType, userId);
         }
@@ -40,7 +40,7 @@ namespace Yuebon.Messages.Services
         /// <param name="userId">用户</param>
         /// <param name="messageTemplateId">模板Id主键</param>
         /// <returns></returns>
-        public MemberMessageTemplatesOuputDto GetByWithUser(string subscribeType, string userId, string messageTemplateId)
+        public MemberMessageTemplatesOuputDto GetByWithUser(string subscribeType, long userId, long messageTemplateId)
         {
 
             return _repository.GetByWithUser(subscribeType, userId, messageTemplateId);
@@ -54,7 +54,7 @@ namespace Yuebon.Messages.Services
         /// <param name="userId">用户</param>
         /// <param name="subscribeType">消息类型</param>
         /// <returns></returns>
-        public MemberSubscribeMsg GetByMessageTemplateIdAndUser(string messageTemplateId, string userId, string subscribeType)
+        public MemberSubscribeMsg GetByMessageTemplateIdAndUser(long messageTemplateId, long userId, string subscribeType)
         {
             string sqlWhere = "MessageTemplateId='" + messageTemplateId + "' and SubscribeUserId='" + userId + "' and SubscribeType='" + subscribeType + "'";
             return _repository.GetWhere(sqlWhere);
@@ -67,7 +67,7 @@ namespace Yuebon.Messages.Services
         /// <param name="subscribeType">消息类型</param>
         /// <param name="subscribeStatus">订阅状态</param>
         /// <returns></returns>
-        public bool UpdateByMessageTemplateIdAndUser(string messageTemplateId, string userId, string subscribeType, string subscribeStatus)
+        public bool UpdateByMessageTemplateIdAndUser(long messageTemplateId, long userId, string subscribeType, string subscribeStatus)
         {
             string sqlWhere = "MessageTemplateId='" + messageTemplateId + "' and SubscribeUserId='" + userId + "' and SubscribeType='" + subscribeType + "'";
             return _repository.UpdateTableField("SubscribeStatus", subscribeStatus, sqlWhere);

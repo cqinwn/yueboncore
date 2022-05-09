@@ -10,7 +10,7 @@ namespace Yuebon.Commons.Models
         /// <summary>
         /// 获取或设置 最后修改用户
         /// </summary>
-        string LastModifyUserId { get; set; }
+        long? LastModifyUserId { get; set; }
         /// <summary>
         /// 获取或设置 最后修改时间
         /// </summary>

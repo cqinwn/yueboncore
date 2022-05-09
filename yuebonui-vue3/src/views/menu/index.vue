@@ -40,6 +40,11 @@
       @row-click="handleClickMenuChange"
     >
       <el-table-column
+        prop="Id"
+        label="ID"
+        width="220"
+      />
+      <el-table-column
         prop="FullName"
         label="菜单/模块名称"
         width="220"
@@ -412,9 +417,6 @@ function reset() {
  * 加载页面左侧菜单table数据
  */
 function loadTableData() {
-  var data = {
-    systemTypeId: searchform.value.systemTypeId
-  }
   var sysId=searchform.value.systemTypeId
   getAllMenuTreeTable(sysId).then(res => {
     tableDataMenus.value = res.ResData
@@ -447,10 +449,7 @@ function handleClickMenuChange(row, column, event) {
  */
 function handleSystemTypeChange() {
   ++cascaderKey.value
-  var data = {
-    systemTypeId: selectSystemTypeId.value
-  }
-  getAllMenuTreeTable(data).then(res => {
+  getAllMenuTreeTable(selectSystemTypeId.value).then(res => {
     selectMenus.value = res.ResData
   })
   editMenuFrom.value.SystemTypeId = selectSystemTypeId.value

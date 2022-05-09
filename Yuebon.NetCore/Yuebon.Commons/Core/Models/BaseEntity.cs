@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SqlSugar;
+﻿using SqlSugar;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -28,10 +27,8 @@ namespace Yuebon.Commons.Models
         [DisplayName("编号")]
         [Key]
         [Column("Id")]
-        [Comment("主键")]
-        [SugarColumn(IsPrimaryKey = true)]
-        [MaxLength(50)]
-        public virtual string Id { get; set; }
+        [SugarColumn(IsPrimaryKey = true,ColumnDescription = "编号,主键")]
+        public virtual long Id { get; set; }
 
 
         /// <summary>
@@ -40,7 +37,7 @@ namespace Yuebon.Commons.Models
         /// <returns></returns>
         public override bool KeyIsNull()
         {
-            if (Id == null)
+            if (Id >0)
             {
                 return true;
             }
@@ -55,7 +52,7 @@ namespace Yuebon.Commons.Models
         /// </summary>
         public override void GenerateDefaultKeyVal()
         {
-           Id = GuidUtils.CreateNo();
+            Id = IdGeneratorHelper.IdSnowflake();
         }
     }
 }

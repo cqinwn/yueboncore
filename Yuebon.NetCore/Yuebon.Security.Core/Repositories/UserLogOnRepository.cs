@@ -16,7 +16,7 @@ namespace Yuebon.Security.Repositories
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public UserLogOn GetByUserId(string userId)
+        public UserLogOn GetByUserId(long userId)
         {
             string sql = @"SELECT * FROM Sys_UserLogOn t WHERE t.UserId = @UserId";
             return Db.Ado.SqlQuerySingle<UserLogOn>(sql, new { UserId = userId });

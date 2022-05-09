@@ -10,15 +10,15 @@ namespace Yuebon.Commons.Tree
 
         public static List<JsTreeModel> JsTreeJson(this List<JsTreeModel> data)
         {
-            return JsTreeJson(data, "", "").ToList<JsTreeModel>();
+            return JsTreeJson(data, 0, "").ToList<JsTreeModel>();
         }
-        private static string JsTreeJson(List<JsTreeModel> data, string parentId, string blank)
+        private static string JsTreeJson(List<JsTreeModel> data, long parentId, string blank)
         {
             List<JsTreeModel> list = new List<JsTreeModel>();
             JsTreeModel jsTreeModel = new JsTreeModel();
             var ChildNodeList = data.FindAll(t => t.parent == parentId);
             var tabline = "";
-            if (!string.IsNullOrEmpty(parentId))
+            if (parentId==0)
             {
                 tabline = "";
             }

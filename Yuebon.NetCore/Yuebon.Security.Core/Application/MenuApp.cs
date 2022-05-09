@@ -22,9 +22,9 @@ namespace Yuebon.Security.Application
     /// </summary>
     public class MenuApp
     {
-        IMenuService service = App.GetService<IMenuService>();
-        ISystemTypeService systemservice = App.GetService<ISystemTypeService>();
-        IUserService serviceUser = App.GetService<IUserService>();
+        IMenuService service = Appsettings.GetService<IMenuService>();
+        ISystemTypeService systemservice = Appsettings.GetService<ISystemTypeService>();
+        IUserService serviceUser = Appsettings.GetService<IUserService>();
         /// <summary>
         /// 获取菜单树JsTree模式
         /// </summary>
@@ -55,7 +55,7 @@ namespace Yuebon.Security.Application
         /// </summary>
         /// <param name="parentId"></param>
         /// <returns></returns>
-        public List<MenuInputDto> GetMenu(string parentId)
+        public List<MenuInputDto> GetMenu(long ParentId)
         {
             List<MenuInputDto> list = new List<MenuInputDto>();
 
@@ -69,7 +69,7 @@ namespace Yuebon.Security.Application
         {
             List<TreeViewModel> list = new List<TreeViewModel>();
             List<Menu> listMenu = service.GetAll().OrderBy(t => t.SortCode).ToList();
-            list = JsTreeJson(listMenu, "", "").ToList<TreeViewModel>();
+            list = JsTreeJson(listMenu,0, "").ToList<TreeViewModel>();
             return list;
         }
         /// <summary>
@@ -79,7 +79,7 @@ namespace Yuebon.Security.Application
         /// <param name="parentId"></param>
         /// <param name="blank"></param>
         /// <returns></returns>
-        private static string JsTreeJson(List<Menu> data, string parentId, string blank)
+        private static string JsTreeJson(List<Menu> data, long parentId, string blank)
         {
             List<TreeViewModel> list = new List<TreeViewModel>();
             TreeViewModel jsTreeModel = new TreeViewModel();
@@ -150,7 +150,7 @@ namespace Yuebon.Security.Application
         /// <param name="menus">菜单列表</param>
         /// <param name="parentId">父级Id</param>
         /// <returns></returns>
-        public List<MenuOutputDto> BuildTreeMenus(List<Menu> menus,string parentId="")
+        public List<MenuOutputDto> BuildTreeMenus(List<Menu> menus,long parentId)
         {
             List<MenuOutputDto> resultList = new List<MenuOutputDto>();
             List<Menu> childNodeList = menus.FindAll(t => t.ParentId == parentId);
@@ -182,9 +182,8 @@ namespace Yuebon.Security.Application
             { 
                 SystemType systemType = systemservice.GetByCode(systemCode);
                 List<Menu> listMenu = GetMenusByRole(roleIds, systemType.Id).OrderBy(t => t.SortCode).ToList();
-                List<MenuOutputDto> listTree= BuildTreeMenus(listMenu);
-                list = BuildMenus(listTree);
-                
+                List<MenuOutputDto> listTree= BuildTreeMenus(listMenu,0);
+                list = BuildMenus(listTree);                
             }
             catch(Exception ex)
             {
@@ -268,7 +267,7 @@ namespace Yuebon.Security.Application
         {
             String routerPath = menu.UrlAddress;
             // 非外链并且是一级目录（类型为目录）
-            if ("" == menu.ParentId && menu.MenuType == "C"&&!menu.IsFrame)
+            if (0 == menu.ParentId && menu.MenuType == "C"&&!menu.IsFrame)
             {
                 routerPath = menu.UrlAddress;// "/" + menu.EnCode;
             }
@@ -304,7 +303,7 @@ namespace Yuebon.Security.Application
         /// <returns></returns>
         public bool IsMeunDoc(MenuOutputDto menu)
         {
-            return menu.ParentId == "" && menu.MenuType == "M" && !menu.IsFrame;
+            return menu.ParentId == 0 && menu.MenuType == "M" && !menu.IsFrame;
         }
         /// <summary>
         /// 是否为菜单内部跳转
@@ -322,7 +321,7 @@ namespace Yuebon.Security.Application
         /// <returns></returns>
         public bool IsParentView(MenuOutputDto menu)
         {
-            return menu.ParentId != "" && menu.MenuType == "C";
+            return menu.ParentId != 0 && menu.MenuType == "C";
         }
         #endregion
         /// <summary>
@@ -331,7 +330,7 @@ namespace Yuebon.Security.Application
         /// <param name="roleIds">用户角色ID</param>
         /// <param name="systemId">系统类型ID/子系统ID</param>
         /// <returns></returns>
-        public List<Menu> GetMenusByRole(string roleIds, string systemId)
+        public List<Menu> GetMenusByRole(string roleIds, long systemId)
         {
             List<Menu> menuListResult = new List<Menu>();
             if (roleIds == "")
@@ -352,9 +351,9 @@ namespace Yuebon.Security.Application
         /// </summary>
         /// <param name="systemId">系统类型ID/子系统ID</param>
         /// <returns></returns>
-        public List<Menu> GetMenusByRole(string systemId)
+        public List<Menu> GetMenusByRole(long systemId)
         {
-            List<Menu> menuListResult = service.GetAllByIsNotDeleteAndEnabledMark("MenuType in ('M','C') and SystemTypeId='"+ systemId + "'").ToList();
+            List<Menu> menuListResult = service.GetAllByIsNotDeleteAndEnabledMark("MenuType in ('M','C') and SystemTypeId="+ systemId).ToList();
             return menuListResult;
         }
 
@@ -366,7 +365,7 @@ namespace Yuebon.Security.Application
         /// <param name="userID">用户ID</param>
         /// <param name="typeID">系统类别ID</param>
         /// <returns></returns>
-        public List<MenuOutputDto> GetFunctionsByUser(string userID, string typeID)
+        public List<MenuOutputDto> GetFunctionsByUser(long userID, long typeID)
         {
             string where = string.Format("");
             string roleId = serviceUser.Get(userID).RoleId;
@@ -384,7 +383,7 @@ namespace Yuebon.Security.Application
         /// <param name="roleIds">用户角色ID</param>
         /// <param name="systemId">系统类型ID/子系统ID</param>
         /// <returns></returns>
-        public List<MenuOutputDto> GetFunctionsByRole(string roleIds, string systemId)
+        public List<MenuOutputDto> GetFunctionsByRole(string roleIds, long systemId)
         {
             string where = string.Format("");
             List<MenuOutputDto> functions = new List<MenuOutputDto>();
@@ -401,7 +400,7 @@ namespace Yuebon.Security.Application
         /// </summary>
         /// <param name="systemId">系统类型ID/子系统ID</param>
         /// <returns></returns>
-        public List<MenuOutputDto> GetFunctionsBySystem(string systemId)
+        public List<MenuOutputDto> GetFunctionsBySystem(long systemId)
         {
             List<MenuOutputDto> functions = new List<MenuOutputDto>();
             functions = service.GetFunctions(systemId).ToList().MapTo<MenuOutputDto>();

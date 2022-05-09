@@ -49,7 +49,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <param name="info"></param>
         protected override void OnBeforeInsert(User info)
         {
-            info.Id = GuidUtils.CreateNo();
+            info.Id = IdGeneratorHelper.IdSnowflake();
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = CurrentUser.UserId;
             info.OrganizeId = organizeService.GetRootOrganize(info.DepartmentId).Id;
@@ -123,16 +123,16 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 return ToJsonContent(result);
             }
             User info = new User();
-            info.Id = GuidUtils.CreateNo();
+            info.Id = IdGeneratorHelper.IdSnowflake();
             info.Account = tinfo.Account;
             info.Email = tinfo.Email;
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = info.Id;
-            info.OrganizeId = "";
+            info.OrganizeId = null;
             info.EnabledMark = true;
             info.IsAdministrator = false;
             info.IsMember = true;
-            info.RoleId =roleService.GetRole("usermember").Id;
+            info.RoleId =roleService.GetRole("usermember").Id.ToString();
             info.DeleteMark = false;
             info.SortCode = 99;
 
@@ -215,7 +215,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             CommonResult result = new CommonResult();
             if (!string.IsNullOrEmpty(tinfo.Account))
             {
-                string where = string.Format(" Account='{0}'  and id!='{1}' ", tinfo.Account, tinfo.Id);
+                string where = string.Format(" Account='{0}'  and id!={1} ", tinfo.Account, tinfo.Id);
                 User user = iService.GetWhere(where);
                 if (user != null)
                 {
@@ -307,7 +307,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <returns></returns>
         [HttpPost("ResetPassword")]
         [YuebonAuthorize("ResetPassword")]
-        public async Task<IActionResult> ResetPassword(string userId)
+        public async Task<IActionResult> ResetPassword(long userId)
         {
             CommonResult result = new CommonResult();
             try

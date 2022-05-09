@@ -18,12 +18,12 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
         /// 设置或获取主键
         /// </summary>
-        public string Id { get; set; }
+        public long Id { get; set; }
 
         /// <summary>
         /// 设置或获取文章分类
         /// </summary>
-        public string CategoryId { get; set; }
+        public long CategoryId { get; set; }
 
         /// <summary>
         /// 设置或获取分类名称

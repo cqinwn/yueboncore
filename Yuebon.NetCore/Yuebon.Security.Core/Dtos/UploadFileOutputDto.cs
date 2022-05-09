@@ -15,7 +15,7 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// Id
         /// </summary>
-        public string Id { get; set; }
+        public long Id { get; set; }
         /// <summary>
 	    /// 文件名称
 	    /// </summary>
@@ -61,7 +61,7 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 创建用户主键
         /// </summary>
-        public virtual string CreatorUserId { get; set; }
+        public virtual long? CreatorUserId { get; set; }
         /// <summary>
 	    /// 上传时间
 	    /// </summary>

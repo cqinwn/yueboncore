@@ -11,7 +11,7 @@ namespace Yuebon.WeChat.CommonService.SubscribeMessage.WxApplet
     /// </summary>
     public class WxAppletSubscribeMessage
     {
-        private static SenparcWeixinSetting senparcWeixinSetting = App.GetService<SenparcWeixinSetting>();
+        private static SenparcWeixinSetting senparcWeixinSetting = Appsettings.GetService<SenparcWeixinSetting>();
         private static readonly string weixinAppId = senparcWeixinSetting.WxOpenAppId;
 
         /// <summary>

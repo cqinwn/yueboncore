@@ -30,6 +30,6 @@ namespace Yuebon.Security.IServices
         /// <param name="enCode">·ÖÀà±àÂë</param
         /// <param name="id">Ö÷¼üId</param>
         /// <returns></returns>
-        Task<Items> GetByEnCodAsynce(string enCode, string id);
+        Task<Items> GetByEnCodAsynce(string enCode, long id);
     }
 }

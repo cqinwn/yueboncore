@@ -35,8 +35,8 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
         /// <param name="info"></param>
         protected override void OnBeforeInsert(Sequence info)
         {
-            info.Id = GuidUtils.CreateNo();
-            info.Id = new SequenceApp().GetSequenceNext("SortingSn");
+            info.Id = IdGeneratorHelper.IdSnowflake();
+            //info.Id = new SequenceApp().GetSequenceNext("SortingSn");
             info.CreatorTime=info.LastModifyTime = DateTime.Now;
             info.CreatorUserId = info.LastModifyUserId= CurrentUser.UserId;
             info.CompanyId = CurrentUser.OrganizeId;
@@ -88,7 +88,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
                 return ToJsonContent(result);
             }
 
-            if (string.IsNullOrEmpty(info.Id))
+            if (string.IsNullOrEmpty(info.Id.ToString()))
             {
                 string where = string.Format("SequenceName='{0}'", info.SequenceName);
                 Sequence sequenceIsExist = iService.GetWhere(where);

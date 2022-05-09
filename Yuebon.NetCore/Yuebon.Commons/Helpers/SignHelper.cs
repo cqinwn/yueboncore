@@ -164,7 +164,6 @@ namespace Yuebon.Commons.Helpers
         {
             AllowCacheApp allowCacheApp = new AllowCacheApp();
             if (string.IsNullOrEmpty(appId)) return allowCacheApp;
-
             List<AllowCacheApp> list = MemoryCacheHelper.Get<object>("cacheAppList").ToJson().ToList<AllowCacheApp>();
             if (list!=null&& list.Count>0)
             {

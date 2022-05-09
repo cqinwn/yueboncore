@@ -1,5 +1,11 @@
+
 /**
- * 
+ * 通用js方法封装处理
+ * Copyright (c) 2019 yuebon.com
+ */
+
+/**
+ * 日期格式化
  * @param {*} time 
  * @param {*} pattern 
  * @returns 
@@ -45,6 +51,8 @@ export function parseTime(time, pattern) {
 }
 
 /**
+ * 显示时间格式化
+ * 显示为：刚刚、x分钟前，x小时前、1天前、xx年xx月xx日 xx时xx分
  * @param {number} time
  * @param {string} option
  * @returns {string}
@@ -88,6 +96,7 @@ export function formatTime(time, option) {
 }
 
 /**
+ * 
  * @param {string} url
  * @returns {Object}
  */

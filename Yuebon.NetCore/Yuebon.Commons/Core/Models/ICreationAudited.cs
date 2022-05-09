@@ -16,6 +16,6 @@ namespace Yuebon.Commons.Models
         /// <summary>
         /// 获取或设置 创建用户主键
         /// </summary>
-        string CreatorUserId { get; set; }
+        long? CreatorUserId { get; set; }
     }
 }

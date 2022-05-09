@@ -44,7 +44,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <param name="info"></param>
         protected override void OnBeforeInsert(Items info)
         {            
-            info.Id = GuidUtils.CreateNo();
+            info.Id = IdGeneratorHelper.IdSnowflake();
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = CurrentUser.UserId;
             info.DeleteMark = false;
@@ -128,7 +128,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 TreeSelectModel treeModel = new TreeSelectModel();
                 treeModel.id = item.ItemCode;
                 treeModel.text = item.ItemName;
-                treeModel.parentId = item.ParentId;
+                treeModel.parentId = item.ParentId.ToString();
                 treeList.Add(treeModel);
             }
             result.ErrCode = ErrCode.err0;

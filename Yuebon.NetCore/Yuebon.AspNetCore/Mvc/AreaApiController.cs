@@ -385,6 +385,7 @@ namespace Yuebon.AspNetCore.Controllers
         }
 
         #endregion
+
         #region 查询单个实体
         /// <summary>
         /// 根据主键Id获取一个对象信息
@@ -394,7 +395,7 @@ namespace Yuebon.AspNetCore.Controllers
         [HttpGet("GetById")]
         [YuebonAuthorize("")]
         [NoPermissionRequired]
-        public virtual async Task<CommonResult<TODto>> GetById(string id)
+        public virtual async Task<CommonResult<TODto>> GetById(long id)
         {
             CommonResult<TODto> result = new CommonResult<TODto>();
             TODto info = await iService.GetOutDtoAsync(id);
@@ -405,8 +406,8 @@ namespace Yuebon.AspNetCore.Controllers
             }
             else
             {
-                result.ErrMsg = ErrCode.err50001;
-                result.ErrCode = "50001";
+                result.ErrMsg = ErrCode.err60001;
+                result.ErrCode = "60001";
             }
             return result;
         }

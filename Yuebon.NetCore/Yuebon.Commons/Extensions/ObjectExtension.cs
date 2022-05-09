@@ -505,7 +505,6 @@ namespace Yuebon.Commons.Extensions
             }
             return info;
         }
-
         /// <summary>
         /// 将object转换为double类型信息。
         /// </summary>

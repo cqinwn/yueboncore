@@ -23,9 +23,9 @@ namespace Yuebon.AspNetCore.Mvc
     /// </summary>
     public class TokenProvider
     {
-        JwtOption _jwtModel=App.GetService<JwtOption>();
-        IRoleService _roleService = App.GetService<IRoleService>();
-        IAPPService _appService = App.GetService<IAPPService>();
+        JwtOption _jwtModel=Appsettings.GetService<JwtOption>();
+        IRoleService _roleService = Appsettings.GetService<IRoleService>();
+        IAPPService _appService = Appsettings.GetService<IAPPService>();
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -180,7 +180,7 @@ namespace Yuebon.AspNetCore.Mvc
                     new Claim(JwtClaimTypes.Audience,appid),
                     new Claim(JwtClaimTypes.Issuer,_jwtModel.Issuer),
                     new Claim(JwtClaimTypes.Name, userInfo.Account),
-                    new Claim(JwtClaimTypes.Id, userInfo.Id),
+                    new Claim(JwtClaimTypes.Id, userInfo.Id.ToString()),
                     new Claim(JwtClaimTypes.Role, _roleService.GetRoleEnCode(userInfo.RoleId)),
                     new Claim(JwtClaimTypes.Subject, GrantType.Password)
                 }),
@@ -222,7 +222,7 @@ namespace Yuebon.AspNetCore.Mvc
                     new Claim(JwtClaimTypes.Audience,appid),
                     new Claim(JwtClaimTypes.Issuer,_jwtModel.Issuer),
                     new Claim(JwtClaimTypes.Name, userInfo.Account),
-                    new Claim(JwtClaimTypes.Id, userInfo.Id),
+                    new Claim(JwtClaimTypes.Id, userInfo.Id.ToString()),
                     new Claim(JwtClaimTypes.Role, userInfo.RoleId),
                     new Claim(JwtClaimTypes.Subject, GrantType.Password)
                 }),

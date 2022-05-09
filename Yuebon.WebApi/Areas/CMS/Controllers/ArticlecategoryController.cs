@@ -15,6 +15,7 @@ using Yuebon.CMS.IServices;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.Commons.Core.Dtos;
 using System.Data;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Yuebon.WebApi.Areas.CMS.Controllers
 {
@@ -39,7 +40,7 @@ namespace Yuebon.WebApi.Areas.CMS.Controllers
         /// <param name="info"></param>
         protected override void OnBeforeInsert(Articlecategory info)
         {
-            info.Id = GuidUtils.CreateNo();
+            info.Id = IdGeneratorHelper.IdSnowflake();
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = CurrentUser.UserId;
             info.CompanyId = CurrentUser.OrganizeId;
@@ -49,10 +50,10 @@ namespace Yuebon.WebApi.Areas.CMS.Controllers
             {
                 info.SortCode = 99;
             }
-            if (string.IsNullOrEmpty(info.ParentId))
+            if (info.ParentId == 0)
             {
                 info.ClassLayer = 1;
-                info.ParentId = "";
+                info.ParentId = 0;
             }
             else
             {
@@ -69,10 +70,11 @@ namespace Yuebon.WebApi.Areas.CMS.Controllers
         {
             info.LastModifyUserId = CurrentUser.UserId;
             info.LastModifyTime = DateTime.Now;
-            if (string.IsNullOrEmpty(info.ParentId))
+
+            if (info.ParentId == 0)
             {
                 info.ClassLayer = 1;
-                info.ParentId = "";
+                info.ParentId = 0;
             }
             else
             {
@@ -112,7 +114,7 @@ namespace Yuebon.WebApi.Areas.CMS.Controllers
             info.Description = tinfo.Description;
 
             OnBeforeUpdate(info);
-            bool bl = await iService.UpdateAsync(info, tinfo.Id).ConfigureAwait(false);
+            bool bl = await iService.UpdateAsync(info);
             if (bl)
             {
                 result.ErrCode = ErrCode.successCode;

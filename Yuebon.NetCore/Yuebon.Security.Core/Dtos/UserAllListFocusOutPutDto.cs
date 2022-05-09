@@ -21,7 +21,7 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 用户主键
         /// </summary>
-        public virtual string Id { get; set; }
+        public virtual long Id { get; set; }
 
         /// <summary>
         /// 账户
@@ -173,7 +173,7 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 创建用户主键
         /// </summary>
-        public virtual string CreatorUserId { get; set; }
+        public virtual long? CreatorUserId { get; set; }
 
         /// <summary>
         /// 最后修改时间
@@ -183,7 +183,7 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 最后修改用户
         /// </summary>
-        public virtual string LastModifyUserId { get; set; }
+        public virtual long? LastModifyUserId { get; set; }
 
         /// <summary>
         /// 删除时间
@@ -193,7 +193,7 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 删除用户
         /// </summary>
-        public virtual string DeleteUserId { get; set; }
+        public virtual long? DeleteUserId { get; set; }
 
         /// <summary>
         /// 我是否关注

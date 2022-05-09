@@ -111,7 +111,7 @@ namespace Yuebon.Security.Services
                     //当前编号
                     sequence.CurrentCode = sequenceNewNo;
                     sequence.CurrentReset = DateTime.Now.ToString("yyyyMMdd");
-                    await _repository.UpdateAsync(sequence, sequence.Id);
+                    await _repository.UpdateAsync(sequence);
                     result.ResData = sequenceNewNo;
                     result.Success = true;
                 }
@@ -207,7 +207,7 @@ namespace Yuebon.Security.Services
                     //当前编号
                     sequence.CurrentCode = sequenceNewNo;
                     sequence.CurrentReset = DateTime.Now.ToString("yyyyMMdd");
-                   _repository.Update(sequence, sequence.Id);
+                   _repository.Update(sequence);
                     result.ResData = sequenceNewNo;
                     result.Success = true;
                 }

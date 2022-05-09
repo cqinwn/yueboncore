@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+using SqlSugar;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using Yuebon.Commons.Models;
@@ -8,8 +8,7 @@ namespace Yuebon.Messages.Models
     /// <summary>
     /// 用户消息接收表，数据实体对象
     /// </summary>
-    [Table("Sys_MemberMessageBox")]
-    [Comment("用户消息接收表")]
+    [SugarTable("Sys_MemberMessageBox", "用户消息接收表")]
     [Serializable]
     public class MemberMessageBox:BaseEntity
     {
@@ -31,7 +30,7 @@ namespace Yuebon.Messages.Models
         /// <summary>
         /// 设置或获取接受者
         /// </summary>
-        public string Accepter { get; set; }
+        public long Accepter { get; set; }
 
         /// <summary>
         /// 设置或获取是否已读

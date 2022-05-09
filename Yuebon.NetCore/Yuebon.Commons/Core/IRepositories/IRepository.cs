@@ -187,7 +187,7 @@ namespace Yuebon.Commons.IRepositories
         /// <param name="primaryKey">主键ID</param>
         /// <param name="userId">操作用户</param>
         /// <returns></returns>
-        bool DeleteSoft(bool bl, object primaryKey,string userId=null);
+        bool DeleteSoft(bool bl, object primaryKey, long userId);
 
         /// <summary>
         /// 异步软删除信息，将DeleteMark设置为1-删除，0-恢复删除
@@ -196,7 +196,7 @@ namespace Yuebon.Commons.IRepositories
         /// <param name="primaryKey">主键ID</param>
         /// <param name="userId">操作用户</param>
         /// <returns></returns>
-        Task<bool> DeleteSoftAsync(bool bl, object primaryKey, string userId = null);
+        Task<bool> DeleteSoftAsync(bool bl, object primaryKey, long userId);
 
         /// <summary>
         /// 异步批量软删除信息，将DeleteMark设置为1-删除，0-恢复删除
@@ -205,7 +205,7 @@ namespace Yuebon.Commons.IRepositories
         /// <param name="where">条件</param>
         /// <param name="userId">操作用户</param>
         /// <returns></returns>
-        Task<bool> DeleteSoftBatchAsync(bool bl, string where, string userId = null);
+        Task<bool> DeleteSoftBatchAsync(bool bl, string where, long userId);
 
         #endregion
         
@@ -217,7 +217,7 @@ namespace Yuebon.Commons.IRepositories
         /// <param name="primaryKey">主键ID</param>
         /// <param name="userId">操作用户</param>
         /// <returns></returns>
-        bool SetEnabledMark(bool bl, object primaryKey, string userId = null);
+        bool SetEnabledMark(bool bl, object primaryKey, long userId);
 
         /// <summary>
         /// 异步设置数据有效性，将EnabledMark设置为1:有效，0-为无效
@@ -226,7 +226,7 @@ namespace Yuebon.Commons.IRepositories
         /// <param name="primaryKey">主键ID</param>
         /// <param name="userId">操作用户</param>
         /// <returns></returns>
-        Task<bool> SetEnabledMarkAsync(bool bl, object primaryKey, string userId = null);
+        Task<bool> SetEnabledMarkAsync(bool bl, object primaryKey, long userId);
 
 
         /// <summary>
@@ -236,7 +236,7 @@ namespace Yuebon.Commons.IRepositories
         /// <param name="where">条件</param>
         /// <param name="userId">操作用户</param>
         /// <returns></returns>
-        Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, string userId = null);
+        Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, long userId);
         /// <summary>
         /// 异步按条件设置数据有效性，将EnabledMark设置为1:有效，0-为无效
         /// </summary>
@@ -245,7 +245,7 @@ namespace Yuebon.Commons.IRepositories
         /// <param name="paramparameters">参数</param>
         /// <param name="userId">操作用户</param>
         /// <returns></returns>
-        Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, object paramparameters = null, string userId = null);
+        Task<bool> SetEnabledMarkByWhereAsync(bool bl, string where, long userId, object paramparameters = null);
 
         #endregion
 
@@ -260,14 +260,14 @@ namespace Yuebon.Commons.IRepositories
         /// </summary>
         /// <param name="primaryKey">主键</param>
         /// <returns></returns>
-        TEntity Get(object primaryKey);
+        TEntity Get(long primaryKey);
 
         /// <summary>
         /// 异步查询单个实体。
         /// </summary>
         /// <param name="primaryKey">主键</param>
         /// <returns></returns>
-        Task<TEntity> GetAsync(object primaryKey);
+        Task<TEntity> GetAsync(long primaryKey);
 
         /// <summary>
         /// 同步查询单个实体。

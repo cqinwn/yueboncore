@@ -15,7 +15,7 @@ namespace Yuebon.Security.Dtos
         /// <summary>
 	    ///
 	    /// </summary>
-        public string Id { get; set; }
+        public long Id { get; set; }
         /// <summary>
 	    /// 文件名称
 	    /// </summary>

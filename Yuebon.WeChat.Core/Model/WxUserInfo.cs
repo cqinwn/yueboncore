@@ -87,7 +87,7 @@ namespace Yuebon.WeChat.Model
         /// <summary>
         /// 设置或获取推广者ReferralUserId
         /// </summary>
-        public string ReferralUserId
+        public long ReferralUserId
         {
             get;
             set;

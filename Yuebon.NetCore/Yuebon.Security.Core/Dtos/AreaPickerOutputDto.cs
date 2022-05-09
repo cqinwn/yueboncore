@@ -13,7 +13,7 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 值
         /// </summary>
-        public string value { get; set; }
+        public long value { get; set; }
         /// <summary>
         /// 显示内容
         /// </summary>		

@@ -14,6 +14,6 @@ namespace Yuebon.Tenants.IRepositories
         /// </summary>
         /// <param name="tenantId"></param>
         /// <returns></returns>
-        TenantLogon GetByTenantId(string tenantId);
+        TenantLogon GetByTenantId(long tenantId);
     }
 }

@@ -22,7 +22,7 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 用户主键
         /// </summary>
-        public virtual string Id { get; set; }
+        public virtual long Id { get; set; }
 
         /// <summary>
         /// 关注的用户ID
@@ -32,7 +32,7 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 关注人
         /// </summary>
-        public virtual string CreatorUserId { get; set; }
+        public virtual long? CreatorUserId { get; set; }
 
         /// <summary>
         /// 关注时间

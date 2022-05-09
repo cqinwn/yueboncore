@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Threading.Tasks;
 using Yuebon.AspNetCore.Controllers;
@@ -17,6 +18,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
     /// </summary>
     [ApiController]
     [Route("api/Security/[controller]")]
+    [SwaggerTag("FilterIP")]
     public class FilterIPController : AreaApiController<FilterIP, FilterIPOutputDto, FilterIPInputDto, IFilterIPService>
     {
         /// <summary>
@@ -33,7 +35,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <param name="info"></param>
         protected override void OnBeforeInsert(FilterIP info)
         {
-            info.Id = GuidUtils.CreateNo();
+            info.Id = IdGeneratorHelper.IdSnowflake();
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = CurrentUser.UserId;
             info.DeleteMark = false;

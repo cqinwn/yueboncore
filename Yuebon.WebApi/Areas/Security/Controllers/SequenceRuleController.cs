@@ -34,7 +34,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
         /// <param name="info"></param>
         protected override void OnBeforeInsert(SequenceRule info)
         {
-            info.Id = GuidUtils.CreateNo();
+            info.Id = IdGeneratorHelper.IdSnowflake();
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = CurrentUser.UserId;
             info.CompanyId = CurrentUser.OrganizeId;
@@ -83,7 +83,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
                 return ToJsonContent(result);
             }
 
-            if (string.IsNullOrEmpty(info.Id))
+            if (string.IsNullOrEmpty(info.Id.ToString()))
             {
                 string where = string.Format("RuleType='{0}' and SequenceName='{1}'", info.RuleType, info.SequenceName);
                 SequenceRule goodsIsExist = iService.GetWhere(where);

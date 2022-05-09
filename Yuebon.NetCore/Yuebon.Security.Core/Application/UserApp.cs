@@ -18,9 +18,9 @@ namespace Yuebon.Security.Application
     /// </summary>
     public class UserApp
     {
-        IUserService service = App.GetService<IUserService>();
-        IUserLogOnService userLogOnService = App.GetService<IUserLogOnService>();
-        IRoleService roleService = App.GetService<IRoleService>();
+        IUserService service = Appsettings.GetService<IUserService>();
+        IUserLogOnService userLogOnService = Appsettings.GetService<IUserLogOnService>();
+        IRoleService roleService = Appsettings.GetService<IRoleService>();
         /// <summary>
         /// 获取所有用户信息
         /// </summary>        
@@ -68,14 +68,14 @@ namespace Yuebon.Security.Application
         /// <returns></returns>
         public bool UpdateUser(User user)
         {
-            return service.Update(user, user.Id);
+            return service.Update(user);
         }
         /// <summary>
         /// 根据用户ID获取头像
         /// </summary>
         /// <param name="userid">用户ID</param>
         /// <returns></returns>
-        public string GetHeadIconById(string userid)
+        public string GetHeadIconById(long userid)
         {
             User user = service.Get(userid);
 
@@ -95,7 +95,7 @@ namespace Yuebon.Security.Application
         /// </summary>
         /// <param name="id">用户Id</param>
         /// <returns></returns>
-        public User GetUserById(string id)
+        public User GetUserById(long id)
         {
             return service.Get(id);
         }
@@ -105,7 +105,7 @@ namespace Yuebon.Security.Application
         /// <param name="userId"></param>
         /// <param name="openIdType"></param>
         /// <returns></returns>
-        public UserOpenIds GetUserOpenIdById(string userId, string openIdType)
+        public UserOpenIds GetUserOpenIdById(long userId, string openIdType)
         {
             return service.GetUserOpenIdByuserId(openIdType,userId);
         }

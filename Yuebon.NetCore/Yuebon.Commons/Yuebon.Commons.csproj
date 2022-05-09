@@ -37,7 +37,6 @@
     <Compile Remove="Dependency\**" />
     <Compile Remove="Entity\**" />
     <Compile Remove="Exceptions\**" />
-    <Compile Remove="Filter\**" />
     <Compile Remove="Finders\**" />
     <Compile Remove="Middlewares\**" />
     <Compile Remove="Reflection\**" />
@@ -48,7 +47,6 @@
     <EmbeddedResource Remove="Dependency\**" />
     <EmbeddedResource Remove="Entity\**" />
     <EmbeddedResource Remove="Exceptions\**" />
-    <EmbeddedResource Remove="Filter\**" />
     <EmbeddedResource Remove="Finders\**" />
     <EmbeddedResource Remove="Middlewares\**" />
     <EmbeddedResource Remove="Reflection\**" />
@@ -59,7 +57,6 @@
     <None Remove="Dependency\**" />
     <None Remove="Entity\**" />
     <None Remove="Exceptions\**" />
-    <None Remove="Filter\**" />
     <None Remove="Finders\**" />
     <None Remove="Middlewares\**" />
     <None Remove="Reflection\**" />
@@ -103,11 +100,13 @@
     <Compile Remove="Core\Services\SqlSugarBaseService.cs" />
     <Compile Remove="DependencyInjection\AspectCoreContainer.cs" />
     <Compile Remove="Extensions\AutoMapperExtension.cs" />
+    <Compile Remove="Extensions\AutoMapperSetup.cs" />
     <Compile Remove="Extensions\ComparisonHelper.cs" />
     <Compile Remove="Extensions\EntityFrameworkCoreExtensions.cs" />
     <Compile Remove="Extensions\EnumerableExtensions.cs" />
     <Compile Remove="Extensions\GenericExtension.cs" />
     <Compile Remove="Extensions\IoCContainerExtensions.cs" />
+    <Compile Remove="Extensions\MemoryCacheSetup.cs" />
     <Compile Remove="Extensions\MiddlewareExtensions.cs" />
     <Compile Remove="Extensions\MvcExtension.cs" />
     <Compile Remove="Extensions\ServiceCollectionExtension.cs" />
@@ -189,11 +188,9 @@
     <PackageReference Include="DotNetCore.NPOI" Version="1.2.3" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.42" />
     <PackageReference Include="log4net" Version="2.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
     <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="6.0.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="6.0.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.4" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.4" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
@@ -208,7 +205,9 @@
     <PackageReference Include="QRCoder" Version="1.4.3" />
     <PackageReference Include="Quartz" Version="3.4.0" />
     <PackageReference Include="SgmlReader.NetCore" Version="1.0.0" />
-    <PackageReference Include="SqlSugarCore" Version="5.0.7.6" />
+    <PackageReference Include="SqlSugarCore" Version="5.0.7.7" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.2" />
     <PackageReference Include="System.Data.OleDb" Version="6.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
     <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
@@ -238,7 +237,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Filters\" />
     <Folder Include="Snowflake\" />
   </ItemGroup>
 

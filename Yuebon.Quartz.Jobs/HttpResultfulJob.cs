@@ -24,7 +24,7 @@ namespace Yuebon.Quartz.Jobs
     /// </summary>
     public class HttpResultfulJob : IJob
     {
-        ITaskManagerService iService = App.GetService<ITaskManagerService>();
+        ITaskManagerService iService = Appsettings.GetService<ITaskManagerService>();
 
         /// <summary>
         /// 执行远程接口url的定时任务

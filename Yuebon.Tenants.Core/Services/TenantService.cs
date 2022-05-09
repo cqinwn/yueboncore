@@ -19,11 +19,12 @@ namespace Yuebon.Tenants.Services
     /// </summary>
     public class TenantService: BaseService<Tenant,TenantOutputDto>, ITenantService
     {
-		private readonly ITenantRepository _repository;
+        private ITenantRepository trepository;
         private readonly ITenantLogonRepository _repositoryLogon;
-        public TenantService(ITenantRepository repository, ITenantLogonRepository repositoryLogon)
+        public TenantService(ITenantRepository _repository, ITenantLogonRepository repositoryLogon)
         {
-			_repository=repository;
+            trepository = _repository;
+            repository = _repository;
             _repositoryLogon = repositoryLogon;
         }
 
@@ -34,7 +35,7 @@ namespace Yuebon.Tenants.Services
         /// <returns></returns>
         public async Task<Tenant> GetByUserName(string userName)
         {
-            return await _repository.GetByUserName(userName);
+            return await trepository.GetByUserName(userName);
         }
 
 
@@ -45,7 +46,7 @@ namespace Yuebon.Tenants.Services
         /// <param name="tenantLogOnEntity"></param>
         public async Task<bool> InsertAsync(Tenant entity, TenantLogon tenantLogOnEntity)
         {
-            return await _repository.InsertAsync(entity, tenantLogOnEntity);
+            return await trepository.InsertAsync(entity, tenantLogOnEntity);
         }
 
 
@@ -57,7 +58,7 @@ namespace Yuebon.Tenants.Services
         /// <returns>验证成功返回用户实体，验证失败返回null|提示消息</returns>
         public async Task<Tuple<Tenant, string>> Validate(string userName, string password)
         {
-            var userEntity = await _repository.GetByUserName(userName);
+            var userEntity = await trepository.GetByUserName(userName);
 
             if (userEntity == null)
             {
@@ -100,7 +101,7 @@ namespace Yuebon.Tenants.Services
                 userLogOn.LogOnCount++;
                 userLogOn.LastVisitTime = DateTime.Now;
                 userLogOn.TenantOnLine = true;
-                await _repositoryLogon.UpdateAsync(userLogOn, userLogOn.Id);
+                await _repositoryLogon.UpdateAsync(userLogOn);
                 return new Tuple<Tenant, string>(userEntity, "");
             }
         }
@@ -123,7 +124,7 @@ namespace Yuebon.Tenants.Services
                 CurrenetPageIndex = search.CurrenetPageIndex,
                 PageSize = search.PageSize
             };
-            List<Tenant> list = await _repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+            List<Tenant> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
             PageResult<TenantOutputDto> pageResult = new PageResult<TenantOutputDto>
             {
                 CurrentPage = pagerInfo.CurrenetPageIndex,

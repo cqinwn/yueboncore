@@ -88,6 +88,7 @@ namespace CodeGenerator.Seed
                 // 注意不要把其他命名空间下的也添加进来。
                 Console.WriteLine("Create Tables...");
 
+                #region 权限系统
                 var path = AppDomain.CurrentDomain.RelativeSearchPath ?? AppDomain.CurrentDomain.BaseDirectory;
                 var referencedAssemblies = System.IO.Directory.GetFiles(path, "Yuebon.Security.Core.dll").Select(Assembly.LoadFrom).ToArray();
                 var modelTypes = referencedAssemblies
@@ -104,6 +105,62 @@ namespace CodeGenerator.Seed
                         Db.CodeFirst.InitTables(t);
                     }
                 });
+                #endregion
+
+                #region 文章
+                referencedAssemblies = System.IO.Directory.GetFiles(path, "Yuebon.CMS.Core.dll").Select(Assembly.LoadFrom).ToArray();
+                modelTypes = referencedAssemblies
+                    .SelectMany(a => a.DefinedTypes)
+                    .Select(type => type.AsType())
+                    .Where(x => x.IsClass && x.Namespace != null && x.Namespace.Equals("Yuebon.CMS.Models")).ToList();
+                modelTypes.ForEach(t =>
+                {
+                    // 这里只支持添加表，不支持删除
+                    // 如果想要删除，数据库直接右键删除，或者联系SqlSugar作者；
+                    if (!myContext.Db.DbMaintenance.IsAnyTable(t.Name))
+                    {
+                        Console.WriteLine(t.Name);
+                        Db.CodeFirst.InitTables(t);
+                    }
+                });
+                #endregion
+
+                #region 定时任务
+                referencedAssemblies = System.IO.Directory.GetFiles(path, "Yuebon.Quartz.Jobs.dll").Select(Assembly.LoadFrom).ToArray();
+                modelTypes = referencedAssemblies
+                    .SelectMany(a => a.DefinedTypes)
+                    .Select(type => type.AsType())
+                    .Where(x => x.IsClass && x.Namespace != null && x.Namespace.Equals("Yuebon.Quartz.Models")).ToList();
+                modelTypes.ForEach(t =>
+                {
+                    // 这里只支持添加表，不支持删除
+                    // 如果想要删除，数据库直接右键删除，或者联系SqlSugar作者；
+                    if (!myContext.Db.DbMaintenance.IsAnyTable(t.Name))
+                    {
+                        Console.WriteLine(t.Name);
+                        Db.CodeFirst.InitTables(t);
+                    }
+                });
+                #endregion
+
+                #region 租户信息
+                referencedAssemblies = System.IO.Directory.GetFiles(path, "Yuebon.Tenants.Core.dll").Select(Assembly.LoadFrom).ToArray();
+                modelTypes = referencedAssemblies
+                    .SelectMany(a => a.DefinedTypes)
+                    .Select(type => type.AsType())
+                    .Where(x => x.IsClass && x.Namespace != null && x.Namespace.Equals("Yuebon.Tenants.Models")).ToList();
+                modelTypes.ForEach(t =>
+                {
+                    // 这里只支持添加表，不支持删除
+                    // 如果想要删除，数据库直接右键删除，或者联系SqlSugar作者；
+                    if (!myContext.Db.DbMaintenance.IsAnyTable(t.Name))
+                    {
+                        Console.WriteLine(t.Name);
+                        Db.CodeFirst.InitTables(t);
+                    }
+                });
+                #endregion
+
                 ConsoleHelper.WriteSuccessLine($"Tables created successfully!");
                 Console.WriteLine();
 
@@ -221,10 +278,7 @@ namespace CodeGenerator.Seed
             }
             catch (Exception ex)
             {
-                throw new Exception(
-                    $"1、若是Mysql,查看常见问题:https://github.com/anjoy8/Blog.Core/issues/148#issue-776281770 \n" +
-                    $"2、若是Oracle,查看常见问题:https://github.com/anjoy8/Blog.Core/issues/148#issuecomment-752340231 \n" +
-                    "3、其他错误：" + ex.Message);
+                throw new Exception($"错误：" + ex.Message);
             }
         }
     }

@@ -89,18 +89,19 @@ const user = {
     LogOut({ commit, state }) {
       return new Promise((resolve, reject) => {
         logout(state.token).then(() => {
+          resolve()
+        }).catch(error => {
+          reject(error)
+        }).finally(e=>{
           commit('SET_TOKEN', '')
           commit('SET_ROLES', [])
           commit('SET_PERMISSIONS', [])
           removeToken()
-          resolve()
-        }).catch(error => {
-          reject(error)
         })
       })
     },
 
-    // 前端 登出
+    // 前端 退出系统
     FedLogOut({ commit }) {
       return new Promise(resolve => {
         commit('SET_TOKEN', '')

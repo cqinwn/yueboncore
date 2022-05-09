@@ -88,20 +88,17 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
                 return ToJsonContent(result);
             }
 
-            if (string.IsNullOrEmpty(info.Id.ToString()))
+            string where = string.Format("SequenceName='{0}'", info.SequenceName);
+            Sequence sequenceIsExist = iService.GetWhere(where);
+            if (sequenceIsExist != null)
             {
-                string where = string.Format("SequenceName='{0}'", info.SequenceName);
-                Sequence sequenceIsExist = iService.GetWhere(where);
-                if (sequenceIsExist != null)
-                {
-                    result.ErrMsg = "规则名称不能重复";
-                    return ToJsonContent(result);
-                }
-                Sequence sequence =info.MapTo<Sequence>();
-                OnBeforeInsert(sequence);
-                long ln = await iService.InsertAsync(sequence).ConfigureAwait(true);
-                result.Success = ln > 0;
+                result.ErrMsg = "规则名称不能重复";
+                return ToJsonContent(result);
             }
+            Sequence sequence =info.MapTo<Sequence>();
+            OnBeforeInsert(sequence);
+            long ln = await iService.InsertAsync(sequence);
+            result.Success = ln > 0;
             if (result.Success)
             {
                 result.ErrCode = ErrCode.successCode;

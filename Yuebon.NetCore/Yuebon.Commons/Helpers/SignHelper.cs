@@ -44,16 +44,16 @@ namespace Yuebon.Commons.Helpers
             }
             catch (Exception ex)
             {
-                result.ErrCode = "40004";
+                result.ErrCode = "40007";
                 result.ErrMsg = "签名参数异常:" + ex.Message;
                 return result;
             }
 
             //appId是否为可用的
             AllowCacheApp allowCacheApp = VerifyAppId(appId);
-            if (allowCacheApp == null)
+            if (string.IsNullOrEmpty(allowCacheApp.AppId))
             {
-                result.ErrCode = "40004";
+                result.ErrCode = "40008";
                 result.ErrMsg = "AppId不被允许访问:" + appId;
                 return result;
             }
@@ -63,7 +63,7 @@ namespace Yuebon.Commons.Helpers
             var expires_minute = tonow.Minute - DateTime.Now.Minute;
             if (expires_minute > 2 || expires_minute < -2)
             {
-                result.ErrCode = "40004";
+                result.ErrCode = "50004";
                 result.ErrMsg = "接口请求超时";
                 return result;
             }

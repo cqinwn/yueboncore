@@ -115,7 +115,10 @@ namespace Yitter.IdGenerator
             }
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public long NewLong()
         {
             return _SnowWorker.NextId();

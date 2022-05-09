@@ -83,7 +83,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
                 return ToJsonContent(result);
             }
 
-            if (string.IsNullOrEmpty(info.Id.ToString()))
+            if (info.Id==0)
             {
                 string where = string.Format("RuleType='{0}' and SequenceName='{1}'", info.RuleType, info.SequenceName);
                 SequenceRule goodsIsExist = iService.GetWhere(where);

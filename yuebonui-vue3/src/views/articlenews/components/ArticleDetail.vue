@@ -93,6 +93,7 @@
 import { getArticlenewsDetail, saveArticlenews } from '@/api/cms/articlenews'
 import { GetAllCategoryTreeTable } from '@/api/cms/articlecategory'
 import Tinymce from '@/components/Tinymce'
+import store from '@/store'
 const { proxy } = getCurrentInstance()
 const route = useRoute()
 
@@ -104,7 +105,7 @@ const selectedCategoryOptions=ref('')
 const selectCategory=ref([])
 const data = reactive({
   editFrom: {
-      Description: '2222',
+      Description: '',
   },
   rules: {
     CategoryId: [
@@ -126,7 +127,7 @@ function InitDictItem() {
   GetAllCategoryTreeTable().then(res => {
     selectCategory.value = res.ResData
   })
-  
+  reset()
   if (route.params && route.params.id && route.params.id !== 'null') {
     currentId.value = route.params.id
     showType.value = route.params.showtype
@@ -161,7 +162,9 @@ function bindEditInfo() {
   getArticlenewsDetail(currentId.value).then(res => {
     editFrom.value=res.ResData
     selectedCategoryOptions.value = res.ResData.CategoryId
+        editFrom.value.Description=res.ResData.Description    
   })
+
 }
 /**
  * 新增/修改保存
@@ -176,8 +179,8 @@ function saveEditForm() {
       saveArticlenews(editFrom.value, url).then(res => {
         if (res.Success) {
           proxy.$modal.msgSuccess('恭喜你，操作成功')
-          $store.state.tagsView.visitedViews.splice($store.state.tagsView.visitedViews.findIndex(item => item.path === $route.path), 1)
-          $router.push($store.state.tagsView.visitedViews[$store.state.tagsView.visitedViews.length - 1].path)
+          store.state.tagsView.visitedViews.splice(store.state.tagsView.visitedViews.findIndex(item => item.path === route.path), 1)
+          proxy.$router.push(store.state.tagsView.visitedViews[store.state.tagsView.visitedViews.length - 1].path)
         } else {
           proxy.$modal.msgError(res.ErrMsg)
         }
@@ -187,7 +190,6 @@ function saveEditForm() {
     }
   })
 }
-
 InitDictItem()
 </script>
 <style lang="scss" scoped>

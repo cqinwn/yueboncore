@@ -145,7 +145,9 @@ export function downloadFile(resUrl, fileName) {
   window.URL.revokeObjectURL(url) // 释放掉blob对象
 }
 
-// 表单重置
+/**
+ * 表单重置
+ * */ 
 export function resetForm(refName) {
   if (this.$refs[refName]) {
     this.$refs[refName].resetFields()

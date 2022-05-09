@@ -94,8 +94,8 @@
         </el-form-item>
         <el-form-item label="是否启用" :label-width="formLabelWidth" prop="EnabledMark">
           <el-radio-group v-model="editFrom.EnabledMark">
-            <el-radio label="true">是</el-radio>
-            <el-radio label="false">否</el-radio>
+            <el-radio :label="true">是</el-radio>
+            <el-radio :label="false">否</el-radio>
           </el-radio-group>
         </el-form-item>
       </el-form>
@@ -190,6 +190,7 @@ function handleSelectCategoryChange() {
  * 新增、修改或查看明细信息（绑定显示数据）     *
  */
 function ShowEditOrViewDialog(view) {
+  reset()
   if (view !== undefined) {
     if (ids.value.length > 1 || ids.value.length === 0) {
       proxy.$modal.alert('请选择一条数据进行编辑/修改')
@@ -211,6 +212,16 @@ function bindEditInfo() {
     editFrom.value=res.ResData
     selectedCategoryOptions.value = res.ResData.ParentId
   })
+}
+
+// 表单重置
+function reset() {
+  editFrom.value = {
+    SortCode: 99,
+    EnabledMark: true,
+    Description: ''
+  }
+  proxy.resetForm('editFromRef')
 }
 /**
  * 新增/修改保存

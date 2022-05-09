@@ -92,7 +92,7 @@ namespace Yuebon.CMS.Models
         /// <summary>
         /// 设置或获取详情
         /// </summary>
-        [SugarColumn(ColumnDescription= "详情")]
+        [SugarColumn(ColumnDescription= "详情",ColumnDataType = "longtext")]
         public string Description { get; set; }
 
         /// <summary>

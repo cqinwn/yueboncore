@@ -28,8 +28,9 @@ namespace Yuebon.Commons.Helpers
 
             return reader.GetString().ToLong();
         }
+
         /// <summary>
-        /// 
+        /// long数据在前端会出现丢失精度，故转换为string类型
         /// </summary>
         /// <param name="writer"></param>
         /// <param name="value"></param>

@@ -23,14 +23,16 @@ namespace Yuebon.Tenants.Models
         /// 设置或获取密码
         /// </summary>
         [MaxLength(50)]
-        [SugarColumn(ColumnDescription="租户ID")]
+        [SugarColumn(ColumnDescription="租户密码")]
+        [Required]
         public string TenantPassword { get; set; }
 
         /// <summary>
         /// 设置或获取加密密钥
         /// </summary>
         [MaxLength(50)]
-        [SugarColumn(ColumnDescription="租户ID")]
+        [SugarColumn(ColumnDescription= "加密密钥")]
+        [Required]
         public string TenantSecretkey { get; set; }
 
         /// <summary>

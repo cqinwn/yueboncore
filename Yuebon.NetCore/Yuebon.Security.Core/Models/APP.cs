@@ -47,8 +47,7 @@ namespace Yuebon.Security.Models
         [MaxLength(256)]
         [Description("消息加解密密钥")]
         [SugarColumn(ColumnDescription= "消息加解密密钥")]
-        [Required]
-        public virtual string? EncodingAESKey { get; set; }
+        public virtual string EncodingAESKey { get; set; }
 
         /// <summary>
         /// 授权请求地址url
@@ -56,7 +55,7 @@ namespace Yuebon.Security.Models
         [MaxLength(512)]
         [Description("授权请求地址url")]
         [SugarColumn(ColumnDescription= "授权请求地址url")]
-        public virtual string? RequestUrl { get; set; }
+        public virtual string RequestUrl { get; set; }
 
         /// <summary>
         /// Token令牌
@@ -65,7 +64,7 @@ namespace Yuebon.Security.Models
         [MaxLength(64)]
         [Description("Token令牌")]
         [SugarColumn(ColumnDescription= "Token令牌")]
-        public virtual string? Token { get; set; }
+        public virtual string Token { get; set; }
         /// <summary>
         /// 是否开启消息加解密
         /// </summary>
@@ -81,7 +80,7 @@ namespace Yuebon.Security.Models
         [Description("描述")]
         [MaxLength(200)]
         [SugarColumn(ColumnDescription= "描述")]
-        public virtual string? Description { get; set; }
+        public virtual string Description { get; set; }
         
 
         /// <summary>

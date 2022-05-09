@@ -18,9 +18,10 @@ namespace Yuebon.Tenants.Services
     public class TenantLogonService : BaseService<TenantLogon,TenantLogonOutputDto>, ITenantLogonService
     {
 		private readonly ITenantLogonRepository _repository;
-        public TenantLogonService(ITenantLogonRepository repository) 
+        public TenantLogonService(ITenantLogonRepository trepository) 
         {
-			_repository=repository;
+            repository = trepository;
+			_repository= trepository;
         }
     }
 }

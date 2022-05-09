@@ -35,7 +35,7 @@ namespace Yuebon.Security.Models
         /// </summary>
         [SugarColumn(ColumnDescription= "层次")]
         [Required]
-        public virtual int? Layers { get; set; }
+        public virtual int Layers { get; set; }
 
         /// <summary>
         /// 编码

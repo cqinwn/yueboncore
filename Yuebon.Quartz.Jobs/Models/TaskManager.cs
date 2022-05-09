@@ -11,7 +11,7 @@ namespace Yuebon.Quartz.Models
     /// </summary>
     [SugarTable("Sys_TaskManager", "定时任务")]
     [Serializable]
-    public class TaskManager:StringEntity, ICreationAudited, IModificationAudited, IDeleteAudited
+    public class TaskManager: BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited
     {
         /// <summary>
         /// 构造函数
@@ -30,6 +30,12 @@ namespace Yuebon.Quartz.Models
             this.DeleteUserId = 0;
         }
 
+        /// <summary>
+        /// 设置或获取任务编号
+        /// </summary>
+        [MaxLength(50)]
+        [SugarColumn(ColumnDescription = "任务编号")]
+        public string TaskCode{ get; set; }
         /// <summary>
         /// 设置或获取任务名称
         /// </summary>

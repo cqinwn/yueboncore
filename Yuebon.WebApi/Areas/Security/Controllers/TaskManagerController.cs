@@ -50,10 +50,11 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <param name="info"></param>
         protected override void OnBeforeInsert(TaskManager info)
         {
-            info.Id = new SequenceApp().GetSequenceNext("TaskManager");
-            if (string.IsNullOrEmpty(info.Id))
+
+            info.TaskCode = new SequenceApp().GetSequenceNext("TaskManager");
+            if (string.IsNullOrEmpty(info.TaskCode))
             {
-                info.Id=IdGeneratorHelper.IdSnowflake().ToString();
+                info.TaskCode=IdGeneratorHelper.IdSnowflake().ToString();
             }
             info.DeleteMark = false;
             info.RunCount = 0;
@@ -175,13 +176,13 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 IScheduler scheduler =await  schedulerFactory.GetScheduler();
                 if (job.Status == 0) //停止
                 {
-                    TriggerKey triggerKey = new TriggerKey(job.Id,job.GroupName);
+                    TriggerKey triggerKey = new TriggerKey(job.Id.ToString(),job.GroupName);
                     // 停止触发器
                     await scheduler.PauseTrigger(triggerKey);
                     // 移除触发器
                     await scheduler.UnscheduleJob(triggerKey);
                     // 删除任务
-                    await scheduler.DeleteJob(new JobKey(job.Id));
+                    await scheduler.DeleteJob(new JobKey(job.Id.ToString()));
                 }
                 else  //启动
                 {
@@ -191,18 +192,18 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                         var implementationAssembly = Assembly.Load("Yuebon.Quartz.Jobs");
                         var implementationTypes = implementationAssembly.DefinedTypes.Where(t => t.GetInterfaces().Contains(typeof(IJob)));
                         var tyeinfo = implementationTypes.Where(x => x.FullName == job.JobCallAddress).FirstOrDefault();
-                        jobDetail = JobBuilder.Create(tyeinfo).WithIdentity(job.Id, job.GroupName).Build();
+                        jobDetail = JobBuilder.Create(tyeinfo).WithIdentity(job.Id.ToString(), job.GroupName).Build();
                     }
                     else
                     {
-                        jobDetail = JobBuilder.Create<HttpResultfulJob>().WithIdentity(job.Id, job.GroupName).Build();
+                        jobDetail = JobBuilder.Create<HttpResultfulJob>().WithIdentity(job.Id.ToString(), job.GroupName).Build();
                     }
                     jobDetail.JobDataMap["OpenJob"] = job.Id;  //传递job信息
                     ITrigger trigger = TriggerBuilder.Create()
                         .WithCronSchedule(job.Cron)
-                        .WithIdentity(job.Id, job.GroupName)
+                        .WithIdentity(job.Id.ToString(), job.GroupName)
                         .WithDescription(job.Description)
-                        .ForJob(job.Id, job.GroupName) //给任务指定一个分组
+                        .ForJob(job.Id.ToString(), job.GroupName) //给任务指定一个分组
                         .StartNow()
                         .Build();
                     await scheduler.ScheduleJob(jobDetail, trigger);
@@ -211,7 +212,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 {
                   await scheduler.Start();
                 }
-                iService.Update(job,job.Id);
+                iService.Update(job,job.Id.ToString());
                 result.ErrCode = ErrCode.successCode;
                 result.ErrMsg = "切换成功，可以在系统日志中查看运行结果";
 
@@ -252,13 +253,13 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                         throw new Exception("任务不存在");
                     }
                     IScheduler scheduler = await schedulerFactory.GetScheduler();
-                    TriggerKey triggerKey = new TriggerKey(job.Id, job.GroupName);
+                    TriggerKey triggerKey = new TriggerKey(job.Id.ToString(), job.GroupName);
                     // 停止触发器
                     await scheduler.PauseTrigger(triggerKey);
                     // 移除触发器
                     await scheduler.UnscheduleJob(triggerKey);
                     // 删除任务
-                    await scheduler.DeleteJob(new JobKey(job.Id));
+                    await scheduler.DeleteJob(new JobKey(job.Id.ToString()));
                 }
             }
             if (!string.IsNullOrEmpty(where))
@@ -298,13 +299,13 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                     throw new Exception("任务不存在");
                 }
                 IScheduler scheduler = await schedulerFactory.GetScheduler();
-                TriggerKey triggerKey = new TriggerKey(job.Id, job.GroupName);
+                TriggerKey triggerKey = new TriggerKey(job.Id.ToString(), job.GroupName);
                 // 停止触发器
                 await scheduler.PauseTrigger(triggerKey);
                 // 移除触发器
                 await scheduler.UnscheduleJob(triggerKey);
                 // 删除任务
-                await scheduler.DeleteJob(new JobKey(job.Id));
+                await scheduler.DeleteJob(new JobKey(job.Id.ToString()));
             }
 
             if (!string.IsNullOrEmpty(where))

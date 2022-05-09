@@ -19,7 +19,7 @@ namespace Yuebon.Quartz.IServices
         /// <param name="jobAction">任务执行动作</param>
         /// <param name="blresultTag">任务执行结果表示，true成功，false失败，初始执行为true</param>
         /// <param name="msg">任务记录描述</param>
-        void RecordRun(string jobId, JobAction jobAction, bool blresultTag = true, string msg = "");
+        void RecordRun(long jobId, JobAction jobAction, bool blresultTag = true, string msg = "");
 
     }
 }

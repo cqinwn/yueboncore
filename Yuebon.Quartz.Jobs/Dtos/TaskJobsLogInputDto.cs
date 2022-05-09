@@ -24,7 +24,7 @@ namespace Yuebon.Quartz.Dtos
         /// <summary>
         /// 设置或获取任务Id
         /// </summary>
-        public string TaskId { get; set; }
+        public long TaskId { get; set; }
 
         /// <summary>
         /// 设置或获取任务名称

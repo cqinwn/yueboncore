@@ -45,7 +45,7 @@ namespace Yuebon.Commons.Helpers
         /// 初始化任务日志文件路径
         /// </summary>
         /// <param name="jobName">任务名称</param>
-        public static void InitTaskJobLogPath(string jobName)
+        public static void InitTaskJobLogPath(long jobName)
         {
             if (string.IsNullOrEmpty(_logPath))
             {

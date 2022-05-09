@@ -52,7 +52,7 @@ namespace Yuebon.Quartz.Services
         /// <param name="jobAction">任务执行动作</param>
         /// <param name="blresultTag">任务执行结果表示，true成功，false失败，初始执行为true</param>
         /// <param name="msg">任务记录描述</param>
-        public void RecordRun(string jobId,JobAction jobAction, bool blresultTag = true,string msg="")
+        public void RecordRun(long jobId,JobAction jobAction, bool blresultTag = true,string msg="")
         {
             DateTime addTime = DateTime.Now;
             TaskManager job =  _repository.Db.Queryable<TaskManager>().First(t=>t.Id== jobId);
@@ -90,7 +90,7 @@ namespace Yuebon.Quartz.Services
                 CronExpression cronExpression = new CronExpression(job.Cron);
                 job.NextRunTime = cronExpression.GetNextValidTimeAfter(addTime).ToDateTime();
             }
-            _repository.Update(job,jobId);
+            _repository.Update(job);
 
             _taskJobsLogService.Insert(new TaskJobsLog
             {

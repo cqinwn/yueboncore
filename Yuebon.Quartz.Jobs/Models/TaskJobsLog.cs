@@ -17,7 +17,7 @@ namespace Yuebon.Quartz.Models
         /// </summary>
         [MaxLength(50)]
         [SugarColumn(ColumnDescription="任务Id")]
-        public string TaskId { get; set; }
+        public long TaskId { get; set; }
 
         /// <summary>
         /// 设置或获取任务名称

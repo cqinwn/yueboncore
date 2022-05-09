@@ -309,10 +309,8 @@ const iconSelectRef = ref(null);
 const data = reactive({
   searchform: {
     keywords: '',
-    code: ''
-  },
-  searchmenuform: {
-    systemTypeId: 0n
+    code: '',
+    systemTypeId: ''
   },
   pagination: {
     currentPage: 1,
@@ -412,7 +410,7 @@ function reset() {
  * 加载页面左侧菜单table数据
  */
 function loadTableData() {
-  var sysId=searchform.value.systemTypeId
+  var sysId=searchform.value.systemTypeId==''?0:searchform.value.systemTypeId
   getAllMenuTreeTable(sysId).then(res => {
     tableDataMenus.value = res.ResData
   })
@@ -587,7 +585,7 @@ function deletePhysics() {
   }
 }
 InitDictItem()
-//loadTableData()
+loadTableData()
 </script>
 <style lang="scss" scoped>
 .el-cascader{

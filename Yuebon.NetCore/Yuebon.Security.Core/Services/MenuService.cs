@@ -85,7 +85,7 @@ namespace Yuebon.Security.Services
         {
             string where = "1=1";
             List<MenuTreeTableOutputDto> reslist = new List<MenuTreeTableOutputDto>();
-            if (!string.IsNullOrEmpty(systemTypeId.ToString()))
+            if (systemTypeId!=0)
             {
                 IEnumerable<Menu> elist = await _MenuRepository.GetListWhereAsync("SystemTypeId=" + systemTypeId);
                 List<Menu> list = elist.OrderBy(t => t.SortCode).ToList();

@@ -40,11 +40,6 @@
       @row-click="handleClickMenuChange"
     >
       <el-table-column
-        prop="Id"
-        label="ID"
-        width="220"
-      />
-      <el-table-column
         prop="FullName"
         label="菜单/模块名称"
         width="220"

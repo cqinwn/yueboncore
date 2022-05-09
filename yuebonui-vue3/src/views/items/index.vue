@@ -612,7 +612,6 @@ function saveEditItemsDetailForm() {
         if (res.Success) {
           proxy.$modal.msgSuccess('恭喜你，操作成功')
           dialogItemsDetailEditFormVisible.value = false
-          selectedItemsOptions.value = ''
           loadItemsDetailTableData()
           InitDictItem()
         } else {
@@ -675,7 +674,7 @@ function deleteItemsDetailPhysics() {
     }).then(res => {
       if (res.Success) {
         proxy.$modal.msgSuccess('恭喜你，操作成功')
-        loadTableData()
+        loadItemsDetailTableData()
       } else {
         proxy.$modal.msgError(res.ErrMsg)
       }

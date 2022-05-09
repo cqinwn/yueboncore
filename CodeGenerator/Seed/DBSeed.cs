@@ -270,6 +270,31 @@ namespace CodeGenerator.Seed
                         Console.WriteLine("Table:Menu already exists...");
                     }
                     #endregion
+
+
+                    #region Items
+                    if (!await myContext.Db.Queryable<Items>().AnyAsync())
+                    {
+                        myContext.GetEntityDB<Items>().InsertRange(JsonHelper.ToObject<List<Items>>(FileHelper.ReadFile(string.Format(SeedDataFolder, "Items"), Encoding.UTF8)));
+                        Console.WriteLine("Table:Items created success!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Table:Items already exists...");
+                    }
+                    #endregion
+
+                    #region ItemsDetail
+                    if (!await myContext.Db.Queryable<ItemsDetail>().AnyAsync())
+                    {
+                        myContext.GetEntityDB<ItemsDetail>().InsertRange(JsonHelper.ToObject<List<ItemsDetail>>(FileHelper.ReadFile(string.Format(SeedDataFolder, "ItemsDetail"), Encoding.UTF8)));
+                        Console.WriteLine("Table:ItemsDetail created success!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Table:ItemsDetail already exists...");
+                    }
+                    #endregion
                     ConsoleHelper.WriteSuccessLine($"Done seeding database!");
                 }
 

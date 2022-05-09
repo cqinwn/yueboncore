@@ -50,7 +50,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <param name="info"></param>
         protected override void OnBeforeInsert(TaskManager info)
         {
-
+            info.Id= IdGeneratorHelper.IdSnowflake();
             info.TaskCode = new SequenceApp().GetSequenceNext("TaskManager");
             if (string.IsNullOrEmpty(info.TaskCode))
             {

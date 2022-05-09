@@ -80,12 +80,14 @@ function handleSizeChange(val) {
   if (currentPage.value * val > props.total) {
     currentPage.value = 1
   }
+  emit('update:limit', val)
   emit('pagination', { page: currentPage.value, limit: val })
   if (props.autoScroll) {
     scrollTo(0, 800)
   }
 }
-function handleCurrentChange(val) {
+function handleCurrentChange(val) {  
+  emit('update:page', val)
   emit('pagination', { page: val, limit: pageSize.value })
   if (props.autoScroll) {
     scrollTo(0, 800)

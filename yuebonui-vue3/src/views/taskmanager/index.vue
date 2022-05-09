@@ -35,7 +35,7 @@
       @row-click="handleRowClick"
     >
       <el-table-column type="selection" width="40" />
-      <el-table-column prop="Id" label="任务ID" sortable="custom" width="150" />
+      <el-table-column prop="TaskCode" label="任务编号" sortable="custom" width="150" />
       <el-table-column prop="TaskName" label="任务名称" sortable="custom" width="150" />
       <el-table-column prop="GroupName" label="分组名称" sortable="custom" width="150" />
       <el-table-column prop="Cron" label="Cron表达式" sortable="custom" width="130" />
@@ -307,10 +307,11 @@ function loadJobLogData(row) {
 // 表单重置
 function reset() {
   if (!currentId.value) {
+    proxy.resetForm('editFromRef')
     editFrom.value = {
       TaskName: '',
       GroupName: '',
-      Cron: '',
+      Cron: '* * * * * ? *',
       JobCallAddress: '',
       JobCallParams: '',
       EnabledMark: true,
@@ -322,7 +323,6 @@ function reset() {
       EndTime: '',
       StartEndTime: ''
     }
-    proxy.resetForm('editFromRef')
   } else {
     bindEditInfo()
   }

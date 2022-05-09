@@ -102,7 +102,7 @@ namespace Yuebon.Security.Models
         /// <summary>
         /// 描述
         /// </summary>
-        [SugarColumn(ColumnDescription= "描述",ColumnDataType ="nvarchar(6000)")]
+        [SugarColumn(ColumnDescription= "描述",ColumnDataType ="longtext")]
         
         public virtual string Description { get; set; }
 

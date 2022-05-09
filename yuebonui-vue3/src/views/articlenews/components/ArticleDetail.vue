@@ -162,7 +162,7 @@ function bindEditInfo() {
   getArticlenewsDetail(currentId.value).then(res => {
     editFrom.value=res.ResData
     selectedCategoryOptions.value = res.ResData.CategoryId
-        editFrom.value.Description=res.ResData.Description    
+    editFrom.value.Description=res.ResData.Description    
   })
 
 }

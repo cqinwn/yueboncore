@@ -42,10 +42,15 @@ namespace Yuebon.AspNetCore.Common
     }
 
     /// <summary>
-    /// 
+    /// 跨域中间件
     /// </summary>
     public static class CorsMiddlewareExtensions
     {
+        /// <summary>
+        /// 跨域中间件
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <returns></returns>
         public static IApplicationBuilder UseCorsMiddleware(this IApplicationBuilder builder)
         {
             return builder.UseMiddleware<CorsMiddleware>();

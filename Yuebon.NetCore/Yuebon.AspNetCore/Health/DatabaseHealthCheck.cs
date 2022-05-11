@@ -9,6 +9,12 @@ namespace Yuebon.AspNetCore.Health
     /// </summary>
     public class DatabaseHealthCheck : IHealthCheck
     {
+        /// <summary>
+        /// 数据库健康检查
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken =
          default)
         {

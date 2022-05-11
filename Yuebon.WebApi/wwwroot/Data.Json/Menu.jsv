@@ -737,7 +737,7 @@
     "IsPublic": false,
     "AllowEdit": true,
     "AllowDelete": true,
-    "SortCode": 1,
+    "SortCode": 2,
     "DeleteMark": false,
     "EnabledMark": true,
     "Description": null,

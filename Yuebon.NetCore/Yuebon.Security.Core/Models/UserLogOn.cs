@@ -114,15 +114,14 @@ namespace Yuebon.Security.Models
         /// <summary>
         /// 密码提示问题
         /// </summary>
-        [MaxLength(200)]
-        [SugarColumn(ColumnDescription= "密码提示问题")]
+        [SugarColumn(ColumnDescription= "密码提示问题", ColumnDataType = "NVARCHAR(500)")]
         public virtual string Question { get; set; }
 
         /// <summary>
         /// 密码提示答案
         /// </summary>
         [MaxLength(200)]
-        [SugarColumn(ColumnDescription= "密码提示答案")]
+        [SugarColumn(ColumnDescription= "密码提示答案", ColumnDataType = "NVARCHAR(500)")]
         public virtual string AnswerQuestion { get; set; }
 
         /// <summary>
@@ -135,7 +134,7 @@ namespace Yuebon.Security.Models
         /// 系统语言
         /// </summary>
         [MaxLength(50)]
-        [SugarColumn(ColumnDescription= "系统语言")]
+        [SugarColumn(ColumnDescription= "系统语言",ColumnDataType = "NVARCHAR(500)")]
         [Column(TypeName = "NVARCHAR(500)")]
         public virtual string Language { get; set; }
 
@@ -143,7 +142,7 @@ namespace Yuebon.Security.Models
         /// 系统样式
         /// </summary>
         [MaxLength(500)]
-        [SugarColumn(ColumnDescription= "系统样式")]
+        [SugarColumn(ColumnDescription= "系统样式", ColumnDataType = "NVARCHAR(500)")]
         [Column(TypeName = "NVARCHAR(500)")]
         public virtual string Theme { get; set; }
 

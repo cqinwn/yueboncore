@@ -109,10 +109,10 @@ namespace Yitter.IdGenerator
                     break;
             }
 
-            if (options.Method != 2)
-            {
-                Thread.Sleep(500);
-            }
+            //if (options.Method != 2)
+            //{
+            //    Thread.Sleep(500);
+            //}
         }
 
         /// <summary>

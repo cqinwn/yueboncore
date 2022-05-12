@@ -27,7 +27,7 @@ namespace Yuebon.Commons.Repositories
         /// <summary>
         /// 需要初始化的对象表名
         /// </summary>
-        protected string tableName =typeof(T).GetCustomAttribute<SugarTable>()?.TableName; //typeof(T).GetCustomAttribute<System.ComponentModel.DataAnnotations.Schema.TableAttribute>(false)?.Name;
+        protected string tableName =typeof(T).GetCustomAttribute<SugarTable>()?.TableName;
         
         /// <summary>
         /// 数据库的主键字段名,若主键不是Id请重载BaseRepository设置
@@ -45,11 +45,11 @@ namespace Yuebon.Commons.Repositories
         /// 选择的字段，默认为所有(*) 
         /// </summary>
         protected string selectedFields = " * ";
+
         /// <summary>
         /// 数据库配置名称
         /// </summary>
         private static string dbConfigName = "DefaultDb";
-
 
         /// <summary>
         /// 排序字段

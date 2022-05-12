@@ -58,21 +58,21 @@
       <el-col :span="12" class="card-box">
         <el-card>
           <div>
-            <span>服务器信息</span>
+            <span>{{ $t('dashboard.serverInfo')}}</span>
           </div>
           <div class="el-table el-table--enable-row-hover el-table--medium">
             <table cellspacing="0" style="width: 100%;">
               <tbody>
                 <tr>
-                  <td><div class="cell">服务器名称</div></td>
+                  <td><div class="cell">{{ $t('dashboard.serverName')}}</div></td>
                   <td><div v-if="SysSetting.MachineName" class="cell">{{ SysSetting.MachineName }}</div></td>
-                  <td><div class="cell">操作系统</div></td>
+                  <td><div class="cell">{{ $t('dashboard.operatingSystem')}}</div></td>
                   <td><div v-if="SysSetting.OSDescription" class="cell">{{ SysSetting.OSDescription }}</div></td>
                 </tr>
                 <tr>
-                  <td><div class="cell">服务器IP</div></td>
+                  <td><div class="cell">{{ $t('dashboard.serverIP')}}</div></td>
                   <td><div class="cell">{{ SysSetting.IPAdress }}</div></td>
-                  <td><div class="cell">CPU数量</div></td>
+                  <td><div class="cell">{{ $t('dashboard.numberofCPUs')}}</div></td>
                   <td><div class="cell">{{ SysSetting.ProcessorCount }}</div></td>
                 </tr>
                 <tr>

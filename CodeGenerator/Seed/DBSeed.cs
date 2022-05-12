@@ -259,6 +259,7 @@ namespace CodeGenerator.Seed
                         Console.WriteLine("Table:UserLogOn already exists...");
                     }
                     #endregion
+
                     #region Menu
                     if (!await myContext.Db.Queryable<Menu>().AnyAsync())
                     {

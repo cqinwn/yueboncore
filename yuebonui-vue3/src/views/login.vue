@@ -26,7 +26,7 @@
         <el-input
           ref="username"
           v-model="loginForm.username"
-          placeholder="登录账号"
+          :placeholder="showLang.plAccount"
           name="username"
           type="text"
           tabindex="1"
@@ -41,9 +41,9 @@
         <el-input
           :key="passwordType"
           ref="password"
-          v-model="loginForm.password"
+          v-model="loginForm.inputPassword"
           :type="passwordType"
-          placeholder="密码"
+          :placeholder="showLang.plAccount"
           name="password"
           tabindex="2"
           auto-complete="on"
@@ -62,7 +62,7 @@
         <el-input
           ref="vcode"
           v-model="loginForm.vcode"
-          placeholder="验证码"
+          :placeholder="showLang.inputVcode"
           name="vcode"
           type="text"
           tabindex="3"
@@ -79,11 +79,11 @@
         :loading="loading"
         style="width: 100%; margin-bottom: 30px"
         @click.prevent="handleLogin">
-        <span v-if="!loading">登 录</span>
-        <span v-else>登 录 中...</span>
+        <span v-if="!loading">{{ $t('login.btnLoginText')}}</span>
+        <span v-else>{{ $t('login.btnLoginIngText')}}</span>
       </el-button>
       <div style="text-align:right;">
-        没有账号？<router-link class="link-type" :to="'/register'">点此注册</router-link>
+        {{ $t('login.txtReg')}}<router-link class="link-type" :to="'/register'">{{ $t('login.regLink')}}</router-link>
       </div>
       <div class="tips" />
     </el-form>
@@ -103,11 +103,15 @@ import { setToken } from '@/utils/auth'
 import { getToken, getSysSetting, getVerifyCode } from '@/api/basebasic'
 import defaultSettings from '@/settings'
 import { ref } from '@vue/reactivity';
-
+import i18n from '@/lang/index'
 const store = useStore();
 const router = useRouter();
 const { proxy } = getCurrentInstance();
-
+const showLang=ref({
+  plAccount:i18n.global.t("login.inputAccount"),
+  inputPassword:i18n.global.t("login.inputPassword"),
+  inputVcode:i18n.global.t("login.inputVcode"),
+})
 const loginForm=ref({
   username: '',
   password: '',
@@ -118,14 +122,15 @@ const loginForm=ref({
 });
 const validateUsername = (rule, value, callback) => {
   if (value.length < 1) {
-    callback(new Error('请输入登录账号！'))
+    callback(new Error(i18n.global.t("login.ruleAccount")))
+         // proxy.$modal.msgSuccess(i18n.global.t('message.successTips'))
   } else {
     callback()
   }
 }
 const validatePassword = (rule, value, callback) => {
   if (value.length < 6) {
-    callback(new Error('请输入您的账号密码,且不小于6位！'))
+    callback(new Error(i18n.global.t("login.rulePassword")))
   } else {
     callback()
   }
@@ -138,8 +143,8 @@ const loginRules={
     { required: true, trigger: 'blur', validator: validatePassword }
   ],
   vcode: [
-    { required: true, message: '请输入验证码', trigger: 'blur' },
-    { min: 4, max: 4, message: '长度4字符', trigger: 'blur' }
+    { required: true, message: i18n.global.t("login.ruleVcodeTip"), trigger: 'blur' },
+    { min: 4, max: 4, message: i18n.global.t("login.ruleVcodeLengTip"), trigger: 'blur' }
   ]
 };
 
@@ -147,7 +152,7 @@ const verifyCodeUrl = ref("");
 const loading = ref(false);
 const passwordType =ref("password");
 const redirect = ref(undefined);
-const softName= ref("管理系统");
+const softName= ref(i18n.global.t("login.systemName"));
 const companyLogo= ref('src/assets/images/login-logo.png');
 const companyName=ref("");
 const copyRight=ref("");

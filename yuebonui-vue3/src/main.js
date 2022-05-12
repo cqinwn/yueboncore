@@ -4,9 +4,9 @@ import Cookies from 'js-cookie'
 
 import ElementPlus from 'element-plus'
 import locale from 'element-plus/lib/locale/lang/zh-cn' // 中文语言
-
 import '@/assets/styles/index.scss' // global css
 
+import i18n from "./lang/index.js";//本地化语言
 import App from './App'
 import store from './store'
 import router from './router'
@@ -20,7 +20,7 @@ import SvgIcon from '@/components/SvgIcon'
 import elementIcons from '@/components/SvgIcon/svgicon'
 
 import '@/permission' // permission control
-import { resetForm,parseTime } from '@/utils/index'
+import { resetForm, parseTime } from '@/utils/index'
 
 // 分页组件
 import Pagination from '@/components/Pagination'
@@ -52,6 +52,7 @@ app.use(router)
 app.use(store)
 app.use(plugins)
 app.use(elementIcons)
+app.use(i18n)
 app.component('svg-icon', SvgIcon)
 
 directive(app)

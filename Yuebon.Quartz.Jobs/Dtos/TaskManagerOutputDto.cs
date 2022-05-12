@@ -15,7 +15,12 @@ namespace Yuebon.Quartz.Dtos
         /// 设置或获取 
         /// </summary>
         [MaxLength(50)]
-        public string Id { get; set; }
+        public long Id { get; set; }
+
+        /// <summary>
+        /// 设置或获取任务编号
+        /// </summary>
+        public string TaskCode { get; set; }
 
         /// <summary>
         /// 设置或获取任务名称

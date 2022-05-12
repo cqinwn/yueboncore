@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyModel;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -15,14 +12,11 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Yuebon.Commons.Attributes;
 using Yuebon.Commons.Core.DataManager;
-using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Enums;
-using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Models;
-using Yuebon.Commons.Options;
 using Yuebon.Commons.Pages;
 
 namespace Yuebon.Commons.DbContextCore
@@ -157,6 +151,7 @@ namespace Yuebon.Commons.DbContextCore
                     if (modelBuilder.Model.FindEntityType(entityType) != null || entityType.Name == "Entity" || entityType.Name == "BaseEntity`1")
                         continue;
                     var table = entityType.GetCustomAttributes<TableAttribute>().FirstOrDefault();
+                    if (table == null) continue;
                     modelBuilder.Model.AddEntityType(entityType).SetTableName(table.Name);
 
                     var ientityTypes = modelBuilder.Model.FindEntityType(entityType);

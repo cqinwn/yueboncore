@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <UserSecretsId>4d454771-6ff7-43f2-a2b6-7c3bada83304</UserSecretsId>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -18,18 +19,34 @@
   <ItemGroup>
     <Compile Remove="Areas\Authorizer\**" />
     <Compile Remove="Areas\CMSTest\**" />
+    <Compile Remove="Areas\CMS\Data\**" />
+    <Compile Remove="Areas\CMS\Models\**" />
+    <Compile Remove="Areas\CMS\Views\**" />
     <Content Remove="Areas\Authorizer\**" />
     <Content Remove="Areas\CMSTest\**" />
+    <Content Remove="Areas\CMS\Data\**" />
+    <Content Remove="Areas\CMS\Models\**" />
+    <Content Remove="Areas\CMS\Views\**" />
     <EmbeddedResource Remove="Areas\Authorizer\**" />
     <EmbeddedResource Remove="Areas\CMSTest\**" />
+    <EmbeddedResource Remove="Areas\CMS\Data\**" />
+    <EmbeddedResource Remove="Areas\CMS\Models\**" />
+    <EmbeddedResource Remove="Areas\CMS\Views\**" />
     <None Remove="Areas\Authorizer\**" />
     <None Remove="Areas\CMSTest\**" />
+    <None Remove="Areas\CMS\Data\**" />
+    <None Remove="Areas\CMS\Models\**" />
+    <None Remove="Areas\CMS\Views\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\CMS\Controllers\V1\ArticlenewsController.cs" />
+    <Compile Remove="Areas\CMS\Controllers\V1\Articlenews_1_0_0_Controller.cs" />
     <Compile Remove="Areas\Security\Controllers\FunctionController.cs" />
     <Compile Remove="Areas\Security\Controllers\TenantController.cs" />
+    <Compile Remove="Controllers\CodeGeneratorController.cs" />
     <Compile Remove="Controllers\InitSystem.cs" />
+    <Compile Remove="Startup.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,6 +58,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CodeGenerator\CodeGenerator.csproj" />
     <ProjectReference Include="..\Yuebon.CMS.Core\Yuebon.CMS.Core.csproj" />
     <ProjectReference Include="..\Yuebon.Messages\Yuebon.Messages.Core\Yuebon.Messages.Core.csproj" />
     <ProjectReference Include="..\Yuebon.NetCore\Yuebon.AspNetCore\Yuebon.AspNetCore.csproj" />
@@ -51,17 +69,43 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.2" />
-    <PackageReference Include="Quartz.AspNetCore" Version="3.3.3" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="6.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.3" />
+    <PackageReference Include="Quartz.AspNetCore" Version="3.4.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\CMS\Data\" />
-    <Folder Include="Areas\CMS\Models\" />
-    <Folder Include="Areas\CMS\Views\" />
+    <Folder Include="Areas\Analysis\Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\Data.Json\App.jsv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Data.Json\Items.jsv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Data.Json\ItemsDetail.jsv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Data.Json\Organize.jsv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Data.Json\Role.jsv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Data.Json\SystemType.jsv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Data.Json\User.jsv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Data.Json\UserLogOn.jsv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 

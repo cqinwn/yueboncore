@@ -1,9 +1,4 @@
-﻿using Dapper;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Text;
-using Yuebon.Commons.IDbContext;
+﻿using Yuebon.Commons.Core.UnitOfWork;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
 using Yuebon.Security.Models;
@@ -13,13 +8,9 @@ namespace Yuebon.Security.Repositories
     /// <summary>
     /// 系统类型，也是子系统
     /// </summary>
-    public class SystemTypeRepository : BaseRepository<SystemType, string>, ISystemTypeRepository
+    public class SystemTypeRepository : BaseRepository<SystemType>, ISystemTypeRepository
     {
-        public SystemTypeRepository()
-        {
-        }
-
-        public SystemTypeRepository(IDbContextCore dbContext) : base(dbContext)
+        public SystemTypeRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
 
@@ -31,7 +22,7 @@ namespace Yuebon.Security.Repositories
         public SystemType GetByCode(string appkey)
         {
             string sql = @"SELECT * FROM " + this.tableName + " t WHERE t.EnCode = @EnCode";
-            return DapperConn.QueryFirstOrDefault<SystemType>(sql, new { EnCode = appkey });
+            return Db.Ado.SqlQuerySingle<SystemType>(sql, new { EnCode = appkey });
         }
     }
 }

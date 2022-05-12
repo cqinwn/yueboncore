@@ -20,7 +20,7 @@ namespace Yuebon.Security.Services
     /// <summary>
     /// 单据编码服务接口实现
     /// </summary>
-    public class SequenceService : BaseService<Sequence, SequenceOutputDto, string>, ISequenceService
+    public class SequenceService : BaseService<Sequence, SequenceOutputDto>, ISequenceService
     {
         private readonly ISequenceRepository _repository;
         private readonly ISequenceRuleRepository _repositoryRule;
@@ -28,12 +28,13 @@ namespace Yuebon.Security.Services
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="repository"></param>
+        /// <param name="sequenceRepository"></param>
         /// <param name="repositoryRule"></param>
         /// <param name="logService"></param>
-        public SequenceService(ISequenceRepository repository, ISequenceRuleRepository repositoryRule, ILogService logService) : base(repository)
+        public SequenceService(ISequenceRepository sequenceRepository, ISequenceRuleRepository repositoryRule, ILogService logService)
         {
-            _repository = repository;
+            repository= sequenceRepository;
+            _repository = sequenceRepository;
             _logService = logService;
             _repositoryRule = repositoryRule;
         }
@@ -110,7 +111,7 @@ namespace Yuebon.Security.Services
                     //当前编号
                     sequence.CurrentCode = sequenceNewNo;
                     sequence.CurrentReset = DateTime.Now.ToString("yyyyMMdd");
-                    await _repository.UpdateAsync(sequence, sequence.Id);
+                    await _repository.UpdateAsync(sequence);
                     result.ResData = sequenceNewNo;
                     result.Success = true;
                 }
@@ -206,7 +207,7 @@ namespace Yuebon.Security.Services
                     //当前编号
                     sequence.CurrentCode = sequenceNewNo;
                     sequence.CurrentReset = DateTime.Now.ToString("yyyyMMdd");
-                   _repository.Update(sequence, sequence.Id);
+                   _repository.Update(sequence);
                     result.ResData = sequenceNewNo;
                     result.Success = true;
                 }

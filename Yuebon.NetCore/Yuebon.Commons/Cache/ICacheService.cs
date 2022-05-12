@@ -52,6 +52,16 @@ namespace Yuebon.Commons.Cache
         /// <returns></returns>
         bool Add(string key, object value, TimeSpan expiresIn, bool isSliding = false);
 
+
+        /// <summary>
+        /// 添加缓存
+        /// </summary>
+        /// <param name="key">缓存Key</param>
+        /// <param name="value">缓存Value</param>
+        /// <param name="seconds">时间分钟</param>
+        /// <returns></returns>
+        bool Add(string key, object value, int seconds = 7200);
+
         #endregion
 
         #region  删除缓存

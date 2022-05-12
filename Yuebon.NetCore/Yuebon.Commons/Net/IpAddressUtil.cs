@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
@@ -109,12 +110,12 @@ namespace Yuebon.Commons.Net
         /// </summary>
         /// <param name="strIP"></param>
         /// <returns></returns>
-        public static string GetCityByIp(string strIP)
+        public static async Task<string> GetCityByIp(string strIP)
         {
             try
             {
                 string url = "https://apis.map.qq.com/ws/location/v1/ip?ip="+ strIP+"&key=Y6VBZ-CFZ2D-Q6A4K-HOCK4-VA3MT-UCFK6";
-                string jsonText = HttpRequestHelper.HttpGet(url);
+                string jsonText =await HttpClientHelper.HttpGetAsync(url);
                 TencentIpResult ipResult = jsonText.ToObject<TencentIpResult>();
                 if (ipResult.status == 0)
                 {

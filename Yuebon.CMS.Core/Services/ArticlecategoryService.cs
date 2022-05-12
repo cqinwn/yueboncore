@@ -20,13 +20,14 @@ namespace Yuebon.CMS.Services
     /// <summary>
     /// 文章分类服务接口实现
     /// </summary>
-    public class ArticlecategoryService: BaseService<Articlecategory,ArticlecategoryOutputDto, string>, IArticlecategoryService
+    public class ArticlecategoryService: BaseService<Articlecategory,ArticlecategoryOutputDto>, IArticlecategoryService
     {
 		private readonly IArticlecategoryRepository _repository;
         private readonly IArticlenewsRepository _articleRepository;
-        public ArticlecategoryService(IArticlecategoryRepository repository, IArticlenewsRepository articleRepository) : base(repository)
+        public ArticlecategoryService(IArticlecategoryRepository arepository, IArticlenewsRepository articleRepository) 
         {
-			_repository=repository;
+			_repository= arepository;
+            repository = arepository;
             _articleRepository = articleRepository;
         }
 
@@ -78,7 +79,7 @@ namespace Yuebon.CMS.Services
             if (elist.Count() >0)
             {
                 List<Articlecategory> list = elist.ToList();
-                var ChilList = list.FindAll(t => t.ParentId == "");
+                var ChilList = list.FindAll(t => t.ParentId == null);
                 if (ChilList.Count==0)
                 {
                     Articlecategory articlecategoryOutputDto = elist.FirstOrDefault<Articlecategory>();
@@ -86,7 +87,7 @@ namespace Yuebon.CMS.Services
                 }
                 else
                 {
-                    reslist = GetSubArticlecategorys(list, "").ToList<ArticlecategoryOutputDto>();
+                    reslist = GetSubArticlecategorys(list,0).ToList<ArticlecategoryOutputDto>();
                 }
             }
             return reslist;
@@ -99,7 +100,7 @@ namespace Yuebon.CMS.Services
         /// <param name="data"></param>
         /// <param name="parentId">父级Id</param>
         /// <returns></returns>
-        private List<ArticlecategoryOutputDto> GetSubArticlecategorys(List<Articlecategory> data, string parentId)
+        private List<ArticlecategoryOutputDto> GetSubArticlecategorys(List<Articlecategory> data, long? parentId)
         {
             List<ArticlecategoryOutputDto> list = new List<ArticlecategoryOutputDto>();
             ArticlecategoryOutputDto articlecategoryOutputDto = new ArticlecategoryOutputDto();

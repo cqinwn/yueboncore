@@ -10,7 +10,6 @@ using System.Text;
 using Yuebon.Commons.Core.App;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
-using Yuebon.Commons.IoC;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Options;
@@ -33,7 +32,7 @@ namespace Yuebon.Security.Application
         private string _dbThumbnail;   //数据库中的缩略图路径
         private string _belongApp;//所属应用
         private string _belongAppId;//所属应用ID
-        IUploadFileService service = App.GetService<IUploadFileService>();
+        IUploadFileService service = Appsettings.GetService<IUploadFileService>();
         /// <summary>
         /// 
         /// </summary>
@@ -80,7 +79,7 @@ namespace Yuebon.Security.Application
         /// </summary>
         /// <param name="id">主键</param>
         /// <returns></returns>
-        public UploadFile Get(string id)
+        public UploadFile Get(long id)
         {
             return service.Get(id);
         }
@@ -92,10 +91,10 @@ namespace Yuebon.Security.Application
         /// <param name="fieldToSort">排序字段</param>
         /// <param name="desc">是否降序</param>
         /// <returns>指定对象的集合</returns>
-        public List<UploadFileOutputDto> FindWithPager(string condition, PagerInfo info, string fieldToSort, bool desc)
-        {
-            return service.FindWithPager(condition,info,fieldToSort, desc,null).MapTo<UploadFileOutputDto>();
-        }
+        //public List<UploadFileOutputDto> FindWithPager(string condition, PagerInfo info, string fieldToSort, bool desc)
+        //{
+        //    return service.FindWithPager(condition,info,fieldToSort, desc,null).MapTo<UploadFileOutputDto>();
+        //}
         /// <summary>
         /// 批量上传文件
         /// </summary>

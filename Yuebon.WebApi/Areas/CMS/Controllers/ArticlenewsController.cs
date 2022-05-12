@@ -1,19 +1,17 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Yuebon.AspNetCore.Controllers;
 using Yuebon.AspNetCore.Models;
-using Yuebon.Commons.Helpers;
-using Yuebon.Commons.Log;
-using Yuebon.Commons.Mapping;
-using Yuebon.Commons.Models;
-using Yuebon.Commons.Pages;
-using Yuebon.CMS.Dtos;
-using Yuebon.CMS.Models;
-using Yuebon.CMS.IServices;
 using Yuebon.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
+using Yuebon.CMS.Dtos;
+using Yuebon.CMS.IServices;
+using Yuebon.CMS.Models;
+using Yuebon.Commons.Attributes;
+using Yuebon.Commons.Helpers;
+using Yuebon.Commons.Models;
 
 namespace Yuebon.WebApi.Areas.CMS.Controllers
 {
@@ -22,7 +20,7 @@ namespace Yuebon.WebApi.Areas.CMS.Controllers
     /// </summary>
     [ApiController]
     [Route("api/CMS/[controller]")]
-    public class ArticlenewsController : AreaApiController<Articlenews, ArticlenewsOutputDto,ArticlenewsInputDto,IArticlenewsService,string>
+    public class ArticlenewsController : AreaApiController<Articlenews, ArticlenewsOutputDto,ArticlenewsInputDto,IArticlenewsService>
     {
         private IArticlecategoryService articlecategoryService;
         /// <summary>
@@ -41,7 +39,7 @@ namespace Yuebon.WebApi.Areas.CMS.Controllers
         /// <param name="info"></param>
         protected override void OnBeforeInsert(Articlenews info)
         {
-            info.Id = GuidUtils.CreateNo();
+            info.Id = IdGeneratorHelper.IdSnowflake();
             info.CategoryName = articlecategoryService.Get(info.CategoryId).Title;
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = CurrentUser.UserId;
@@ -104,7 +102,7 @@ namespace Yuebon.WebApi.Areas.CMS.Controllers
             info.IsTop = tinfo.IsTop;
 
             OnBeforeUpdate(info);
-            bool bl = await iService.UpdateAsync(info, tinfo.Id).ConfigureAwait(false);
+            bool bl = await iService.UpdateAsync(info);
             if (bl)
             {
                 result.ErrCode = ErrCode.successCode;
@@ -124,7 +122,7 @@ namespace Yuebon.WebApi.Areas.CMS.Controllers
         /// </summary>
         [HttpGet("GetCategoryArticle")]
         [AllowAnonymous]
-        public async Task<IActionResult> GetCategoryArticle()
+        public virtual async Task<IActionResult> GetCategoryArticle()
         {
             CommonResult result = new CommonResult();
             result.ResData = await iService.GetCategoryArticleList();

@@ -1,18 +1,14 @@
 using System.Threading.Tasks;
-using Yuebon.Commons.IDbContext;
+using Yuebon.Commons.Core.UnitOfWork;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
 using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Repositories
 {
-    public class ItemsRepository : BaseRepository<Items, string>, IItemsRepository
+    public class ItemsRepository : BaseRepository<Items>, IItemsRepository
     {
-        public ItemsRepository()
-        {
-        }
-
-        public ItemsRepository(IDbContextCore dbContext) : base(dbContext)
+        public ItemsRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
 
@@ -23,7 +19,7 @@ namespace Yuebon.Security.Repositories
         /// <returns></returns>
         public async Task<Items> GetByEnCodAsynce(string enCode)
         {
-            return await DbContext.GetSingleOrDefaultAsync<Items>(u => u.EnCode == enCode);
+            return await Db.Queryable<Items>().FirstAsync(u => u.EnCode == enCode);
         }
 
 
@@ -33,9 +29,9 @@ namespace Yuebon.Security.Repositories
         /// <param name="enCode">·ÖÀà±àÂë</param
         /// <param name="id">Ö÷¼üId</param>
         /// <returns></returns>
-        public async Task<Items> GetByEnCodAsynce(string enCode,string id)
+        public async Task<Items> GetByEnCodAsynce(string enCode,long id)
         {
-            return await DbContext.GetSingleOrDefaultAsync<Items>(u => u.EnCode == enCode&&u.Id!=id);
+            return await Db.Queryable<Items>().FirstAsync(u => u.EnCode == enCode&&u.Id!=id);
         }
     }
 }

@@ -11,7 +11,6 @@ using System.Reflection;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Text.Unicode;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Models;
@@ -19,14 +18,13 @@ using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Extensions;
+using Yuebon.Commons.Filters;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Models;
 using Yuebon.Commons.Pages;
 using Yuebon.Security.Dtos;
-using Yuebon.Security.IRepositories;
-using Yuebon.Security.Repositories;
 
 namespace Yuebon.AspNetCore.Controllers
 {
@@ -41,7 +39,6 @@ namespace Yuebon.AspNetCore.Controllers
         /// 当前登录的用户属性
         /// </summary>
         public YuebonCurrentUser CurrentUser;
-        private ILogRepository service = new LogRepository();
 
         #region 
         /// <summary>
@@ -54,6 +51,12 @@ namespace Yuebon.AspNetCore.Controllers
             try
             {
                 var controllerActionDescriptor = context.ActionDescriptor as ControllerActionDescriptor;
+                //var controlName = controllerActionDescriptor.ControllerName;
+                //string apiversion = context.HttpContext.Request.Headers["api-version"];//Header中的version
+                //if (!string.IsNullOrEmpty(apiversion))
+                //{
+                //    controllerActionDescriptor.ControllerName = controlName + apiversion.Replace(".", "_");
+                //}
                 //匿名访问，不需要token认证、签名和登录
                 var allowanyone = controllerActionDescriptor.MethodInfo.GetCustomAttribute(typeof(AllowAnonymousAttribute), true);
                 if (allowanyone != null) return;
@@ -88,7 +91,7 @@ namespace Yuebon.AspNetCore.Controllers
                         if (isSign == null && boolSign)
                         {
                             CommonResult resultSign = SignHelper.CheckSign(context.HttpContext);
-                            if (!resultSign.Success)
+                             if (!resultSign.Success)
                             {
                                 context.Result = ToJsonContent(resultSign);
                                 return;
@@ -121,9 +124,10 @@ namespace Yuebon.AspNetCore.Controllers
                             {
                                 CurrentUser = user;
                             }
+                            
                             bool isAdmin = Permission.IsAdmin(user);
                             if (!isAdmin)
-                            {
+                            {                                
                                 var authorizeAttributes = controllerActionDescriptor.MethodInfo.GetCustomAttributes(typeof(YuebonAuthorizeAttribute), true).OfType<YuebonAuthorizeAttribute>();
                                 if (authorizeAttributes.FirstOrDefault() != null)
                                 {
@@ -190,12 +194,13 @@ namespace Yuebon.AspNetCore.Controllers
             {
                 WriteIndented = true,                                   //格式化json字符串
                 AllowTrailingCommas = true,                             //可以结尾有逗号
-                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,//忽略 null 值 net6.0中IgnoreNullValues 已过时
+                //DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,//忽略 null 值 net6.0中IgnoreNullValues 已过时
                 IgnoreReadOnlyProperties = true,                        //忽略只读属性
                 PropertyNameCaseInsensitive = true,                     //忽略大小写
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
             };
             options.Converters.Add(new DateTimeJsonConverter());
+            options.Converters.Add(new LongJsonConverter());
             return Content(JsonSerializer.Serialize(obj, options));
         }
 
@@ -231,7 +236,7 @@ namespace Yuebon.AspNetCore.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetToken")]
-        [HiddenApi]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public string GetToken()
         {
             string token = HttpContext.Request.Query["Token"];

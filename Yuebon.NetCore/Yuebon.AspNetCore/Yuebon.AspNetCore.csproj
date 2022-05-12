@@ -52,8 +52,12 @@
 
   <ItemGroup>
     <Compile Remove="Common\AuthorizeKey.cs" />
+    <Compile Remove="Common\NameSpaceVersionRoutingConvention.cs" />
+    <Compile Remove="Common\VersionControllerSelector.cs" />
     <Compile Remove="Mvc\AuthorizeMiddleware.cs" />
+    <Compile Remove="Mvc\Filter\AddRequiredHeaderParameter.cs" />
     <Compile Remove="Mvc\Filter\AdminAuthorizationActionFilter.cs" />
+    <Compile Remove="Mvc\Filter\HiddenApiAttribute.cs" />
     <Compile Remove="Mvc\Filter\NoA.cs" />
     <Compile Remove="Mvc\Filter\PermissionRequiredFilter.cs" />
     <Compile Remove="Mvc\Filter\YuebonAuthorizationFilter.cs" />
@@ -61,13 +65,15 @@
 
   <ItemGroup>
     <PackageReference Include="IdentityModel" Version="6.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="6.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="6.0.2" />
-    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.15.1" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.15.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="6.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="6.0.4" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.17.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.3.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.17.0" />
   </ItemGroup>
 
   <ItemGroup>

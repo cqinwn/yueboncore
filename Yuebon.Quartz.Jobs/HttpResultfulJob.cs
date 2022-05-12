@@ -24,7 +24,7 @@ namespace Yuebon.Quartz.Jobs
     /// </summary>
     public class HttpResultfulJob : IJob
     {
-        ITaskManagerService iService = App.GetService<ITaskManagerService>();
+        ITaskManagerService iService = Appsettings.GetService<ITaskManagerService>();
 
         /// <summary>
         /// 执行远程接口url的定时任务
@@ -61,11 +61,11 @@ namespace Yuebon.Quartz.Jobs
                 Dictionary<string, string> header = new Dictionary<string, string>();
                 if (!string.IsNullOrEmpty(taskManager.JobCallParams))
                 {
-                    httpMessage = HttpRequestHelper.HttpPost(taskManager.JobCallAddress, taskManager.JobCallParams, null, header);
+                    httpMessage = HttpClientHelper.Post(taskManager.JobCallParams, taskManager.JobCallAddress, header);
                 }
                 else
                 {
-                    httpMessage = HttpRequestHelper.HttpGet(taskManager.JobCallAddress);
+                    httpMessage = HttpClientHelper.HttpGet(taskManager.JobCallAddress);
                 }
                 stopwatch.Stop();
                 string content = $"结束时间:{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss ffff")} 共耗时{stopwatch.ElapsedMilliseconds} 毫秒,消息:{httpMessage??"OK"}\r\n";

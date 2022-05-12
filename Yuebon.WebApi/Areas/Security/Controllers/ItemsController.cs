@@ -24,7 +24,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
     /// </summary>
     [ApiController]
     [Route("api/Security/[controller]")]
-    public class ItemsController : AreaApiController<Items, ItemsOutputDto, ItemsInputDto, IItemsService,string>
+    public class ItemsController : AreaApiController<Items, ItemsOutputDto, ItemsInputDto, IItemsService>
     {
 
         private readonly IItemsDetailService itemsDetailService;
@@ -44,7 +44,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <param name="info"></param>
         protected override void OnBeforeInsert(Items info)
         {            
-            info.Id = GuidUtils.CreateNo();
+            info.Id = IdGeneratorHelper.IdSnowflake();
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = CurrentUser.UserId;
             info.DeleteMark = false;
@@ -97,7 +97,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             }
             Items info = tinfo.MapTo<Items>();
             OnBeforeInsert(info);
-            long ln = await iService.InsertAsync(info).ConfigureAwait(false);
+            long ln = await iService.InsertAsync(info);
             if (ln > 0)
             {
                 result.ErrCode = ErrCode.successCode;
@@ -128,7 +128,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 TreeSelectModel treeModel = new TreeSelectModel();
                 treeModel.id = item.ItemCode;
                 treeModel.text = item.ItemName;
-                treeModel.parentId = item.ParentId;
+                treeModel.parentId = item.ParentId.ToString();
                 treeList.Add(treeModel);
             }
             result.ErrCode = ErrCode.err0;
@@ -180,7 +180,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
 
 
             OnBeforeUpdate(info);
-            bool bl = await iService.UpdateAsync(info, tinfo.Id).ConfigureAwait(false);
+            bool bl = await iService.UpdateAsync(info);
             if (bl)
             {
                 result.ErrCode = ErrCode.successCode;

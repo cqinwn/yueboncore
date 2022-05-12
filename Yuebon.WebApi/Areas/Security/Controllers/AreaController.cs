@@ -12,6 +12,7 @@ using Yuebon.Commons.Pages;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.Models;
 using Yuebon.Security.IServices;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Yuebon.WebApi.Areas.Security.Controllers
 {
@@ -19,8 +20,9 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
     /// 地区接口
     /// </summary>
     [ApiController]
+    [SwaggerTag("Area")]
     [Route("api/Security/[controller]")]
-    public class AreaController : AreaApiController<Area, AreaOutputDto, AreaInputDto, IAreaService, string>
+    public class AreaController : AreaApiController<Area, AreaOutputDto, AreaInputDto, IAreaService>
     {
         /// <summary>
         /// 构造函数
@@ -36,7 +38,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <param name="info"></param>
         protected override void OnBeforeInsert(Area info)
         {
-            info.Id = GuidUtils.CreateNo();
+            info.Id = IdGeneratorHelper.IdSnowflake();
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = CurrentUser.UserId;
             info.DeleteMark = false;

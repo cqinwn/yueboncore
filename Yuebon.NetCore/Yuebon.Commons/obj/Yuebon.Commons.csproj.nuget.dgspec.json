@@ -10,7 +10,7 @@
         "projectUniqueName": "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj",
         "projectName": "Yuebon.Commons",
         "projectPath": "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.Commons\\Yuebon.Commons.csproj",
-        "packagesPath": "C:\\Users\\yuebon\\.nuget\\packages\\",
+        "packagesPath": "D:\\nuget\\packages",
         "outputPath": "D:\\NetSource\\YuebonNetCore\\Yuebon.NetCore\\Yuebon.Commons\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
@@ -48,14 +48,6 @@
               "target": "Package",
               "version": "[11.0.0, )"
             },
-            "CSRedisCore": {
-              "target": "Package",
-              "version": "[3.6.8, )"
-            },
-            "Dapper.StrongName": {
-              "target": "Package",
-              "version": "[2.0.123, )"
-            },
             "DotNetCore.NPOI": {
               "target": "Package",
               "version": "[1.2.3, )"
@@ -64,29 +56,17 @@
               "target": "Package",
               "version": "[1.11.42, )"
             },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[6.0.4, )"
+            },
             "Microsoft.AspNetCore.Mvc": {
               "target": "Package",
               "version": "[2.2.0, )"
             },
-            "Microsoft.Data.Sqlite": {
+            "Microsoft.Data.Sqlite.Core": {
               "target": "Package",
-              "version": "[6.0.2, )"
-            },
-            "Microsoft.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[6.0.2, )"
-            },
-            "Microsoft.EntityFrameworkCore.Relational": {
-              "target": "Package",
-              "version": "[6.0.2, )"
-            },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
-              "target": "Package",
-              "version": "[6.0.2, )"
-            },
-            "Microsoft.EntityFrameworkCore.Sqlite": {
-              "target": "Package",
-              "version": "[6.0.2, )"
+              "version": "[6.0.4, )"
             },
             "Microsoft.Extensions.Caching.Memory": {
               "target": "Package",
@@ -94,11 +74,11 @@
             },
             "Microsoft.Extensions.Caching.StackExchangeRedis": {
               "target": "Package",
-              "version": "[6.0.2, )"
+              "version": "[6.0.4, )"
             },
             "Microsoft.Extensions.Configuration": {
               "target": "Package",
-              "version": "[6.0.0, )"
+              "version": "[6.0.1, )"
             },
             "Microsoft.Extensions.DependencyInjection": {
               "target": "Package",
@@ -120,37 +100,13 @@
               "target": "Package",
               "version": "[4.2.22, )"
             },
-            "MiniProfiler.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[4.2.22, )"
-            },
             "MySql.Data": {
               "target": "Package",
-              "version": "[8.0.28, )"
+              "version": "[8.0.29, )"
             },
             "NPinyin.Core": {
               "target": "Package",
               "version": "[3.0.0, )"
-            },
-            "Npgsql": {
-              "target": "Package",
-              "version": "[6.0.3, )"
-            },
-            "Npgsql.EntityFrameworkCore.PostgreSQL": {
-              "target": "Package",
-              "version": "[6.0.3, )"
-            },
-            "Oracle.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[6.21.5, )"
-            },
-            "Oracle.ManagedDataAccess.Core": {
-              "target": "Package",
-              "version": "[3.21.50, )"
-            },
-            "Pomelo.EntityFrameworkCore.MySql": {
-              "target": "Package",
-              "version": "[6.0.1, )"
             },
             "QRCoder": {
               "target": "Package",
@@ -158,11 +114,23 @@
             },
             "Quartz": {
               "target": "Package",
-              "version": "[3.3.3, )"
+              "version": "[3.4.0, )"
             },
             "SgmlReader.NetCore": {
               "target": "Package",
               "version": "[1.0.0, )"
+            },
+            "SqlSugarCore": {
+              "target": "Package",
+              "version": "[5.0.7.7, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.3.1, )"
+            },
+            "Swashbuckle.AspNetCore.Filters": {
+              "target": "Package",
+              "version": "[7.0.2, )"
             },
             "System.Data.OleDb": {
               "target": "Package",
@@ -204,7 +172,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

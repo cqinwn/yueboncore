@@ -14,17 +14,17 @@ namespace Yuebon.Quartz.Dtos
     /// </summary>
     [AutoMap(typeof(TaskJobsLog))]
     [Serializable]
-    public class TaskJobsLogInputDto: IInputDto<string>
+    public class TaskJobsLogInputDto: IInputDto
     {
         /// <summary>
         /// 设置或获取 
         /// </summary>
-        public string Id { get; set; }
+        public long Id { get; set; }
 
         /// <summary>
         /// 设置或获取任务Id
         /// </summary>
-        public string TaskId { get; set; }
+        public long TaskId { get; set; }
 
         /// <summary>
         /// 设置或获取任务名称

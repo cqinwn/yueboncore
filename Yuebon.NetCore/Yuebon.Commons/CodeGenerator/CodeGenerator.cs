@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using Yuebon.Commons.IoC;
-using Yuebon.Commons.Models;
 using Yuebon.Commons.Options;
 
 namespace Yuebon.Commons.CodeGenerator

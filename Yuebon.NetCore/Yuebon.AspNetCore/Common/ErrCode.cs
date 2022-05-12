@@ -104,6 +104,10 @@ namespace Yuebon.AspNetCore.Models
         /// 会员注册失败
         /// </summary>
         public static string err50003 = "会员注册失败";
+        /// <summary>
+        /// 请求超时
+        /// </summary>
+        public static string err50004 = "请求超时";
 
         /// <summary>
         /// 查询数据不存在

@@ -19,7 +19,7 @@ namespace Yuebon.Security.Services
     /// <summary>
     /// 组织机构
     /// </summary>
-    public class OrganizeService: BaseService<Organize, OrganizeOutputDto, string>, IOrganizeService
+    public class OrganizeService: BaseService<Organize, OrganizeOutputDto>, IOrganizeService
     {
         private readonly IOrganizeRepository _repository;
         private readonly ILogService _logService;
@@ -29,9 +29,10 @@ namespace Yuebon.Security.Services
         /// </summary>
         /// <param name="repository"></param>
         /// <param name="logService"></param>
-        public OrganizeService(IOrganizeRepository repository, ILogService logService, IUserRepository userRepository) : base(repository)
+        public OrganizeService(IOrganizeRepository organizeRepository, ILogService logService, IUserRepository userRepository)
         {
-            _repository = repository;
+            repository = organizeRepository;
+            _repository = organizeRepository;
             _logService = logService;
             _userRepository = userRepository;
         }
@@ -46,7 +47,7 @@ namespace Yuebon.Security.Services
             List<OrganizeOutputDto> reslist = new List<OrganizeOutputDto>();
             IEnumerable<Organize> elist = await _repository.GetAllAsync();
             List<Organize> list = elist.OrderBy(t => t.SortCode).ToList();
-            List<Organize> oneMenuList = list.FindAll(t => t.ParentId == "");
+            List<Organize> oneMenuList = list.FindAll(t => t.ParentId == 0);
             foreach (Organize item in oneMenuList)
             {
                 OrganizeOutputDto menuTreeTableOutputDto = new OrganizeOutputDto();
@@ -65,7 +66,7 @@ namespace Yuebon.Security.Services
         /// <param name="data"></param>
         /// <param name="parentId">父级Id</param>
         /// <returns></returns>
-        private List<OrganizeOutputDto> GetSubOrganizes(List<Organize> data, string parentId)
+        private List<OrganizeOutputDto> GetSubOrganizes(List<Organize> data, long parentId)
         {
             List<OrganizeOutputDto> list = new List<OrganizeOutputDto>();
             OrganizeOutputDto OrganizeOutputDto = new OrganizeOutputDto();
@@ -84,7 +85,7 @@ namespace Yuebon.Security.Services
         /// </summary>
         /// <param name="id">组织Id</param>
         /// <returns></returns>
-        public Organize GetRootOrganize(string id)
+        public Organize GetRootOrganize(long? id)
         {
            return _repository.GetRootOrganize(id);
         }
@@ -94,9 +95,8 @@ namespace Yuebon.Security.Services
         /// 按条件批量删除
         /// </summary>
         /// <param name="idsInfo">主键Id集合</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public CommonResult DeleteBatchWhere(DeletesInputDto idsInfo, IDbTransaction trans = null)
+        public CommonResult DeleteBatchWhere(DeletesInputDto idsInfo)
         {
             CommonResult result = new CommonResult();
             string where = string.Empty;
@@ -130,9 +130,8 @@ namespace Yuebon.Security.Services
         /// 按条件批量删除
         /// </summary>
         /// <param name="idsInfo">主键Id集合</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public async Task<CommonResult> DeleteBatchWhereAsync(DeletesInputDto idsInfo, IDbTransaction trans = null)
+        public async Task<CommonResult> DeleteBatchWhereAsync(DeletesInputDto idsInfo)
         {
             CommonResult result = new CommonResult();
             string where = string.Empty;

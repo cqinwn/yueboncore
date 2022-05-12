@@ -1,8 +1,8 @@
-﻿using System;
+﻿using SqlSugar;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 
 namespace Yuebon.Commons.Models
@@ -10,10 +10,9 @@ namespace Yuebon.Commons.Models
     /// <summary>
     /// 定义领域对象框架实体类的基类，系统默认主键为Id
     /// </summary>
-    /// <typeparam name="TKey">实体主键类型</typeparam>
 
     [Serializable]
-    public abstract class BaseEntity<TKey> :Entity,IBaseEntity<TKey>
+    public abstract class BaseEntity:Entity,IBaseEntity
     {
         /// <summary>
         /// 
@@ -28,7 +27,8 @@ namespace Yuebon.Commons.Models
         [DisplayName("编号")]
         [Key]
         [Column("Id")]
-        public virtual TKey Id { get; set; }
+        [SugarColumn(IsPrimaryKey = true,ColumnDescription = "编号,主键")]
+        public virtual long Id { get; set; }
 
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Yuebon.Commons.Models
         /// <returns></returns>
         public override bool KeyIsNull()
         {
-            if (Id == null)
+            if (Id >0)
             {
                 return true;
             }
@@ -52,7 +52,7 @@ namespace Yuebon.Commons.Models
         /// </summary>
         public override void GenerateDefaultKeyVal()
         {
-           Id = GuidUtils.CreateNo().CastTo<TKey>();
+            Id = IdGeneratorHelper.IdSnowflake();
         }
     }
 }

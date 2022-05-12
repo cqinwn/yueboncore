@@ -19,7 +19,9 @@ namespace Yitter.IdGenerator
     public class YitIdHelper
     {
         private static IIdGenerator _IdGenInstance = null;
-
+        /// <summary>
+        /// 
+        /// </summary>
         public static IIdGenerator IdGenInstance => _IdGenInstance;
 
         /// <summary>

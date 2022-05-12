@@ -21,7 +21,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
     /// </summary>
     [ApiController]
     [Route("api/Security/[controller]")]
-    public class RoleAuthorizeController : AreaApiController<RoleAuthorize, RoleAuthorizeOutputDto, RoleAuthorizeInputDto, IRoleAuthorizeService,string>
+    public class RoleAuthorizeController : AreaApiController<RoleAuthorize, RoleAuthorizeOutputDto, RoleAuthorizeInputDto, IRoleAuthorizeService>
     {
         private readonly IMenuService menuService;
         private readonly IRoleDataService roleDataService;
@@ -46,7 +46,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <param name="info"></param>
         protected override void OnBeforeInsert(RoleAuthorize info)
         {
-            info.Id = GuidUtils.CreateNo();
+            info.Id = IdGeneratorHelper.IdSnowflake();
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = CurrentUser.UserId;
             if (info.SortCode == null)
@@ -85,7 +85,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         {
             CommonResult result = new CommonResult();
             roleId = "'" + roleId + "'";
-            List<string> resultlist = new List<string>();
+            List<long> resultlist = new List<long>();
             IEnumerable<RoleAuthorize> list= iService.GetListRoleAuthorizeByRoleId(roleId, itemType);
             foreach(RoleAuthorize info in list)
             {
@@ -110,7 +110,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             try
             {                
                 List<RoleAuthorize> inList = new List<RoleAuthorize>();
-                foreach (string item in roleinfo.RoleFunctios)
+                foreach (long item in roleinfo.RoleFunctios)
                 {
                     Menu menu = menuService.Get(item);
                     if (menu != null)
@@ -126,7 +126,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 }
 
                 List<RoleData> roleDataList = new List<RoleData>();
-                foreach (string item in roleinfo.RoleData)
+                foreach (long item in roleinfo.RoleData)
                 {
                     RoleData info = new RoleData();
                     info.RoleId = roleinfo.RoleId;
@@ -134,7 +134,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                     info.DType = "dept";
                     roleDataList.Add(info);
                 }
-                foreach (string item in roleinfo.RoleSystem)
+                foreach (long item in roleinfo.RoleSystem)
                 {
                     RoleAuthorize info = new RoleAuthorize();
                     info.ObjectId = roleinfo.RoleId;
@@ -157,7 +157,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             return ToJsonContent(result);
         }
 
-        private List<RoleAuthorize> SubFunction(List<ModuleFunctionOutputDto> list, string roleId)
+        private List<RoleAuthorize> SubFunction(List<ModuleFunctionOutputDto> list, long roleId)
         {
             List<RoleAuthorize> inList = new List<RoleAuthorize>();
             foreach (ModuleFunctionOutputDto item in list)
@@ -166,7 +166,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 info.ObjectId = roleId;
                 info.ItemType = 1;
                 info.ObjectType = 1;
-                info.ItemId = item.Id.ToString();
+                info.ItemId = item.Id;
                 OnBeforeInsert(info);
                 inList.Add(info);
                 inList.Concat(SubFunction(item.Children, roleId));
@@ -203,25 +203,25 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// </summary>
         /// <param name="systemTypeId">子系统Id</param>
         /// <returns></returns>
-        //[HttpGet("GetAllFunctionTreeTable")]
-        //[YuebonAuthorize("List")]
-        //public async Task<IActionResult> GetAllFunctionTreeTable(string systemTypeId)
-        //{
-        //    CommonResult result = new CommonResult();
-        //    try
-        //    {
-        //        List<FunctionTreeTableOutputDto> list = await menuService.GetAllFunctionTreeTable(systemTypeId);
-        //        result.Success = true;
-        //        result.ErrCode = ErrCode.successCode;
-        //        result.ResData = list;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Log4NetHelper.Error("获取菜单异常", ex);
-        //        result.ErrMsg = ErrCode.err40110;
-        //        result.ErrCode = "40110";
-        //    }
-        //    return ToJsonContent(result);
-        //}
+        [HttpGet("GetAllFunctionTreeTable")]
+        [YuebonAuthorize("List")]
+        public async Task<IActionResult> GetAllFunctionTreeTable(long systemTypeId)
+        {
+            CommonResult result = new CommonResult();
+            //try
+            //{
+            //    List<FunctionTreeTableOutputDto> list = await menuService.GetAllFunctionTreeTable(systemTypeId);
+            //    result.Success = true;
+            //    result.ErrCode = ErrCode.successCode;
+            //    result.ResData = list;
+            //}
+            //catch (Exception ex)
+            //{
+            //    Log4NetHelper.Error("获取菜单异常", ex);
+            //    result.ErrMsg = ErrCode.err40110;
+            //    result.ErrCode = "40110";
+            //}
+            return ToJsonContent(result);
+        }
     }
 }

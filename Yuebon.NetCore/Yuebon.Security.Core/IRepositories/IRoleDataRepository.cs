@@ -5,7 +5,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.IRepositories
 {
-    public interface IRoleDataRepository:IRepository<RoleData, string>
+    public interface IRoleDataRepository:IRepository<RoleData>
     {
         /// <summary>
         /// 根据角色返回授权访问部门数据

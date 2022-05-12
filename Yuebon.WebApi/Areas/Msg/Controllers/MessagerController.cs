@@ -31,7 +31,7 @@ namespace Yuebon.WebApi.Areas.Msg
         [HttpGet("MakePhoneCallNotice")]
         [YuebonAuthorize("")]
         [NoPermissionRequired]
-        public IActionResult SendMakePhoneCallNotice(string userId, string tell, string tell2)
+        public IActionResult SendMakePhoneCallNotice(long userId, string tell, string tell2)
         {
             CommonResult result = new CommonResult();
             try

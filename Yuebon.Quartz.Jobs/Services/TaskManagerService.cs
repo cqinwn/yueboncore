@@ -21,7 +21,7 @@ namespace Yuebon.Quartz.Services
     /// <summary>
     /// 定时任务服务接口实现
     /// </summary>
-    public class TaskManagerService: BaseService<TaskManager,TaskManagerOutputDto, string>, ITaskManagerService, IScopedDependency
+    public class TaskManagerService: BaseService<TaskManager,TaskManagerOutputDto>, ITaskManagerService, IScopedDependency
     {
 		private readonly ITaskManagerRepository _repository;
         private readonly ILogService _logService;
@@ -36,9 +36,10 @@ namespace Yuebon.Quartz.Services
         /// <param name="repository"></param>
         /// <param name="logService"></param>
         /// <param name="taskJobsLogService"></param>
-        public TaskManagerService(ITaskManagerRepository repository,ILogService logService, ITaskJobsLogService taskJobsLogService, ISchedulerFactory _schedulerFactory) : base(repository)
+        public TaskManagerService(ITaskManagerRepository taskManagerRepository,ILogService logService, ITaskJobsLogService taskJobsLogService, ISchedulerFactory _schedulerFactory)
         {
-			_repository=repository;
+            repository= taskManagerRepository;
+			_repository= taskManagerRepository;
 			_logService=logService;
             _taskJobsLogService = taskJobsLogService;
             schedulerFactory = _schedulerFactory;
@@ -51,15 +52,15 @@ namespace Yuebon.Quartz.Services
         /// <param name="jobAction">任务执行动作</param>
         /// <param name="blresultTag">任务执行结果表示，true成功，false失败，初始执行为true</param>
         /// <param name="msg">任务记录描述</param>
-        public void RecordRun(string jobId,JobAction jobAction, bool blresultTag = true,string msg="")
+        public void RecordRun(long jobId,JobAction jobAction, bool blresultTag = true,string msg="")
         {
             DateTime addTime = DateTime.Now;
-            TaskManager job =  _repository.GetSingle(jobId);
+            TaskManager job =  _repository.Db.Queryable<TaskManager>().First(t=>t.Id== jobId);
             if (job == null)
             {
                 _taskJobsLogService.Insert(new TaskJobsLog
                 {
-                    Id = GuidUtils.CreateNo(),
+                    Id = IdGeneratorHelper.IdSnowflake(),
                     CreatorTime = DateTime.Now,
                     TaskId = jobId,
                     TaskName = "",
@@ -89,11 +90,11 @@ namespace Yuebon.Quartz.Services
                 CronExpression cronExpression = new CronExpression(job.Cron);
                 job.NextRunTime = cronExpression.GetNextValidTimeAfter(addTime).ToDateTime();
             }
-            _repository.Update(job,jobId);
+            _repository.Update(job);
 
             _taskJobsLogService.Insert(new TaskJobsLog
             {
-                Id = GuidUtils.CreateNo(),
+                Id = IdGeneratorHelper.IdSnowflake(),
                 CreatorTime = DateTime.Now,
                 TaskId = job.Id,
                 TaskName = job.TaskName,

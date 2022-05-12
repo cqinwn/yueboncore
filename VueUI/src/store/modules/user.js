@@ -50,6 +50,7 @@ const mutations = {
 }
 
 const actions = {
+  // 登录
   userlogin({ commit }, loginInfo) {
     const { username, password, vcode, verifyCodeKey } = loginInfo
     return new Promise((resolve, reject) => {
@@ -63,6 +64,7 @@ const actions = {
       })
     })
   },
+  // 用户信息
   getUserInfo({ commit }) {
     return new Promise((resolve, reject) => {
       getUserInfo().then(response => {

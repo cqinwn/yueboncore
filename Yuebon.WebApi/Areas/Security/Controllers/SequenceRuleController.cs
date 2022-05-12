@@ -18,7 +18,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
     /// </summary>
     [ApiController]
     [Route("api/Security/[controller]")]
-    public class SequenceRuleController : AreaApiController<SequenceRule, SequenceRuleOutputDto, SequenceRuleInputDto, ISequenceRuleService,string>
+    public class SequenceRuleController : AreaApiController<SequenceRule, SequenceRuleOutputDto, SequenceRuleInputDto, ISequenceRuleService>
     {
         /// <summary>
         /// 构造函数
@@ -34,7 +34,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
         /// <param name="info"></param>
         protected override void OnBeforeInsert(SequenceRule info)
         {
-            info.Id = GuidUtils.CreateNo();
+            info.Id = IdGeneratorHelper.IdSnowflake();
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = CurrentUser.UserId;
             info.CompanyId = CurrentUser.OrganizeId;
@@ -83,7 +83,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
                 return ToJsonContent(result);
             }
 
-            if (string.IsNullOrEmpty(info.Id))
+            if (info.Id==0)
             {
                 string where = string.Format("RuleType='{0}' and SequenceName='{1}'", info.RuleType, info.SequenceName);
                 SequenceRule goodsIsExist = iService.GetWhere(where);
@@ -125,7 +125,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
                 sequenceRule.EnabledMark = info.EnabledMark;
                 sequenceRule.Description = info.Description;
                 OnBeforeUpdate(sequenceRule);
-                result.Success = await iService.UpdateAsync(sequenceRule, info.Id).ConfigureAwait(true);
+                result.Success = await iService.UpdateAsync(sequenceRule);
             }
             if (result.Success)
             {

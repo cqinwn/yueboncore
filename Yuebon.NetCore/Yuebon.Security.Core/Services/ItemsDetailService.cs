@@ -14,7 +14,7 @@ namespace Yuebon.Security.Services
     /// <summary>
     /// 
     /// </summary>
-    public class ItemsDetailService: BaseService<ItemsDetail, ItemsDetailOutputDto, string>, IItemsDetailService
+    public class ItemsDetailService: BaseService<ItemsDetail, ItemsDetailOutputDto>, IItemsDetailService
     {
         private readonly IItemsDetailRepository _repository;
         private readonly ILogService _logService;
@@ -24,9 +24,10 @@ namespace Yuebon.Security.Services
         /// </summary>
         /// <param name="repository"></param>
         /// <param name="logService"></param>
-        public ItemsDetailService(IItemsDetailRepository repository, ILogService logService, IItemsService _itemsService) : base(repository)
+        public ItemsDetailService(IItemsDetailRepository itemsDetailRepository, ILogService logService, IItemsService _itemsService)
         {
-            _repository = repository;
+            repository=itemsDetailRepository;
+            _repository = itemsDetailRepository;
             _logService = logService;
             itemsService = _itemsService;
         }
@@ -67,7 +68,7 @@ namespace Yuebon.Security.Services
             where += " and ItemId='" + itemId + "'";
             IEnumerable<ItemsDetail> elist = await _repository.GetListWhereAsync(where);
             List<ItemsDetail> list = elist.OrderBy(t => t.SortCode).ToList();
-            List<ItemsDetail> oneMenuList = list.FindAll(t => t.ParentId == "");
+            List<ItemsDetail> oneMenuList = list.FindAll(t => t.ParentId == 0);
             foreach (ItemsDetail item in oneMenuList)
             {
                 ItemsDetailOutputDto menuTreeTableOutputDto = new ItemsDetailOutputDto();
@@ -85,7 +86,7 @@ namespace Yuebon.Security.Services
         /// <param name="data"></param>
         /// <param name="parentId">¸¸¼¶Id</param>
         /// <returns></returns>
-        private List<ItemsDetailOutputDto> GetSubMenus(List<ItemsDetail> data, string parentId)
+        private List<ItemsDetailOutputDto> GetSubMenus(List<ItemsDetail> data, long parentId)
         {
             List<ItemsDetailOutputDto> list = new List<ItemsDetailOutputDto>();
             ItemsDetailOutputDto menuTreeTableOutputDto = new ItemsDetailOutputDto();

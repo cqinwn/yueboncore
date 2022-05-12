@@ -13,9 +13,18 @@ namespace Yuebon.Commons.Core.DataManager
     public class DbConnections
     {
         /// <summary>
+        /// 连接ID
+        /// </summary>
+        public string ConnId { get; set; }
+
+        /// <summary>
+        /// 连接启用开关
+        /// </summary>
+        public bool Enabled { get; set; }
+        /// <summary>
         /// 主数据库
         /// </summary>
-        public DbConnectionOptions MassterDB {get;set; }
+        public DbConnectionOptions MasterDB { get;set; }
 
         /// <summary>
         /// 从数据库
@@ -30,6 +39,10 @@ namespace Yuebon.Commons.Core.DataManager
     public class DbConnectionOptions
     {
         /// <summary>
+        /// 连接ID
+        /// </summary>
+        public string ConnId { get; set; }
+        /// <summary>
         /// 数据库连接字符
         /// </summary>
         public string ConnectionString { get;set; }
@@ -40,8 +53,15 @@ namespace Yuebon.Commons.Core.DataManager
         public DatabaseType DatabaseType { get; set; }
 
         /// <summary>
-        /// 访问权重，值越大权重越低
+        /// 从库执行访问权重，越大越先执行
         /// </summary>
-        public int DbLevel { get; set; }
+        public int HitRate { get; set; }
+
+        /// <summary>
+        /// 连接启用开关
+        /// </summary>
+        public bool Enabled { get; set; }
     }
+
+
 }

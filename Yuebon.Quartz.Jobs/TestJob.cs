@@ -28,8 +28,8 @@ namespace Yuebon.Quartz.Jobs
     /// </summary>
     public class TestJob : IJob
     {
-        ITaskManagerService iService = App.GetService<ITaskManagerService>();
-        ILogRepository iLogService = App.GetService<ILogRepository>();
+        ITaskManagerService iService = Appsettings.GetService<ITaskManagerService>();
+        ILogRepository iLogService = Appsettings.GetService<ILogRepository>();
 
         public Task Execute(IJobExecutionContext context)
         { 

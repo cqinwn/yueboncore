@@ -12,7 +12,7 @@ namespace Yuebon.Security.IRepositories
     /// <summary>
     /// 
     /// </summary>
-    public interface IUserRepository:IRepository<User, string>
+    public interface IUserRepository:IRepository<User>
     {
         /// <summary>
         /// 根据用户账号查询用户信息
@@ -43,22 +43,19 @@ namespace Yuebon.Security.IRepositories
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="userLogOnEntity"></param>
-        /// <param name="trans"></param>
-        bool Insert(User entity, UserLogOn userLogOnEntity, IDbTransaction trans = null);
+        bool Insert(User entity, UserLogOn userLogOnEntity);
         /// <summary>
         /// 注册用户
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="userLogOnEntity"></param>
-        /// <param name="trans"></param>
-        Task<bool> InsertAsync(User entity, UserLogOn userLogOnEntity, IDbTransaction trans = null);
+        Task<bool> InsertAsync(User entity, UserLogOn userLogOnEntity);
         /// <summary>
         /// 注册用户,第三方平台
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="userLogOnEntity"></param>
-        /// <param name="trans"></param>
-        bool Insert(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds, IDbTransaction trans = null);
+        bool Insert(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds);
         /// <summary>
         /// 根据第三方OpenId查询用户信息
         /// </summary>
@@ -79,14 +76,13 @@ namespace Yuebon.Security.IRepositories
         /// <param name="openIdType">第三方类型</param>
         /// <param name="userId">userId</param>
         /// <returns></returns>
-        UserOpenIds GetUserOpenIdByuserId(string openIdType, string userId);
+        UserOpenIds GetUserOpenIdByuserId(string openIdType, long userId);
         /// <summary>
         /// 更新用户信息,第三方平台
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="userLogOnEntity"></param>
-        /// <param name="trans"></param>
-        bool UpdateUserByOpenId(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds, IDbTransaction trans = null);
+        bool UpdateUserByOpenId(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds);
 
         /// <summary>
         /// 根据用户ID得到名片信息

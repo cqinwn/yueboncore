@@ -13,12 +13,12 @@ namespace Yuebon.Security.Dtos
     /// </summary>
     [AutoMap(typeof(APP))]
     [Serializable]
-    public class APPInputDto: IInputDto<string>
+    public class APPInputDto: IInputDto
     {
         /// <summary>
         /// 设置或获取 
         /// </summary>
-        public string Id { get; set; }
+        public long Id { get; set; }
 
         /// <summary>
         /// 设置或获取 

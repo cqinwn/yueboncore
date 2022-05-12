@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
-using System.Text.Unicode;
 using System.Threading.Tasks;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Json;
@@ -186,9 +185,66 @@ namespace Yuebon.Commons.Cache
 
             return _cache.StringSetAsync(GetKeyForRedis(key), Encoding.UTF8.GetBytes(JsonSerializer.Serialize(value, _jsonOptions)), expiresIn);
         }
+        /// <summary>
+        /// 用键和值将某个缓存项插入缓存中，并指定基于时间的过期详细信息
+        /// </summary>
+        /// <param name="key">缓存Key</param>
+        /// <param name="value">缓存Value</param>
+        /// <param name="seconds">缓存时长</param>
+        public bool Add(string key, object value, int seconds = 7200)
+        {
+            if (key == null)
+            {
+                throw new ArgumentNullException(nameof(key));
+            }
+
+
+            TimeSpan expiresIn = DateTime.Now.AddMinutes(seconds) - DateTime.Now;
+            return _cache.StringSet(GetKeyForRedis(key), Encoding.UTF8.GetBytes(JsonSerializer.Serialize(value, _jsonOptions)), expiresIn);
+        }
 
         #endregion
 
+        #region List 操作
+        /// <summary>
+        /// 从底部插入数据
+        /// </summary>
+        /// <param name="key">缓存Key</param>
+        /// <param name="value">缓存Value</param>
+        /// <returns></returns>
+        public long ListRightPush(string key, object value)
+        {
+           return _cache.ListRightPush(GetKeyForRedis(key), Encoding.UTF8.GetBytes(JsonSerializer.Serialize(value, _jsonOptions)));//从底部插入数据
+        }
+        /// <summary>
+        /// 从顶部插入数据
+        /// </summary>
+        /// <param name="key">缓存Key</param>
+        /// <param name="value">缓存Value</param>
+        /// <returns></returns>
+        public long ListLeftPush(string key, object value)
+        {
+            return _cache.ListLeftPush(GetKeyForRedis(key), Encoding.UTF8.GetBytes(JsonSerializer.Serialize(value, _jsonOptions)));//从顶部插入数据
+        }
+        /// <summary>
+        /// 从顶部拿取数据
+        /// </summary>
+        /// <param name="key">缓存Key</param>
+        /// <returns></returns>
+        public string ListLeftPop(string key)
+        {
+            return _cache.ListLeftPop(GetKeyForRedis(key));//从顶部插入数据
+        }
+        /// <summary>
+        /// 从底部拿取数据
+        /// </summary>
+        /// <param name="key">缓存Key</param>
+        /// <returns></returns>
+        public string ListRightPop(string key)
+        {
+            return _cache.ListRightPop(GetKeyForRedis(key));//从顶部插入数据
+        }
+        #endregion
         #region 删除缓存
         /// <summary>
         /// 删除缓存

@@ -17,7 +17,7 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 设置或获取 
         /// </summary>
-        public string Id { get; set; }
+        public long Id { get; set; }
 
         /// <summary>
         /// 设置或获取 
@@ -67,7 +67,7 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 设置或获取 
         /// </summary>
-        public string ManagerId { get; set; }
+        public long? ManagerId { get; set; }
 
         /// <summary>
         /// 设置或获取 
@@ -102,12 +102,12 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 设置或获取 
         /// </summary>
-        public string OrganizeId { get; set; }
+        public long? OrganizeId { get; set; }
 
         /// <summary>
         /// 设置或获取 
         /// </summary>
-        public string DepartmentId { get; set; }
+        public long? DepartmentId { get; set; }
 
         /// <summary>
         /// 设置或获取 
@@ -117,7 +117,7 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 设置或获取 
         /// </summary>
-        public string DutyId { get; set; }
+        public long? DutyId { get; set; }
 
         /// <summary>
         /// 设置或获取 
@@ -148,7 +148,7 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 上级推广员
         /// </summary>
-        public string ReferralUserId { get; set; }
+        public long? ReferralUserId { get; set; }
 
         /// <summary>
         /// 用户在微信开放平台的唯一标识符

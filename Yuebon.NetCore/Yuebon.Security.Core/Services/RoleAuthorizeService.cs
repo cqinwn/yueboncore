@@ -15,7 +15,7 @@ namespace Yuebon.Security.Services
     /// <summary>
     /// 
     /// </summary>
-    public class RoleAuthorizeService: BaseService<RoleAuthorize, RoleAuthorizeOutputDto, string>, IRoleAuthorizeService
+    public class RoleAuthorizeService: BaseService<RoleAuthorize, RoleAuthorizeOutputDto>, IRoleAuthorizeService
     {
         private readonly IRoleAuthorizeRepository _repository;
 
@@ -29,9 +29,10 @@ namespace Yuebon.Security.Services
         /// <param name="_menuRepository"></param>
         /// <param name="_systemTypeRepository"></param>
         /// <param name="logService"></param>
-        public RoleAuthorizeService(IRoleAuthorizeRepository repository,  IMenuRepository _menuRepository, ISystemTypeRepository _systemTypeRepository, ILogService logService) : base(repository)
+        public RoleAuthorizeService(IRoleAuthorizeRepository roleAuthorizeRepository,  IMenuRepository _menuRepository, ISystemTypeRepository _systemTypeRepository, ILogService logService)
         {
-            _repository = repository;
+            repository = roleAuthorizeRepository;
+            _repository = roleAuthorizeRepository;
             menuRepository = _menuRepository;
             systemTypeRepository = _systemTypeRepository;
             _logService = logService;
@@ -72,7 +73,7 @@ namespace Yuebon.Security.Services
                 if (elist.Count() > 0)
                 {
                     List<Menu> list = elist.OrderBy(t => t.SortCode).ToList();
-                    menuTreeTableOutputDto.Children = GetSubMenus(list, "").ToList<ModuleFunctionOutputDto>();
+                    menuTreeTableOutputDto.Children = GetSubMenus(list, 0).ToList<ModuleFunctionOutputDto>();
                 }
                 reslist.Add(menuTreeTableOutputDto);
             }
@@ -86,7 +87,7 @@ namespace Yuebon.Security.Services
         /// <param name="data"></param>
         /// <param name="parentId">父级Id</param>
         /// <returns></returns>
-        private List<ModuleFunctionOutputDto> GetSubMenus(List<Menu> data, string parentId)
+        private List<ModuleFunctionOutputDto> GetSubMenus(List<Menu> data, long parentId)
         {
             List<ModuleFunctionOutputDto> list = new List<ModuleFunctionOutputDto>();
             var ChilList = data.FindAll(t => t.ParentId == parentId);
@@ -117,8 +118,7 @@ namespace Yuebon.Security.Services
         /// <param name="roleDataList">角色可访问数据</param>
         /// <param name="trans"></param>
         /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-        public async Task<bool> SaveRoleAuthorize(string roleId,List<RoleAuthorize> roleAuthorizesList, List<RoleData> roleDataList,
-           IDbTransaction trans = null)
+        public async Task<bool> SaveRoleAuthorize(long roleId,List<RoleAuthorize> roleAuthorizesList, List<RoleData> roleDataList)
         {
            return await  _repository.SaveRoleAuthorize(roleId,roleAuthorizesList, roleDataList);
         }

@@ -11,9 +11,13 @@ namespace Yuebon.Commons.Enums
     public enum DatabaseType
     {
         /// <summary>
+        /// MySql数据库
+        /// </summary>
+        MySql = 0,
+        /// <summary>
         /// SqlServer数据库
         /// </summary>
-        SqlServer = 0,
+        SqlServer,
         /// <summary>
         /// Oracle数据库
         /// </summary>
@@ -22,10 +26,6 @@ namespace Yuebon.Commons.Enums
         /// Access数据库
         /// </summary>
         Access,
-        /// <summary>
-        /// MySql数据库
-        /// </summary>
-        MySql,
         /// <summary>
         /// SQLite数据库
         /// </summary>
@@ -37,6 +37,14 @@ namespace Yuebon.Commons.Enums
         /// <summary>
         /// Npgsql数据库
         /// </summary>
-        Npgsql
+        Npgsql,
+        /// <summary>
+        /// 
+        /// </summary>
+        Dm,
+        /// <summary>
+        /// 
+        /// </summary>
+        Kdbndp,
     }
 }

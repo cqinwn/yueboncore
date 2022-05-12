@@ -15,7 +15,7 @@ namespace Yuebon.Security.Dtos
         /// 设置或获取 
         /// </summary>
         [MaxLength(50)]
-        public string Id { get; set; }
+        public long Id { get; set; }
         /// <summary>
         /// 设置或获取 
         /// </summary>

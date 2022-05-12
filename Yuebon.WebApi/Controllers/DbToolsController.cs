@@ -15,6 +15,7 @@ namespace Yuebon.WebApi.Controllers
     [ApiController]
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [ApiVersion("1.0")]
     public class DbToolsController : ApiController
     {
         /// <summary>

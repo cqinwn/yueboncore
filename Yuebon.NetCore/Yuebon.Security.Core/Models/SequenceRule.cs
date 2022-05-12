@@ -1,110 +1,146 @@
-using AutoMapper;
+using SqlSugar;
 using System;
-using System.Collections.Generic;
-using System.Text;
-
-using Yuebon.Commons.Models;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Yuebon.Commons.Models;
 
 namespace Yuebon.Security.Models
 {
     /// <summary>
     /// 序号编码规则表，数据实体对象
     /// </summary>
-    [Table("Sys_SequenceRule")]
+    [SugarTable("Sys_SequenceRule", "序号编码规则表")]
     [Serializable]
-    public class SequenceRule:BaseEntity<string>, ICreationAudited, IModificationAudited, IDeleteAudited
+    public class SequenceRule:BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited
     {
         /// <summary>
         /// 设置或获取编码规则名称
         /// </summary>
+        [MaxLength(50)]
+        [SugarColumn(ColumnDescription= "编码规则名称")]
+        [Column(TypeName = "NVARCHAR(50)")]
+        [Required]
         public string SequenceName { get; set; }
 
         /// <summary>
         /// 设置或获取规则排序
         /// </summary>
+        [SugarColumn(ColumnDescription= "规则排序")]
         public int RuleOrder { get; set; }
 
         /// <summary>
         /// 设置或获取规则类别，timestamp、const、bumber
         /// </summary>
+        [MaxLength(50)]
+        [SugarColumn(ColumnDescription= "取规则类别，timestamp、const、bumber")]
+        [Required]
+        [Column(TypeName = "NVARCHAR(50)")]
         public string RuleType { get; set; }
 
         /// <summary>
         /// 设置或获取规则参数，如YYMMDD
         /// </summary>
+        [MaxLength(50)]
+        [SugarColumn(ColumnDescription= "规则参数，如YYMMDD")]
+        [Column(TypeName = "NVARCHAR(50)")]
         public string RuleValue { get; set; }
 
         /// <summary>
         /// 设置或获取补齐方向，left或right
         /// </summary>
+        [MaxLength(50)]
+        [SugarColumn(ColumnDescription= "补齐方向，left或right")]
+        [Required]
         public string PaddingSide { get; set; }
 
         /// <summary>
         /// 设置或获取补齐宽度
         /// </summary>
+        [SugarColumn(ColumnDescription= "补齐宽度")]
+        [Required]
         public int PaddingWidth { get; set; }
 
         /// <summary>
         /// 设置或获取填充字符
         /// </summary>
+        [MaxLength(50)]
+        [SugarColumn(ColumnDescription= "填充字符")]
+        [Column(TypeName = "NVARCHAR(50)")]
         public string PaddingChar { get; set; }
 
-        /// <summary>
-        /// 设置或获取 
-        /// </summary>
-        public string Description { get; set; }
 
         /// <summary>
-        /// 设置或获取是否可用
+        /// 描述
         /// </summary>
-        public bool EnabledMark { get; set; }
-
-        /// <summary>
-        /// 设置或获取删除标记
-        /// </summary>
-        public bool? DeleteMark { get; set; }
-
-        /// <summary>
-        /// 设置或获取创建时间
-        /// </summary>
-        public DateTime? CreatorTime { get; set; }
-
-        /// <summary>
-        /// 设置或获取创建人
-        /// </summary>
-        public string CreatorUserId { get; set; }
+        [MaxLength(500)]
+        [SugarColumn(ColumnDescription= "描述")]
+        [Column(TypeName = "NVARCHAR(500)")]
+        public virtual string Description { get; set; }
 
         /// <summary>
         /// 设置或获取创建人组织
         /// </summary>
-        public string CompanyId { get; set; }
+        [MaxLength(50)]
+        [SugarColumn(ColumnDescription= "创建人公司ID")]
+        public long? CompanyId { get; set; }
 
         /// <summary>
-        /// 设置或获取部门
+        /// 设置或获取创建人部门ID
         /// </summary>
-        public string DeptId { get; set; }
+        [MaxLength(50)]
+        [SugarColumn(ColumnDescription= "创建人部门ID")]
+        public long? DeptId { get; set; }
 
         /// <summary>
-        /// 设置或获取修改时间
+        /// 删除标志
         /// </summary>
-        public DateTime? LastModifyTime { get; set; }
+        [SugarColumn(ColumnDescription= "删除标志")]
+        public virtual bool? DeleteMark { get; set; }
 
         /// <summary>
-        /// 设置或获取修改人
+        /// 有效标志
         /// </summary>
-        public string LastModifyUserId { get; set; }
+        [SugarColumn(ColumnDescription= "有效标志")]
+        public virtual bool EnabledMark { get; set; }
 
         /// <summary>
-        /// 设置或获取删除时间
+        /// 创建日期
         /// </summary>
-        public DateTime? DeleteTime { get; set; }
+        [SugarColumn(ColumnDescription= "创建日期")]
+        public virtual DateTime? CreatorTime { get; set; }
 
         /// <summary>
-        /// 设置或获取删除人
+        /// 创建用户主键
         /// </summary>
-        public string DeleteUserId { get; set; }
+        [MaxLength(50)]
+        [SugarColumn(ColumnDescription= "创建用户主键")]
+        public virtual long? CreatorUserId { get; set; }
 
+        /// <summary>
+        /// 最后修改时间
+        /// </summary>
+        [SugarColumn(ColumnDescription= "最后修改时间")]
+        public virtual DateTime? LastModifyTime { get; set; }
+
+        /// <summary>
+        /// 最后修改用户
+        /// </summary>
+        [MaxLength(50)]
+        [SugarColumn(ColumnDescription= "最后修改用户")]
+        public virtual long? LastModifyUserId { get; set; }
+
+        /// <summary>
+        /// 删除时间
+        /// </summary>
+        [SugarColumn(ColumnDescription= "删除时间")]
+        public virtual DateTime? DeleteTime { get; set; }
+
+        /// <summary>
+        /// 删除用户
+        /// </summary>
+        [MaxLength(50)]
+        [SugarColumn(ColumnDescription= "删除用户")]
+        public virtual long? DeleteUserId { get; set; }
 
     }
 }

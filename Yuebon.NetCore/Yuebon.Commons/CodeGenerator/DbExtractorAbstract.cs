@@ -1,19 +1,15 @@
-﻿using System;
+﻿using Microsoft.Data.Sqlite;
+using MySql.Data.MySqlClient;
+using Npgsql;
+using Oracle.ManagedDataAccess.Client;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using Dapper;
-using Microsoft.Data.Sqlite;
-using Microsoft.Extensions.Configuration;
-using MySql.Data.MySqlClient;
-using Npgsql;
-using Oracle.ManagedDataAccess.Client;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Core.DataManager;
-using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Enums;
 using Yuebon.Commons.Pages;
 

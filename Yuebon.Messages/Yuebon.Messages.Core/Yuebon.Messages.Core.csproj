@@ -4,8 +4,8 @@
     <TargetFramework>net6.0</TargetFramework>
     <Version>1.1.5.10</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+    <PackageLicenseFile></PackageLicenseFile>
     <Company>上海越邦网络科技有限公司</Company>
     <Product>YuebonNetCore开发框架基础库</Product>
     <Authors>Yuebon</Authors>
@@ -25,9 +25,12 @@
     <EmbeddedResource Remove="SMS\**" />
     <None Remove="Mail\**" />
     <None Remove="SMS\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="..\..\logo.png">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
 
@@ -36,13 +39,6 @@
     <ProjectReference Include="..\..\Yuebon.NetCore\Yuebon.Security.Core\Yuebon.Security.Core.csproj" />
     <ProjectReference Include="..\..\Yuebon.SMS.Core\Yuebon.SMS.Core.csproj" />
     <ProjectReference Include="..\..\Yuebon.WeChat.Core\Yuebon.WeChat.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
   </ItemGroup>
 
 </Project>

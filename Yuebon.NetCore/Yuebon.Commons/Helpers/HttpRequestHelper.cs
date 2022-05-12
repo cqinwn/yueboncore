@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace Yuebon.Commons.Helpers
@@ -12,8 +14,7 @@ namespace Yuebon.Commons.Helpers
     /// </summary>
     public static class HttpRequestHelper
     {
-
-        #region 同步方法
+        static readonly HttpClient client = new HttpClient();      
 
         /// <summary>
         /// 使用Get方法获取字符串结果
@@ -22,13 +23,10 @@ namespace Yuebon.Commons.Helpers
         /// <param name="encoding"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static string HttpGet(string url, Encoding encoding = null, int timeOut = 60000)
+        public static async Task<string> HttpGet(string url, Encoding encoding = null, int timeOut = 60000)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "GET";
-            request.Timeout = timeOut;
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            using (Stream responseStream = response.GetResponseStream())
+            HttpResponseMessage response = await client.GetAsync(url);
+            using (Stream responseStream = response.Content.ReadAsStream())
             {
                 using (StreamReader myStreamReader = new StreamReader(responseStream, encoding ?? Encoding.GetEncoding("utf-8")))
                 {
@@ -154,8 +152,6 @@ namespace Yuebon.Commons.Helpers
                 }
             }
         }
-
-        #endregion
         /// <summary>
         /// 
         /// </summary>

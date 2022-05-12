@@ -35,17 +35,9 @@ namespace Yuebon.Commons.Json
             options.Converters.Add(new BooleanJsonConverter());
             //设置数字
             options.Converters.Add(new IntJsonConverter());
+            options.Converters.Add(new LongJsonConverter());
             options.PropertyNamingPolicy = new UpperFirstCaseNamingPolicy();
-            options.PropertyNameCaseInsensitive = true;                     //忽略大小写
-            //JsonSerializerOptions options = new JsonSerializerOptions()
-            //{
-            //    WriteIndented = true,                                   //格式化json字符串
-            //    AllowTrailingCommas = true,                             //可以结尾有逗号
-            //    //IgnoreNullValues = true,                              //可以有空值,转换json去除空值属性
-            //    IgnoreReadOnlyProperties = true,                        //忽略只读属性
-            //    PropertyNameCaseInsensitive = true,                     //忽略大小写
-            //    Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
-            //}; 
+            options.PropertyNameCaseInsensitive = true;      
             return JsonSerializer.Serialize(obj,options);
         }
 
@@ -80,6 +72,7 @@ namespace Yuebon.Commons.Json
             options.Converters.Add(new BooleanJsonConverter());
             //设置数字
             options.Converters.Add(new IntJsonConverter());
+            options.Converters.Add(new LongJsonConverter());
             //options.PropertyNamingPolicy = new UpperFirstCaseNamingPolicy();
             options.PropertyNameCaseInsensitive = true;                     //忽略大小写
             return json == null ? default(T) : JsonSerializer.Deserialize<T>(json,options);
@@ -117,6 +110,7 @@ namespace Yuebon.Commons.Json
             options.Converters.Add(new BooleanJsonConverter());
             //设置数字
             options.Converters.Add(new IntJsonConverter());
+            options.Converters.Add(new LongJsonConverter());
             //options.PropertyNamingPolicy = new UpperFirstCaseNamingPolicy();
             options.PropertyNameCaseInsensitive = true;                     //忽略大小写
             return json == null ? null : JsonSerializer.Deserialize<List<T>>(json,options);

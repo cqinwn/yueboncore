@@ -10,7 +10,6 @@ using Yuebon.Commons.Cache;
 using Yuebon.Commons.Core.App;
 using Yuebon.Commons.Enums;
 using Yuebon.Commons.Helpers;
-using Yuebon.Commons.IoC;
 using Yuebon.Commons.Json;
 using Yuebon.Email;
 using Yuebon.Quartz.IServices;
@@ -26,10 +25,10 @@ namespace Yuebon.Quartz.Jobs
     /// </summary>
     public class SysLogJob : IJob
     {
-        ITaskManagerService iService = App.GetService<ITaskManagerService>();
+        ITaskManagerService iService = Appsettings.GetService<ITaskManagerService>();
 
-        ITaskJobsLogService iJobLogService = App.GetService<ITaskJobsLogService>();
-        ILogService iLogService = App.GetService<ILogService>();
+        ITaskJobsLogService iJobLogService = Appsettings.GetService<ITaskJobsLogService>();
+        ILogService iLogService = Appsettings.GetService<ILogService>();
 
         public Task Execute(IJobExecutionContext context)
         {

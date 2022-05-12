@@ -10,7 +10,7 @@ using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Core.App;
-using Yuebon.Commons.IoC;
+using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Models;
@@ -20,6 +20,7 @@ using Yuebon.Security.Application;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
+using static Yuebon.Commons.Extensions.SwaggerVersions;
 
 namespace Yuebon.WebApi.Controllers
 {
@@ -27,7 +28,6 @@ namespace Yuebon.WebApi.Controllers
     /// 用户登录接口控制器
     /// </summary>
     [ApiController]
-    [ApiVersion("1.0")]
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class LoginController : ApiController
@@ -139,15 +139,15 @@ namespace Yuebon.WebApi.Controllers
                             }
                             else
                             {
-                                Tuple<User, string> userLogin = await this._userService.Validate(username, password);
+                                Tuple<User,string> userLogin = await this._userService.Validate(username, password);
                                 if (userLogin != null)
                                 {
-                                    string ipAddressName = IpAddressUtil.GetCityByIp(strIp);
+                                    string ipAddressName =await IpAddressUtil.GetCityByIp(strIp);
                                     if (userLogin.Item1 != null)
                                     {
                                         result.Success = true;
                                         User user = userLogin.Item1;
-                                        JwtOption jwtModel = App.GetService<JwtOption>();
+                                        JwtOption jwtModel = Appsettings.GetService<JwtOption>();
                                         TokenProvider tokenProvider = new TokenProvider(jwtModel);
                                         TokenResult tokenResult = tokenProvider.LoginToken(user, appId);
                                         YuebonCurrentUser currentSession = new YuebonCurrentUser
@@ -162,9 +162,19 @@ namespace Yuebon.WebApi.Controllers
                                             CurrentLoginIP = strIp,
                                             IPAddressName = ipAddressName                             
                                         };
-                                        TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
-                                        yuebonCacheHelper.Add("login_user_" + user.Id, currentSession, expiresSliding, true);
 
+                                        SysSetting sysSetting = yuebonCacheHelper.Get("SysSetting").ToJson().ToObject<SysSetting>();
+                                        if (sysSetting != null)
+                                        {
+                                            if (sysSetting.Webstatus == "1"&&!currentSession.Role.Contains("administrators"))
+                                            {
+                                                result.ErrCode = "40900";
+                                                result.ErrMsg = sysSetting.Webclosereason;
+                                                return ToJsonContent(result);
+                                            }
+                                        }
+                                        TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
+                                        yuebonCacheHelper.Add("login_user_" + user.Id.ToString(), currentSession, expiresSliding, true);
                                         List<AllowCacheApp> list = MemoryCacheHelper.Get<object>("cacheAppList").ToJson().ToList<AllowCacheApp>();
                                         if (list== null)
                                         {
@@ -247,9 +257,10 @@ namespace Yuebon.WebApi.Controllers
                 DeptId = user.DepartmentId,
                 CurrentLoginIP = CurrentUser.CurrentLoginIP,
                 IPAddressName = CurrentUser.IPAddressName,
-                TenantId = ""
+                TenantId = null
             };
 			CurrentUser = currentSession;
+            CurrentUser.HeadIcon = user.HeadIcon;
 
             CurrentUser.ActiveSystemId = systemType.Id;
             CurrentUser.ActiveSystem = systemType.FullName;
@@ -291,6 +302,25 @@ namespace Yuebon.WebApi.Controllers
             return ToJsonContent(result, true);
         }
 
+
+        /// <summary>
+        /// 获取用户信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetProfile")]
+        public IActionResult GetProfile()
+        {
+            CommonResult result = new CommonResult();
+            if (CurrentUser == null)
+            {
+                return Logout();
+            }
+            User user = _userService.Get(CurrentUser.UserId);
+            result.ResData = user.MapTo<UserOutputDto>();
+            result.ErrCode = ErrCode.successCode;
+            result.ErrMsg = ErrCode.err0;
+            return ToJsonContent(result, true);
+        }
         /// <summary>
         /// 用户登录，无验证码，主要用于app登录
         /// </summary>
@@ -300,7 +330,6 @@ namespace Yuebon.WebApi.Controllers
         /// <param name="systemCode">系统编码</param>
         /// <returns>返回用户User对象</returns>
         [HttpGet("UserLogin")]
-        [ApiVersion("2.0")]
         [NoPermissionRequired]
         public async Task<IActionResult> UserLogin(string username, string password,  string appId, string systemCode)
         {
@@ -354,18 +383,18 @@ namespace Yuebon.WebApi.Controllers
                             }
                             else
                             {
-                                Tuple<User, string> userLogin = await this._userService.Validate(username, password);
+                                Tuple<User,string> userLogin = await this._userService.Validate(username, password);
                                 if (userLogin != null)
                                 {
 
-                                    string ipAddressName = IpAddressUtil.GetCityByIp(strIp);
+                                    string ipAddressName =await IpAddressUtil.GetCityByIp(strIp);
                                     if (userLogin.Item1 != null)
                                     {
                                         result.Success = true;
 
                                         User user = userLogin.Item1;
 
-                                        JwtOption jwtModel = App.GetService<JwtOption>();
+                                        JwtOption jwtModel = Appsettings.GetService<JwtOption>();
                                         TokenProvider tokenProvider = new TokenProvider(jwtModel);
                                         TokenResult tokenResult = tokenProvider.LoginToken(user, appId);
                                         YuebonCurrentUser currentSession = new YuebonCurrentUser
@@ -433,12 +462,15 @@ namespace Yuebon.WebApi.Controllers
         public IActionResult Logout()
         {
             CommonResult result = new CommonResult();
-            YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            yuebonCacheHelper.Remove("login_user_" + CurrentUser.UserId);
-            yuebonCacheHelper.Remove("User_Function_" + CurrentUser.UserId);
-            UserLogOn userLogOn = _userLogOnService.GetWhere("UserId='"+ CurrentUser.UserId + "'");
-            userLogOn.UserOnLine = false;
-            _userLogOnService.Update(userLogOn,userLogOn.Id);
+            if (CurrentUser != null)
+            {
+                YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+                yuebonCacheHelper.Remove("login_user_" + CurrentUser.UserId);
+                yuebonCacheHelper.Remove("User_Function_" + CurrentUser.UserId);
+                UserLogOn userLogOn = _userLogOnService.GetWhere("UserId='" + CurrentUser.UserId + "'");
+                userLogOn.UserOnLine = false;
+                _userLogOnService.Update(userLogOn);
+            }
             CurrentUser = null;
             result.Success = true;
             result.ErrCode = ErrCode.successCode;
@@ -456,7 +488,7 @@ namespace Yuebon.WebApi.Controllers
         [HttpGet("SysConnect")]
         [AllowAnonymous]
         [NoPermissionRequired]
-        public IActionResult SysConnect(string openmf, string appId, string systemCode)
+        public async Task<IActionResult> SysConnect(string openmf, string appId, string systemCode)
         {
             CommonResult result = new CommonResult();
             RemoteIpParser remoteIpParser = new RemoteIpParser();
@@ -473,7 +505,7 @@ namespace Yuebon.WebApi.Controllers
             }
             else
             {
-                string ipAddressName = IpAddressUtil.GetCityByIp(strIp);
+                string ipAddressName =await IpAddressUtil.GetCityByIp(strIp);
                 if (string.IsNullOrEmpty(systemCode))
                 {
                     result.ErrMsg = ErrCode.err40006;
@@ -513,11 +545,11 @@ namespace Yuebon.WebApi.Controllers
                                 }
                                 else
                                 {
-                                    User user = _userService.Get(cacheOpenmf.ToString());
+                                    User user = _userService.Get(cacheOpenmf.ToInt());
                                     if (user != null)
                                     {
                                         result.Success = true;
-                                        JwtOption jwtModel = App.GetService<JwtOption>();
+                                        JwtOption jwtModel = Appsettings.GetService<JwtOption>();
                                         TokenProvider tokenProvider = new TokenProvider(jwtModel);
                                         TokenResult tokenResult = tokenProvider.LoginToken(user, appId);
                                         YuebonCurrentUser currentSession = new YuebonCurrentUser
@@ -560,7 +592,6 @@ namespace Yuebon.WebApi.Controllers
         /// <returns></returns>
         [HttpGet("TestLogin")]
         [Obsolete]
-        [ApiVersion("2.0")]
         public IActionResult TestLogin()
         {
             CommonResult result = new CommonResult();

@@ -16,7 +16,7 @@ namespace Yuebon.Security.Services
     /// <summary>
     /// 
     /// </summary>
-    public class SystemTypeService : BaseService<SystemType, SystemTypeOutputDto, string>, ISystemTypeService
+    public class SystemTypeService : BaseService<SystemType, SystemTypeOutputDto>, ISystemTypeService
     {
         private readonly ISystemTypeRepository _repository;
         private readonly IRoleAuthorizeService roleAuthorizeService;
@@ -26,9 +26,10 @@ namespace Yuebon.Security.Services
         /// </summary>
         /// <param name="repository"></param>
         /// <param name="logService"></param>
-        public SystemTypeService(ISystemTypeRepository repository, ILogService logService, IRoleAuthorizeService _roleAuthorizeService) : base(repository)
+        public SystemTypeService(ISystemTypeRepository systemTypeRepository, ILogService logService, IRoleAuthorizeService _roleAuthorizeService)
         {
-            _repository = repository;
+            repository = systemTypeRepository;
+            _repository = systemTypeRepository;
             _logService = logService;
             roleAuthorizeService = _roleAuthorizeService;
         }

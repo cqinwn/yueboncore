@@ -12,7 +12,7 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
         /// Id
         /// </summary>
-        public string Id { get; set; }
+        public long Id { get; set; }
         /// <summary>
         /// 标题
         /// </summary>
@@ -25,7 +25,7 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
         /// 父级ID
         /// </summary>
-        public string ParentId { get; set; }
+        public long ParentId { get; set; }
 
         public List<CategoryArticleOutputDto> Children { get; set; }
     }

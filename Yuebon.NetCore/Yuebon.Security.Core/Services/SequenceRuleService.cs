@@ -14,14 +14,15 @@ namespace Yuebon.Security.Services
     /// <summary>
     /// 序号编码规则表服务接口实现
     /// </summary>
-    public class SequenceRuleService: BaseService<SequenceRule,SequenceRuleOutputDto, string>, ISequenceRuleService
+    public class SequenceRuleService: BaseService<SequenceRule,SequenceRuleOutputDto>, ISequenceRuleService
     {
 		private readonly ISequenceRuleRepository _repository;
         private readonly ILogService _logService;
-        public SequenceRuleService(ISequenceRuleRepository repository,ILogService logService) : base(repository)
+        public SequenceRuleService(ISequenceRuleRepository sequenceRuleRepository, ILogService logService)
         {
-			_repository=repository;
-			_logService=logService;
+            repository = sequenceRuleRepository;
+            _repository = sequenceRuleRepository;
+            _logService = logService;
         }
 
 

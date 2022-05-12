@@ -15,9 +15,9 @@ namespace Yuebon.Commons.Cache
         /// <summary>
         /// 用键和值将某个缓存项插入缓存中，并指定基于时间的过期详细信息
         /// </summary>
-        /// <param name="key"></param>
-        /// <param name="obj"></param>
-        /// <param name="seconds"></param>
+        /// <param name="key">缓存Key</param>
+        /// <param name="obj">缓存Value</param>
+        /// <param name="seconds">缓存时长</param>
         public static void Set(string key, object obj, int seconds = 7200)
         {
             var cache = MemoryCache.Default;

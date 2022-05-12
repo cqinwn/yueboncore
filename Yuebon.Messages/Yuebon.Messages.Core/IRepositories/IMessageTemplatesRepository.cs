@@ -9,7 +9,7 @@ namespace Yuebon.Messages.IRepositories
     /// <summary>
     /// 定义仓储接口
     /// </summary>
-    public interface IMessageTemplatesRepository:IRepository<MessageTemplates, string>
+    public interface IMessageTemplatesRepository:IRepository<MessageTemplates>
     {
 
         /// <summary>

@@ -211,32 +211,32 @@ namespace Yuebon.Commons.Data
             Require<FileNotFoundException>(File.Exists(filename), string.Format(Resources.ParameterCheck_FileNotExists, filename));
         }
 
-        /// <summary>
-        /// 检查<see cref="IInputDto{TKey}"/>各属性的合法性，否则抛出<see cref="ValidationException"/>异常
-        /// </summary>
-        /// <typeparam name="TKey"></typeparam>
-        /// <param name="dto"></param>
-        /// <param name="paramName"></param>
-        public static void Validate<TKey>(IInputDto<TKey> dto, string paramName)
-        {
-            NotNull(dto, paramName);
-            dto.Validate();
-        }
+        ///// <summary>
+        ///// 检查<see cref="IInputDto{TKey}"/>各属性的合法性，否则抛出<see cref="ValidationException"/>异常
+        ///// </summary>
+        ///// <typeparam name="TKey"></typeparam>
+        ///// <param name="dto"></param>
+        ///// <param name="paramName"></param>
+        //public static void Validate<TKey>(IInputDto<TKey> dto, string paramName)
+        //{
+        //    NotNull(dto, paramName);
+        //    dto.Validate();
+        //}
 
-        /// <summary>
-        /// 检查<see cref="IInputDto{TKey}"/>各属性的合法性，否则抛出<see cref="ValidationException"/>异常
-        /// </summary>
-        /// <typeparam name="TInputDto"></typeparam>
-        /// <typeparam name="TKey"></typeparam>
-        /// <param name="dtos"></param>
-        /// <param name="paramName"></param>
-        public static void Validate<TInputDto, TKey>(TInputDto[] dtos, string paramName) where TInputDto : IInputDto<TKey>
-        {
-            NotNull(dtos, paramName);
-            foreach (TInputDto dto in dtos)
-            {
-                dto.Validate();
-            }
-        }
+        ///// <summary>
+        ///// 检查<see cref="IInputDto{TKey}"/>各属性的合法性，否则抛出<see cref="ValidationException"/>异常
+        ///// </summary>
+        ///// <typeparam name="TInputDto"></typeparam>
+        ///// <typeparam name="TKey"></typeparam>
+        ///// <param name="dtos"></param>
+        ///// <param name="paramName"></param>
+        //public static void Validate<TInputDto, TKey>(TInputDto[] dtos, string paramName) where TInputDto : IInputDto<TKey>
+        //{
+        //    NotNull(dtos, paramName);
+        //    foreach (TInputDto dto in dtos)
+        //    {
+        //        dto.Validate();
+        //    }
+        //}
     }
 }

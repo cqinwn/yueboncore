@@ -19,7 +19,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
     /// </summary>
     [ApiController]
     [Route("api/Security/[controller]")]
-    public class RoleController : AreaApiController<Role, RoleOutputDto, RoleInputDto, IRoleService, string>
+    public class RoleController : AreaApiController<Role, RoleOutputDto, RoleInputDto, IRoleService>
     {
         private IOrganizeService organizeService;
 
@@ -39,7 +39,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <param name="info"></param>
         protected override void OnBeforeInsert(Role info)
         {
-            info.Id = GuidUtils.CreateNo();
+            info.Id = IdGeneratorHelper.IdSnowflake();
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = CurrentUser.UserId;
             info.DeleteMark = false;
@@ -95,7 +95,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.Type = tinfo.Type;
 
             OnBeforeUpdate(info);
-            bool bl = await iService.UpdateAsync(info, tinfo.Id).ConfigureAwait(false);
+            bool bl = await iService.UpdateAsync(info);
             if (bl)
             {
                 result.ErrCode = ErrCode.successCode;

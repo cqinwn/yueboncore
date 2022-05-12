@@ -12,15 +12,17 @@ using Yuebon.Security.Dtos;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
 using System.Linq;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Yuebon.WebApi.Areas.Security.Controllers
 {
     /// <summary>
     /// 应用管理接口
     /// </summary>
+    [SwaggerTag("APP")]
     [ApiController]
     [Route("api/Security/[controller]")]
-    public class APPController : AreaApiController<APP, AppOutputDto, APPInputDto, IAPPService,string>
+    public class APPController : AreaApiController<APP, AppOutputDto, APPInputDto, IAPPService>
     {
         /// <summary>
         /// 构造函数
@@ -36,7 +38,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <param name="info"></param>
         protected override void OnBeforeInsert(APP info)
         {
-            info.Id = GuidUtils.CreateNo();
+            info.Id = IdGeneratorHelper.IdSnowflake();
             info.AppSecret = MD5Util.GetMD5_32(GuidUtils.NewGuidFormatN()).ToUpper();
             if (info.IsOpenAEKey)
             {
@@ -56,6 +58,9 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <returns></returns>
         protected override void OnBeforeUpdate(APP info)
         {
+            if (info.IsOpenAEKey && string.IsNullOrEmpty(info.EncodingAESKey)){
+                info.EncodingAESKey = MD5Util.GetMD5_32(GuidUtils.NewGuidFormatN()).ToUpper();
+            }
             info.LastModifyUserId = CurrentUser.UserId;
             info.LastModifyTime = DateTime.Now;
         }
@@ -89,10 +94,11 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.RequestUrl = tinfo.RequestUrl;
             info.Token = tinfo.Token;
             info.EnabledMark = tinfo.EnabledMark;
+            info.IsOpenAEKey=tinfo.IsOpenAEKey;
             info.Description = tinfo.Description;
 
             OnBeforeUpdate(info);
-            bool bl = await iService.UpdateAsync(info, tinfo.Id).ConfigureAwait(true);
+            bool bl = await iService.UpdateAsync(info);
             if (bl)
             {
                 result.ErrCode = ErrCode.successCode;
@@ -115,12 +121,12 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <returns></returns>
         [HttpGet("ResetAppSecret")]
         [YuebonAuthorize("ResetAppSecret")]
-        public async Task<IActionResult> ResetAppSecret(string id)
+        public async Task<IActionResult> ResetAppSecret(long id)
         {
             CommonResult result = new CommonResult();
             APP aPP = iService.Get(id);
             aPP.AppSecret = MD5Util.GetMD5_32(GuidUtils.NewGuidFormatN()).ToUpper();
-            bool bl = await iService.UpdateAsync(aPP, id);
+            bool bl = await iService.UpdateAsync(aPP);
             if (bl)
             {
                 result.ErrCode = ErrCode.successCode;
@@ -142,12 +148,12 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <returns></returns>
         [HttpGet("ResetEncodingAESKey")]
         [YuebonAuthorize("ResetEncodingAESKey")]
-        public async Task<IActionResult> ResetEncodingAESKey(string id)
+        public async Task<IActionResult> ResetEncodingAESKey(long id)
         {
             CommonResult result = new CommonResult();
             APP aPP = iService.Get(id);
             aPP.EncodingAESKey = MD5Util.GetMD5_32(GuidUtils.NewGuidFormatN()).ToUpper();
-            bool bl = await iService.UpdateAsync(aPP, id);
+            bool bl = await iService.UpdateAsync(aPP);
             if (bl)
             {
                 result.ErrCode = ErrCode.successCode;

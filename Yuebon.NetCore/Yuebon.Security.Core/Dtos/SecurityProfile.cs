@@ -30,7 +30,10 @@ namespace Yuebon.Security.Dtos
             CreateMap<Items, ItemsOutputDto>();
             CreateMap<ItemsInputDto, Items>();
             CreateMap<Menu, MenuOutputDto>();
-            CreateMap<Menu, MenuTreeTableOutputDto>();
+            CreateMap<Menu, MenuTreeTableOutputDto>()
+                .ForMember(s=>s.Id,s=>s.MapFrom(o=>o.Id))
+                .ForMember(s=>s.ParentId,s=>s.MapFrom(o=>o.ParentId));
+
             CreateMap<Menu, ModuleFunctionOutputDto>()
                 .ForMember(s => s.Id, s => s.MapFrom(o => o.Id))
                 .ForMember(s=>s.FullName,s=>s.MapFrom(o=>o.FullName));

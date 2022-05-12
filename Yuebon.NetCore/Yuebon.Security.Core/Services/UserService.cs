@@ -16,19 +16,21 @@ using Yuebon.Commons.Extend;
 using Yuebon.Commons.Pages;
 using Yuebon.Commons.Dtos;
 using Yuebon.Commons.Enums;
+using Yuebon.Commons.Core.UnitOfWork;
 
 namespace Yuebon.Security.Services
 {
     /// <summary>
     /// 
     /// </summary>
-    public class UserService : BaseService<User, UserOutputDto, string>, IUserService
+    public class UserService : BaseService<User, UserOutputDto>, IUserService
     {
         private readonly IUserRepository _userRepository;
         private readonly IUserLogOnRepository _userSigninRepository;
         private readonly ILogService _logService;
         private readonly IRoleService _roleService;
         private IOrganizeService _organizeService;
+        private readonly IUnitOfWork _unitOfWork;
 
         /// <summary>
         /// 
@@ -38,9 +40,11 @@ namespace Yuebon.Security.Services
         /// <param name="logService"></param>
         /// <param name="roleService"></param>
         /// <param name="organizeService"></param>
-        public UserService(IUserRepository repository, IUserLogOnRepository userLogOnRepository, ILogService logService, IRoleService roleService, IOrganizeService organizeService) : base(repository)
+        public UserService(IUnitOfWork unitOfWork,IUserRepository userRepository, IUserLogOnRepository userLogOnRepository, ILogService logService, IRoleService roleService, IOrganizeService organizeService)
         {
-            _userRepository = repository;
+            _unitOfWork= unitOfWork;
+            repository = userRepository;
+            _userRepository = userRepository;
             _userSigninRepository = userLogOnRepository;
             _logService = logService;
             _roleService = roleService;
@@ -55,7 +59,7 @@ namespace Yuebon.Security.Services
         /// <param name="userName">用户名</param>
         /// <param name="password">密码（第一次md5加密后）</param>
         /// <returns>验证成功返回用户实体，验证失败返回null|提示消息</returns>
-        public async Task<Tuple<User, string>> Validate(string userName, string password)
+        public async Task<Tuple<User,string>> Validate(string userName, string password)
         {
             var userEntity = await _userRepository.GetUserByLogin(userName);
 
@@ -100,7 +104,7 @@ namespace Yuebon.Security.Services
                 userLogOn.LogOnCount++;
                 userLogOn.LastVisitTime = DateTime.Now;
                 userLogOn.UserOnLine = true;
-                 _userSigninRepository.Edit(userLogOn);
+                 _userSigninRepository.Update(userLogOn);
                 return new Tuple<User, string>(userEntity, "");
             }
         }
@@ -157,7 +161,7 @@ namespace Yuebon.Security.Services
                 userLogOn.LogOnCount++;
                 userLogOn.LastVisitTime = DateTime.Now;
                 userLogOn.UserOnLine = true;
-                await _userSigninRepository.UpdateAsync(userLogOn, userLogOn.Id);
+                await _userSigninRepository.UpdateAsync(userLogOn);
                 return new Tuple<User, string>(userEntity, "");
             }
         }
@@ -195,9 +199,9 @@ namespace Yuebon.Security.Services
         /// <param name="entity"></param>
         /// <param name="userLogOnEntity"></param>
         /// <param name="trans"></param>
-        public bool Insert(User entity, UserLogOn userLogOnEntity, IDbTransaction trans = null)
+        public bool Insert(User entity, UserLogOn userLogOnEntity)
         {
-            return _userRepository.Insert(entity, userLogOnEntity, trans);
+            return _userRepository.Insert(entity, userLogOnEntity);
         }
 
         /// <summary>
@@ -205,20 +209,18 @@ namespace Yuebon.Security.Services
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="userLogOnEntity"></param>
-        /// <param name="trans"></param>
-        public async Task<bool> InsertAsync(User entity, UserLogOn userLogOnEntity, IDbTransaction trans = null)
+        public async Task<bool> InsertAsync(User entity, UserLogOn userLogOnEntity)
         {
-            return await _userRepository.InsertAsync(entity, userLogOnEntity, trans);
+            return await _userRepository.InsertAsync(entity, userLogOnEntity);
         }
         /// <summary>
         /// 注册用户,第三方平台
         /// </summary>
         /// <param name="entity"></param>
         /// <param name="userLogOnEntity"></param>
-        /// <param name="trans"></param>
-        public bool Insert(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds, IDbTransaction trans = null)
+        public bool Insert(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds)
         {
-            return _userRepository.Insert(entity, userLogOnEntity, userOpenIds, trans);
+            return _userRepository.Insert(entity, userLogOnEntity, userOpenIds);
         }
 
         /// <summary>
@@ -237,7 +239,7 @@ namespace Yuebon.Security.Services
         /// <param name="openIdType">第三方类型</param>
         /// <param name="userId">userId</param>
         /// <returns></returns>
-        public UserOpenIds GetUserOpenIdByuserId(string openIdType, string userId)
+        public UserOpenIds GetUserOpenIdByuserId(string openIdType, long userId)
         {
             return _userRepository.GetUserOpenIdByuserId(openIdType, userId);
         }
@@ -247,10 +249,9 @@ namespace Yuebon.Security.Services
         /// <param name="entity"></param>
         /// <param name="userLogOnEntity"></param>
         /// <param name="userOpenIds"></param>
-        /// <param name="trans"></param>
-        public bool UpdateUserByOpenId(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds, IDbTransaction trans = null)
+        public bool UpdateUserByOpenId(User entity, UserLogOn userLogOnEntity, UserOpenIds userOpenIds)
         {
-            return _userRepository.UpdateUserByOpenId(entity, userLogOnEntity, userOpenIds, trans);
+            return _userRepository.UpdateUserByOpenId(entity, userLogOnEntity, userOpenIds);
         }
 
         /// <summary>
@@ -276,7 +277,8 @@ namespace Yuebon.Security.Services
             UserLogOn userLogOnEntity = new UserLogOn();
             UserOpenIds userOpenIds = new UserOpenIds();
 
-            user.Id = user.CreatorUserId = GuidUtils.CreateNo();
+            user.Id =IdGeneratorHelper.IdSnowflake();
+            user.CreatorUserId = user.Id;
             user.Account = "Wx" + GuidUtils.CreateNo();
             user.CreatorTime = userLogOnEntity.FirstVisitTime = DateTime.Now;
             user.IsAdministrator = false;
@@ -287,11 +289,11 @@ namespace Yuebon.Security.Services
             user.ReferralUserId = userInPut.ReferralUserId;
             if (userInPut.NickName == "游客")
             {
-                user.RoleId = _roleService.GetRole("guest").Id;
+                user.RoleId = _roleService.GetRole("guest").Id.ToString();
             }
             else
             {
-                user.RoleId = _roleService.GetRole("usermember").Id;
+                user.RoleId = _roleService.GetRole("usermember").Id.ToString();
             }
 
             userLogOnEntity.UserId = user.Id;
@@ -319,7 +321,7 @@ namespace Yuebon.Security.Services
             user.Gender = userInPut.Gender;
             user.NickName = userInPut.NickName;
             user.UnionId = userInPut.UnionId;
-            return _userRepository.Update(user, user.Id);
+            return _userRepository.Update(user);
         }
 
 
@@ -360,7 +362,7 @@ namespace Yuebon.Security.Services
             List<UserOutputDto> listResult = new List<UserOutputDto>();
             foreach (UserOutputDto item in resultList)
             {
-                if (!string.IsNullOrEmpty(item.OrganizeId))
+                if (item.OrganizeId>0)
                 {
                     item.OrganizeName = _organizeService.Get(item.OrganizeId).FullName;
                 }
@@ -368,7 +370,7 @@ namespace Yuebon.Security.Services
                 {
                     item.RoleName = _roleService.GetRoleNameStr(item.RoleId);
                 }
-                if (!string.IsNullOrEmpty(item.DepartmentId))
+                if (item.DepartmentId>0)
                 {
                     item.DepartmentName = _organizeService.Get(item.DepartmentId).FullName;
                 }

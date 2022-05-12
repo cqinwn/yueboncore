@@ -38,13 +38,13 @@ namespace Yuebon.Quartz.Jobs
                 {
                     if (job.Status == 0) //停止
                     {
-                        TriggerKey triggerKey = new TriggerKey(job.Id, job.GroupName);
+                        TriggerKey triggerKey = new TriggerKey(job.Id.ToString(), job.GroupName);
                         // 停止触发器
                         await _scheduler.PauseTrigger(triggerKey);
                         // 移除触发器
                         await _scheduler.UnscheduleJob(triggerKey);
                         // 删除任务
-                        await _scheduler.DeleteJob(new JobKey(job.Id));
+                        await _scheduler.DeleteJob(new JobKey(job.Id.ToString()));
                     }
                     else  //启动
                     {
@@ -55,18 +55,18 @@ namespace Yuebon.Quartz.Jobs
                             var implementationAssembly = Assembly.Load("Yuebon.Quartz.Jobs");
                             var implementationTypes = implementationAssembly.DefinedTypes.Where(t => t.GetInterfaces().Contains(typeof(IJob)));
                             var tyeinfo = implementationTypes.Where(x => x.FullName == job.JobCallAddress).FirstOrDefault();
-                            jobDetail = JobBuilder.Create(tyeinfo).WithIdentity(job.Id, job.GroupName).Build();
+                            jobDetail = JobBuilder.Create(tyeinfo).WithIdentity(job.Id.ToString(), job.GroupName).Build();
                         }
                         else
                         {
-                            jobDetail = JobBuilder.Create<HttpResultfulJob>().WithIdentity(job.Id, job.GroupName).Build();
+                            jobDetail = JobBuilder.Create<HttpResultfulJob>().WithIdentity(job.Id.ToString(), job.GroupName).Build();
                         }
                         jobDetail.JobDataMap["OpenJob"] = job.Id;  //传递job信息
                         ITrigger trigger = TriggerBuilder.Create()
                             .WithCronSchedule(job.Cron)
-                            .WithIdentity(job.Id, job.GroupName)
+                            .WithIdentity(job.Id.ToString(), job.GroupName)
                             .WithDescription(job.Description)
-                            .ForJob(job.Id, job.GroupName) //给任务指定一个分组
+                            .ForJob(job.Id.ToString(), job.GroupName) //给任务指定一个分组
                             .StartNow()
                             .Build();
                         await _scheduler.ScheduleJob(jobDetail, trigger);

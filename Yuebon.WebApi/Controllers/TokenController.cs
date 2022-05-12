@@ -25,6 +25,7 @@ namespace Yuebon.WebApi.Controllers
     /// Token令牌接口控制器
     /// </summary>
     [Route("api/[controller]")]
+    [ApiVersion("1.0")]
     [ApiController]
     public class TokenController : ControllerBase
     {

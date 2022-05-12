@@ -27,7 +27,7 @@ namespace Yuebon.SecurityApi.Areas.Tenants.Controllers
     /// </summary>
     [ApiController]
     [Route("api/Tenants/[controller]")]
-    public class TenantController : AreaApiController<Tenant, TenantOutputDto,TenantInputDto,ITenantService,string>
+    public class TenantController : AreaApiController<Tenant, TenantOutputDto,TenantInputDto,ITenantService>
     {
 
         private IFilterIPService _filterIPService;
@@ -61,7 +61,7 @@ namespace Yuebon.SecurityApi.Areas.Tenants.Controllers
         /// <param name="info"></param>
         protected override void OnBeforeInsert(Tenant info)
         {
-            info.Id = GuidUtils.CreateNo();
+            info.Id = IdGeneratorHelper.IdSnowflake();
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = CurrentUser.UserId;
             info.CompanyId = CurrentUser.OrganizeId;
@@ -119,7 +119,7 @@ namespace Yuebon.SecurityApi.Areas.Tenants.Controllers
             info.EnabledMark = tinfo.EnabledMark;
             info.Description = tinfo.Description;
             OnBeforeUpdate(info);
-            bool bl = await iService.UpdateAsync(info, tinfo.Id).ConfigureAwait(false);
+            bool bl = await iService.UpdateAsync(info);
             if (bl)
             {
                 result.ErrCode = ErrCode.successCode;
@@ -173,7 +173,7 @@ namespace Yuebon.SecurityApi.Areas.Tenants.Controllers
                 return ToJsonContent(result);
             }
             Tenant tenant = new Tenant();
-            tenant.Id = GuidUtils.CreateNo();
+            tenant.Id = IdGeneratorHelper.IdSnowflake();
             tenant.TenantName = info.Account;
             tenant.Email = info.Email;
             tenant.CreatorTime = DateTime.Now;
@@ -275,7 +275,7 @@ namespace Yuebon.SecurityApi.Areas.Tenants.Controllers
             //                }
             //                else
             //                {
-            //                    Tuple<Tenant, string> userLogin = await this.iService.Validate(username, password);
+            //                    Tuple<Tenant> userLogin = await this.iService.Validate(username, password);
             //                    if (userLogin != null)
             //                    {
             //                        string ipAddressName = IpAddressUtil.GetCityByIp(strIp);

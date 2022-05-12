@@ -7,7 +7,7 @@ namespace Yuebon.Security.IRepositories
     /// <summary>
     /// 定义序号编码规则表仓储接口
     /// </summary>
-    public interface ISequenceRuleRepository:IRepository<SequenceRule, string>
+    public interface ISequenceRuleRepository:IRepository<SequenceRule>
     {
     }
 }

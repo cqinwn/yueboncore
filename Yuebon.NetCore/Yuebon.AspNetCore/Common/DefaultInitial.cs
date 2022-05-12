@@ -12,7 +12,7 @@ namespace Yuebon.AspNetCore.Common
     /// </summary>
     public  class DefaultInitial : YuebonInitialization
     {
-        IAPPService _aPPService = App.GetService<IAPPService>();
+        IAPPService _aPPService = Appsettings.GetService<IAPPService>();
 
         /// <summary>
         /// 内存中缓存多应用

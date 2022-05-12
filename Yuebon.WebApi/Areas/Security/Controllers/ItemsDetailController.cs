@@ -19,7 +19,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
     /// </summary>
     [Route("api/Security/[controller]")]
     [ApiController]
-    public class ItemsDetailController : AreaApiController<ItemsDetail, ItemsDetailOutputDto, ItemsDetailInputDto, IItemsDetailService, string>
+    public class ItemsDetailController : AreaApiController<ItemsDetail, ItemsDetailOutputDto, ItemsDetailInputDto, IItemsDetailService>
     {
         private readonly IItemsService itemsService;
 
@@ -38,7 +38,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         protected override void OnBeforeInsert(ItemsDetail info)
         {
             //留给子类对参数对象进行修改
-            info.Id = GuidUtils.CreateNo();
+            info.Id = IdGeneratorHelper.IdSnowflake();
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = CurrentUser.UserId;
             info.DeleteMark = false;
@@ -49,10 +49,10 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             bool bltree = itemsService.Get(info.ItemId).IsTree;
             if (bltree)
             {
-                if (string.IsNullOrEmpty(info.ParentId))
+                if (info.ParentId==0)
                 {
                     info.Layers = 1;
-                    info.ParentId = "";
+                    info.ParentId = 0;
                 }
                 else
                 {
@@ -61,7 +61,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             }
             else
             {
-                info.ParentId = "";
+                info.ParentId = 0;
             }
 
         }
@@ -83,10 +83,10 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             bool bltree = itemsService.Get(info.ItemId).IsTree;
             if (bltree)
             {
-                if (string.IsNullOrEmpty(info.ParentId))
+                if (info.ParentId == 0)
                 {
                     info.Layers = 1;
-                    info.ParentId = "";
+                    info.ParentId = 0;
                 }
                 else
                 {
@@ -95,7 +95,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             }
             else
             {
-                info.ParentId = "";
+                info.ParentId = 0;
             }
         }
 
@@ -123,7 +123,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
 
 
             OnBeforeUpdate(info);
-            bool bl = await iService.UpdateAsync(info, tinfo.Id).ConfigureAwait(false);
+            bool bl = await iService.UpdateAsync(info);
             if (bl)
             {
                 result.ErrCode = ErrCode.successCode;

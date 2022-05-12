@@ -5,7 +5,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.IRepositories
 {
-    public interface IItemsRepository:IRepository<Items, string>
+    public interface IItemsRepository:IRepository<Items>
     {
         /// <summary>
         /// 根据编码查询字典分类
@@ -19,6 +19,6 @@ namespace Yuebon.Security.IRepositories
         /// <param name="enCode">分类编码</param
         /// <param name="id">主键Id</param>
         /// <returns></returns>
-        Task<Items> GetByEnCodAsynce(string enCode, string id);
+        Task<Items> GetByEnCodAsynce(string enCode, long id);
     }
 }

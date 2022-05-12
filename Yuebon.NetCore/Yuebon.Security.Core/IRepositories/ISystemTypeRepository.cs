@@ -6,7 +6,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.IRepositories
 {
-    public interface ISystemTypeRepository : IRepository<SystemType, string>
+    public interface ISystemTypeRepository : IRepository<SystemType>
     {
         /// <summary>
         /// 根据系统编码查询系统对象

@@ -1,0 +1,31 @@
+﻿[
+  {
+    "Id": 1,
+    "ParentId": 0,
+    "Layers": 1,
+    "EnCode": "Company",
+    "FullName": "上海越邦网络科技有限公司",
+    "ShortName": "越邦科技",
+    "CategoryId": "Group",
+    "ManagerId": "陈青文",
+    "TelePhone": "021-61974937",
+    "MobilePhone": "13800013800",
+    "WeChat": "cqinwn",
+    "Fax": null,
+    "Email": "admin@qq.com",
+    "AreaId": null,
+    "Address": "上海市松江区",
+    "AllowEdit": false,
+    "AllowDelete": false,
+    "SortCode": 1,
+    "DeleteMark": false,
+    "EnabledMark": true,
+    "Description": null,
+    "CreatorTime": "2016-06-10 00:00:00",
+    "CreatorUserId": 1,
+    "LastModifyTime": "2020-04-22 00:00:00",
+    "LastModifyUserId": 1,
+    "DeleteTime": "2001-01-01 00:00:00",
+    "DeleteUserId": null
+  }
+]

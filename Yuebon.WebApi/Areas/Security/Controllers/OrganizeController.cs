@@ -20,7 +20,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
     /// </summary>
     [ApiController]
     [Route("api/Security/[controller]")]
-    public class OrganizeController : AreaApiController<Organize, OrganizeOutputDto, OrganizeInputDto, IOrganizeService, string>
+    public class OrganizeController : AreaApiController<Organize, OrganizeOutputDto, OrganizeInputDto, IOrganizeService>
     {
         /// <summary>
         /// 构造函数
@@ -36,7 +36,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <param name="info"></param>
         protected override void OnBeforeInsert(Organize info)
         {
-            info.Id = GuidUtils.CreateNo();
+            info.Id = IdGeneratorHelper.IdSnowflake();
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = CurrentUser.UserId;
             info.DeleteMark = false;
@@ -44,10 +44,10 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             {
                 info.SortCode = 99;
             }
-            if (string.IsNullOrEmpty(info.ParentId))
+            if (info.ParentId==0)
             {
                 info.Layers = 1;
-                info.ParentId = "";
+                info.ParentId = 0;
             }
             else
             {
@@ -65,10 +65,10 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         {
             info.LastModifyUserId = CurrentUser.UserId;
             info.LastModifyTime = DateTime.Now;
-            if (string.IsNullOrEmpty(info.ParentId))
+            if (info.ParentId==0)
             {
                 info.Layers = 1;
-                info.ParentId = "";
+                info.ParentId = 0;
             }
             else
             {
@@ -122,7 +122,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.Description = tinfo.Description;
 
             OnBeforeUpdate(info);
-            bool bl = await iService.UpdateAsync(info, tinfo.Id).ConfigureAwait(false);
+            bool bl = await iService.UpdateAsync(info);
             if (bl)
             {
                 result.ErrCode = ErrCode.successCode;

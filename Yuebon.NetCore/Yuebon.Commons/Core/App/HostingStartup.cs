@@ -24,7 +24,7 @@ namespace Yuebon.Commons.Core.App
             builder.ConfigureAppConfiguration((hostingContext, config) =>
             {
                 // 自动装载配置
-                App.AddConfigureFiles(config, hostingContext.HostingEnvironment);
+                Appsettings.AddConfigureFiles(config, hostingContext.HostingEnvironment);
             });
 
             //可以添加ConfigureServices

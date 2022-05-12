@@ -8,7 +8,7 @@ namespace Yuebon.Security.IServices
     /// <summary>
     /// 
     /// </summary>
-    public interface IFilterIPService:IService<FilterIP, FilterIPOutputDto, string>
+    public interface IFilterIPService:IService<FilterIP, FilterIPOutputDto>
     {
         /// <summary>
         /// 验证IP地址是否被拒绝

@@ -6,7 +6,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.IServices
 {
-    public interface IUserLogOnService:IService<UserLogOn, UserLogOnOutputDto, string>
+    public interface IUserLogOnService:IService<UserLogOn, UserLogOnOutputDto>
     {
 
         /// <summary>
@@ -14,7 +14,7 @@ namespace Yuebon.Security.IServices
         /// </summary>
         /// <param name="userId">用户Id</param>
         /// <returns></returns>
-        UserLogOn GetByUserId(string userId);
+        UserLogOn GetByUserId(long userId);
 
         /// <summary>
         /// 根据会员ID获取用户登录信息实体
@@ -22,6 +22,8 @@ namespace Yuebon.Security.IServices
         /// <param name="info">主题配置信息</param>
         /// <param name="userId">用户Id</param>
         /// <returns></returns>
-        Task<bool> SaveUserTheme(UserThemeInputDto info, string userId);
+        Task<bool> SaveUserTheme(UserThemeInputDto info, long userId);
+        Task<bool> UpdateAsync(UserLogOn entity,long id);
+        
     }
 }

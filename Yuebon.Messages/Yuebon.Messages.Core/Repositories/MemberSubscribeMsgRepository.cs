@@ -1,6 +1,4 @@
-using Dapper;
-using System;
-using System.Data.Common;
+using Yuebon.Commons.Core.UnitOfWork;
 using Yuebon.Commons.Repositories;
 using Yuebon.Messages.Dtos;
 using Yuebon.Messages.IRepositories;
@@ -11,9 +9,11 @@ namespace Yuebon.Messages.Repositories
     /// <summary>
     /// 仓储接口的实现
     /// </summary>
-    public class MemberSubscribeMsgRepository : BaseRepository<MemberSubscribeMsg, string>, IMemberSubscribeMsgRepository
+    public class MemberSubscribeMsgRepository : BaseRepository<MemberSubscribeMsg>, IMemberSubscribeMsgRepository
     {
-		public MemberSubscribeMsgRepository()
+
+
+        public MemberSubscribeMsgRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
             this.tableName = "Sys_MemberSubscribeMsg";
             this.primaryKey = "Id";
@@ -26,11 +26,11 @@ namespace Yuebon.Messages.Repositories
         /// <param name="messageType">消息类型</param>
         /// <param name="userId">用户Id</param>
         /// <returns></returns>
-        public MemberMessageTemplatesOuputDto GetByMessageTypeWithUser(string messageType, string userId)
+        public MemberMessageTemplatesOuputDto GetByMessageTypeWithUser(string messageType, long userId)
         {
             string sqlStr = @"select a.*,b.Id as MemberSubscribeMsgId,b.SubscribeStatus as SubscribeStatus,b.SubscribeType as SubscribeType  from Sys_MessageTemplates as a 
-LEFT join Sys_MemberSubscribeMsg as b on a.Id = b.MessageTemplateId where a.UseInWxApplet =1 and a.WxAppletSubscribeTemplateId is not null and a.messageType = '" + messageType + "' and b.SubscribeUserId='" + userId + "'";
-            return DapperConn.QueryFirstOrDefault<MemberMessageTemplatesOuputDto>(sqlStr);
+LEFT join Sys_MemberSubscribeMsg as b on a.Id = b.MessageTemplateId where a.UseInWxApplet =1 and a.WxAppletSubscribeTemplateId is not null and a.messageType = '" + messageType + "' and b.SubscribeUserId=" + userId ;
+            return Db.Ado.SqlQuerySingle<MemberMessageTemplatesOuputDto>(sqlStr);
         }
         /// <summary>
         /// 按用户、订阅类型和消息模板主键查询
@@ -39,10 +39,10 @@ LEFT join Sys_MemberSubscribeMsg as b on a.Id = b.MessageTemplateId where a.UseI
         /// <param name="userId">用户</param>
         /// <param name="messageTemplateId">模板Id主键</param>
         /// <returns></returns>
-        public MemberMessageTemplatesOuputDto GetByWithUser(string subscribeType, string userId, string messageTemplateId)
+        public MemberMessageTemplatesOuputDto GetByWithUser(string subscribeType, long userId, long messageTemplateId)
         {
-            string sqlStr = @"select * from [dbo].[Sys_MemberSubscribeMsg]   where SubscribeUserId = '" + userId + "' and SubscribeType='" + subscribeType + "' and MessageTemplateId='" + messageTemplateId + "'";
-            return DapperConn.QueryFirstOrDefault<MemberMessageTemplatesOuputDto>(sqlStr);
+            string sqlStr = @"select * from [dbo].[Sys_MemberSubscribeMsg]   where SubscribeUserId = '" + userId + "' and SubscribeType='" + subscribeType + "' and MessageTemplateId=" + messageTemplateId;
+            return Db.Ado.SqlQuerySingle<MemberMessageTemplatesOuputDto>(sqlStr);
         }
     }
 }

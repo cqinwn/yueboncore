@@ -8,13 +8,14 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Services
 {
-    public class RoleDataService: BaseService<RoleData, RoleDataOutputDto, string>, IRoleDataService
+    public class RoleDataService: BaseService<RoleData, RoleDataOutputDto>, IRoleDataService
     {
 		private readonly IRoleDataRepository _repository;
         private readonly ILogService _logService;
-        public RoleDataService(IRoleDataRepository repository,ILogService logService) : base(repository)
+        public RoleDataService(IRoleDataRepository roleDataRepository,ILogService logService)
         {
-			_repository=repository;
+            repository=roleDataRepository;
+            _repository = roleDataRepository;
 			_logService=logService;
         }
         /// <summary>

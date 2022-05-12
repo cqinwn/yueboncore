@@ -4,17 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Reflection;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
-using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Models;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Core.App;
-using Yuebon.Commons.Encrypt;
-using Yuebon.Commons.Extensions;
-using Yuebon.Commons.IoC;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Models;
@@ -29,9 +23,9 @@ namespace Yuebon.AspNetCore.Mvc
     /// </summary>
     public class TokenProvider
     {
-        JwtOption _jwtModel=App.GetService<JwtOption>();
-        IRoleService _roleService = App.GetService<IRoleService>();
-        IAPPService _appService = App.GetService<IAPPService>();
+        JwtOption _jwtModel=Appsettings.GetService<JwtOption>();
+        IRoleService _roleService = Appsettings.GetService<IRoleService>();
+        IAPPService _appService = Appsettings.GetService<IAPPService>();
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -98,7 +92,7 @@ namespace Yuebon.AspNetCore.Mvc
                         string appId = jwtToken.Claims.ToList()[0].Value;//Audience
                         string secret = _jwtModel.Secret;
                         List<APP> list = MemoryCacheHelper.Get<List<APP>>("cacheAppList");
-                        if (list.Count== 0||list==null)
+                        if (list==null||list.Count==0)
                         {
                             list = _appService.GetAll().ToList();
                         }
@@ -186,7 +180,7 @@ namespace Yuebon.AspNetCore.Mvc
                     new Claim(JwtClaimTypes.Audience,appid),
                     new Claim(JwtClaimTypes.Issuer,_jwtModel.Issuer),
                     new Claim(JwtClaimTypes.Name, userInfo.Account),
-                    new Claim(JwtClaimTypes.Id, userInfo.Id),
+                    new Claim(JwtClaimTypes.Id, userInfo.Id.ToString()),
                     new Claim(JwtClaimTypes.Role, _roleService.GetRoleEnCode(userInfo.RoleId)),
                     new Claim(JwtClaimTypes.Subject, GrantType.Password)
                 }),
@@ -228,7 +222,7 @@ namespace Yuebon.AspNetCore.Mvc
                     new Claim(JwtClaimTypes.Audience,appid),
                     new Claim(JwtClaimTypes.Issuer,_jwtModel.Issuer),
                     new Claim(JwtClaimTypes.Name, userInfo.Account),
-                    new Claim(JwtClaimTypes.Id, userInfo.Id),
+                    new Claim(JwtClaimTypes.Id, userInfo.Id.ToString()),
                     new Claim(JwtClaimTypes.Role, userInfo.RoleId),
                     new Claim(JwtClaimTypes.Subject, GrantType.Password)
                 }),

@@ -19,7 +19,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
     /// </summary>
     [ApiController]
     [Route("api/Security/[controller]")]
-    public class SequenceController : AreaApiController<Sequence, SequenceOutputDto, SequenceInputDto, ISequenceService,string>
+    public class SequenceController : AreaApiController<Sequence, SequenceOutputDto, SequenceInputDto, ISequenceService>
     {
         /// <summary>
         /// 构造函数
@@ -35,8 +35,8 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
         /// <param name="info"></param>
         protected override void OnBeforeInsert(Sequence info)
         {
-            info.Id = GuidUtils.CreateNo();
-            info.Id = new SequenceApp().GetSequenceNext("SortingSn");
+            info.Id = IdGeneratorHelper.IdSnowflake();
+            //info.Id = new SequenceApp().GetSequenceNext("SortingSn");
             info.CreatorTime=info.LastModifyTime = DateTime.Now;
             info.CreatorUserId = info.LastModifyUserId= CurrentUser.UserId;
             info.CompanyId = CurrentUser.OrganizeId;
@@ -88,20 +88,17 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
                 return ToJsonContent(result);
             }
 
-            if (string.IsNullOrEmpty(info.Id))
+            string where = string.Format("SequenceName='{0}'", info.SequenceName);
+            Sequence sequenceIsExist = iService.GetWhere(where);
+            if (sequenceIsExist != null)
             {
-                string where = string.Format("SequenceName='{0}'", info.SequenceName);
-                Sequence sequenceIsExist = iService.GetWhere(where);
-                if (sequenceIsExist != null)
-                {
-                    result.ErrMsg = "规则名称不能重复";
-                    return ToJsonContent(result);
-                }
-                Sequence sequence =info.MapTo<Sequence>();
-                OnBeforeInsert(sequence);
-                long ln = await iService.InsertAsync(sequence).ConfigureAwait(true);
-                result.Success = ln > 0;
+                result.ErrMsg = "规则名称不能重复";
+                return ToJsonContent(result);
             }
+            Sequence sequence =info.MapTo<Sequence>();
+            OnBeforeInsert(sequence);
+            long ln = await iService.InsertAsync(sequence);
+            result.Success = ln > 0;
             if (result.Success)
             {
                 result.ErrCode = ErrCode.successCode;
@@ -151,7 +148,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
             sequence.EnabledMark = info.EnabledMark;
             sequence.Description = info.Description;
             OnBeforeUpdate(sequence);
-            result.Success = await iService.UpdateAsync(sequence, info.Id).ConfigureAwait(true);
+            result.Success = await iService.UpdateAsync(sequence);
 
             if (result.Success)
             {

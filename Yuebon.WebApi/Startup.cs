@@ -27,19 +27,20 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Runtime.Loader;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
+using Yitter.IdGenerator;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Core.App;
-using Yuebon.Commons.DbContextCore;
+using Yuebon.Commons.Core.UnitOfWork;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
-using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.Linq;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Module;
@@ -56,7 +57,7 @@ namespace Yuebon.WebApi
         /// <summary>
         /// 
         /// </summary>
-        public static ILoggerRepository LoggerRepository { get; set; }
+        public static ILoggerRepository loggerRepository { get; set; }
         string targetPath = string.Empty;
         IMvcBuilder mvcBuilder;
         /// <summary>
@@ -72,8 +73,9 @@ namespace Yuebon.WebApi
         {
             Configuration = configuration;
             //初始化log4net
-            LoggerRepository = LogManager.CreateRepository("NETCoreRepository");
-            Log4NetHelper.SetConfig(LoggerRepository, "log4net.config");
+            loggerRepository = LogManager.CreateRepository("NETCoreRepository");
+            Log4NetHelper.SetConfig(loggerRepository, "log4net.config");
+
         }
 
         /// <summary>
@@ -85,33 +87,34 @@ namespace Yuebon.WebApi
         {
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddHttpContextAccessor();
-            //services.AddSingleton(Configuration);
             //如果部署在linux系统上，需要加上下面的配置：
             services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
             //如果部署在IIS上，需要加上下面的配置：
             services.AddOptions();
             services.Configure<IISServerOptions>(options => options.AllowSynchronousIO = true);
 
+            services.AddSingleton(Configuration);
+
+            #region 健康检查
+            services.AddHealthChecks();
+            #endregion
+
             #region Swagger Api文档
 
             // Api多版本版本配置
             services.AddApiVersioning(o =>
             {
-                //是否在请求头中返回受支持的版本信息。
-                o.ReportApiVersions = true;
-                //请求中未指定版本时默认的版本号。
-                o.DefaultApiVersion = new ApiVersion(1, 0);
-                //版本号以什么形式，什么字段传递？版本信息放到header ,不写在不配置路由的情况下，版本信息放到response url 中
-                o.ApiVersionReader = new HeaderApiVersionReader("api-version");
-                //请求没有指明版本的情况下是否使用默认的版本。
-                o.AssumeDefaultVersionWhenUnspecified = true;
+                o.ReportApiVersions = true;//是否在请求头中返回受支持的版本信息。
+                o.ApiVersionReader = new HeaderApiVersionReader("api-version");////版本信息放到header ,不写在不配置路由的情况下，版本信息放到response url 中
+                o.AssumeDefaultVersionWhenUnspecified = true;//请求没有指明版本的情况下是否使用默认的版本。
+                o.DefaultApiVersion = new ApiVersion(1, 0);//默认的版本号。
             }).AddVersionedApiExplorer(option =>
             {    // 版本名的格式：v+版本号
                 option.GroupNameFormat = "'v'V";
                 option.AssumeDefaultVersionWhenUnspecified = true;
             });
-
             //获取webapi版本信息，用于swagger多版本支持 
+
             services.AddOptions<SwaggerGenOptions>().Configure<IApiVersionDescriptionProvider>((options, service) =>
             {
                 options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
@@ -122,20 +125,20 @@ namespace Yuebon.WebApi
                 string contactName = Configuration.GetSection("SwaggerDoc:ContactName").Value;
                 string contactNameEmail = Configuration.GetSection("SwaggerDoc:ContactEmail").Value;
                 string contactUrl = Configuration.GetSection("SwaggerDoc:ContactUrl").Value;
+
                 foreach (var description in apiVersionProvider.ApiVersionDescriptions)
                 {
                     options.SwaggerDoc(description.GroupName,
-                        new OpenApiInfo()
-                        {
-                            Title = $"{Configuration.GetSection("SwaggerDoc:Title").Value}v{description.ApiVersion}",
-                            Version = description.ApiVersion.ToString(),
-                            Description = Configuration.GetSection("SwaggerDoc:Description").Value+ (description.IsDeprecated ? " - 此版本已放弃兼容":""),//描述
-                            Contact = new OpenApiContact { Name = contactName, Email = contactNameEmail, Url = new Uri(contactUrl) },
-                            License = new OpenApiLicense { Name = contactName, Url = new Uri(contactUrl) }
-                        });
+                         new OpenApiInfo()
+                         {
+                             Title = $"{Configuration.GetSection("SwaggerDoc:Title").Value}-{RuntimeInformation.FrameworkDescription}",
+                             Version =$"v{ description.ApiVersion.ToString()}",
+                             Description = Configuration.GetSection("SwaggerDoc:Description").Value,
+                             Contact = new OpenApiContact { Name = contactName, Email = contactNameEmail, Url = new Uri(contactUrl) },
+                             License = new OpenApiLicense { Name = contactName, Url = new Uri(contactUrl) }
+                         }
+                    );
                 }
-
-                //加载XML注释
                 Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.xml").ToList().ForEach(file =>
                 {
                     options.IncludeXmlComments(file, true);
@@ -148,13 +151,13 @@ namespace Yuebon.WebApi
                     Name = "Authorization",//jwt默认的参数名称
                     In = ParameterLocation.Header,//jwt默认存放Authorization信息的位置(请求头中)
                     Type = SecuritySchemeType.ApiKey,
-                    BearerFormat="JWT",
-                    Scheme= "Bearer"
+                    BearerFormat = "JWT",
+                    Scheme = "Bearer"
                 });
                 //添加安全请求
                 options.AddSecurityRequirement(
                     new OpenApiSecurityRequirement {
-                        { 
+                        {
                             new OpenApiSecurityScheme
                             {
                                 Reference=new OpenApiReference{
@@ -166,6 +169,7 @@ namespace Yuebon.WebApi
                         }
                     }
                  );
+
                 options.OperationFilter<AddRequiredHeaderParameter>();
                 //开启加权锁
                 options.OperationFilter<AddResponseHeadersFilter>();
@@ -186,14 +190,7 @@ namespace Yuebon.WebApi
             #endregion
 
             #region MiniProfiler
-            services.AddMiniProfiler(options => {
-                options.RouteBasePath = "/profiler";
-                options.ColorScheme = StackExchange.Profiling.ColorScheme.Auto;
-                options.PopupRenderPosition = StackExchange.Profiling.RenderPosition.BottomLeft;
-                options.PopupShowTimeWithChildren = true;
-                options.PopupShowTrivial = true;
-                options.SqlFormatter = new StackExchange.Profiling.SqlFormatters.InlineFormatter();
-            }).AddEntityFramework();
+            services.AddMiniProfilerSetup();
             #endregion
 
             #region 控制器
@@ -224,6 +221,7 @@ namespace Yuebon.WebApi
             services.AddMvcCore()
                 .AddAuthorization().AddApiExplorer();
             #endregion
+
             services.AddSignalR();//使用 SignalR
             InitIoC(services);
         }
@@ -238,23 +236,14 @@ namespace Yuebon.WebApi
         {
             if (app != null)
             {
+                app.UseHealthChecks("/Health");
                 app.UseStaticHttpContextAccessor();
                 IServiceProvider provider = app.ApplicationServices;
                 AutoMapperService.UsePack(provider);
                 //加载插件应用
                 LoadMoudleApps(env);
-
+                //开启性能分析
                 app.UseMiniProfiler();
-                if (env.IsDevelopment())
-                {
-                    //开发环境时才使用SwaggerUI，生产环境一般不开启
-                    app.UseDeveloperExceptionPage();
-                }
-                else
-                {
-                    app.UseExceptionHandler("/Home/Error");
-                    app.UseHsts();
-                }
 
                 app.UseSwagger();
                 app.UseSwaggerUI(options =>
@@ -264,7 +253,17 @@ namespace Yuebon.WebApi
                         options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", $"{Configuration.GetSection("SwaggerDoc:Title").Value + description.GroupName.ToUpperInvariant()}");
                         options.RoutePrefix = string.Empty;//这里主要是不需要再输入swagger这个默认前缀
                     }
+                    options.HeadContent = "<script async id=\"mini-profiler\" src=\"/mini-profiler-resources/includes.min.js?v=4.2.22+b27bea37e9\" data-version=\"4.2.22+b27bea37e9\" data-path=\"/mini-profiler-resources/\" data-current-id=\"144b1192-acd3-4fe2-bbc5-6f1e1c6d53df\" data-ids=\"87a1341b-995d-4d1d-aaba-8f2bfcfc9ca9,144b1192-acd3-4fe2-bbc5-6f1e1c6d53df\" data-position=\"Left\" data-scheme=\"Light\" data-authorized=\"true\" data-max-traces=\"15\" data-toggle-shortcut=\"Alt+P\" data-trivial-milliseconds=\"2.0\" data-ignored-duplicate-execute-types=\"Open,OpenAsync,Close,CloseAsync\"></script>";
                 });
+                if (env.IsDevelopment())
+                {
+                    app.UseDeveloperExceptionPage();
+                }
+                else
+                {
+                    app.UseExceptionHandler("/Home/Error");
+                    app.UseHsts();
+                }
                 app.Use((context, next) =>
                 {
                     context.Request.EnableBuffering();
@@ -295,7 +294,6 @@ namespace Yuebon.WebApi
         /// <returns></returns>
         private void InitIoC(IServiceCollection services)
         {
-
             #region 缓存
             CacheProvider cacheProvider = new CacheProvider
             {
@@ -304,20 +302,20 @@ namespace Yuebon.WebApi
                 InstanceName = Configuration.GetSection("CacheProvider:Redis_InstanceName").Value
             };
 
-            var jsonOptions = new JsonSerializerOptions();
-            jsonOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All);
-            jsonOptions.WriteIndented = true;
-            jsonOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-            jsonOptions.AllowTrailingCommas = true;
+            var options = new JsonSerializerOptions();
+            options.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All);
+            options.WriteIndented = true;
+            options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+            options.AllowTrailingCommas = true;
             //设置时间格式
-            jsonOptions.Converters.Add(new DateTimeJsonConverter());
-            jsonOptions.Converters.Add(new DateTimeNullableConverter());
+            options.Converters.Add(new DateTimeJsonConverter());
+            options.Converters.Add(new DateTimeNullableConverter());
             //设置bool获取格式
-            jsonOptions.Converters.Add(new BooleanJsonConverter());
+            options.Converters.Add(new BooleanJsonConverter());
             //设置数字
-            jsonOptions.Converters.Add(new IntJsonConverter());
-            jsonOptions.PropertyNamingPolicy = new UpperFirstCaseNamingPolicy();
-            jsonOptions.PropertyNameCaseInsensitive = true;                     //忽略大小写
+            options.Converters.Add(new IntJsonConverter());
+            options.PropertyNamingPolicy = new UpperFirstCaseNamingPolicy();
+            options.PropertyNameCaseInsensitive = true;                     //忽略大小写
             //判断是否使用Redis，如果不使用 Redis就默认使用 MemoryCache
             if (cacheProvider.IsUseRedis)
             {
@@ -331,7 +329,12 @@ namespace Yuebon.WebApi
                 {
                     Configuration = cacheProvider.ConnectionString,
                     InstanceName = cacheProvider.InstanceName
-                }, jsonOptions, 0));
+                }, options, 0));
+                services.AddSingleton(typeof(RedisHelper), new RedisHelper(new RedisCacheOptions
+                {
+                    Configuration = cacheProvider.ConnectionString,
+                    InstanceName = cacheProvider.InstanceName
+                }, options, 0));
                 services.Configure<DistributedCacheEntryOptions>(option => option.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5));//设置Redis缓存有效时间为5分钟。
             }
             else
@@ -346,10 +349,10 @@ namespace Yuebon.WebApi
                 services.Configure<MemoryCacheEntryOptions>(
                     options => options.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5)); //设置MemoryCache缓存有效时间为5分钟
             }
-            services.AddSingleton(cacheProvider);//注册缓存配置
             services.AddTransient<MemoryCacheService>();
             services.AddMemoryCache();// 启用MemoryCache
 
+            services.AddSingleton(cacheProvider);//注册缓存配置
             #endregion
 
             #region 身份认证授权
@@ -358,9 +361,9 @@ namespace Yuebon.WebApi
             var jwtOption = new JwtOption
             {
                 Issuer = jwtConfig["Issuer"],
-                Audience= jwtConfig["Audience"],
-                Secret = jwtConfig["Secret"],
                 Expiration = Convert.ToInt16(jwtConfig["Expiration"]),
+                Secret = jwtConfig["Secret"],
+                Audience = jwtConfig["Audience"],
                 refreshJwtTime = Convert.ToInt16(jwtConfig["refreshJwtTime"])
             };
             services.AddAuthentication(options =>
@@ -368,15 +371,27 @@ namespace Yuebon.WebApi
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme; ;
 
+            }).AddJwtBearer(jwtBearerOptions =>
+            {
+                jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(jwtOption.Secret)),//秘钥
+                    ValidateIssuer = true,
+                    ValidIssuer = jwtOption.Issuer,
+                    ValidateAudience = true,
+                    ValidAudience = jwtOption.Audience,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.FromMinutes(5)
+                };
             });
             services.AddSingleton(jwtOption);//注册配置
             #endregion
 
             services.AddAutoScanInjection();//自动化注入仓储和服务
-            services.AddTransient<IDbContextCore, SqlServerDbContext>(); //注入EF上下文
 
             #region automapper
-            List<Assembly> myAssembly =RuntimeHelper.GetAllYuebonAssemblies().ToList();
+            List<Assembly> myAssembly = RuntimeHelper.GetAllYuebonAssemblies().ToList();
             services.AddAutoMapper(myAssembly);
             services.AddTransient<IMapper, Mapper>();
             #endregion
@@ -387,8 +402,25 @@ namespace Yuebon.WebApi
             //设置定时启动的任务
             services.AddHostedService<QuartzService>();
             #endregion
-            App.Services = services;
+
+            services.AddSingleton<IUnitOfWork, UnitOfWork>();
+            Appsettings.Services = services;
+            services.AddSqlsugarSetup();
             new DefaultInitial().CacheAppList();
+
+            //雪花算法配置
+            YitIdHelper.SetIdGenerator(new IdGeneratorOptions()
+            {
+                WorkerId = 1,
+                WorkerIdBitLength = 10,
+                SeqBitLength = 6,
+                DataCenterIdBitLength = 1,
+                TopOverCostCount = 2000,
+                //TimestampType = 1,
+                // MinSeqNumber = 1,
+                // MaxSeqNumber = 200,
+                // BaseTime = DateTime.Now.AddYears(-10),
+            });
         }
 
         /// <summary>
@@ -448,5 +480,8 @@ namespace Yuebon.WebApi
                 groups.ForEach(mvcBuilder.AddApplicationPart);
             }
         }
+
+
+
     }
 }

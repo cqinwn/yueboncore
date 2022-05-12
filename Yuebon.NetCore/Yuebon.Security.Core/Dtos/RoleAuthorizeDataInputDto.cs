@@ -13,20 +13,20 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 设置角色功能
         /// </summary>
-        public string[] RoleFunctios { get; set; }
+        public long[] RoleFunctios { get; set; }
 
         /// <summary>
         /// 设置角色可访问系统
         /// </summary>
-        public string[] RoleSystem { get; set; }
+        public long[] RoleSystem { get; set; }
         /// <summary>
         /// 设置角色可访问数据
         /// </summary>
-        public string[] RoleData { get; set; }
+        public long[] RoleData { get; set; }
 
         /// <summary>
         /// 设置角色Id
         /// </summary>
-        public string RoleId { get; set; }
+        public long RoleId { get; set; }
     }
 }

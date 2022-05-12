@@ -75,7 +75,7 @@ namespace Yuebon.SMS.Zutong
                 sendSmsTp.records = records;
                 var json = sendSmsTp.ToJson();
                 var data = new StringContent(json, Encoding.UTF8, "application/json");
-                var response =  HttpRequestHelper.HttpPost(this.Domain, data);
+                var response = HttpClientHelper.Post( data,this.Domain);
                 SMSResult sMSResult = JsonConvert.DeserializeObject<SMSResult>(response);
                 returnMsg = sMSResult.Msg;
                 if (sMSResult.Code ==200)

@@ -131,7 +131,7 @@ namespace Yuebon.Commons.Encrypt
         {
             byte[] DypherTextBArray;
             string Result;
-            System.Security.Cryptography.RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
             rsa.FromXmlString(privateKey);
             DypherTextBArray = rsa.Decrypt(encryptedBytes, false);
             Result = (new UnicodeEncoding()).GetString(DypherTextBArray);
@@ -144,8 +144,8 @@ namespace Yuebon.Commons.Encrypt
         /// <summary>
         /// 使用非对称加密签名数据
         /// </summary>
-        /// <param name="privateKey">私钥</param>
         /// <param name="originalString">待加密的字符串</param>
+        /// <param name="privateKey">私钥</param>
         /// <returns>加密后的数据</returns>
         public static string RSAEncrypSignature(string originalString, string privateKey)
         {
@@ -182,7 +182,6 @@ namespace Yuebon.Commons.Encrypt
                     rsa.FromXmlString(publicKey); //公钥
                     RSAPKCS1SignatureDeformatter formatter = new RSAPKCS1SignatureDeformatter(rsa);
                     formatter.SetHashAlgorithm("SHA1");
-
                     byte[] key = Convert.FromBase64String(encrytedString); //验证
                     SHA1Managed sha = new SHA1Managed();
                     byte[] name = sha.ComputeHash(ASCIIEncoding.ASCII.GetBytes(originalString));

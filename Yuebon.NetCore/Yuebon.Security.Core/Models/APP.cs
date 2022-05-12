@@ -1,7 +1,7 @@
-﻿using System;
+﻿using SqlSugar;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Yuebon.Commons.Models;
 
 namespace Yuebon.Security.Models
@@ -9,9 +9,9 @@ namespace Yuebon.Security.Models
     /// <summary>
     /// 系统应用表，数据实体对象
     /// </summary>
-    [Table("Sys_APP")]
+    [SugarTable("Sys_APP","系统应用表")]
     [Serializable]
-    public class APP :BaseEntity<string>, ICreationAudited, IModificationAudited, IDeleteAudited
+    public class APP :BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited
     {
         /// <summary>
         /// 默认构造函数（需要初始化属性的在此处理）
@@ -27,6 +27,7 @@ namespace Yuebon.Security.Models
         /// 应用Id
         /// </summary>
         [MaxLength(50)]
+        [SugarColumn(ColumnDescription= "应用Id")]
         [Description("应用Id")]
         [Required]
         public virtual string AppId { get; set; }
@@ -36,6 +37,8 @@ namespace Yuebon.Security.Models
         /// </summary>
         [MaxLength(256)]
         [Description("应用密钥")]
+        [SugarColumn(ColumnDescription= "应用密钥")]
+        [Required]
         public virtual string AppSecret { get; set; }
 
         /// <summary>
@@ -43,6 +46,7 @@ namespace Yuebon.Security.Models
         /// </summary>
         [MaxLength(256)]
         [Description("消息加解密密钥")]
+        [SugarColumn(ColumnDescription= "消息加解密密钥")]
         public virtual string EncodingAESKey { get; set; }
 
         /// <summary>
@@ -50,6 +54,7 @@ namespace Yuebon.Security.Models
         /// </summary>
         [MaxLength(512)]
         [Description("授权请求地址url")]
+        [SugarColumn(ColumnDescription= "授权请求地址url")]
         public virtual string RequestUrl { get; set; }
 
         /// <summary>
@@ -58,12 +63,14 @@ namespace Yuebon.Security.Models
         [Display(Name = "Token令牌")]
         [MaxLength(64)]
         [Description("Token令牌")]
+        [SugarColumn(ColumnDescription= "Token令牌")]
         public virtual string Token { get; set; }
         /// <summary>
         /// 是否开启消息加解密
         /// </summary>
         [Display(Name = "是否开启消息加解密")]
         [Description("是否开启消息加解密")]
+        [SugarColumn(ColumnDescription= "是否开启消息加解密")]
         public virtual bool IsOpenAEKey { get; set; }
 
         /// <summary>
@@ -72,59 +79,73 @@ namespace Yuebon.Security.Models
         [Display(Name = "描述")]
         [Description("描述")]
         [MaxLength(200)]
+        [SugarColumn(ColumnDescription= "描述")]
         public virtual string Description { get; set; }
+        
+
+        /// <summary>
+        /// 创建用户组织主键
+        /// </summary>
+        [MaxLength(50)]
+        [SugarColumn(ColumnDescription= "创建用户组织主键")]
+        public virtual long? CompanyId { get; set; }
+        /// <summary>
+        /// 创建用户部门主键
+        /// </summary>
+        [MaxLength(50)]
+        [SugarColumn(ColumnDescription= "创建用户部门主键")]
+        public virtual long? DeptId { get; set; }
+
         /// <summary>
         /// 删除标志
         /// </summary>
+        [SugarColumn(ColumnDescription= "删除标志")]
         public virtual bool? DeleteMark { get; set; }
 
         /// <summary>
         /// 有效标志
         /// </summary>
-        public virtual bool EnabledMark { get; set; }
+        [SugarColumn(ColumnDescription= "有效标志")]
+        public virtual bool? EnabledMark { get; set; }
 
         /// <summary>
         /// 创建日期
         /// </summary>
+        [SugarColumn(ColumnDescription= "创建日期")]
         public virtual DateTime? CreatorTime { get; set; }
 
         /// <summary>
         /// 创建用户主键
         /// </summary>
         [MaxLength(50)]
-        public virtual string CreatorUserId { get; set; }
+        [SugarColumn(ColumnDescription= "创建用户主键")]
+        public virtual long? CreatorUserId { get; set; }
 
-        /// <summary>
-        /// 创建用户组织主键
-        /// </summary>
-        [MaxLength(50)]
-        public virtual string CompanyId { get; set; }
-        /// <summary>
-        /// 创建用户部门主键
-        /// </summary>
-        [MaxLength(50)]
-        public virtual string DeptId { get; set; }
         /// <summary>
         /// 最后修改时间
         /// </summary>
+        [SugarColumn(ColumnDescription= "最后修改时间")]
         public virtual DateTime? LastModifyTime { get; set; }
 
         /// <summary>
         /// 最后修改用户
         /// </summary>
         [MaxLength(50)]
-        public virtual string LastModifyUserId { get; set; }
+        [SugarColumn(ColumnDescription= "最后修改用户")]
+        public virtual long? LastModifyUserId { get; set; }
 
         /// <summary>
         /// 删除时间
         /// </summary>
+        [SugarColumn(ColumnDescription= "删除时间")]
         public virtual DateTime? DeleteTime { get; set; }
 
         /// <summary>
         /// 删除用户
         /// </summary>
         [MaxLength(50)]
-        public virtual string DeleteUserId { get; set; }
+        [SugarColumn(ColumnDescription= "删除用户")]
+        public virtual long? DeleteUserId { get; set; }
         #endregion
 
     }

@@ -13,12 +13,12 @@ namespace Yuebon.CMS.Dtos
     /// </summary>
     [AutoMap(typeof(Articlecategory))]
     [Serializable]
-    public class ArticlecategoryInputDto: IInputDto<string>
+    public class ArticlecategoryInputDto: IInputDto
     {
         /// <summary>
         /// 设置或获取主键
         /// </summary>
-        public string Id { get; set; }
+        public long Id { get; set; }
 
         /// <summary>
         /// 设置或获取标题
@@ -28,7 +28,7 @@ namespace Yuebon.CMS.Dtos
         /// <summary>
         /// 设置或获取父级Id
         /// </summary>
-        public string ParentId { get; set; }
+        public long ParentId { get; set; }
 
         /// <summary>
         /// 设置或获取全路径

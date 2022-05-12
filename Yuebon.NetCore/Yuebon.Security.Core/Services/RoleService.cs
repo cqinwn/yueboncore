@@ -12,14 +12,15 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Services
 {
-    public class RoleService: BaseService<Role, RoleOutputDto, string>, IRoleService
+    public class RoleService: BaseService<Role, RoleOutputDto>, IRoleService
     {
         private  IRoleRepository _repository;
         private  ILogService _logService;
         private IOrganizeService _organizeService;
-        public RoleService(IRoleRepository repository, ILogService logService,IOrganizeService organizeService) : base(repository)
+        public RoleService(IRoleRepository roleRepository, ILogService logService,IOrganizeService organizeService)
         {
-            _repository = repository;
+            repository=roleRepository;
+            _repository = roleRepository;
             _logService = logService;
             _organizeService = organizeService;
         }
@@ -99,7 +100,7 @@ namespace Yuebon.Security.Services
             List<RoleOutputDto> listResult = new List<RoleOutputDto>();
             foreach (RoleOutputDto item in resultList)
             {
-                if (!string.IsNullOrEmpty(item.OrganizeId))
+                if (item.OrganizeId>0)
                 {
                     item.OrganizeName = _organizeService.Get(item.OrganizeId).FullName;
                 }

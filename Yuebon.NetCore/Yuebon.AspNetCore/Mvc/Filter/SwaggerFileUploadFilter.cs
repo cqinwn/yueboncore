@@ -20,36 +20,34 @@ namespace Yuebon.AspNetCore.Mvc.Filter
         /// <param name="context"></param>
         public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
+            #region 文件上传处理
+            if (!context.ApiDescription.HttpMethod.Equals("POST", StringComparison.OrdinalIgnoreCase) &&
+                !context.ApiDescription.HttpMethod.Equals("PUT", StringComparison.OrdinalIgnoreCase))
             {
-                #region 文件上传处理
-                if (!context.ApiDescription.HttpMethod.Equals("POST", StringComparison.OrdinalIgnoreCase) &&
-                    !context.ApiDescription.HttpMethod.Equals("PUT", StringComparison.OrdinalIgnoreCase))
-                {
-                    return;
-                }
-
-                
-                var fileParameters = context.ApiDescription.ActionDescriptor.Parameters.Where(n => n.ParameterType == typeof(IFormFile)).ToList();
-                if (fileParameters.Count < 0)
-                {
-                    return;
-                }
-
-                foreach (var fileParameter in fileParameters)
-                {
-                    var parameter = operation.Parameters.Single(n => n.Name == fileParameter.Name);
-                    operation.Parameters.Remove(parameter);
-                    operation.Parameters.Add(new OpenApiParameter
-                    {
-                        Name = parameter.Name,
-                        In = ParameterLocation.Header,//"formData",
-                        Description = parameter.Description,
-                        Required = parameter.Required,
-                        Content = parameter.Content
-                    });
-                }
-                #endregion
+                return;
             }
+
+
+            var fileParameters = context.ApiDescription.ActionDescriptor.Parameters.Where(n => n.ParameterType == typeof(IFormFile)).ToList();
+            if (fileParameters.Count < 0)
+            {
+                return;
+            }
+
+            foreach (var fileParameter in fileParameters)
+            {
+                var parameter = operation.Parameters.Single(n => n.Name == fileParameter.Name);
+                operation.Parameters.Remove(parameter);
+                operation.Parameters.Add(new OpenApiParameter
+                {
+                    Name = parameter.Name,
+                    In = ParameterLocation.Header,//"formData",
+                    Description = parameter.Description,
+                    Required = parameter.Required,
+                    Content = parameter.Content
+                });
+            }
+            #endregion
         }
     }
 }

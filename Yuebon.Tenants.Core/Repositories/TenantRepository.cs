@@ -1,11 +1,9 @@
-using Dapper;
 using System;
 using System.Threading.Tasks;
+using Yuebon.Commons.Core.UnitOfWork;
 using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Helpers;
-using Yuebon.Commons.IDbContext;
 using Yuebon.Commons.Repositories;
-using Yuebon.Tenants.Dtos;
 using Yuebon.Tenants.IRepositories;
 using Yuebon.Tenants.Models;
 
@@ -14,17 +12,16 @@ namespace Yuebon.Tenants.Repositories
     /// <summary>
     /// 租户仓储接口的实现
     /// </summary>
-    public class TenantRepository : BaseRepository<Tenant, string>, ITenantRepository
+    public class TenantRepository : BaseRepository<Tenant>, ITenantRepository
     {
-		public TenantRepository()
-        {
-        }
+        private IUnitOfWork _unitOfWork;
         /// <summary>
         /// 注入EF上下文
         /// </summary>
         /// <param name="context"></param>
-        public TenantRepository(IDbContextCore context) : base(context)
+        public TenantRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
+            _unitOfWork= unitOfWork;
         }
 
         /// <summary>
@@ -35,7 +32,7 @@ namespace Yuebon.Tenants.Repositories
         public async Task<Tenant> GetByUserName(string userName)
         {
             string sql = $"SELECT * FROM {this.tableName} t WHERE t.TenantName = @TenantName";
-            return await DapperConn.QueryFirstOrDefaultAsync<Tenant>(sql, new { @TenantName = userName });
+            return await Db.Ado.SqlQuerySingleAsync<Tenant>(sql, new { @TenantName = userName });
         }
 
 
@@ -47,13 +44,22 @@ namespace Yuebon.Tenants.Repositories
         /// <param name="tenantLogOnEntity"></param>
         public async Task<bool> InsertAsync(Tenant entity, TenantLogon tenantLogOnEntity)
         {
-            tenantLogOnEntity.Id = GuidUtils.CreateNo();
+            tenantLogOnEntity.Id = IdGeneratorHelper.IdSnowflake();
             tenantLogOnEntity.TenantId = entity.Id;
             tenantLogOnEntity.TenantSecretkey = MD5Util.GetMD5_16(GuidUtils.NewGuidFormatN()).ToLower();
             tenantLogOnEntity.TenantPassword = MD5Util.GetMD5_32(DEncrypt.Encrypt(MD5Util.GetMD5_32(tenantLogOnEntity.TenantPassword).ToLower(), tenantLogOnEntity.TenantSecretkey).ToLower()).ToLower();
-            DbContext.GetDbSet<Tenant>().Add(entity);
-            DbContext.GetDbSet<TenantLogon>().Add(tenantLogOnEntity);
-            return await DbContext.SaveChangesAsync() > 0;
+            _unitOfWork.BeginTran();
+            int row = 0;
+            try
+            {
+               row= await Db.Insertable<Tenant>(entity).ExecuteCommandAsync();
+                row = await Db.Insertable<TenantLogon>(tenantLogOnEntity).ExecuteCommandAsync();
+                _unitOfWork.CommitTran();
+            }catch(Exception ex)
+            {
+                _unitOfWork.RollbackTran();
+            }
+            return row  > 0;
         }
 
     }

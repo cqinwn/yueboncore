@@ -109,13 +109,16 @@ namespace Yitter.IdGenerator
                     break;
             }
 
-            if (options.Method != 2)
-            {
-                Thread.Sleep(500);
-            }
+            //if (options.Method != 2)
+            //{
+            //    Thread.Sleep(500);
+            //}
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public long NewLong()
         {
             return _SnowWorker.NextId();

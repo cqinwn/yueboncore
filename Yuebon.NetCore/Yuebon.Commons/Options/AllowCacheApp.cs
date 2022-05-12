@@ -17,7 +17,7 @@ namespace Yuebon.Commons.Options
         /// 设置或获取 ID
         /// </summary>
         [MaxLength(50)]
-        public string Id { get; set; }
+        public long Id { get; set; }
 
         /// <summary>
         /// 设置或获取 应用Id

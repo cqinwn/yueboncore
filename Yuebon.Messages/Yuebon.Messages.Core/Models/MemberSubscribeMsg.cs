@@ -1,15 +1,15 @@
+using SqlSugar;
 using System;
-using System.ComponentModel.DataAnnotations.Schema;
 using Yuebon.Commons.Models;
 
 namespace Yuebon.Messages.Models
 {
     /// <summary>
-    /// ，数据实体对象
+    /// 用户订阅消息表，数据实体对象
     /// </summary>
-    [Table("Sys_MemberSubscribeMsg")]
+    [SugarTable("Sys_MemberSubscribeMsg", "用户订阅消息表")]
     [Serializable]
-    public class MemberSubscribeMsg:BaseEntity<string>
+    public class MemberSubscribeMsg:BaseEntity
     {
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Yuebon.Messages.Models
         public string MessageTemplateId { get; set; }
 
         /// <summary>
-        /// 设置或获取 
+        /// 设置或获取 订阅模板id
         /// </summary>
         public string SubscribeTemplateId { get; set; }
 

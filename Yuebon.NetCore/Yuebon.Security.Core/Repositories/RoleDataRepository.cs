@@ -1,26 +1,19 @@
-using Dapper;
-using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
 using System.Linq;
-using System.Text;
-using Yuebon.Commons.IDbContext;
+using Yuebon.Commons.Core.UnitOfWork;
 using Yuebon.Commons.Repositories;
 using Yuebon.Security.IRepositories;
 using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Repositories
 {
-    public class RoleDataRepository : BaseRepository<RoleData, string>, IRoleDataRepository
+    public class RoleDataRepository : BaseRepository<RoleData>, IRoleDataRepository
     {
-		public RoleDataRepository()
+        public RoleDataRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
 
-        public RoleDataRepository(IDbContextCore dbContext) : base(dbContext)
-        {
-        }
 
         /// <summary>
         /// 根据角色返回授权访问部门数据
@@ -36,13 +29,8 @@ namespace Yuebon.Security.Repositories
             {
                 sql += " where " + where;
             }
-            using (IDbConnection connection = DapperConn)
-            {
-                bool isClosed = connection.State == ConnectionState.Closed;
-                if (isClosed) connection.Open();
-                IEnumerable<String> resultList = connection.Query<String>(sql);
-                return resultList.ToList();
-            }
+            return Db.Ado.SqlQuery<string>(sql);
+           
         }
 
     }

@@ -13,7 +13,7 @@ namespace Yuebon.Security.IServices
     /// <summary>
     /// 组织机构
     /// </summary>
-    public interface IOrganizeService:IService<Organize, OrganizeOutputDto, string>
+    public interface IOrganizeService:IService<Organize, OrganizeOutputDto>
     {
 
         /// <summary>
@@ -27,22 +27,20 @@ namespace Yuebon.Security.IServices
         /// </summary>
         /// <param name="id">组织Id</param>
         /// <returns></returns>
-        Organize GetRootOrganize(string id);
+        Organize GetRootOrganize(long? id);
 
 
         /// <summary>
         /// 按条件批量删除
         /// </summary>
         /// <param name="ids">主键Id集合</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        CommonResult DeleteBatchWhere(DeletesInputDto ids, IDbTransaction trans = null);
+        CommonResult DeleteBatchWhere(DeletesInputDto ids);
         /// <summary>
         /// 异步按条件批量删除
         /// </summary>
         /// <param name="ids">主键Id集合</param>
-        /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        Task<CommonResult> DeleteBatchWhereAsync(DeletesInputDto ids, IDbTransaction trans = null);
+        Task<CommonResult> DeleteBatchWhereAsync(DeletesInputDto ids);
     }
 }

@@ -7,7 +7,7 @@ using Yuebon.Security.Models;
 
 namespace Yuebon.Security.IRepositories
 {
-    public interface IUploadFileRepository : IRepository<UploadFile, string> {
+    public interface IUploadFileRepository : IRepository<UploadFile> {
 
 
         /// <summary>

@@ -13,7 +13,7 @@ namespace Yuebon.Security.IServices
     /// <summary>
     /// 
     /// </summary>
-    public interface IMenuService:IService<Menu, MenuOutputDto, string>
+    public interface IMenuService:IService<Menu, MenuOutputDto>
     {
 
         /// <summary>
@@ -21,14 +21,14 @@ namespace Yuebon.Security.IServices
         /// </summary>
         /// <param name="userId">用户ID</param>
         /// <returns></returns>
-        List<Menu> GetMenuByUser(string userId);
+        List<Menu> GetMenuByUser(long userId);
 
         /// <summary>
         /// 获取功能菜单适用于Vue 树形列表
         /// </summary>
         /// <param name="systemTypeId">子系统Id</param>
         /// <returns></returns>
-        Task<List<MenuTreeTableOutputDto>> GetAllMenuTreeTable(string systemTypeId);
+        Task<List<MenuTreeTableOutputDto>> GetAllMenuTreeTable(long systemTypeId);
 
 
         /// <summary>
@@ -38,14 +38,14 @@ namespace Yuebon.Security.IServices
         /// <param name="typeID">系统类型ID</param>
         /// <param name="isMenu">是否是菜单</param>
         /// <returns></returns>
-        List<Menu> GetFunctions(string roleIds, string typeID,bool isMenu=false);
+        List<Menu> GetFunctions(string roleIds, long typeID,bool isMenu=false);
 
         /// <summary>
         /// 根据系统类型ID，获取对应的操作功能列表
         /// </summary>
         /// <param name="typeID">系统类型ID</param>
         /// <returns></returns>
-        List<Menu> GetFunctions(string typeID);
+        List<Menu> GetFunctions(long typeID);
 
         /// <summary>
         /// 根据父级功能编码查询所有子集功能，主要用于页面操作按钮权限
@@ -60,13 +60,13 @@ namespace Yuebon.Security.IServices
         /// <param name="ids">主键Id集合</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        CommonResult DeleteBatchWhere(DeletesInputDto ids, IDbTransaction trans = null);
+        CommonResult DeleteBatchWhere(DeletesInputDto ids);
         /// <summary>
         /// 异步按条件批量删除
         /// </summary>
         /// <param name="ids">主键Id集合</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        Task<CommonResult> DeleteBatchWhereAsync(DeletesInputDto ids, IDbTransaction trans = null);
+        Task<CommonResult> DeleteBatchWhereAsync(DeletesInputDto ids);
     }
 }

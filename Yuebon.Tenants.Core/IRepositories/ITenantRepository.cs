@@ -9,7 +9,7 @@ namespace Yuebon.Tenants.IRepositories
     /// <summary>
     /// 定义租户仓储接口
     /// </summary>
-    public interface ITenantRepository:IRepository<Tenant, string>
+    public interface ITenantRepository:IRepository<Tenant>
     {
         /// <summary>
         /// 根据租户账号查询租户信息

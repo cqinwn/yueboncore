@@ -17,13 +17,14 @@ namespace Yuebon.Security.Services
     /// <summary>
     /// 
     /// </summary>
-    public class APPService: BaseService<APP,AppOutputDto,string>, IAPPService
+    public class APPService: BaseService<APP,AppOutputDto>, IAPPService
     {
         private readonly IAPPRepository _appRepository;
         private readonly ILogService _logService;
-        public APPService(IAPPRepository repository, ILogService logService) : base(repository)
+        public APPService(IAPPRepository appRepository, ILogService logService)
         {
-            _appRepository = repository;
+            repository = appRepository;
+            _appRepository = appRepository;
             _logService = logService;
         }
 
@@ -33,9 +34,9 @@ namespace Yuebon.Security.Services
         /// <param name="entity">实体</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public override long Insert(APP entity, IDbTransaction trans = null)
+        public override int Insert(APP entity)
         {
-            long result = repository.Insert(entity, trans); 
+            int result = repository.Insert(entity); 
             this.UpdateCacheAllowApp();
             return result;
         }
@@ -44,12 +45,11 @@ namespace Yuebon.Security.Services
         /// 异步更新实体。
         /// </summary>
         /// <param name="entity">实体</param>
-        /// <param name="id">主键ID</param>
-        /// <param name="trans">事务对象</param>
+        /// <param name="where">条件</param>
         /// <returns></returns>
-        public override async Task<bool> UpdateAsync(APP entity, string id, IDbTransaction trans = null)
+        public override async Task<bool> UpdateAsync(APP entity, string where)
         {
-            bool result=await repository.UpdateAsync(entity, id, trans);
+            bool result=await repository.UpdateAsync(entity, where);
             this.UpdateCacheAllowApp();
             return result;
         }
@@ -59,9 +59,9 @@ namespace Yuebon.Security.Services
         /// <param name="entity">实体</param>
         /// <param name="trans">事务对象</param>
         /// <returns></returns>
-        public override async Task<long> InsertAsync(APP entity, IDbTransaction trans = null)
+        public override async Task<int> InsertAsync(APP entity)
         {
-            long result = await repository.InsertAsync(entity, trans);
+            int result = await repository.InsertAsync(entity);
             this.UpdateCacheAllowApp();
             return result;
         }
@@ -84,10 +84,10 @@ namespace Yuebon.Security.Services
         {
             return _appRepository.GetAPP(appid);
         }
-        public IList<AppOutputDto> SelectApp()
-        {
-            return _appRepository.SelectApp();
-        }
+        //public IList<AppOutputDto> SelectApp()
+        //{
+        //    return _appRepository.SelectApp();
+        //}
 
         /// <summary>
         /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
@@ -123,7 +123,7 @@ namespace Yuebon.Security.Services
         public void UpdateCacheAllowApp()
         {
             IEnumerable<APP> appList = repository.GetAllByIsNotDeleteAndEnabledMark();
-            MemoryCacheHelper.Set("cacheAppList", appList);
+            MemoryCacheHelper.Set("cacheAppList", appList,72000);
         }
     }
 }

@@ -10,12 +10,12 @@ namespace Yuebon.Tenants.Dtos
     /// </summary>
     [AutoMap(typeof(Tenant))]
     [Serializable]
-    public class TenantInputDto: IInputDto<string>
+    public class TenantInputDto: IInputDto
     {
         /// <summary>
         /// 设置或获取 
         /// </summary>
-        public string Id { get; set; }
+        public long Id { get; set; }
 
         /// <summary>
         /// 设置或获取租户名称

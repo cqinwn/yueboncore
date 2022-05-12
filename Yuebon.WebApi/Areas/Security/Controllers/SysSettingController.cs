@@ -106,7 +106,7 @@ namespace Yuebon.WebApi.Areas.Security
                 dashboardOutModel.TotalUser = await userService.GetCountByWhereAsync("1=1");
                 dashboardOutModel.TotalModule = await menuService.GetCountByWhereAsync("1=1");
                 dashboardOutModel.TotalRole = await roleService.GetCountByWhereAsync("1=1");
-                dashboardOutModel.TotalTask = await taskManagerService.GetCountByWhereAsync("1=1");
+                //dashboardOutModel.TotalTask = await taskManagerService.GetCountByWhereAsync("1=1");
                 result.ResData = dashboardOutModel;
                 result.ErrCode = ErrCode.successCode;
             }
@@ -158,7 +158,8 @@ namespace Yuebon.WebApi.Areas.Security
             }
 
             IEnumerable<APP> appList = aPPService.GetAllByIsNotDeleteAndEnabledMark();
-            yuebonCacheHelper.Add("AllowAppId", appList);
+            yuebonCacheHelper.Add("cacheAppList", appList);
+            MemoryCacheHelper.Set("cacheAppList", appList);
             return ToJsonContent(result);
         }
 

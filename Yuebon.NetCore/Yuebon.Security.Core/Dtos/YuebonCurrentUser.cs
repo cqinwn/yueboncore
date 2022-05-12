@@ -23,7 +23,7 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 用户ID
         /// </summary>
-        public string UserId { get; set; }
+        public long UserId { get; set; }
 
         /// <summary>
         /// 用户账号
@@ -52,14 +52,14 @@ namespace Yuebon.Security.Dtos
         /// </summary>
         public int? Gender { get; set; }
         /// <summary>
-        /// 头像
+        /// 用户等级
         /// </summary>
         public string MemberGradeId { get; set; }
 
         /// <summary>
         /// 上级推广员
         /// </summary>
-        public string ReferralUserId { get; set; }
+        public long? ReferralUserId { get; set; }
         /// <summary>
         /// 注册时间
         /// </summary>
@@ -67,11 +67,11 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 组织主键
         /// </summary>
-        public virtual string OrganizeId { get; set; }
+        public virtual long? OrganizeId { get; set; }
         /// <summary>
         /// 部门主键
         /// </summary>
-        public virtual string DeptId { get; set; }
+        public virtual long? DeptId { get; set; }
         /// <summary>
         /// 角色编码，多个角色，使用“,”分格
         /// </summary>
@@ -94,7 +94,7 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 租户TenantId
         /// </summary>
-        public string TenantId { get; set; }
+        public long? TenantId { get; set; }
 
         /// <summary>
         /// 登录IP地址
@@ -109,7 +109,7 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 当前访问的系统Id
         /// </summary>
-        public string ActiveSystemId { get; set; }
+        public long ActiveSystemId { get; set; }
         /// <summary>
         /// 当前访问的系统名称
         /// </summary>

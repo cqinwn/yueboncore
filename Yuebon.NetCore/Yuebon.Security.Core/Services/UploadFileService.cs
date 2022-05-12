@@ -17,13 +17,14 @@ namespace Yuebon.Security.Services
     /// <summary>
     /// 
     /// </summary>
-    public class UploadFileService : BaseService<UploadFile, UploadFileOutputDto, string>, IUploadFileService
+    public class UploadFileService : BaseService<UploadFile, UploadFileOutputDto>, IUploadFileService
     {
         private readonly IUploadFileRepository _uploadFileRepository;
         private readonly ILogService _logService;
-        public UploadFileService(IUploadFileRepository repository, ILogService logService) : base(repository)
+        public UploadFileService(IUploadFileRepository uploadFileRepository, ILogService logService)
         {
-            _uploadFileRepository = repository;
+            _uploadFileRepository = uploadFileRepository;
+            repository = uploadFileRepository;
             _logService = logService;
         }
 
@@ -58,7 +59,7 @@ namespace Yuebon.Security.Services
                 CurrenetPageIndex = search.CurrenetPageIndex,
                 PageSize = search.PageSize
             };
-            List<UploadFile> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+            List<UploadFile> list = await _uploadFileRepository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
             PageResult<UploadFileOutputDto> pageResult = new PageResult<UploadFileOutputDto>
             {
                 CurrentPage = pagerInfo.CurrenetPageIndex,

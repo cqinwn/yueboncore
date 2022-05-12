@@ -41,9 +41,9 @@
         <el-input
           :key="passwordType"
           ref="password"
-          v-model="loginForm.inputPassword"
+          v-model="loginForm.password"
           :type="passwordType"
-          :placeholder="showLang.plAccount"
+          :placeholder="showLang.inputPassword"
           name="password"
           tabindex="2"
           auto-complete="on"
@@ -123,7 +123,6 @@ const loginForm=ref({
 const validateUsername = (rule, value, callback) => {
   if (value.length < 1) {
     callback(new Error(i18n.global.t("login.ruleAccount")))
-         // proxy.$modal.msgSuccess(i18n.global.t('message.successTips'))
   } else {
     callback()
   }

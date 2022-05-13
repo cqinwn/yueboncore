@@ -9,30 +9,16 @@ namespace {RepositoriesNamespace}
     /// <summary>
     /// {TableNameDesc}仓储接口的实现
     /// </summary>
-    public class {ModelTypeName}Repository : BaseRepository<{ModelTypeName}, {KeyTypeName}>, I{ModelTypeName}Repository
+    public class {ModelTypeName}Repository : BaseRepository<{ModelTypeName}>, I{ModelTypeName}Repository
     {
 		public {ModelTypeName}Repository()
         {
         }
 
-        public {ModelTypeName}Repository(IDbContextCore context) : base(context)
+        public {ModelTypeName}Repository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
 
         }
 
-        #region Dapper 操作
-
-        //DapperConn 用于读写操作
-        //DapperConnRead 用于只读操作
-
-        #endregion
-
-        
-        #region EF 操作
-
-        //DbContext 用于读写操作
-        //DbContextRead 用于只读操作
-
-        #endregion
     }
 }

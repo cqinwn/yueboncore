@@ -17,34 +17,34 @@ namespace Yuebon.Commons.Enums
         /// <summary>
         /// SqlServer数据库
         /// </summary>
-        SqlServer,
+        SqlServer=1,
         /// <summary>
         /// Oracle数据库
         /// </summary>
-        Oracle,
+        Oracle=2,
         /// <summary>
         /// Access数据库
         /// </summary>
-        Access,
+        Access=3,
         /// <summary>
         /// SQLite数据库
         /// </summary>
-        SQLite,
+        SQLite=4,
         /// <summary>
         /// PostgreSQL数据库
         /// </summary>
-        PostgreSQL,
+        PostgreSQL=5,
         /// <summary>
         /// Npgsql数据库
         /// </summary>
-        Npgsql,
+        Npgsql=6,
         /// <summary>
         /// 
         /// </summary>
-        Dm,
+        Dm=7,
         /// <summary>
         /// 
         /// </summary>
-        Kdbndp,
+        Kdbndp=8
     }
 }

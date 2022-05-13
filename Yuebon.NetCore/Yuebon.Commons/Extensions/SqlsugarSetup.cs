@@ -43,11 +43,14 @@ namespace Yuebon.Commons.Extensions
                         List<SlaveConnectionConfig> slaveConnectionConfigs= new List<SlaveConnectionConfig>();
                         m.ReadDB.ForEach(r =>
                         {
-                            slaveConnectionConfigs.Add(new SlaveConnectionConfig()
+                            if (r.Enabled)
                             {
-                                HitRate = r.HitRate,
-                                ConnectionString = conStringEncrypt ? DEncrypt.Decrypt(r.ConnectionString): r.ConnectionString
-                            });
+                                slaveConnectionConfigs.Add(new SlaveConnectionConfig()
+                                {
+                                    HitRate = r.HitRate,
+                                    ConnectionString = conStringEncrypt ? DEncrypt.Decrypt(r.ConnectionString) : r.ConnectionString
+                                });
+                            }
                         });
                         config.SlaveConnectionConfigs = slaveConnectionConfigs;
                     }

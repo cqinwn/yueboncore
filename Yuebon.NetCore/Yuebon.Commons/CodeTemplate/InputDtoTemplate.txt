@@ -13,7 +13,7 @@ namespace {DtosNamespace}
     /// </summary>
     [AutoMap(typeof({ModelTypeName}))]
     [Serializable]
-    public class {ModelTypeName}InputDto: IInputDto<{KeyTypeName}>
+    public class {ModelTypeName}InputDto: IInputDto
     {
 {ModelContent}
     }

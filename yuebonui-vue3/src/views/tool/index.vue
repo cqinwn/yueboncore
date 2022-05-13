@@ -2,18 +2,9 @@
   <div class="app-container">
     <div class="filter-container">
       <el-card>
-        <el-form ref="searchDbformRef" :inline="true" :model="searchform" class="demo-form-inline" size="small">
-          <el-form-item label="数据库地址" prop="DbAddress">
-            <el-input v-model="searchDbform.DbAddress" placeholder="请输入数据库地址" autocomplete="off" clearable />
-          </el-form-item>
-          <el-form-item label="数据库名称" prop="DbName">
-            <el-input v-model="searchDbform.DbName" placeholder="请输入数据库名称" autocomplete="off" clearable />
-          </el-form-item>
-          <el-form-item label="用户名" prop="DbUserName">
-            <el-input v-model="searchDbform.DbUserName" placeholder="请输入用户名" autocomplete="off" clearable />
-          </el-form-item>
-          <el-form-item label="访问密码" prop="DbPassword">
-            <el-input v-model="searchDbform.DbPassword" placeholder="请输入访问密码" autocomplete="off" clearable />
+        <el-form ref="searchDbformRef" :inline="true" :model="searchform" class="demo-form-inline">
+          <el-form-item label="连接字符串" prop="DbAddress" width="300">
+            <el-input v-model="searchDbform.DbAddress"  placeholder="请输入数据库连接字符串" autocomplete="off" clearable />
           </el-form-item>
           <el-form-item label="数据库类型" prop="DbType">
             <el-select v-model="searchDbform.DbType" clearable placeholder="请选数据库类型">
@@ -25,9 +16,6 @@
               />
             </el-select>
           </el-form-item>
-          <el-form-item label="数据库端口" prop="DbPort">
-            <el-input v-model="searchDbform.DbPort" placeholder="请输入数据库端口" autocomplete="off" clearable />
-          </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="handleDbConn()"><svg-icon icon-class="link1"></svg-icon>链接</el-button>
           </el-form-item>
@@ -36,16 +24,16 @@
     </div>
     <el-card>
       <div class="list-btn-container">
-        <el-form ref="codeformRef" :inline="true" :rules="rules" :model="codeform" class="demo-form-inline" size="small">
+        <el-form ref="codeformRef" :inline="true" :rules="rules" :model="codeform" class="demo-form-inline">
           <el-button type="default" icon="refresh" size="small" @click="loadTableData()">刷新</el-button>
           <el-form-item label="数据库">
             <el-tooltip class="item" effect="dark" content="默认为系统访问数据库" placement="top">
               <el-select v-model="searchform.DbName" clearable placeholder="请选择" @change="handleShowTable">
                 <el-option
                   v-for="item in selectedDataBase"
-                  :key="item.Id"
-                  :label="item.DbName"
-                  :value="item.DbName"
+                  :key="item"
+                  :label="item"
+                  :value="item"
                 />
               </el-select>
             </el-tooltip>
@@ -78,7 +66,7 @@
         stripe
         highlight-current-row
         style="width: 100%"
-        :default-sort="{prop: 'TableName', order: 'ascending'}"
+        :default-sort="{prop: 'Name', order: 'ascending'}"
         @select="handleSelectChange"
         @select-all="handleSelectAllChange"
         @sort-change="handleSortChange"
@@ -88,7 +76,7 @@
           width="50"
         />
         <el-table-column
-          prop="TableName"
+          prop="Name"
           label="表名"
           sortable="custom"
           width="380"
@@ -150,10 +138,10 @@ const data = reactive({
     ]
   },
   selectDbTypes: [{
-    Id: 'SqlServer',
+    Id: 1,
     Title: 'SqlServer'
   }, {
-    Id: 'MySql',
+    Id: 0,
     Title: 'MySql'
   }],
   pagination: {
@@ -209,18 +197,19 @@ function handleShowTable() {
 function handleDbConn() {
   var dataInfo = {
     DbAddress: searchDbform.value.DbAddress,
-    DbPort: searchDbform.value.DbPort,
-    DbName: searchDbform.value.DbName,
-    DbUserName: searchDbform.value.DbUserName,
-    DbPassword: searchDbform.value.DbPassword,
+    DbPort: "",
+    DbName: "",
+    DbUserName: "",
+    DbPassword: "",
     DbType: searchDbform.value.DbType
   }
   createGetDBConn(dataInfo).then(res => {
     selectedDataBase.value = res.ResData
     searchform.value.DbName = searchDbform.DbName
-  })
   pagination.value.currentPage = 1
-  loadTableData()
+  // loadData()
+  // loadTableData()
+  })
 }
 /**
  * 点击生成服务端代码
@@ -241,7 +230,7 @@ async function handleGenerate() {
         const pageLoading = ElLoading.service(loadop)
         var currentTables = ''
         currentSelected.value.forEach(element => {
-          currentTables += element.TableName + ','
+          currentTables += element.Name + ','
         })
         var seachdata = {
           'tables': currentTables,
@@ -305,6 +294,6 @@ function handleCurrentChange(val) {
   loadTableData()
 }
 
-loadData()
-loadTableData()
+//loadData()
+//loadTableData()
 </script>

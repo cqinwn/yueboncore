@@ -12,7 +12,8 @@ export function get{ModelTypeName}ListWithPager(data) {
     data: data,
     baseURL: defaultSettings.api{fileClassName}Url // 直接通过覆盖的方式
   })
-}/**
+}
+/**
    * 获取所有可用的{ModelTypeDesc}
    */
 export function getAll{ModelTypeName}List() {

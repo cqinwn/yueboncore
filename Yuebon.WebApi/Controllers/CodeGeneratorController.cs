@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using SqlSugar;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Yuebon.AspNetCore.Controllers;
 using Yuebon.AspNetCore.Models;
@@ -14,11 +13,9 @@ using Yuebon.Commons.Cache;
 using Yuebon.Commons.CodeGenerator;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
-using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Models;
 using Yuebon.Commons.Pages;
-using Yuebon.Security.Models;
 
 namespace Yuebon.WebApi.Controllers
 {
@@ -52,51 +49,18 @@ namespace Yuebon.WebApi.Controllers
         public async Task<IActionResult> CreateDBConn(DbConnInfo dbConnInfo)
         {
             CommonResult result = new CommonResult();
-            DBConnResult dBConnResult = new DBConnResult();
+            string connstr = string.Empty;
             if (dbConnInfo != null)
             {
-                if (string.IsNullOrEmpty(dbConnInfo.DbName))
-                {
-                    dbConnInfo.DbName = "master";
-                }
-                else if (string.IsNullOrEmpty(dbConnInfo.DbAddress))
+                if (string.IsNullOrEmpty(dbConnInfo.DbAddress))
                 {
                     result.ErrMsg = "访问地址不能为空";
                 }
-                else if (string.IsNullOrEmpty(dbConnInfo.DbUserName))
-                {
-                    result.ErrMsg = "访问用户不能为空";
-                }
-                else if (string.IsNullOrEmpty(dbConnInfo.DbPassword))
-                {
-                    result.ErrMsg = "访问密码不能为空";
-                }
-                if (string.IsNullOrEmpty(dbConnInfo.DbPort.ToString()))
-                {
-                    if (dbConnInfo.DbType == "SqlServer")
-                    {
-                        dbConnInfo.DbPort = 1433;
-                    }else if (dbConnInfo.DbType == "MySql")
-                    {
-                        dbConnInfo.DbPort = 3306;
-                    }
-                }
-                if (dbConnInfo.DbType == "SqlServer")
-                {
-                    dBConnResult.ConnStr = string.Format("Server={0},{1};Database={2};User id={3}; password={4};MultipleActiveResultSets=True;", dbConnInfo.DbAddress,dbConnInfo.DbPort, dbConnInfo.DbName, dbConnInfo.DbUserName, dbConnInfo.DbPassword);
-                }
-                else if (dbConnInfo.DbType == "MySql")
-                {
-                    dBConnResult.ConnStr = string.Format("server={0};database={1};uid={2}; pwd={3};port={4};Allow User Variables=True;", dbConnInfo.DbAddress, dbConnInfo.DbName, dbConnInfo.DbUserName, dbConnInfo.DbPassword,dbConnInfo.DbPort);
-                }
                 YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
                 TimeSpan expiresSliding = DateTime.Now.AddMinutes(30) - DateTime.Now;
-                yuebonCacheHelper.Add("CodeGeneratorDbConn", dBConnResult.ConnStr, expiresSliding, false);
-                yuebonCacheHelper.Add("CodeGeneratorDbType", dbConnInfo.DbType, expiresSliding, false); 
-                yuebonCacheHelper.Add("CodeGeneratorDbName", dbConnInfo.DbName, expiresSliding, false);
-                //DbExtractor dbExtractor = new DbExtractor();
-                //List<DataBaseInfo> listTable = dbExtractor.GetAllDataBases();
-                //result.ResData = listTable;
+                yuebonCacheHelper.Add("CodeGeneratorDbConn", dbConnInfo.DbAddress, expiresSliding, false);
+                yuebonCacheHelper.Add("CodeGeneratorDbType", dbConnInfo.DbType, expiresSliding, false);
+                result.ResData=new Yuebon.Commons.CodeGenerator.CodeGenerator().GetDB().DbMaintenance.GetDataBaseList(new Yuebon.Commons.CodeGenerator.CodeGenerator().GetDB());
                 result.Success = true;
                 result.ErrCode = ErrCode.successCode;
                
@@ -117,9 +81,7 @@ namespace Yuebon.WebApi.Controllers
             yuebonCacheHelper.Remove("CodeGeneratorDbConn");
             yuebonCacheHelper.Remove("CodeGeneratorDbName");
             CommonResult result = new CommonResult();
-            //DbExtractor dbExtractor = new DbExtractor();
-            //List<DataBaseInfo> listTable = dbExtractor.GetAllDataBases();
-            //result.ResData = listTable;
+            result.ResData = new Yuebon.Commons.CodeGenerator.CodeGenerator().GetDB().DbMaintenance.GetDataBaseList(new Yuebon.Commons.CodeGenerator.CodeGenerator().GetDB());
             result.ErrCode = ErrCode.successCode;
             return ToJsonContent(result);
         }
@@ -135,41 +97,16 @@ namespace Yuebon.WebApi.Controllers
         public CommonResult<PageResult<DbTableInfo>> FindListTable(SearchModel search)
         {
             CommonResult<PageResult<DbTableInfo>> result = new CommonResult<PageResult<DbTableInfo>>();
-            if (!string.IsNullOrEmpty(search.EnCode))
+            
+            PagerInfo pagerInfo = new PagerInfo
             {
-                YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                object connCode = yuebonCacheHelper.Get("CodeGeneratorDbConn");
-                if (connCode != null)
-                {
-                    string SqlConnectionString = connCode.ToString();
-                    string[] sqlconn = SqlConnectionString.Split(";");
-                    string[] dataName = sqlconn[1].Split("=");
-                    dataName[1] = search.EnCode;
-                    sqlconn[1] = dataName.Join("=");
-                    string newConnStr = sqlconn.Join(";");
-                    TimeSpan expiresSliding = DateTime.Now.AddMinutes(30) - DateTime.Now;
-                    yuebonCacheHelper.Add("CodeGeneratorDbConn", newConnStr, expiresSliding,false);
-                    yuebonCacheHelper.Add("CodeGeneratorDbName", search.EnCode, expiresSliding, false);
-                }
-            }
-            string orderByDir =search.Order;
-            string orderFlied =string.IsNullOrEmpty(search.Sort)? "TableName": search.Sort;
-            bool order = orderByDir == "asc" ? false : true;
-            string where = "1=1";
-            if (!string.IsNullOrEmpty(search.Keywords))
-            {
-                where += " and TableName like '%"+ search.Keywords + "%'";
-            }
-            PagerInfo pagerInfo = new PagerInfo { 
-                PageSize=search.PageSize,
-                CurrenetPageIndex=search.CurrenetPageIndex
+                PageSize = search.PageSize,
+                CurrenetPageIndex = search.CurrenetPageIndex
             };
-            DbExtractor dbExtractor = new DbExtractor();
-            List<DbTableInfo> listTable = dbExtractor.GetTablesWithPage(search.Keywords, orderFlied, order,pagerInfo);
-           
+
             PageResult<DbTableInfo> pageResult = new PageResult<DbTableInfo>();
             pageResult.CurrentPage = pagerInfo.CurrenetPageIndex;
-            pageResult.Items = listTable;
+            pageResult.Items = new Yuebon.Commons.CodeGenerator.CodeGenerator().GetDB().DbMaintenance.GetTableInfoList().FindAll(o=>o.Name.Contains(search.Keywords));
             pageResult.ItemsPerPage = pagerInfo.PageSize;
             pageResult.TotalItems = pagerInfo.RecordCount;
             result.ResData = pageResult;
@@ -198,7 +135,7 @@ namespace Yuebon.WebApi.Controllers
                 }
                 else
                 {
-                    CodeGenerator.Generate(baseSpace, tables, replaceTableNameStr);
+                    Commons.CodeGenerator.CodeGenerator.Generate(baseSpace, tables, replaceTableNameStr);
                     var path = AppDomain.CurrentDomain.BaseDirectory;
                     var parentPath = path.Substring(0, path.LastIndexOf("\\"));
                     var servicesPath = parentPath + "\\" + baseSpace + "\\";

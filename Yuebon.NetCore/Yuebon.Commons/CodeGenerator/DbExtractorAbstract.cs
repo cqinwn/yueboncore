@@ -2,6 +2,7 @@
 using MySql.Data.MySqlClient;
 using Npgsql;
 using Oracle.ManagedDataAccess.Client;
+using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,6 +12,7 @@ using System.Linq;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Core.DataManager;
 using Yuebon.Commons.Enums;
+using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Pages;
 
 namespace Yuebon.Commons.CodeGenerator
@@ -32,11 +34,13 @@ namespace Yuebon.Commons.CodeGenerator
         /// 数据库配置名称
         /// </summary>
         protected string dbConfigName = "";
+        private SqlSugarScope Db;
         /// <summary>
         /// 实例化
         /// </summary>
         public DbExtractorAbstract()
         {
+            Db = OpenSharedConnection();
 
         }
         #endregion
@@ -46,56 +50,64 @@ namespace Yuebon.Commons.CodeGenerator
         /// MSSQL、MYSQL、ORACLE、SQLITE、MEMORY、NPGSQL
         /// </summary>
         /// <returns></returns>
-        public DbConnection OpenSharedConnection()
+        public SqlSugarScope OpenSharedConnection()
         {
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
             object connCode = yuebonCacheHelper.Get("CodeGeneratorDbConn");
-            DbConnectionOptions dbConnectionOptions = DBServerProvider.GeDbConnectionOptions();
-            DatabaseType dbType = DatabaseType.SqlServer;
-            if (connCode!=null)
-            {
-                defaultSqlConnectionString = connCode.ToString();
-                string dbTypeCache=yuebonCacheHelper.Get("CodeGeneratorDbType").ToString();
-                dbType = (DatabaseType)Enum.Parse(typeof(DatabaseType), dbTypeCache);
-            }
-            else
-            {
-                defaultSqlConnectionString = dbConnectionOptions.ConnectionString;
+            //DbConnectionOptions dbConnectionOptions = DBServerProvider.GeDbConnectionOptions();
+            //DatabaseType dbType = DatabaseType.SqlServer;
+            //if (connCode!=null)
+            //{
+            //    defaultSqlConnectionString = connCode.ToString();
+            //    string dbTypeCache=yuebonCacheHelper.Get("CodeGeneratorDbType").ToString();
+            //    dbType = (DatabaseType)Enum.Parse(typeof(DatabaseType), dbTypeCache);
+            //}
+            //else
+            //{
+            //    defaultSqlConnectionString = dbConnectionOptions.ConnectionString;
 
-                dbType = dbConnectionOptions.DatabaseType;
-                TimeSpan expiresSliding = DateTime.Now.AddMinutes(30) - DateTime.Now;
-                yuebonCacheHelper.Add("CodeGeneratorDbConn", defaultSqlConnectionString, expiresSliding, false);
-                yuebonCacheHelper.Add("CodeGeneratorDbType", dbType, expiresSliding, false);
-            }
-            if (dbType == DatabaseType.SqlServer)
+            //    dbType = dbConnectionOptions.DatabaseType;
+            //    TimeSpan expiresSliding = DateTime.Now.AddMinutes(30) - DateTime.Now;
+            //    yuebonCacheHelper.Add("CodeGeneratorDbConn", defaultSqlConnectionString, expiresSliding, false);
+            //    yuebonCacheHelper.Add("CodeGeneratorDbType", dbType, expiresSliding, false);
+            //}
+            //if (dbType == DatabaseType.SqlServer)
+            //{
+            //    dbConnection = new SqlConnection(defaultSqlConnectionString);
+            //}
+            //else if (dbType == DatabaseType.MySql)
+            //{
+            //    dbConnection = new MySqlConnection(defaultSqlConnectionString);
+            //}
+            //else if (dbType == DatabaseType.Oracle)
+            //{
+            //    dbConnection = new OracleConnection(defaultSqlConnectionString);
+            //}
+            //else if (dbType == DatabaseType.SQLite)
+            //{
+            //    dbConnection = new SqliteConnection(defaultSqlConnectionString);
+            //}
+            //else if (dbType == DatabaseType.Npgsql)
+            //{
+            //    dbConnection = new NpgsqlConnection(defaultSqlConnectionString);
+            //}
+            //else
+            //{
+            //    throw new NotSupportedException("The database is not supported");
+            //}
+            //if (dbConnection.State != ConnectionState.Open)
+            //{
+            //    dbConnection.Open();
+            //}
+            string dbTypeCache = yuebonCacheHelper.Get("CodeGeneratorDbType").ToString();
+            ConnectionConfig config = new ConnectionConfig()
             {
-                dbConnection = new SqlConnection(defaultSqlConnectionString);
-            }
-            else if (dbType == DatabaseType.MySql)
-            {
-                dbConnection = new MySqlConnection(defaultSqlConnectionString);
-            }
-            else if (dbType == DatabaseType.Oracle)
-            {
-                dbConnection = new OracleConnection(defaultSqlConnectionString);
-            }
-            else if (dbType == DatabaseType.SQLite)
-            {
-                dbConnection = new SqliteConnection(defaultSqlConnectionString);
-            }
-            else if (dbType == DatabaseType.Npgsql)
-            {
-                dbConnection = new NpgsqlConnection(defaultSqlConnectionString);
-            }
-            else
-            {
-                throw new NotSupportedException("The database is not supported");
-            }
-            if (dbConnection.State != ConnectionState.Open)
-            {
-                dbConnection.Open();
-            }
-            return dbConnection;
+                ConfigId = "codedb",
+                ConnectionString = connCode.ToString(),
+                DbType = (SqlSugar.DbType)dbTypeCache.ToInt(),
+                IsAutoCloseConnection = true
+            };
+            return new SqlSugarScope(config);
         }
 
 

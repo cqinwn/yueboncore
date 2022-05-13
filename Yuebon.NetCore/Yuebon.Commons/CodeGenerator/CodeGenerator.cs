@@ -1,7 +1,10 @@
-﻿using System;
+﻿using SqlSugar;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using Yuebon.Commons.Cache;
+using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Options;
 
 namespace Yuebon.Commons.CodeGenerator
@@ -14,6 +17,7 @@ namespace Yuebon.Commons.CodeGenerator
     /// </summary>
     public class CodeGenerator
     {
+
         /// <summary>
         /// 代码生成器配置
         /// </summary>
@@ -27,7 +31,27 @@ namespace Yuebon.Commons.CodeGenerator
         /// </summary>
         static CodeGenerator()
         {
+            
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public  SqlSugarClient GetDB()
+        {
+            YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+            object connCode = yuebonCacheHelper.Get("CodeGeneratorDbConn");
+            string dbTypeCache = yuebonCacheHelper.Get("CodeGeneratorDbType").ToString();
+            ConnectionConfig config = new ConnectionConfig()
+            {
+                ConfigId = "codedb",
+                ConnectionString = connCode.ToString(),
+                DbType = (SqlSugar.DbType)dbTypeCache.ToInt(),
+                IsAutoCloseConnection = true
+            };
+           return new SqlSugarClient(config);
+        }
+
         /// <summary>
         /// 代码生成器入口方法
         /// </summary>
@@ -48,15 +72,15 @@ namespace Yuebon.Commons.CodeGenerator
             _option.TableList = tableList;
             _option.BaseNamespace = baseNamespace;
 
-            DbExtractor dbExtractor = new DbExtractor();
-            List<DbTableInfo> listTable = dbExtractor.GetWhereTables(_option.TableList);
+
+            List<DbTableInfo> listTable = new CodeGenerator().GetDB().DbMaintenance.GetTableInfoList().FindAll(o=> SqlFunc.ContainsArrayUseSqlParameters<string>(_option.TableList.Split(","),o.Name));// (_option.TableList);
             string profileContent = string.Empty;
             foreach (DbTableInfo dbTableInfo in listTable)
             {
                
-                List<DbFieldInfo> listField = dbExtractor.GetAllColumns(dbTableInfo.TableName);
+                List<DbColumnInfo> listField = new CodeGenerator().GetDB().DbMaintenance.GetColumnInfosByTableName(dbTableInfo.Name);
                 GenerateSingle(listField, dbTableInfo, ifExsitedCovered);
-                string tableName = dbTableInfo.TableName;
+                string tableName = dbTableInfo.Name;
                 if (!string.IsNullOrEmpty(_option.ReplaceTableNameStr))
                 {
                     string[] rel = _option.ReplaceTableNameStr.Split(';');
@@ -82,10 +106,10 @@ namespace Yuebon.Commons.CodeGenerator
         /// <param name="listField">表字段集合</param>
         /// <param name="tableInfo">表信息</param>
         /// <param name="ifExsitedCovered">如果目标文件存在，是否覆盖。默认为false</param>
-        public static void GenerateSingle(List<DbFieldInfo> listField, DbTableInfo tableInfo,bool ifExsitedCovered = false)
+        public static void GenerateSingle(List<DbColumnInfo> listField, DbTableInfo tableInfo,bool ifExsitedCovered = false)
         {
             var modelsNamespace =_option.ModelsNamespace;
-            var modelTypeName = tableInfo.TableName;//表名
+            var modelTypeName = tableInfo.Name;//表名
             var modelTypeDesc = tableInfo.Description;//表描述
             if (!string.IsNullOrEmpty(_option.ReplaceTableNameStr))
             {
@@ -110,48 +134,51 @@ namespace Yuebon.Commons.CodeGenerator
             string vueViewSaveBindContent = string.Empty;//Vue保存时输出内容
             string vueViewEditFromRuleContent = string.Empty;//Vue数据校验
 
-            foreach (DbFieldInfo dbFieldInfo in listField)
+            foreach (DbColumnInfo dbFieldInfo in listField)
             {
-                string fieldName = dbFieldInfo.FieldName.Substring(0, 1).ToUpper() + dbFieldInfo.FieldName.Substring(1);
+                string fieldName = dbFieldInfo.DbColumnName.Substring(0, 1).ToUpper() + dbFieldInfo.DbColumnName.Substring(1);
+                string strDataType = SqlType2CsharpTypeStr(dbFieldInfo.DataType,dbFieldInfo.IsNullable);
                 //主键
                 if (dbFieldInfo.IsIdentity)
                 {
-                    keyTypeName = dbFieldInfo.DataType;
+                    keyTypeName = strDataType;
                     outputDtocontent += "        /// <summary>\n";
-                    outputDtocontent += string.Format("        /// 设置或获取{0}\n", dbFieldInfo.Description);
+                    outputDtocontent += string.Format("        /// 设置或获取{0}\n", dbFieldInfo.ColumnDescription);
                     outputDtocontent += "        /// </summary>\n";
-                    if (dbFieldInfo.DataType == "string")
+                    if (strDataType == "string")
                     {
-                        outputDtocontent += string.Format("        [MaxLength({0})]\n", dbFieldInfo.FieldMaxLength);
+                        outputDtocontent += string.Format("        [MaxLength({0})]\n", dbFieldInfo.Length);
                     }
-                    outputDtocontent += string.Format("        public {0} {1}", dbFieldInfo.DataType, fieldName);
+                    outputDtocontent += string.Format("        public {0} {1}", strDataType, fieldName);
                     outputDtocontent += " { get; set; }\n\r";
                 }else //非主键
                 {
                     modelcontent += "        /// <summary>\n";
-                    modelcontent += string.Format("        /// 设置或获取{0}\n", dbFieldInfo.Description);
+                    modelcontent += string.Format("        /// 设置或获取{0}\n", dbFieldInfo.ColumnDescription);
                     modelcontent += "        /// </summary>\n";
-                    if (dbFieldInfo.FieldType == "string")
+                    if (strDataType == "string")
                     {
-                        modelcontent += string.Format("        [MaxLength({0})]\n", dbFieldInfo.FieldMaxLength);
+                        modelcontent += string.Format("        [MaxLength({0})]\n", dbFieldInfo.Length);
                     }
-                    modelcontent += string.Format("        public {0}{1} {2}", dbFieldInfo.DataType,dbFieldInfo.IsNullable?"":"?",fieldName);
+                        modelcontent += string.Format("        [MaxLength({0})]\n", dbFieldInfo.Length);
+                    modelcontent += string.Format("        [SugarColumn(ColumnDescription=\"{0}\")]\n", dbFieldInfo.ColumnDescription);
+                    modelcontent += string.Format("        public {0}{1} {2}", strDataType, dbFieldInfo.IsNullable?"":"?",fieldName);
                     modelcontent += " { get; set; }\n\r";
 
 
                     outputDtocontent += "        /// <summary>\n";
-                    outputDtocontent += string.Format("        /// 设置或获取{0}\n", dbFieldInfo.Description);
+                    outputDtocontent += string.Format("        /// 设置或获取{0}\n", dbFieldInfo.ColumnDescription);
                     outputDtocontent += "        /// </summary>\n";
-                    if (dbFieldInfo.DataType == "string")
+                    if (strDataType == "string")
                     {
-                        outputDtocontent += string.Format("        [MaxLength({0})]\n", dbFieldInfo.FieldMaxLength);
+                        outputDtocontent += string.Format("        [MaxLength({0})]\n", dbFieldInfo.Length);
                     }
-                    outputDtocontent += string.Format("        public {0}{1} {2}", dbFieldInfo.DataType, dbFieldInfo.IsNullable ? "" : "?", fieldName);
+                    outputDtocontent += string.Format("        public {0}{1} {2}", strDataType, dbFieldInfo.IsNullable ? "" : "?", fieldName);
                     outputDtocontent += " { get; set; }\n\r";
-                    if (dbFieldInfo.DataType == "bool"||dbFieldInfo.DataType== "tinyint")
+                    if (strDataType == "bool"||strDataType== "tinyint")
                     {
 
-                        vueViewListContent += string.Format("        <el-table-column prop=\"{0}\" label=\"{1}\" sortable=\"custom\" width=\"120\" >\n", fieldName, dbFieldInfo.Description);
+                        vueViewListContent += string.Format("        <el-table-column prop=\"{0}\" label=\"{1}\" sortable=\"custom\" width=\"120\" >\n", fieldName, dbFieldInfo.ColumnDescription);
                         vueViewListContent += "          <template slot-scope=\"scope\">\n";
                         vueViewListContent += string.Format("            <el-tag :type=\"scope.row.{0} === true ? 'success' : 'info'\"  disable-transitions >", fieldName);
                         vueViewListContent += "{{ ";
@@ -160,7 +187,7 @@ namespace Yuebon.Commons.CodeGenerator
                         vueViewListContent += "          </template>\n";
                         vueViewListContent += "        </el-table-column>\n";
 
-                        vueViewFromContent += string.Format("        <el-form-item label=\"{0}\" :label-width=\"formLabelWidth\" prop=\"{1}\">", dbFieldInfo.Description, fieldName);
+                        vueViewFromContent += string.Format("        <el-form-item label=\"{0}\" :label-width=\"formLabelWidth\" prop=\"{1}\">", dbFieldInfo.ColumnDescription, fieldName);
                         vueViewFromContent += string.Format("          <el-radio-group v-model=\"editFrom.{0}\">\n", fieldName);
                         vueViewFromContent += "           <el-radio label=\"true\">是</el-radio>\n";
                         vueViewFromContent += "           <el-radio label=\"false\">否</el-radio>\n";
@@ -172,10 +199,10 @@ namespace Yuebon.Commons.CodeGenerator
                     }
                     else
                     {
-                        vueViewListContent += string.Format("        <el-table-column prop=\"{0}\" label=\"{1}\" sortable=\"custom\" width=\"120\" />\n", fieldName, dbFieldInfo.Description);
+                        vueViewListContent += string.Format("        <el-table-column prop=\"{0}\" label=\"{1}\" sortable=\"custom\" width=\"120\" />\n", fieldName, dbFieldInfo.ColumnDescription);
 
-                        vueViewFromContent += string.Format("        <el-form-item label=\"{0}\" :label-width=\"formLabelWidth\" prop=\"{1}\">\n", dbFieldInfo.Description, fieldName);
-                        vueViewFromContent += string.Format("          <el-input v-model=\"editFrom.{0}\" placeholder=\"请输入{1}\" autocomplete=\"off\" clearable />\n", fieldName, dbFieldInfo.Description);
+                        vueViewFromContent += string.Format("        <el-form-item label=\"{0}\" :label-width=\"formLabelWidth\" prop=\"{1}\">\n", dbFieldInfo.ColumnDescription, fieldName);
+                        vueViewFromContent += string.Format("          <el-input v-model=\"editFrom.{0}\" placeholder=\"请输入{1}\" autocomplete=\"off\" clearable />\n", fieldName, dbFieldInfo.ColumnDescription);
                         vueViewFromContent += "        </el-form-item>\n";
                         vueViewEditFromContent += string.Format("        {0}: '',\n", fieldName);
                         vueViewEditFromBindContent += string.Format("        this.editFrom.{0} = res.ResData.{0}\n", fieldName);
@@ -185,29 +212,29 @@ namespace Yuebon.Commons.CodeGenerator
                     {
                         vueViewEditFromRuleContent += string.Format("        {0}: [\n", fieldName);
                         vueViewEditFromRuleContent += "        {";
-                        vueViewEditFromRuleContent += string.Format("required: true, message:\"请输入{0}\", trigger: \"blur\"", dbFieldInfo.Description);
+                        vueViewEditFromRuleContent += string.Format("required: true, message:\"请输入{0}\", trigger: \"blur\"", dbFieldInfo.ColumnDescription);
                         vueViewEditFromRuleContent += "},\n          { min: 2, max: 50, message: \"长度在 2 到 50 个字符\", trigger:\"blur\" }\n";
                         vueViewEditFromRuleContent += "        ],\n";
                     }
                 }
 
-                if (!inputDtoNoField.Contains(dbFieldInfo.FieldName)||dbFieldInfo.FieldName=="Id")
+                if (!inputDtoNoField.Contains(dbFieldInfo.DbColumnName) ||dbFieldInfo.DbColumnName=="Id")
                 {
                     InputDtocontent += "        /// <summary>\n";
-                    InputDtocontent += string.Format("        /// 设置或获取{0}\n", dbFieldInfo.Description);
+                    InputDtocontent += string.Format("        /// 设置或获取{0}\n", dbFieldInfo.ColumnDescription);
                     InputDtocontent += "        /// </summary>\n";
-                    if (dbFieldInfo.FieldType == "string")
+                    if (strDataType == "string")
                     {
-                        InputDtocontent += string.Format("        [MaxLength({0})]\n", dbFieldInfo.FieldMaxLength);
+                        InputDtocontent += string.Format("        [MaxLength({0})]\n", dbFieldInfo.Length);
                     }
-                    InputDtocontent += string.Format("        public {0}{1} {2}", dbFieldInfo.DataType, dbFieldInfo.IsNullable ? "" : "?", fieldName);
+                    InputDtocontent += string.Format("        public {0}{1} {2}", strDataType, dbFieldInfo.IsNullable ? "" : "?", fieldName);
                     InputDtocontent += " { get; set; }\n\r";
                 }
                 //
             }
-            GenerateModels(modelsNamespace, modelTypeName, tableInfo.TableName, modelcontent, modelTypeDesc, keyTypeName, ifExsitedCovered);
+            GenerateModels(modelsNamespace, modelTypeName, tableInfo.Name, modelcontent, modelTypeDesc, keyTypeName, ifExsitedCovered);
             GenerateIRepository(modelTypeName, modelTypeDesc, keyTypeName, ifExsitedCovered);
-            GenerateRepository(modelTypeName, modelTypeDesc, tableInfo.TableName, keyTypeName, ifExsitedCovered);
+            GenerateRepository(modelTypeName, modelTypeDesc, tableInfo.Name, keyTypeName, ifExsitedCovered);
             GenerateIService(modelsNamespace, modelTypeName, modelTypeDesc, keyTypeName, ifExsitedCovered);
             GenerateService(modelsNamespace, modelTypeName, modelTypeDesc, keyTypeName, ifExsitedCovered);
             GenerateOutputDto(modelTypeName, modelTypeDesc, outputDtocontent, ifExsitedCovered);
@@ -608,6 +635,108 @@ namespace Yuebon.Commons.CodeGenerator
             //关闭流
             sw.Close();
             fs.Close();
+        }
+        /// <summary>
+        /// 将数据库类型转为系统类型。
+        /// </summary>
+        /// <param name="sqlType">数据库字段类型</param>
+        /// <param name="isNullable">字段是否可空</param>
+        /// <returns></returns>
+        public static string SqlType2CsharpTypeStr(string sqlType, bool isNullable = false)
+        {
+            if (string.IsNullOrEmpty(sqlType))
+                throw new ArgumentNullException(nameof(sqlType));
+            var val = string.Empty;
+            var allowNull = false;
+            switch (sqlType.ToLower())
+            {
+                case "bit":
+                    val = "bool";
+                    break;
+                case "int":
+                    val = "int";
+                    break;
+                case "smallint":
+                    val = "short";
+                    break;
+                case "bigint":
+                    val = "long";
+                    break;
+                case "tinyint":
+                    val = "bool";
+                    break;
+
+                case "binary":
+                case "image":
+                case "varbinary":
+                    val = "byte[]";
+                    allowNull = true;
+                    break;
+
+                case "decimal":
+                    val = "decimal";
+                    break;
+                case "numeric":
+                case "money":
+                case "smallmoney":
+                    val = "decimal";
+                    break;
+
+                case "float":
+                    val = "float";
+                    break;
+                case "real":
+                    val = "Single";
+                    break;
+
+                case "datetime":
+                    val = "DateTime";
+                    break;
+                case "smalldatetime":
+                case "timestamp":
+                    val = "DateTime";
+                    break;
+
+                case "uniqueidentifier":
+                    val = "Guid";
+                    break;
+                case "Variant":
+                    val = "object";
+                    allowNull = true;
+                    break;
+
+                case "text":
+                    val = "string";
+                    allowNull = true;
+                    break;
+                case "ntext":
+                    val = "string";
+                    allowNull = true;
+                    break;
+                case "char":
+                    val = "string";
+                    allowNull = true;
+                    break;
+                case "nchar":
+                    val = "string";
+                    allowNull = true;
+                    break;
+                case "varchar":
+                    val = "string";
+                    allowNull = true;
+                    break;
+                case "nvarchar":
+                    val = "string";
+                    allowNull = true;
+                    break;
+                default:
+                    val = "string";
+                    allowNull = true;
+                    break;
+            }
+            if (isNullable && !allowNull)
+                return val + "?";
+            return val;
         }
     }
 }

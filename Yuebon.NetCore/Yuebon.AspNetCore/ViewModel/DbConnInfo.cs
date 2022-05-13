@@ -41,7 +41,7 @@ namespace Yuebon.AspNetCore.ViewModel
         /// 数据库类型
         /// </summary>
         [DataMember]
-        public string DbType { get; set; }
+        public int DbType { get; set; }
 
     }
 }

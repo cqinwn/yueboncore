@@ -133,6 +133,7 @@
     />
     <el-dialog
       ref="dialogEditForm"
+      draggable
       :title="editFormTitle+'子系统'"
       v-model="dialogEditFormVisible"
       width="640px"
@@ -384,9 +385,9 @@ function handleSortChange(column) {
     sortableData.value.sort = column.prop
   }
   if (column.order === 'ascending') {
-    sortableData.order = 'asc'
+    sortableData.value.order = 'asc'
   } else {
-    sortableData.order = 'desc'
+    sortableData.value.order = 'desc'
   }
   loadTableData()
 }

@@ -44,7 +44,6 @@
     <Compile Remove="Areas\CMS\Controllers\V1\Articlenews_1_0_0_Controller.cs" />
     <Compile Remove="Areas\Security\Controllers\FunctionController.cs" />
     <Compile Remove="Areas\Security\Controllers\TenantController.cs" />
-    <Compile Remove="Controllers\CodeGeneratorController.cs" />
     <Compile Remove="Controllers\InitSystem.cs" />
     <Compile Remove="Startup.cs" />
   </ItemGroup>

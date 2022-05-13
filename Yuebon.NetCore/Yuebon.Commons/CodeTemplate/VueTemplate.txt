@@ -3,17 +3,17 @@
     <div class="filter-container">
       <el-card>
         <el-form
-          ref="searchform"
+          ref="searchformRef" v-show="showSearch"
           :inline="true"
           :model="searchform"
           class="demo-form-inline"
-          size="small"
         >
           <el-form-item label="名称：">
             <el-input v-model="searchform.keywords" clearable placeholder="名称" />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="handleSearch()">查询</el-button>
+            <el-button icon="Refresh" @click="resetQuery">重置</el-button>
           </el-form-item>
         </el-form>
       </el-card>
@@ -29,38 +29,32 @@
           <el-button v-hasPermi="['{ModelTypeName}/Delete']" type="danger" icon="el-icon-delete" size="small" @click="deletePhysics()">删除</el-button>
           <el-button type="default" icon="el-icon-refresh" size="small" @click="loadTableData()">刷新</el-button>
         </el-button-group>
+        <right-toolbar v-model:showSearch="showSearch" @queryTable="loadTableData"></right-toolbar>
       </div>
       <el-table
         ref="gridtable"
         v-loading="tableloading"
         :data="tableData"
-        border
         stripe
         highlight-current-row
         style="width: 100%"
         :default-sort="{prop: 'SortCode', order: 'ascending'}"
-        @select="handleSelectChange"
-        @select-all="handleSelectAllChange"
+        @selection-change="handleSelectChange"
         @sort-change="handleSortChange"
       >
-        <el-table-column type="selection" width="30" />
+        <el-table-column type="selection" width="50" />
         {VueViewListContent}
       </el-table>
-      <div class="pagination-container">
-        <el-pagination
-          background
-          :current-page="pagination.currentPage"
-          :page-sizes="[5,10,20,50,100, 200, 300, 400]"
-          :page-size="pagination.pagesize"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="pagination.pageTotal"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-        />
-      </div>
+    <Pagination
+        v-show="pagination.pageTotal>0"
+        :total="pagination.pageTotal"
+        :page="pagination.currentPage"
+        :limit="pagination.pageSize"
+        @pagination="loadTableData"
+    />
     </el-card>
-    <el-dialog ref="dialogEditForm" v-el-drag-dialog :title="editFormTitle+'{ModelTypeDesc}'" :visible.sync="dialogEditFormVisible"  width="660px" append-to-body>
-      <el-form ref="editFrom" :model="editFrom" :rules="rules">
+    <el-dialog ref="dialogEditForm" draggable :title="editFormTitle+'{ModelTypeDesc}'" v-model="dialogEditFormVisible"  width="660px" append-to-body>
+      <el-form ref="editFromRef" :model="editFrom" :rules="rules">
         {VueViewFromContent}
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -71,302 +65,232 @@
   </div>
 </template>
 
-<script>
+<script setup name="{ModelTypeName}">
 
 import { get{ModelTypeName}ListWithPager, get{ModelTypeName}Detail,
   save{ModelTypeName}, set{ModelTypeName}Enable, deleteSoft{ModelTypeName},
   delete{ModelTypeName} } from '@/api/{fileClassName}/{ModelTypeNameToLower}'
 
-import elDragDialog from '@/directive/el-drag-dialog' // 弹窗可移动
-export default {
-  name: '{ModelTypeName}',//需与菜单的功能编码一致
-  directives: { elDragDialog },
-  data() {
-    return {
-      searchform: {
+const { proxy } = getCurrentInstance()
+const tableData=ref([])
+const tableloading=ref(true)
+const dialogEditFormVisible=ref(false)
+const editFormTitle=ref("")
+const showSearch = ref(true);
+const single = ref(true);
+const multiple = ref(true);
+
+const formLabelWidth=ref("100px")
+const currentId=ref("")// 当前操作对象的ID值，主要用于修改
+const ids=ref([])
+
+const data = reactive({
+    searchform: {
         keywords: ''
-      },
-      tableData: [],
-      tableloading: true,
-      pagination: {
+    },
+    pagination: {
         currentPage: 1,
         pagesize: 20,
         pageTotal: 0
-      },
-      sortableData: {
+    },
+    sortableData: {
         order: 'desc',
         sort: 'CreatorTime'
-      },
-      dialogEditFormVisible: false,
-      editFormTitle: '',
-      editFrom: {},
-      rules: {
+    },
+    editFrom: {},
+    rules: {
         {VueViewEditFromRuleContent}
-      },
-      formLabelWidth: '80px',
-      currentId: '', // 当前操作对象的ID值，主要用于修改
-      currentSelected: []
-    }
-  },
-  created() {
-    this.pagination.currentPage = 1
-    this.InitDictItem()
-    this.loadTableData()
-  },
-  methods: {
-    /**
-     * 初始化数据
-     */
-    InitDictItem() {
     },
+})
     
-    // 取消按钮
-    cancel () {
-      this.dialogEditFormVisible = false
-      this.reset()
-    },
-    // 表单重置
-    reset () {
-      this.editFrom = {
-        {VueViewEditFromContent}        
-        //需个性化处理内容
-      }
-      this.resetForm('editFrom')
-    },
-    /**
-     * 加载页面table数据
-     */
-    loadTableData: function() {
-      this.tableloading = true
-      var seachdata = {
-        CurrenetPageIndex: this.pagination.currentPage,
-        PageSize: this.pagination.pagesize,
-        Keywords: this.searchform.keywords,
-        Order: this.sortableData.order,
-        Sort: this.sortableData.sort
-      }
-      get{ModelTypeName}ListWithPager(seachdata).then(res => {
-        this.tableData = res.ResData.Items
-        this.pagination.pageTotal = res.ResData.TotalItems
-        this.tableloading = false
-      })
-    },
-    /**
-     * 点击查询
-     */
-    handleSearch: function() {
-      this.pagination.currentPage = 1
-      this.loadTableData()
-    },
-
-    /**
-     * 新增、修改或查看明细信息（绑定显示数据）     *
-     */
-    ShowEditOrViewDialog: function(view) {
-      this.reset()
-      if (view !== undefined) {
-        if (this.currentSelected.length > 1 || this.currentSelected.length === 0) {
-          this.$alert('请选择一条数据进行编辑/修改', '提示')
-        } else {
-          this.currentId = this.currentSelected[0].Id
-          this.editFormTitle = '编辑'
-          this.dialogEditFormVisible = true
-          this.bindEditInfo()
-        }
-      } else {
-        this.editFormTitle = '新增'
-        this.currentId = ''
-        this.dialogEditFormVisible = true
-      }
-    },
-    bindEditInfo: function() {
-      get{ModelTypeName}Detail(this.currentId).then(res => {
-        this.editFrom = res.ResData
-        //需个性化处理内容
-
-      })
-    },
-    /**
-     * 新增/修改保存
-     */
-    saveEditForm() {
-      this.$refs['editFrom'].validate((valid) => {
-        if (valid) {
-          const data = {
-           {VueViewSaveBindContent}
-            'Id': this.currentId
-          }
-          
-          var url = '{ModelTypeName}/Insert'
-          if (this.currentId !== '') {
-            url = '{ModelTypeName}/Update'
-          }
-          save{ModelTypeName}(data,url).then(res => {
-            if (res.Success) {
-              this.$message({
-                message: '恭喜你，操作成功',
-                type: 'success'
-              })
-              this.dialogEditFormVisible = false
-              this.currentSelected = ''
-              this.loadTableData()
-              this.InitDictItem()
-            } else {
-              this.$message({
-                message: res.ErrMsg,
-                type: 'error'
-              })
-            }
-          })
-        } else {
-          return false
-        }
-      })
-    },
-    setEnable: function(val) {
-      if (this.currentSelected.length === 0) {
-        this.$alert('请先选择要操作的数据', '提示')
-        return false
-      } else {
-        var currentIds = []
-        this.currentSelected.forEach(element => {
-          currentIds.push(element.Id)
-        })
-        const data = {
-          Ids: currentIds,
-          Flag: val
-        }
-        set{ModelTypeName}Enable(data).then(res => {
-          if (res.Success) {
-            this.$message({
-              message: '恭喜你，操作成功',
-              type: 'success'
-            })
-            this.currentSelected = ''
-            this.loadTableData()
-          } else {
-            this.$message({
-              message: res.ErrMsg,
-              type: 'error'
-            })
-          }
-        })
-      }
-    },
-    deleteSoft: function(val) {
-      if (this.currentSelected.length === 0) {
-        this.$alert('请先选择要操作的数据', '提示')
-        return false
-      } else {
-       const that = this
-       this.$confirm('是否确认删除所选的数据项?', '警告', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(function () {
-          var currentIds = []
-          that.currentSelected.forEach(element => {
-            currentIds.push(element.Id)
-          })
-          const data = {
-            Ids: currentIds,
-            Flag: val
-          }
-          return  deleteSoft{ModelTypeName}(data)
-        }).then(res => {
-          if (res.Success) {
-            that.$message({
-              message: '恭喜你，删除成功',
-              type: 'success'
-            })
-            that.currentSelected = ''
-            that.loadTableData()
-          } else {
-            this.$message({
-              message: res.ErrMsg,
-              type: 'error'
-            })
-          }
-        })
-      }
-    },
-    deletePhysics: function() {
-      if (this.currentSelected.length === 0) {
-        this.$alert('请先选择要操作的数据', '提示')
-        return false
-      } else {
-       const that = this
-        this.$confirm('是否确认删除所选的数据项?', '警告', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(function () {
-          var currentIds = []
-          that.currentSelected.forEach(element => {
-            currentIds.push(element.Id)
-          })
-          const data = {
-            Ids: currentIds
-          }
-          return  delete{ModelTypeName}(data)
-        }).then(res => {
-          if (res.Success) {
-            that.$message({
-              message: '恭喜你，删除成功',
-              type: 'success'
-            })
-            that.currentSelected = ''
-            that.loadTableData()
-          } else {
-            this.$message({
-              message: res.ErrMsg,
-              type: 'error'
-            })
-          }
-        })
-      }
-    },
-    /**
-     * 当表格的排序条件发生变化的时候会触发该事件
-     */
-    handleSortChange: function(column) {
-      this.sortableData.sort = column.prop
-      if (column.order === 'ascending') {
-        this.sortableData.order = 'asc'
-      } else {
-        this.sortableData.order = 'desc'
-      }
-      this.loadTableData()
-    },
-    /**
-     * 当用户手动勾选checkbox数据行事件
-     */
-    handleSelectChange: function(selection, row) {
-      this.currentSelected = selection
-    },
-    /**
-     * 当用户手动勾选全选checkbox事件
-     */
-    handleSelectAllChange: function(selection) {
-      this.currentSelected = selection
-    },
-    /**
-     * 选择每页显示数量
-     */
-    handleSizeChange(val) {
-      this.pagination.pagesize = val
-      this.pagination.currentPage = 1
-      this.loadTableData()
-    },
-    /**
-     * 选择当页面
-     */
-    handleCurrentChange(val) {
-      this.pagination.currentPage = val
-      this.loadTableData()
+const { searchform, editFrom, rules ,pagination,sortableData} = toRefs(data);
+/**
+    * 初始化数据
+    */
+function InitDictItem() {
+},
+    
+// 取消按钮
+function cancel () {
+    dialogEditFormVisible = false
+    reset()
+},
+// 表单重置
+function reset () {
+    editFrom = {
+    {VueViewEditFromContent}        
+    //需个性化处理内容
     }
+    proxy.resetForm('editFromRef')
+},
+/**
+    * 加载页面table数据
+    */
+function loadTableData() {
+    tableloading = true
+    var seachdata = {
+        CurrenetPageIndex: pagination.value.currentPage,
+        PageSize: pagination.value.pagesize,
+        Keywords: searchform.value.keywords,
+        Order: sortableData.value.order,
+        Sort: sortableData.value.sort
+    }
+    get{ModelTypeName}ListWithPager(seachdata).then(res => {
+        tableData.value = res.ResData.Items
+        pagination.value.pageTotal = res.ResData.TotalItems
+        tableloading.value = false
+    })
+},
+/**
+    * 点击查询
+    */
+function handleSearch() {
+    pagination.value.currentPage = 1
+    loadTableData()
+},
+
+/**
+    * 新增、修改或查看明细信息（绑定显示数据）     *
+    */
+function ShowEditOrViewDialog(view) {
+    reset()
+    if (view !== undefined) {
+    if (ids.value.length > 1 || ids.value.length === 0) {
+        proxy.$modal.alert('请选择一条数据进行编辑/修改', '提示')
+    } else {
+        currentId.value = ids.value[0].Id
+        editFormTitle.value = '编辑'
+        dialogEditFormVisible.value = true
+        bindEditInfo()
+    }
+    } else {
+    editFormTitle.value = '新增'
+    currentId.value = ''
+    dialogEditFormVisible.value = true
+    }
+},
+function bindEditInfo() {
+    get{ModelTypeName}Detail(currentId.value).then(res => {
+    editFrom.value = res.ResData
+    //需个性化处理内容
+
+    })
+},
+/**
+    * 新增/修改保存
+    */
+function saveEditForm() {
+    proxy.$refs['editFromRef'].validate((valid) => {
+    if (valid) {
+        var url = '{ModelTypeName}/Insert'
+        if (currentId.value !== '') {
+        url = '{ModelTypeName}/Update'
+        }
+        save{ModelTypeName}(editFrom.value,url).then(res => {
+        if (res.Success) {
+            proxy.$modal.msgSuccess('恭喜你，操作成功')
+            dialogEditFormVisible.value = false
+            loadTableData()
+            InitDictItem()
+        } else {
+            proxy.$modal.msgError(res.ErrMsg)
+        }
+        })
+    } else {
+        return false
+    }
+    })
+},
+function setEnable(val) {
+  if (ids.value.length === 0) {
+    proxy.$modal.alert('请先选择要操作的数据')
+    return false
+  } else {
+    const data = {
+      Ids: ids.value,
+      Flag: val
+    }
+    set{ModelTypeName}Enable(data).then(res => {
+      if (res.Success) {
+        proxy.$modal.msgSuccess('恭喜你，操作成功')
+        loadTableData()
+      } else {
+        proxy.$modal.msgError(res.ErrMsg)
+        }
+    })
+    }
+},
+function deleteSoft(val) {
+  if (ids.value.length === 0) {
+    proxy.$modal.alert('请先选择要操作的数据')
+    return false
+    } else {
+    proxy.$modal.confirm('是否确认删除所选的数据项?').then(function() {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+    }).then(function () {
+        const data = {
+        Ids: ids.value
+        }
+        return  deleteSoft{ModelTypeName}(data)
+    }).then(res => {
+       if (res.Success) {
+          proxy.$modal.msgSuccess('恭喜你，操作成功')
+          loadTableData()
+        } else {
+          proxy.$modal.msgError(res.ErrMsg)
+      }
+    })
+    }
+},
+function deletePhysics() {
+  if (ids.value.length === 0) {
+    proxy.$modal.alert('请先选择要操作的数据')
+    return false
+    } else {
+    proxy.$modal.confirm('是否确认删除所选的数据项?').then(function() {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+    }).then(function () {
+        const data = {
+        Ids: ids.value
+        }
+        return  delete{ModelTypeName}(data)
+    }).then(res => {
+       if (res.Success) {
+          proxy.$modal.msgSuccess('恭喜你，操作成功')
+          loadTableData()
+        } else {
+          proxy.$modal.msgError(res.ErrMsg)
+      }
+    })
+    }
+},
+/**
+ * 当表格的排序条件发生变化的时候会触发该事件
+ */
+function handleSortChange(column) {
+  if(column.prop!=null){
+    sortableData.value.sort = column.prop
   }
+  if (column.order === 'ascending') {
+    sortableData.value.order = 'asc'
+  } else {
+    sortableData.value.order = 'desc'
+  }
+  loadTableData()
 }
+/**
+ * 当用户手动勾选checkbox数据行事件
+ */
+function handleSelectChange(selection) {
+  ids.value = selection.map(item => item.Id);
+  single.value = selection.length != 1;
+  multiple.value = !selection.length;
+}
+loadTableData()
 </script>
 
 <style>

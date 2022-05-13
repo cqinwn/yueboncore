@@ -48,14 +48,14 @@ namespace Yuebon.WebApi.Controllers
                 {
                     result.ErrMsg = "访问密码不能为空";
                 }
-                if (dbConnInfo.DbType == "SqlServer")
+                if (dbConnInfo.DbType == 1)
                 {
                     dBConnResult.ConnStr = string.Format("Server={0};Database={1};User id={2}; password={3};MultipleActiveResultSets=True;", dbConnInfo.DbAddress, dbConnInfo.DbName, dbConnInfo.DbUserName, dbConnInfo.DbPassword);
                     dBConnResult.EncryptConnStr = DEncrypt.Encrypt(dBConnResult.ConnStr);
                     result.Success = true;
                     result.ErrCode = ErrCode.successCode;
                 }
-                else if (dbConnInfo.DbType == "MySql")
+                else if (dbConnInfo.DbType == 0)
                 {
                     dBConnResult.ConnStr = string.Format("server={0};database={1};uid={2}; pwd={3};", dbConnInfo.DbAddress, dbConnInfo.DbName, dbConnInfo.DbUserName, dbConnInfo.DbPassword);
                     dBConnResult.EncryptConnStr = DEncrypt.Encrypt(dBConnResult.ConnStr);

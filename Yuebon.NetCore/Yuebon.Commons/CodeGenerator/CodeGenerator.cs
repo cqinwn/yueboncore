@@ -160,7 +160,6 @@ namespace Yuebon.Commons.CodeGenerator
                     {
                         modelcontent += string.Format("        [MaxLength({0})]\n", dbFieldInfo.Length);
                     }
-                        modelcontent += string.Format("        [MaxLength({0})]\n", dbFieldInfo.Length);
                     modelcontent += string.Format("        [SugarColumn(ColumnDescription=\"{0}\")]\n", dbFieldInfo.ColumnDescription);
                     modelcontent += string.Format("        public {0}{1} {2}", strDataType, dbFieldInfo.IsNullable?"":"?",fieldName);
                     modelcontent += " { get; set; }\n\r";

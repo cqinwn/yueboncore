@@ -3,17 +3,17 @@
     <div class="filter-container">
       <el-card>
         <el-form
-          ref="searchform"
+          ref="searchformRef" v-show="showSearch"
           :inline="true"
           :model="searchform"
           class="demo-form-inline"
-          size="small"
         >
           <el-form-item label="名称：">
             <el-input v-model="searchform.keywords" clearable placeholder="名称" />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="handleSearch()">查询</el-button>
+            <el-button icon="Refresh" @click="resetQuery">重置</el-button>
           </el-form-item>
         </el-form>
       </el-card>
@@ -29,21 +29,20 @@
           <el-button v-hasPermi="['{ModelTypeName}/Delete']" type="danger" icon="el-icon-delete" size="small" @click="deletePhysics()">删除</el-button>
           <el-button type="default" icon="el-icon-refresh" size="small" @click="loadTableData()">刷新</el-button>
         </el-button-group>
+        <right-toolbar v-model:showSearch="showSearch" @queryTable="loadTableData"></right-toolbar>
       </div>
       <el-table
         ref="gridtable"
         v-loading="tableloading"
         :data="tableData"
-        border
         stripe
         highlight-current-row
         style="width: 100%"
         :default-sort="{prop: 'SortCode', order: 'ascending'}"
-        @select="handleSelectChange"
-        @select-all="handleSelectAllChange"
+        @selection-change="handleSelectChange"
         @sort-change="handleSortChange"
       >
-        <el-table-column type="selection" width="30" />
+        <el-table-column type="selection" width="50" />
         {VueViewListContent}
       </el-table>
     <Pagination
@@ -54,7 +53,7 @@
         @pagination="loadTableData"
     />
     </el-card>
-    <el-dialog ref="dialogEditForm" v-el-drag-dialog :title="editFormTitle+'{ModelTypeDesc}'" :visible.sync="dialogEditFormVisible"  width="660px" append-to-body>
+    <el-dialog ref="dialogEditForm" draggable :title="editFormTitle+'{ModelTypeDesc}'" v-model="dialogEditFormVisible"  width="660px" append-to-body>
       <el-form ref="editFromRef" :model="editFrom" :rules="rules">
         {VueViewFromContent}
       </el-form>
@@ -72,7 +71,6 @@ import { get{ModelTypeName}ListWithPager, get{ModelTypeName}Detail,
   save{ModelTypeName}, set{ModelTypeName}Enable, deleteSoft{ModelTypeName},
   delete{ModelTypeName} } from '@/api/{fileClassName}/{ModelTypeNameToLower}'
 
-import elDragDialog from '@/directive/el-drag-dialog' // 弹窗可移动
 const { proxy } = getCurrentInstance()
 const tableData=ref([])
 const tableloading=ref(true)
@@ -158,7 +156,7 @@ function ShowEditOrViewDialog(view) {
     reset()
     if (view !== undefined) {
     if (ids.value.length > 1 || ids.value.length === 0) {
-        proxy.$alert('请选择一条数据进行编辑/修改', '提示')
+        proxy.$modal.alert('请选择一条数据进行编辑/修改', '提示')
     } else {
         currentId.value = ids.value[0].Id
         editFormTitle.value = '编辑'
@@ -195,7 +193,7 @@ function saveEditForm() {
             loadTableData()
             InitDictItem()
         } else {
-            proxy.modal.msgError(res.ErrMsg)
+            proxy.$modal.msgError(res.ErrMsg)
         }
         })
     } else {
@@ -213,7 +211,7 @@ function setEnable(val) {
       Flag: val
     }
     set{ModelTypeName}Enable(data).then(res => {
-        if (res.Success) {
+      if (res.Success) {
         proxy.$modal.msgSuccess('恭喜你，操作成功')
         loadTableData()
       } else {

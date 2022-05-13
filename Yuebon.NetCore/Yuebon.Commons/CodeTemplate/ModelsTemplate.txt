@@ -13,7 +13,7 @@ namespace {ModelsNamespace}
     
     [SugarTable("{TableName}", "{TableNameDesc}")]
     [Serializable]
-    public class {ModelTypeName}:BaseEntit, ICreationAudited, IModificationAudited, IDeleteAudited
+    public class {ModelTypeName}:BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited
     {
 {ModelContent}
     }

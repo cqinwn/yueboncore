@@ -115,7 +115,15 @@ namespace Yuebon.Commons.Repositories
             _unitOfWork = unitOfWork;
             _dbBase = unitOfWork.GetDbClient();
         }
-
+        /// <summary>
+        /// 获取一个自定义的数据库处理对象
+        /// </summary>
+        /// <param name="config"></param>
+        /// <returns></returns>
+        public SqlSugarScope GetCustomDB(ConnectionConfig config)
+        {
+            return new SqlSugarScope(config);
+        }
         #endregion
 
         #region SqlSugar 操作

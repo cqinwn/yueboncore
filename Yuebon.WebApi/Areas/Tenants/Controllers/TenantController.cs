@@ -1,3 +1,4 @@
+using CodeGenerator.Seed;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -7,8 +8,10 @@ using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Core.App;
+using Yuebon.Commons.Enums;
 using Yuebon.Commons.Extend;
 using Yuebon.Commons.Helpers;
+using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Models;
 using Yuebon.Commons.Net;
 using Yuebon.Commons.Options;
@@ -92,6 +95,47 @@ namespace Yuebon.SecurityApi.Areas.Tenants.Controllers
             info.DeleteUserId = CurrentUser.UserId;
         }
 
+        /// <summary>
+        /// 新增数据
+        /// </summary>
+        /// <param name="tinfo"></param>
+        /// <returns></returns>
+        [HttpPost("Insert")]
+        [YuebonAuthorize("Add")]
+        public override async Task<IActionResult> InsertAsync(TenantInputDto tinfo)
+        {
+            CommonResult result = new CommonResult();
+
+            if (!tinfo.TenantName.ToLower().IsAlphanumeric())
+            {
+                result.ErrMsg = "名称只能是字母和数字";
+                result.ErrCode = "43002";
+                return ToJsonContent(result);
+            }
+            Tenant info = tinfo.MapTo<Tenant>();
+
+            info.TenantName = tinfo.TenantName.ToLower();
+            OnBeforeInsert(info);
+
+            TenantLogon tenantLogon = new TenantLogon();
+            tenantLogon.TenantPassword = "12345678";
+            tenantLogon.AllowStartTime = tenantLogon.LockEndDate = tenantLogon.LockStartDate = tenantLogon.ChangePasswordDate = DateTime.Now;
+            tenantLogon.AllowEndTime = DateTime.Now.AddYears(100);
+            tenantLogon.MultiUserLogin = tenantLogon.CheckIPAddress = false;
+            tenantLogon.LogOnCount = 0;
+            result.Success = await iService.InsertAsync(info, tenantLogon);
+            if (result.Success)
+            {
+                result.ErrCode = ErrCode.successCode;
+                result.ErrMsg = ErrCode.err0;
+            }
+            else
+            {
+                result.ErrMsg = ErrCode.err43001;
+                result.ErrCode = "43001";
+            }
+            return ToJsonContent(result);
+        }
 
         /// <summary>
         /// 异步更新数据
@@ -110,7 +154,7 @@ namespace Yuebon.SecurityApi.Areas.Tenants.Controllers
                 return ToJsonContent(result);
             }
             Tenant info = iService.Get(tinfo.Id);
-            info.TenantName = tinfo.TenantName;
+            info.TenantName = tinfo.TenantName.ToLower();
             info.CompanyName = tinfo.CompanyName;
             info.HostDomain = tinfo.HostDomain;
             info.DataSource = tinfo.DataSource;
@@ -120,6 +164,36 @@ namespace Yuebon.SecurityApi.Areas.Tenants.Controllers
             info.Description = tinfo.Description;
             OnBeforeUpdate(info);
             bool bl = await iService.UpdateAsync(info);
+            if (bl)
+            {
+                result.ErrCode = ErrCode.successCode;
+                result.ErrMsg = ErrCode.err0;
+            }
+            else
+            {
+                result.ErrMsg = ErrCode.err43002;
+                result.ErrCode = "43002";
+            }
+            return ToJsonContent(result);
+        }
+
+
+        /// <summary>
+        /// 初始化租户数据
+        /// </summary>
+        /// <param name="tenantId">租户Id</param>
+        /// <returns></returns>
+        [HttpGet("InitTenantData")]
+        [YuebonAuthorize("InitTenantData")]
+        public async Task<IActionResult> InitTenantData(long tenantId)
+        {
+            CommonResult result = new CommonResult();
+            bool bl = false;
+            Tenant info = iService.Get(tenantId);
+            if (info.Schema == Commons.Enums.TenantSchemaEnum.Alone)
+            {
+                bl = await iService.InitTenantDataAsync(info);
+            }
             if (bl)
             {
                 result.ErrCode = ErrCode.successCode;

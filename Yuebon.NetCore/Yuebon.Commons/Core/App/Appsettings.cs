@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -61,7 +62,10 @@ namespace Yuebon.Commons.Core.App
         /// 获取请求上下文
         /// </summary>
         public static HttpContext HttpContext => HttpContextLocal.Current();
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ClaimsPrincipal User => HttpContext?.User;
         /// <summary>
         /// 构造函数
         /// </summary>

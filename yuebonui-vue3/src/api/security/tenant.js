@@ -47,6 +47,18 @@ export function getTenantDetail(id) {
   })
 }
 /**
+   * 初始化租户数据
+   * @param {Id} 租户Id
+   */
+export function initTenantData(id) {
+  return http({
+    url: 'Tenants/Tenant/InitTenantData',
+    method: 'get',
+    params: { tenantId: id },
+    baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
+  })
+}
+/**
    * 批量设置启用状态
    * @param {id集合} ids
    */

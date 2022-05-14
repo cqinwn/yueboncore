@@ -16,6 +16,12 @@ namespace Yuebon.Commons.IRepositories
         /// SqlsugarClient实体
         /// </summary>
         ISqlSugarClient Db { get; }
+        /// <summary>
+        /// 获取一个自定义的数据库处理对象
+        /// </summary>
+        /// <param name="config"></param>
+        /// <returns></returns>
+        SqlSugarScope GetCustomDB(ConnectionConfig config);
 
         #region 新增
         /// <summary>

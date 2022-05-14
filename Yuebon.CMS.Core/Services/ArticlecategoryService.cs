@@ -22,11 +22,9 @@ namespace Yuebon.CMS.Services
     /// </summary>
     public class ArticlecategoryService: BaseService<Articlecategory,ArticlecategoryOutputDto>, IArticlecategoryService
     {
-		private readonly IArticlecategoryRepository _repository;
         private readonly IArticlenewsRepository _articleRepository;
         public ArticlecategoryService(IArticlecategoryRepository arepository, IArticlenewsRepository articleRepository) 
         {
-			_repository= arepository;
             repository = arepository;
             _articleRepository = articleRepository;
         }
@@ -75,7 +73,7 @@ namespace Yuebon.CMS.Services
                 where = string.Format("Title like '%{0}%'", keyword);
             }
             where += " order by ClassLayer,SortCode";
-            IEnumerable<Articlecategory> elist = await _repository.GetListWhereAsync(where);
+            IEnumerable<Articlecategory> elist = await repository.GetListWhereAsync(where);
             if (elist.Count() >0)
             {
                 List<Articlecategory> list = elist.ToList();
@@ -129,7 +127,7 @@ namespace Yuebon.CMS.Services
                 if (idsInfo.Ids[0] != null)
                 {
                     where = string.Format("ParentId='{0}'", idsInfo.Ids[0]);
-                    IEnumerable<Articlecategory> list = _repository.GetListWhere(where);
+                    IEnumerable<Articlecategory> list = repository.GetListWhere(where);
                     if (list.Count()>0)
                     {
                         result.ErrMsg = "该分类存在子分类，不能删除";
@@ -167,7 +165,7 @@ namespace Yuebon.CMS.Services
             for (int i = 0; i < idsInfo.Ids.Length; i++)
             {
                 where = string.Format("ParentId='{0}'", idsInfo.Ids[0]);
-                IEnumerable<Articlecategory> list = _repository.GetListWhere(where);
+                IEnumerable<Articlecategory> list = repository.GetListWhere(where);
                 if (list.Count()> 0)
                 {
                     result.ErrMsg = "该分类存在子分类，不能删除";

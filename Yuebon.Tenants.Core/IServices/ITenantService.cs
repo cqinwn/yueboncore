@@ -29,6 +29,12 @@ namespace Yuebon.Tenants.IServices
         Task<bool> InsertAsync(Tenant entity, TenantLogon tenantLogOnEntity);
 
         /// <summary>
+        /// 初始化租户数据
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        Task<bool> InitTenantDataAsync(Tenant entity);
+        /// <summary>
         /// 租户登陆验证。
         /// </summary>
         /// <param name="userName">用户名</param>

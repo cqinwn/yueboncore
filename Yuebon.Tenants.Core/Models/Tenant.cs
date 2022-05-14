@@ -1,6 +1,7 @@
 using SqlSugar;
 using System;
 using System.ComponentModel.DataAnnotations;
+using Yuebon.Commons.Enums;
 using Yuebon.Commons.Models;
 
 namespace Yuebon.Tenants.Models
@@ -27,6 +28,11 @@ namespace Yuebon.Tenants.Models
         [SugarColumn(ColumnDescription="公司名称")]
         public string CompanyName { get; set; }
 
+        /// <summary>
+        /// 租户类型
+        /// </summary>
+        [SugarColumn(ColumnDescription = "租户类型")]
+        public virtual TenantTypeEnum TenantType { get; set; }
         /// <summary>
         /// 设置或获取访问域名
         /// </summary>
@@ -56,17 +62,22 @@ namespace Yuebon.Tenants.Models
         public string Telphone { get; set; }
 
         /// <summary>
+        /// 架构
+        /// </summary>
+        [SugarColumn(ColumnDescription = "架构")]
+        public virtual TenantSchemaEnum Schema { get; set; }
+        /// <summary>
         /// 设置或获取数据源，分库使用
         /// </summary>
-        [MaxLength(500)]
-        [SugarColumn(ColumnDescription="数据源，分库使用")]
+        [MaxLength(2000)]
+        [SugarColumn(ColumnDescription="数据源，分库使用",ColumnDataType = "NVARCHAR(2000)")]
         public string DataSource { get; set; }
 
         /// <summary>
         /// 设置或获取租户介绍
         /// </summary>
-        [MaxLength(500)]
-        [SugarColumn(ColumnDescription="租户介绍")]
+        [MaxLength(1000)]
+        [SugarColumn(ColumnDataType = "NVARCHAR(1000)", ColumnDescription="租户介绍")]
         public string Description { get; set; }
 
         /// <summary>
@@ -133,6 +144,7 @@ namespace Yuebon.Tenants.Models
         [MaxLength(50)]
         [SugarColumn(ColumnDescription="删除用户")]
         public virtual long? DeleteUserId { get; set; }
+
 
 
     }

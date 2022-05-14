@@ -2501,6 +2501,38 @@
 
     "SystemTag": false
   },
+
+  {
+    "Id": 15175287647142,
+    "SystemTypeId": 9166287964471363,
+    "SystemTypeName": "权限系统",
+    "ParentId": 14123396328561,
+    "Layers": 3,
+    "EnCode": "Tenant/InitTenantData",
+    "FullName": "初始化",
+    "Icon": "write",
+    "UrlAddress": "",
+    "Target": null,
+    "MenuType": "F",
+    "Component": "",
+    "IsExpand": false,
+    "IsShow": true,
+    "IsFrame": false,
+    "IsPublic": false,
+    "AllowEdit": null,
+    "AllowDelete": null,
+    "SortCode": 2,
+    "DeleteMark": false,
+    "EnabledMark": true,
+    "Description": null,
+    "CreatorTime": "2021-01-03 15:17:53",
+    "CreatorUserId": 1,
+    "LastModifyTime": null,
+    "LastModifyUserId": null,
+    "DeleteTime": null,
+    "DeleteUserId": null,
+    "SystemTag": false
+  },
   {
     "Id": 15175288886376,
 
@@ -2718,7 +2750,7 @@
     "IsPublic": false,
     "AllowEdit": null,
     "AllowDelete": null,
-    "SortCode":0 ,
+    "SortCode": 0,
     "DeleteMark": false,
     "EnabledMark": true,
     "Description": null,

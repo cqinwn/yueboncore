@@ -7,9 +7,13 @@ YuebonCore FW其核心设计目标是开发迅速、代码量少、学习简单�
 
 ### 在线体验
 
-Vue版本体验地址：[http://netvue.ts.yuebon.com/](http://netvue.ts.yuebon.com)（用户名：test，密码：test123）
+1、管理平台体验地址：[http://default.ts.yuebon.com](http://default.ts.yuebon.com) 有租户管理模块
 
-WebApi接口地址：[http://netcoreapi.ts.yuebon.com](http://netcoreapi.ts.yuebon.com)
+2、测试租户体验地址:[http://tenant1.ts.yuebon.com](http://tenant1.ts.yuebon.com)，无租户管理模块
+
+体验账号密码均为：admin/admin888
+
+WebApi 接口地址：[http://netcoreapi.ts.yuebon.com](http://netcoreapi.ts.yuebon.com)
 
 官方文档：[http://docs.v.yuebon.com/](http://docs.v.yuebon.com/)
 
@@ -43,7 +47,7 @@ WebApi接口地址：[http://netcoreapi.ts.yuebon.com](http://netcoreapi.ts.yueb
 
 ####  前端技术 
 
-Vue版前端技术栈 ：基于vue3、vuex、vue-router 、vue-cli 、axios 和 element-plus，，前端采用vscode工具开发
+Vue版前端技术栈 ：基于vue3、Vite、vuex、vue-router 、vue-cli 、axios 和 element-plus，，前端采用vscode工具开发
 
 #### 后端技术
 

@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Text;
 using Yuebon.AspNetCore.Models;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.Const;
 using Yuebon.Commons.Core.App;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
@@ -54,9 +55,9 @@ namespace Yuebon.AspNetCore.Mvc
             var tokenDescripor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[] {
-                    new Claim(JwtClaimTypes.Audience,appid),
-                    new Claim(JwtClaimTypes.Issuer,_jwtModel.Issuer),
-                    new Claim(JwtClaimTypes.Subject, GrantType.ClientCredentials)
+                    new Claim(YuebonClaimConst.Audience,appid),
+                    new Claim(YuebonClaimConst.Issuer,_jwtModel.Issuer),
+                    new Claim(YuebonClaimConst.Subject, GrantType.ClientCredentials)
                 }, granttype),
                 Expires = expires,
                 //对称秘钥SymmetricSecurityKey
@@ -162,7 +163,7 @@ namespace Yuebon.AspNetCore.Mvc
         /// <param name="userInfo">用户信息</param>
         /// <param name="appid">应用Id</param>
         /// <returns></returns>
-        public TokenResult LoginToken(User userInfo,string appid)
+        public TokenResult LoginToken(UserInfo userInfo,string appid)
         {
             string secret = _jwtModel.Secret;
             List<APP> list = MemoryCacheHelper.Get<List<APP>>("cacheAppList");
@@ -177,12 +178,13 @@ namespace Yuebon.AspNetCore.Mvc
             var tokenDescripor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[] {
-                    new Claim(JwtClaimTypes.Audience,appid),
-                    new Claim(JwtClaimTypes.Issuer,_jwtModel.Issuer),
-                    new Claim(JwtClaimTypes.Name, userInfo.Account),
-                    new Claim(JwtClaimTypes.Id, userInfo.Id.ToString()),
-                    new Claim(JwtClaimTypes.Role, _roleService.GetRoleEnCode(userInfo.RoleId)),
-                    new Claim(JwtClaimTypes.Subject, GrantType.Password)
+                    new Claim(YuebonClaimConst.Audience,appid),
+                    new Claim(YuebonClaimConst.Issuer,_jwtModel.Issuer),
+                    new Claim(YuebonClaimConst.UserName, userInfo.UserName),
+                    new Claim(YuebonClaimConst.UserId, userInfo.UserId.ToString()),
+                    new Claim(YuebonClaimConst.Role, _roleService.GetRoleEnCode(userInfo.Role)),
+                    new Claim(YuebonClaimConst.TenantId, userInfo.TenantId.ToString()),
+                    new Claim(YuebonClaimConst.Subject, GrantType.Password)
                 }),
                 Expires = expires,
                 //对称秘钥SymmetricSecurityKey
@@ -204,7 +206,7 @@ namespace Yuebon.AspNetCore.Mvc
         /// <param name="userInfo">用户信息</param>
         /// <param name="appid">应用Id</param>
         /// <returns></returns>
-        public TokenResult GetUserToken(User userInfo, string appid)
+        public TokenResult GetUserToken(UserInfo userInfo, string appid)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             string secret = _jwtModel.Secret;
@@ -219,12 +221,13 @@ namespace Yuebon.AspNetCore.Mvc
             var tokenDescripor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[] {
-                    new Claim(JwtClaimTypes.Audience,appid),
-                    new Claim(JwtClaimTypes.Issuer,_jwtModel.Issuer),
-                    new Claim(JwtClaimTypes.Name, userInfo.Account),
-                    new Claim(JwtClaimTypes.Id, userInfo.Id.ToString()),
-                    new Claim(JwtClaimTypes.Role, userInfo.RoleId),
-                    new Claim(JwtClaimTypes.Subject, GrantType.Password)
+                    new Claim(YuebonClaimConst.Audience,appid),
+                    new Claim(YuebonClaimConst.Issuer,_jwtModel.Issuer),
+                    new Claim(YuebonClaimConst.UserName, userInfo.UserName),
+                    new Claim(YuebonClaimConst.UserId, userInfo.UserId.ToString()),
+                    new Claim(YuebonClaimConst.Role, _roleService.GetRoleEnCode(userInfo.Role)),
+                    new Claim(YuebonClaimConst.TenantId, userInfo.TenantId.ToString()),
+                    new Claim(YuebonClaimConst.Subject, GrantType.Password)
                 }),
                 Expires = expires,
                 //对称秘钥SymmetricSecurityKey

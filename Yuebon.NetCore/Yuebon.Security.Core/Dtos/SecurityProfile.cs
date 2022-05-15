@@ -52,6 +52,12 @@ namespace Yuebon.Security.Dtos
             CreateMap<User, UserLoginDto>()
                 .ForMember(e => e.UserId, s => s.MapFrom(o => o.Id));
             CreateMap<UserExtend, UserExtendOutputDto>();
+            CreateMap<User, UserInfo>()
+                .ForMember(e => e.UserId, s => s.MapFrom(o => o.Id))
+                .ForMember(e => e.UserName, s => s.MapFrom(o => o.Account))
+                .ForMember(e => e.RealName, s => s.MapFrom(o => o.RealName))
+                .ForMember(e => e.OrgId, s => s.MapFrom(o => o.OrganizeId))
+                .ForMember(e => e.Role, s => s.MapFrom(o => o.RoleId));
             CreateMap<Log, LogOutputDto>();
             CreateMap<LogInputDto, Log>();
             CreateMap<FilterIP, FilterIPOutputDto>();

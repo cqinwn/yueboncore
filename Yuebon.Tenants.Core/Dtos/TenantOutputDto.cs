@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using Yuebon.Commons.Enums;
 
 namespace Yuebon.Tenants.Dtos
 {
@@ -26,13 +27,16 @@ namespace Yuebon.Tenants.Dtos
         /// <summary>
         /// 设置或获取公司名称
         /// </summary>
-        [MaxLength(50)]
         public string CompanyName { get; set; }
 
         /// <summary>
+        /// 租户类型
+        /// </summary>
+        public virtual TenantTypeEnum TenantType { get; set; }
+        /// <summary>
         /// 设置或获取访问域名
         /// </summary>
-        [MaxLength(200)]
+        [MaxLength(400)]
         public string HostDomain { get; set; }
 
         /// <summary>
@@ -46,17 +50,20 @@ namespace Yuebon.Tenants.Dtos
         /// </summary>
         [MaxLength(50)]
         public string Telphone { get; set; }
-
+        /// <summary>
+        /// 架构
+        /// </summary>
+        public virtual TenantSchemaEnum Schema { get; set; }
         /// <summary>
         /// 设置或获取数据源，分库使用
         /// </summary>
-        [MaxLength(200)]
+        [MaxLength(2000)]
         public string DataSource { get; set; }
 
         /// <summary>
         /// 设置或获取租户介绍
         /// </summary>
-        [MaxLength(200)]
+        [MaxLength(2000)]
         public string Description { get; set; }
 
         /// <summary>

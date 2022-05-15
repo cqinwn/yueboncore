@@ -88,8 +88,8 @@ export async function login(data) {
   var query = data
   return http({
     url: 'Login/GetCheckUser',
-    method: 'get',
-    params: query,
+    method: 'post',
+    data: data,
     timeout: 0,
     baseURL: defaultSettings.apiHostUrl // 直接通过覆盖的方式
   })

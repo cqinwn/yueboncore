@@ -11,6 +11,7 @@ using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Core.App;
 using Yuebon.Commons.Extensions;
+using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Models;
@@ -20,7 +21,10 @@ using Yuebon.Security.Application;
 using Yuebon.Security.Dtos;
 using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
-using static Yuebon.Commons.Extensions.SwaggerVersions;
+using Yuebon.Tenants.IServices;
+using Yuebon.Tenants.Models;
+using Yuebon.Commons.Extensions;
+using Yuebon.WebApi.Areas.Security.Models;
 
 namespace Yuebon.WebApi.Controllers
 {
@@ -41,6 +45,7 @@ namespace Yuebon.WebApi.Controllers
         private ILogService _logService;
         private IFilterIPService _filterIPService;
         private IMenuService _menuService;
+        private ITenantService _tenantService;
 
         /// <summary>
         /// 构造函数注入服务
@@ -54,7 +59,17 @@ namespace Yuebon.WebApi.Controllers
         /// <param name="filterIPService"></param>
         /// <param name="roleDataService"></param>
         /// <param name="menuService"></param>
-        public LoginController(IUserService iService, IUserLogOnService userLogOnService, ISystemTypeService systemTypeService,ILogService logService, IAPPService appService, IRoleService roleService, IFilterIPService filterIPService, IRoleDataService roleDataService, IMenuService menuService)
+        /// <param name="tenantService"></param>
+        public LoginController(IUserService iService, 
+            IUserLogOnService userLogOnService, 
+            ISystemTypeService systemTypeService,
+            ILogService logService, 
+            IAPPService appService, 
+            IRoleService roleService, 
+            IFilterIPService filterIPService, 
+            IRoleDataService roleDataService, 
+            IMenuService menuService, 
+            ITenantService tenantService)
         {
             _userService = iService;
             _userLogOnService = userLogOnService;
@@ -65,59 +80,80 @@ namespace Yuebon.WebApi.Controllers
             _filterIPService = filterIPService;
             _roleDataService = roleDataService;
             _menuService = menuService;
+            _tenantService=tenantService;
         }
         /// <summary>
         /// 用户登录，必须要有验证码
         /// </summary>
-        /// <param name="username">用户名</param>
-        /// <param name="password">密码</param>
-        /// <param name="vcode">验证码</param>
-        /// <param name="vkey">验证码key</param>
-        /// <param name="appId">AppId</param>
-        /// <param name="systemCode">系统编码</param>
         /// <returns>返回用户User对象</returns>
-        [HttpGet("GetCheckUser")]
-        [NoPermissionRequired]
-        public async Task<IActionResult> GetCheckUser(string username, string password, string vcode,string vkey, string appId,string systemCode)
+        [HttpPost("GetCheckUser")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetCheckUser(LoginInput input)
         {
-
             CommonResult result = new CommonResult();
             RemoteIpParser remoteIpParser = new RemoteIpParser();
             string strIp = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            var vCode = yuebonCacheHelper.Get("ValidateCode"+ vkey);
+            var vCode = yuebonCacheHelper.Get("ValidateCode" + input.Vkey);
             string code = vCode != null ? vCode.ToString() : "11";
-            if (vcode.ToUpper() != code)
+            if (input.Vcode.ToUpper() != code)
             {
                 result.ErrMsg = "验证码错误";
                 return ToJsonContent(result);
             }
+            if (string.IsNullOrEmpty(input.Username))
+            {
+                result.ErrMsg = "用户名不能为空！";
+            }
+            else if (string.IsNullOrEmpty(input.Password))
+            {
+                result.ErrMsg = "密码不能为空！";
+            }
+            bool isTenant = Appsettings.app(new string[] { "AppSetting", "IsTenant" }).ObjToBool();
+            UserInfo userInfo = new UserInfo();
+            if (isTenant)
+            {
+                List<Tenant> tenants =null;
+                if (!yuebonCacheHelper.Exists("cacheTenants"))
+                {
+                   IEnumerable<Tenant> templist =  _tenantService.GetAllByIsEnabledMark();
+                   yuebonCacheHelper.Add("cacheTenants", templist);
+                }
+                tenants = JsonHelper.ToObject<List<Tenant>>(yuebonCacheHelper.Get("cacheTenants").ToJson());
+                if (tenants != null)
+                {
+                    string strHost = Request.Host.ToString();
+                    Tenant tenant = tenants.FindLast(o => o.HostDomain == input.Host);
+                    if (tenant == null)
+                    {
+                        result.ErrMsg = "非法访问"; 
+                        return ToJsonContent(result);
+                    }
+                    else
+                    {
+                        userInfo.TenantId= tenant.Id;
+                        userInfo.TenantSchema = tenant.Schema;
+                        userInfo.TenantDataSource=tenant.DataSource;
+                        userInfo.TenantName = tenant.TenantName;
+                    }
+                }
+            }
             Log logEntity = new Log();
-            bool blIp=_filterIPService.ValidateIP(strIp);
+            bool blIp = _filterIPService.ValidateIP(strIp);
             if (blIp)
             {
-                result.ErrMsg = strIp+"该IP已被管理员禁止登录！";
+                result.ErrMsg = strIp + "该IP已被管理员禁止登录！";
             }
             else
-            {
-
-                if (string.IsNullOrEmpty(username))
+            {                
+                if (string.IsNullOrEmpty(input.SystemCode))
                 {
-                    result.ErrMsg = "用户名不能为空！";
-                }
-                else if (string.IsNullOrEmpty(password))
-                {
-                    result.ErrMsg = "密码不能为空！";
-                }
-                if (string.IsNullOrEmpty(systemCode))
-                {
-
                     result.ErrMsg = ErrCode.err40006;
                 }
                 else
                 {
                     string strHost = Request.Host.ToString();
-                    APP app = _appService.GetAPP(appId);
+                    APP app = _appService.GetAPP(input.AppId);
                     if (app == null)
                     {
                         result.ErrCode = "40001";
@@ -132,41 +168,50 @@ namespace Yuebon.WebApi.Controllers
                         }
                         else
                         {
-                            SystemType systemType = _systemTypeService.GetByCode(systemCode);
+                            SystemType systemType = _systemTypeService.GetByCode(input.SystemCode);
                             if (systemType == null)
                             {
                                 result.ErrMsg = ErrCode.err40006;
                             }
                             else
                             {
-                                Tuple<User,string> userLogin = await this._userService.Validate(username, password);
+                                Tuple<User, string> userLogin = await this._userService.Validate(input.Username, input.Password);
                                 if (userLogin != null)
                                 {
-                                    string ipAddressName =await IpAddressUtil.GetCityByIp(strIp);
+                                    string ipAddressName = await IpAddressUtil.GetCityByIp(strIp);
                                     if (userLogin.Item1 != null)
                                     {
                                         result.Success = true;
                                         User user = userLogin.Item1;
+                                        userInfo.UserId = user.Id;
+                                        userInfo.UserName = user.Account;
+                                        userInfo.Role = user.RoleId;
+
                                         JwtOption jwtModel = Appsettings.GetService<JwtOption>();
                                         TokenProvider tokenProvider = new TokenProvider(jwtModel);
-                                        TokenResult tokenResult = tokenProvider.LoginToken(user, appId);
+                                        TokenResult tokenResult = tokenProvider.LoginToken(userInfo, input.AppId);
                                         YuebonCurrentUser currentSession = new YuebonCurrentUser
                                         {
                                             UserId = user.Id,
                                             Name = user.RealName,
                                             AccessToken = tokenResult.AccessToken,
-                                            AppKey = appId,
+                                            AppKey = input.AppId,
                                             CreateTime = DateTime.Now,
                                             Role = _roleService.GetRoleEnCode(user.RoleId),
                                             ActiveSystemId = systemType.Id,
                                             CurrentLoginIP = strIp,
-                                            IPAddressName = ipAddressName                             
+                                            IPAddressName = ipAddressName
                                         };
+                                        if (isTenant)
+                                        {
+                                            currentSession.TenantId = userInfo.TenantId;
+                                        }
 
+                                        //_httpContextAccessor.HttpContext.Response.Headers["x-access-token"] = refreshToken;
                                         SysSetting sysSetting = yuebonCacheHelper.Get("SysSetting").ToJson().ToObject<SysSetting>();
                                         if (sysSetting != null)
                                         {
-                                            if (sysSetting.Webstatus == "1"&&!currentSession.Role.Contains("administrators"))
+                                            if (sysSetting.Webstatus == "1" && !currentSession.Role.Contains("administrators"))
                                             {
                                                 result.ErrCode = "40900";
                                                 result.ErrMsg = sysSetting.Webclosereason;
@@ -175,8 +220,9 @@ namespace Yuebon.WebApi.Controllers
                                         }
                                         TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
                                         yuebonCacheHelper.Add("login_user_" + user.Id.ToString(), currentSession, expiresSliding, true);
+                                        yuebonCacheHelper.Add("login_userInfo_" + user.Id.ToString(), userInfo, expiresSliding, true);
                                         List<AllowCacheApp> list = MemoryCacheHelper.Get<object>("cacheAppList").ToJson().ToList<AllowCacheApp>();
-                                        if (list== null)
+                                        if (list == null)
                                         {
                                             IEnumerable<APP> appList = _appService.GetAllByIsNotDeleteAndEnabledMark();
                                             MemoryCacheHelper.Set("cacheAppList", appList);
@@ -201,7 +247,7 @@ namespace Yuebon.WebApi.Controllers
                                     {
                                         result.ErrCode = ErrCode.failCode;
                                         result.ErrMsg = userLogin.Item2;
-                                        logEntity.Account = username;
+                                        logEntity.Account = input.Username;
                                         logEntity.Date = logEntity.CreatorTime = DateTime.Now;
                                         logEntity.IPAddress = strIp;
                                         logEntity.IPAddressName = ipAddressName;
@@ -219,7 +265,7 @@ namespace Yuebon.WebApi.Controllers
                 }
             }
             yuebonCacheHelper.Remove("LoginValidateCode");
-            return ToJsonContent(result,true);
+            return ToJsonContent(result, true);
         }
 
         /// <summary>
@@ -337,6 +383,34 @@ namespace Yuebon.WebApi.Controllers
             RemoteIpParser remoteIpParser = new RemoteIpParser();
             string strIp = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+            bool isTenant = Appsettings.app(new string[] { "AppSetting", "IsTenant" }).ObjToBool();
+            UserInfo userInfo = null;
+            if (isTenant)
+            {
+                List<Tenant> tenants = null;
+                if (!yuebonCacheHelper.Exists("cacheTenants"))
+                {
+                    IEnumerable<Tenant> templist = _tenantService.GetAllByIsEnabledMark();
+                    yuebonCacheHelper.Add("cacheTenants", templist);
+                }
+                tenants = JsonHelper.ToObject<List<Tenant>>(yuebonCacheHelper.Get("cacheTenants").ToJson());
+                if (tenants != null)
+                {
+                    string strHost = Request.Host.ToString();
+                    Tenant tenant = tenants.FindLast(o => o.HostDomain == strHost);
+                    if (tenant == null)
+                    {
+                        result.ErrMsg = "非法访问";
+                        return ToJsonContent(result);
+                    }
+                    else
+                    {
+                        userInfo.TenantId = tenant.Id;
+                        userInfo.TenantSchema = tenant.Schema;
+                        userInfo.TenantDataSource = tenant.DataSource;
+                    }
+                }
+            }
             Log logEntity = new Log();
             bool blIp = _filterIPService.ValidateIP(strIp);
             if (blIp)
@@ -394,9 +468,12 @@ namespace Yuebon.WebApi.Controllers
 
                                         User user = userLogin.Item1;
 
+                                        userInfo.UserId = user.Id;
+                                        userInfo.UserName = user.Account;
+                                        userInfo.Role = user.RoleId;
                                         JwtOption jwtModel = Appsettings.GetService<JwtOption>();
                                         TokenProvider tokenProvider = new TokenProvider(jwtModel);
-                                        TokenResult tokenResult = tokenProvider.LoginToken(user, appId);
+                                        TokenResult tokenResult = tokenProvider.LoginToken(userInfo, appId);
                                         YuebonCurrentUser currentSession = new YuebonCurrentUser
                                         {
                                             UserId = user.Id,
@@ -492,12 +569,40 @@ namespace Yuebon.WebApi.Controllers
         {
             CommonResult result = new CommonResult();
             RemoteIpParser remoteIpParser = new RemoteIpParser();
+            YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
             string strIp = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
             if (string.IsNullOrEmpty(openmf))
             {
                 result.ErrMsg = "切换参数错误！";
             }
-
+            bool isTenant = Appsettings.app(new string[] { "AppSetting", "IsTenant" }).ObjToBool();
+            UserInfo userInfo = null;
+            if (isTenant)
+            {
+                List<Tenant> tenants = null;
+                if (!yuebonCacheHelper.Exists("cacheTenants"))
+                {
+                    IEnumerable<Tenant> templist = _tenantService.GetAllByIsEnabledMark();
+                    yuebonCacheHelper.Add("cacheTenants", templist);
+                }
+                tenants = JsonHelper.ToObject<List<Tenant>>(yuebonCacheHelper.Get("cacheTenants").ToJson());
+                if (tenants != null)
+                {
+                    string strHost = Request.Host.ToString();
+                    Tenant tenant = tenants.FindLast(o => o.HostDomain == strHost);
+                    if (tenant == null)
+                    {
+                        result.ErrMsg = "非法访问";
+                        return ToJsonContent(result);
+                    }
+                    else
+                    {
+                        userInfo.TenantId = tenant.Id;
+                        userInfo.TenantSchema = tenant.Schema;
+                        userInfo.TenantDataSource = tenant.DataSource;
+                    }
+                }
+            }
             bool blIp = _filterIPService.ValidateIP(strIp);
             if (blIp)
             {
@@ -535,7 +640,6 @@ namespace Yuebon.WebApi.Controllers
                             }
                             else
                             {
-                                YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
                                 object cacheOpenmf = yuebonCacheHelper.Get("openmf" + openmf);
                                 yuebonCacheHelper.Remove("openmf" + openmf);
                                 if (cacheOpenmf == null)
@@ -548,10 +652,14 @@ namespace Yuebon.WebApi.Controllers
                                     User user = _userService.Get(cacheOpenmf.ToInt());
                                     if (user != null)
                                     {
+
+                                        userInfo.UserId = user.Id;
+                                        userInfo.UserName = user.Account;
+                                        userInfo.Role = user.RoleId;
                                         result.Success = true;
                                         JwtOption jwtModel = Appsettings.GetService<JwtOption>();
                                         TokenProvider tokenProvider = new TokenProvider(jwtModel);
-                                        TokenResult tokenResult = tokenProvider.LoginToken(user, appId);
+                                        TokenResult tokenResult = tokenProvider.LoginToken(userInfo, appId);
                                         YuebonCurrentUser currentSession = new YuebonCurrentUser
                                         {
                                             UserId = user.Id,

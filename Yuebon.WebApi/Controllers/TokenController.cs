@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc;
+using Yuebon.Commons.Cache;
 using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
@@ -166,8 +167,9 @@ namespace Yuebon.WebApi.Controllers
                     if (jwtToken.Subject == GrantType.Password)
                     {
                         var claimlist = jwtToken?.Payload.Claims as List<Claim>;
-                        User user = await userService.GetByUserName(claimlist[2].Value);
-                        TokenResult tokenResult = tokenProvider.LoginToken(user, claimlist[0].Value);
+                        YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+                        UserInfo userInfo = yuebonCacheHelper.Get<UserInfo>("login_userInfo_" + claimlist[2].Value);
+                        TokenResult tokenResult = tokenProvider.LoginToken(userInfo, claimlist[0].Value);
                         result.ResData = tokenResult;
                         result.ErrCode = "0";
                         result.Success = true;

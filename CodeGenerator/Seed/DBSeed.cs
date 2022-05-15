@@ -307,5 +307,245 @@ namespace CodeGenerator.Seed
                 throw new Exception($"错误：" + ex.Message);
             }
         }
+
+
+        /// <summary>
+        /// 异步添加租户种子数据
+        /// </summary>
+        /// <param name="myContext"></param>
+        /// <param name="WebRootPath"></param>
+        /// <returns></returns>
+        public static async Task SeedTenantAsync(MyContext myContext, string WebRootPath)
+        {
+            try
+            {
+                SqlSugarScope Db = MyContext.GetCustomDB(MyContext.GetConnectionConfig());
+                if (string.IsNullOrEmpty(WebRootPath))
+                {
+                    throw new Exception("获取wwwroot路径时，异常！");
+                }
+                SeedDataFolder = Path.Combine(WebRootPath, SeedDataFolder);
+                //bool isDBReadWriteSeparate = Configs.GetConfigurationValue("AppSetting", "IsDBReadWriteSeparate").ToBool();
+                Console.WriteLine("************ YuebonCore Tenant DataBase Set *****************");
+                Console.WriteLine($"Master DB ConId: {Db.CurrentConnectionConfig.ConfigId}");
+                Console.WriteLine($"Master DB Type: {Db.CurrentConnectionConfig.DbType}");
+                Console.WriteLine($"Master DB ConnectString: {Db.CurrentConnectionConfig.ConnectionString}");
+                Console.WriteLine();
+                // 创建数据库
+                Console.WriteLine($"Create Database(The Db Id:{Db.CurrentConnectionConfig.ConfigId})...");
+                if (Db.CurrentConnectionConfig.DbType != SqlSugar.DbType.Oracle)
+                {
+                    Db.DbMaintenance.CreateDatabase();
+                    ConsoleHelper.WriteSuccessLine($"Database created successfully!");
+                }
+                else
+                {
+                    //Oracle 数据库不支持该操作
+                    ConsoleHelper.WriteSuccessLine($"Oracle 数据库不支持该操作，可手动创建Oracle数据库!");
+                }
+
+                // 创建数据库表，遍历指定命名空间下的class，
+                // 注意不要把其他命名空间下的也添加进来。
+                Console.WriteLine("Create Tables...");
+
+                #region 权限系统
+                var path = AppDomain.CurrentDomain.RelativeSearchPath ?? AppDomain.CurrentDomain.BaseDirectory;
+                var referencedAssemblies = System.IO.Directory.GetFiles(path, "Yuebon.Security.Core.dll").Select(Assembly.LoadFrom).ToArray();
+                var modelTypes = referencedAssemblies
+                    .SelectMany(a => a.DefinedTypes)
+                    .Select(type => type.AsType())
+                    .Where(x => x.IsClass && x.Namespace != null && x.Namespace.Equals("Yuebon.Security.Models")).ToList();
+                modelTypes.ForEach(t =>
+                {
+                    // 这里只支持添加表，不支持删除
+                    // 如果想要删除，数据库直接右键删除，或者联系SqlSugar作者；
+                    if (!Db.DbMaintenance.IsAnyTable(t.Name)&& t.Name != "Tenant")
+                    {
+                        Console.WriteLine(t.Name);
+                        Db.CodeFirst.InitTables(t);
+                    }
+                });
+                #endregion
+
+                #region 文章
+                referencedAssemblies = System.IO.Directory.GetFiles(path, "Yuebon.CMS.Core.dll").Select(Assembly.LoadFrom).ToArray();
+                modelTypes = referencedAssemblies
+                    .SelectMany(a => a.DefinedTypes)
+                    .Select(type => type.AsType())
+                    .Where(x => x.IsClass && x.Namespace != null && x.Namespace.Equals("Yuebon.CMS.Models")).ToList();
+                modelTypes.ForEach(t =>
+                {
+                    // 这里只支持添加表，不支持删除
+                    // 如果想要删除，数据库直接右键删除，或者联系SqlSugar作者；
+                    if (!myContext.Db.DbMaintenance.IsAnyTable(t.Name))
+                    {
+                        Console.WriteLine(t.Name);
+                        Db.CodeFirst.InitTables(t);
+                    }
+                });
+                #endregion
+
+                #region 定时任务
+                referencedAssemblies = System.IO.Directory.GetFiles(path, "Yuebon.Quartz.Jobs.dll").Select(Assembly.LoadFrom).ToArray();
+                modelTypes = referencedAssemblies
+                    .SelectMany(a => a.DefinedTypes)
+                    .Select(type => type.AsType())
+                    .Where(x => x.IsClass && x.Namespace != null && x.Namespace.Equals("Yuebon.Quartz.Models")).ToList();
+                modelTypes.ForEach(t =>
+                {
+                    // 这里只支持添加表，不支持删除
+                    // 如果想要删除，数据库直接右键删除，或者联系SqlSugar作者；
+                    if (!myContext.Db.DbMaintenance.IsAnyTable(t.Name))
+                    {
+                        Console.WriteLine(t.Name);
+                        Db.CodeFirst.InitTables(t);
+                    }
+                });
+                #endregion
+
+                ConsoleHelper.WriteSuccessLine($"Tables created successfully!");
+                Console.WriteLine();
+
+
+
+                JsonSerializerSettings setting = new JsonSerializerSettings();
+                JsonConvert.DefaultSettings = new Func<JsonSerializerSettings>(() =>
+                {
+                        //日期类型默认格式化处理
+                        setting.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
+                    setting.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+
+                        //空值处理
+                        setting.NullValueHandling = NullValueHandling.Ignore;
+
+                        //高级用法九中的Bool类型转换 设置
+                        //setting.Converters.Add(new BoolConvert("是,否"));
+
+                        return setting;
+                });
+
+                Console.WriteLine($"Seeding database data (The Db Id:{MyContext.ConnId})...");
+                #region SystemType
+                if (!await Db.Queryable<SystemType>().AnyAsync())
+                {
+                   await Db.Insertable<SystemType>(JsonHelper.ToObject<List<SystemType>>(FileHelper.ReadFile(string.Format(SeedDataFolder, "SystemType"), Encoding.UTF8))).ExecuteCommandAsync();
+                    //myContext.GetEntityDB<SystemType>().InsertRange(JsonHelper.ToObject<List<SystemType>>(FileHelper.ReadFile(string.Format(SeedDataFolder, "SystemType"), Encoding.UTF8)));
+                    Console.WriteLine("Table:SystemType created success!");
+                }
+                else
+                {
+                    Console.WriteLine("Table:SystemType already exists...");
+                }
+                #endregion
+
+
+                #region App
+                if (!await Db.Queryable<APP>().AnyAsync())
+                {
+                    await Db.Insertable<APP>(JsonHelper.ToObject<List<APP>>(FileHelper.ReadFile(string.Format(SeedDataFolder, "APP"), Encoding.UTF8))).ExecuteCommandAsync();
+                    Console.WriteLine("Table:APP created success!");
+                }
+                else
+                {
+                    Console.WriteLine("Table:APP already exists...");
+                }
+                #endregion
+
+
+                #region Role
+                if (!await Db.Queryable<Role>().AnyAsync())
+                {
+                    await Db.Insertable<Role>(JsonHelper.ToObject<List<Role>>(FileHelper.ReadFile(string.Format(SeedDataFolder, "Role"), Encoding.UTF8))).ExecuteCommandAsync();
+                    Console.WriteLine("Table:Role created success!");
+                }
+                else
+                {
+                    Console.WriteLine("Table:Role already exists...");
+                }
+                #endregion
+
+                #region User
+                if (!await Db.Queryable<User>().AnyAsync())
+                {
+                    await Db.Insertable<User>(JsonHelper.ToObject<List<User>>(FileHelper.ReadFile(string.Format(SeedDataFolder, "User"), Encoding.UTF8))).ExecuteCommandAsync();
+                    Console.WriteLine("Table:User created success!");
+                }
+                else
+                {
+                    Console.WriteLine("Table:User already exists...");
+                }
+                #endregion
+
+                #region Organize
+                if (!await Db.Queryable<Organize>().AnyAsync())
+                {
+                    await Db.Insertable<Organize>(JsonHelper.ToObject<List<Organize>>(FileHelper.ReadFile(string.Format(SeedDataFolder, "Organize"), Encoding.UTF8))).ExecuteCommandAsync();
+                    Console.WriteLine("Table:Organize created success!");
+                }
+                else
+                {
+                    Console.WriteLine("Table:Organize already exists...");
+                }
+                #endregion
+
+                #region UserLogOn
+                if (!await Db.Queryable<UserLogOn>().AnyAsync())
+                {
+                    await Db.Insertable<UserLogOn>(JsonHelper.ToObject<List<UserLogOn>>(FileHelper.ReadFile(string.Format(SeedDataFolder, "UserLogOn"), Encoding.UTF8))).ExecuteCommandAsync();
+                    Console.WriteLine("Table:UserLogOn created success!");
+                }
+                else
+                {
+                    Console.WriteLine("Table:UserLogOn already exists...");
+                }
+                #endregion
+
+                #region Menu
+                if (!await Db.Queryable<Menu>().AnyAsync())
+                {
+                    await Db.Insertable<Menu>(JsonHelper.ToObject<List<Menu>>(FileHelper.ReadFile(string.Format(SeedDataFolder, "MenuTenant"), Encoding.UTF8))).ExecuteCommandAsync();
+                    Console.WriteLine("Table:Menu created success!");
+                }
+                else
+                {
+                    Console.WriteLine("Table:Menu already exists...");
+                }
+                #endregion
+
+
+                #region Items
+                if (!await Db.Queryable<Items>().AnyAsync())
+                {
+                    await Db.Insertable<Items>(JsonHelper.ToObject<List<Items>>(FileHelper.ReadFile(string.Format(SeedDataFolder, "Items"), Encoding.UTF8))).ExecuteCommandAsync();
+                    Console.WriteLine("Table:Items created success!");
+                }
+                else
+                {
+                    Console.WriteLine("Table:Items already exists...");
+                }
+                #endregion
+
+                #region ItemsDetail
+                if (!await myContext.Db.Queryable<ItemsDetail>().AnyAsync())
+                {
+                    await Db.Insertable<ItemsDetail>(JsonHelper.ToObject<List<ItemsDetail>>(FileHelper.ReadFile(string.Format(SeedDataFolder, "ItemsDetail"), Encoding.UTF8))).ExecuteCommandAsync();
+                    Console.WriteLine("Table:ItemsDetail created success!");
+                }
+                else
+                {
+                    Console.WriteLine("Table:ItemsDetail already exists...");
+                }
+                #endregion
+                ConsoleHelper.WriteSuccessLine($"Done seeding database!");
+
+
+                Console.WriteLine();
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"错误：" + ex.Message);
+            }
+        }
     }
 }

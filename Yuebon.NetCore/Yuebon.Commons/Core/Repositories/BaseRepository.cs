@@ -3,15 +3,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Security.Claims;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Yuebon.Commons.Cache;
+using Yuebon.Commons.Const;
 using Yuebon.Commons.Core.App;
 using Yuebon.Commons.Core.DataManager;
 using Yuebon.Commons.Core.UnitOfWork;
 using Yuebon.Commons.DependencyInjection;
+using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IRepositories;
+using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
+using Yuebon.Commons.Options;
 using Yuebon.Commons.Pages;
 
 namespace Yuebon.Commons.Repositories
@@ -91,9 +97,61 @@ namespace Yuebon.Commons.Repositories
             {
                 string t = typeof(T).Name;
                 dbConfigName = typeof(T).GetCustomAttribute<AppDBContextAttribute>(false)?.DbConfigName ?? "DefaultDb";
+                UserInfo userInfo = GetUserInfo();
+                
                 if (Appsettings.GetValue("AppSetting:MutiDBEnabled").ObjToBool())
                 {
-                    _dbBase.ChangeDatabase(dbConfigName.ToLower());                    
+                    if (userInfo != null)
+                    {                        
+                        var configId = userInfo.TenantName+ "tenant";//租户
+                        if (userInfo.TenantSchema == Enums.TenantSchemaEnum.Alone)
+                        {
+                            #region 独立数据库
+                            if (!_dbBase.IsAnyConnection(configId))
+                            {
+                                List<DbConnections> listdatabase = userInfo.TenantDataSource.ToList<DbConnections>();
+                                var listConfig = new List<ConnectionConfig>();
+                                listdatabase.ForEach(m =>
+                                {
+                                    ConnectionConfig config = new ConnectionConfig()
+                                    {
+                                        ConfigId = m.ConnId.ToLower(),
+                                        ConnectionString = m.MasterDB.ConnectionString,
+                                        DbType = (DbType)m.MasterDB.DatabaseType,
+                                        IsAutoCloseConnection = true
+                                    };
+                                    if (m.ReadDB != null)
+                                    {
+                                        List<SlaveConnectionConfig> slaveConnectionConfigs = new List<SlaveConnectionConfig>();
+                                        m.ReadDB.ForEach(r =>
+                                        {
+                                            if (r.Enabled)
+                                            {
+                                                slaveConnectionConfigs.Add(new SlaveConnectionConfig()
+                                                {
+                                                    HitRate = r.HitRate,
+                                                    ConnectionString = r.ConnectionString
+                                                });
+                                            }
+                                        });
+                                        config.SlaveConnectionConfigs = slaveConnectionConfigs;
+                                    }
+                                    _dbBase.AddConnection(config);
+                                });
+                                //return  new SqlSugarScope(listConfig);
+                                _dbBase.ChangeDatabase(configId);
+                            }
+                            else
+                            {
+                                _dbBase.ChangeDatabase(configId);
+                            }
+                            #endregion
+                        }
+                    }
+                    else
+                    {
+                        _dbBase.ChangeDatabase(dbConfigName.ToLower());
+                    }
                 }
 
                 return _dbBase;
@@ -115,7 +173,15 @@ namespace Yuebon.Commons.Repositories
             _unitOfWork = unitOfWork;
             _dbBase = unitOfWork.GetDbClient();
         }
-
+        /// <summary>
+        /// 获取一个自定义的数据库处理对象
+        /// </summary>
+        /// <param name="config"></param>
+        /// <returns></returns>
+        public SqlSugarScope GetCustomDB(ConnectionConfig config)
+        {
+            return new SqlSugarScope(config);
+        }
         #endregion
 
         #region SqlSugar 操作
@@ -1291,6 +1357,33 @@ namespace Yuebon.Commons.Repositories
 
         #endregion
 
+        private UserInfo GetUserInfo()
+        {
+            UserInfo userInfo = null;
+            bool isTenant = Appsettings.app(new string[] { "AppSetting", "IsTenant" }).ObjToBool();
+            if (isTenant)
+            {
+                YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+                ClaimsPrincipal claimsPrincipal = HttpContextHelper.HttpContext.User;
+                var claims = claimsPrincipal.Claims;
+                List<Claim> claimList = new List<Claim>();
+                //var userId= claims?.FirstOrDefault(YuebonClaimConst.UserId).Value;
+                foreach (var item in claims)
+                {
+                    claimList.Add(item);
+                }
+                //List<Claim> claims = claimsPrincipal.Claims as List<Claim>;
+                if (claimList.Count>0)
+                {
+                    userInfo = yuebonCacheHelper.Get<UserInfo>("login_userInfo_" + claimList[0].Value);
+                    if (userInfo.TenantName == "default")
+                    {
+                        userInfo = null;
+                    }
+                }
+            }
+            return userInfo;
+        }
         #region 辅助类方法
 
 

@@ -52,14 +52,15 @@ namespace Yuebon.Tenants.Repositories
             int row = 0;
             try
             {
-               row= await Db.Insertable<Tenant>(entity).ExecuteCommandAsync();
+                row = await Db.Insertable<Tenant>(entity).ExecuteCommandAsync();
                 row = await Db.Insertable<TenantLogon>(tenantLogOnEntity).ExecuteCommandAsync();
                 _unitOfWork.CommitTran();
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 _unitOfWork.RollbackTran();
             }
-            return row  > 0;
+            return row > 0;
         }
 
     }

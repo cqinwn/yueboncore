@@ -1,9 +1,14 @@
+using CodeGenerator.Seed;
+using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Yuebon.Commons.Core.App;
+using Yuebon.Commons.Core.DataManager;
 using Yuebon.Commons.Dtos;
 using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Extend;
+using Yuebon.Commons.Json;
 using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Pages;
 using Yuebon.Commons.Services;
@@ -21,11 +26,13 @@ namespace Yuebon.Tenants.Services
     {
         private ITenantRepository trepository;
         private readonly ITenantLogonRepository _repositoryLogon;
-        public TenantService(ITenantRepository _repository, ITenantLogonRepository repositoryLogon)
+        private readonly MyContext myContext;
+        public TenantService(ITenantRepository _repository, ITenantLogonRepository repositoryLogon, MyContext _myContext)
         {
             trepository = _repository;
             repository = _repository;
             _repositoryLogon = repositoryLogon;
+            myContext = _myContext;
         }
 
         /// <summary>
@@ -49,7 +56,30 @@ namespace Yuebon.Tenants.Services
             return await trepository.InsertAsync(entity, tenantLogOnEntity);
         }
 
+        /// <summary>
+        /// 初始化租户数据
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public async Task<bool> InitTenantDataAsync(Tenant entity)
+        {
+            bool res = false;
+            if (entity.Schema == Commons.Enums.TenantSchemaEnum.Alone)
+            {
+                ConnectionConfig config = new ConnectionConfig();
+                List<DbConnections> listdatabase = entity.DataSource.ToList<DbConnections>();
+                listdatabase.ForEach(c =>
+                {
+                    config.ConfigId = c.MasterDB.ConnId;
+                    config.DbType = (DbType)c.MasterDB.DatabaseType;
+                    config.ConnectionString = c.MasterDB.ConnectionString;
+                });
+                MyContext.Init(config.ConnectionString, config.DbType);
 
+                await DBSeed.SeedTenantAsync(myContext, Appsettings.WebHostEnvironment.WebRootPath);
+            }
+            return res; 
+        }
         /// <summary>
         /// 租户登陆验证。
         /// </summary>

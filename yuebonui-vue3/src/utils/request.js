@@ -1,6 +1,6 @@
 import axios from 'axios'
 import store from '@/store'
-import { ElNotification , ElMessageBox, ElMessage, ElLoading } from 'element-plus'
+import { ElNotification, ElMessageBox, ElMessage, ElLoading } from 'element-plus'
 import { getToken } from '@/utils/auth'
 import { sign, GetRandomString } from '@/utils/yuebon'
 
@@ -99,7 +99,7 @@ service.interceptors.response.use(
     } else if (message.includes('Request failed with status code')) {
       message = '系统接口' + message.substr(message.length - 3) + '异常'
     }
-    
+
     ElMessage({
       message: error.message,
       type: 'error',

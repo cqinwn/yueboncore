@@ -17,8 +17,8 @@ using Yuebon.AspNetCore.Models;
 using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.Const;
 using Yuebon.Commons.Extensions;
-using Yuebon.Commons.Filters;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
@@ -111,9 +111,10 @@ namespace Yuebon.AspNetCore.Controllers
                             string userId = claimlist[3].Value;
 
                             var claims = new[] {
-                               new Claim(YuebonClaimTypes.UserId,userId),
-                               new Claim(YuebonClaimTypes.UserName,claimlist[2].Value),
-                               new Claim(YuebonClaimTypes.Role,claimlist[4].Value)
+                               new Claim(YuebonClaimConst.UserId,userId),
+                               new Claim(YuebonClaimConst.UserName,claimlist[2].Value),
+                               new Claim(YuebonClaimConst.Role,claimlist[4].Value),
+                               new Claim(YuebonClaimConst.TenantId,claimlist[5].Value)
                             };
                             var identity = new ClaimsIdentity(claims);
                             var principal = new ClaimsPrincipal(identity);

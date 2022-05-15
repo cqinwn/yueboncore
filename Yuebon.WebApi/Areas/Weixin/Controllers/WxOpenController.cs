@@ -121,7 +121,6 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
                     //return Json(new { success = true, msg = "OK", sessionId = sessionBag.Key, sessionKey = sessionBag.SessionKey });
 
                     YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                    //User user = userApp.GetUserByUnionId(unionId);
                     User user = userService.GetUserByOpenId("yuebon.openid.wxapplet", jsonResult.openid);
                     if (user == null)
                     {
@@ -150,11 +149,12 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
                     }
 
                     var currentSession = (YuebonCurrentUser)(yuebonCacheHelper.Get("login_user_" + userId));
+                    var userInfo= (UserInfo)(yuebonCacheHelper.Get("login_userInfo_" + userId));
                     if (currentSession == null || string.IsNullOrWhiteSpace(currentSession.AccessToken))
                     {
                         JwtOption jwtModel = Appsettings.GetService<JwtOption>();
                         TokenProvider tokenProvider = new TokenProvider(jwtModel);
-                        TokenResult tokenResult = tokenProvider.LoginToken(user, "wxapplet");
+                        TokenResult tokenResult = tokenProvider.LoginToken(userInfo, "wxapplet");
                         currentSession = new YuebonCurrentUser
                         {
                             UserId = user.Id,
@@ -705,9 +705,11 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
                     user = userService.GetUserByOpenId(info.openIdType, info.openId);
                     if (user != null)
                     {
+                        YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+                        var userInfo = (UserInfo)(yuebonCacheHelper.Get("login_userInfo_" + user.Id));
                         JwtOption jwtModel = Appsettings.GetService<JwtOption>();
                         TokenProvider tokenProvider = new TokenProvider(jwtModel);
-                        TokenResult tokenResult = tokenProvider.LoginToken(user, "wxapplet");
+                        TokenResult tokenResult = tokenProvider.LoginToken(userInfo, "wxapplet");
                         var currentSession = new YuebonCurrentUser
                         {
                             UserId = user.Id,
@@ -725,7 +727,6 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
                         };
 
                         CurrentUser = currentSession;
-                        YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
                         TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
                         yuebonCacheHelper.Add("login_user_" + user.Id, currentSession, expiresSliding, true);
                         result.ErrCode = ErrCode.successCode;
@@ -782,11 +783,12 @@ namespace Yuebon.WebApi.Areas.Weixin.Controllers
                     user = userService.GetUserByOpenId("yuebon.openid.wxapplet", openId);
                 }
                 var currentSession =(YuebonCurrentUser)yuebonCacheHelper.Get("login_user_" + user.Id);
+                var userInfo = (UserInfo)(yuebonCacheHelper.Get("login_userInfo_" + user.Id));
                 if (currentSession == null || string.IsNullOrWhiteSpace(currentSession.AccessToken))
                 {
                     JwtOption jwtModel = Appsettings.GetService<JwtOption>();
                     TokenProvider tokenProvider = new TokenProvider(jwtModel);
-                    TokenResult tokenResult = tokenProvider.LoginToken(user, "wxapplet");
+                    TokenResult tokenResult = tokenProvider.LoginToken(userInfo, "wxapplet");
                     currentSession = new YuebonCurrentUser
                     {
                         UserId = user.Id,

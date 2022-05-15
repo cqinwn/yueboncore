@@ -61,7 +61,7 @@
       :limit="pagination.pageSize"
       @pagination="loadTableData"
     />
-    <el-dialog ref="dialogEditForm" :title="editFormTitle + '租户'" v-model="dialogEditFormVisible" width="640px">
+    <el-dialog ref="dialogEditForm" draggable :title="editFormTitle + '租户'" v-model="dialogEditFormVisible" width="640px">
       <el-form ref="editFromRef" :model="editFrom" :rules="rules">
         <el-form-item label="租户账号" :label-width="formLabelWidth" prop="TenantName">
           <el-input v-model="editFrom.TenantName" placeholder="请输入租户账号" autocomplete="off" clearable />

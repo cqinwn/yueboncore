@@ -123,13 +123,18 @@ namespace Yuebon.WebApi.Controllers
                 if (tenants != null)
                 {
                     string strHost = Request.Host.ToString();
-                    Tenant tenant = tenants.FindLast(o => o.HostDomain == input.Host);
+                    string tenantName = input.Host.Split(".")[0];
+                    Tenant tenant = tenants.FindLast(o => o.TenantName == tenantName);//通过租户名称
                     if (tenant == null)
                     {
-                        result.ErrMsg = "非法访问"; 
-                        return ToJsonContent(result);
+                        tenant = tenants.FindLast(o => o.HostDomain == input.Host);//通过客户绑定的独立域名
+                        if (tenant == null)
+                        {
+                            result.ErrMsg = "非法访问";
+                            return ToJsonContent(result);
+                        }
                     }
-                    else
+                    if (tenant != null)
                     {
                         userInfo.TenantId= tenant.Id;
                         userInfo.TenantSchema = tenant.Schema;

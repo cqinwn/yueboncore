@@ -91,12 +91,14 @@ namespace Yuebon.WebApi.Controllers
                         {
                             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
                             User user = _userService.Get(userId);
+                            UserInfo userInfo = null;
                             if (user != null)
                             {
+                                userInfo = yuebonCacheHelper.Get<UserInfo>("login_userInfo_" + user.Id);
                                 result.Success = true;
                                 JwtOption jwtModel = Appsettings.GetService<JwtOption>();
                                 TokenProvider tokenProvider = new TokenProvider(jwtModel);
-                                TokenResult tokenResult = tokenProvider.LoginToken(user, appId);
+                                TokenResult tokenResult = tokenProvider.LoginToken(userInfo, appId);
                                 YuebonCurrentUser currentSession = new YuebonCurrentUser
                                 {
                                     UserId = user.Id,

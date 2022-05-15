@@ -118,7 +118,8 @@ const loginForm=ref({
   vcode: '',
   verifyCodeKey: '',
   appId: defaultSettings.appId,
-  systemCode: defaultSettings.activeSystemCode
+  systemCode: defaultSettings.activeSystemCode,
+  host:window.location.host
 });
 const validateUsername = (rule, value, callback) => {
   if (value.length < 1) {
@@ -161,9 +162,11 @@ const webclosereason=ref("")
 const closeWeb=ref(false)
 
 function loadToken() {
-  getToken().then(response => {
-    setToken(response.ResData.AccessToken)
-    getSysSetting().then(res => {
+  // getToken().then(response => {
+  //   setToken(response.ResData.AccessToken)
+    
+  // })
+  getSysSetting().then(res => {
       softName.value = res.ResData.SoftName
       companyLogo.value = res.ResData.SysLogo
       companyName.value = res.ResData.CompanyName
@@ -172,7 +175,6 @@ function loadToken() {
       webclosereason.value=res.ResData.Webclosereason
     })
     isShow.value = true
-  })
 }
 function showPwd() {
   if (passwordType.value === 'password') {

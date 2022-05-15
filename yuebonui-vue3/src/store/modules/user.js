@@ -12,7 +12,7 @@ const user = {
     permissions: [],
     subSystem: [],
     activeSystemName: [],
-    menus: [], 
+    menus: [],
   },
 
   mutations: {
@@ -50,7 +50,8 @@ const user = {
       const vcode = loginInfo.vcode
       const verifyCodeKey = loginInfo.verifyCodeKey
       return new Promise((resolve, reject) => {
-        login({ username: username, password: password, vcode: vcode, vkey: verifyCodeKey, appId: loginInfo.appId, systemCode: loginInfo.systemCode }).then(response => {
+        //login({ username: username, password: password, vcode: vcode, vkey: verifyCodeKey, appId: loginInfo.appId, systemCode: loginInfo.systemCode }).then(response => {
+        login({ Username: username, Password: password, Vcode: vcode, Vkey: verifyCodeKey, AppId: loginInfo.appId, SystemCode: loginInfo.systemCode, Host: loginInfo.host }).then(response => {
           const data = response.ResData
           setToken(data.AccessToken)
           commit('SET_TOKEN', data.AccessToken)
@@ -92,7 +93,7 @@ const user = {
           resolve()
         }).catch(error => {
           reject(error)
-        }).finally(e=>{
+        }).finally(e => {
           commit('SET_TOKEN', '')
           commit('SET_ROLES', [])
           commit('SET_PERMISSIONS', [])

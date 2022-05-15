@@ -15,6 +15,7 @@ using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.Commons;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.Core.App;
 using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Extend;
 using Yuebon.Commons.Helpers;
@@ -125,8 +126,7 @@ namespace Yuebon.WebApi.Areas.Security
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetInfo")]
-        [NoPermissionRequired]
-        [NoSignRequired]
+        [AllowAnonymous]
         public IActionResult GetInfo()
         {
             CommonResult result = new CommonResult();
@@ -143,6 +143,7 @@ namespace Yuebon.WebApi.Areas.Security
             sysSetting.Smspassword = "";
             sysSetting.SmsSignName = "";
             sysSetting.Smsusername = "";
+           
             sysSettingOutputDto = sysSetting.MapTo<SysSettingOutputDto>();
             if (sysSettingOutputDto != null)
             {
@@ -157,9 +158,7 @@ namespace Yuebon.WebApi.Areas.Security
                 result.ErrCode = "60001";
             }
 
-            IEnumerable<APP> appList = aPPService.GetAllByIsNotDeleteAndEnabledMark();
-            yuebonCacheHelper.Add("cacheAppList", appList);
-            MemoryCacheHelper.Set("cacheAppList", appList);
+            
             return ToJsonContent(result);
         }
 

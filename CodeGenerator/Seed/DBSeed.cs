@@ -327,13 +327,13 @@ namespace CodeGenerator.Seed
                 SeedDataFolder = Path.Combine(WebRootPath, SeedDataFolder);
                 //bool isDBReadWriteSeparate = Configs.GetConfigurationValue("AppSetting", "IsDBReadWriteSeparate").ToBool();
                 Console.WriteLine("************ YuebonCore Tenant DataBase Set *****************");
-                Console.WriteLine($"Master DB ConId: {MyContext.ConnId}");
-                Console.WriteLine($"Master DB Type: {MyContext.DbType}");
-                Console.WriteLine($"Master DB ConnectString: {MyContext.ConnectionString}");
+                Console.WriteLine($"Master DB ConId: {Db.CurrentConnectionConfig.ConfigId}");
+                Console.WriteLine($"Master DB Type: {Db.CurrentConnectionConfig.DbType}");
+                Console.WriteLine($"Master DB ConnectString: {Db.CurrentConnectionConfig.ConnectionString}");
                 Console.WriteLine();
                 // 创建数据库
-                Console.WriteLine($"Create Database(The Db Id:{MyContext.ConnId})...");
-                if (MyContext.DbType != SqlSugar.DbType.Oracle)
+                Console.WriteLine($"Create Database(The Db Id:{Db.CurrentConnectionConfig.ConfigId})...");
+                if (Db.CurrentConnectionConfig.DbType != SqlSugar.DbType.Oracle)
                 {
                     Db.DbMaintenance.CreateDatabase();
                     ConsoleHelper.WriteSuccessLine($"Database created successfully!");
@@ -489,7 +489,7 @@ namespace CodeGenerator.Seed
                 #endregion
 
                 #region UserLogOn
-                if (!await myContext.Db.Queryable<UserLogOn>().AnyAsync())
+                if (!await Db.Queryable<UserLogOn>().AnyAsync())
                 {
                     await Db.Insertable<UserLogOn>(JsonHelper.ToObject<List<UserLogOn>>(FileHelper.ReadFile(string.Format(SeedDataFolder, "UserLogOn"), Encoding.UTF8))).ExecuteCommandAsync();
                     Console.WriteLine("Table:UserLogOn created success!");
@@ -503,7 +503,7 @@ namespace CodeGenerator.Seed
                 #region Menu
                 if (!await Db.Queryable<Menu>().AnyAsync())
                 {
-                    await Db.Insertable<Menu>(JsonHelper.ToObject<List<Menu>>(FileHelper.ReadFile(string.Format(SeedDataFolder, "Menu"), Encoding.UTF8))).ExecuteCommandAsync();
+                    await Db.Insertable<Menu>(JsonHelper.ToObject<List<Menu>>(FileHelper.ReadFile(string.Format(SeedDataFolder, "MenuTenant"), Encoding.UTF8))).ExecuteCommandAsync();
                     Console.WriteLine("Table:Menu created success!");
                 }
                 else

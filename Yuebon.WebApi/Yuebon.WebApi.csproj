@@ -90,6 +90,9 @@
     <Content Update="wwwroot\Data.Json\ItemsDetail.jsv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="wwwroot\Data.Json\MenuTenant.jsv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="wwwroot\Data.Json\Organize.jsv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

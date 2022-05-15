@@ -94,7 +94,12 @@ namespace Yuebon.Commons.Extensions
             return xmlDocument;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="convertibleValue"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public static object ChangeType(this object convertibleValue, Type type)
         {
             if (null == convertibleValue) return null;

@@ -328,5 +328,10 @@ namespace Yuebon.Security.Dtos
             get;
             set;
         }
+
+        /// <summary>
+        /// 是否开启多租户
+        /// </summary>
+        public bool IsTenant { get; set; }
     }
 }

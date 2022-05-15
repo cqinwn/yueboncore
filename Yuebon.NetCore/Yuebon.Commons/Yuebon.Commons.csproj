@@ -134,6 +134,7 @@
     <Compile Remove="Mapping\MapToAttributeTypeFinder.cs" />
     <Compile Remove="Mapping\MapTupleProfile.cs" />
     <Compile Remove="Options\WeixinOption.cs" />
+    <Compile Remove="Options\YuebonCurrentUser.cs" />
     <Compile Remove="Page\JQueryDataTablePageInfo.cs" />
   </ItemGroup>
 

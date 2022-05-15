@@ -125,7 +125,7 @@ namespace Yuebon.WebApi.Controllers
                     string strHost = Request.Host.ToString();
                     string tenantName = input.Host.Split(".")[0];
                     Tenant tenant = tenants.FindLast(o => o.TenantName == tenantName);//通过租户名称
-                    if (tenant == null)
+                    if (tenant == null&&tenantName!="default")
                     {
                         tenant = tenants.FindLast(o => o.HostDomain == input.Host);//通过客户绑定的独立域名
                         if (tenant == null)
@@ -133,6 +133,10 @@ namespace Yuebon.WebApi.Controllers
                             result.ErrMsg = "非法访问";
                             return ToJsonContent(result);
                         }
+                    }
+                    else
+                    {
+                        userInfo.TenantName = "default";
                     }
                     if (tenant != null)
                     {

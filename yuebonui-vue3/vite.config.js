@@ -12,11 +12,11 @@ export default defineConfig(({ mode, command }) => {
       vue(),
       autoImport({
         imports: [
-            'vue',
-            'vue-router',
-            {
-                'vuex': ['useStore']
-            }
+          'vue',
+          'vue-router',
+          {
+            'vuex': ['useStore']
+          }
         ],
         dts: false
       }),
@@ -36,8 +36,24 @@ export default defineConfig(({ mode, command }) => {
       },
       extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
     },
+    css: {
+      postcss: {
+        plugins: [
+          {
+            postcssPlugin: 'internal:charset-removal',
+            AtRule: {
+              charset: (atRule) => {
+                if (atRule.name === 'charset') {
+                  atRule.remove();
+                }
+              }
+            }
+          }
+        ],
+      },
+    },
 
-	// vite 相关配置
+    // vite 相关配置
     server: {
       port: 8081,
       host: true,

@@ -3,6 +3,7 @@ using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Yuebon.Commons.Cache;
 using Yuebon.Commons.Core.App;
 using Yuebon.Commons.Core.DataManager;
 using Yuebon.Commons.Dtos;
@@ -77,6 +78,9 @@ namespace Yuebon.Tenants.Services
                 MyContext.Init(config.ConnectionString, config.DbType);
 
                 await DBSeed.SeedTenantAsync(myContext, Appsettings.WebHostEnvironment.WebRootPath);
+                YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+                IEnumerable<Tenant> templist = trepository.GetAllByIsEnabledMark();
+                yuebonCacheHelper.Add("cacheTenants", templist);
             }
             return res; 
         }

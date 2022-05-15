@@ -387,8 +387,8 @@ function reset() {
   editMenuFrom.value = {
     FullName: '',
     EnCode: '',
-    ParentId: 0n,
-    SystemTypeId: 0n,
+    ParentId: 0,
+    SystemTypeId: 0,
     Icon: undefined,
     UrlAddress: '',
     Component: '',

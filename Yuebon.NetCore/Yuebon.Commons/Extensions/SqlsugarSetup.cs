@@ -60,25 +60,5 @@ namespace Yuebon.Commons.Extensions
             });
         }
 
-        private static string GetWholeSql(SugarParameter[] paramArr, string sql)
-        {
-            foreach (var param in paramArr)
-            {
-                sql.Replace(param.ParameterName, param.Value.ObjToString());
-            }
-
-            return sql;
-        }
-
-        private static string GetParas(SugarParameter[] pars)
-        {
-            string key = "【SQL参数】：";
-            foreach (var param in pars)
-            {
-                key += $"{param.ParameterName}:{param.Value}\n";
-            }
-
-            return key;
-        }
     }
 }

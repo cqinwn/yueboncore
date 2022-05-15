@@ -155,10 +155,10 @@ const data = reactive({
     Label:"系统租户"
   }],
   selectSchema:[{
-    Value:'0',
+    Value:0,
     Label:"共享数据库"
   },{
-    Value:'1',
+    Value:1,
     Label:"独立数据库"
   }],
   searchform: {

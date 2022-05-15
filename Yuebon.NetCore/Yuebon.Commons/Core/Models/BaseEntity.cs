@@ -10,7 +10,6 @@ namespace Yuebon.Commons.Models
     /// <summary>
     /// 定义领域对象框架实体类的基类，系统默认主键为Id
     /// </summary>
-
     [Serializable]
     public abstract class BaseEntity:Entity,IBaseEntity
     {

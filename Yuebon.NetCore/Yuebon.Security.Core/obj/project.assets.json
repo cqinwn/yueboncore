@@ -206,7 +206,7 @@
           "lib/netstandard2.0/Microsoft.AspNetCore.Authentication.Core.dll": {}
         }
       },
-      "Microsoft.AspNetCore.Authentication.JwtBearer/6.0.4": {
+      "Microsoft.AspNetCore.Authentication.JwtBearer/6.0.5": {
         "type": "package",
         "dependencies": {
           "Microsoft.IdentityModel.Protocols.OpenIdConnect": "6.10.0"
@@ -897,7 +897,7 @@
           "lib/netstandard2.0/_._": {}
         }
       },
-      "Microsoft.Data.Sqlite.Core/6.0.4": {
+      "Microsoft.Data.Sqlite.Core/6.0.5": {
         "type": "package",
         "dependencies": {
           "SQLitePCLRaw.core": "2.0.6"
@@ -946,7 +946,7 @@
           "lib/netstandard2.0/Microsoft.Extensions.Caching.Memory.dll": {}
         }
       },
-      "Microsoft.Extensions.Caching.StackExchangeRedis/6.0.4": {
+      "Microsoft.Extensions.Caching.StackExchangeRedis/6.0.5": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.Caching.Abstractions": "6.0.0",
@@ -1900,12 +1900,12 @@
           "lib/netstandard2.0/SQLitePCLRaw.provider.dynamic_cdecl.dll": {}
         }
       },
-      "SqlSugarCore/5.0.7.7": {
+      "SqlSugarCore/5.0.8": {
         "type": "package",
         "dependencies": {
           "Microsoft.Data.SqlClient": "2.1.1",
           "Microsoft.Data.Sqlite": "5.0.5",
-          "MySql.Data": "8.0.21",
+          "MySql.Data": "8.0.29",
           "Newtonsoft.Json": "10.0.3",
           "Npgsql": "5.0.7",
           "Oracle.ManagedDataAccess.Core": "3.21.1",
@@ -3674,11 +3674,11 @@
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "11.0.0",
           "DotNetCore.NPOI": "1.2.3",
           "HtmlAgilityPack": "1.11.42",
-          "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.4",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.5",
           "Microsoft.AspNetCore.Mvc": "2.2.0",
-          "Microsoft.Data.Sqlite.Core": "6.0.4",
+          "Microsoft.Data.Sqlite.Core": "6.0.5",
           "Microsoft.Extensions.Caching.Memory": "6.0.1",
-          "Microsoft.Extensions.Caching.StackExchangeRedis": "6.0.4",
+          "Microsoft.Extensions.Caching.StackExchangeRedis": "6.0.5",
           "Microsoft.Extensions.Configuration": "6.0.1",
           "Microsoft.Extensions.DependencyInjection": "6.0.0",
           "Microsoft.Extensions.DependencyModel": "6.0.0",
@@ -3690,7 +3690,7 @@
           "QRCoder": "1.4.3",
           "Quartz": "3.4.0",
           "SgmlReader.NetCore": "1.0.0",
-          "SqlSugarCore": "5.0.7.7",
+          "SqlSugarCore": "5.0.8",
           "Swashbuckle.AspNetCore": "6.3.1",
           "Swashbuckle.AspNetCore.Filters": "7.0.2",
           "System.Data.OleDb": "6.0.0",
@@ -4016,10 +4016,10 @@
         "microsoft.aspnetcore.authentication.core.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.Authentication.JwtBearer/6.0.4": {
-      "sha512": "joDS3+lD1i9qcdFLWP4D316t3bHpezmTNOzbMIf9ZcRPX4QTuiUutZcQn/kZplf3BiLHqwUChZXxPjCAMKaKAQ==",
+    "Microsoft.AspNetCore.Authentication.JwtBearer/6.0.5": {
+      "sha512": "E+/t8R6peNEWM+O6A2J3b7wzZzX6oAaKmphHA4Y1EDyjPtdabYnBsIqyG3eKoBKdIRmeR7xuds+F1aUN0i1DrQ==",
       "type": "package",
-      "path": "microsoft.aspnetcore.authentication.jwtbearer/6.0.4",
+      "path": "microsoft.aspnetcore.authentication.jwtbearer/6.0.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -4027,7 +4027,7 @@
         "THIRD-PARTY-NOTICES.TXT",
         "lib/net6.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll",
         "lib/net6.0/Microsoft.AspNetCore.Authentication.JwtBearer.xml",
-        "microsoft.aspnetcore.authentication.jwtbearer.6.0.4.nupkg.sha512",
+        "microsoft.aspnetcore.authentication.jwtbearer.6.0.5.nupkg.sha512",
         "microsoft.aspnetcore.authentication.jwtbearer.nuspec"
       ]
     },
@@ -4775,10 +4775,10 @@
         "microsoft.data.sqlite.nuspec"
       ]
     },
-    "Microsoft.Data.Sqlite.Core/6.0.4": {
-      "sha512": "3TZX7R2aX1TX5m4A5Kj+SY633NJDeHDP6JiDRCwUnJGKC3IrHgnO8p+oT2hRZpN168qx4Ixe4T9C+xZdZc26gw==",
+    "Microsoft.Data.Sqlite.Core/6.0.5": {
+      "sha512": "NDvPAsJZSptFxB5B5t3a/7UUihO2nPm8nsEG3s2EtnccIotMsQqSkDdak/T/tWQUivzdiy1Q/0jXk97zQgD75Q==",
       "type": "package",
-      "path": "microsoft.data.sqlite.core/6.0.4",
+      "path": "microsoft.data.sqlite.core/6.0.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -4787,7 +4787,7 @@
         "lib/net6.0/Microsoft.Data.Sqlite.xml",
         "lib/netstandard2.0/Microsoft.Data.Sqlite.dll",
         "lib/netstandard2.0/Microsoft.Data.Sqlite.xml",
-        "microsoft.data.sqlite.core.6.0.4.nupkg.sha512",
+        "microsoft.data.sqlite.core.6.0.5.nupkg.sha512",
         "microsoft.data.sqlite.core.nuspec"
       ]
     },
@@ -4856,10 +4856,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Microsoft.Extensions.Caching.StackExchangeRedis/6.0.4": {
-      "sha512": "xcwHllUhZF3SIYG1oy8qLUCgvSCDqvTTAvdfh11M+hrRB3lC5UXQFah43XQPKVav0MAbvEspqCAHhFg24LicaQ==",
+    "Microsoft.Extensions.Caching.StackExchangeRedis/6.0.5": {
+      "sha512": "lqx+DaZdeV6FUqCc1GXgBoew142SuKzez91I6mPA6g8RlZtlA9yI/S8efkKkk2pQVAh9EVervzqgNGly8q2Y9g==",
       "type": "package",
-      "path": "microsoft.extensions.caching.stackexchangeredis/6.0.4",
+      "path": "microsoft.extensions.caching.stackexchangeredis/6.0.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -4871,7 +4871,7 @@
         "lib/net6.0/Microsoft.Extensions.Caching.StackExchangeRedis.xml",
         "lib/netstandard2.0/Microsoft.Extensions.Caching.StackExchangeRedis.dll",
         "lib/netstandard2.0/Microsoft.Extensions.Caching.StackExchangeRedis.xml",
-        "microsoft.extensions.caching.stackexchangeredis.6.0.4.nupkg.sha512",
+        "microsoft.extensions.caching.stackexchangeredis.6.0.5.nupkg.sha512",
         "microsoft.extensions.caching.stackexchangeredis.nuspec"
       ]
     },
@@ -6199,15 +6199,15 @@
         "sqlitepclraw.provider.dynamic_cdecl.nuspec"
       ]
     },
-    "SqlSugarCore/5.0.7.7": {
-      "sha512": "zkzshGuuSw15ow0VF/PSLFT1L6Uu44HAsos0ly4X4lJjIyeZCZiZ7ulKoaQiOYrBy1XvWJN+SyduPgJyxCD7sA==",
+    "SqlSugarCore/5.0.8": {
+      "sha512": "20vhEccpcqvwxky/5IE5L6lS+endfU3BsS1oZ3HKb6PMkWQxYAg2Dorus4QPb+rg8sUue8NkJ9G0mvWUzfK69Q==",
       "type": "package",
-      "path": "sqlsugarcore/5.0.7.7",
+      "path": "sqlsugarcore/5.0.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.1/SqlSugar.dll",
-        "sqlsugarcore.5.0.7.7.nupkg.sha512",
+        "sqlsugarcore.5.0.8.nupkg.sha512",
         "sqlsugarcore.nuspec"
       ]
     },

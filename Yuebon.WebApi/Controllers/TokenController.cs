@@ -168,7 +168,7 @@ namespace Yuebon.WebApi.Controllers
                     {
                         var claimlist = jwtToken?.Payload.Claims as List<Claim>;
                         YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                        UserInfo userInfo = yuebonCacheHelper.Get<UserInfo>("login_userInfo_" + claimlist[2].Value);
+                        UserInfo userInfo = yuebonCacheHelper.Get<UserInfo>("login_userInfo_" + claimlist[3].Value);
                         TokenResult tokenResult = tokenProvider.LoginToken(userInfo, claimlist[0].Value);
                         result.ResData = tokenResult;
                         result.ErrCode = "0";

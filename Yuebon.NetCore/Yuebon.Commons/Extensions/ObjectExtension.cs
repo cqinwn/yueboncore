@@ -4,6 +4,7 @@
  * Description: Yuebon快速开发平台
  * Website：http://www.yuebon.com
 *********************************************************************************/
+using SqlSugar;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -1242,70 +1243,64 @@ namespace Yuebon.Commons.Extensions
         /// <param name="entityType"></param>
         /// <param name="interfaceType"></param>
         /// <returns></returns>
-        public static bool IsImplement(this Type entityType, Type interfaceType)
-        {
-            return /*entityType.IsClass && !entityType.IsAbstract &&*/ entityType.GetTypeInfo().GetInterfaces().Any(t =>
-                t.GetTypeInfo().IsGenericType && t.GetGenericTypeDefinition() == interfaceType);
-        }
+        //public static bool IsImplement(this Type entityType, Type interfaceType)
+        //{
+        //    return /*entityType.IsClass && !entityType.IsAbstract &&*/ entityType.GetTypeInfo().GetInterfaces().Any(t =>
+        //        t.GetTypeInfo().IsGenericType && t.GetGenericTypeDefinition() == interfaceType);
+        //}
         /// <summary>
         /// 将对象转为DataTable
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="source"></param>
         /// <returns></returns>
-        public static DataTable ToDataTable<T>(this IEnumerable<T> source)
+        public static DataTable ToDataTable<T>(this List<T> source)
         {
             DataTable dtReturn = new DataTable();
-
-
             if (source == null) return dtReturn;
-            // column names 
-            PropertyInfo[] oProps = null;
-
-            foreach (var rec in source)
+            dtReturn.TableName = source[0].GetType().Name; // 表名赋值
+            PropertyInfo[] propertys = source[0].GetType().GetProperties();
+            if (source.Count > 0)
             {
-                // Use reflection to get property names, to create table, Only first time, others will follow 
-                if (oProps == null)
+                foreach (PropertyInfo pi in propertys)
                 {
-                    oProps = rec.GetType().GetProperties();
-                    foreach (var pi in oProps)
+                    Type colType = pi.PropertyType;
+                    if (colType.IsGenericType && colType.GetGenericTypeDefinition() == typeof(Nullable<>))
                     {
-                        var colType = pi.PropertyType;
-
-                        if (colType.IsNullableType())
-                        {
-                            colType = colType.GetGenericArguments()[0];
-                        }
-                        if (colType == typeof(Boolean))
-                        {
-                            colType = typeof(int);
-                        }
-
-                        dtReturn.Columns.Add(new DataColumn(pi.Name, colType));
+                        colType = colType.GetGenericArguments()[0];
                     }
+                    if (IsIgnoreColumn(pi))
+                        continue;
+                    dtReturn.Columns.Add(pi.Name, colType);
                 }
-
-                var dr = dtReturn.NewRow();
-
-                foreach (var pi in oProps)
+                for (int i = 0; i < source.Count; i++)
                 {
-                    var value = pi.GetValue(rec, null) ?? DBNull.Value;
-                    if (value is bool)
+                    ArrayList tempList = new();
+                    foreach (PropertyInfo pi in propertys)
                     {
-                        dr[pi.Name] = (bool)value ? 1 : 0;
+                        if (IsIgnoreColumn(pi))
+                            continue;
+                        object obj = pi.GetValue(source[i], null);
+                        tempList.Add(obj);
                     }
-                    else
-                    {
-                        dr[pi.Name] = value;
-                    }
+                    object[] array = tempList.ToArray();
+                    dtReturn.LoadDataRow(array, true);
                 }
-
-                dtReturn.Rows.Add(dr);
             }
             return dtReturn;
         }
-    }
 
+        /// <summary>
+        /// 排除SqlSugar忽略的列
+        /// </summary>
+        /// <param name="pi"></param>
+        /// <returns></returns>
+        private static bool IsIgnoreColumn(PropertyInfo pi)
+        {
+            var sc = pi.GetCustomAttributes<SugarColumn>(false).FirstOrDefault(u => u.IsIgnore == true);
+            return sc != null;
+        }
+    }
     /// <summary>
     /// 结果。
     /// </summary>

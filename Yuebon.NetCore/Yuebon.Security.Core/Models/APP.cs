@@ -78,8 +78,8 @@ namespace Yuebon.Security.Models
         /// </summary>
         [Display(Name = "描述")]
         [Description("描述")]
-        [MaxLength(200)]
-        [SugarColumn(ColumnDescription= "描述")]
+        [MaxLength(500)]
+        [SugarColumn(ColumnDescription= "描述",Length =500)]
         public virtual string Description { get; set; }
         
 

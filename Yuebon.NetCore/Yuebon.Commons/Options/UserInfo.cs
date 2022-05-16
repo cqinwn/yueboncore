@@ -59,10 +59,12 @@ namespace Yuebon.Commons.Options
         /// 租户数据架构
         /// </summary>
         public TenantSchemaEnum TenantSchema { get; set; }
+
         /// <summary>
         /// 租户独立数据库时的数据源配置
         /// </summary>
         public string TenantDataSource { get; set; }
+
         /// <summary>
         /// 租户名称
         /// </summary>

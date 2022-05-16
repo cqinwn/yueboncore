@@ -41,8 +41,8 @@ namespace Yuebon.Security.SeedData
                     LastModifyUserId=null,
                     DeleteTime=null,
                     DeleteUserId=null
-                      },
-                    new Menu{
+                },
+                new Menu{
                     Id= 7612464998158840,
                     SystemTypeId= 9166287964471363,
                     ParentId= 7612383675183980,
@@ -70,11 +70,10 @@ namespace Yuebon.Security.SeedData
                     LastModifyUserId=null,
                     DeleteTime=null,
                     DeleteUserId=null
-  },
+                },
 new Menu{
 Id= 7612491819924157,
 SystemTypeId= 9166287964471363,
-
 ParentId= 7612464998158840,
 Layers= 3,
 EnCode= "Articlecategory/Add",
@@ -582,10 +581,10 @@ Description= null,
                     DeleteTime=null,
                     DeleteUserId=null
   },
+
 new Menu{
 Id= 1,
 SystemTypeId= 9166287964471363,
-
 ParentId= 0,
 Layers= 1,
 EnCode= "Security",

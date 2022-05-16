@@ -38,7 +38,7 @@ namespace Yuebon.Security.SeedData
                     Signature= null,
                     OrganizeId= 9165855286886469,
                     DepartmentId= 9165855286886470,
-                    RoleId= "9165855286886369",
+                    RoleId= "9242772029964356",
                     DutyId= null,
                     IsAdministrator= true,
                     SortCode= 1,

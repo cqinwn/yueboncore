@@ -36,8 +36,8 @@ namespace Yuebon.Security.SeedData
                     DeleteUserId= null
                 },
                 new Role{
-                    Id= IdGeneratorHelper.IdSnowflake(),
-                    OrganizeId= 9242772030095429,
+                    Id= 9242772030095429,
+                    OrganizeId= 9165855286886469,
                     Category= 1,
                     EnCode= "default",
                     FullName= "默认",

@@ -52,7 +52,6 @@ builder.Host
     config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: false);
 });
 
-
 ILoggerRepository loggerRepository = LogManager.CreateRepository("NETCoreRepository");
 Log4NetHelper.SetConfig(loggerRepository, "log4net.config");
 #endregion
@@ -60,12 +59,10 @@ Log4NetHelper.SetConfig(loggerRepository, "log4net.config");
 #region 2、配置服务
 
 builder.Services.AddSingleton(new Appsettings(builder.Configuration));
-//builder.Services.AddSingleton(new LogLog(builder.Environment.ContentRootPath));
 builder.Services.AddUiFilesZipSetup(builder.Environment);
 //HttpContext 相关服务
 builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddHttpContextAccessor();
-
 builder.Services.AddRedisCacheSetup();
 
 #region MiniProfiler
@@ -113,6 +110,7 @@ builder.Services.AddHealthChecks();
 builder.Services.AddControllers(c =>
 {
     c.Filters.Add(new ExceptionHandlingAttribute());
+    c.Filters.Add(new ActionFilter());
     c.Conventions.Add(new GlobalRoutePrefixFilter(new RouteAttribute("")));
 }).AddJsonOptions(options =>
 {
@@ -139,7 +137,6 @@ builder.Services.AddEndpointsApiExplorer();
 #endregion
 
 builder.Services.AddAutoScanInjection();//自动化注入仓储和服务
-
 
 #region automapper
 List<Assembly> myAssembly = RuntimeHelper.GetAllYuebonAssemblies().ToList();

@@ -122,6 +122,9 @@ namespace Yuebon.Security.Dtos
         /// </summary>
         [MaxLength(50)]
         public long DeleteUserId { get; set; }
+        public virtual string RequestUrl { get; set; }
+        public virtual string Browser { get; set; }
+        public virtual string OS { get; set; }
 
 
     }

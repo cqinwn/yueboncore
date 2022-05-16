@@ -6,15 +6,14 @@
           <div class="grid-content bg-purple">
             <div class="grid-content bg-purple">
               <div class="list-btn-container">
-                <el-form ref="searchmenuform" :inline="true" :model="searchform" class="demo-form-inline" size="small">
+                <el-form ref="searchmenuform" :inline="true" :model="searchform" class="demo-form-inline">
                   <el-form-item>
                     <el-button-group>
-                      <el-button type="default" icon="el-icon-refresh" size="small" @click="loadTableData()">刷新</el-button>
+                      <el-button type="default" icon="el-icon-refresh" @click="loadTableData()">刷新</el-button>
                       <el-button
                         v-hasPermi="['Items/Add']"
                         type="primary"
                         icon="el-icon-plus"
-                        size="small"
                         @click="ShowItemsEditOrViewDialog()"
                       >新增</el-button>
                       <el-button
@@ -22,28 +21,24 @@
                         type="primary"
                         icon="el-icon-edit"
                         class="el-button-modify"
-                        size="small"
                         @click="ShowItemsEditOrViewDialog('edit')"
                       >修改</el-button>
                       <el-button
                         v-hasPermi="['Items/Enable']"
                         type="info"
                         icon="el-icon-video-pause"
-                        size="small"
                         @click="handerSetItemsEnable('0')"
                       >禁用</el-button>
                       <el-button
                         v-hasPermi="['Items/Enable']"
                         type="success"
                         icon="el-icon-video-play"
-                        size="small"
                         @click="handerSetItemsEnable('1')"
                       >启用</el-button>
                       <el-button
                         v-hasPermi="['Items/Delete']"
                         type="danger"
                         icon="el-icon-delete"
-                        size="small"
                         @click="deleteItemsPhysics()"
                       >删除</el-button>
                     </el-button-group>
@@ -54,7 +49,6 @@
                 :data="tableDataItemss"
                 style="width: 100%;margin-bottom: 20px;"
                 row-key="Id"
-                border
                 max-height="850"
                 default-expand-all
                 highlight-current-row
@@ -85,15 +79,14 @@
         <el-col :span="14">
           <div class="grid-content bg-purple">
             <div class="list-btn-container">
-              <el-form ref="searchformRef" :inline="true" :model="searchform" class="demo-form-inline" size="small">
+              <el-form ref="searchformRef" :inline="true" :model="searchform" class="demo-form-inline">
                 <el-form-item>
                   <el-button-group>
-                    <el-button type="default" icon="el-icon-refresh" size="small" @click="loadItemsDetailTableData()">刷新</el-button>
+                    <el-button type="default" icon="el-icon-refresh" @click="loadItemsDetailTableData()">刷新</el-button>
                     <el-button
                       v-hasPermi="['ItemsDetail/Add']"
                       type="primary"
                       icon="el-icon-plus"
-                      size="small"
                       @click="ShowItemsDetailEditOrViewDialog()"
                     >新增</el-button>
                     <el-button
@@ -101,24 +94,21 @@
                       type="primary"
                       icon="el-icon-edit"
                       class="el-button-modify"
-                      size="small"
                       @click="ShowItemsDetailEditOrViewDialog('edit')"
                     >修改</el-button>
                     <el-button
                       v-hasPermi="['ItemsDetail/Enable']"
                       type="info"
                       icon="el-icon-video-pause"
-                      size="small"
                       @click="HanderSetItemsDetailEnable('0')"
                     >禁用</el-button>
                     <el-button
                       v-hasPermi="['ItemsDetail/Enable']"
                       type="success"
                       icon="el-icon-video-play"
-                      size="small"
                       @click="HanderSetItemsDetailEnable('1')"
                     >启用</el-button>
-                    <el-button v-hasPermi="['ItemsDetail/Delete']" type="danger" icon="el-icon-delete" size="small" @click="deleteItemsDetailPhysics()">删除</el-button>
+                    <el-button v-hasPermi="['ItemsDetail/Delete']" type="danger" icon="el-icon-delete" @click="deleteItemsDetailPhysics()">删除</el-button>
                   </el-button-group>
                 </el-form-item>
               </el-form>
@@ -130,7 +120,6 @@
             :data="tableData"
             style="width: 100%;margin-bottom: 20px;"
             row-key="Id"
-            size="mini"
             max-height="850"
             default-expand-all
             highlight-current-row

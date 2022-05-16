@@ -45,11 +45,24 @@
       @sort-change="handleSortChange"
     >
       <el-table-column type="selection" width="40" />
-      <el-table-column prop="CreatorTime" label="操作时间" sortable="custom" width="180" />
+      <el-table-column prop="Id" label="ID" sortable="custom" width="180" />
       <el-table-column prop="Account" label="操作账号" sortable="custom" width="120" />
       <el-table-column prop="NickName" label="操作人" sortable="custom" width="120" />
       <el-table-column prop="IPAddress" label="IP地址" sortable="custom" width="150" />
-      <el-table-column prop="IPAddressName" label="IP城市" sortable="custom" width="220" />
+      <el-table-column prop="IPAddressName" label="IP城市" sortable="custom" width="190" />
+      <el-table-column prop="Browser" label="浏览器" sortable="custom" width="120" />
+      <el-table-column prop="OS" label="操作系统" sortable="custom" width="120" />
+      <el-table-column prop="Result" label="登录状态" sortable="custom" width="120" >
+        
+        <template #default="scope">
+          <el-tag
+            :type="scope.row.Result === true ?  'success': 'danger'"
+            disable-transitions
+          >{{ scope.row.Result===true?'成功':'失败' }}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column prop="Description" label="操作信息" sortable="custom" />
+      <el-table-column prop="CreatorTime" label="操作时间" sortable="custom"  />
       
     </el-table>
     <Pagination

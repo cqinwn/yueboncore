@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using UAParser;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Controllers;
 using Yuebon.AspNetCore.Models;
@@ -23,7 +25,6 @@ using Yuebon.Security.IServices;
 using Yuebon.Security.Models;
 using Yuebon.Tenants.IServices;
 using Yuebon.Tenants.Models;
-using Yuebon.Commons.Extensions;
 using Yuebon.WebApi.Areas.Security.Models;
 
 namespace Yuebon.WebApi.Controllers
@@ -46,6 +47,7 @@ namespace Yuebon.WebApi.Controllers
         private IFilterIPService _filterIPService;
         private IMenuService _menuService;
         private ITenantService _tenantService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         /// <summary>
         /// 构造函数注入服务
@@ -60,6 +62,7 @@ namespace Yuebon.WebApi.Controllers
         /// <param name="roleDataService"></param>
         /// <param name="menuService"></param>
         /// <param name="tenantService"></param>
+        /// <param name="httpContextAccessor"></param>
         public LoginController(IUserService iService, 
             IUserLogOnService userLogOnService, 
             ISystemTypeService systemTypeService,
@@ -69,7 +72,8 @@ namespace Yuebon.WebApi.Controllers
             IFilterIPService filterIPService, 
             IRoleDataService roleDataService, 
             IMenuService menuService, 
-            ITenantService tenantService)
+            ITenantService tenantService,
+            IHttpContextAccessor httpContextAccessor)
         {
             _userService = iService;
             _userLogOnService = userLogOnService;
@@ -81,6 +85,7 @@ namespace Yuebon.WebApi.Controllers
             _roleDataService = roleDataService;
             _menuService = menuService;
             _tenantService=tenantService;
+            _httpContextAccessor= httpContextAccessor;
         }
         /// <summary>
         /// 用户登录，必须要有验证码
@@ -92,7 +97,7 @@ namespace Yuebon.WebApi.Controllers
         {
             CommonResult result = new CommonResult();
             RemoteIpParser remoteIpParser = new RemoteIpParser();
-            string strIp = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
+            string strIp =remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
             var vCode = yuebonCacheHelper.Get("ValidateCode" + input.Vkey);
             string code = vCode != null ? vCode.ToString() : "11";
@@ -188,6 +193,11 @@ namespace Yuebon.WebApi.Controllers
                                 if (userLogin != null)
                                 {
                                     string ipAddressName = await IpAddressUtil.GetCityByIp(strIp);
+
+                                    var client = Parser.GetDefault().Parse(_httpContextAccessor.HttpContext.Request.Headers["User-Agent"]);
+                                    string requestPath = _httpContextAccessor.HttpContext.Request.Path.ToString();
+                                    string queryString = _httpContextAccessor.HttpContext.Request.QueryString.ToString();
+                                    string requestUrl = requestPath + queryString;
                                     if (userLogin.Item1 != null)
                                     {
                                         result.Success = true;
@@ -246,6 +256,9 @@ namespace Yuebon.WebApi.Controllers
                                         logEntity.Date = logEntity.CreatorTime = DateTime.Now;
                                         logEntity.IPAddress = CurrentUser.CurrentLoginIP;
                                         logEntity.IPAddressName = CurrentUser.IPAddressName;
+                                        logEntity.RequestUrl = requestUrl;
+                                        logEntity.Browser = client.UA.Family + client.UA.Major;
+                                        logEntity.OS = client.OS.Family + client.OS.Major;
                                         logEntity.Result = true;
                                         logEntity.ModuleName = "登录";
                                         logEntity.Description = "登录成功";
@@ -260,6 +273,9 @@ namespace Yuebon.WebApi.Controllers
                                         logEntity.Date = logEntity.CreatorTime = DateTime.Now;
                                         logEntity.IPAddress = strIp;
                                         logEntity.IPAddressName = ipAddressName;
+                                        logEntity.RequestUrl = requestUrl;
+                                        logEntity.Browser = client.UA.Family + client.UA.Major;
+                                        logEntity.OS = client.OS.Family + client.OS.Major;
                                         logEntity.Result = false;
                                         logEntity.ModuleName = "登录";
                                         logEntity.Type = "Login";

@@ -89,10 +89,30 @@ namespace Yuebon.Security.Models
         /// <summary>
         /// 系统模块
         /// </summary>
-        [MaxLength(50)]
-        [SugarColumn(ColumnDescription= "系统模块")]
+        [MaxLength(100)]
+        [SugarColumn(ColumnDescription= "系统模块",Length =100)]
         public virtual string ModuleName { get; set; }
 
+        /// <summary>
+        /// 请求
+        /// </summary>
+        [MaxLength(600)]
+        [SugarColumn(ColumnDescription = "请求",Length =600)]
+        public virtual string RequestUrl { get; set; }
+
+        /// <summary>
+        /// 浏览器
+        /// </summary>
+        [MaxLength(100)]
+        [SugarColumn(ColumnDescription = "浏览器", Length = 100)]
+        public virtual string Browser { get; set; }
+
+        /// <summary>
+        /// 操作系统
+        /// </summary>
+        [MaxLength(100)]
+        [SugarColumn(ColumnDescription = "操作系统", Length = 100)]
+        public virtual string OS { get; set; }
         /// <summary>
         /// 结果
         /// </summary>

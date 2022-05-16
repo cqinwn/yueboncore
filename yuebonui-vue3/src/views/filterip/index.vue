@@ -134,7 +134,7 @@
     <el-dialog
       ref="dialogEditForm"
       draggable
-      :title="editFormTitle+'子系统'"
+      :title="editFormTitle"
       v-model="dialogEditFormVisible"
       width="640px"
     >

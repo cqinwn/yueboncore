@@ -22,21 +22,25 @@
     <Compile Remove="Areas\CMS\Data\**" />
     <Compile Remove="Areas\CMS\Models\**" />
     <Compile Remove="Areas\CMS\Views\**" />
+    <Compile Remove="wwwroot\Data.Json\**" />
     <Content Remove="Areas\Authorizer\**" />
     <Content Remove="Areas\CMSTest\**" />
     <Content Remove="Areas\CMS\Data\**" />
     <Content Remove="Areas\CMS\Models\**" />
     <Content Remove="Areas\CMS\Views\**" />
+    <Content Remove="wwwroot\Data.Json\**" />
     <EmbeddedResource Remove="Areas\Authorizer\**" />
     <EmbeddedResource Remove="Areas\CMSTest\**" />
     <EmbeddedResource Remove="Areas\CMS\Data\**" />
     <EmbeddedResource Remove="Areas\CMS\Models\**" />
     <EmbeddedResource Remove="Areas\CMS\Views\**" />
+    <EmbeddedResource Remove="wwwroot\Data.Json\**" />
     <None Remove="Areas\Authorizer\**" />
     <None Remove="Areas\CMSTest\**" />
     <None Remove="Areas\CMS\Data\**" />
     <None Remove="Areas\CMS\Models\**" />
     <None Remove="Areas\CMS\Views\**" />
+    <None Remove="wwwroot\Data.Json\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -78,36 +82,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Analysis\Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Update="wwwroot\Data.Json\App.jsv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\Data.Json\Items.jsv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\Data.Json\ItemsDetail.jsv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\Data.Json\MenuTenant.jsv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\Data.Json\Organize.jsv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\Data.Json\Role.jsv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\Data.Json\SystemType.jsv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\Data.Json\User.jsv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\Data.Json\UserLogOn.jsv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
 

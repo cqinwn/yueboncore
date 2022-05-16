@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using CodeGenerator.Seed;
 using log4net;
 using log4net.Repository;
 using Microsoft.AspNetCore.Builder;
@@ -24,7 +23,6 @@ using System.Text.Json;
 using System.Text.Unicode;
 using Yitter.IdGenerator;
 using Yuebon.AspNetCore.Common;
-using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.Mvc.Filter;
 using Yuebon.Commons.Core.App;
 using Yuebon.Commons.Core.UnitOfWork;
@@ -33,10 +31,9 @@ using Yuebon.Commons.Filters;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Module;
+using Yuebon.Commons.SeedInitData;
 using Yuebon.Quartz.Jobs;
 using static Yuebon.Commons.Extensions.SwaggerVersions;
-using CodeGenerator.Middlewares;
-using Yuebon.Commons;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -174,8 +171,6 @@ YitIdHelper.SetIdGenerator(new IdGeneratorOptions()
 });
 
 
-builder.Services.AddScoped<DBSeed>();
-builder.Services.AddScoped<MyContext>();
 #endregion
 
 #region 3、配置中间件
@@ -229,12 +224,9 @@ app.MapControllers();
 #endregion
 
 #region 初始化
-var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
-var myContext = scope.ServiceProvider.GetRequiredService<MyContext>();
-var lifetime = scope.ServiceProvider.GetRequiredService<IHostApplicationLifetime>();
 if (Appsettings.GetValue("AppSetting:SeedDBEnabled").ObjToBool() || Appsettings.GetValue("AppSetting:SeedDBDataEnabled").ObjToBool())
 {
-    DBSeed.SeedAsync(myContext, builder.Environment.WebRootPath).Wait();
+    DBSeedService.SeedAsync(new List<string> { "Yuebon.Security.Core.dll", "Yuebon.CMS.Core.dll", "Yuebon.Tenants.Core.dll", "Yuebon.Quartz.Jobs.dll" }).Wait();
 }
 #endregion
 

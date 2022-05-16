@@ -1,10 +1,8 @@
-using CodeGenerator.Seed;
 using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Yuebon.Commons.Cache;
-using Yuebon.Commons.Core.App;
 using Yuebon.Commons.Core.DataManager;
 using Yuebon.Commons.Dtos;
 using Yuebon.Commons.Encrypt;
@@ -12,6 +10,7 @@ using Yuebon.Commons.Extend;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Pages;
+using Yuebon.Commons.SeedInitData;
 using Yuebon.Commons.Services;
 using Yuebon.Tenants.Dtos;
 using Yuebon.Tenants.IRepositories;
@@ -27,13 +26,11 @@ namespace Yuebon.Tenants.Services
     {
         private ITenantRepository trepository;
         private readonly ITenantLogonRepository _repositoryLogon;
-        private readonly MyContext myContext;
-        public TenantService(ITenantRepository _repository, ITenantLogonRepository repositoryLogon, MyContext _myContext)
+        public TenantService(ITenantRepository _repository, ITenantLogonRepository repositoryLogon)
         {
             trepository = _repository;
             repository = _repository;
             _repositoryLogon = repositoryLogon;
-            myContext = _myContext;
         }
 
         /// <summary>
@@ -71,13 +68,12 @@ namespace Yuebon.Tenants.Services
                 List<DbConnections> listdatabase = entity.DataSource.ToList<DbConnections>();
                 listdatabase.ForEach(c =>
                 {
-                    config.ConfigId = c.MasterDB.ConnId;
+                    config.ConfigId = c.ConnId;
                     config.DbType = (DbType)c.MasterDB.DatabaseType;
                     config.ConnectionString = c.MasterDB.ConnectionString;
                 });
-                MyContext.Init(config.ConnectionString, config.DbType);
 
-                await DBSeed.SeedTenantAsync(myContext, Appsettings.WebHostEnvironment.WebRootPath);
+                await DBSeedService.SeedAsync(new List<string> { "Yuebon.Security.Core.dll", "Yuebon.CMS.Core.dll" }, config);
                 YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
                 IEnumerable<Tenant> templist = trepository.GetAllByIsEnabledMark();
                 yuebonCacheHelper.Add("cacheTenants", templist);

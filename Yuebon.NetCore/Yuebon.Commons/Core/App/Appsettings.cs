@@ -13,6 +13,7 @@ using System.Reflection;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Yuebon.Commons.Options;
 
 namespace Yuebon.Commons.Core.App
 {
@@ -65,7 +66,7 @@ namespace Yuebon.Commons.Core.App
         /// <summary>
         /// 
         /// </summary>
-        public static ClaimsPrincipal User => HttpContext?.User;
+        public static UserInfo User;
         /// <summary>
         /// 构造函数
         /// </summary>

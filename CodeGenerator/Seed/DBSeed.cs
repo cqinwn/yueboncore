@@ -9,6 +9,7 @@ using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Json;
 using Yuebon.Security.Models;
+using Yuebon.Tenants.Models;
 
 namespace CodeGenerator.Seed
 {
@@ -294,6 +295,19 @@ namespace CodeGenerator.Seed
                     else
                     {
                         Console.WriteLine("Table:ItemsDetail already exists...");
+                    }
+                    #endregion
+
+
+                    #region Tenant
+                    if (!await myContext.Db.Queryable<Tenant>().AnyAsync())
+                    {
+                        myContext.GetEntityDB<Tenant>().InsertRange(JsonHelper.ToObject<List<Tenant>>(FileHelper.ReadFile(string.Format(SeedDataFolder, "Tenant"), Encoding.UTF8)));
+                        Console.WriteLine("Table:Menu created success!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Table:Menu already exists...");
                     }
                     #endregion
                     ConsoleHelper.WriteSuccessLine($"Done seeding database!");

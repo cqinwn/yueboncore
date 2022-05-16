@@ -8,19 +8,23 @@ import { isHttp } from '@/utils/validate'
 import { isRelogin } from '@/utils/request'
 
 NProgress.configure({ showSpinner: false });
-
+const n = 1;
 const whiteList = ['/login', '/auth-redirect', '/bind', '/register'];
-
+/**
+ * to 即将要进入的目标 路由对象
+ * from 当前导航正要离开的路由
+ * 
+ */
 router.beforeEach(async (to, from, next) => {
   NProgress.start()
   if (getToken()) {
     to.meta.title && store.dispatch('settings/setTitle', to.meta.title)
     /* has token*/
-    if (to.path === '/login'||to.path === '/register') {
-      next()
-      //next({ path: '/' })
+    if (to.path === '/login' || to.path === '/register') {
+      next({ path: '/' })
       NProgress.done()
     } else {
+
       if (store.getters.roles.length === 0) {
         isRelogin.show = true
         // 判断当前用户是否已拉取完user_info信息
@@ -38,7 +42,7 @@ router.beforeEach(async (to, from, next) => {
         }).catch(err => {
           store.dispatch('LogOut').then(() => {
             ElMessage.error(err)
-            next({ path: '/' })
+            next({ path: '/login' })
           })
         })
       } else {

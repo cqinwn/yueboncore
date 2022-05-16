@@ -8,7 +8,7 @@ namespace Yuebon.Tenants.Models
     /// <summary>
     /// 租户用户登录信息，数据实体对象
     /// </summary>
-    [SugarTable("Sys_TenantLogon", "租户信息表")]
+    [SugarTable("Sys_TenantLogon", "租户登录信息表")]
     [Serializable]
     public class TenantLogon:BaseEntity
     {
@@ -132,8 +132,8 @@ namespace Yuebon.Tenants.Models
         /// <summary>
         /// 设置或获取软件系统样式
         /// </summary>
-        [MaxLength(50)]
-        [SugarColumn(ColumnDescription="软件系统样式")]
+        [MaxLength(1000)]
+        [SugarColumn(ColumnDescription="软件系统样式",Length=1000)]
         public virtual string Theme { get; set; }
 
 

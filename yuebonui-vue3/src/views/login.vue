@@ -192,7 +192,8 @@ function handleLogin() {
       loading.value = true
       store.dispatch('Login', loginForm.value)
         .then(res => {
-          router.push({ path: redirect.value || "/" });
+          console.log(redirect.value)
+          router.push({ path: "/" });
           loading.value = false
         })
         .catch(res => {

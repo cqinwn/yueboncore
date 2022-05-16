@@ -138,7 +138,6 @@ namespace Yuebon.Commons.Repositories
                                     }
                                     _dbBase.AddConnection(config);
                                 });
-                                //return  new SqlSugarScope(listConfig);
                                 _dbBase.ChangeDatabase(configId);
                             }
                             else

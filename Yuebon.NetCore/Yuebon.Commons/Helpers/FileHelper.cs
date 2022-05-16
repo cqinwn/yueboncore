@@ -155,8 +155,18 @@ namespace Yuebon.Commons.Helpers
             }
         }
 
-
-
+        /// <summary>
+        /// 文件是否存在
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static bool Exists(string path)
+        {
+            if (!File.Exists(path))
+                return false;
+            else
+                return true;
+        }
         /// <summary>
         /// 读文件
         /// </summary>

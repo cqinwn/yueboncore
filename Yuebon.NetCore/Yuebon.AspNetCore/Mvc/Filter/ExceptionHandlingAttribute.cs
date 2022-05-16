@@ -9,6 +9,7 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
 using System.Threading.Tasks;
+using UAParser;
 using Yuebon.AspNetCore.Common;
 using Yuebon.AspNetCore.Models;
 using Yuebon.Commons.Cache;
@@ -86,11 +87,15 @@ namespace Yuebon.AspNetCore.Mvc.Filter
                     }
                 }
             }
+            var client = Parser.GetDefault().Parse(context.HttpContext.Request.Headers["User-Agent"]);
             logEntity.Account = currentUser.Account;
             logEntity.NickName = currentUser.NickName;
             logEntity.Date = logEntity.CreatorTime = DateTime.Now;
             logEntity.IPAddress = currentUser.CurrentLoginIP;
             logEntity.IPAddressName = currentUser.IPAddressName;
+            logEntity.RequestUrl = exDesc;
+            logEntity.Browser = client.UA.Family + client.UA.Major;
+            logEntity.OS = client.OS.Family + client.OS.Major;
             logEntity.Result = false;
             logEntity.Description = $"请求：{exDesc}\r\n异常类型：{exception.GetType().Name} \r\n异常信息：{exception.Message} \r\n【堆栈调用】：\r\n{exception.StackTrace}";
             logEntity.Type = "Exception";

@@ -51,12 +51,6 @@ namespace Yuebon.AspNetCore.Controllers
             try
             {
                 var controllerActionDescriptor = context.ActionDescriptor as ControllerActionDescriptor;
-                //var controlName = controllerActionDescriptor.ControllerName;
-                //string apiversion = context.HttpContext.Request.Headers["api-version"];//Header中的version
-                //if (!string.IsNullOrEmpty(apiversion))
-                //{
-                //    controllerActionDescriptor.ControllerName = controlName + apiversion.Replace(".", "_");
-                //}
                 //匿名访问，不需要token认证、签名和登录
                 var allowanyone = controllerActionDescriptor.MethodInfo.GetCustomAttribute(typeof(AllowAnonymousAttribute), true);
                 if (allowanyone != null) return;

@@ -7,12 +7,10 @@ using System.Security.Claims;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Yuebon.Commons.Cache;
-using Yuebon.Commons.Const;
 using Yuebon.Commons.Core.App;
 using Yuebon.Commons.Core.DataManager;
 using Yuebon.Commons.Core.UnitOfWork;
 using Yuebon.Commons.DependencyInjection;
-using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.IRepositories;
 using Yuebon.Commons.Json;
@@ -1355,7 +1353,10 @@ namespace Yuebon.Commons.Repositories
         #endregion
 
         #endregion
-
+        /// <summary>
+        /// 获取用户和租户信息
+        /// </summary>
+        /// <returns></returns>
         private UserInfo GetUserInfo()
         {
             UserInfo userInfo = null;
@@ -1366,15 +1367,20 @@ namespace Yuebon.Commons.Repositories
                 ClaimsPrincipal claimsPrincipal = HttpContextHelper.HttpContext.User;
                 var claims = claimsPrincipal.Claims;
                 List<Claim> claimList = new List<Claim>();
-                //var userId= claims?.FirstOrDefault(YuebonClaimConst.UserId).Value;
                 foreach (var item in claims)
                 {
                     claimList.Add(item);
                 }
-                //List<Claim> claims = claimsPrincipal.Claims as List<Claim>;
                 if (claimList.Count>0)
                 {
                     userInfo = yuebonCacheHelper.Get<UserInfo>("login_userInfo_" + claimList[0].Value);
+                }
+                else
+                {   
+                    userInfo = Appsettings.User;
+                }
+                if (userInfo != null)
+                {
                     if (userInfo.TenantName == "default")
                     {
                         userInfo = null;

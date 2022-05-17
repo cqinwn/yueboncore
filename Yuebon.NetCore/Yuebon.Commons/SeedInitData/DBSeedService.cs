@@ -118,14 +118,14 @@ namespace Yuebon.Commons.SeedInitData
                             Console.WriteLine($"Table:{seedDataTable.TableName} Data created success!");
                         }
                     }
-                    ConsoleHelper.WriteSuccessLine($"Done seeding database!");
 
+                    ConsoleHelper.WriteSuccessLine($"Done {itemDll} seeding database!");
                     #endregion
 
                     ConsoleHelper.WriteSuccessLine($"assemblies:{itemDll} end...");
                     Console.WriteLine();
                 }
-
+                ConsoleHelper.WriteSuccessLine($"Done all seeding database!");
                 Db.Close();
                 Db.Dispose();
             }
@@ -161,15 +161,17 @@ namespace Yuebon.Commons.SeedInitData
                             EntityService = (c, p) =>
                             {
                                 // int?  decimal?这种 isnullable=true
-                                if (c.PropertyType.IsGenericType &&
-                                c.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                                if (c.PropertyType.IsGenericType && c.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
                                 {
                                     p.IsNullable = true;
                                 }
-                                else if (c.PropertyType == typeof(string) &&
-                                         c.GetCustomAttribute<RequiredAttribute>() == null)
+                                else if (c.PropertyType == typeof(string) && c.GetCustomAttribute<RequiredAttribute>() == null)
                                 { //string类型如果没有Required isnullable=true
                                     p.IsNullable = true;
+                                }
+                                if ((DbType)m.MasterDB.DatabaseType == SqlSugar.DbType.MySql && (p.DataType == "varchar(max)" || p.DataType == "nvarchar(max)"))
+                                {
+                                    p.DataType = "longtext";
                                 }
                             }
                         }

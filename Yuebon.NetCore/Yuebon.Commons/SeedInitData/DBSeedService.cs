@@ -169,9 +169,12 @@ namespace Yuebon.Commons.SeedInitData
                                 { //string类型如果没有Required isnullable=true
                                     p.IsNullable = true;
                                 }
-                                if ((DbType)m.MasterDB.DatabaseType == SqlSugar.DbType.MySql && (p.DataType == "varchar(max)" || p.DataType == "nvarchar(max)"))
+                                if (p.DataType != null)
                                 {
-                                    p.DataType = "longtext";
+                                    if ((DbType)m.MasterDB.DatabaseType == SqlSugar.DbType.MySql && (p.DataType.ToLower() == "varchar(max)" || p.DataType.ToLower() == "nvarchar(max)"))
+                                    {
+                                        p.DataType = "longtext";
+                                    }
                                 }
                             }
                         }

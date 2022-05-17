@@ -13,14 +13,20 @@ namespace Yuebon.Commons.Enums
     public enum TenantSchemaEnum
     {
         /// <summary>
-        /// 共享数据库
+        /// 共享数据库，独立Schema(基于 Schema 的方式)
         /// </summary>
-        [Description("共享数据库")]
-        Share = 0,
+        [Description("共享数据库，独立Schema")]
+        AloneSchema = 0,
         /// <summary>
-        /// 独立数据库
+        /// 独立数据库(基于 Database 的方式)
         /// </summary>
         [Description("独立数据库")]
-        Alone = 1,
+        AloneDatabase = 1,
+
+        /// <summary>
+        /// 共享数据库，共享Schema（基于 TenantId 的方式）
+        /// </summary>
+        [Description("共享数据库，共享Schema")]
+        ShareSchema = 2
     }
 }

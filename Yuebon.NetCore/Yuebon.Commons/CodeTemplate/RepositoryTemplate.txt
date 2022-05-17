@@ -1,5 +1,5 @@
 ﻿using System;
-using Yuebon.Commons.IDbContext;
+using Yuebon.Commons.Core.UnitOfWork;
 using Yuebon.Commons.Repositories;
 using {IRepositoriesNamespace};
 using {ModelsNamespace};
@@ -11,9 +11,6 @@ namespace {RepositoriesNamespace}
     /// </summary>
     public class {ModelTypeName}Repository : BaseRepository<{ModelTypeName}>, I{ModelTypeName}Repository
     {
-		public {ModelTypeName}Repository()
-        {
-        }
 
         public {ModelTypeName}Repository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {

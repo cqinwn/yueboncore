@@ -182,6 +182,7 @@ namespace Yuebon.WebApi.Controllers
                         }
                         else
                         {
+                            Appsettings.User = userInfo;
                             SystemType systemType = _systemTypeService.GetByCode(input.SystemCode);
                             if (systemType == null)
                             {

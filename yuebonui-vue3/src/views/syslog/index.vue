@@ -49,7 +49,7 @@
       <el-table-column prop="Account" label="操作账号" sortable="custom" width="120" />
       <el-table-column prop="NickName" label="操作人" sortable="custom" width="120" />
       <el-table-column prop="IPAddress" label="IP地址" sortable="custom" width="150" />
-      <el-table-column prop="RequestUrl" label="请求地址" sortable="custom"  />
+      <el-table-column prop="RequestUrl" label="请求地址" sortable="custom"/>
       <el-table-column prop="Browser" label="浏览器" sortable="custom" width="120" />
       <el-table-column prop="OS" label="操作系统" sortable="custom" width="120" />
       <el-table-column prop="Result" label="操作状态" sortable="custom" width="120" >

@@ -21,13 +21,13 @@
     <el-card>
       <div class="list-btn-container"> 
         <el-button-group>
-          <el-button v-hasPermi="['{ModelTypeName}/Add']" type="primary" icon="el-icon-plus" size="small" @click="ShowEditOrViewDialog()">新增</el-button>
-          <el-button v-hasPermi="['{ModelTypeName}/Edit']" type="primary" icon="el-icon-edit" class="el-button-modify" size="small" @click="ShowEditOrViewDialog('edit')">修改</el-button>
-          <el-button v-hasPermi="['{ModelTypeName}/Enable']" type="info" icon="el-icon-video-pause" size="small" @click="setEnable('0')">禁用</el-button>
-          <el-button v-hasPermi="['{ModelTypeName}/Enable']" type="success" icon="el-icon-video-play" size="small" @click="setEnable('1')">启用</el-button>
-          <el-button v-hasPermi="['{ModelTypeName}/DeleteSoft']" type="warning" icon="el-icon-delete" size="small" @click="deleteSoft('0')">软删除</el-button>
-          <el-button v-hasPermi="['{ModelTypeName}/Delete']" type="danger" icon="el-icon-delete" size="small" @click="deletePhysics()">删除</el-button>
-          <el-button type="default" icon="el-icon-refresh" size="small" @click="loadTableData()">刷新</el-button>
+          <el-button v-hasPermi="['{ModelTypeName}/Add']" type="primary" icon="el-icon-plus" @click="ShowEditOrViewDialog()">新增</el-button>
+          <el-button v-hasPermi="['{ModelTypeName}/Edit']" type="primary" icon="el-icon-edit" class="el-button-modify" @click="ShowEditOrViewDialog('edit')">修改</el-button>
+          <el-button v-hasPermi="['{ModelTypeName}/Enable']" type="info" icon="el-icon-video-pause" @click="setEnable('0')">禁用</el-button>
+          <el-button v-hasPermi="['{ModelTypeName}/Enable']" type="success" icon="el-icon-video-play" @click="setEnable('1')">启用</el-button>
+          <el-button v-hasPermi="['{ModelTypeName}/DeleteSoft']" type="warning" icon="el-icon-delete" @click="deleteSoft('0')">软删除</el-button>
+          <el-button v-hasPermi="['{ModelTypeName}/Delete']" type="danger" icon="el-icon-delete" @click="deletePhysics()">删除</el-button>
+          <el-button type="default" icon="el-icon-refresh" @click="loadTableData()">刷新</el-button>
         </el-button-group>
         <right-toolbar v-model:showSearch="showSearch" @queryTable="loadTableData"></right-toolbar>
       </div>
@@ -57,10 +57,12 @@
       <el-form ref="editFromRef" :model="editFrom" :rules="rules">
         {VueViewFromContent}
       </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="cancel">取 消</el-button>
-        <el-button type="primary" @click="saveEditForm()">确 定</el-button>
-      </div>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="dialogEditFormVisible = false">取 消</el-button>
+          <el-button type="primary" @click="saveEditForm()">确 定</el-button>
+        </div>
+      </template>
     </el-dialog>
   </div>
 </template>
@@ -108,26 +110,26 @@ const { searchform, editFrom, rules ,pagination,sortableData} = toRefs(data);
     * 初始化数据
     */
 function InitDictItem() {
-},
+}
     
 // 取消按钮
 function cancel () {
-    dialogEditFormVisible = false
+    dialogEditFormVisible.value = false
     reset()
-},
+}
 // 表单重置
 function reset () {
-    editFrom = {
+    editFrom.value = {
     {VueViewEditFromContent}        
     //需个性化处理内容
     }
     proxy.resetForm('editFromRef')
-},
+}
 /**
     * 加载页面table数据
     */
 function loadTableData() {
-    tableloading = true
+    tableloading.value = true
     var seachdata = {
         CurrenetPageIndex: pagination.value.currentPage,
         PageSize: pagination.value.pagesize,
@@ -140,14 +142,20 @@ function loadTableData() {
         pagination.value.pageTotal = res.ResData.TotalItems
         tableloading.value = false
     })
-},
+}
 /**
     * 点击查询
     */
 function handleSearch() {
     pagination.value.currentPage = 1
     loadTableData()
-},
+}
+
+/** 重置查询操作 */
+function resetQuery() {
+  proxy.resetForm("searchformRef");
+  handleSearch();
+}
 
 /**
     * 新增、修改或查看明细信息（绑定显示数据）     *
@@ -158,7 +166,7 @@ function ShowEditOrViewDialog(view) {
     if (ids.value.length > 1 || ids.value.length === 0) {
         proxy.$modal.alert('请选择一条数据进行编辑/修改', '提示')
     } else {
-        currentId.value = ids.value[0].Id
+        currentId.value = ids.value[0]
         editFormTitle.value = '编辑'
         dialogEditFormVisible.value = true
         bindEditInfo()
@@ -168,14 +176,14 @@ function ShowEditOrViewDialog(view) {
     currentId.value = ''
     dialogEditFormVisible.value = true
     }
-},
+}
 function bindEditInfo() {
     get{ModelTypeName}Detail(currentId.value).then(res => {
     editFrom.value = res.ResData
     //需个性化处理内容
 
     })
-},
+}
 /**
     * 新增/修改保存
     */
@@ -200,7 +208,7 @@ function saveEditForm() {
         return false
     }
     })
-},
+}
 function setEnable(val) {
   if (ids.value.length === 0) {
     proxy.$modal.alert('请先选择要操作的数据')
@@ -219,20 +227,17 @@ function setEnable(val) {
         }
     })
     }
-},
+}
 function deleteSoft(val) {
   if (ids.value.length === 0) {
     proxy.$modal.alert('请先选择要操作的数据')
     return false
     } else {
     proxy.$modal.confirm('是否确认删除所选的数据项?').then(function() {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-    }).then(function () {
-        const data = {
-        Ids: ids.value
-        }
+      const data = {
+        Ids: ids.value,
+        Flag: val
+      }
         return  deleteSoft{ModelTypeName}(data)
     }).then(res => {
        if (res.Success) {
@@ -243,20 +248,16 @@ function deleteSoft(val) {
       }
     })
     }
-},
+}
 function deletePhysics() {
   if (ids.value.length === 0) {
     proxy.$modal.alert('请先选择要操作的数据')
     return false
     } else {
     proxy.$modal.confirm('是否确认删除所选的数据项?').then(function() {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-    }).then(function () {
-        const data = {
+      const data = {
         Ids: ids.value
-        }
+      }
         return  delete{ModelTypeName}(data)
     }).then(res => {
        if (res.Success) {
@@ -267,7 +268,7 @@ function deletePhysics() {
       }
     })
     }
-},
+}
 /**
  * 当表格的排序条件发生变化的时候会触发该事件
  */

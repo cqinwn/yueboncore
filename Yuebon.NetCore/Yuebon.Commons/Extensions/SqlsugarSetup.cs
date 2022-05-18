@@ -104,7 +104,6 @@ namespace Yuebon.Commons.Extensions
             {
                 key += $"{param.ParameterName}:{param.Value}\n";
             }
-
             return key;
         }
     }

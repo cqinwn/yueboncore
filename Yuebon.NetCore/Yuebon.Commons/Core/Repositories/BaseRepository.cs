@@ -102,7 +102,7 @@ namespace Yuebon.Commons.Repositories
                     if (userInfo != null)
                     {                        
                         var configId = userInfo.TenantName+ "tenant";//租户
-                        if (userInfo.TenantSchema == Enums.TenantSchemaEnum.Alone)
+                        if (userInfo.TenantSchema == Enums.TenantSchemaEnum.AloneDatabase)
                         {
                             #region 独立数据库
                             if (!_dbBase.IsAnyConnection(configId))
@@ -113,7 +113,7 @@ namespace Yuebon.Commons.Repositories
                                 {
                                     ConnectionConfig config = new ConnectionConfig()
                                     {
-                                        ConfigId = m.ConnId.ToLower(),
+                                        ConfigId = m.ConnId,
                                         ConnectionString = m.MasterDB.ConnectionString,
                                         DbType = (DbType)m.MasterDB.DatabaseType,
                                         IsAutoCloseConnection = true
@@ -143,6 +143,10 @@ namespace Yuebon.Commons.Repositories
                                 _dbBase.ChangeDatabase(configId);
                             }
                             #endregion
+                        }
+                        else if (userInfo.TenantSchema == Enums.TenantSchemaEnum.ShareSchema)
+                        {
+
                         }
                     }
                     else

@@ -62,7 +62,7 @@ namespace Yuebon.Tenants.Services
         public async Task<bool> InitTenantDataAsync(Tenant entity)
         {
             bool res = false;
-            if (entity.Schema == Commons.Enums.TenantSchemaEnum.Alone)
+            if (entity.Schema == Commons.Enums.TenantSchemaEnum.AloneDatabase)
             {
                 ConnectionConfig config = new ConnectionConfig();
                 List<DbConnections> listdatabase = entity.DataSource.ToList<DbConnections>();

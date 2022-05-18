@@ -183,7 +183,7 @@ namespace Yuebon.SecurityApi.Areas.Tenants.Controllers
             CommonResult result = new CommonResult();
             bool bl = false;
             Tenant info = iService.Get(tenantId);
-            if (info.Schema == Commons.Enums.TenantSchemaEnum.Alone)
+            if (info.Schema == Commons.Enums.TenantSchemaEnum.AloneDatabase)
             {
                 bl = await iService.InitTenantDataAsync(info);
             }

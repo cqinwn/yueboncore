@@ -298,7 +298,7 @@ const currentMenuId=ref("")
 const selectSystemType=ref([])
 const selectSystemTypeId=ref("")
 const editMenuFormTitle=ref("")
-const selectedMenuOptions=ref([])
+const selectedMenuOptions=ref("")
 const selectMenus=ref([])
 const tableDataMenus=ref([])
 const cascaderKey=ref(0)
@@ -402,8 +402,8 @@ function reset() {
     IsBatch: false,
     IsCache: false
   }
-  selectedMenuOptions.value = []
-  selectSystemTypeId.value = ''
+  selectedMenuOptions.value = ""
+  selectSystemTypeId.value = ""
   proxy.resetForm('editMenuFromRef')
 }
 /**
@@ -504,30 +504,12 @@ function saveEditMenuForm() {
       if (currentMenuId.value !== '') {
         url = 'Menu/Update'
       }
-      var data = {
-        FullName: editMenuFrom.value.FullName,
-        EnCode: editMenuFrom.value.EnCode,
-        ParentId: selectedMenuOptions.value,
-        SystemTypeId: selectSystemTypeId.value,
-        Icon: editMenuFrom.value.Icon,
-        UrlAddress: editMenuFrom.value.UrlAddress,
-        Component: editMenuFrom.value.Component,
-        ActiveMenu: editMenuFrom.value.ActiveMenu,
-        EnabledMark: editMenuFrom.value.EnabledMark,
-        MenuType: editMenuFrom.value.MenuType,
-        IsPublic: editMenuFrom.value.IsPublic,
-        IsShow: editMenuFrom.value.IsShow,
-        IsFrame: editMenuFrom.value.IsFrame,
-        SortCode: editMenuFrom.value.SortCode,
-        IsBatch: editMenuFrom.value.IsBatch,
-        IsCache: editMenuFrom.value.IsCache
-      }
       saveMenu(editMenuFrom.value, url).then(res => {
         if (res.Success) {
           proxy.$modal.msgSuccess('恭喜你，操作成功')
           dialogEditFormVisible.value = false
           currentMenuId.value = ''
-          selectedMenuOptions.value = []
+          selectedMenuOptions.value = ""
           loadTableData()
           InitDictItem()
         } else {

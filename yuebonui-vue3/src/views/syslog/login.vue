@@ -1,15 +1,15 @@
 <template>
   <div class="app-container">
-    <el-form ref="searchformRef" v-show="showSearch" :inline="true" :model="searchform" class="demo-form-inline">
-      <el-form-item label="账号：" prop="name">
-        <el-input v-model="searchform.name" clearable placeholder="账号" />
+    <el-form ref="searchformRef" v-show="showSearch" :inline="true" :model="queryParams" class="demo-form-inline">
+      <el-form-item label="账号：" prop="Keywords">
+        <el-input v-model="queryParams.name" clearable placeholder="账号" />
       </el-form-item>
       <el-form-item label="IP地址：" prop="IpAddres">
-        <el-input v-model="searchform.IpAddres" clearable placeholder="IP地址" />
+        <el-input v-model="queryParams.IpAddres" clearable placeholder="IP地址" />
       </el-form-item>
       <el-form-item label="日志日期：" prop="CreateTime">
         <el-date-picker
-          v-model="searchform.CreateTime"
+          v-model="queryParams.CreateTime"
           type="datetimerange"
           align="right"
           :default-time="['00:00:00', '23:59:59']"
@@ -66,10 +66,10 @@
       
     </el-table>
     <Pagination
-      v-show="pagination.pageTotal>0"
-      :total="pagination.pageTotal"
-      :page="pagination.currentPage"
-      :limit="pagination.pageSize"
+      v-show="queryParams.pageTotal>0"
+      :total="queryParams.pageTotal"
+      v-model:page="queryParams.CurrenetPageIndex"
+      v-model:limit="queryParams.PageSize"
       @pagination="loadTableData"
     />
   </div>
@@ -89,19 +89,15 @@ const single = ref(true);
 const multiple = ref(true);
 
 const data = reactive({
-  searchform: {
-    name: '',
+  queryParams:{
+    CurrenetPageIndex: 1,
+    PageSize: 20,
+    pageTotal: 0,
+    Order: 'desc',
+    Sort: 'CreatorTime',
+    Keywords: '',
     IpAddres: '',
     CreateTime: ''
-  },
-  pagination: {
-    currentPage: 1,
-    pageSize: 20,
-    pageTotal: 0
-  },
-  sortableData: {
-    order: 'desc',
-    sort: 'CreatorTime'
   },
   shortcuts:[{
     text: '今天',
@@ -162,7 +158,7 @@ const data = reactive({
   }]
 })
 
-const { searchform, pagination,sortableData,shortcuts} = toRefs(data)
+const { queryParams,shortcuts} = toRefs(data)
 
 /**
  * 初始化数据
@@ -178,23 +174,24 @@ function InitDictItem() {
  */
 function loadTableData() {
   tableloading.value = true
+  queryParams
   var seachdata = {
-    CurrenetPageIndex: pagination.value.currentPage,
-    PageSize: pagination.value.pageSize,
+    CurrenetPageIndex: queryParams.value.CurrenetPageIndex,
+    PageSize: queryParams.value.PageSize,
     Filter: {
-      IPAddress: searchform.value.IpAddres,
-      Account: searchform.value.name,
+      IPAddress: queryParams.value.IpAddres,
+      Account: queryParams.value.Keywords,
       Type: 'Login'
     },
-    Keywords: searchform.value.name,
-    CreatorTime1: searchform.value.CreateTime[0],
-    CreatorTime2: searchform.value.CreateTime[1],
-    Order: sortableData.value.order,
-    Sort: sortableData.value.sort
+    Keywords: queryParams.value.Keywords,
+    CreatorTime1: queryParams.value.CreateTime[0],
+    CreatorTime2: queryParams.value.CreateTime[1],
+    Order: queryParams.value.Order,
+    Sort: queryParams.value.Sort
   }
   getLogListWithPager(seachdata).then((res) => {
     tableData.value = res.ResData.Items
-    pagination.value.pageTotal = res.ResData.TotalItems
+    queryParams.value.pageTotal = res.ResData.TotalItems
     tableloading.value = false
   })
 }
@@ -202,7 +199,7 @@ function loadTableData() {
  * 点击查询
  */
 function handleSearch() {
-  pagination.value.currentPage = 1
+  queryParams.value.CurrenetPageIndex = 1
   loadTableData()
 }
 /** 重置查询操作 */
@@ -236,12 +233,12 @@ function  deletePhysics() {
  */
 function  handleSortChange(column) {
   if(column.prop!=null){
-    sortableData.value.sort = column.prop
+    queryParams.value.Sort = column.prop
   }
   if (column.order === 'ascending') {
-    sortableData.value.order = 'asc'
+    queryParams.value.Order = 'asc'
   } else {
-    sortableData.value.order = 'desc'
+    queryParams.value.Order = 'desc'
   }
   loadTableData()
 }

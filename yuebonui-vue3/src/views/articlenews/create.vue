@@ -4,22 +4,9 @@
   </div>
 </template>
 
-<script>
+<script setup name="CreateArticle">
 import ArticleDetail from './components/ArticleDetail.vue'
-export default {
-  name: 'CreateArticle',
-  components: {
-    ArticleDetail
-  },
-  data() {
-    return {
-    }
-  },
-  created() {
-  },
-  methods: {
-  }
-}
+
 </script>
 
 <style>

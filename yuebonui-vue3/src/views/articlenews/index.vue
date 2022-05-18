@@ -3,14 +3,15 @@
     <el-form
       ref="searchformRef" v-show="showSearch"
       :inline="true"
-      :model="searchform"
+      :model="queryParams"
       class="demo-form-inline"
     >
       <el-form-item label="名称：">
-        <el-input v-model="searchform.keywords" clearable placeholder="名称" />
+        <el-input v-model="queryParams.keywords" clearable placeholder="名称" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="handleSearch()">查询</el-button>
+        <el-button icon="Refresh" @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>    
     <el-row :gutter="10" class="mb8">
@@ -55,10 +56,10 @@
       <el-table-column prop="CreatorTime" label="创建时间" sortable="custom" width="160" />
     </el-table>
     <Pagination
-      v-show="pagination.pageTotal>0"
-      :total="pagination.pageTotal"
-      :page="pagination.currentPage"
-      :limit="pagination.pageSize"
+      v-show="queryParams.pageTotal>0"
+      :total="queryParams.pageTotal"
+      v-model:page="queryParams.CurrenetPageIndex"
+      v-model:limit="queryParams.PageSize"
       @pagination="loadTableData"
     />
   </div>
@@ -82,24 +83,20 @@ const currentId=ref("")// 当前操作对象的ID值，主要用于修改
 const ids=ref([])
 
 const selectCategory=ref([])
-const data = reactive({
-  searchform: {
-    keywords: ''
-  },
-  pagination: {
-    currentPage: 1,
-    pageSize: 20,
-    pageTotal: 0
-  },
-  sortableData: {
-    order: 'desc',
-    sort: 'CreatorTime'
+const data = reactive({  
+  queryParams:{
+    CurrenetPageIndex: 1,
+    PageSize: 20,
+    pageTotal: 0,
+    Order: 'desc',
+    Sort: 'CreatorTime',
+    Keywords: ''
   },
   editFrom:{},
   rules: {
   }
 })
-const { searchform, editFrom, rules ,pagination,sortableData} = toRefs(data)
+const { queryParams, editFrom, rules} = toRefs(data)
 const router = useRouter()
 /**
  * 初始化数据
@@ -114,16 +111,9 @@ function InitDictItem() {
  */
 function loadTableData() {
   tableloading.value = true
-  var seachdata = {
-    CurrenetPageIndex: pagination.value.currentPage,
-    PageSize: pagination.value.pageSize,
-    Keywords: searchform.value.keywords,
-    Order: sortableData.value.order,
-    Sort: sortableData.value.sort
-  }
-  getArticlenewsListWithPager(seachdata).then(res => {
+  getArticlenewsListWithPager(queryParams.value).then(res => {
     tableData.value = res.ResData.Items
-    pagination.value.pageTotal = res.ResData.TotalItems
+    queryParams.value.pageTotal = res.ResData.TotalItems
     tableloading.value = false
   })
 }
@@ -131,7 +121,7 @@ function loadTableData() {
  * 点击查询
  */
 function handleSearch() {
-  pagination.value.currentPage = 1
+  queryParams.value.CurrenetPageIndex = 1
   loadTableData()
 }
 /** 重置查询操作 */
@@ -206,12 +196,12 @@ function deletePhysics() {
  */
 function handleSortChange(column) {
   if(column.prop!=null){
-    sortableData.value.sort = column.prop
+    queryParams.value.Sort = column.prop
   }
   if (column.order === 'ascending') {
-    sortableData.value.order = 'asc'
+    queryParams.value.Order = 'asc'
   } else {
-    sortableData.value.order = 'desc'
+    queryParams.value.Order = 'desc'
   }
   loadTableData()
 }

@@ -3,11 +3,11 @@
     <el-form
       ref="searchformRef" v-show="showSearch"
       :inline="true"
-      :model="searchform"
+      :model="queryParams"
       class="demo-form-inline"
     >
-      <el-form-item label="应用名称：" prop="name">
-        <el-input v-model="searchform.name" clearable placeholder="应用AppId或授权Url" />
+      <el-form-item label="应用名称：" prop="Keywords">
+        <el-input v-model="queryParams.Keywords" clearable placeholder="应用AppId或授权Url" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="search" @click="handleSearch()">查询</el-button>
@@ -159,10 +159,10 @@
       />
     </el-table>
     <Pagination
-      v-show="pagination.pageTotal>0"
-      :total="pagination.pageTotal"
-      :page="pagination.currentPage"
-      :limit="pagination.pageSize"
+      v-show="queryParams.pageTotal>0"
+      :total="queryParams.pageTotal"
+      v-model:page="queryParams.CurrenetPageIndex"
+      v-model:limit="queryParams.PageSize"
       @pagination="loadTableData"
     />
     <el-dialog
@@ -223,8 +223,13 @@ const single = ref(true);
 const multiple = ref(true);
 
 const data = reactive({
-  searchform: {
-    name: ''
+  queryParams:{
+    CurrenetPageIndex: 1,
+    PageSize: 20,
+    pageTotal: 0,
+    Order: 'desc',
+    Sort: 'CreatorTime',
+    Keywords: ''
   },
   editFrom: {},
   rules: {
@@ -237,18 +242,13 @@ const data = reactive({
       { min: 2, max: 50, message: '长度在 6 到 32 个字符', trigger: 'blur' }
     ]
   },
-  pagination: {
-    currentPage: 1,
-    pageSize: 20,
-    pageTotal: 0
-  },
-  sortableData: {
+  queryParams: {
     order: 'desc',
     sort: 'AppId'
   }
 })
 
-const { searchform, editFrom, rules ,pagination,sortableData} = toRefs(data);
+const { editFrom, rules ,queryParams} = toRefs(data);
 
 /**
  * 初始化数据
@@ -261,16 +261,9 @@ function InitDictItem() {
  */
 function loadTableData() {
   tableloading.value = true
-  var seachdata = {
-    CurrenetPageIndex: pagination.value.currentPage,
-    PageSize: pagination.value.pageSize,
-    Keywords: searchform.value.name,
-    Order: sortableData.value.order,
-    Sort: sortableData.value.sort
-  }
-  getAPPListWithPager(seachdata).then(res => {
+  getAPPListWithPager(queryParams.value).then(res => {
     tableData.value = res.ResData.Items
-    pagination.value.pageTotal = res.ResData.TotalItems
+    queryParams.value.pageTotal = res.ResData.TotalItems
     tableloading.value = false
   })
 }
@@ -278,7 +271,7 @@ function loadTableData() {
  * 点击查询
  */
 function handleSearch(){
-  pagination.value.currentPage = 1
+  queryParams.value.CurrenetPageIndex = 1
   loadTableData()
 }
 /** 重置查询操作 */
@@ -430,12 +423,12 @@ function deletePhysics() {
  */
 function handleSortChange(column) {
   if(column.prop!=null){
-    sortableData.value.sort = column.prop
+    queryParams.value.Sort = column.prop
   }
   if (column.order === 'ascending') {
-    sortableData.order = 'asc'
+    queryParams.Order = 'asc'
   } else {
-    sortableData.order = 'desc'
+    queryParams.Order = 'desc'
   }
   loadTableData()
 }

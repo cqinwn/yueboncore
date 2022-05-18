@@ -369,7 +369,7 @@ function showSelectIcon() {
 }
 /** 选择图标 */
 function selected(name) {
-  editMenuFrom.value.icon = name;
+  editMenuFrom.value.Icon = name;
   showChooseIcon.value = false;
 }
 /** 关闭弹窗隐藏图标选择 */
@@ -445,7 +445,7 @@ function handleSystemTypeChange() {
   getAllMenuTreeTable(selectSystemTypeId.value).then(res => {
     selectMenus.value = res.ResData
   })
-  editMenuFrom.value.SystemTypeId = selectSystemTypeId.value+n
+  editMenuFrom.value.SystemTypeId = selectSystemTypeId.value
 }
 /**
  * 添加模块式选择菜单
@@ -503,6 +503,24 @@ function saveEditMenuForm() {
       var url = 'Menu/Insert'
       if (currentMenuId.value !== '') {
         url = 'Menu/Update'
+      }
+      var data = {
+        FullName: editMenuFrom.value.FullName,
+        EnCode: editMenuFrom.value.EnCode,
+        ParentId: selectedMenuOptions.value,
+        SystemTypeId: selectSystemTypeId.value,
+        Icon: editMenuFrom.value.Icon,
+        UrlAddress: editMenuFrom.value.UrlAddress,
+        Component: editMenuFrom.value.Component,
+        ActiveMenu: editMenuFrom.value.ActiveMenu,
+        EnabledMark: editMenuFrom.value.EnabledMark,
+        MenuType: editMenuFrom.value.MenuType,
+        IsPublic: editMenuFrom.value.IsPublic,
+        IsShow: editMenuFrom.value.IsShow,
+        IsFrame: editMenuFrom.value.IsFrame,
+        SortCode: editMenuFrom.value.SortCode,
+        IsBatch: editMenuFrom.value.IsBatch,
+        IsCache: editMenuFrom.value.IsCache
       }
       saveMenu(editMenuFrom.value, url).then(res => {
         if (res.Success) {

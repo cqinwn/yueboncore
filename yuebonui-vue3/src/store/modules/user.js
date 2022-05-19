@@ -54,7 +54,7 @@ const user = {
           const data = response.ResData
           setToken(data.AccessToken)
           commit('SET_TOKEN', data.AccessToken)
-          resolve()
+          resolve(response)
         }).catch(error => {
           reject(error)
         })

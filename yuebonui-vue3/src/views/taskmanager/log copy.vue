@@ -1,8 +1,8 @@
 <template>
   <div class="app-container">
     <el-form ref="searchformRef" v-show="showSearch" :inline="true" :model="queryParams" class="demo-form-inline">
-      <el-form-item label="任务名称：" prop="name">
-        <el-input v-model="queryParams.name" clearable placeholder="任务Id或任务名称" />
+      <el-form-item label="任务名称：" prop="Keywords">
+        <el-input v-model="queryParams.Keywords" clearable placeholder="任务Id或任务名称" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="search" @click="handleSearch()">查询</el-button>

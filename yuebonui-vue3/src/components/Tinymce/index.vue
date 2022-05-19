@@ -83,7 +83,7 @@ export default {
             }
         }
         tinymce.init; // 初始化
-        const revert_data=(content)=>{s
+        const revert_data=(content)=>{
             context.emit('update:modelValue',content)
         }
         return {

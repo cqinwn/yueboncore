@@ -1,8 +1,8 @@
 <template>
   <div class="app-container">
-    <el-form ref="searchformRef" v-show="showSearch" :inline="true" :model="searchform" class="demo-form-inline">
-      <el-form-item label="名称：" prop="name">
-        <el-input v-model="searchform.name" clearable placeholder="名称" />
+    <el-form ref="searchformRef" v-show="showSearch" :inline="true" :model="queryParams" class="demo-form-inline">
+      <el-form-item label="名称：" prop="Keywords">
+        <el-input v-model="queryParams.Keywords" clearable placeholder="名称" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="search" @click="handleSearch()">查询</el-button>
@@ -55,10 +55,10 @@
       <el-table-column prop="LastModifyTime" label="更新时间" sortable width="160" />
     </el-table>
     <Pagination
-      v-show="pagination.pageTotal>0"
-      :total="pagination.pageTotal"
-      :page="pagination.currentPage"
-      :limit="pagination.pageSize"
+      v-show="queryParams.pageTotal>0"
+      :total="queryParams.pageTotal"
+      v-model:page="queryParams.CurrenetPageIndex"
+      v-model:limit="queryParams.PageSize"
       @pagination="loadTableData"
     />
     <el-dialog ref="dialogEditForm" draggable :title="editFormTitle + '租户'" v-model="dialogEditFormVisible" width="640px">
@@ -161,17 +161,13 @@ const data = reactive({
     Value:1,
     Label:"独立数据库"
   }],
-  searchform: {
-    name: ''
-  },
-  pagination: {
-    currentPage: 1,
-    pageSize: 20,
-    pageTotal: 0
-  },
-  sortableData: {
-    order: 'desc',
-    sort: 'CreatorTime'
+  queryParams:{
+    CurrenetPageIndex: 1,
+    PageSize: 20,
+    pageTotal: 0,
+    Order: 'desc',
+    Sort: 'CreatorTime',
+    Keywords: ''
   },
   editFrom:{},
   rules: {
@@ -195,23 +191,16 @@ const data = reactive({
     ]
   }
 })
-const { selectTenantType,selectSchema,searchform, editFrom, rules ,pagination,sortableData} = toRefs(data);
+const { selectTenantType,selectSchema,queryParams, editFrom, rules } = toRefs(data);
 
 /**
  * 加载页面table数据
  */
 function loadTableData() {
   tableloading.value = true
-  var seachdata = {
-    CurrenetPageIndex: pagination.value.currentPage,
-    PageSize: pagination.value.pageSize,
-    Keywords: searchform.value.name,
-    Order: sortableData.value.order,
-    Sort: sortableData.value.sort
-  }
-  getTenantListWithPager(seachdata).then((res) => {
+  getTenantListWithPager(queryParams.value).then((res) => {
     tableData.value = res.ResData.Items
-    pagination.value.pageTotal = res.ResData.TotalItems
+    queryParams.value.pageTotal = res.ResData.TotalItems
     tableloading.value = false
   })
 }
@@ -219,7 +208,7 @@ function loadTableData() {
  * 点击查询
  */
 function handleSearch() {
-  pagination.value.currentPage = 1
+  queryParams.value.CurrenetPageIndex = 1
   loadTableData()
 }
 /** 重置查询操作 */
@@ -371,12 +360,12 @@ function deletePhysics() {
  */
 function handleSortChange(column) {
   if(column.prop!=null){
-    sortableData.value.sort = column.prop
+    queryParams.value.Sort = column.prop
   }
   if (column.order === 'ascending') {
-    sortableData.value.order = 'asc'
+    queryParams.value.Order = 'asc'
   } else {
-    sortableData.value.order = 'desc'
+    queryParams.value.Order = 'desc'
   }
   loadTableData()
 }

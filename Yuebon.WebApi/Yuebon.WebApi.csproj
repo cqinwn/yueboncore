@@ -62,6 +62,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Yuebon.CMS.Core\Yuebon.CMS.Core.csproj" />
+    <ProjectReference Include="..\Yuebon.CodeGenerator.Core\Yuebon.CodeGenerator.Core.csproj" />
     <ProjectReference Include="..\Yuebon.Messages\Yuebon.Messages.Core\Yuebon.Messages.Core.csproj" />
     <ProjectReference Include="..\Yuebon.NetCore\Yuebon.AspNetCore\Yuebon.AspNetCore.csproj" />
     <ProjectReference Include="..\Yuebon.NetCore\Yuebon.Security.Core\Yuebon.Security.Core.csproj" />
@@ -81,10 +82,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Analysis\Controllers\" />
-    <Folder Include="Areas\Blog\Controllers\" />
-    <Folder Include="Areas\Blog\Data\" />
-    <Folder Include="Areas\Blog\Models\" />
-    <Folder Include="Areas\Blog\Views\" />
   </ItemGroup>
 
 

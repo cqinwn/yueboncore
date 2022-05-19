@@ -223,7 +223,7 @@ app.MapControllers();
 #region 初始化
 if (Appsettings.GetValue("AppSetting:SeedDBEnabled").ObjToBool() || Appsettings.GetValue("AppSetting:SeedDBDataEnabled").ObjToBool())
 {
-    DBSeedService.SeedAsync(new List<string> { "Yuebon.Security.Core.dll", "Yuebon.CMS.Core.dll", "Yuebon.Tenants.Core.dll", "Yuebon.Quartz.Jobs.dll" }).Wait();
+    DBSeedService.SeedAsync(new List<string> { "Yuebon.Security.Core.dll", "Yuebon.CMS.Core.dll", "Yuebon.Tenants.Core.dll", "Yuebon.Quartz.Jobs.dll", "Yuebon.CodeGenerator.Core.dll" }).Wait();
 }
 #endregion
 

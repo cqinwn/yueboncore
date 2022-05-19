@@ -1,16 +1,16 @@
 <template>
   <div class="app-container">
-    <el-form ref="searchformRef" v-show="showSearch" :inline="true" :model="searchform" class="demo-form-inline">
+    <el-form ref="searchformRef" v-show="showSearch" :inline="true" :model="queryParams" class="demo-form-inline">
       <el-form-item label="角色" prop="RoleId">
-        <el-select v-model="searchform.RoleId" clearable placeholder="请选择">
+        <el-select v-model="queryParams.RoleId" clearable placeholder="请选择">
           <el-option v-for="item in selectRole" :key="item.Id" :label="item.FullName" :value="item.Id" />
         </el-select>
       </el-form-item>
       <el-form-item label="用户信息：" prop="Keywords">
-        <el-input v-model="searchform.Keywords" clearable placeholder="账号/姓名/昵称/电话" />
+        <el-input v-model="queryParams.Keywords" clearable placeholder="账号/姓名/昵称/电话" />
       </el-form-item>
       <el-form-item label="注册日期：" prop="CreateTime">
-        <el-date-picker v-model="searchform.CreateTime" type="daterange" align="right" value-format="YYYY-MM-DD" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :shortcuts="shortcuts" />
+        <el-date-picker v-model="queryParams.CreateTime" type="daterange" align="right" value-format="YYYY-MM-DD" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :shortcuts="shortcuts" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="handleSearch">查询</el-button>
@@ -79,10 +79,10 @@
       </el-table-column>
     </el-table>
     <Pagination
-      v-show="pagination.pageTotal>0"
-      :total="pagination.pageTotal"
-      :page="pagination.currentPage"
-      :limit="pagination.pageSize"
+      v-show="queryParams.pageTotal>0"
+      :total="queryParams.pageTotal" 
+      v-model:page="queryParams.CurrenetPageIndex"
+      v-model:limit="queryParams.PageSize"
       @pagination="loadTableData"
     />
     <el-dialog ref="dialogEditFormRef" :title="editFormTitle+'用户'" v-model="dialogEditFormVisible" draggable>
@@ -166,20 +166,17 @@ const selectedOrganizeOptions=ref("")
 const selectOrganize=ref([])
 
 const data = reactive({
-  searchform: {
+  queryParams:{
+    CurrenetPageIndex: 1,
+    PageSize: 20,
+    pageTotal: 0,
+    Order: 'desc',
+    Sort: 'CreatorTime',
     RoleId: '',
     Keywords: '',
     CreateTime: ''
   },
-  pagination: {
-    currentPage: 1,
-    pageSize: 20,
-    pageTotal: 0
-  },
-  sortableData: {
-    order: 'desc',
-    sort: 'CreatorTime'
-  },
+  
   editFrom:{},
   rules: {
     Account: [
@@ -256,7 +253,7 @@ const data = reactive({
   }]
 })
 
-const { searchform, editFrom, rules ,pagination,sortableData,shortcuts} = toRefs(data);
+const { queryParams, editFrom, rules ,shortcuts} = toRefs(data);
 /**
  * 初始化数据
  */
@@ -274,18 +271,18 @@ function InitDictItem() {
 function loadTableData() {
   tableloading.value = true
   var seachdata = {
-    CurrenetPageIndex: pagination.value.currentPage,
-    PageSize: pagination.value.pageSize,
-    Keywords: searchform.value.Keywords,
-    Order: sortableData.value.order,
-    Sort: sortableData.value.sort,
-    CreatorTime1: searchform.value.CreateTime !== '' ? searchform.value.CreateTime[0] : '',
-    CreatorTime2: searchform.value.CreateTime !== '' ? searchform.value.CreateTime[1] : '',
-    RoleId: searchform.value.RoleId
+    CurrenetPageIndex: queryParams.value.CurrenetPageIndex,
+    PageSize: queryParams.value.PageSize,
+    Keywords: queryParams.value.Keywords,
+    Order: queryParams.value.Order,
+    Sort: queryParams.value.Sort,
+    CreatorTime1: queryParams.value.CreateTime !== '' ? searchform.value.CreateTime[0] : '',
+    CreatorTime2: queryParams.value.CreateTime !== '' ? searchform.value.CreateTime[1] : '',
+    RoleId: queryParams.value.RoleId
   }
   getUserListWithPager(seachdata).then(res => {
     tableData.value = res.ResData.Items
-    pagination.value.pageTotal = res.ResData.TotalItems
+    queryParams.value.pageTotal = res.ResData.TotalItems
     tableloading.value = false
   })
 }
@@ -293,7 +290,7 @@ function loadTableData() {
  * 点击查询
  */
 function handleSearch() {
-  pagination.value.currentPage = 1
+  queryParams.value.CurrenetPageIndex = 1
   loadTableData()
 }
 
@@ -440,12 +437,12 @@ function deletePhysics() {
  */
 function handleSortChange(column) {
   if(column.prop!=null){
-    sortableData.value.sort = column.prop
+    queryParams.value.Sort = column.prop
   }
   if (column.order === 'ascending') {
-    sortableData.value.order = 'asc'
+    queryParams.value.Order = 'asc'
   } else {
-    sortableData.value.order = 'desc'
+    queryParams.value.Order = 'desc'
   }
   loadTableData()
 }

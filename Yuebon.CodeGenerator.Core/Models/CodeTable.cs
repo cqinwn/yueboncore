@@ -1,9 +1,4 @@
 ﻿using SqlSugar;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Yuebon.Commons.Models;
 
 namespace Yuebon.CodeGenerator.Models
@@ -18,26 +13,30 @@ namespace Yuebon.CodeGenerator.Models
         /// <summary>
         /// 数据库Id
         /// </summary>
+        [SugarColumn(ColumnDescription = "数据库Id")]
         public int? DbId { get; set; }
 
         /// <summary>
         /// 实体类名称
         /// </summary>
+        [SugarColumn(ColumnDescription = "实体类名称")]
         public virtual string ClassName { get; set; }
 
         /// <summary>
         /// 表名
         /// </summary>
+        [SugarColumn(ColumnDescription = "表名")]
         public virtual string TableName { get; set; }
 
         /// <summary>
         /// 表描述
         /// </summary>
-        [SugarColumn(IsNullable = true)]
+        [SugarColumn(IsNullable = true,ColumnDescription = "表描述")]
         public string? Description { get; set; }
         /// <summary>
         /// 创建事件
         /// </summary>
+        [SugarColumn(ColumnDescription = "数据库Id")]
         public DateTime CreateTime { get; set; }
         /// <summary>
         /// 最后修改时间
@@ -52,6 +51,7 @@ namespace Yuebon.CodeGenerator.Models
         /// <summary>
         /// 是否锁表
         /// </summary>
+        [SugarColumn(ColumnDescription = "是否锁表")]
         public bool IsLock { get; set; }
     }
 

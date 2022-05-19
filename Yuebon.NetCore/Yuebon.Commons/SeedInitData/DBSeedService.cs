@@ -34,7 +34,7 @@ namespace Yuebon.Commons.SeedInitData
             string nowAssembliesDll=string.Empty;
             try
             {
-                SqlSugarScope Db = GetCustomDB(config);
+                SqlSugarClient Db = GetCustomDB(config);
                 //bool isDBReadWriteSeparate = Configs.GetConfigurationValue("AppSetting", "IsDBReadWriteSeparate").ToBool();
                 Console.WriteLine("************ YuebonCore DataBase Set *****************");
                 Console.WriteLine($"Is multi-DataBase: {Configs.GetConfigurationValue("AppSetting", "MutiDBEnabled")}");
@@ -145,7 +145,7 @@ namespace Yuebon.Commons.SeedInitData
         /// </summary>
         /// <param name="config"></param>
         /// <returns></returns>
-        public static SqlSugarScope GetCustomDB(ConnectionConfig config)
+        public static SqlSugarClient GetCustomDB(ConnectionConfig config)
         {
             var configs = new List<ConnectionConfig>();
             if (config == null)
@@ -206,7 +206,7 @@ namespace Yuebon.Commons.SeedInitData
                 };
                 configs.Add(config);
             }
-            return new SqlSugarScope(configs);
+            return new SqlSugarClient(configs);
         }
     }
 }

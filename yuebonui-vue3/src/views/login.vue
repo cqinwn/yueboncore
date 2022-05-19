@@ -104,6 +104,7 @@ import { getToken, getSysSetting, getVerifyCode } from '@/api/basebasic'
 import defaultSettings from '@/settings'
 import { ref } from '@vue/reactivity';
 import i18n from '@/lang/index'
+import { getToken, setToken } from '@/utils/auth'
 const store = useStore();
 const router = useRouter();
 const { proxy } = getCurrentInstance();
@@ -193,6 +194,7 @@ function handleLogin() {
       store.dispatch('Login', loginForm.value)
         .then(res => {
           if(res.Success){
+            setToken(res.AccessToken)
             router.push({ path: redirect.value || "/" });
           }
           loading.value = false

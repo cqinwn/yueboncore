@@ -14,6 +14,7 @@ using Yuebon.Commons.Core.DataManager;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Json;
+using Yuebon.Commons.Log;
 
 namespace Yuebon.Commons.SeedInitData
 {
@@ -30,6 +31,7 @@ namespace Yuebon.Commons.SeedInitData
         /// <returns></returns>
         public static async Task SeedAsync(List<string> assembliesDlls,ConnectionConfig config=null)
         {
+            string nowAssembliesDll=string.Empty;
             try
             {
                 SqlSugarScope Db = GetCustomDB(config);
@@ -57,6 +59,7 @@ namespace Yuebon.Commons.SeedInitData
                 }
                 foreach (string itemDll in assembliesDlls)
                 {
+                    nowAssembliesDll = itemDll;
                     Console.WriteLine($"assemblies:{itemDll} start...");
                     var path = AppDomain.CurrentDomain.RelativeSearchPath ?? AppDomain.CurrentDomain.BaseDirectory;
                     var referencedAssemblies = System.IO.Directory.GetFiles(path, itemDll).Select(Assembly.LoadFrom).ToArray();
@@ -132,7 +135,7 @@ namespace Yuebon.Commons.SeedInitData
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                throw new Exception($"错误：" + ex.Message);
+                Log4NetHelper.Error($"{nowAssembliesDll}初始化数据库异常",ex);
             }
         }
 

@@ -22,12 +22,6 @@ namespace Yuebon.Security.Models
  		}
 
         #region Property Members
-        ///// <summary>
-        ///// 主键
-        ///// </summary>
-        //[MaxLength(50)]
-        //[ExplicitKey]
-        //public virtual long Id { get; set; }
 
         /// <summary>
         /// 父级

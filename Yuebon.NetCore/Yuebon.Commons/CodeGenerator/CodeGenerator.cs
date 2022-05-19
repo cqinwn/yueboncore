@@ -478,7 +478,7 @@ namespace Yuebon.Commons.CodeGenerator
                 servicesPath = parentPath + "\\" + _option.BaseNamespace + "\\Dtos";
                 Directory.CreateDirectory(servicesPath);
             }
-            var fileClassName = _option.BaseNamespace.Substring(_option.BaseNamespace.IndexOf('.')+1);
+            var fileClassName = _option.BaseNamespace.Substring(_option.BaseNamespace.LastIndexOf('.')+1);
             var fullPath = servicesPath + "\\" + fileClassName + "Profile.cs";
             if (File.Exists(fullPath) && !ifExsitedCovered)
                 return;

@@ -104,7 +104,6 @@ import { getToken, getSysSetting, getVerifyCode } from '@/api/basebasic'
 import defaultSettings from '@/settings'
 import { ref } from '@vue/reactivity';
 import i18n from '@/lang/index'
-import { getToken, setToken } from '@/utils/auth'
 const store = useStore();
 const router = useRouter();
 const { proxy } = getCurrentInstance();

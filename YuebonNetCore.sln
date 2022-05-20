@@ -25,7 +25,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.Tenants.Core", "Yueb
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.CMS.Core", "Yuebon.CMS.Core\Yuebon.CMS.Core.csproj", "{4B98EC5F-7C75-4D13-AB06-FEE62AD0D5E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yuebon.CodeGenerator.Core", "Yuebon.CodeGenerator.Core\Yuebon.CodeGenerator.Core.csproj", "{421571A1-F9BA-4B47-87F3-EAC77F26D6AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.CodeGenerator.Core", "Yuebon.CodeGenerator.Core\Yuebon.CodeGenerator.Core.csproj", "{421571A1-F9BA-4B47-87F3-EAC77F26D6AB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{915B1A70-ECEC-4679-9D85-8992B48F536F}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

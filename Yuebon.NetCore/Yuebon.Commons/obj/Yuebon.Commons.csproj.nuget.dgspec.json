@@ -60,10 +60,6 @@
               "target": "Package",
               "version": "[6.0.5, )"
             },
-            "Microsoft.AspNetCore.Mvc": {
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
             "Microsoft.Data.Sqlite.Core": {
               "target": "Package",
               "version": "[6.0.5, )"
@@ -122,7 +118,7 @@
             },
             "SqlSugarCore": {
               "target": "Package",
-              "version": "[5.0.8, )"
+              "version": "[5.0.8.1, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

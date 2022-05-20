@@ -4,6 +4,7 @@ using log4net.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
@@ -215,6 +216,12 @@ app.UseAuthorization();
 app.UseMiddleware<CorsMiddleware>();
 app.UseCors("yuebonCors");
 
+#region 解决 Nginx 代理不能获取IP问题
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
+#endregion
 app.UseStatusCodePages();
 
 app.MapControllers();

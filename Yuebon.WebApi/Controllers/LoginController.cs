@@ -97,7 +97,7 @@ namespace Yuebon.WebApi.Controllers
         {
             CommonResult result = new CommonResult();
             RemoteIpParser remoteIpParser = new RemoteIpParser();
-            string strIp =remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
+            string strIp = _httpContextAccessor.HttpContext.GetClientUserIp();
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
             var vCode = yuebonCacheHelper.Get("ValidateCode" + input.Vkey);
             string code = vCode != null ? vCode.ToString() : "11";

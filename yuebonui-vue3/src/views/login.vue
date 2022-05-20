@@ -99,7 +99,6 @@
 </template>
 
 <script setup name="Login">
-import { setToken } from '@/utils/auth'
 import { getToken, getSysSetting, getVerifyCode } from '@/api/basebasic'
 import defaultSettings from '@/settings'
 import { ref } from '@vue/reactivity';
@@ -192,9 +191,9 @@ function handleLogin() {
       loading.value = true
       store.dispatch('Login', loginForm.value)
         .then(res => {
+          console.log(JSON.stringify(res))
           if(res.Success){
-            setToken(res.AccessToken)
-            router.push({ path: redirect.value || "/" });
+            router.push({ path: redirect.value || "/index" });
           }
           loading.value = false
         })

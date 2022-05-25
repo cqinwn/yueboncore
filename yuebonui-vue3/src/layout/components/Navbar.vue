@@ -21,7 +21,7 @@
         <el-tooltip content="布局大小" effect="dark" placement="bottom">
           <size-select id="size-select" class="right-menu-item hover-effect" />
         </el-tooltip>
-        
+        <lang-select class="right-menu-item hover-effect" />
         <el-dropdown class="el-dropdown-link right-menu-item" trigger="click" @command="handlerSysType">
           <div class="subSystem">
             您处在：{{ activeSystemName }}(切换)
@@ -69,6 +69,7 @@ import Hamburger from '@/components/Hamburger'
 import Screenfull from '@/components/Screenfull'
 import SizeSelect from '@/components/SizeSelect'
 import HeaderSearch from '@/components/HeaderSearch'
+import LangSelect from '@/components/LangSelect'
 import RuoYiGit from '@/components/Yuebon/Git'
 import RuoYiDoc from '@/components/Yuebon/Doc'
 import { yuebonConnecSys } from '@/api/basebasic'

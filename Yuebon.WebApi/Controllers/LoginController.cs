@@ -141,6 +141,7 @@ namespace Yuebon.WebApi.Controllers
                     }
                     else
                     {
+                        userInfo.TenantId = 9242772129579077;
                         userInfo.TenantName = "default";
                     }
                     if (tenant != null)
@@ -151,6 +152,11 @@ namespace Yuebon.WebApi.Controllers
                         userInfo.TenantName = tenant.TenantName;
                     }
                 }
+            }
+            else
+            {
+                userInfo.TenantId = 9242772129579077;
+                userInfo.TenantName = "default";
             }
             Log logEntity = new Log();
             bool blIp = _filterIPService.ValidateIP(strIp);
@@ -166,6 +172,12 @@ namespace Yuebon.WebApi.Controllers
                 }
                 else
                 {
+                    List<AllowCacheApp> list = MemoryCacheHelper.Get<object>("cacheAppList").ToJson().ToList<AllowCacheApp>();
+                    if (list == null)
+                    {
+                        IEnumerable<APP> appList = _appService.GetAllByIsNotDeleteAndEnabledMark();
+                        MemoryCacheHelper.Set("cacheAppList", appList);
+                    }
                     string strHost = Request.Host.ToString();
                     APP app = _appService.GetAPP(input.AppId);
                     if (app == null)
@@ -226,8 +238,6 @@ namespace Yuebon.WebApi.Controllers
                                         {
                                             currentSession.TenantId = userInfo.TenantId;
                                         }
-
-                                        //_httpContextAccessor.HttpContext.Response.Headers["x-access-token"] = refreshToken;
                                         SysSetting sysSetting = yuebonCacheHelper.Get("SysSetting").ToJson().ToObject<SysSetting>();
                                         if (sysSetting != null)
                                         {
@@ -241,12 +251,7 @@ namespace Yuebon.WebApi.Controllers
                                         TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
                                         yuebonCacheHelper.Add("login_user_" + user.Id.ToString(), currentSession, expiresSliding, true);
                                         yuebonCacheHelper.Add("login_userInfo_" + user.Id.ToString(), userInfo, expiresSliding, true);
-                                        List<AllowCacheApp> list = MemoryCacheHelper.Get<object>("cacheAppList").ToJson().ToList<AllowCacheApp>();
-                                        if (list == null)
-                                        {
-                                            IEnumerable<APP> appList = _appService.GetAllByIsNotDeleteAndEnabledMark();
-                                            MemoryCacheHelper.Set("cacheAppList", appList);
-                                        }
+                                       
                                         CurrentUser = currentSession;
                                         result.ResData = currentSession;
                                         result.ErrCode = ErrCode.successCode;
@@ -255,8 +260,8 @@ namespace Yuebon.WebApi.Controllers
                                         logEntity.Account = user.Account;
                                         logEntity.NickName = user.NickName;
                                         logEntity.Date = logEntity.CreatorTime = DateTime.Now;
-                                        logEntity.IPAddress = CurrentUser.CurrentLoginIP;
-                                        logEntity.IPAddressName = CurrentUser.IPAddressName;
+                                        logEntity.IPAddress = strIp;
+                                        logEntity.IPAddressName = ipAddressName;
                                         logEntity.RequestUrl = requestUrl;
                                         logEntity.Browser = client.UA.Family + client.UA.Major;
                                         logEntity.OS = client.OS.Family + client.OS.Major;

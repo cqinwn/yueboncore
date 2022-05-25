@@ -189,7 +189,7 @@ namespace Yuebon.AspNetCore.Mvc
                 Expires = expires,
                 //对称秘钥SymmetricSecurityKey
                 //签名证书(秘钥，加密算法)SecurityAlgorithms
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
             };
             var token = tokenHandler.CreateToken(tokenDescripor);
             var tokenString = tokenHandler.WriteToken(token);

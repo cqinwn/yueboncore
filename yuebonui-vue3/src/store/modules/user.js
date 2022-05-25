@@ -50,14 +50,17 @@ const user = {
       const vcode = loginInfo.vcode
       const verifyCodeKey = loginInfo.verifyCodeKey
       return new Promise((resolve, reject) => {
-        login({ Username: username, Password: password, Vcode: vcode, Vkey: verifyCodeKey, AppId: loginInfo.appId, SystemCode: loginInfo.systemCode, Host: loginInfo.host }).then(response => {
-          const data = response.ResData
-          setToken(data.AccessToken)
-          commit('SET_TOKEN', data.AccessToken)
-          resolve(response)
-        }).catch(error => {
-          reject(error)
-        })
+        login({ Username: username, Password: password, Vcode: vcode, Vkey: verifyCodeKey, AppId: loginInfo.appId, SystemCode: loginInfo.systemCode, Host: loginInfo.host })
+          .then(response => {
+            if (response.Success) {
+              const data = response.ResData
+              setToken(data.AccessToken)
+              commit('SET_TOKEN', data.AccessToken)
+            }
+            resolve(response)
+          }).catch(error => {
+            reject(error)
+          })
       })
     },
 

@@ -17,7 +17,8 @@ const whiteList = ['/login', '/auth-redirect', '/bind', '/register'];
  */
 router.beforeEach(async (to, from, next) => {
   NProgress.start()
-  if (getToken()) {
+  const token = getToken()
+  if (token != null) {
     to.meta.title && store.dispatch('settings/setTitle', to.meta.title)
     /* has token*/
     if (to.path === '/login' || to.path === '/register') {

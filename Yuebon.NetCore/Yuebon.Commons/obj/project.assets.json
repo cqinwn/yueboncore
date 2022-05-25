@@ -530,7 +530,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.OpenApi/1.2.3": {
+      "Microsoft.OpenApi/1.3.1": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Microsoft.OpenApi.dll": {}
@@ -1144,7 +1144,7 @@
           "lib/netstandard2.0/SQLitePCLRaw.provider.dynamic_cdecl.dll": {}
         }
       },
-      "SqlSugarCore/5.0.8.1": {
+      "SqlSugarCore/5.0.8.4": {
         "type": "package",
         "dependencies": {
           "Microsoft.Data.SqlClient": "2.1.1",
@@ -1208,13 +1208,13 @@
           "build/Swashbuckle.AspNetCore.props": {}
         }
       },
-      "Swashbuckle.AspNetCore.Filters/7.0.2": {
+      "Swashbuckle.AspNetCore.Filters/7.0.3": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection": "2.1.0",
-          "Microsoft.OpenApi": "1.2.3",
+          "Microsoft.OpenApi": "1.3.1",
           "Scrutor": "3.3.0",
-          "Swashbuckle.AspNetCore.Filters.Abstractions": "7.0.2",
+          "Swashbuckle.AspNetCore.Filters.Abstractions": "7.0.3",
           "Swashbuckle.AspNetCore.SwaggerGen": "5.0.0"
         },
         "compile": {
@@ -1224,7 +1224,7 @@
           "lib/net5.0/Swashbuckle.AspNetCore.Filters.dll": {}
         }
       },
-      "Swashbuckle.AspNetCore.Filters.Abstractions/7.0.2": {
+      "Swashbuckle.AspNetCore.Filters.Abstractions/7.0.3": {
         "type": "package",
         "compile": {
           "lib/net5.0/Swashbuckle.AspNetCore.Filters.Abstractions.dll": {}
@@ -3815,20 +3815,17 @@
         "runtime.json"
       ]
     },
-    "Microsoft.OpenApi/1.2.3": {
-      "sha512": "Nug3rO+7Kl5/SBAadzSMAVgqDlfGjJZ0GenQrLywJ84XGKO0uRqkunz5Wyl0SDwcR71bAATXvSdbdzPrYRYKGw==",
+    "Microsoft.OpenApi/1.3.1": {
+      "sha512": "2X5CCFJCnx6v86fnpOg4TKlU1ba7MSf1yakeT7VI4846s7i6fOkERwStX94Rcq8wJsLyQYsUitd6vR38viePeA==",
       "type": "package",
-      "path": "microsoft.openapi/1.2.3",
+      "path": "microsoft.openapi/1.3.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/net46/Microsoft.OpenApi.dll",
-        "lib/net46/Microsoft.OpenApi.pdb",
-        "lib/net46/Microsoft.OpenApi.xml",
         "lib/netstandard2.0/Microsoft.OpenApi.dll",
         "lib/netstandard2.0/Microsoft.OpenApi.pdb",
         "lib/netstandard2.0/Microsoft.OpenApi.xml",
-        "microsoft.openapi.1.2.3.nupkg.sha512",
+        "microsoft.openapi.1.3.1.nupkg.sha512",
         "microsoft.openapi.nuspec"
       ]
     },
@@ -4606,15 +4603,15 @@
         "sqlitepclraw.provider.dynamic_cdecl.nuspec"
       ]
     },
-    "SqlSugarCore/5.0.8.1": {
-      "sha512": "Hw7c3o0EWXatuFG9jU0cnGmug19lbw253ovJskVtw2Uxtcbv5yhsrm6mN14iKorVI+/UebEc94CGqhSKqaORog==",
+    "SqlSugarCore/5.0.8.4": {
+      "sha512": "O/BRgGhjVY1BGtQrBDFGXJbrwD4ZDC8x7vPSMxX0IBIoaldDaihtB0EMNJG900rQIhSDImAz331enU40WOcY/A==",
       "type": "package",
-      "path": "sqlsugarcore/5.0.8.1",
+      "path": "sqlsugarcore/5.0.8.4",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.1/SqlSugar.dll",
-        "sqlsugarcore.5.0.8.1.nupkg.sha512",
+        "sqlsugarcore.5.0.8.4.nupkg.sha512",
         "sqlsugarcore.nuspec"
       ]
     },
@@ -4675,31 +4672,31 @@
         "swashbuckle.aspnetcore.nuspec"
       ]
     },
-    "Swashbuckle.AspNetCore.Filters/7.0.2": {
-      "sha512": "pjj/BdKFcXX1tdUrVjfW6SiRSiHC4dOnqszhU2PuS0RBXZUnGM18tXUrNU2pgPkSjWUnCiyvbjd3GBkEuNTBYA==",
+    "Swashbuckle.AspNetCore.Filters/7.0.3": {
+      "sha512": "urRuwSv9K2IEs9iVMTANalgoUovxpM0EN7s5aR9LwFRWTUMOF/ccADIvQPgrtbrkAmxlZr1wuSqN9pEYLpc2FQ==",
       "type": "package",
-      "path": "swashbuckle.aspnetcore.filters/7.0.2",
+      "path": "swashbuckle.aspnetcore.filters/7.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/net5.0/Swashbuckle.AspNetCore.Filters.dll",
         "lib/netcoreapp3.1/Swashbuckle.AspNetCore.Filters.dll",
         "lib/netstandard2.0/Swashbuckle.AspNetCore.Filters.dll",
-        "swashbuckle.aspnetcore.filters.7.0.2.nupkg.sha512",
+        "swashbuckle.aspnetcore.filters.7.0.3.nupkg.sha512",
         "swashbuckle.aspnetcore.filters.nuspec"
       ]
     },
-    "Swashbuckle.AspNetCore.Filters.Abstractions/7.0.2": {
-      "sha512": "RqZ+P+m2cw1TVsU9LUHNdLf4Ww7YSqDRt7UHRzauZJnRztDlNR4doOGzXLmWZzq+3CfZyS7NEsQyJmf4Y+7GMQ==",
+    "Swashbuckle.AspNetCore.Filters.Abstractions/7.0.3": {
+      "sha512": "c426OyTdSNDVmY2eB9CKirbmTAJmhxssyKuiXpM8lxHx/KcbfN8+0jlZ4tJkMP4Sed3OYXMlDYHyWXH56NfG5A==",
       "type": "package",
-      "path": "swashbuckle.aspnetcore.filters.abstractions/7.0.2",
+      "path": "swashbuckle.aspnetcore.filters.abstractions/7.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/net5.0/Swashbuckle.AspNetCore.Filters.Abstractions.dll",
         "lib/netcoreapp3.1/Swashbuckle.AspNetCore.Filters.Abstractions.dll",
         "lib/netstandard2.0/Swashbuckle.AspNetCore.Filters.Abstractions.dll",
-        "swashbuckle.aspnetcore.filters.abstractions.7.0.2.nupkg.sha512",
+        "swashbuckle.aspnetcore.filters.abstractions.7.0.3.nupkg.sha512",
         "swashbuckle.aspnetcore.filters.abstractions.nuspec"
       ]
     },
@@ -9207,9 +9204,9 @@
       "QRCoder >= 1.4.3",
       "Quartz >= 3.4.0",
       "SgmlReader.NetCore >= 1.0.0",
-      "SqlSugarCore >= 5.0.8.1",
+      "SqlSugarCore >= 5.0.8.4",
       "Swashbuckle.AspNetCore >= 6.3.1",
-      "Swashbuckle.AspNetCore.Filters >= 7.0.2",
+      "Swashbuckle.AspNetCore.Filters >= 7.0.3",
       "System.Data.OleDb >= 6.0.0",
       "System.Data.SqlClient >= 4.8.3",
       "System.Drawing.Common >= 6.0.0",
@@ -9335,7 +9332,7 @@
           },
           "SqlSugarCore": {
             "target": "Package",
-            "version": "[5.0.8.1, )"
+            "version": "[5.0.8.4, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
@@ -9343,7 +9340,7 @@
           },
           "Swashbuckle.AspNetCore.Filters": {
             "target": "Package",
-            "version": "[7.0.2, )"
+            "version": "[7.0.3, )"
           },
           "System.Data.OleDb": {
             "target": "Package",

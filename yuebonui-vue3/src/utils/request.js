@@ -76,7 +76,7 @@ service.interceptors.response.use(
           });
         }
         return Promise.reject('无效的会话，或者会话已过期，请重新登录。')
-        //return res
+
       } else {
         isRelogin.show = false;
         ElMessage({

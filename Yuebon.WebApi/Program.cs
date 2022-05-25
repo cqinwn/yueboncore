@@ -45,7 +45,7 @@ builder.Host
     builder.AddFilter("System", LogLevel.Error);
     builder.AddFilter("Microsoft", LogLevel.Error);
     builder.SetMinimumLevel(LogLevel.Error);
-    builder.AddLog4Net(Path.Combine(Directory.GetCurrentDirectory(), "Log4net.config"));
+    builder.AddLog4Net(Path.Combine(Directory.GetCurrentDirectory(), "log4net.config"));
 })
 .ConfigureAppConfiguration((hostingContext, config) =>
 {
@@ -87,17 +87,12 @@ builder.Services.AddSwaggerSetup();
 builder.Services.AddAuthorizationSetup();
 
 ////如果部署在linux系统上，需要加上下面的配置：
-//builder.Services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
 ////如果部署在IIS上，需要加上下面的配置：
-//builder.Services.AddOptions();
-//builder.Services.Configure<IISServerOptions>(options => options.AllowSynchronousIO = true);
-builder.Services.Configure<KestrelServerOptions>(x => x.AllowSynchronousIO = true)
-        .Configure<IISServerOptions>(x => x.AllowSynchronousIO = true);
+builder.Services.Configure<KestrelServerOptions>(x => x.AllowSynchronousIO = true).Configure<IISServerOptions>(x => x.AllowSynchronousIO = true);
 
 #region 全局设置跨域访问
 //允许所有跨域访问，测试用
-builder.Services.AddCors(options => options.AddPolicy("yuebonCors",
-    policy => policy.WithOrigins("*").AllowAnyHeader().AllowAnyMethod()));
+builder.Services.AddCors(options => options.AddPolicy("yuebonCors",policy => policy.WithOrigins("*").AllowAnyHeader().AllowAnyMethod()));
 // 跨域设置 建议正式环境
 //services.AddCors(options => options.AddPolicy("yuebonCors",
 //    policy => policy.WithOrigins(Configuration.GetSection("AppSetting:AllowOrigins").Value.Split(',', StringSplitOptions.RemoveEmptyEntries)).AllowAnyHeader().AllowAnyMethod()));

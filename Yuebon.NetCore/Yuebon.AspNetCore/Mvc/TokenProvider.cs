@@ -183,13 +183,13 @@ namespace Yuebon.AspNetCore.Mvc
                     new Claim(YuebonClaimConst.UserName, userInfo.UserName),
                     new Claim(YuebonClaimConst.UserId, userInfo.UserId.ToString()),
                     new Claim(YuebonClaimConst.Role, _roleService.GetRoleEnCode(userInfo.Role)),
-                    new Claim(YuebonClaimConst.TenantId, userInfo.TenantId.ToString()),
+                    new Claim(YuebonClaimConst.TenantId, userInfo?.TenantId.ToString()),
                     new Claim(YuebonClaimConst.Subject, GrantType.Password)
                 }),
                 Expires = expires,
                 //对称秘钥SymmetricSecurityKey
                 //签名证书(秘钥，加密算法)SecurityAlgorithms
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
             };
             var token = tokenHandler.CreateToken(tokenDescripor);
             var tokenString = tokenHandler.WriteToken(token);
@@ -226,7 +226,7 @@ namespace Yuebon.AspNetCore.Mvc
                     new Claim(YuebonClaimConst.UserName, userInfo.UserName),
                     new Claim(YuebonClaimConst.UserId, userInfo.UserId.ToString()),
                     new Claim(YuebonClaimConst.Role, _roleService.GetRoleEnCode(userInfo.Role)),
-                    new Claim(YuebonClaimConst.TenantId, userInfo.TenantId.ToString()),
+                    new Claim(YuebonClaimConst.TenantId, userInfo?.TenantId.ToString()),
                     new Claim(YuebonClaimConst.Subject, GrantType.Password)
                 }),
                 Expires = expires,

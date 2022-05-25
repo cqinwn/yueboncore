@@ -70,7 +70,7 @@
             },
             "Microsoft.IdentityModel.Tokens": {
               "target": "Package",
-              "version": "[6.17.0, )"
+              "version": "[6.18.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -82,7 +82,7 @@
             },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
-              "version": "[6.17.0, )"
+              "version": "[6.18.0, )"
             },
             "UAParser": {
               "target": "Package",
@@ -225,7 +225,7 @@
             },
             "SqlSugarCore": {
               "target": "Package",
-              "version": "[5.0.8.1, )"
+              "version": "[5.0.8.4, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -233,7 +233,7 @@
             },
             "Swashbuckle.AspNetCore.Filters": {
               "target": "Package",
-              "version": "[7.0.2, )"
+              "version": "[7.0.3, )"
             },
             "System.Data.OleDb": {
               "target": "Package",

@@ -183,7 +183,7 @@ namespace Yuebon.AspNetCore.Mvc
                     new Claim(YuebonClaimConst.UserName, userInfo.UserName),
                     new Claim(YuebonClaimConst.UserId, userInfo.UserId.ToString()),
                     new Claim(YuebonClaimConst.Role, _roleService.GetRoleEnCode(userInfo.Role)),
-                    new Claim(YuebonClaimConst.TenantId, userInfo.TenantId.ToString()),
+                    new Claim(YuebonClaimConst.TenantId, userInfo?.TenantId.ToString()),
                     new Claim(YuebonClaimConst.Subject, GrantType.Password)
                 }),
                 Expires = expires,
@@ -226,7 +226,7 @@ namespace Yuebon.AspNetCore.Mvc
                     new Claim(YuebonClaimConst.UserName, userInfo.UserName),
                     new Claim(YuebonClaimConst.UserId, userInfo.UserId.ToString()),
                     new Claim(YuebonClaimConst.Role, _roleService.GetRoleEnCode(userInfo.Role)),
-                    new Claim(YuebonClaimConst.TenantId, userInfo.TenantId.ToString()),
+                    new Claim(YuebonClaimConst.TenantId, userInfo?.TenantId.ToString()),
                     new Claim(YuebonClaimConst.Subject, GrantType.Password)
                 }),
                 Expires = expires,

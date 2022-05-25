@@ -118,7 +118,7 @@
             },
             "SqlSugarCore": {
               "target": "Package",
-              "version": "[5.0.8.1, )"
+              "version": "[5.0.8.4, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -126,7 +126,7 @@
             },
             "Swashbuckle.AspNetCore.Filters": {
               "target": "Package",
-              "version": "[7.0.2, )"
+              "version": "[7.0.3, )"
             },
             "System.Data.OleDb": {
               "target": "Package",

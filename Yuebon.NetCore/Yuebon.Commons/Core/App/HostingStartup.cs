@@ -23,6 +23,7 @@ namespace Yuebon.Commons.Core.App
             //可以添加配置
             builder.ConfigureAppConfiguration((hostingContext, config) =>
             {
+                Console.WriteLine("Configure hostingContext...");
                 // 自动装载配置
                 Appsettings.AddConfigureFiles(config, hostingContext.HostingEnvironment);
             });

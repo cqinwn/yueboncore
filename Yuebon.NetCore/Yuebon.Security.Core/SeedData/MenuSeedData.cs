@@ -4998,10 +4998,9 @@ Description= null,
 new Menu{
 Id= 13432839994939,
 SystemTypeId= 9166287964471363,
-
 ParentId= 0,
 Layers= 1,
-EnCode= "netdocs",
+EnCode= "documentation",
 FullName= "文档",
 Icon= "documentation",
 UrlAddress= "http://docs.v.yuebon.com",

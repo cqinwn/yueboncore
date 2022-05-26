@@ -58,6 +58,12 @@ namespace Yuebon.Security.Models
         [SugarColumn(ColumnDescription= "名称")]
         [Required]
         public virtual string FullName { get; set; }
+        /// <summary>
+        /// 英文名称
+        /// </summary>
+        [MaxLength(50)]
+        [SugarColumn(ColumnDescription = "英文名称")]
+        public virtual string EnglishFullName { get; set; }
 
         /// <summary>
         /// 图标

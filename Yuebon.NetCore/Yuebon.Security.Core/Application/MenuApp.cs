@@ -143,31 +143,6 @@ namespace Yuebon.Security.Application
             }
             return list;
         }
-
-        /// <summary>
-        /// 构建菜单树
-        /// </summary>
-        /// <param name="menus">菜单列表</param>
-        /// <param name="parentId">父级Id</param>
-        /// <returns></returns>
-        public List<MenuOutputDto> BuildTreeMenus(List<Menu> menus,long parentId)
-        {
-            List<MenuOutputDto> resultList = new List<MenuOutputDto>();
-            List<Menu> childNodeList = menus.FindAll(t => t.ParentId == parentId);
-            foreach (Menu menu in childNodeList)
-            {
-                MenuOutputDto menuOutputDto = new MenuOutputDto();
-                menuOutputDto = menu.MapTo<MenuOutputDto>();
-                List<Menu> subChildNodeList = menus.FindAll(t => t.ParentId == menu.Id);
-                if (subChildNodeList.Count > 0)
-                {
-                    menuOutputDto.SubMenu = BuildTreeMenus(menus, menu.Id);
-                }
-                resultList.Add(menuOutputDto);
-            }
-
-            return resultList;
-        }
         #region 获取 Vue Router
         /// <summary>
         /// 根据用户角色获取菜单树VueRouter模式
@@ -191,6 +166,32 @@ namespace Yuebon.Security.Application
             }
             return list;
         }
+
+
+        /// <summary>
+        /// 构建菜单树
+        /// </summary>
+        /// <param name="menus">菜单列表</param>
+        /// <param name="parentId">父级Id</param>
+        /// <returns></returns>
+        public List<MenuOutputDto> BuildTreeMenus(List<Menu> menus, long parentId)
+        {
+            List<MenuOutputDto> resultList = new List<MenuOutputDto>();
+            List<Menu> childNodeList = menus.FindAll(t => t.ParentId == parentId);
+            foreach (Menu menu in childNodeList)
+            {
+                MenuOutputDto menuOutputDto = new MenuOutputDto();
+                menuOutputDto = menu.MapTo<MenuOutputDto>();
+                List<Menu> subChildNodeList = menus.FindAll(t => t.ParentId == menu.Id);
+                if (subChildNodeList.Count > 0)
+                {
+                    menuOutputDto.SubMenu = BuildTreeMenus(menus, menu.Id);
+                }
+                resultList.Add(menuOutputDto);
+            }
+
+            return resultList;
+        }
         /// <summary>
         /// 构建前端路由所需要的菜单
         /// </summary>
@@ -207,6 +208,10 @@ namespace Yuebon.Security.Application
                 router.path = GetRouterPath(menu);
                 router.component = GetComponent(menu);
                 Meta meta=  new Meta(menu.FullName, menu.Icon == null ? "" : menu.Icon, menu.IsCache);
+                if (!menu.MenuType.Contains("F"))
+                {
+                    meta.title = menu.EnCode;
+                }
                 if (!menu.IsShow && menu.MenuType.Contains("M"))
                 {
                     meta.activeMenu = menu.ActiveMenu;

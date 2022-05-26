@@ -3,26 +3,29 @@
     <div v-show="closeWeb" class="close-web">
       {{webclosereason}}
     </div>
+    <div class="login-form">
+      <div class="title-container">
+        <h3 class="title">{{ softName }}</h3>
+      </div>
+      <div class="logo-container">
+        <div class="img">
+        <img :src="companyLogo" width="220" height="40">
+        </div>
+        <div class="lang">
+        <lang-select class="right-menu-item hover-effect" />
+        </div>
+      </div>
+      <div class="form">
     <el-form
       v-if="isShow"
       ref="loginRef"
       :model="loginForm"
       :rules="loginRules"
-      class="login-form"
       auto-complete="on"
       label-position="left"
     >
-      <div class="title-container">
-        <h3 class="title">{{ softName }}</h3>
-      </div>
-
-      <div class="logo-container">
-        <img :src="companyLogo" width="220" height="40">
-      </div>
+      
       <el-form-item prop="username">
-        <span class="svg-container">
-          <svg-icon icon-class="user" />
-        </span>
         <el-input
           ref="username"
           v-model="loginForm.username"
@@ -30,14 +33,12 @@
           name="username"
           type="text"
           tabindex="1"
-          auto-complete="on"
+          size="large"
+          :prefix-icon="Search"
         />
       </el-form-item>
 
       <el-form-item prop="password">
-        <span class="svg-container">
-          <svg-icon icon-class="auth" />
-        </span>
         <el-input
           :key="passwordType"
           ref="password"
@@ -47,18 +48,13 @@
           name="password"
           tabindex="2"
           auto-complete="on"
+          size="large"
+          show-password
+          :prefix-icon="auth"
         />
-        <span class="show-pwd" @click="showPwd">
-          <svg-icon
-            :icon-class="passwordType.value === 'password' ? 'eye' : 'eye-open'"
-          />
-        </span>
       </el-form-item>
 
       <el-form-item prop="vcode">
-        <span class="svg-container">
-          <svg-icon icon-class="password" />
-        </span>
         <el-input
           ref="vcode"
           v-model="loginForm.vcode"
@@ -67,7 +63,8 @@
           type="text"
           tabindex="3"
           maxlength="4"
-          auto-complete="on"
+          auto-complete="on" 
+          size="large"
           style="width:150px; "
         />
         <div style="margin-top:8px; display:inline; float:right;margin-right:10px;">
@@ -87,6 +84,8 @@
       </div>
       <div class="tips" />
     </el-form>
+      </div>
+    </div>
     <div id="footer" class="footer" role="contentinfo">
       <div class="footerNodelf text-secondary">
         <span>本软件使用权属于：{{ companyName }}</span>
@@ -99,6 +98,8 @@
 </template>
 
 <script setup name="Login">
+
+import LangSelect from '@/components/LangSelect'
 import { getToken, getSysSetting, getVerifyCode } from '@/api/basebasic'
 import defaultSettings from '@/settings'
 import { ref } from '@vue/reactivity';
@@ -235,37 +236,6 @@ getLoginVerifyCode()
     }
   }
 
-/* reset element-ui css */
-.login-container {
-  .el-input {
-    display: inline-block;
-    height: 47px;
-    width: 85%;
-
-    input {
-      background: transparent;
-      border: 0px;
-      -webkit-appearance: none;
-      border-radius: 0px;
-      padding: 12px 5px 12px 15px;
-      color: #000000;
-      height: 47px;
-      caret-color: $cursor;
-
-      &:-webkit-autofill {
-        box-shadow: 0 0 0px 1000px #ffffff inset !important;
-        -webkit-text-fill-color: $cursor !important;
-      }
-    }
-  }
-
-  .el-form-item {
-    border: 1px solid rgba(7, 7, 7, 0.1);
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 5px;
-    color: #454545;
-  }
-}
 </style>
 
 <style lang="scss" scoped>
@@ -294,6 +264,9 @@ $light_gray: #eee;
     background: #fff;
     border-radius: 10px;
     padding: 0 20px;
+    .form{
+      clear: both;
+    }
   }
 
   .tips {
@@ -308,13 +281,6 @@ $light_gray: #eee;
     }
   }
 
-  .svg-container {
-    padding: 6px 5px 6px 15px;
-    color: $dark_gray;
-    vertical-align: middle;
-    width: 30px;
-    display: inline-block;
-  }
 
   .title-container {
     position: relative;
@@ -329,15 +295,15 @@ $light_gray: #eee;
   .logo-container {
     position: relative;
     margin-bottom: 10px;
-  }
-  .show-pwd {
-    position: absolute;
-    right: 10px;
-    top: 7px;
-    font-size: 16px;
-    color: #000000;
-    cursor: pointer;
-    user-select: none;
+    text-align: left;
+    width: 100%;
+    .img{
+      width: 80%;
+      float: left;
+    }
+    .lang{
+      float:right;
+    }
   }
 
   .footer {

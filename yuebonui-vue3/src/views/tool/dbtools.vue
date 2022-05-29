@@ -57,10 +57,10 @@ const { proxy } = getCurrentInstance()
 const formLabelWidth=ref("120px")
 const data = reactive({
   selectDbTypes: [{
-    Id: 'SqlServer',
+    Id: '1',
     Title: 'SqlServer'
   }, {
-    Id: 'MySql',
+    Id: '0',
     Title: 'MySql'
   }],
   editFrom: {

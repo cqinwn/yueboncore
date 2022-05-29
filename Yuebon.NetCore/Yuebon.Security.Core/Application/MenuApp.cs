@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Yuebon.Commons.Core.App;
 using Yuebon.Commons.Extend;
+using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
 using Yuebon.Commons.Mapping;
@@ -208,7 +209,7 @@ namespace Yuebon.Security.Application
                 router.path = GetRouterPath(menu);
                 router.component = GetComponent(menu);
                 Meta meta=  new Meta(menu.FullName, menu.Icon == null ? "" : menu.Icon, menu.IsCache);
-                if (!menu.MenuType.Contains("F"))
+                if (!menu.MenuType.Contains("F") && Appsettings.app(new string[] { "AppSetting", "OpenGlobal" }).ToBool())
                 {
                     meta.title = menu.EnCode;
                 }

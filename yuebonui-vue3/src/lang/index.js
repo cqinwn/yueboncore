@@ -1,11 +1,11 @@
-import { createI18n } from "vue-i18n";
+import { createI18n } from "vue-i18n"
 import Cookies from 'js-cookie'
 
-import elementEnLocale from 'element-plus/es/locale/lang/en' // element-plus lang
-import elementZhLocale from 'element-plus/es/locale/lang/zh-cn'// element-plus lang
+import elementEnLocale from 'element-plus/es/locale/lang/en'
+import elementZhLocale from 'element-plus/es/locale/lang/zh-cn'
 
-import zhLocale from "./zh";
-import enLocale from "./en.js";
+import zhLocale from "./zh"
+import enLocale from "./en.js"
 
 const messages = {
     en: {
@@ -37,8 +37,8 @@ const i18n = createI18n({
     globalInjection: true,//在全局注入
     legacy: false,
     silentFallbackWarn: true,//抑制警告
-    locale: getLanguage(),//localStorage.getItem("lang") || "zh",
+    locale: getLanguage(),
     messages
-});
+})
 
 export default i18n;

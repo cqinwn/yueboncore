@@ -11,9 +11,6 @@
         <div class="img">
         <img :src="companyLogo" width="220" height="40">
         </div>
-        <div class="lang">
-        <lang-select class="right-menu-item hover-effect" />
-        </div>
       </div>
       <div class="form">
     <el-form
@@ -98,8 +95,6 @@
 </template>
 
 <script setup name="Login">
-
-import LangSelect from '@/components/LangSelect'
 import { getToken, getSysSetting, getVerifyCode } from '@/api/basebasic'
 import defaultSettings from '@/settings'
 import { ref } from '@vue/reactivity';

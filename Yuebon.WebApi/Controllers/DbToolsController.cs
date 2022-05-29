@@ -57,7 +57,7 @@ namespace Yuebon.WebApi.Controllers
                 }
                 else if (dbConnInfo.DbType == 0)
                 {
-                    dBConnResult.ConnStr = string.Format("server={0};database={1};uid={2}; pwd={3};", dbConnInfo.DbAddress, dbConnInfo.DbName, dbConnInfo.DbUserName, dbConnInfo.DbPassword);
+                    dBConnResult.ConnStr = string.Format("server={0};database={1};uid={2}; pwd={3};port=3306;CharSet=utf8mb4;Allow User Variables=True;SslMode=none;AllowLoadLocalInfile=true;", dbConnInfo.DbAddress, dbConnInfo.DbName, dbConnInfo.DbUserName, dbConnInfo.DbPassword);
                     dBConnResult.EncryptConnStr = DEncrypt.Encrypt(dBConnResult.ConnStr);
                     result.Success = true;
                     result.ErrCode = ErrCode.successCode;

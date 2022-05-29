@@ -21,7 +21,6 @@
         <el-tooltip content="布局大小" effect="dark" placement="bottom">
           <size-select id="size-select" class="right-menu-item hover-effect" />
         </el-tooltip>
-        
         <el-dropdown class="el-dropdown-link right-menu-item" trigger="click" @command="handlerSysType">
           <div class="subSystem">
             您处在：{{ activeSystemName }}(切换)

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Yuebon.Commons.VerificationCode
@@ -23,11 +21,12 @@ namespace Yuebon.Commons.VerificationCode
         /// <returns></returns>
         public async Task<CaptchaResult> GenerateCaptchaImageAsync(string captchaCode, int width = 0, int height = 30)
         {
+
             //验证码颜色集合
             Color[] c = { Color.Black, Color.Red, Color.DarkBlue, Color.Green, Color.Orange, Color.Brown, Color.DarkCyan, Color.Purple };
 
             //验证码字体集合
-            string[] fonts = { "Verdana", "Microsoft Sans Serif", "Comic Sans MS", "Arial" };
+            string[] fonts = { "Verdana", "Microsoft Sans Serif", "Comic Sans MS", "Arial", "宋体" };
 
             //定义图像的大小，生成图像的实例
             var image = new Bitmap(width == 0 ? captchaCode.Length * 25 : width, height);

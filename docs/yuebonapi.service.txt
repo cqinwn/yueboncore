@@ -1,0 +1,15 @@
+[Unit]
+Description=MyWeb
+
+[Service]
+WorkingDirectory=/wwwroot/netcoreapi.ts.yuebon.com
+ExecStart=/root/dotnet/dotnet /wwwroot/netcoreapi.ts.yuebon.com/Yuebon.WebApi.dll --urls=http://localhost:5002
+Restart=always
+RestartSec=10
+SyslogIdentifier=yueboncoreapi
+User=root
+Environment=ASPNETCORE_ENVIRONMENT=Production
+Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
+
+[Install]
+WantedBy=multi-user.target

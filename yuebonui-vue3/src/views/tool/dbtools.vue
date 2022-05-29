@@ -60,7 +60,7 @@ const data = reactive({
     Id: '1',
     Title: 'SqlServer'
   }, {
-    Id: '2',
+    Id: '0',
     Title: 'MySql'
   }],
   editFrom: {

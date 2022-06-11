@@ -8,6 +8,7 @@ using Yuebon.Commons.Core.App;
 using Yuebon.Commons.Core.DataManager;
 using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Helpers;
+using Yuebon.Commons.Log;
 
 namespace Yuebon.Commons.Extensions
 {
@@ -51,14 +52,14 @@ namespace Yuebon.Commons.Extensions
                                     //{
                                     //    Parallel.For(0, 1, e =>
                                     //    {
-                                    //        MiniProfiler.Current.CustomTiming("SQL：", GetParas(p) + "【SQL语句】：" + sql);
-                                    //        Log4gHelper.OutSql2Log("SqlLog", new string[] { GetParas(p), "【SQL语句】：" + sql });
+                                    MiniProfiler.Current.CustomTiming("SQL：", GetParas(p) + "【SQL语句】：" + sql);
+                                    Log4NetHelper.Info("SqlLog"+new string[] { GetParas(p), "【SQL语句】：" + sql });
 
                                     //    });
                                     //}
                                     //if (Appsettings.app(new string[] { "AppSettings", "SqlAOP", "OutToConsole", "Enabled" }).ObjToBool())
                                     //{
-                                        ConsoleHelper.WriteColorLine(string.Join("\r\n", new string[] { "--------", "【SQL语句】：" + GetWholeSql(p, sql) }), ConsoleColor.DarkCyan);
+                                    ConsoleHelper.WriteColorLine(string.Join("\r\n", new string[] { "--------", "【SQL语句】：" + GetWholeSql(p, sql) }), ConsoleColor.DarkCyan);
                                     //}
                                 }
                             },

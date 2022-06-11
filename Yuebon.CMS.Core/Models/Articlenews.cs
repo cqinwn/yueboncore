@@ -92,7 +92,7 @@ namespace Yuebon.CMS.Models
         /// <summary>
         /// 设置或获取详情
         /// </summary>
-        [SugarColumn(ColumnDescription= "详情",ColumnDataType = "nvarchar(max)")]
+        [SugarColumn(ColumnDescription= "详情",ColumnDataType = "varchar(max)")]
         public string Description { get; set; }
 
         /// <summary>

@@ -128,7 +128,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.Email = tinfo.Email;
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = info.Id;
-            info.OrganizeId = null;
+            info.OrganizeId = 0;
             info.EnabledMark = true;
             info.IsAdministrator = false;
             info.IsMember = true;

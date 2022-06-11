@@ -367,12 +367,12 @@ function loadItemsDetailTree() {
  * 添加添加分类是选择父级分类
  */
 function handleItemsChange() {
-  if (currentItemsId === selectedItemsOptions) {
+  if (currentItemsId.value === selectedItemsOptions.value) {
     proxy.$modal.alert('不能选择自己作为父级')
     selectedItemsOptions.value = ''
     return
   }
-  editItemsFrom.value.ParentId = selectedItemsOptions
+  editItemsFrom.value.ParentId = selectedItemsOptions.value
 }
 /**
  * 添加分类值是选择分类
@@ -601,6 +601,7 @@ function saveEditItemsDetailForm() {
         if (res.Success) {
           proxy.$modal.msgSuccess('恭喜你，操作成功')
           dialogItemsDetailEditFormVisible.value = false
+          currentItemsId.value=data.ItemId
           loadItemsDetailTableData()
           InitDictItem()
         } else {

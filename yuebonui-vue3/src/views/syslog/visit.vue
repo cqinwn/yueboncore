@@ -62,7 +62,7 @@
 </template>
 
 <script setup name="LogLogin">
-import { getLogListWithPager, deleteLog } from '@/api/security/logservice'
+import { getLogListWithPager, deleteLog } from '@/api/security/visitlogservice'
 
 const { proxy } = getCurrentInstance()
 
@@ -169,8 +169,7 @@ function loadTableData() {
     PageSize: pagination.value.pageSize,
     Filter: {
       IPAddress: searchform.value.IpAddres,
-      Account: searchform.value.name,
-      Type: 'Visit'
+      Account: searchform.value.name
     },
     Keywords: searchform.value.name,
     CreatorTime1: searchform.value.CreateTime[0],

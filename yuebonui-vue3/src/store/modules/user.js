@@ -1,5 +1,5 @@
 import { login, logout, refreshToken, getListMeunFuntionBymeunCode, sysConnect, getUserInfo } from '@/api/basebasic'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import { getToken, setToken, removeToken, saveTokenExpire } from '@/utils/auth'
 import defAva from '@/assets/images/profile.jpg'
 import defaultSettings from '@/settings'
 
@@ -56,6 +56,7 @@ const user = {
               const data = response.ResData
               setToken(data.AccessToken)
               commit('SET_TOKEN', data.AccessToken)
+              saveTokenExpire(data.TokenExpiresIn)
             }
             resolve(response)
           }).catch(error => {
@@ -108,6 +109,9 @@ const user = {
     FedLogOut({ commit }) {
       return new Promise(resolve => {
         commit('SET_TOKEN', '')
+        commit('SET_TOKEN', '')
+        commit('SET_ROLES', [])
+        commit('SET_PERMISSIONS', [])
         removeToken()
         resolve()
       })
@@ -122,6 +126,7 @@ const user = {
         refreshToken(data).then(res => {
           const data = res.ResData
           commit('SET_TOKEN', data.AccessToken)
+          saveTokenExpire(data.TokenExpiresIn)
         })
         commit('RESET_STATE')
         resolve()

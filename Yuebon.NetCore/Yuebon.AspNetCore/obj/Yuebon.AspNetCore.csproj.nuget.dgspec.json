@@ -225,7 +225,7 @@
             },
             "SqlSugarCore": {
               "target": "Package",
-              "version": "[5.0.8.4, )"
+              "version": "[5.0.8.6, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

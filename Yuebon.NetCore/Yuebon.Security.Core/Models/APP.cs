@@ -37,7 +37,7 @@ namespace Yuebon.Security.Models
         /// </summary>
         [MaxLength(256)]
         [Description("应用密钥")]
-        [SugarColumn(ColumnDescription= "应用密钥")]
+        [SugarColumn(ColumnDescription= "应用密钥",Length =64)]
         [Required]
         public virtual string AppSecret { get; set; }
 
@@ -46,7 +46,7 @@ namespace Yuebon.Security.Models
         /// </summary>
         [MaxLength(256)]
         [Description("消息加解密密钥")]
-        [SugarColumn(ColumnDescription= "消息加解密密钥")]
+        [SugarColumn(ColumnDescription= "消息加解密密钥",Length =256)]
         public virtual string EncodingAESKey { get; set; }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace Yuebon.Security.Models
         [Display(Name = "Token令牌")]
         [MaxLength(64)]
         [Description("Token令牌")]
-        [SugarColumn(ColumnDescription= "Token令牌")]
+        [SugarColumn(ColumnDescription= "Token令牌",Length =64)]
         public virtual string Token { get; set; }
         /// <summary>
         /// 是否开启消息加解密
@@ -86,13 +86,11 @@ namespace Yuebon.Security.Models
         /// <summary>
         /// 创建用户组织主键
         /// </summary>
-        [MaxLength(50)]
         [SugarColumn(ColumnDescription= "创建用户组织主键")]
-        public virtual long? CompanyId { get; set; }
+        public virtual long CompanyId { get; set; }
         /// <summary>
         /// 创建用户部门主键
         /// </summary>
-        [MaxLength(50)]
         [SugarColumn(ColumnDescription= "创建用户部门主键")]
         public virtual long? DeptId { get; set; }
 
@@ -117,7 +115,6 @@ namespace Yuebon.Security.Models
         /// <summary>
         /// 创建用户主键
         /// </summary>
-        [MaxLength(50)]
         [SugarColumn(ColumnDescription= "创建用户主键")]
         public virtual long? CreatorUserId { get; set; }
 
@@ -130,7 +127,6 @@ namespace Yuebon.Security.Models
         /// <summary>
         /// 最后修改用户
         /// </summary>
-        [MaxLength(50)]
         [SugarColumn(ColumnDescription= "最后修改用户")]
         public virtual long? LastModifyUserId { get; set; }
 
@@ -143,7 +139,6 @@ namespace Yuebon.Security.Models
         /// <summary>
         /// 删除用户
         /// </summary>
-        [MaxLength(50)]
         [SugarColumn(ColumnDescription= "删除用户")]
         public virtual long? DeleteUserId { get; set; }
         #endregion

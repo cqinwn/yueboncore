@@ -68,7 +68,7 @@ service.interceptors.response.use(
             type: 'warning'
           }).then((res) => {
             isRelogin.show = false;
-            store.dispatch('LogOut').then(() => {
+            store.dispatch('FedLogOut').then(() => {
               location.href = '/index';
             })
           }).catch(() => {

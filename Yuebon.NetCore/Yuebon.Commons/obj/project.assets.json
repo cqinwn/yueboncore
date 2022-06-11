@@ -1144,7 +1144,7 @@
           "lib/netstandard2.0/SQLitePCLRaw.provider.dynamic_cdecl.dll": {}
         }
       },
-      "SqlSugarCore/5.0.8.4": {
+      "SqlSugarCore/5.0.8.6": {
         "type": "package",
         "dependencies": {
           "Microsoft.Data.SqlClient": "2.1.1",
@@ -4603,15 +4603,15 @@
         "sqlitepclraw.provider.dynamic_cdecl.nuspec"
       ]
     },
-    "SqlSugarCore/5.0.8.4": {
-      "sha512": "O/BRgGhjVY1BGtQrBDFGXJbrwD4ZDC8x7vPSMxX0IBIoaldDaihtB0EMNJG900rQIhSDImAz331enU40WOcY/A==",
+    "SqlSugarCore/5.0.8.6": {
+      "sha512": "RwpDMcq2Va39K2aZFJ1Oh6DV95UtJfKBBAZgogzuf0gMSaXzuMMYXcTiubcAWD+ZNNLZq8pO4sJLJ7CGf4FPlQ==",
       "type": "package",
-      "path": "sqlsugarcore/5.0.8.4",
+      "path": "sqlsugarcore/5.0.8.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.1/SqlSugar.dll",
-        "sqlsugarcore.5.0.8.4.nupkg.sha512",
+        "sqlsugarcore.5.0.8.6.nupkg.sha512",
         "sqlsugarcore.nuspec"
       ]
     },
@@ -9204,7 +9204,7 @@
       "QRCoder >= 1.4.3",
       "Quartz >= 3.4.0",
       "SgmlReader.NetCore >= 1.0.0",
-      "SqlSugarCore >= 5.0.8.4",
+      "SqlSugarCore >= 5.0.8.6",
       "Swashbuckle.AspNetCore >= 6.3.1",
       "Swashbuckle.AspNetCore.Filters >= 7.0.3",
       "System.Data.OleDb >= 6.0.0",
@@ -9332,7 +9332,7 @@
           },
           "SqlSugarCore": {
             "target": "Package",
-            "version": "[5.0.8.4, )"
+            "version": "[5.0.8.6, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",

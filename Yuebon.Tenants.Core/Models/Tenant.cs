@@ -70,7 +70,7 @@ namespace Yuebon.Tenants.Models
         /// 设置或获取数据源，分库使用
         /// </summary>
         [MaxLength(2000)]
-        [SugarColumn(ColumnDescription="数据源，分库使用",ColumnDataType = "NVARCHAR(2000)")]
+        [SugarColumn(ColumnDescription="数据源，分库使用",ColumnDataType = "VARCHAR(2000)")]
         public string DataSource { get; set; }
 
         /// <summary>

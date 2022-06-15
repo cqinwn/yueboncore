@@ -29,7 +29,6 @@
           type="text"
           tabindex="1"
           size="large"
-          :prefix-icon="Search"
         />
       </el-form-item>
 
@@ -45,7 +44,6 @@
           auto-complete="on"
           size="large"
           show-password
-          :prefix-icon="auth"
         />
       </el-form-item>
 

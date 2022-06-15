@@ -109,7 +109,6 @@ const user = {
     FedLogOut({ commit }) {
       return new Promise(resolve => {
         commit('SET_TOKEN', '')
-        commit('SET_TOKEN', '')
         commit('SET_ROLES', [])
         commit('SET_PERMISSIONS', [])
         removeToken()
@@ -125,6 +124,7 @@ const user = {
       return new Promise(resolve => {
         refreshToken(data).then(res => {
           const data = res.ResData
+          setToken(data.AccessToken)
           commit('SET_TOKEN', data.AccessToken)
           saveTokenExpire(data.TokenExpiresIn)
         })

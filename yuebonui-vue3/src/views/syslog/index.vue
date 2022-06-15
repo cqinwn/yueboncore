@@ -258,7 +258,6 @@ function resetQuery() {
  * 查看明细信息（绑定显示数据）     *
  */
 function showDetailDialog(row, column, event) {
-  console.log(row);
   getLogDetail(row.Id).then((res) => {
     logDetail.value=res.ResData
   })

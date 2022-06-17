@@ -244,7 +244,12 @@ function loadTableData() {
  *选择组织
   */
 function handleSelectOrganizeChange() {
-  editFrom.value.ParentId = selectedOrganizeOptions
+  if (currentId.value === selectedOrganizeOptions.value) {
+    proxy.$modal.alert('不能选择自己作为父级')
+    selectedOrganizeOptions.value = ''
+    return
+  }
+  editFrom.value.ParentId = selectedOrganizeOptions.value
 }
 // 表单重置
 function reset() {

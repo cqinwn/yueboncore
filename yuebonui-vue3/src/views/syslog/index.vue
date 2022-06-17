@@ -63,6 +63,11 @@
           >{{ scope.row.Result===true?'成功':'失败' }}</el-tag>
         </template>
       </el-table-column>    
+      <el-table-column fixed="right" label="操作" width="60">
+        <template #default="scope">
+          <el-button type="primary" link @click="showDetailDialog(scope.row)">详情</el-button>
+        </template>
+      </el-table-column>
     </el-table>
     <Pagination
       v-show="queryParams.pageTotal>0"
@@ -257,7 +262,7 @@ function resetQuery() {
 /**
  * 查看明细信息（绑定显示数据）     *
  */
-function showDetailDialog(row, column, event) {
+function showDetailDialog(row) {
   getLogDetail(row.Id).then((res) => {
     logDetail.value=res.ResData
   })

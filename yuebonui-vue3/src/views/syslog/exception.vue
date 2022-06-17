@@ -53,8 +53,13 @@
       <el-table-column prop="OS" label="操作系统" sortable="custom" width="120" />
       <el-table-column prop="Browser" label="浏览器" sortable="custom" width="120" />
       <el-table-column prop="ExceptionType" label="异常类型" sortable="custom" width="180" />
+      <el-table-column prop="RequestUrl" label="请求地址"/>
       <el-table-column prop="RequestMethod" label="请求方式" sortable="custom" width="120" />
-      <el-table-column prop="RequestUrl" label="请求地址" sortable="custom"/>
+      <el-table-column fixed="right" label="操作" width="60">
+        <template #default="scope">
+          <el-button type="primary" link @click="showDetailDialog(scope.row)">详情</el-button>
+        </template>
+      </el-table-column>
     </el-table>
     <Pagination
       v-show="queryParams.pageTotal>0"

@@ -141,12 +141,12 @@
     "estree-walker" "^2.0.1"
     "picomatch" "^2.2.2"
 
-"@tinymce/tinymce-vue@^4.0.6":
-  "integrity" "sha512-qZ6tC1v58bILOYFnYxBgDCtryDYG60TO0Fiio8nBoycxcyafMnDrDQuXaSTGDXwZ/AOcQ0ZS1CYvnEFdG6S2tg=="
-  "resolved" "https://registry.npmmirror.com/@tinymce/tinymce-vue/-/tinymce-vue-4.0.6.tgz"
-  "version" "4.0.6"
+"@tinymce/tinymce-vue@^5.0.0":
+  "integrity" "sha512-1HRCNa2eGdztOKShYAiHIry50LTU6YJG//qSP9AJElrXhb3BIBN0Bef6E56nZObVgwCgSmI4cnX35VU9D49aow=="
+  "resolved" "https://registry.npmmirror.com/@tinymce/tinymce-vue/-/tinymce-vue-5.0.0.tgz"
+  "version" "5.0.0"
   dependencies:
-    "tinymce" "^5.5.0"
+    "tinymce" "^6.0.0 || ^5.5.1"
 
 "@trysound/sax@0.2.0":
   "integrity" "sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA=="
@@ -1954,10 +1954,10 @@
     "picocolors" "^1.0.0"
     "stable" "^0.1.8"
 
-"tinymce@^5.10.3", "tinymce@^5.5.0":
-  "integrity" "sha512-O59ssHNnujWvSk5Gt8hIGrdNCMKVWVQv9F8siAgLTRgTh0t3NDHrP1UlLtCxArUi9DPWZvlBeUz8D5fJTu7vnA=="
-  "resolved" "https://registry.npmmirror.com/tinymce/-/tinymce-5.10.3.tgz"
-  "version" "5.10.3"
+"tinymce@^6.0.0 || ^5.5.1", "tinymce@^6.0.3":
+  "integrity" "sha512-4cu80kWF7nRGhviE10poZtjTkl3jNL+lycilCMfdm3KU5V7FtiQQrKbEo6GInXT05RY78Ha/NFP0gOBELcSpfg=="
+  "resolved" "https://registry.npmmirror.com/tinymce/-/tinymce-6.0.3.tgz"
+  "version" "6.0.3"
 
 "to-fast-properties@^2.0.0":
   "integrity" "sha512-/OaKK0xYrs3DmxRYqL/yDc+FxFUVYhDlXMhRmv3z915w2HF1tnN1omB354j8VUGO/hbRzyD6Y3sA7v7GS/ceog=="

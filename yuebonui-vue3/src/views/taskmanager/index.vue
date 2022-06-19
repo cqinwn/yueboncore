@@ -173,7 +173,7 @@
       <el-timeline>
         <el-timeline-item v-for="(activity, index) in activities" :key="index" :color="activity.Color"
           :timestamp="activity.CreatorTime">
-          {{ activity.Description }}
+          {{ activity.Resume }}
         </el-timeline-item>
       </el-timeline>
     </el-dialog>

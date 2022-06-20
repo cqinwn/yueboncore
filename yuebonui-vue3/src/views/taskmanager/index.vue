@@ -323,7 +323,6 @@ function reset() {
  * 新增、修改或查看明细信息（绑定显示数据）     *
  */
 function ShowEditOrViewDialog(view) {
-  reset()
   if (view !== undefined) {
     if (ids.value.length > 1 || ids.value.length === 0) {
       proxy.$modal.alert('请选择一条数据进行编辑/修改')
@@ -331,13 +330,13 @@ function ShowEditOrViewDialog(view) {
       currentId.value = ids.value[0]
       editFormTitle.value = '编辑'
       dialogEditFormVisible.value = true
-      bindEditInfo()
     }
   } else {
     editFormTitle.value = '新增'
     currentId.value = ''
     dialogEditFormVisible.value = true
   }
+  reset()
 }
 function bindEditInfo() {
   getTaskManagerDetail(currentId.value).then(res => {

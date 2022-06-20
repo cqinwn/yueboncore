@@ -161,7 +161,7 @@ function loadToken() {
   // })
   getSysSetting().then(res => {
       softName.value = res.ResData.SoftName
-      companyLogo.value = res.ResData.SysLogo
+      //companyLogo.value = res.ResData.SysLogo
       companyName.value = res.ResData.CompanyName
       copyRight.value = res.ResData.CopyRight
       if(res.ResData.Webstatus==='1'){closeWeb.value=true}

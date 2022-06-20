@@ -9,7 +9,7 @@ import { isRelogin } from '@/utils/request'
 
 NProgress.configure({ showSpinner: false });
 const n = 1;
-const whiteList = ['/login', '/auth-redirect', '/bind', '/register'];
+const whiteList = ['/login', '/auth-redirect', '/bind', '/register', '/registertenant'];
 /**
  * to 即将要进入的目标 路由对象
  * from 当前导航正要离开的路由

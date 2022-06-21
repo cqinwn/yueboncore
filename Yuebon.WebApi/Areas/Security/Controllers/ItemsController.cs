@@ -169,7 +169,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 result.ErrMsg = "字典分类编码不能重复";
                 return ToJsonContent(result);
             }
-            Items info = iService.Get(tinfo.Id);
+            Items info = iService.GetById(tinfo.Id);
             info.FullName = tinfo.FullName;
             info.EnCode = tinfo.EnCode;
             info.ParentId = tinfo.ParentId;
@@ -204,7 +204,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             CommonResult result = new CommonResult();
             try
             {
-                List<ItemsOutputDto> list = await iService.GetAllItemsTreeTable();
+                List<Items> list = await iService.GetAllItemsTreeTable();
                 result.Success = true;
                 result.ErrCode = ErrCode.successCode;
                 result.ResData = list;

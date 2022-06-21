@@ -85,8 +85,8 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         {
             CommonResult result = new CommonResult();
 
-            Role info = iService.Get(tinfo.Id);
-            info.OrganizeId = tinfo.OrganizeId;
+            Role info = iService.GetById(tinfo.Id);
+            //info.OrganizeId = tinfo.OrganizeId;
             info.FullName = tinfo.FullName;
             info.EnCode = tinfo.EnCode;
             info.EnabledMark = tinfo.EnabledMark;

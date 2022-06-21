@@ -29,6 +29,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         private IOrganizeService organizeService;
         private IRoleService roleService;
         private IUserLogOnService userLogOnService;
+        private readonly ITenantService _tenantService;
         /// <summary>
         /// 
         /// </summary>
@@ -36,12 +37,13 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <param name="_organizeService"></param>
         /// <param name="_roleService"></param>
         /// <param name="_userLogOnService"></param>
-        public UserController(IUserService _iService, IOrganizeService _organizeService, IRoleService _roleService, IUserLogOnService _userLogOnService) : base(_iService)
+        public UserController(IUserService _iService, IOrganizeService _organizeService, IRoleService _roleService, IUserLogOnService _userLogOnService, ITenantService tenantService) : base(_iService)
         {
             iService = _iService;
             organizeService = _organizeService;
             roleService = _roleService;
             userLogOnService = _userLogOnService;
+            _tenantService= tenantService;
         }
         /// <summary>
         /// 新增前处理数据
@@ -91,13 +93,13 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <param name="tinfo"></param>
         /// <returns></returns>
         [HttpPost("Register")]
-        [NoPermissionRequired]
+        [AllowAnonymous]
         public  async Task<IActionResult> RegisterAsync(RegisterViewModel tinfo)
         {
             CommonResult result = new CommonResult();
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
             var vCode = yuebonCacheHelper.Get("ValidateCode" + tinfo.VerifyCodeKey);
-            string code = vCode != null ? vCode.ToString() : "11";
+            string code = vCode != null ? vCode.ToString() : "";
             if (code!= tinfo.VerificationCode.ToUpper())
             {
                 result.ErrMsg = "验证码错误";
@@ -125,6 +127,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             User info = new User();
             info.Id = IdGeneratorHelper.IdSnowflake();
             info.Account = tinfo.Account;
+            info.RealName = info.Account;
             info.Email = tinfo.Email;
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = info.Id;
@@ -136,10 +139,40 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.DeleteMark = false;
             info.SortCode = 99;
 
+            bool isTenant = Appsettings.app(new string[] { "AppSetting", "IsTenant" }).ObjToBool();
+            if (isTenant)
+            {
+                List<Tenant> tenants = null;
+                if (!yuebonCacheHelper.Exists("cacheTenants"))
+                {
+                    IEnumerable<Tenant> templist = _tenantService.GetAllByIsEnabledMark();
+                    yuebonCacheHelper.Add("cacheTenants", templist);
+                }
+                tenants = JsonHelper.ToObject<List<Tenant>>(yuebonCacheHelper.Get("cacheTenants").ToJson());
+                if (tenants != null)
+                {
+                    string tenantName = tinfo.Host.Split(".")[0];
+                    Tenant tenant = tenants.FindLast(o => o.TenantName == tenantName);//通过租户名称
+                    if (tenant == null && tenantName != "default")
+                    {
+                        tenant = tenants.FindLast(o => o.HostDomain.Contains(tinfo.Host));//通过客户绑定的独立域名
+                        if (tenant == null)
+                        {
+                            result.ErrMsg = "非法访问";
+                            return ToJsonContent(result);
+                        }
+                    }
+                    if (tenant != null)
+                    {
+                        info.TenantId = tenant.Id;
+                    }
+                }
+
+            }
             UserLogOn userLogOn = new UserLogOn();
             userLogOn.UserPassword = tinfo.Password;
-            userLogOn.AllowStartTime = userLogOn.LockEndDate = userLogOn.LockStartDate = userLogOn.ChangePasswordDate = DateTime.Now;
-            userLogOn.AllowEndTime = DateTime.Now.AddYears(100);
+            userLogOn.AllowStartTime = userLogOn.LockStartDate = userLogOn.LockEndDate = userLogOn.ChangePasswordDate = DateTime.Now;
+            userLogOn.AllowEndTime =  DateTime.Now.AddMonths(1);
             userLogOn.MultiUserLogin = userLogOn.CheckIPAddress = false;
             userLogOn.LogOnCount = 0;
             result.Success = await iService.InsertAsync(info, userLogOn);
@@ -228,7 +261,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 result.ErrMsg = "登录账号不能为空";
                 return ToJsonContent(result);
             }
-            User info = iService.Get(tinfo.Id);
+            User info = iService.GetById(tinfo.Id);
             info.Account = tinfo.Account;
             info.HeadIcon = tinfo.HeadIcon;
             info.RealName = tinfo.RealName;

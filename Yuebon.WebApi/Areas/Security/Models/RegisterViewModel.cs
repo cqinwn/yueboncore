@@ -31,5 +31,9 @@ namespace Yuebon.WebApi.Areas.Security.Models
         /// 设置验证码Key
         /// </summary>
         public string VerifyCodeKey { get; set; }
+        /// <summary>
+        /// 访问地址
+        /// </summary>
+        public string Host { get; set; }
     }
 }

@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace Yuebon.WebApi.Areas.Security.Models
 {
+    /// <summary>
+    /// 本地任务
+    /// </summary>
     public class LocalTaskModel
     {
         /// <summary>

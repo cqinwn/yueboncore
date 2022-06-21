@@ -51,7 +51,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             }
             else
             {
-                info.Layers = iService.Get(info.ParentId).Layers + 1;
+                info.Layers = iService.GetById(info.ParentId).Layers + 1;
             }
 
         }
@@ -72,7 +72,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             }
             else
             {
-                info.Layers = iService.Get(info.ParentId).Layers + 1;
+                info.Layers = iService.GetById(info.ParentId).Layers + 1;
             }
         }
 
@@ -100,7 +100,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         {
             CommonResult result = new CommonResult();
 
-            Organize info = iService.Get(tinfo.Id);
+            Organize info = iService.GetById(tinfo.Id);
             info.ParentId = tinfo.ParentId;
             info.FullName = tinfo.FullName;
             info.EnCode = tinfo.EnCode;
@@ -146,7 +146,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             CommonResult result = new CommonResult();
             try
             {
-                List<OrganizeOutputDto> list = await iService.GetAllOrganizeTreeTable();
+                List<Organize> list = await iService.GetAllOrganizeTreeTable();
                 result.Success = true;
                 result.ErrCode = ErrCode.successCode;
                 result.ResData = list;
@@ -172,7 +172,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             CommonResult result = new CommonResult();
             try
             {
-                List<OrganizeOutputDto> list = await iService.GetAllOrganizeTreeTable();
+                List<Organize> list = await iService.GetAllOrganizeTreeTable();
                 result.Success = true;
                 result.ErrCode = ErrCode.successCode;
                 result.ResData = list;

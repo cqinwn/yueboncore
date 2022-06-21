@@ -112,7 +112,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 List<RoleAuthorize> inList = new List<RoleAuthorize>();
                 foreach (long item in roleinfo.RoleFunctios)
                 {
-                    Menu menu = menuService.Get(item);
+                    Menu menu = menuService.GetById(item);
                     if (menu != null)
                     {
                         RoleAuthorize info = new RoleAuthorize();

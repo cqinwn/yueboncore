@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Extensions;
@@ -23,7 +24,7 @@ namespace Yuebon.Email
         /// 发送邮件
         /// </summary>
         /// <param name="mailBodyEntity">邮件基础信息</param>
-        public static SendResultEntity SendMail(MailBodyEntity mailBodyEntity)
+        public static async Task<SendResultEntity> SendMail(MailBodyEntity mailBodyEntity)
         {
             var sendResultEntity = new SendResultEntity();
             if (mailBodyEntity == null)
@@ -42,10 +43,8 @@ namespace Yuebon.Email
                 sendServerConfiguration.SmtpPort = sysSetting.Emailport.ToInt();
                 sendServerConfiguration.IsSsl =sysSetting.Emailssl.ToBool();
                 sendServerConfiguration.MailEncoding ="utf-8";
-
                 mailBodyEntity.Sender = sysSetting.Emailnickname;
                 mailBodyEntity.SenderAddress = sysSetting.Emailusername;
-
             }
             else
             {
@@ -53,7 +52,7 @@ namespace Yuebon.Email
                 sendResultEntity.ResultStatus = false;
                 throw new ArgumentNullException();
             }
-            sendResultEntity= SendMail(mailBodyEntity, sendServerConfiguration);
+            sendResultEntity= await SendMail(mailBodyEntity, sendServerConfiguration);
             return sendResultEntity;
         }
         /// <summary>
@@ -61,7 +60,7 @@ namespace Yuebon.Email
         /// </summary>
         /// <param name="mailBodyEntity">邮件基础信息</param>
         /// <param name="sendServerConfiguration">发件人基础信息</param>
-        public static SendResultEntity SendMail(MailBodyEntity mailBodyEntity,
+        public static async Task<SendResultEntity> SendMail(MailBodyEntity mailBodyEntity,
             SendServerConfigurationEntity sendServerConfiguration)
         {
 
@@ -82,7 +81,7 @@ namespace Yuebon.Email
             {
                 client.ServerCertificateValidationCallback = (s, c, h, e) => true;
 
-                Connection(mailBodyEntity, sendServerConfiguration, client, sendResultEntity);
+                Connection(sendServerConfiguration, client, sendResultEntity);
 
                 if (sendResultEntity.ResultStatus == false)
                 {
@@ -95,14 +94,14 @@ namespace Yuebon.Email
                 // the XOAUTH2 authentication mechanism.
                 client.AuthenticationMechanisms.Remove("XOAUTH2");
 
-                Authenticate(mailBodyEntity, sendServerConfiguration, client, sendResultEntity);
+                Authenticate(sendServerConfiguration, client, sendResultEntity);
 
                 if (sendResultEntity.ResultStatus == false)
                 {
                     return sendResultEntity;
                 }
 
-                Send(mailBodyEntity, sendServerConfiguration, client, sendResultEntity);
+                await Send(mailBodyEntity, sendServerConfiguration, client, sendResultEntity);
 
                 if (sendResultEntity.ResultStatus == false)
                 {
@@ -117,11 +116,10 @@ namespace Yuebon.Email
         /// <summary>
         /// 连接服务器
         /// </summary>
-        /// <param name="mailBodyEntity">邮件内容</param>
         /// <param name="sendServerConfiguration">发送配置</param>
         /// <param name="client">客户端对象</param>
         /// <param name="sendResultEntity">发送结果</param>
-        public static void Connection(MailBodyEntity mailBodyEntity, SendServerConfigurationEntity sendServerConfiguration,
+        public static void Connection(SendServerConfigurationEntity sendServerConfiguration,
             SmtpClient client, SendResultEntity sendResultEntity)
         {
             try
@@ -148,11 +146,10 @@ namespace Yuebon.Email
         /// <summary>
         /// 账户认证
         /// </summary>
-        /// <param name="mailBodyEntity">邮件内容</param>
         /// <param name="sendServerConfiguration">发送配置</param>
         /// <param name="client">客户端对象</param>
         /// <param name="sendResultEntity">发送结果</param>
-        public static void Authenticate(MailBodyEntity mailBodyEntity, SendServerConfigurationEntity sendServerConfiguration,
+        public static void Authenticate(SendServerConfigurationEntity sendServerConfiguration,
             SmtpClient client, SendResultEntity sendResultEntity)
         {
             try
@@ -188,12 +185,12 @@ namespace Yuebon.Email
         /// <param name="sendServerConfiguration">发送配置</param>
         /// <param name="client">客户端对象</param>
         /// <param name="sendResultEntity">发送结果</param>
-        public static void Send(MailBodyEntity mailBodyEntity, SendServerConfigurationEntity sendServerConfiguration,
+        public static async Task Send(MailBodyEntity mailBodyEntity, SendServerConfigurationEntity sendServerConfiguration,
             SmtpClient client, SendResultEntity sendResultEntity)
         {
             try
             {
-                client.Send(MailMessage.AssemblyMailMessage(mailBodyEntity));
+                await client.SendAsync(MailMessage.AssemblyMailMessage(mailBodyEntity));
             }
             catch (SmtpCommandException ex)
             {

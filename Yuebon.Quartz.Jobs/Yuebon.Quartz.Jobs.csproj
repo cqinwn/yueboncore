@@ -18,17 +18,40 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Dtos\**" />
+    <Compile Remove="IRepositories\**" />
+    <Compile Remove="IServices\**" />
+    <Compile Remove="Models\**" />
+    <Compile Remove="Repositories\**" />
+    <Compile Remove="Services\**" />
+    <EmbeddedResource Remove="Dtos\**" />
+    <EmbeddedResource Remove="IRepositories\**" />
+    <EmbeddedResource Remove="IServices\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <EmbeddedResource Remove="Repositories\**" />
+    <EmbeddedResource Remove="Services\**" />
+    <None Remove="Dtos\**" />
+    <None Remove="IRepositories\**" />
+    <None Remove="IServices\**" />
+    <None Remove="Models\**" />
+    <None Remove="Repositories\**" />
+    <None Remove="Services\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="SysLogJob.cs~RFd4cc03.TMP" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
     <PackageReference Include="Quartz" Version="3.4.0" />
+    <PackageReference Include="Quartz.AspNetCore" Version="3.4.0" />
+    <PackageReference Include="Quartz.Extensions.DependencyInjection" Version="3.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Yuebon.Email.Core\Yuebon.Email.Core.csproj" />
-    <ProjectReference Include="..\Yuebon.Messages\Yuebon.Messages.Core\Yuebon.Messages.Core.csproj" />
+    <ProjectReference Include="..\Yuebon.Security.Services\Yuebon.Security.Services.csproj" />
   </ItemGroup>
 
 </Project>

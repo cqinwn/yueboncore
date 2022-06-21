@@ -13,12 +13,10 @@ using Yuebon.Commons.Core.Dtos;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Models;
-using Yuebon.Quartz.Dtos;
-using Yuebon.Quartz.IServices;
 using Yuebon.Quartz.Jobs;
-using Yuebon.Quartz.Models;
-using Yuebon.Security.Application;
 using Yuebon.Security.Dtos;
+using Yuebon.Security.IServices;
+using Yuebon.Security.Models;
 using Yuebon.WebApi.Areas.Security.Models;
 
 namespace Yuebon.WebApi.Areas.Security.Controllers
@@ -33,16 +31,19 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <summary>
         /// 
         /// </summary>
-        private ISchedulerFactory schedulerFactory;
+        private readonly ISequenceService _sequenceService;
+        private ISchedulerCenter _schedulerCenter;
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="_iService"></param>
-        /// <param name="_schedulerFactory"></param>
-        public TaskManagerController(ITaskManagerService _iService, ISchedulerFactory _schedulerFactory) : base(_iService)
+        /// <param name="schedulerCenter"></param>
+        /// <param name="sequenceService"></param>
+        public TaskManagerController(ITaskManagerService _iService, ISchedulerCenter schedulerCenter, ISequenceService sequenceService) : base(_iService)
         {
             iService = _iService;
-            schedulerFactory = _schedulerFactory;
+            _schedulerCenter = schedulerCenter;
+            _sequenceService=sequenceService;
         }
         /// <summary>
         /// 新增前处理数据
@@ -51,7 +52,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         protected override void OnBeforeInsert(TaskManager info)
         {
             info.Id= IdGeneratorHelper.IdSnowflake();
-            info.TaskCode = new SequenceApp().GetSequenceNext("TaskManager");
+            info.TaskCode = _sequenceService.GetSequenceNext("TaskManager");
             if (string.IsNullOrEmpty(info.TaskCode))
             {
                 info.TaskCode=IdGeneratorHelper.IdSnowflake().ToString();
@@ -104,7 +105,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         {
             CommonResult result = new CommonResult();
 
-            TaskManager info = iService.Get(tinfo.Id);
+            TaskManager info = iService.GetById(tinfo.Id);
             info.TaskName = tinfo.TaskName;
             info.GroupName = tinfo.GroupName;
             info.JobCallAddress = tinfo.JobCallAddress;
@@ -165,7 +166,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             CommonResult result = new CommonResult();
             try
             {
-                TaskManager job = iService.Get(req.Id);
+                TaskManager job = iService.GetById(req.Id);
                
                 if (job == null)
                 {
@@ -173,46 +174,19 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 }
                 OnBeforeUpdate(job);
                 job.Status = req.Status;
-                IScheduler scheduler =await  schedulerFactory.GetScheduler();
                 if (job.Status == 0) //停止
                 {
-                    TriggerKey triggerKey = new TriggerKey(job.Id.ToString(),job.GroupName);
-                    // 停止触发器
-                    await scheduler.PauseTrigger(triggerKey);
-                    // 移除触发器
-                    await scheduler.UnscheduleJob(triggerKey);
-                    // 删除任务
-                    await scheduler.DeleteJob(new JobKey(job.Id.ToString()));
+                    await _schedulerCenter.StopScheduleJobAsync(job);
                 }
                 else  //启动
                 {
-                    IJobDetail jobDetail;
-                    if (job.IsLocal)
-                    {
-                        var implementationAssembly = Assembly.Load("Yuebon.Quartz.Jobs");
-                        var implementationTypes = implementationAssembly.DefinedTypes.Where(t => t.GetInterfaces().Contains(typeof(IJob)));
-                        var tyeinfo = implementationTypes.Where(x => x.FullName == job.JobCallAddress).FirstOrDefault();
-                        jobDetail = JobBuilder.Create(tyeinfo).WithIdentity(job.Id.ToString(), job.GroupName).Build();
-                    }
-                    else
-                    {
-                        jobDetail = JobBuilder.Create<HttpResultfulJob>().WithIdentity(job.Id.ToString(), job.GroupName).Build();
-                    }
-                    jobDetail.JobDataMap["OpenJob"] = job.Id;  //传递job信息
-                    ITrigger trigger = TriggerBuilder.Create()
-                        .WithCronSchedule(job.Cron)
-                        .WithIdentity(job.Id.ToString(), job.GroupName)
-                        .WithDescription(job.Description)
-                        .ForJob(job.Id.ToString(), job.GroupName) //给任务指定一个分组
-                        .StartNow()
-                        .Build();
-                    await scheduler.ScheduleJob(jobDetail, trigger);
+                    await _schedulerCenter.AddScheduleJobAsync(job);
                 }
                 if (job.Status == 1)
                 {
-                  await scheduler.Start();
+                  await _schedulerCenter.StartScheduleAsync();
                 }
-                iService.Update(job,job.Id.ToString());
+                iService.Update(job);
                 result.ErrCode = ErrCode.successCode;
                 result.ErrMsg = "切换成功，可以在系统日志中查看运行结果";
 
@@ -240,26 +214,18 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 bl = true;
             }
             string where = string.Empty;
-            where = "id in ('" + info.Ids.Join(",").Replace(",", "','") + "')";
-            dynamic[] jobsId = info.Ids;
+            where = "id in ("+ String.Join(",",info.Ids)+ ")";
             if (!bl)
             {
-                foreach (var item in jobsId)
+                foreach (long item in info.Ids)
                 {
                     if (string.IsNullOrEmpty(item.ToString())) continue;
-                    TaskManager job = await iService.GetAsync(item.ToString());
+                    TaskManager job = await iService.GetAsync(item);
                     if (job == null)
                     {
                         throw new Exception("任务不存在");
                     }
-                    IScheduler scheduler = await schedulerFactory.GetScheduler();
-                    TriggerKey triggerKey = new TriggerKey(job.Id.ToString(), job.GroupName);
-                    // 停止触发器
-                    await scheduler.PauseTrigger(triggerKey);
-                    // 移除触发器
-                    await scheduler.UnscheduleJob(triggerKey);
-                    // 删除任务
-                    await scheduler.DeleteJob(new JobKey(job.Id.ToString()));
+                    await _schedulerCenter.StopScheduleJobAsync(job);
                 }
             }
             if (!string.IsNullOrEmpty(where))
@@ -288,24 +254,17 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         {
             CommonResult result = new CommonResult();
             string where = string.Empty;
-            where = "id in ('" + info.Ids.Join(",").Trim(',').Replace(",", "','") + "')";
-            dynamic[] jobsId = info.Ids;
-            foreach (var item in jobsId)
+            where = "id in (" + String.Join(",", info.Ids) + ")";
+            foreach (var item in info.Ids)
             {
                 if (string.IsNullOrEmpty(item.ToString())) continue;
-                TaskManager job = await iService.GetAsync(item.ToString());
+                TaskManager job = await iService.GetAsync(item.ToString().ToLong());
                 if (job == null)
                 {
                     throw new Exception("任务不存在");
                 }
-                IScheduler scheduler = await schedulerFactory.GetScheduler();
-                TriggerKey triggerKey = new TriggerKey(job.Id.ToString(), job.GroupName);
-                // 停止触发器
-                await scheduler.PauseTrigger(triggerKey);
-                // 移除触发器
-                await scheduler.UnscheduleJob(triggerKey);
-                // 删除任务
-                await scheduler.DeleteJob(new JobKey(job.Id.ToString()));
+
+                await _schedulerCenter.StopScheduleJobAsync(job);
             }
 
             if (!string.IsNullOrEmpty(where))

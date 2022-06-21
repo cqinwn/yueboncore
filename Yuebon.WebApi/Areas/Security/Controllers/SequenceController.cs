@@ -137,7 +137,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
                 result.ErrMsg = "规则名称不能重复";
                 return ToJsonContent(result);
             }
-            Sequence sequence = iService.Get(info.Id);
+            Sequence sequence = iService.GetById(info.Id);
             sequence.SequenceName = info.SequenceName;
             sequence.SequenceDelimiter = info.SequenceDelimiter;
             sequence.SequenceReset = info.SequenceReset;

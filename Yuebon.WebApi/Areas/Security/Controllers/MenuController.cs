@@ -57,7 +57,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             }
             else
             {
-                info.Layers = iService.Get(info.ParentId).Layers + 1;
+                info.Layers = iService.GetById(info.ParentId).Layers + 1;
             }
 
             if (info.MenuType == "F")
@@ -212,7 +212,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             }
             else
             {
-                info.Layers = iService.Get(info.ParentId).Layers + 1;
+                info.Layers = iService.GetById(info.ParentId).Layers + 1;
             }
         }
 
@@ -240,7 +240,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         {
             CommonResult result = new CommonResult();
 
-            Menu info = iService.Get(tinfo.Id);
+            Menu info = iService.GetById(tinfo.Id);
             info.FullName = tinfo.FullName;
             info.EnCode = tinfo.EnCode;
             info.SystemTypeId = tinfo.SystemTypeId;

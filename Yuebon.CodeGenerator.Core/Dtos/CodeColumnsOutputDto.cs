@@ -15,43 +15,52 @@ namespace Yuebon.CodeGenerator.Dtos
         /// 设置或获取编号,主键
         /// </summary>
         public long? Id { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取
         /// </summary>
         [MaxLength(255)]
         public string ClassProperName { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取
         /// </summary>
         [MaxLength(255)]
         public string DbColumnName { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取
         /// </summary>
         public bool? Required { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取
         /// </summary>
         public bool? IsIdentity { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取
         /// </summary>
         public bool? IsPrimaryKey { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取
         /// </summary>
         [MaxLength(255)]
         public string Description { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取
         /// </summary>
         [MaxLength(255)]
         public string CodeType { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取
         /// </summary>
         public long? CodeTableId { get; set; }
-        /// <summary>
+
+        /// <summary>
         /// 设置或获取
         /// </summary>
         [MaxLength(255)]

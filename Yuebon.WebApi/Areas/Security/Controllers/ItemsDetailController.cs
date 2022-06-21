@@ -34,7 +34,10 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             this.itemsService = itemsService;
         }
 
-
+        /// <summary>
+        /// 新增前操作
+        /// </summary>
+        /// <param name="info"></param>
         protected override void OnBeforeInsert(ItemsDetail info)
         {
             //留给子类对参数对象进行修改
@@ -46,7 +49,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             {
                 info.SortCode = 99;
             }
-            bool bltree = itemsService.Get(info.ItemId).IsTree;
+            bool bltree = itemsService.GetById(info.ItemId).IsTree;
             if (bltree)
             {
                 if (info.ParentId==0)
@@ -56,7 +59,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 }
                 else
                 {
-                    info.Layers = iService.Get(info.ParentId).Layers + 1;
+                    info.Layers = iService.GetById(info.ParentId).Layers + 1;
                 }
             }
             else
@@ -80,7 +83,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             {
                 info.SortCode = 99;
             }
-            bool bltree = itemsService.Get(info.ItemId).IsTree;
+            bool bltree = itemsService.GetById(info.ItemId).IsTree;
             if (bltree)
             {
                 if (info.ParentId == 0)
@@ -90,7 +93,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 }
                 else
                 {
-                    info.Layers = iService.Get(info.ParentId).Layers + 1;
+                    info.Layers = iService.GetById(info.ParentId).Layers + 1;
                 }
             }
             else
@@ -111,7 +114,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         {
             CommonResult result = new CommonResult();
 
-            ItemsDetail info = iService.Get(tinfo.Id);
+            ItemsDetail info = iService.GetById(tinfo.Id);
             info.ItemName = tinfo.ItemName;
             info.ItemCode = tinfo.ItemCode;
             info.ItemId = tinfo.ItemId;

@@ -1,45 +1,16 @@
-﻿using AutoMapper;
-using log4net;
-using log4net.Repository;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Versioning;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Quartz;
-using Quartz.Impl;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text.Encodings.Web;
-using System.Text.Json;
-using System.Text.Unicode;
-using Yitter.IdGenerator;
-using Yuebon.AspNetCore.Common;
-using Yuebon.AspNetCore.Mvc.Filter;
-using Yuebon.Commons.Core.App;
-using Yuebon.Commons.Core.UnitOfWork;
-using Yuebon.Commons.Extensions;
-using Yuebon.Commons.Filters;
-using Yuebon.Commons.Helpers;
-using Yuebon.Commons.Log;
-using Yuebon.Commons.Module;
-using Yuebon.Commons.SeedInitData;
+﻿using Quartz;
+using Yuebon.Extensions.Middlewares;
 using Yuebon.Quartz.Jobs;
-using static Yuebon.Commons.Extensions.SwaggerVersions;
-
+using static Yuebon.Extensions.ServiceExtensions.SwaggerVersions;
 var builder = WebApplication.CreateBuilder(args);
 
 #region 1、配置host与容器
 builder.Host
+.UseServiceProviderFactory(new AutofacServiceProviderFactory())
+.ConfigureContainer<ContainerBuilder>(builder =>
+{
+    builder.RegisterModule(new AutofacModuleRegister());
+})
 .ConfigureLogging((hostingContext, builder) =>
 {
     builder.AddFilter("System", LogLevel.Error);
@@ -61,33 +32,16 @@ Log4NetHelper.SetConfig(loggerRepository, "log4net.config");
 
 builder.Services.AddSingleton(new Appsettings(builder.Configuration));
 builder.Services.AddUiFilesZipSetup(builder.Environment);
-//HttpContext 相关服务
-builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-builder.Services.AddHttpContextAccessor();
 builder.Services.AddRedisCacheSetup();
-
-#region MiniProfiler
 builder.Services.AddMiniProfilerSetup();
-#endregion
-
-builder.Services.AddSqlsugarSetup();
-
-
-// Api多版本版本配置
-builder.Services.AddApiVersioning(o =>
-{
-    o.ReportApiVersions = true;//是否在请求头中返回受支持的版本信息。
-    o.AssumeDefaultVersionWhenUnspecified = true;//请求没有指明版本的情况下是否使用默认的版本。
-    o.DefaultApiVersion = new ApiVersion(1, 0);//默认的版本号。
-    o.ApiVersionReader = ApiVersionReader.Combine(new HeaderApiVersionReader("api-version"));////版本信息放到header ,不写在不配置路由的情况下，版本信息放到response url 中
-}).AddVersionedApiExplorer();
-
-
+builder.Services.AddSqlSugarSetup();
+builder.Services.AddHttpContextSetup();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddSwaggerSetup();
-builder.Services.AddAuthorizationSetup();
 
-////如果部署在linux系统上，需要加上下面的配置：
-////如果部署在IIS上，需要加上下面的配置：
+builder.Services.AddRabbitMQSetup();
+
+builder.Services.AddAuthorizationSetup();
 builder.Services.Configure<KestrelServerOptions>(x => x.AllowSynchronousIO = true).Configure<IISServerOptions>(x => x.AllowSynchronousIO = true);
 
 #region 全局设置跨域访问
@@ -105,8 +59,8 @@ builder.Services.AddHealthChecks();
 #region 控制器
 builder.Services.AddControllers(c =>
 {
-    c.Filters.Add(new ExceptionHandlingAttribute());
-    c.Filters.Add(new ActionFilter());
+    c.Filters.Add(typeof(GlobalExceptionsFilter));
+    c.Filters.Add(typeof(RequestActionFilter));
     c.Conventions.Add(new GlobalRoutePrefixFilter(new RouteAttribute("")));
 }).AddJsonOptions(options =>
 {
@@ -132,7 +86,6 @@ builder.Services.AddEndpointsApiExplorer();
 
 #endregion
 
-builder.Services.AddAutoScanInjection();//自动化注入仓储和服务
 
 #region automapper
 List<Assembly> myAssembly = RuntimeHelper.GetAllYuebonAssemblies().ToList();
@@ -140,14 +93,14 @@ builder.Services.AddAutoMapper(myAssembly);
 builder.Services.AddTransient<IMapper, Mapper>();
 #endregion
 
-#region 定时任务
-builder.Services.AddTransient<HttpResultfulJob>();
-builder.Services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
-////设置定时启动的任务
-//builder.Services.AddHostedService<QuartzService>();
+builder.Services.AddSingleton<IUnitOfWork, UnitOfWork>();
+
+#region 事件总线
+builder.Services.AddEventBusSetup();
 #endregion
 
-builder.Services.AddSingleton<IUnitOfWork, UnitOfWork>();
+builder.Services.AddJobSetup();
+builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 Appsettings.Services = builder.Services;
 //雪花算法配置
 YitIdHelper.SetIdGenerator(new IdGeneratorOptions()
@@ -165,6 +118,7 @@ YitIdHelper.SetIdGenerator(new IdGeneratorOptions()
 
 
 #endregion
+
 
 #region 3、配置中间件
 var app = builder.Build();
@@ -225,10 +179,16 @@ app.MapControllers();
 #region 初始化
 if (Appsettings.GetValue("AppSetting:SeedDBEnabled").ObjToBool() || Appsettings.GetValue("AppSetting:SeedDBDataEnabled").ObjToBool())
 {
-    DBSeedService.SeedAsync(new List<string> { "Yuebon.Security.Core.dll", "Yuebon.CMS.Core.dll", "Yuebon.Tenants.Core.dll", "Yuebon.Quartz.Jobs.dll", "Yuebon.CodeGenerator.Core.dll" }).Wait();
+   await DBSeedService.SeedAsync(new List<string> { "Yuebon.Security.Models.dll", "Yuebon.Security.SeedData.dll", "Yuebon.CMS.Models.dll", "Yuebon.CodeGenerator.Core.dll" });
 }
+
+app.ConfigureEventBus();
+
+var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
+var tasksQzServices = scope.ServiceProvider.GetRequiredService<ITaskManagerService>();
+var schedulerCenter = scope.ServiceProvider.GetRequiredService<ISchedulerCenter>();
+app.UseQuartzJobMiddleware(tasksQzServices, schedulerCenter);
 #endregion
 
-//new DefaultInitial().CacheAppList();
 // 4、运行
 app.Run();

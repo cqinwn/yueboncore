@@ -82,7 +82,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         {
             CommonResult result = new CommonResult();
 
-            SystemType info = iService.Get(tinfo.Id);
+            SystemType info = iService.GetById(tinfo.Id);
             info.FullName = tinfo.FullName;
             info.EnCode = tinfo.EnCode;
             info.Url = tinfo.Url;

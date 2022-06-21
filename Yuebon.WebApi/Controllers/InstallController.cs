@@ -1,19 +1,17 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Yuebon.AspNetCore.Controllers;
+﻿namespace Yuebon.WebApi.Controllers;
 
-namespace Yuebon.WebApi.Controllers
+/// <summary>
+/// 初始化安装应用
+/// </summary>
+[Route("api/[controller]")]
+[ApiController]
+public class InstallController : ApiController
 {
     /// <summary>
-    /// 初始化安装
+    /// 构造函数
     /// </summary>
-    [Route("api/[controller]")]
-    [ApiController]
-    public class InstallController : ApiController
+    public InstallController()
     {
-        public InstallController()
-        {
 
-        }
     }
 }

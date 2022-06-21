@@ -42,15 +42,14 @@ namespace Yuebon.WebApi.Areas.Tenants.Controllers
         {
             CommonResult result = new CommonResult();
             string where = string.Empty;
-            where = "id in ('" + info.Ids.Join(",").Trim(',').Replace(",", "','") + "')";
+            where = "id in (" + String.Join(",", info.Ids) + ")";
 
             if (!string.IsNullOrEmpty(where))
             {
-                dynamic[] jobsId = info.Ids;
-                foreach (var item in jobsId)
+                foreach (long item in info.Ids)
                 {
                     if (string.IsNullOrEmpty(item.ToString())) continue;
-                    UploadFile uploadFile = new UploadFileApp().Get(item.ToString());
+                    UploadFile uploadFile = iService.GetById(item);
                     YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
                     SysSetting sysSetting = yuebonCacheHelper.Get("SysSetting").ToJson().ToObject<SysSetting>();
                     if (uploadFile != null)

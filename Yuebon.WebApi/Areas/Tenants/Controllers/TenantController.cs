@@ -10,10 +10,9 @@ using Yuebon.Commons.Extend;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Models;
+using Yuebon.Security.Dtos;
 using Yuebon.Security.IServices;
-using Yuebon.Tenants.Dtos;
-using Yuebon.Tenants.IServices;
-using Yuebon.Tenants.Models;
+using Yuebon.Security.Models;
 using Yuebon.WebApi.Areas.Security.Models;
 
 namespace Yuebon.SecurityApi.Areas.Tenants.Controllers
@@ -112,8 +111,8 @@ namespace Yuebon.SecurityApi.Areas.Tenants.Controllers
 
             TenantLogon tenantLogon = new TenantLogon();
             tenantLogon.TenantPassword = "12345678";
-            tenantLogon.AllowStartTime = tenantLogon.LockEndDate = tenantLogon.LockStartDate = tenantLogon.ChangePasswordDate = DateTime.Now;
-            tenantLogon.AllowEndTime = DateTime.Now.AddYears(100);
+            tenantLogon.AllowStartTime =  tenantLogon.LockStartDate = tenantLogon.ChangePasswordDate = DateTime.Now;
+            tenantLogon.AllowEndTime = tenantLogon.LockEndDate = DateTime.Now.AddYears(100);
             tenantLogon.MultiUserLogin = tenantLogon.CheckIPAddress = false;
             tenantLogon.LogOnCount = 0;
             result.Success = await iService.InsertAsync(info, tenantLogon);
@@ -129,7 +128,64 @@ namespace Yuebon.SecurityApi.Areas.Tenants.Controllers
             }
             return ToJsonContent(result);
         }
+        /// <summary>
+        /// 租户注册
+        /// </summary>
+        /// <param name="tinfo"></param>
+        /// <returns></returns>
+        [HttpPost("Register")]
+        [AllowAnonymous]
+        public async Task<IActionResult> RegisterAsync(RegisterViewModel tinfo)
+        {
+            CommonResult result = new CommonResult();
+            YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+            var vCode = yuebonCacheHelper.Get("ValidateCode" + tinfo.VerifyCodeKey);
+            string code = vCode != null ? vCode.ToString() : "";
+            if (code != tinfo.VerificationCode.ToUpper())
+            {
+                result.ErrMsg = "验证码错误";
+                return ToJsonContent(result);
+            }
+            if (!string.IsNullOrEmpty(tinfo.Account))
+            {
+                if (string.IsNullOrEmpty(tinfo.Password) || tinfo.Password.Length < 6)
+                {
+                    result.ErrMsg = "密码不能为空或小于6位";
+                    return ToJsonContent(result);
+                }
+                Tenant user = await iService.GetByUserName(tinfo.Account);
+                if (user != null)
+                {
+                    result.ErrMsg = "登录账号不能重复";
+                    return ToJsonContent(result);
+                }
+            }
+            else
+            {
+                result.ErrMsg = "登录账号不能为空";
+                return ToJsonContent(result);
+            }
 
+            RegisterTenant registerTenant = new RegisterTenant()
+            {
+                Account = tinfo.Account,
+                Password = tinfo.Password,
+                Email = tinfo.Email
+            };
+            result.Success = await iService.RegisterAsync(registerTenant);
+            if (result.Success)
+            {
+                yuebonCacheHelper.Remove("ValidateCode");
+                result.ErrCode = ErrCode.successCode;
+                result.ErrMsg = ErrCode.err0;
+            }
+            else
+            {
+                result.ErrMsg = ErrCode.err43001;
+                result.ErrCode = "43001";
+            }
+            return ToJsonContent(result);
+        }
         /// <summary>
         /// 异步更新数据
         /// </summary>
@@ -146,7 +202,7 @@ namespace Yuebon.SecurityApi.Areas.Tenants.Controllers
                 result.ErrCode = "43002";
                 return ToJsonContent(result);
             }
-            Tenant info = iService.Get(tinfo.Id);
+            Tenant info = iService.GetById(tinfo.Id);
             info.TenantName = tinfo.TenantName.ToLower();
             info.CompanyName = tinfo.CompanyName;
             info.HostDomain = tinfo.HostDomain;
@@ -182,7 +238,7 @@ namespace Yuebon.SecurityApi.Areas.Tenants.Controllers
         {
             CommonResult result = new CommonResult();
             bool bl = false;
-            Tenant info = iService.Get(tenantId);
+            Tenant info = iService.GetById(tenantId);
             if (info.Schema == Commons.Enums.TenantSchemaEnum.AloneDatabase)
             {
                 bl = await iService.InitTenantDataAsync(info);
@@ -196,74 +252,6 @@ namespace Yuebon.SecurityApi.Areas.Tenants.Controllers
             {
                 result.ErrMsg = ErrCode.err43002;
                 result.ErrCode = "43002";
-            }
-            return ToJsonContent(result);
-        }
-
-
-
-        /// <summary>
-        /// 租户注册
-        /// </summary>
-        /// <param name="info"></param>
-        /// <returns></returns>
-        [HttpPost("Register")]
-        [NoPermissionRequired]
-        public async Task<IActionResult> RegisterAsync(RegisterViewModel info)
-        {
-            CommonResult result = new CommonResult();
-            YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            var vCode = yuebonCacheHelper.Get("ValidateCode" + info.VerifyCodeKey);
-            string code = vCode != null ? vCode.ToString() : "11";
-            if (code != info.VerificationCode.ToUpper())
-            {
-                result.ErrMsg = "验证码错误";
-                return ToJsonContent(result);
-            }
-            if (!string.IsNullOrEmpty(info.Account))
-            {
-                if (string.IsNullOrEmpty(info.Password) || info.Password.Length < 6)
-                {
-                    result.ErrMsg = "密码不能为空或小于6位";
-                    return ToJsonContent(result);
-                }
-                Tenant user = await iService.GetByUserName(info.Account);
-                if (user != null)
-                {
-                    result.ErrMsg = "登录账号不能重复";
-                    return ToJsonContent(result);
-                }
-            }
-            else
-            {
-                result.ErrMsg = "登录账号不能为空";
-                return ToJsonContent(result);
-            }
-            Tenant tenant = new Tenant();
-            tenant.Id = IdGeneratorHelper.IdSnowflake();
-            tenant.TenantName = info.Account;
-            tenant.Email = info.Email;
-            tenant.CreatorTime = DateTime.Now;
-            tenant.EnabledMark = true;
-            tenant.DeleteMark = false;
-
-            TenantLogon tenantLogon = new TenantLogon();
-            tenantLogon.TenantPassword = info.Password;
-            tenantLogon.AllowStartTime = tenantLogon.LockEndDate = tenantLogon.LockStartDate = tenantLogon.ChangePasswordDate = DateTime.Now;
-            tenantLogon.AllowEndTime = DateTime.Now.AddYears(100);
-            tenantLogon.MultiUserLogin = tenantLogon.CheckIPAddress = false;
-            tenantLogon.LogOnCount = 0;
-            result.Success = await iService.InsertAsync(tenant, tenantLogon);
-            if (result.Success)
-            {
-                yuebonCacheHelper.Remove("ValidateCode");
-                result.ErrCode = ErrCode.successCode;
-                result.ErrMsg = ErrCode.err0;
-            }
-            else
-            {
-                result.ErrMsg = ErrCode.err43001;
-                result.ErrCode = "43001";
             }
             return ToJsonContent(result);
         }

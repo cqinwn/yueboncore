@@ -51,8 +51,6 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <returns></returns>
         protected override void OnBeforeUpdate(Log info)
         {
-            info.LastModifyUserId = CurrentUser.UserId;
-            info.LastModifyTime = DateTime.Now;
         }
 
         /// <summary>

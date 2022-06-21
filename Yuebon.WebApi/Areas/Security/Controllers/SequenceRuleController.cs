@@ -111,7 +111,7 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers
                     result.ErrMsg = "该单据此规则类别已添加不能重复";
                     return ToJsonContent(result);
                 }
-                SequenceRule sequenceRule = iService.Get(info.Id);
+                SequenceRule sequenceRule = iService.GetById(info.Id);
                 sequenceRule.SequenceName = info.SequenceName;
                 sequenceRule.RuleOrder = info.RuleOrder;
                 sequenceRule.RuleType = info.RuleType;

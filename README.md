@@ -1,4 +1,11 @@
-### 如果对您有帮助，您可以点右上角 "Star" 支持一下，这样我们才有继续免费下去的动力，谢谢！
+### 重要说明
+
+saas分支为saas版本，支持共享数据库使用tenantId字段分离租户，也支持一个租户一个独立数据库。相比master分支版本将接口和实现进行分离项目实现解耦，新增了事件订阅等一系列功能。
+
+
+master分支适合单体应用开发，架构较为简单，没有实现接口和实现的解耦。
+
+
 
 ### 概述
 YuebonCore是基于.Net6.0开发的权限管理及快速开发框架，整合应用最新技术包括Asp.NetCore MVC、SqlSugar ORM、WebAPI、Swagger、Vue3等，核心模块包括：组织机构、角色用户、权限授权、多系统、多应用管理、定时任务、业务单据编码规则、代码生成器等。它的架构易于扩展，规范了一套业务实现的代码结构与操作流程，使YuebonCore框架更易于应用到实际项目开发中。
@@ -163,22 +170,6 @@ DataBase是最新数据库备份文件，目前支持MS SQL Server和MySql。
 ![输入图片说明](https://images.gitee.com/uploads/images/2018/0719/120718_772240d6_1017224.png "9 webapi.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2018/0719/120732_0776845c_1017224.png "9-1 webapi.png")
 
-
-
-### 部分应用案例
-
-1、做个车吧
-
-2、展途汽车
-
-3、视奇光学仓库发货系统
-
-4、金宝龙学校数据分析系统
-
-5、汇聚自动化设备
-
-6、天逸电器订单系统
-
 ### 开发者信息
 
 系统名称：YuebonCore快速开发平台
@@ -196,22 +187,9 @@ DataBase是最新数据库备份文件，目前支持MS SQL Server和MySql。
 |-----------|---------------
 | master    | 正式发布的主分支，通常这个分支比较稳定，可以用于生产环境。
 | dev | 1、开发分支，此分支通常为 Beta 版本，新版本都会先在此分支中进行开发，最后推送稳定版到 master 分支，如果想对新功能先睹为快，可以使用此分支。<br> 2、建议 Pull Request 的代码都到这个分支下，而不是 master
+| saas   | saas分支为saas版本，支支持共享数据库使用tenantId字段分离租户，也支持一个租户一个独立数据库。
 | 其他分支   | 其他分支请忽略。
 
-
-### 友情链接
-
-[IoTClient](https://gitee.com/zhaopeiym/IoTClient)
-
-开源地址：[https://gitee.com/zhaopeiym/IoTClient](https://gitee.com/zhaopeiym/IoTClient)
-
-这是一个物联网设备通讯协议实现客户端，将包括主流PLC通信读取、ModBus协议、Bacnet协议等常用工业通讯协议
-
-[aistudio.-wpf.-aclient](https://gitee.com/akwkevin/aistudio.-wpf.-aclient)
-
-开源地址：[https://gitee.com/akwkevin/aistudio.-wpf.-aclient](https://gitee.com/akwkevin/aistudio.-wpf.-aclient)
-
-使用Prism做MVVM实现Wpf客户端应用程序。目使用的控件库Util.Controls也是开源的， 完全兼容MahApps.Metro ，可以与MahApps.Metro同时使用。
 
 ### 社区
 

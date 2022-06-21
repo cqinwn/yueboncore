@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Yuebon.CMS.IServices\Yuebon.CMS.IServices.csproj" />
+    <ProjectReference Include="..\Yuebon.CMS.Repositories\Yuebon.CMS.Repositories.csproj" />
+  </ItemGroup>
+
+</Project>

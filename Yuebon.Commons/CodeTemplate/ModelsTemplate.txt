@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.ComponentModel.DataAnnotations.Schema;
+using Yuebon.Commons.Models;
+using SqlSugar;
+
+namespace {ModelsNamespace}
+{
+    /// <summary>
+    /// {TableNameDesc}，数据实体对象
+    /// </summary>
+    
+    [SugarTable("{TableName}", "{TableNameDesc}")]
+    [Serializable]
+    public class {ModelTypeName}:BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited
+    {
+{ModelContent}
+    }
+}

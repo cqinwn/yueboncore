@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="MenuApp.cs" />
+    <Compile Remove="SequenceApp.cs" />
+    <Compile Remove="UploadFileApp.cs" />
+    <Compile Remove="UserApp.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Yuebon.Commons\Yuebon.Commons.csproj" />
+    <ProjectReference Include="..\Yuebon.Security.IServices\Yuebon.Security.IServices.csproj" />
+    <ProjectReference Include="..\Yuebon.Security.Repositories\Yuebon.Security.Repositories.csproj" />
+    <ProjectReference Include="..\Yuebon.Security.Seeds\Yuebon.Security.SeedData.csproj" />
+  </ItemGroup>
+
+</Project>

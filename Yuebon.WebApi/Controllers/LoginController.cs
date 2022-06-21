@@ -227,6 +227,7 @@ namespace Yuebon.WebApi.Controllers
                                             UserId = user.Id,
                                             Name = user.RealName,
                                             AccessToken = tokenResult.AccessToken,
+                                            TokenExpiresIn = tokenResult.ExpiresIn,
                                             AppKey = input.AppId,
                                             CreateTime = DateTime.Now,
                                             Role = _roleService.GetRoleEnCode(user.RoleId),

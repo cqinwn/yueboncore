@@ -50,8 +50,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Security\Yuebon.Security.Services\Yuebon.Security.Services.csproj" />
     <ProjectReference Include="..\Yuebon.Email.Core\Yuebon.Email.Core.csproj" />
-    <ProjectReference Include="..\Yuebon.Security.Services\Yuebon.Security.Services.csproj" />
   </ItemGroup>
 
 </Project>

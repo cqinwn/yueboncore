@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Yuebon.Commons\Yuebon.Commons.csproj" />
     <ProjectReference Include="..\Yuebon.Security.Dtos\Yuebon.Security.Dtos.csproj" />
     <ProjectReference Include="..\Yuebon.Security.Models\Yuebon.Security.Models.csproj" />
   </ItemGroup>

@@ -1,0 +1,103 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <UserSecretsId>4d454771-6ff7-43f2-a2b6-7c3bada83304</UserSecretsId>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\Yuebon.WebApi.xml</DocumentationFile>
+    <OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\Yuebon.WebApi.xml</DocumentationFile>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\Authorizer\**" />
+    <Compile Remove="Areas\CMSTest\**" />
+    <Compile Remove="Areas\CodeGenerator\**" />
+    <Compile Remove="Areas\Msg\**" />
+    <Compile Remove="Areas\Weixin\**" />
+    <Compile Remove="wwwroot\Data.Json\**" />
+    <Content Remove="Areas\Authorizer\**" />
+    <Content Remove="Areas\CMSTest\**" />
+    <Content Remove="Areas\CodeGenerator\**" />
+    <Content Remove="Areas\Msg\**" />
+    <Content Remove="Areas\Weixin\**" />
+    <Content Remove="wwwroot\Data.Json\**" />
+    <EmbeddedResource Remove="Areas\Authorizer\**" />
+    <EmbeddedResource Remove="Areas\CMSTest\**" />
+    <EmbeddedResource Remove="Areas\CodeGenerator\**" />
+    <EmbeddedResource Remove="Areas\Msg\**" />
+    <EmbeddedResource Remove="Areas\Weixin\**" />
+    <EmbeddedResource Remove="wwwroot\Data.Json\**" />
+    <None Remove="Areas\Authorizer\**" />
+    <None Remove="Areas\CMSTest\**" />
+    <None Remove="Areas\CodeGenerator\**" />
+    <None Remove="Areas\Msg\**" />
+    <None Remove="Areas\Weixin\**" />
+    <None Remove="wwwroot\Data.Json\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\CMS\Controllers\V1\ArticlenewsController.cs" />
+    <Compile Remove="Areas\CMS\Controllers\V2\ArticlenewsController.cs" />
+    <Compile Remove="Areas\Security\Controllers\FunctionController.cs" />
+    <Compile Remove="Areas\Security\Controllers\TenantController.cs" />
+    <Compile Remove="Controllers\InitSystem.cs" />
+    <Compile Remove="Startup.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="index.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="index.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CMS\Yuebon.CMS.Services\Yuebon.CMS.Services.csproj" />
+    <ProjectReference Include="..\Security\Yuebon.Security.Dtos\Yuebon.Security.Dtos.csproj" />
+    <ProjectReference Include="..\Yuebon.Extensions\Yuebon.Extensions.csproj" />
+    <ProjectReference Include="..\Yuebon.NetCore\Yuebon.AspNetCore\Yuebon.AspNetCore.csproj" />
+    <ProjectReference Include="..\Yuebon.NetCore\Yuebon.Quartz.Jobs\Yuebon.Quartz.Jobs.csproj" />
+    <ProjectReference Include="..\Yuebon.NetCore\Yuebon.SMS.Core\Yuebon.SMS.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="6.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.6" />
+    <PackageReference Include="Quartz.AspNetCore" Version="3.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Analysis\Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+
+</Project>

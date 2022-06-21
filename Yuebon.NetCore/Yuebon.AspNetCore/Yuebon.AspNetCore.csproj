@@ -59,7 +59,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\logo.png">
+    <None Include="..\..\logo.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
@@ -80,7 +80,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Yuebon.Security.Services\Yuebon.Security.Services.csproj" />
+    <ProjectReference Include="..\..\Security\Yuebon.Security.Services\Yuebon.Security.Services.csproj" />
   </ItemGroup>
 
 </Project>

@@ -12,9 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Yuebon.CMS.Services\Yuebon.CMS.Services.csproj" />
-    <ProjectReference Include="..\Yuebon.Quartz.Jobs\Yuebon.Quartz.Jobs.csproj" />
-    <ProjectReference Include="..\Yuebon.Security.Services\Yuebon.Security.Services.csproj" />
+    <ProjectReference Include="..\Security\Yuebon.Security.Services\Yuebon.Security.Services.csproj" />
+    <ProjectReference Include="..\Yuebon.NetCore\Yuebon.Quartz.Jobs\Yuebon.Quartz.Jobs.csproj" />
   </ItemGroup>
 
 </Project>

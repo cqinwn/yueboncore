@@ -1,0 +1,38 @@
+﻿[
+  {
+    "Id": 9166287964471366,
+    "EnCode": "YuebonWcs",
+    "FullName": "易分拣",
+    "Url": "http://localhost:9529",
+    "AllowEdit": null,
+    "AllowDelete": null,
+    "SortCode": 99,
+    "DeleteMark": false,
+    "EnabledMark": false,
+    "Description": "",
+    "CreatorTime": "2021-01-03 19:11:03",
+    "CreatorUserId": 1,
+    "LastModifyTime": "2022-04-26 20:33:24",
+    "LastModifyUserId": 1,
+    "DeleteTime": null,
+    "DeleteUserId": null
+  },
+  {
+    "Id": 9166287964471363,
+    "EnCode": "openauth",
+    "FullName": "权限系统",
+    "Url": "http://localhost:9528",
+    "AllowEdit": null,
+    "AllowDelete": null,
+    "SortCode": 1,
+    "DeleteMark": false,
+    "EnabledMark": true,
+    "Description": "权限系统是基础系统，包含机构、岗位、角色、用户等功能",
+    "CreatorTime": "2018-06-14 00:00:00",
+    "CreatorUserId": 1,
+    "LastModifyTime": "2021-01-23 15:27:33",
+    "LastModifyUserId": 1,
+    "DeleteTime": "2001-01-01 00:00:00",
+    "DeleteUserId": null
+  }
+]

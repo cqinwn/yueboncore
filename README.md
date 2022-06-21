@@ -74,22 +74,6 @@ Vue版前端技术栈 ：基于vue3、Vite、vuex、vue-router 、vue-cli 、axi
 
 性能分析：MiniProfiler组件
 
-### 项目结构
-
-Yuebon.NetCore解决方案包含：
-
-Yuebon.Commons[基础类库]：包框架的核心组件，包含一系列快速开发中经常用到的Utility辅助工具功能，框架各个组件的核心接口定义，部分核心功能的实现；
-
-Yuebon.Security.Core[权限管理类库]：以Security为基础实现以角色-功能、用户-功能的功能权限实现，以角色-数据，用户-数据的数据权限的封装
-
-Yuebon.AspNetCore[AspNetCore类库]，提供AspNetCore的服务端功能的封装，支持webapi和webmvc模式，同时支持插件式开发；
-
-Yuebon.Cms.Core[CMS基础类库]，包含文章管理、广告管理等内容，以此做案例给大家开发参考。
-
-Yuebon.WebApi[webapi接口]：为Vue版或其他三方系统提供接口服务。
-
-DataBase是最新数据库备份文件，目前支持MS SQL Server和MySql。
-
 
 ### 内置功能
 

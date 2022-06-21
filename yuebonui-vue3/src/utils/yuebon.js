@@ -4,7 +4,7 @@ import md5 from 'js-md5'
  * 获取一个32位随机字符串
  * @returns
  */
-export function GetRandomString(){
+export function GetRandomString() {
   var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789'
   var maxPos = chars.length
   var pwd = ''
@@ -22,7 +22,7 @@ export function GetRandomString(){
 * @param appSecret 应用密钥
 * @param method 请求方式
 */
-export function sign (config, nonce, timestamp, appSecret) {
+export function sign(config, nonce, timestamp, appSecret) {
   // 签名格式： timestamp + nonce + data(字典升序)+appSecret
   const ret = []
   if (config.params) {
@@ -71,3 +71,4 @@ export async function blobValidate(data) {
     return true;
   }
 }
+

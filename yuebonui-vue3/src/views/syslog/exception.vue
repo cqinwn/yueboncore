@@ -1,15 +1,15 @@
 <template>
   <div class="app-container">
-    <el-form ref="searchformRef" v-show="showSearch" :inline="true" :model="searchform" class="demo-form-inline">
-      <el-form-item label="账号：" prop="name">
-        <el-input v-model="searchform.name" clearable placeholder="账号" />
+    <el-form ref="searchformRef" v-show="showSearch" :inline="true" :model="queryParams" class="demo-form-inline">
+      <el-form-item label="账号：" prop="Keywords">
+        <el-input v-model="queryParams.Keywords" clearable placeholder="账号" />
       </el-form-item>
       <el-form-item label="IP地址：" prop="IpAddres">
-        <el-input v-model="searchform.IpAddres" clearable placeholder="IP地址" />
+        <el-input v-model="queryParams.IpAddres" clearable placeholder="IP地址" />
       </el-form-item>
       <el-form-item label="日志日期：" prop="CreateTime">
         <el-date-picker
-          v-model="searchform.CreateTime"
+          v-model="queryParams.CreateTime"
           type="datetimerange"
           align="right"
           :default-time="['00:00:00', '23:59:59']"
@@ -43,30 +43,73 @@
       :default-sort="{ prop: 'CreatorTime', order: 'descending' }"
       @selection-change="handleSelectChange"
       @sort-change="handleSortChange"
+      @row-dblclick="showDetailDialog"
     >
       <el-table-column type="selection" width="40" />
-      <el-table-column prop="CreatorTime" label="操作时间" sortable="custom" width="180" />
+      <el-table-column prop="Date" label="操作时间" sortable="custom" width="180" />
       <el-table-column prop="Account" label="操作账号" sortable="custom" width="120" />
-      <el-table-column prop="NickName" label="操作人" sortable="custom" width="120" />
+      <el-table-column prop="RealName" label="操作人" sortable="custom" width="120" />
       <el-table-column prop="IPAddress" label="IP地址" sortable="custom" width="150" />
-      <el-table-column prop="Browser" label="浏览器" sortable="custom" width="120" />
       <el-table-column prop="OS" label="操作系统" sortable="custom" width="120" />
-      <el-table-column prop="RequestUrl" label="请求地址" sortable="custom" width="180" />
-      <el-table-column prop="Description" label="详情" sortable="custom" />
-      
+      <el-table-column prop="Browser" label="浏览器" sortable="custom" width="120" />
+      <el-table-column prop="ExceptionType" label="异常类型" sortable="custom" width="180" />
+      <el-table-column prop="RequestUrl" label="请求地址"/>
+      <el-table-column prop="RequestMethod" label="请求方式" sortable="custom" width="120" />
+      <el-table-column fixed="right" label="操作" width="60">
+        <template #default="scope">
+          <el-button type="primary" link @click="showDetailDialog(scope.row)">详情</el-button>
+        </template>
+      </el-table-column>
     </el-table>
     <Pagination
-      v-show="pagination.pageTotal>0"
-      :total="pagination.pageTotal"
-      :page="pagination.currentPage"
-      :limit="pagination.pageSize"
+      v-show="queryParams.pageTotal>0"
+      :total="queryParams.pageTotal"
+      v-model:page="queryParams.CurrenetPageIndex"
+      v-model:limit="queryParams.PageSize"
       @pagination="loadTableData"
     />
+    
+    <el-dialog ref="dialogShowDetail" title="详情" v-model="dialogShowDetailVisible" width="640px">     
+      <el-row :gutter="20">
+        <el-col><div>请求地址：{{logDetail.RequestUrl}}</div></el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :span="8"><div>操作人：{{logDetail.RealName}}</div></el-col>
+        <el-col :span="8"><div>操作账号：{{logDetail.Account}}</div></el-col>
+        <el-col :span="8"><div>IP地址：{{logDetail.IPAddress}}</div></el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :span="8"><div>操作系统：{{logDetail.OS}}</div></el-col>
+        <el-col :span="8"><div>浏览器：{{logDetail.Browser}}</div></el-col>
+        <el-col :span="8"><div>请求方式：{{logDetail.RequestMethod}}</div></el-col>
+      </el-row> 
+      <el-row :gutter="20">
+        <el-col :span="12"><div>操作时间：{{logDetail.Date}}</div></el-col>
+        <el-col :span="12"><div>异常类型：{{logDetail.ExceptionType}}</div></el-col>
+      </el-row> 
+      <el-row :gutter="20">
+        <el-col>
+          <div>异常信息：
+            <el-input
+            v-model="logDetail.Description"
+            show-word-limit
+            :rows="20"
+            type="textarea"
+            />
+          </div>
+        </el-col>
+      </el-row>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="dialogShowDetailVisible = false">关 闭</el-button>
+        </div>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
-<script setup name="LogLogin">
-import { getLogListWithPager, deleteLog } from '@/api/security/logservice'
+<script setup name="ExceptionLog">
+import { getLogListWithPager, deleteLog,getLogDetail } from '@/api/security/logservice'
 
 const { proxy } = getCurrentInstance()
 
@@ -74,24 +117,22 @@ const tableData=ref([])
 const tableloading=ref(true)
 const currentId=ref("")// 当前操作对象的ID值，主要用于修改
 const ids=ref([])
-const showSearch = ref(true);
-const single = ref(true);
-const multiple = ref(true);
+const showSearch = ref(true)
+const single = ref(true)
+const multiple = ref(true)
+const logDetail=ref([])
+const dialogShowDetailVisible=ref(false)
 
 const data = reactive({
-  searchform: {
-    name: '',
+  queryParams:{
+    CurrenetPageIndex: 1,
+    PageSize: 20,
+    pageTotal: 0,
+    Order: 'desc',
+    Sort: 'CreatorTime',
+    Keywords: '',
     IpAddres: '',
     CreateTime: ''
-  },
-  pagination: {
-    currentPage: 1,
-    pageSize: 20,
-    pageTotal: 0
-  },
-  sortableData: {
-    order: 'desc',
-    sort: 'CreatorTime'
   },
   shortcuts:[{
     text: '今天',
@@ -152,7 +193,7 @@ const data = reactive({
   }]
 })
 
-const { searchform, pagination,sortableData,shortcuts} = toRefs(data)
+const { queryParams,shortcuts} = toRefs(data)
 
 /**
  * 初始化数据
@@ -169,22 +210,21 @@ function InitDictItem() {
 function loadTableData() {
   tableloading.value = true
   var seachdata = {
-    CurrenetPageIndex: pagination.value.currentPage,
-    PageSize: pagination.value.pageSize,
+    CurrenetPageIndex: queryParams.value.CurrenetPageIndex,
+    PageSize: queryParams.value.PageSize,
     Filter: {
-      IPAddress: searchform.value.IpAddres,
-      Account: searchform.value.name,
-      Type: 'Exception'
+      IPAddress: queryParams.value.IpAddres,
+      Account: queryParams.value.Keywords
     },
-    Keywords: searchform.value.name,
-    CreatorTime1: searchform.value.CreateTime[0],
-    CreatorTime2: searchform.value.CreateTime[1],
-    Order: sortableData.value.order,
-    Sort: sortableData.value.sort
+    Keywords: queryParams.value.Keywords,
+    CreatorTime1: queryParams.value.CreateTime[0],
+    CreatorTime2: queryParams.value.CreateTime[1],
+    Order: queryParams.value.Order,
+    Sort: queryParams.value.Sort
   }
   getLogListWithPager(seachdata).then((res) => {
     tableData.value = res.ResData.Items
-    pagination.value.pageTotal = res.ResData.TotalItems
+    queryParams.value.pageTotal = res.ResData.TotalItems
     tableloading.value = false
   })
 }
@@ -192,13 +232,22 @@ function loadTableData() {
  * 点击查询
  */
 function handleSearch() {
-  pagination.value.currentPage = 1
+  queryParams.value.CurrenetPageIndex = 1
   loadTableData()
 }
 /** 重置查询操作 */
 function resetQuery() {
   proxy.resetForm("searchformRef");
   handleSearch();
+}
+/**
+ * 查看明细信息（绑定显示数据）     *
+ */
+function showDetailDialog(row, column, event) {
+  getLogDetail(row.Id).then((res) => {
+    logDetail.value=res.ResData
+  })
+  dialogShowDetailVisible.value = true
 }
 
 function  deletePhysics() {

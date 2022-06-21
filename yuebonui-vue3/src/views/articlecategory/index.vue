@@ -184,6 +184,11 @@ function resetQuery() {
  * 选择分类
  */
 function handleSelectCategoryChange() {
+  if (currentId.value === selectedCategoryOptions.value) {
+    proxy.$modal.alert('不能选择自己作为父级')
+    selectedCategoryOptions.value = ''
+    return
+  }
   editFrom.value.ParentId = selectedCategoryOptions.value
 }
 /**

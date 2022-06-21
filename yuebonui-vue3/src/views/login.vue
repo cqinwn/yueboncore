@@ -17,11 +17,9 @@
       v-if="isShow"
       ref="loginRef"
       :model="loginForm"
-      :rules="loginRules"
-      auto-complete="on"
+      :rules="rules"
       label-position="left"
     >
-      
       <el-form-item prop="username">
         <el-input
           ref="username"
@@ -31,7 +29,6 @@
           type="text"
           tabindex="1"
           size="large"
-          :prefix-icon="Search"
         />
       </el-form-item>
 
@@ -47,7 +44,6 @@
           auto-complete="on"
           size="large"
           show-password
-          :prefix-icon="auth"
         />
       </el-form-item>
 
@@ -98,56 +94,34 @@
 import { getToken, getSysSetting, getVerifyCode } from '@/api/basebasic'
 import defaultSettings from '@/settings'
 import { ref } from '@vue/reactivity';
-import i18n from '@/lang/index'
 const store = useStore();
 const router = useRouter();
 const { proxy } = getCurrentInstance();
 const showLang=ref({
-  plAccount:i18n.global.t("login.inputAccount"),
-  inputPassword:i18n.global.t("login.inputPassword"),
-  inputVcode:i18n.global.t("login.inputVcode"),
+  plAccount:proxy.$t("login.inputAccount"),
+  inputPassword:proxy.$t("login.inputPassword"),
+  inputVcode:proxy.$t("login.inputVcode"),
 })
-const loginForm=ref({
-  username: '',
-  password: '',
-  vcode: '',
-  verifyCodeKey: '',
-  appId: defaultSettings.appId,
-  systemCode: defaultSettings.activeSystemCode,
-  host:window.location.host
-});
 const validateUsername = (rule, value, callback) => {
   if (value.length < 1) {
-    callback(new Error(i18n.global.t("login.ruleAccount")))
+    callback(new Error(proxy.$t("login.ruleAccount")))
   } else {
     callback()
   }
 }
 const validatePassword = (rule, value, callback) => {
   if (value.length < 6) {
-    callback(new Error(i18n.global.t("login.rulePassword")))
+    callback(new Error(proxy.$t("login.rulePassword")))
   } else {
     callback()
   }
 }
-const loginRules={
-  username: [
-    { required: true, trigger: 'blur', validator: validateUsername }
-  ],
-  password: [
-    { required: true, trigger: 'blur', validator: validatePassword }
-  ],
-  vcode: [
-    { required: true, message: i18n.global.t("login.ruleVcodeTip"), trigger: 'blur' },
-    { min: 4, max: 4, message: i18n.global.t("login.ruleVcodeLengTip"), trigger: 'blur' }
-  ]
-};
 
 const verifyCodeUrl = ref("");
 const loading = ref(false);
 const passwordType =ref("password");
 const redirect = ref(undefined);
-const softName= ref(i18n.global.t("login.systemName"));
+const softName= ref(proxy.$t("login.systemName"));
 const companyLogo= ref('src/assets/images/login-logo.png');
 const companyName=ref("");
 const copyRight=ref("");
@@ -156,6 +130,30 @@ const otherQuery=ref({});
 const webclosereason=ref("")
 const closeWeb=ref(false)
 
+const data=reactive({
+  loginForm:{
+    username: '',
+    password: '',
+    vcode: '',
+    verifyCodeKey: '',
+    appId: defaultSettings.appId,
+    systemCode: defaultSettings.activeSystemCode,
+    host:window.location.host
+  },
+  rules:{
+    username: [
+      { required: true, trigger: 'blur', validator: validateUsername }
+    ],
+    password: [
+      { required: true, trigger: 'blur', validator: validatePassword }
+    ],
+    vcode: [
+      { required: true, message: proxy.$t("login.ruleVcodeTip"), trigger: 'blur' },
+      { min: 4, max: 4, message: proxy.$t("login.ruleVcodeLengTip"), trigger: 'blur' }
+    ]
+  }
+});
+const { loginForm, rules} = toRefs(data);
 function loadToken() {
   // getToken().then(response => {
   //   setToken(response.ResData.AccessToken)
@@ -163,7 +161,7 @@ function loadToken() {
   // })
   getSysSetting().then(res => {
       softName.value = res.ResData.SoftName
-      companyLogo.value = res.ResData.SysLogo
+      //companyLogo.value = res.ResData.SysLogo
       companyName.value = res.ResData.CompanyName
       copyRight.value = res.ResData.CopyRight
       if(res.ResData.Webstatus==='1'){closeWeb.value=true}

@@ -1460,6 +1460,10 @@ namespace Yuebon.Commons.Repositories
 
         #region IDisposable Support
         private bool disposedValue = false; // 要检测冗余调用
+        /// <summary>
+        /// 释放托管状态
+        /// </summary>
+        /// <param name="disposing"></param>
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)

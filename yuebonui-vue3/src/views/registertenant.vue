@@ -60,10 +60,9 @@
 <script setup>
 import { setToken } from '@/utils/auth'
 import { getToken, getSysSetting, getVerifyCode } from '@/api/basebasic'
-import { registerUser } from '@/api/security/userservice'
+import { registerUser } from '@/api/security/tenant'
 import { ref } from '@vue/reactivity';
-import { ElMessageBox } from 'element-plus'
-
+import { ElMessage, ElMessageBox } from 'element-plus'
 const router = useRouter();
 const { proxy } = getCurrentInstance();
 
@@ -162,8 +161,9 @@ function handleLogin(){
       loading.value = true
       const data = editFrom.value
       registerUser(data).then(res => {
-        if (res.true) {
-          ElMessageBox.alert("<font color='red'>恭喜你，您的账号 " + editFrom.value.Account + " 注册成功！</font>", "系统提示", {
+        console.log(JSON.stringify(res))
+        if (res.Success) {
+          ElMessageBox.alert("<font color='red'>恭喜你，您的账号 " + data.Account + " 注册成功！</font>", "系统提示", {
             dangerouslyUseHTMLString: true,
             type: "success",
           }).then(() => {

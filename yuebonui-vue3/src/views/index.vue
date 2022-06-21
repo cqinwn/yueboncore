@@ -137,6 +137,23 @@ function loadsysType() {
       loading.value = false
     })
 }
+
+function ssoLogin() {
+  var data = {
+    opencode: opencodevalue,
+    appId: defaultSettings.appId,
+    systemCode: defaultSettings.activeSystemCode
+  }
+  loading.value = true
+  store.dispatch('user/ssoLogin', data)
+    .then(res => {
+      // window.location.href = res.ResData.ActiveSystemUrl
+      loading.value = false
+    })
+    .catch(res => {
+      loading.value = false
+    })
+}
 InitDictItem()
 </script>
 

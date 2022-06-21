@@ -56,7 +56,7 @@
       highlight-current-row
       style="width: 100%"
       default-expand-all
-      :tree-props="{ children: 'Children' }"
+      :tree-props="{ children: 'Child' }"
       @selection-change="handleSelectChange"
     >
       <el-table-column type="selection" width="55" align="center" />
@@ -100,7 +100,7 @@
             :props="{
               label: 'FullName',
               value: 'Id',
-              children: 'Children',
+              children: 'Child',
               emitPath: false,
               checkStrictly: true,
               expandTrigger: 'hover',
@@ -244,7 +244,12 @@ function loadTableData() {
  *选择组织
   */
 function handleSelectOrganizeChange() {
-  editFrom.value.ParentId = selectedOrganizeOptions
+  if (currentId.value === selectedOrganizeOptions.value) {
+    proxy.$modal.alert('不能选择自己作为父级')
+    selectedOrganizeOptions.value = ''
+    return
+  }
+  editFrom.value.ParentId = selectedOrganizeOptions.value
 }
 // 表单重置
 function reset() {

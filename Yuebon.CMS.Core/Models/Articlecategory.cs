@@ -79,7 +79,7 @@ namespace Yuebon.CMS.Models
         /// <summary>
         /// 设置或获取描述
         /// </summary>
-        [SugarColumn(ColumnDescription = "描述", ColumnDataType = "nvarchar(4000)")]
+        [SugarColumn(ColumnDescription = "描述", ColumnDataType = "varchar(4000)")]
         public virtual string Description { get; set; }
 
         /// <summary>

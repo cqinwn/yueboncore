@@ -11,68 +11,66 @@
     </el-form>
     <el-row :gutter="10" class="mb8">
       <el-button-group>
-        <el-button v-hasPermi="['TaskJobsLog/Delete']" type="danger" icon="delete" :disabled="multiple" @click="deletePhysics()">删除</el-button>
+        <el-button v-hasPermi="['TaskJobsLog/Delete']" type="danger" icon="delete" :disabled="multiple"
+          @click="deletePhysics()">删除</el-button>
       </el-button-group>
       <right-toolbar v-model:showSearch="showSearch" @queryTable="loadTableData"></right-toolbar>
     </el-row>
-    <el-table
-      ref="gridtable"
-      v-loading="tableloading"
-      :data="tableData"
-      stripe
-      highlight-current-row
-      style="width: 100%"
-      :default-sort="{ prop: 'CreatorTime', order: 'ascending' }"
-      @selection-change="handleSelectChange"
-      @sort-change="handleSortChange"
-    >
+    <el-table ref="gridtable" v-loading="tableloading" :data="tableData" stripe highlight-current-row
+      style="width: 100%" :default-sort="{ prop: 'CreatorTime', order: 'ascending' }"
+      @selection-change="handleSelectChange" @sort-change="handleSortChange">
       <el-table-column type="selection" width="50" />
       <el-table-column prop="TaskId" label="任务Id" sortable="custom" width="150" />
       <el-table-column prop="TaskName" label="任务名称" sortable="custom" width="220" />
       <el-table-column prop="JobAction" label="执行动作" sortable="custom" width="120" />
       <el-table-column prop="Status" label="执行状态" sortable="custom" width="120">
         <template #default="scope">
-          <el-tag :type="scope.row.Status === true ? 'success' : 'info'" disable-transitions>{{ scope.row.Status === true ? "正常" : "异常" }}</el-tag>
+          <el-tag :type="scope.row.Status === true ? 'success' : 'info'" disable-transitions>{{ scope.row.Status ===
+            true ? "正常" : "异常" }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column prop="CreatorTime" label="创建时间" sortable="custom" width="160" />
-      <el-table-column prop="Description" label="结果描述" sortable="custom" />
+      <el-table-column prop="Resume" label="简述" sortable="custom" />
+      <el-table-column fixed="right" label="操作" width="60">
+        <template #default="scope">
+          <el-button type="primary" link @click="showDetailDialog(scope.row)">详情</el-button>
+        </template>
+      </el-table-column>
     </el-table>
-    <Pagination
-      v-show="queryParams.pageTotal>0"
-      :total="queryParams.pageTotal"
-      v-model:page="queryParams.CurrenetPageIndex"
-      v-model:limit="queryParams.PageSize"
-      @pagination="loadTableData"
-    />
-    <el-dialog ref="dialogEditForm" :title="editFormTitle + '{TableNameDesc}'" v-model="dialogEditFormVisible" width="640px">
+    <Pagination v-show="queryParams.pageTotal>0" :total="queryParams.pageTotal"
+      v-model:page="queryParams.CurrenetPageIndex" v-model:limit="queryParams.PageSize" @pagination="loadTableData" />
+    <el-dialog ref="dialogEditForm" :title="editFormTitle + '详情'" v-model="dialogEditFormVisible"
+      width="640px">
       <el-form ref="editFromRef" :model="editFrom" :rules="rules">
         <el-form-item label="任务Id" :label-width="formLabelWidth" prop="TaskId">
-          <el-input v-model="editFrom.TaskId" placeholder="请输入任务Id" autocomplete="off" clearable />
+          <el-input v-model="editFrom.TaskId" placeholder="请输入任务Id" autocomplete="off" readonly />
         </el-form-item>
         <el-form-item label="任务名称" :label-width="formLabelWidth" prop="TaskName">
-          <el-input v-model="editFrom.TaskName" placeholder="请输入任务名称" autocomplete="off" clearable />
+          <el-input v-model="editFrom.TaskName" placeholder="请输入任务名称" autocomplete="off" readonly />
         </el-form-item>
         <el-form-item label="执行动作" :label-width="formLabelWidth" prop="JobAction">
-          <el-input v-model="editFrom.JobAction" placeholder="请输入执行动作" autocomplete="off" clearable />
+          <el-input v-model="editFrom.JobAction" placeholder="请输入执行动作" autocomplete="off" readonly />
         </el-form-item>
         <el-form-item label="执行状态" :label-width="formLabelWidth" prop="Status">
           <el-radio-group v-model="editFrom.Status">
-            <el-radio label="true">是</el-radio>
-            <el-radio label="false">否</el-radio>
+            <el-radio :label="true">正常</el-radio>
+            <el-radio :label="false">异常</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="结果描述" :label-width="formLabelWidth" prop="Description">
-          <el-input v-model="editFrom.Description" placeholder="请输入结果描述" autocomplete="off" clearable />
+        <el-form-item label="简述" :label-width="formLabelWidth" prop="Description">
+          <el-input v-model="editFrom.Resume" autocomplete="off" readonly />
+        </el-form-item>
+        <el-form-item label="返回消息" :label-width="formLabelWidth" prop="Description">
+          <el-input v-model="editFrom.Description" show-word-limit :rows="20" type="textarea"
+            autocomplete="off" readonly />
         </el-form-item>
         <el-form-item label="创建时间" :label-width="formLabelWidth" prop="CreatorTime">
-          <el-input v-model="editFrom.CreatorTime" placeholder="请输入创建时间" autocomplete="off" clearable />
+          <el-input v-model="editFrom.CreatorTime" placeholder="请输入创建时间" autocomplete="off" readonly />
         </el-form-item>
       </el-form>
       <template #footer>
         <div class="dialog-footer">
           <el-button @click="dialogEditFormVisible = false">取 消</el-button>
-          <el-button type="primary" @click="saveEditForm()">确 定</el-button>
         </div>
       </template>
     </el-dialog>
@@ -182,85 +180,12 @@ function reset() {
 /**
  * 新增、修改或查看明细信息（绑定显示数据）     *
  */
-function ShowEditOrViewDialog(view) {
+function showDetailDialog(row) {
   reset()
-  if (view !== undefined) {
-    if (ids.value.length > 1 ||ids.value.length === 0) {
-      proxy.$modal.alert('请选择一条数据进行编辑/修改')
-    } else {
-      currentId.value = ids.value[0]
-      editFormTitle.value = '编辑'
-      dialogEditFormVisible.value = true
-      bindEditInfo()
-    }
-  } else {
-    editFormTitle.value = '新增'
-    currentId.value = ''
-    dialogEditFormVisible.value = true
-  }
-}
-function bindEditInfo() {
-  getTaskJobsLogDetail(currentId).then((res) => {
-    editFrom.value=res.ResData
+  getTaskJobsLogDetail(row.Id).then((res) => {
+    editFrom.value = res.ResData
   })
-}
-/**
- * 新增/修改保存
- */
-function saveEditForm() {
-  proxy.$refs['editFromRef'].validate((valid) => {
-    if (valid) {
-      saveTaskJobsLog(editFrom.value).then((res) => {
-        if (res.Success) {
-          proxy.$modal.msgSuccess('恭喜你，操作成功')
-          dialogEditFormVisible.value = false
-          loadTableData()
-        } else {
-          proxy.$modal.msgError(res.ErrMsg)
-        }
-      })
-    } else {
-      return false
-    }
-  })
-}
-function setEnable(val) {
-  if (ids.value.length === 0) {
-    proxy.$modal.alert('请先选择要操作的数据')
-    return false
-  } else {
-    const data = {
-      ids: ids.value,
-      bltag: val
-    }
-    setTaskJobsLogEnable(data).then((res) => {
-      if (res.Success) {
-        proxy.$modal.msgSuccess('恭喜你，操作成功')
-        loadTableData()
-      } else {
-        proxy.$modal.msgError(res.ErrMsg)
-      }
-    })
-  }
-}
-function deleteSoft(val) {
-  if (ids.value.length === 0) {
-    proxy.$modal.alert('请先选择要操作的数据')
-    return false
-  } else {
-    const data = {
-      Ids: ids.value,
-      Flag: val
-    }
-    deleteSoftTaskJobsLog(data).then((res) => {
-      if (res.Success) {
-        proxy.$modal.msgSuccess('恭喜你，操作成功')
-        loadTableData()
-      } else {
-        proxy.$modal.msgError(res.ErrMsg)
-      }
-    })
-  }
+  dialogEditFormVisible.value = true
 }
 function deletePhysics() {
   if (ids.value.length === 0) {

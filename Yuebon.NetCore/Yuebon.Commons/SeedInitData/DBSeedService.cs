@@ -178,7 +178,19 @@ namespace Yuebon.Commons.SeedInitData
                                     {
                                         p.DataType = "longtext";
                                     }
+                                    else if((DbType)m.MasterDB.DatabaseType == SqlSugar.DbType.PostgreSQL && (p.DataType.ToLower() == "varchar(max)" || p.DataType.ToLower() == "nvarchar(max)"))
+                                    {
+                                        p.DataType = "text";
+                                    }
                                 }
+                            }
+                        },
+                        AopEvents = new AopEvents
+                        {
+                            OnLogExecuting = (sql, p) =>
+                            {
+                                Console.WriteLine(sql);
+                                Console.WriteLine(string.Join(",", p?.Select(it => it.ParameterName + ":" + it.Value)));
                             }
                         }
                     };
@@ -202,6 +214,14 @@ namespace Yuebon.Commons.SeedInitData
                         { //string类型如果没有Required isnullable=true
                             p.IsNullable = true;
                         }
+                    }
+                };
+                config.AopEvents = new AopEvents
+                {
+                    OnLogExecuting = (sql, p) =>
+                    {
+                        Console.WriteLine(sql);
+                        Console.WriteLine(string.Join(",", p?.Select(it => it.ParameterName + ":" + it.Value)));
                     }
                 };
                 configs.Add(config);

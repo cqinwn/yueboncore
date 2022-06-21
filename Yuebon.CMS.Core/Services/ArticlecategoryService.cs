@@ -77,7 +77,7 @@ namespace Yuebon.CMS.Services
             if (elist.Count() >0)
             {
                 List<Articlecategory> list = elist.ToList();
-                var ChilList = list.FindAll(t => t.ParentId == null);
+                var ChilList = list.FindAll(t => t.ParentId == 0);
                 if (ChilList.Count==0)
                 {
                     Articlecategory articlecategoryOutputDto = elist.FirstOrDefault<Articlecategory>();

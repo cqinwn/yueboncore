@@ -45,7 +45,6 @@
       @sort-change="handleSortChange"
     >
       <el-table-column type="selection" width="40" />
-      <el-table-column prop="Id" label="ID" sortable="custom" width="180" />
       <el-table-column prop="Account" label="操作账号" sortable="custom" width="120" />
       <el-table-column prop="NickName" label="操作人" sortable="custom" width="120" />
       <el-table-column prop="IPAddress" label="IP地址" sortable="custom" width="150" />
@@ -76,7 +75,7 @@
 </template>
 
 <script setup name="LogLogin">
-import { getLogListWithPager, deleteLog } from '@/api/security/logservice'
+import { getLogListWithPager, deleteLog } from '@/api/security/loginLogservice'
 
 const { proxy } = getCurrentInstance()
 
@@ -180,8 +179,7 @@ function loadTableData() {
     PageSize: queryParams.value.PageSize,
     Filter: {
       IPAddress: queryParams.value.IpAddres,
-      Account: queryParams.value.Keywords,
-      Type: 'Login'
+      Account: queryParams.value.Keywords
     },
     Keywords: queryParams.value.Keywords,
     CreatorTime1: queryParams.value.CreateTime[0],

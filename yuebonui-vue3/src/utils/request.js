@@ -1,7 +1,7 @@
 import axios from 'axios'
 import store from '@/store'
-import { ElNotification, ElMessageBox, ElMessage, ElLoading } from 'element-plus'
-import { getToken } from '@/utils/auth'
+import { ElMessageBox, ElMessage } from 'element-plus'
+import { getToken, saveRefreshtime, getTokenRefreshTime } from '@/utils/auth'
 import { sign, GetRandomString } from '@/utils/yuebon'
 
 // 是否显示重新登录
@@ -24,13 +24,14 @@ service.interceptors.request.use(
     // 如果接口需要签名, 则通过请求时,headers中传递sign参数true
     const iSSign = config.headers['sign']
     if (iSSign || iSSign === undefined) {
-      const timeStamp = new Date().getTime().toString().substr(0, 10)
+      const timeStamp = new Date().getTime().toString().substring(0, 10)
       const nonce = GetRandomString()
       config.headers['appId'] = store.getters.appId
       config.headers['nonce'] = nonce
       config.headers['timeStamp'] = timeStamp
       config.headers['signature'] = sign(config, nonce, timeStamp, store.getters.appSecret)
     }
+    saveRefreshtime()
     return config
   },
   error => {
@@ -47,18 +48,23 @@ service.interceptors.response.use(
   response => {
     const res = response.data
     if (res.ErrCode !== '0') {
-      if (res.ErrCode === '40005') { // 超时自动刷新token
-        store.dispatch('ResetToken').then((res) => {
-          location.reload()
-        })
-      } else if (res.ErrCode === '40006') {
+      if (res.ErrCode === '401') { // token过期自动刷新token
+        var curTime = new Date()
+        var refreshtime = new Date(Date.parse(getTokenRefreshTime))
+        // 在用户操作的活跃期内
+        if (getTokenRefreshTime && (curTime <= refreshtime)) {
+          store.dispatch('ResetToken').then((res) => {
+            location.reload()
+          })
+        }
+      } else if (res.ErrCode === '403') {
         router.push({
           path: '/403',
           query: {
             redirect: router.currentRoute.fullPath
           }
         }).catch(() => { })
-      } else if (res.ErrCode === '40000' || res.ErrCode === '40008') {
+      } else if (res.ErrCode === '40000' || res.ErrCode === '4008') {
         if (!isRelogin.show) {
           isRelogin.show = true;
           // to re-login
@@ -68,7 +74,7 @@ service.interceptors.response.use(
             type: 'warning'
           }).then((res) => {
             isRelogin.show = false;
-            store.dispatch('LogOut').then(() => {
+            store.dispatch('FedLogOut').then(() => {
               location.href = '/index';
             })
           }).catch(() => {

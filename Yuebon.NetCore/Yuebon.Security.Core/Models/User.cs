@@ -89,7 +89,6 @@ namespace Yuebon.Security.Models
         /// 国家
         /// </summary>
         [DataMember]
-        [MaxLength(50)]
         [SugarColumn(ColumnDescription= "国家")]
         public virtual string Country { get; set; }
 
@@ -97,7 +96,6 @@ namespace Yuebon.Security.Models
         /// 省份
         /// </summary>
         [DataMember]
-        [MaxLength(50)]
         [SugarColumn(ColumnDescription= "省份")]
         public virtual string Province { get; set; }
 
@@ -105,7 +103,6 @@ namespace Yuebon.Security.Models
         /// 城市
         /// </summary>
         [DataMember]
-        [MaxLength(50)]
         [SugarColumn(ColumnDescription= "城市")]
         public virtual string City { get; set; }
 
@@ -113,14 +110,12 @@ namespace Yuebon.Security.Models
         /// 地区
         /// </summary>
         [DataMember]
-        [MaxLength(50)]
         [SugarColumn(ColumnDescription= "地区")]
         public virtual string District { get; set; }
 
         /// <summary>
         /// 主管主键
         /// </summary>
-        [MaxLength(50)]
         [SugarColumn(ColumnDescription= "主管主键")]
         public virtual long? ManagerId { get; set; }
 
@@ -140,14 +135,12 @@ namespace Yuebon.Security.Models
         /// <summary>
         /// 组织主键
         /// </summary>
-        [MaxLength(50)]
         [SugarColumn(ColumnDescription= "组织主键")]
-        public virtual long? OrganizeId { get; set; }
+        public virtual long OrganizeId { get; set; }
 
         /// <summary>
         /// 部门主键
         /// </summary>
-        [MaxLength(50)]
         [SugarColumn(ColumnDescription= "部门主键")]
         public virtual long? DepartmentId { get; set; }
 
@@ -161,8 +154,7 @@ namespace Yuebon.Security.Models
         /// <summary>
         /// 岗位主键
         /// </summary>
-        [MaxLength(50)]
-        [SugarColumn(ColumnDescription= "岗位主键")]
+        [SugarColumn(ColumnDescription= "岗位主键",IsNullable =true)]
         public virtual long? DutyId { get; set; }
 
         /// <summary>
@@ -178,23 +170,20 @@ namespace Yuebon.Security.Models
         public virtual bool? IsMember { get; set; }
 
         /// <summary>
-        /// 头像
+        /// 会员等级
         /// </summary>
-        [MaxLength(50)]
-        [SugarColumn(ColumnDescription= "头像")]
+        [SugarColumn(ColumnDescription= "会员等级")]
         public string MemberGradeId { get; set; }
 
         /// <summary>
         /// 上级推广员
         /// </summary>
-        [MaxLength(50)]
-        [SugarColumn(ColumnDescription= "上级推广员")]
+        [SugarColumn(ColumnDescription= "上级推广员", IsNullable=true)]
         public long? ReferralUserId { get; set; }
 
         /// <summary>
         /// 用户在微信开放平台的唯一标识符
         /// </summary>
-        [MaxLength(50)]
         [SugarColumn(ColumnDescription= "用户在微信开放平台的唯一标识符")]
         public string UnionId { get; set; }
 
@@ -208,7 +197,7 @@ namespace Yuebon.Security.Models
         /// 描述
         /// </summary>
         [MaxLength(500)]
-        [SugarColumn(ColumnDescription= "描述")]
+        [SugarColumn(ColumnDescription= "描述",Length =500)]
         public virtual string Description { get; set; }
 
 
@@ -240,27 +229,27 @@ namespace Yuebon.Security.Models
         /// <summary>
         /// 最后修改时间
         /// </summary>
-        [SugarColumn(ColumnDescription= "最后修改时间")]
+        [SugarColumn(ColumnDescription= "最后修改时间", IsNullable = true)]
         public virtual DateTime? LastModifyTime { get; set; }
 
         /// <summary>
         /// 最后修改用户
         /// </summary>
         [MaxLength(50)]
-        [SugarColumn(ColumnDescription= "最后修改用户")]
+        [SugarColumn(ColumnDescription= "最后修改用户", IsNullable = true)]
         public virtual long? LastModifyUserId { get; set; }
 
         /// <summary>
         /// 删除时间
         /// </summary>
-        [SugarColumn(ColumnDescription= "删除时间")]
+        [SugarColumn(ColumnDescription= "删除时间", IsNullable = true)]
         public virtual DateTime? DeleteTime { get; set; }
 
         /// <summary>
         /// 删除用户
         /// </summary>
         [MaxLength(50)]
-        [SugarColumn(ColumnDescription= "删除用户")]
+        [SugarColumn(ColumnDescription= "删除用户", IsNullable = true)]
         public virtual long? DeleteUserId { get; set; }
         #endregion
 

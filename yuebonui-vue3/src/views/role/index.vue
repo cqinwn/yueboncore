@@ -530,13 +530,6 @@ function handleSetAuth() {
  * 保存权限
  */
 function handleSaveRoleAuthorize() {
-  // var loadop = {
-  //   lock: true,
-  //   text: '正在保存数据，请耐心等待...',
-  //   spinner: 'loading',
-  //   background: 'rgba(0, 0, 0, 0.7)'
-  // }
-  // pageLoading = ElLoading.service(loadop)
   // 目前被选中的菜单节点
   const checkedKeysTreeFunction = treeFunctionRef.value.getCheckedKeys()
   // 半选中的菜单节点

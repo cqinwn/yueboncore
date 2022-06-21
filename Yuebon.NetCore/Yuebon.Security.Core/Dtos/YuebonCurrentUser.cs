@@ -67,7 +67,7 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 组织主键
         /// </summary>
-        public virtual long? OrganizeId { get; set; }
+        public virtual long OrganizeId { get; set; }
         /// <summary>
         /// 部门主键
         /// </summary>
@@ -141,5 +141,10 @@ namespace Yuebon.Security.Dtos
         /// 用户设置的软件主题
         /// </summary>
         public string UserTheme { get; set; }
+
+        /// <summary>
+        /// token有效时长
+        /// </summary>
+        public int TokenExpiresIn { get; set; }
     }
 }

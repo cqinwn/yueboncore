@@ -1,6 +1,7 @@
 <template>
   <div class="app-container">
-    <el-form ref="searchformRef" v-show="showSearch" :inline="true" :model="queryParams" class="demo-form-inline" size="small">
+    <el-form ref="searchformRef" v-show="showSearch" :inline="true" :model="queryParams" class="demo-form-inline"
+      size="small">
       <el-form-item label="任务名称：" prop="Keywords">
         <el-input v-model="queryParams.Keywords" clearable placeholder="任务名称或分组" />
       </el-form-item>
@@ -11,29 +12,28 @@
     </el-form>
     <el-row :gutter="10" class="mb8">
       <el-button-group>
-        <el-button v-hasPermi="['TaskManager/Add']" type="primary" icon="plus" @click="ShowEditOrViewDialog()">新增</el-button>
-        <el-button v-hasPermi="['TaskManager/Edit']" type="primary" icon="edit" :disabled="single" class="el-button-modify" @click="ShowEditOrViewDialog('edit')">修改</el-button>
-        <el-button v-hasPermi="['TaskManager/Enable']" type="info" icon="video-pause"  :disabled="multiple" @click="setEnable('0')">禁用</el-button>
-        <el-button v-hasPermi="['TaskManager/Enable']" type="success" icon="video-play" :disabled="multiple" @click="setEnable('1')">启用</el-button>
-        <el-button v-hasPermi="['TaskManager/DeleteSoft']" type="warning" icon="delete" :disabled="multiple" @click="deleteSoft('0')">软删除</el-button>
-        <el-button v-hasPermi="['TaskManager/Delete']" type="danger" icon="delete" :disabled="multiple" @click="deletePhysics()">删除</el-button>
-        <el-button v-hasPermi="['TaskManager/ChangeStatus']" type="info" icon="video-pause" :disabled="multiple" @click="setStatus('0')">暂停</el-button>
-        <el-button v-hasPermi="['TaskManager/ChangeStatus']" type="success" icon="video-play" :disabled="multiple" @click="setStatus('1')">启动</el-button>
+        <el-button v-hasPermi="['TaskManager/Add']" type="primary" icon="plus" @click="ShowEditOrViewDialog()">新增
+        </el-button>
+        <el-button v-hasPermi="['TaskManager/Edit']" type="primary" icon="edit" :disabled="single"
+          class="el-button-modify" @click="ShowEditOrViewDialog('edit')">修改</el-button>
+        <el-button v-hasPermi="['TaskManager/Enable']" type="info" icon="video-pause" :disabled="multiple"
+          @click="setEnable('0')">禁用</el-button>
+        <el-button v-hasPermi="['TaskManager/Enable']" type="success" icon="video-play" :disabled="multiple"
+          @click="setEnable('1')">启用</el-button>
+        <el-button v-hasPermi="['TaskManager/DeleteSoft']" type="warning" icon="delete" :disabled="multiple"
+          @click="deleteSoft('0')">软删除</el-button>
+        <el-button v-hasPermi="['TaskManager/Delete']" type="danger" icon="delete" :disabled="multiple"
+          @click="deletePhysics()">删除</el-button>
+        <el-button v-hasPermi="['TaskManager/ChangeStatus']" type="info" icon="video-pause" :disabled="multiple"
+          @click="setStatus('0')">暂停</el-button>
+        <el-button v-hasPermi="['TaskManager/ChangeStatus']" type="success" icon="video-play" :disabled="multiple"
+          @click="setStatus('1')">启动</el-button>
       </el-button-group>
       <right-toolbar v-model:showSearch="showSearch" @queryTable="loadTableData"></right-toolbar>
     </el-row>
-    <el-table
-      ref="gridtable"
-      v-loading="tableloading"
-      :data="tableData"
-      stripe
-      highlight-current-row
-      style="width: 100%"
-      :default-sort="{ prop: 'Id', order: 'ascending' }"
-      @selection-change="handleSelectChange"
-      @sort-change="handleSortChange"
-      @row-click="handleRowClick"
-    >
+    <el-table ref="gridtable" v-loading="tableloading" :data="tableData" stripe highlight-current-row
+      style="width: 100%" :default-sort="{ prop: 'Id', order: 'ascending' }" @selection-change="handleSelectChange"
+      @sort-change="handleSortChange" @row-click="handleRowClick">
       <el-table-column type="selection" width="40" />
       <el-table-column prop="TaskCode" label="任务编号" sortable="custom" width="150" />
       <el-table-column prop="TaskName" label="任务名称" sortable="custom" width="150" />
@@ -41,7 +41,8 @@
       <el-table-column prop="Cron" label="Cron表达式" sortable="custom" width="130" />
       <el-table-column label="状态" sortable="custom" width="90" prop="Status" align="center">
         <template #default="scope">
-          <el-tag :type="scope.row.Status === 1 ? 'success' : 'danger'" disable-transitions>{{ scope.row.Status === 1 ? "正在运行" : "暂停" }}</el-tag>
+          <el-tag :type="scope.row.Status === 1 ? 'success' : 'danger'" disable-transitions>{{ scope.row.Status === 1 ?
+            "正在运行" : "暂停" }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column prop="Description" label="简述" sortable="custom" width="110" />
@@ -55,30 +56,28 @@
       <el-table-column prop="LastErrorTime" label="出错时间" sortable width="160" />
       <el-table-column label="是否启用" sortable="custom" width="120" prop="EnabledMark" align="center">
         <template #default="scope">
-          <el-tag :type="scope.row.EnabledMark === true ? 'success' : 'info'" disable-transitions>{{ scope.row.EnabledMark === true ? "启用" : "禁用" }}</el-tag>
+          <el-tag :type="scope.row.EnabledMark === true ? 'success' : 'info'" disable-transitions>{{
+            scope.row.EnabledMark === true ? "启用" : "禁用" }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="是否删除" sortable="custom" width="120" prop="DeleteMark" align="center">
         <template #default="scope">
-          <el-tag :type="scope.row.DeleteMark === true ? 'danger' : 'success'" disable-transitions>{{ scope.row.DeleteMark === true ? "已删除" : "否" }}</el-tag>
+          <el-tag :type="scope.row.DeleteMark === true ? 'danger' : 'success'" disable-transitions>{{
+            scope.row.DeleteMark === true ? "已删除" : "否" }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column prop="CreatorTime" label="创建时间" sortable width="160" />
       <el-table-column prop="LastModifyTime" label="更新时间" sortable width="160" />
       <el-table-column fixed="right" label="操作" width="100">
         <template #default="scope">
-          <el-button type="text" @click="handleShowLogs(scope.row)">查看日志</el-button>
+          <el-button type="primary" link @click="handleShowLogs(scope.row)">查看日志</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <Pagination
-      v-show="queryParams.pageTotal>0"
-      :total="queryParams.pageTotal"
-      v-model:page="queryParams.CurrenetPageIndex"
-      v-model:limit="queryParams.PageSize"
-      @pagination="loadTableData"
-    />
-    <el-dialog ref="dialogEditForm" :title="editFormTitle + '定时任务'" v-model="dialogEditFormVisible" width="880px" append-to-body>
+    <Pagination v-show="queryParams.pageTotal>0" :total="queryParams.pageTotal"
+      v-model:page="queryParams.CurrenetPageIndex" v-model:limit="queryParams.PageSize" @pagination="loadTableData" />
+    <el-dialog ref="dialogEditForm" :title="editFormTitle + '定时任务'" v-model="dialogEditFormVisible" width="880px"
+      append-to-body>
       <el-form ref="editFromRef" :model="editFrom" :rules="rules">
         <el-row>
           <el-col :span="12">
@@ -93,17 +92,13 @@
           </el-col>
           <el-col :span="24">
             <el-form-item label="起止时间" :label-width="formLabelWidth" prop="StartEndTime">
-              <el-date-picker 
-              v-model="editFrom.StartEndTime" 
-              type="datetimerange" 
-              start-placeholder="开始时间" 
-              end-placeholder="结束结束" 
-              :default-time="defaultTime" />
+              <el-date-picker v-model="editFrom.StartEndTime" type="datetimerange" start-placeholder="开始时间"
+                end-placeholder="结束结束" :default-time="defaultTime" />
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="Cron表达式" :label-width="formLabelWidth" prop="Cron">
-                <el-input v-model="editFrom.Cron" placeholder="请输入Cron表达式"></el-input>
+              <el-input v-model="editFrom.Cron" placeholder="请输入Cron表达式"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -116,8 +111,10 @@
           </el-col>
           <el-col :span="12">
             <el-form-item v-if="isShowSelect" label="任务地址" :label-width="formLabelWidth" prop="JobCallAddress">
-              <el-select v-model="editFrom.JobCallAddress" clearable filterable placeholder="请输入任务地址" style="width: 300px">
-                <el-option v-for="item in selectLocalTask" :key="item.FullName" :label="item.FullName" :value="item.FullName" />
+              <el-select v-model="editFrom.JobCallAddress" clearable filterable placeholder="请输入任务地址"
+                style="width: 300px">
+                <el-option v-for="item in selectLocalTask" :key="item.FullName" :label="item.FullName"
+                  :value="item.FullName" />
               </el-select>
             </el-form-item>
           </el-col>
@@ -128,7 +125,8 @@
           </el-col>
           <el-col :span="24">
             <el-form-item label="任务参数" :label-width="formLabelWidth" prop="JobCallParams">
-              <el-input v-model="editFrom.JobCallParams" type="textarea" placeholder="请输入任务参数，JSON格式,为空时请求访问方式为get，反之为post" autocomplete="off" clearable />
+              <el-input v-model="editFrom.JobCallParams" type="textarea"
+                placeholder="请输入任务参数，JSON格式,为空时请求访问方式为get，反之为post" autocomplete="off" clearable />
             </el-form-item>
           </el-col>
           <el-col :span="24">
@@ -146,8 +144,10 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item v-if="editFrom.SendMail != '0'" label="Email地址" :label-width="formLabelWidth" prop="EmailAddress">
-              <el-input v-model="editFrom.EmailAddress" placeholder="接收通知邮件多个用英文逗号隔开，为空默认系统配置邮箱" autocomplete="off" clearable />
+            <el-form-item v-if="editFrom.SendMail != '0'" label="Email地址" :label-width="formLabelWidth"
+              prop="EmailAddress">
+              <el-input v-model="editFrom.EmailAddress" placeholder="接收通知邮件多个用英文逗号隔开，为空默认系统配置邮箱" autocomplete="off"
+                clearable />
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -168,10 +168,12 @@
       </template>
     </el-dialog>
 
-    <el-dialog ref="dialogShowLogForm" :title="editFormTitle + '任务日志最近40条记录'" v-model="dialogShowLogFormVisible" width="940px">
+    <el-dialog ref="dialogShowLogForm" :title="editFormTitle + '任务日志最近40条记录'" v-model="dialogShowLogFormVisible"
+      width="940px">
       <el-timeline>
-        <el-timeline-item v-for="(activity, index) in activities" :key="index" :color="activity.Color" :timestamp="activity.CreatorTime">
-          {{ activity.Description }}
+        <el-timeline-item v-for="(activity, index) in activities" :key="index" :color="activity.Color"
+          :timestamp="activity.CreatorTime">
+          {{ activity.Resume }}
         </el-timeline-item>
       </el-timeline>
     </el-dialog>
@@ -321,7 +323,6 @@ function reset() {
  * 新增、修改或查看明细信息（绑定显示数据）     *
  */
 function ShowEditOrViewDialog(view) {
-  reset()
   if (view !== undefined) {
     if (ids.value.length > 1 || ids.value.length === 0) {
       proxy.$modal.alert('请选择一条数据进行编辑/修改')
@@ -329,13 +330,13 @@ function ShowEditOrViewDialog(view) {
       currentId.value = ids.value[0]
       editFormTitle.value = '编辑'
       dialogEditFormVisible.value = true
-      bindEditInfo()
     }
   } else {
     editFormTitle.value = '新增'
     currentId.value = ''
     dialogEditFormVisible.value = true
   }
+  reset()
 }
 function bindEditInfo() {
   getTaskManagerDetail(currentId.value).then(res => {

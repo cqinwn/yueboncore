@@ -1,9 +1,0 @@
-﻿[
-  {
-    "Id": 1,
-    "UserId": 1,
-    "UserPassword": "10d24d52118495f97e2b4ed8b55b0388",
-    "UserSecretkey": "fcec738e883ac408",
-    "Theme": "{\"Theme\": \"#409EFF\",\"SideTheme\": \"theme-dark\",\"FixedHeader\": false,\"TagsView\": true,\"SidebarLogo\": true,\"DynamicTitle\": false,\"TopNav\": false}"
-  }
-]

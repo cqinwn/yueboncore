@@ -235,7 +235,7 @@ namespace Yuebon.Commons.Cache
             }
 
 
-            TimeSpan expiresIn = DateTime.Now.AddMinutes(seconds) - DateTime.Now;
+            TimeSpan expiresIn = DateTime.Now.AddSeconds(seconds) - DateTime.Now;
             return _cache.StringSet(GetKeyForRedis(key), Encoding.UTF8.GetBytes(JsonSerializer.Serialize(value, _jsonOptions)), expiresIn);
         }
 

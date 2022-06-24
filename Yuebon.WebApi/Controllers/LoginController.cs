@@ -178,7 +178,8 @@ namespace Yuebon.WebApi.Controllers
                         IEnumerable<APP> appList = _appService.GetAllByIsNotDeleteAndEnabledMark();
                         MemoryCacheHelper.Set("cacheAppList", appList);
                     }
-                    string strHost = Request.Host.ToString();
+
+                    string strHost = Request.Headers["Origin"].ToString();
                     APP app = _appService.GetAPP(input.AppId);
                     if (app == null)
                     {

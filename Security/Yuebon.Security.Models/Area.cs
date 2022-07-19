@@ -6,15 +6,12 @@
 [SugarTable("Sys_Area", "地区信息")]
 [Serializable]
 public class Area:BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited
-{ 
+{
     /// <summary>
     /// 默认构造函数（需要初始化属性的在此处理）
     /// </summary>
-	    public Area()
-		{
-        
-
-		}
+    public Area()
+    { }
 
     #region Property Members
 

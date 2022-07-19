@@ -11,8 +11,6 @@ public class Role: TenantEntity, ICreationAudited, IModificationAudited, IDelete
     /// </summary>
 	    public Role()
 		{
-        //this.Id= System.Guid.NewGuid().ToString();
-
 		}
 
     #region Property Members

@@ -12,17 +12,6 @@ public class TaskManager: BaseEntity, ICreationAudited, IModificationAudited, ID
     /// </summary>
     public TaskManager()
     {
-        Id = IdGeneratorHelper.IdSnowflake();
-        this.RunCount = 0;
-        this.ErrorCount = 0;
-        this.NextRunTime = DateTime.Now;
-        this.LastRunTime = DateTime.Now;
-        this.JobCallParams = string.Empty;
-        this.Cron = string.Empty;
-        this.Status = 0;
-        this.CompanyId = 0;
-        this.DeptId = 0;
-        this.DeleteUserId = 0;
     }
 
     /// <summary>

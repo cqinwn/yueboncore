@@ -8,14 +8,12 @@ namespace Yuebon.Security.Models;
 [SugarTable("Sys_User", "用户表")]
 [Serializable]
 public class User: TenantEntity, ICreationAudited, IModificationAudited, IDeleteAudited, IMustHaveTenant
-{ 
+{
     /// <summary>
     /// 默认构造函数（需要初始化属性的在此处理）
     /// </summary>
-	    public User()
-    {
-        
-    }
+    public User()
+    { }
 
     #region Property Members
     /// <summary>

@@ -14,7 +14,6 @@ namespace Yuebon.Security.Models
     {
         public TenantLogon()
         {
-            Id = IdGeneratorHelper.IdSnowflake();
         }
 
         /// <summary>

@@ -6,7 +6,6 @@ public class SqlLog : LongEntity, ICreationAudited
 {
     public SqlLog()
     {
-        Id= IdGeneratorHelper.IdSnowflake();
     }
 
     #region Property Members

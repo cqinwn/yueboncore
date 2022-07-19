@@ -8,11 +8,11 @@ namespace Yuebon.Security.Models;
 [SugarTable("Sys_UserExtend", "用户扩展信息表")]
 [Serializable]
 public class UserExtend : TenantEntity, ICreationAudited, IModificationAudited, IDeleteAudited, IMustHaveTenant
-{ 
+{
     /// <summary>
     /// 默认构造函数（需要初始化属性的在此处理）
     /// </summary>
-	    public UserExtend()
+    public UserExtend()
     {
     }
 

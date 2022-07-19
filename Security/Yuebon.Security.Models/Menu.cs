@@ -6,13 +6,14 @@
 [SugarTable("Sys_Menu", "系统菜单")]
 [Serializable]
 public class Menu: TenantEntity, ICreationAudited, IModificationAudited, IDeleteAudited
-{ 
+{
     /// <summary>
-    /// 默认构造函数（需要初始化属性的在此处理）
+    /// 
     /// </summary>
-	    public Menu()
-		{
+    public Menu()
+    {
     }
+
 
     #region Property Members
 

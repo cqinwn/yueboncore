@@ -14,9 +14,9 @@ public class Log: LongEntity, ICreationAudited, IDeleteAudited
     /// <summary>
     /// 默认构造函数（需要初始化属性的在此处理）
     /// </summary>
-	    public Log()
-		{
-		}
+	public Log()
+	{
+	}
 
 
     #region Property Members

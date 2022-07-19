@@ -9,10 +9,6 @@ public class LoginLog : TenantEntity, ICreationAudited, IDeleteAudited
     /// </summary>
     public LoginLog()
     {
-        this.Id = IdGeneratorHelper.IdSnowflake();
-        this.EnabledMark = true;
-        this.DeleteMark = false;
-        this.CreatorTime = DateTime.Now;
     }
 
     #region Property Members

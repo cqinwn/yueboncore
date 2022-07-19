@@ -13,9 +13,9 @@ public class FilterIP : TenantEntity, ICreationAudited, IModificationAudited, ID
     /// </summary>
 
     public FilterIP()
-		{
+    {
 
-		}
+    }
 
     #region Property Members
 

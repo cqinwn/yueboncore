@@ -14,7 +14,6 @@ namespace Yuebon.Security.Models
     {
         public TaskJobsLog()
         {
-            Id=IdGeneratorHelper.IdSnowflake();
         }
 
         /// <summary>

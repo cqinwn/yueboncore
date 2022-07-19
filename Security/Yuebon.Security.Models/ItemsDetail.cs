@@ -12,7 +12,6 @@ public class ItemsDetail: BaseEntity, ICreationAudited, IModificationAudited, ID
     /// </summary>
 	    public ItemsDetail()
 		{
-        //this.Id= System.Guid.NewGuid().ToString();
 
 		}
 

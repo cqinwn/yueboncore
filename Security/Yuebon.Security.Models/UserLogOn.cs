@@ -6,13 +6,12 @@
 [SugarTable("Sys_UserLogOn", "用户登录信息表")]
 [Serializable]
 public class UserLogOn: TenantEntity
-{ 
+{
     /// <summary>
     /// 默认构造函数（需要初始化属性的在此处理）
     /// </summary>
-	    public UserLogOn()
-		{
-        Theme = "";
+    public UserLogOn()
+    {
     }
 
     #region Property Members

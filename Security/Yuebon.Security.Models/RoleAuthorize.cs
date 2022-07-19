@@ -12,7 +12,6 @@ public class RoleAuthorize: TenantEntity, ICreationAudited
     /// </summary>
 	    public RoleAuthorize()
 		{
-        //this.Id = GuidUtils.CreateNo();
 
 		}
 

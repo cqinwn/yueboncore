@@ -12,7 +12,6 @@ public class SystemType : TenantEntity, ICreationAudited, IModificationAudited, 
     /// </summary>
     public SystemType()
     {
-        this.Id = IdGeneratorHelper.IdSnowflake();
     }
 
     #region Property Members

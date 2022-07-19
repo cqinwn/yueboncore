@@ -13,19 +13,6 @@ public class UploadFile : TenantEntity, ICreationAudited
     /// </summary>
     public UploadFile()
     {
-        this.Id = IdGeneratorHelper.IdSnowflake();
-        this.FileName = string.Empty;
-        this.FilePath = string.Empty;
-        this.Description = string.Empty;
-        this.FileType = string.Empty;
-        this.Extension = string.Empty;
-        this.SortCode = 0;
-        this.CreatorTime = DateTime.Now;
-        this.Thumbnail = string.Empty;
-        this.BelongApp = string.Empty;
-        this.BelongAppId = string.Empty;
-        this.EnabledMark = true;
-        this.DeleteMark = false;
     }
 
     /// <summary>

@@ -7,14 +7,14 @@
 [SugarTable("Sys_DbBackup","数据库备份记录")]
 [Serializable]
 public class DbBackup : BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited
-{ 
+{
     /// <summary>
     /// 默认构造函数（需要初始化属性的在此处理）
     /// </summary>
-	    public DbBackup()
-		{
+    public DbBackup()
+    {
 
-		}
+    }
 
     #region Property Members
     /// <summary>

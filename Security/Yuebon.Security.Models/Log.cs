@@ -16,9 +16,6 @@ public class Log: LongEntity, ICreationAudited, IDeleteAudited
     /// </summary>
 	    public Log()
 		{
-        this.Id = IdGeneratorHelper.IdSnowflake();
-        this.DeleteMark = false;
-        this.CreatorTime = DateTime.Now;
 		}
 
 

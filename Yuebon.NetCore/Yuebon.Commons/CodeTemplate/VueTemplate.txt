@@ -266,9 +266,9 @@ function handleSortChange(column) {
     queryParams.value.Sort = column.prop
   }
   if (column.order === 'ascending') {
-    queryParams.Order = 'asc'
+    queryParams.value.Order = 'asc'
   } else {
-    queryParams.Order = 'desc'
+    queryParams.value.Order = 'desc'
   }
   loadTableData()
 }

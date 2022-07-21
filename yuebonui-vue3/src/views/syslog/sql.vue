@@ -143,7 +143,6 @@ function InitDictItem() {
  */
 function loadTableData() {
   tableloading.value = true
-  queryParams
   var seachdata = {
     CurrenetPageIndex: queryParams.value.CurrenetPageIndex,
     PageSize: queryParams.value.PageSize,

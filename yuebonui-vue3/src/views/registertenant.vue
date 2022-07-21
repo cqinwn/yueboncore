@@ -155,7 +155,7 @@ function handleLogin(){
   proxy.$refs['registerFormRef'].validate((valid) => {
     if (valid) {
       if (!editFrom.value.checkAgreement) {
-        new Error('请勾选同意协议内容')
+        proxy.$modal.msgError('请勾选同意协议内容')
         return
       }
       loading.value = true

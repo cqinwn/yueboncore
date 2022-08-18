@@ -49,7 +49,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.Security.SeedData", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.Security.Services", "Security\Yuebon.Security.Services\Yuebon.Security.Services.csproj", "{6DF08226-9779-4282-B1B7-8F14918F1243}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yuebon.VisualDev", "Yuebon.VisualDev\Yuebon.VisualDev.csproj", "{7FE0B499-CAA9-4EC9-9605-F57852DDA99D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.VisualDev", "Yuebon.VisualDev\Yuebon.VisualDev.csproj", "{7FE0B499-CAA9-4EC9-9605-F57852DDA99D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductServiceApi", "ProductServiceApi\ProductServiceApi.csproj", "{C01F8B89-81B3-460B-9CF6-2D623BAB4A41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -145,6 +147,10 @@ Global
 		{7FE0B499-CAA9-4EC9-9605-F57852DDA99D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FE0B499-CAA9-4EC9-9605-F57852DDA99D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FE0B499-CAA9-4EC9-9605-F57852DDA99D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C01F8B89-81B3-460B-9CF6-2D623BAB4A41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C01F8B89-81B3-460B-9CF6-2D623BAB4A41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C01F8B89-81B3-460B-9CF6-2D623BAB4A41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C01F8B89-81B3-460B-9CF6-2D623BAB4A41}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

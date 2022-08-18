@@ -184,10 +184,10 @@ if (Appsettings.GetValue("AppSetting:SeedDBEnabled").ObjToBool() || Appsettings.
 
 app.ConfigureEventBus();
 
-var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
-var tasksQzServices = scope.ServiceProvider.GetRequiredService<ITaskManagerService>();
-var schedulerCenter = scope.ServiceProvider.GetRequiredService<ISchedulerCenter>();
-app.UseQuartzJobMiddleware(tasksQzServices, schedulerCenter);
+//var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
+//var tasksQzServices = scope.ServiceProvider.GetRequiredService<ITaskManagerService>();
+//var schedulerCenter = scope.ServiceProvider.GetRequiredService<ISchedulerCenter>();
+//app.UseQuartzJobMiddleware(tasksQzServices, schedulerCenter);
 #endregion
 
 // 4、运行

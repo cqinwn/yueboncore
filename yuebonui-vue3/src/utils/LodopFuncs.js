@@ -1,5 +1,6 @@
 ﻿// ==本JS是加载Lodop插件及CLodop服务的综合示例，可直接使用，建议看懂后融进自己页面程序==
 
+const { proxy } = getCurrentInstance()
 var CreatedOKLodopObject, CLodopIsLocal, CLodopJsState
 
 // ==判断是否需要CLodop(那些不支持插件的浏览器):==
@@ -44,8 +45,8 @@ function loadCLodop() {
   var JS2 = document.createElement('script')
   JS1.src = 'http://localhost:8000/CLodopfuncs.js?priority=1'
   JS2.src = 'http://localhost:18000/CLodopfuncs.js'
-  JS1.onload = JS2.onload = function() { CLodopJsState = 'complete' }
-  JS1.onerror = JS2.onerror = function(evt) { CLodopJsState = 'complete' }
+  JS1.onload = JS2.onload = function () { CLodopJsState = 'complete' }
+  JS1.onerror = JS2.onerror = function (evt) { CLodopJsState = 'complete' }
   head.insertBefore(JS1, head.firstChild)
   head.insertBefore(JS2, head.firstChild)
   CLodopIsLocal = !!((JS1.src + JS2.src).match(/\/\/localho|\/\/127.0.0./i))
@@ -74,7 +75,7 @@ function getLodop(oOBJECT, oEMBED) {
         LODOP = getCLodop()
       } catch (err) { }
       if (!LODOP && CLodopJsState !== 'complete') {
-        if (CLodopJsState === 'loading') alert('网页还没下载完毕，请稍等一下再操作.'); else alert('没有加载CLodop的主js，请先调用loadCLodop过程.')
+        if (CLodopJsState === 'loading') proxy.$modal.alert('网页还没下载完毕，请稍等一下再操作.'); else proxy.$modal.alert('没有加载CLodop的主js，请先调用loadCLodop过程.')
         return
       }
       if (!LODOP) {
@@ -117,7 +118,8 @@ function getLodop(oOBJECT, oEMBED) {
     // =======================================================
     return LODOP
   } catch (err) {
-    alert('getLodop出错:' + err)
+    proxy.$modal.alert('getLodop出错' + err)
+    //alert('getLodop出错:' + err)
   }
 }
 export { getLodop } // 导出getLodop

@@ -42,7 +42,7 @@ namespace Yuebon.Commons.Models
             }
             else
             {
-                return string.IsNullOrEmpty(Id.ToString());
+                return false;
             }
         }
 

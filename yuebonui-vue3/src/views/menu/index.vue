@@ -45,7 +45,7 @@
         width="220"
       >
         <template #default="scope">
-          <svg-icon v-if="scope.row.Icon" :icon-class="scope.row.Icon" />{{ scope.row.FullName }}
+          <svg-icon v-if="scope.row.Icon" :icon-class="scope.row.Icon" style="display:inline"/>{{ scope.row.FullName }}
         </template>
       </el-table-column>
       <el-table-column

@@ -35,11 +35,11 @@ namespace Yuebon.Commons.Models
         {
             if (Id>0)
             {
-                return true;
+                return false;
             }
             else
             {
-                return string.IsNullOrEmpty(Id.ToString());
+                return true;
             }
         }
     }

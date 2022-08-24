@@ -243,6 +243,7 @@ public class LoginController : ApiController
                                     result.Success = true;
                                     
                                     LoginLog logEntity = new LoginLog();
+                                    logEntity.Id = IdGeneratorHelper.IdSnowflake();
                                     logEntity.Account = user.Account;
                                     logEntity.NickName = user.NickName;
                                     logEntity.Date = logEntity.CreatorTime = DateTime.Now;
@@ -260,6 +261,7 @@ public class LoginController : ApiController
                                     result.ErrCode = ErrCode.failCode;
                                     result.ErrMsg = userLogin.Item2;
                                     LoginLog logEntity = new LoginLog();
+                                    logEntity.Id = IdGeneratorHelper.IdSnowflake();
                                     logEntity.Account = input.Username;
                                     logEntity.NickName = input.Username;
                                     logEntity.Date = logEntity.CreatorTime = DateTime.Now;

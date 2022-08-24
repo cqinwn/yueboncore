@@ -21,7 +21,7 @@ namespace Yuebon.Commons.CodeGenerator
         /// <summary>
         /// 代码生成器配置
         /// </summary>
-        private static readonly CodeGenerateOption _option;
+        private static readonly CodeGenerateOption _option=new CodeGenerateOption();
         /// <summary>
         /// InputDto输入实体是不包含字段
         /// </summary>

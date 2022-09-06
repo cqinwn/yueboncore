@@ -125,6 +125,26 @@ namespace Yuebon.AspNetCore.Controllers
         public virtual async Task<IActionResult> UpdateAsync(TIDto inInfo)
         {
             CommonResult result = new CommonResult();
+            var prop = typeof(TIDto).GetProperty(nameof(IBaseEntity.Id));
+            if (prop is null)
+            {
+                throw new NotImplementedException("No Id found!");
+            }
+            long id = (long)prop.GetValue(inInfo);
+            var info = await iService.GetAsync(id);
+            inInfo.MapTo<TIDto, T>(info);
+            OnBeforeUpdate(info);
+            bool bl = await iService.UpdateAsync(info);
+            if (bl)
+            {
+                result.ErrCode = ErrCode.successCode;
+                result.ErrMsg = ErrCode.err0;
+            }
+            else
+            {
+                result.ErrMsg = ErrCode.err43002;
+                result.ErrCode = "43002";
+            }
             return ToJsonContent(result);
         }
         /// <summary>

@@ -139,7 +139,7 @@ namespace Yuebon.Commons.CodeGenerator
                 string fieldName = dbFieldInfo.DbColumnName.Substring(0, 1).ToUpper() + dbFieldInfo.DbColumnName.Substring(1);
                 string strDataType = SqlType2CsharpTypeStr(dbFieldInfo.DataType,dbFieldInfo.IsNullable);
                 //主键
-                if (dbFieldInfo.IsIdentity)
+                if (dbFieldInfo.IsPrimarykey)
                 {
                     keyTypeName = strDataType;
                     outputDtocontent += "        /// <summary>\n";

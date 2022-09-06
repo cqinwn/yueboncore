@@ -17,7 +17,7 @@ namespace Yuebon.Commons.Models
         [DisplayName("编号")]
         [Key]
         [Column("Id",TypeName ="bigint")]
-        [SugarColumn(IsPrimaryKey = true)]
+        [SugarColumn(IsPrimaryKey = true, ColumnDescription = "编号,主键")]
         public virtual long Id { get; set; }
 
         /// <summary>

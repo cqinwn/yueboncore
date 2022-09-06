@@ -36,13 +36,13 @@ namespace Yuebon.Commons.Models
         /// <returns></returns>
         public override bool KeyIsNull()
         {
-            if (Id >0)
+            if (Id > 0)
             {
-                return true;
+                return false;
             }
             else
             {
-                return string.IsNullOrEmpty(Id.ToString());
+                return true;
             }
         }
 

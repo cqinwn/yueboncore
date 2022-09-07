@@ -14,7 +14,7 @@ namespace {DtosNamespace}
     /// </summary>
     [AutoMap(typeof({ModelTypeName}))]
     [Serializable]
-    public class {ModelTypeName}InputDto: IInputDto
+    public partial class {ModelTypeName}InputDto: IInputDto
     {
 {ModelContent}
     }

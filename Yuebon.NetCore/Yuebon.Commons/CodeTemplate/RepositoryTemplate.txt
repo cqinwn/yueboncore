@@ -9,7 +9,7 @@ namespace {RepositoriesNamespace}
     /// <summary>
     /// {TableNameDesc}仓储接口的实现
     /// </summary>
-    public class {ModelTypeName}Repository : BaseRepository<{ModelTypeName}>, I{ModelTypeName}Repository
+    public partial class {ModelTypeName}Repository : BaseRepository<{ModelTypeName}>, I{ModelTypeName}Repository
     {
 
         public {ModelTypeName}Repository(IUnitOfWork unitOfWork) : base(unitOfWork)

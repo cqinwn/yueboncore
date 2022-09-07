@@ -15,7 +15,7 @@ namespace {ServicesNamespace}
     /// <summary>
     /// {TableNameDesc}服务接口实现
     /// </summary>
-    public class {ModelTypeName}Service: BaseService<{ModelTypeName},{ModelTypeName}OutputDto>, I{ModelTypeName}Service
+    public partial class {ModelTypeName}Service: BaseService<{ModelTypeName},{ModelTypeName}OutputDto>, I{ModelTypeName}Service
     {
         public {ModelTypeName}Service(I{ModelTypeName}Repository _repository)
         {

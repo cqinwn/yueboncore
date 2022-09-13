@@ -20,7 +20,7 @@ namespace {ApiControllerNamespace}.Areas.{BaseNameSpaceEx}.Controllers
     /// </summary>
     [ApiController]
     [Route("api/{BaseNameSpaceEx}/[controller]")]
-    public class {ModelTypeName}Controller : AreaApiController<{ModelTypeName}, {ModelTypeName}OutputDto,{ModelTypeName}InputDto,I{ModelTypeName}Service>
+    public partial class {ModelTypeName}Controller : AreaApiController<{ModelTypeName}, {ModelTypeName}OutputDto,{ModelTypeName}InputDto,I{ModelTypeName}Service>
     {
         /// <summary>
         /// 构造函数

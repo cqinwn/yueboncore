@@ -7,7 +7,7 @@ namespace {IRepositoriesNamespace}
     /// <summary>
     /// 定义{TableNameDesc}仓储接口
     /// </summary>
-    public interface I{ModelTypeName}Repository:IRepository<{ModelTypeName}>
+    public partial interface I{ModelTypeName}Repository:IRepository<{ModelTypeName}>
     {
     }
 }

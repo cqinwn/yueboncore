@@ -1,4 +1,6 @@
-﻿namespace Yuebon.Security.Models;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Yuebon.Security.Models;
 
 /// <summary>
 /// 系统应用表，数据实体对象
@@ -16,14 +18,18 @@ public class APP :BaseEntity, ICreationAudited, IModificationAudited, IDeleteAud
 
     #region Property APP
 
-
+    /// <summary>
+    /// 获取或设置 编号
+    /// </summary>
+    [DisplayName("编号")]
+    [SugarColumn(IsPrimaryKey = true, ColumnDescription = "编号,主键")]
+    public override long Id { get; set; }
     /// <summary>
     /// 应用Id
     /// </summary>
     [MaxLength(50)]
     [SugarColumn(ColumnDescription= "应用Id")]
     [Description("应用Id")]
-    [Required]
     public virtual string AppId { get; set; }
 
     /// <summary>
@@ -32,7 +38,6 @@ public class APP :BaseEntity, ICreationAudited, IModificationAudited, IDeleteAud
     [MaxLength(256)]
     [Description("应用密钥")]
     [SugarColumn(ColumnDescription= "应用密钥",Length =64)]
-    [Required]
     public virtual string AppSecret { get; set; }
 
     /// <summary>

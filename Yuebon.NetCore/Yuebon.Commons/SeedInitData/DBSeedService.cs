@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using NPOI.SS.Formula.Functions;
 using SqlSugar;
 using System;
 using System.Collections;
@@ -108,17 +109,19 @@ namespace Yuebon.Commons.SeedInitData
                             }
                             else
                             {
-                                var seedDataTable = seedData.ToList().ToDataTable();
+                                var list = seedData.ToList();
+                                var seedDataTable = list.ToDataTable();
+                                seedDataTable.TableName = list[0].GetType().GetCustomAttribute<SugarTable>()?.TableName;
                                 if (seedDataTable.Columns.Contains("Id"))
                                 {
                                     var storage = Db.Storageable(seedDataTable).WhereColumns("Id").ToStorage();
-                                    storage.AsInsertable.ExecuteCommand();
-                                    //storage.AsUpdateable.ExecuteCommand();
+                                    await storage.AsInsertable.ExecuteCommandAsync();
+                                    await storage.AsUpdateable.ExecuteCommandAsync();
                                 }
                                 else //没有主键或者不是预定义的主键(没主键有重复的可能)
                                 {
                                     var storage = Db.Storageable(seedDataTable).ToStorage();
-                                    storage.AsInsertable.ExecuteCommand();
+                                    await storage.AsInsertable.ExecuteCommandAsync();
                                 }
                                 Console.WriteLine($"Table:{seedDataTable.TableName} Data created success!");
                             }
@@ -179,17 +182,19 @@ namespace Yuebon.Commons.SeedInitData
                         }
                         else
                         {
-                            var seedDataTable = seedData.ToList().ToDataTable();
+                            var list = seedData.ToList();
+                            var seedDataTable = list.ToDataTable();
+                            seedDataTable.TableName = list[0].GetType().GetCustomAttribute<SugarTable>()?.TableName;
                             if (seedDataTable.Columns.Contains("Id"))
                             {
                                 var storage = Db.Storageable(seedDataTable).WhereColumns("Id").ToStorage();
-                                storage.AsInsertable.ExecuteCommand();
-                                //storage.AsUpdateable.ExecuteCommand();
+                                await storage.AsInsertable.ExecuteCommandAsync();
+                                await storage.AsUpdateable.ExecuteCommandAsync();
                             }
                             else //没有主键或者不是预定义的主键(没主键有重复的可能)
                             {
                                 var storage = Db.Storageable(seedDataTable).ToStorage();
-                                storage.AsInsertable.ExecuteCommand();
+                                await storage.AsInsertable.ExecuteCommandAsync();
                             }
                             Console.WriteLine($"Table:{seedDataTable.TableName} Data created success!");
                         }

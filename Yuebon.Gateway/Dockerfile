@@ -19,4 +19,4 @@ RUN dotnet publish "Yuebon.Gateway.csproj" -c Release -o /app/publish /p:UseAppH
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Yuebon.Gateway.dll"]
+ENTRYPOINT ["dotnet", "Yuebon.Gateway.dll","-b","0.0.0.0"]

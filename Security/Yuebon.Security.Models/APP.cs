@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Yuebon.Security.Models;
+﻿namespace Yuebon.Security.Models;
 
 /// <summary>
 /// 系统应用表，数据实体对象

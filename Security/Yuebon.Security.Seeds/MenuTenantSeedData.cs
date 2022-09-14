@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Yuebon.Commons.SeedInitData;
 using Yuebon.Security.Models;
 
 namespace Yuebon.Security.SeedData

@@ -1,19 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using Yuebon.AspNetCore.Controllers;
-using Yuebon.AspNetCore.Models;
-using Yuebon.AspNetCore.Mvc;
-using Yuebon.Commons.Cache;
-using Yuebon.Commons.Core.Dtos;
-using Yuebon.Commons.Extensions;
-using Yuebon.Commons.Json;
-using Yuebon.Commons.Models;
-using Yuebon.Security.Application;
-using Yuebon.Security.Dtos;
-using Yuebon.Security.IServices;
-using Yuebon.Security.Models;
-
-namespace Yuebon.WebApi.Areas.Tenants.Controllers
+﻿namespace Yuebon.WebApi.Areas.Tenants.Controllers
 {
     /// <summary>
     /// 文件管理

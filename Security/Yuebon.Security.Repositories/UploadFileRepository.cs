@@ -1,11 +1,4 @@
-﻿using System;
-using System.Data;
-using Yuebon.Commons.Core.UnitOfWork;
-using Yuebon.Commons.Repositories;
-using Yuebon.Security.IRepositories;
-using Yuebon.Security.Models;
-
-namespace Yuebon.Security.Repositories
+﻿namespace Yuebon.Security.Repositories
 {
     public class UploadFileRepository : BaseRepository<UploadFile>, IUploadFileRepository
     {

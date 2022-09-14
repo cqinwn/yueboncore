@@ -1,4 +1,5 @@
 ﻿using Quartz;
+using Yuebon.Core.Module;
 using Yuebon.Extensions.Middlewares;
 using Yuebon.Quartz.Jobs;
 using static Yuebon.Extensions.ServiceExtensions.SwaggerVersions;

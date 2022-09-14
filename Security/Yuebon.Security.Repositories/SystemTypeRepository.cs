@@ -1,9 +1,4 @@
-﻿using Yuebon.Commons.Core.UnitOfWork;
-using Yuebon.Commons.Repositories;
-using Yuebon.Security.IRepositories;
-using Yuebon.Security.Models;
-
-namespace Yuebon.Security.Repositories
+﻿namespace Yuebon.Security.Repositories
 {
     /// <summary>
     /// 系统类型，也是子系统

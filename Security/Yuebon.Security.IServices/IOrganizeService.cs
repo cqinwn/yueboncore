@@ -1,12 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Threading.Tasks;
-using Yuebon.Commons.Core.Dtos;
-using Yuebon.Commons.IServices;
-using Yuebon.Commons.Models;
-using Yuebon.Security.Dtos;
-using Yuebon.Security.Models;
+using Yuebon.Core.Dtos;
 
 namespace Yuebon.Security.IServices
 {

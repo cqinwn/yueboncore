@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Yuebon.Commons.Models
+namespace Yuebon.Commons.Result
 {
     /// <summary>
     /// Token返回结果对象

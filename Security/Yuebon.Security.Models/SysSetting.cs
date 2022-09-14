@@ -1,6 +1,4 @@
-﻿using SqlSugar;
-using Yuebon.Commons.Models;
-using Yuebon.Commons.Options;
+﻿using Yuebon.Commons.Options;
 
 namespace Yuebon.Security.Models;
 

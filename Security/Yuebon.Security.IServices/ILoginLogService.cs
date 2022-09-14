@@ -1,9 +1,4 @@
-﻿using Yuebon.Commons.IServices;
-using Yuebon.Commons.Pages;
-using Yuebon.Security.Dtos;
-using Yuebon.Security.Models;
-
-namespace Yuebon.Security.IServices
+﻿namespace Yuebon.Security.IServices
 {
     public interface ILoginLogService : IService<LoginLog, LoginLogOutputDto>
     {

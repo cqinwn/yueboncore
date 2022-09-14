@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="App\**" />
+    <Compile Remove="DbContextCore\**" />
+    <Compile Remove="IDbContext\**" />
+    <EmbeddedResource Remove="App\**" />
+    <EmbeddedResource Remove="DbContextCore\**" />
+    <EmbeddedResource Remove="IDbContext\**" />
+    <None Remove="App\**" />
+    <None Remove="DbContextCore\**" />
+    <None Remove="IDbContext\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Dtos\InputDtoValidateExtensions.cs" />
+    <Compile Remove="Module\MoudleService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SqlSugarCore" Version="5.1.2.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Yuebon.NetCore\Yuebon.Commons\Yuebon.Commons.csproj" />
+  </ItemGroup>
+
+</Project>

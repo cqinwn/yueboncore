@@ -1,7 +1,4 @@
-﻿using SqlSugar;
-using Yuebon.Commons.Models;
-
-namespace Yuebon.CodeGenerator.Models
+﻿namespace Yuebon.CodeGenerator.Models
 {
     [SugarTable("Sys_CodeColumns", "表字段")]
     [Serializable]

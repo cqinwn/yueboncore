@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Yuebon.Core\Yuebon.Core.csproj" />
     <ProjectReference Include="..\..\Yuebon.NetCore\Yuebon.Commons\Yuebon.Commons.csproj" />
   </ItemGroup>
 

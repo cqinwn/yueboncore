@@ -1,7 +1,6 @@
 ﻿using Quartz.Spi;
 using System.Collections.Specialized;
 using System.Reflection;
-using Yuebon.Commons.Models;
 using Yuebon.Security.Dtos;
 
 namespace Yuebon.Quartz.Jobs

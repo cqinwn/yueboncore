@@ -7,7 +7,7 @@ using Yuebon.Commons.Cache;
 using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Json;
-using Yuebon.Commons.Models;
+using Yuebon.Commons.Result;
 using Yuebon.Commons.Options;
 
 namespace Yuebon.Commons.Helpers

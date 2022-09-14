@@ -1,8 +1,4 @@
-﻿
-
-using Yuebon.Commons.IServices;
-
-namespace Yuebon.Extensions.ServiceExtensions;
+﻿namespace Yuebon.Extensions.ServiceExtensions;
 
 public class AutofacModuleRegister : Autofac.Module
 {

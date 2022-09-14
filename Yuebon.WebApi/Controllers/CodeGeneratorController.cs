@@ -1,6 +1,7 @@
 ﻿using SqlSugar;
 using Yuebon.AspNetCore.ViewModel;
 using Yuebon.Commons.Pages;
+using Yuebon.Commons.CodeGenerator;
 
 namespace Yuebon.WebApi.Controllers;
 
@@ -45,7 +46,7 @@ public class CodeGeneratorController : ApiController
             TimeSpan expiresSliding = DateTime.Now.AddMinutes(30) - DateTime.Now;
             yuebonCacheHelper.Add("CodeGeneratorDbConn", dbConnInfo.DbAddress, expiresSliding, false);
             yuebonCacheHelper.Add("CodeGeneratorDbType", dbConnInfo.DbType, expiresSliding, false);
-            result.ResData=new Yuebon.Commons.CodeGenerator.CodeGenerator().GetDB().DbMaintenance.GetDataBaseList(new Yuebon.Commons.CodeGenerator.CodeGenerator().GetDB());
+            result.ResData=new Commons.CodeGenerator.CodeGenerator().GetDB().DbMaintenance.GetDataBaseList(new Yuebon.Commons.CodeGenerator.CodeGenerator().GetDB());
             result.Success = true;
             result.ErrCode = ErrCode.successCode;
            

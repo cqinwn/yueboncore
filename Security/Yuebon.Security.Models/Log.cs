@@ -1,5 +1,4 @@
-﻿using Yuebon.Commons.Core.DataManager;
-
+﻿using Yuebon.Core.DataManager;
 
 namespace Yuebon.Security.Models;
 

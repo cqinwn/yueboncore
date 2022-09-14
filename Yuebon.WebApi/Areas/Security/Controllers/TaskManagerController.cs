@@ -1,23 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
 using Quartz;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Yuebon.AspNetCore.Controllers;
-using Yuebon.AspNetCore.Models;
-using Yuebon.AspNetCore.Mvc;
 using Yuebon.AspNetCore.ViewModel;
-using Yuebon.Commons.Core.Dtos;
-using Yuebon.Commons.Extensions;
-using Yuebon.Commons.Helpers;
-using Yuebon.Commons.Models;
 using Yuebon.Quartz.Jobs;
-using Yuebon.Security.Dtos;
-using Yuebon.Security.IServices;
-using Yuebon.Security.Models;
-using Yuebon.WebApi.Areas.Security.Models;
 
 namespace Yuebon.WebApi.Areas.Security.Controllers
 {
@@ -220,7 +203,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 foreach (long item in info.Ids)
                 {
                     if (string.IsNullOrEmpty(item.ToString())) continue;
-                    TaskManager job = await iService.GetAsync(item);
+                    TaskManager job = await iService.GetAsync(long.Parse(item.ToString()));
                     if (job == null)
                     {
                         throw new Exception("任务不存在");

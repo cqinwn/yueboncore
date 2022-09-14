@@ -4,18 +4,11 @@
  * Description: Yuebon快速开发平台
  * Website：http://www.yuebon.com
 *********************************************************************************/
-using SqlSugar;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Xml;
@@ -1269,8 +1262,8 @@ namespace Yuebon.Commons.Extensions
                     {
                         colType = colType.GetGenericArguments()[0];
                     }
-                    if (IsIgnoreColumn(pi))
-                        continue;
+                    //if (IsIgnoreColumn(pi))
+                    //    continue;
                     dtReturn.Columns.Add(pi.Name, colType);
                 }
                 for (int i = 0; i < source.Count; i++)
@@ -1278,8 +1271,8 @@ namespace Yuebon.Commons.Extensions
                     ArrayList tempList = new();
                     foreach (PropertyInfo pi in propertys)
                     {
-                        if (IsIgnoreColumn(pi))
-                            continue;
+                        //if (IsIgnoreColumn(pi))
+                        //    continue;
                         object obj = pi.GetValue(source[i], null);
                         tempList.Add(obj);
                     }
@@ -1295,11 +1288,11 @@ namespace Yuebon.Commons.Extensions
         /// </summary>
         /// <param name="pi"></param>
         /// <returns></returns>
-        private static bool IsIgnoreColumn(PropertyInfo pi)
-        {
-            var sc = pi.GetCustomAttributes<SugarColumn>(false).FirstOrDefault(u => u.IsIgnore == true);
-            return sc != null;
-        }
+        //private static bool IsIgnoreColumn(PropertyInfo pi)
+        //{
+        //    var sc = pi.GetCustomAttributes<SugarColumn>(false).FirstOrDefault(u => u.IsIgnore == true);
+        //    return sc != null;
+        //}
     }
     /// <summary>
     /// 结果。

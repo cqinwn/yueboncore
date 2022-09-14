@@ -1,0 +1,9 @@
+﻿global using SqlSugar;
+global using System.ComponentModel.DataAnnotations;
+global using Yuebon.Core.Dtos;
+global using Yuebon.Core.IRepositories;
+global using Yuebon.Core.IServices;
+global using Yuebon.Core.Models;
+global using Yuebon.Core.Repositories;
+global using Yuebon.Core.Services;
+global using Yuebon.Core.UnitOfWork;

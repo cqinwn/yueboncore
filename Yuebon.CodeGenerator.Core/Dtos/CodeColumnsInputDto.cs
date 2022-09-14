@@ -1,7 +1,5 @@
 using AutoMapper;
-using System.ComponentModel.DataAnnotations;
 using Yuebon.CodeGenerator.Models;
-using Yuebon.Commons.Dtos;
 
 namespace Yuebon.CodeGenerator.Dtos
 {

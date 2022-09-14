@@ -1,8 +1,3 @@
-using SqlSugar;
-using System;
-using System.ComponentModel.DataAnnotations;
-using Yuebon.Commons.Models;
-
 namespace Yuebon.Security.Models
 {
     /// <summary>

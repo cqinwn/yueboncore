@@ -1,6 +1,3 @@
-using System.Data;
-using Yuebon.Commons.Models;
-
 namespace Yuebon.Security.Services;
 
 /// <summary>

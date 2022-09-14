@@ -39,7 +39,7 @@ public static class EventBusSetup
         if (Appsettings.app(new string[] { "EventBus", "Enabled" }).ObjToBool())
         {
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
-            eventBus.Subscribe<VisitLogIntegrationEvent, VisitLogIntegrationEventHandler>();
+            //eventBus.Subscribe<VisitLogIntegrationEvent, VisitLogIntegrationEventHandler>();
         }
     }
 }

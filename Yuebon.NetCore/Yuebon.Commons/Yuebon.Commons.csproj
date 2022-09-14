@@ -34,35 +34,38 @@
 
   <ItemGroup>
     <Compile Remove="AutoMapper\**" />
-    <Compile Remove="Core\Dapper\**" />
-    <Compile Remove="Core\DbContextCore\**" />
-    <Compile Remove="Core\IDbContext\**" />
+    <Compile Remove="CodeGenerator\**" />
+    <Compile Remove="Core\**" />
     <Compile Remove="Dependency\**" />
     <Compile Remove="Entity\**" />
+    <Compile Remove="EventBus\**" />
     <Compile Remove="Exceptions\**" />
     <Compile Remove="Finders\**" />
     <Compile Remove="Middlewares\**" />
     <Compile Remove="Reflection\**" />
+    <Compile Remove="SeedInitData\**" />
     <EmbeddedResource Remove="AutoMapper\**" />
-    <EmbeddedResource Remove="Core\Dapper\**" />
-    <EmbeddedResource Remove="Core\DbContextCore\**" />
-    <EmbeddedResource Remove="Core\IDbContext\**" />
+    <EmbeddedResource Remove="CodeGenerator\**" />
+    <EmbeddedResource Remove="Core\**" />
     <EmbeddedResource Remove="Dependency\**" />
     <EmbeddedResource Remove="Entity\**" />
+    <EmbeddedResource Remove="EventBus\**" />
     <EmbeddedResource Remove="Exceptions\**" />
     <EmbeddedResource Remove="Finders\**" />
     <EmbeddedResource Remove="Middlewares\**" />
     <EmbeddedResource Remove="Reflection\**" />
+    <EmbeddedResource Remove="SeedInitData\**" />
     <None Remove="AutoMapper\**" />
-    <None Remove="Core\Dapper\**" />
-    <None Remove="Core\DbContextCore\**" />
-    <None Remove="Core\IDbContext\**" />
+    <None Remove="CodeGenerator\**" />
+    <None Remove="Core\**" />
     <None Remove="Dependency\**" />
     <None Remove="Entity\**" />
+    <None Remove="EventBus\**" />
     <None Remove="Exceptions\**" />
     <None Remove="Finders\**" />
     <None Remove="Middlewares\**" />
     <None Remove="Reflection\**" />
+    <None Remove="SeedInitData\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -76,31 +79,7 @@
     <Compile Remove="Attributes\UnitOfWorkIInterceptor.cs" />
     <Compile Remove="Attributes\WriteAttribute.cs" />
     <Compile Remove="Cache\MemoryCacheHelper.cs" />
-    <Compile Remove="CodeGenerator\DataBaseInfo.cs" />
-    <Compile Remove="CodeGenerator\DbExtractor.cs" />
-    <Compile Remove="CodeGenerator\DbExtractorAbstract.cs" />
-    <Compile Remove="CodeGenerator\DbFieldInfo.cs" />
-    <Compile Remove="CodeGenerator\DbTable.cs" />
-    <Compile Remove="CodeGenerator\DbTableColumn.cs" />
-    <Compile Remove="CodeGenerator\DbTableInfo.cs" />
-    <Compile Remove="CodeGenerator\IDbExtractor.cs" />
-    <Compile Remove="CodeGenerator\MssqlExtractor.cs" />
-    <Compile Remove="CodeGenerator\MySqlExtractor.cs" />
-    <Compile Remove="CodeGenerator\TableModel.cs" />
-    <Compile Remove="Core\App\AppContext.cs" />
-    <Compile Remove="Core\App\IAppContext.cs" />
-    <Compile Remove="Core\App\InternalApp.cs" />
-    <Compile Remove="Core\DataManager\BaseDBConfig.cs" />
-    <Compile Remove="Core\DataManager\YuebonDbOptions.cs" />
-    <Compile Remove="Core\DataManager\YuebonDbOptionsSetup.cs" />
-    <Compile Remove="Core\Dtos\InputDtoValidateExtensions.cs" />
-    <Compile Remove="Core\IRepositories\ISqlSugarBaseRepository.cs" />
-    <Compile Remove="Core\IServices\ISqlSugarService.cs" />
-    <Compile Remove="Core\Module\MoudleService.cs" />
-    <Compile Remove="Core\Repositories\SqlSugarBaseRepository.cs" />
-    <Compile Remove="Core\Services\SqlSugarBaseService.cs" />
     <Compile Remove="DependencyInjection\AspectCoreContainer.cs" />
-    <Compile Remove="EventBus\InMemoryEventBus.cs" />
     <Compile Remove="Extensions\AddSwaggerSetup.cs" />
     <Compile Remove="Extensions\AuthorizationSetup.cs" />
     <Compile Remove="Extensions\AutoMapperExtension.cs" />
@@ -209,24 +188,20 @@
     <PackageReference Include="log4net" Version="2.0.15" />
     <PackageReference Include="MediatR" Version="10.0.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.8" />
-    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="6.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.9" />
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="6.0.9" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.9" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
     <PackageReference Include="MiniProfiler.AspNetCore" Version="4.2.22" />
     <PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.2.22" />
-    <PackageReference Include="MySql.Data" Version="8.0.30" />
     <PackageReference Include="NPinyin.Core" Version="3.0.0" />
-    <PackageReference Include="Polly" Version="7.2.3" />
     <PackageReference Include="QRCoder" Version="1.4.3" />
     <PackageReference Include="Quartz" Version="3.4.0" />
-    <PackageReference Include="RabbitMQ.Client" Version="6.4.0" />
     <PackageReference Include="SgmlReader.NetCore" Version="1.0.0" />
-    <PackageReference Include="SqlSugarCore" Version="5.1.2.8" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.5" />
     <PackageReference Include="System.Data.OleDb" Version="6.0.0" />

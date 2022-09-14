@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Yuebon.Commons.Models;
-using Yuebon.Security.Dtos;
+﻿using Yuebon.Security.Dtos;
 
 namespace Yuebon.Quartz.Jobs
 {

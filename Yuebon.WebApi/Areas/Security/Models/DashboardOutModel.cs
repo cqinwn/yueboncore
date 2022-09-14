@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Yuebon.WebApi.Areas.Security.Models
+﻿namespace Yuebon.WebApi.Areas.Security.Models
 {
     /// <summary>
     /// 控制台首页显示内容

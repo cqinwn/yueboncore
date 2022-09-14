@@ -1,12 +1,4 @@
-﻿using SqlSugar;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Yuebon.Commons.Models;
-
-namespace Yuebon.CodeGenerator.Models
+﻿namespace Yuebon.CodeGenerator.Models
 {
     /// <summary>
     /// 数据库信息

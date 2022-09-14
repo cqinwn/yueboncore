@@ -1,4 +1,4 @@
-﻿using Yuebon.Commons.EventBus.Abstractions;
+﻿using Yuebon.EventBus.Abstractions;
 using Yuebon.Security.Services.IntegrationEvents.Events;
 
 namespace Yuebon.Security.Services.EventHandling

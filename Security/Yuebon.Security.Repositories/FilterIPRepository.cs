@@ -1,8 +1,4 @@
-using Yuebon.Commons.Core.UnitOfWork;
 using Yuebon.Commons.Extensions;
-using Yuebon.Commons.Repositories;
-using Yuebon.Security.IRepositories;
-using Yuebon.Security.Models;
 
 namespace Yuebon.Security.Repositories
 {

@@ -1,5 +1,3 @@
-using System;
-using Yuebon.Commons.IRepositories;
 using Yuebon.CodeGenerator.Models;
 
 namespace Yuebon.CodeGenerator.IRepositories

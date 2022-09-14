@@ -1,11 +1,11 @@
 using SqlSugar;
 using Yuebon.Commons.Core.App;
-using Yuebon.Commons.Core.DataManager;
 using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Enums;
 using Yuebon.Commons.Extend;
 using Yuebon.Commons.Helpers;
-using Yuebon.Commons.SeedInitData;
+using Yuebon.Core.DataManager;
+using Yuebon.Core.SeedInitData;
 using Yuebon.Security.SeedData;
 
 namespace Yuebon.Security.Services;

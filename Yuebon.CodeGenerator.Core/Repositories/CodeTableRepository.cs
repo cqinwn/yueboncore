@@ -1,6 +1,3 @@
-using System;
-using Yuebon.Commons.Core.UnitOfWork;
-using Yuebon.Commons.Repositories;
 using Yuebon.CodeGenerator.IRepositories;
 using Yuebon.CodeGenerator.Models;
 

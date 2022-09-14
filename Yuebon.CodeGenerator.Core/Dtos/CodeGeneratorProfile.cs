@@ -1,7 +1,4 @@
 using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Yuebon.CodeGenerator.Models;
 
 namespace Yuebon.CodeGenerator.Dtos

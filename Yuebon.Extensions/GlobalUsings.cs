@@ -11,14 +11,14 @@ global using System.Reflection;
 global using Yuebon.Commons.Cache;
 global using Yuebon.Commons.Converter;
 global using Yuebon.Commons.Core.App;
-global using Yuebon.Commons.EventBus;
-global using Yuebon.Commons.EventBus.Abstractions;
-global using Yuebon.Commons.EventBus.RabbitMQPersistent;
+global using Yuebon.EventBus;
+global using Yuebon.EventBus.Abstractions;
+global using Yuebon.EventBus.RabbitMQ;
 global using Yuebon.Commons.Extensions;
 global using Yuebon.Commons.Helpers;
-global using Yuebon.Commons.IRepositories;
+global using Yuebon.Core.IRepositories;
 global using Yuebon.Commons.Options;
-global using Yuebon.Commons.Repositories;
+global using Yuebon.Core.Repositories;
 global using Yuebon.Security.Services.EventHandling;
 
 

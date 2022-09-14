@@ -22,6 +22,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Security\Yuebon.Security.Services\Yuebon.Security.Services.csproj" />
+    <ProjectReference Include="..\Yuebon.EventBus.RabbitMQ\Yuebon.EventBus.RabbitMQ.csproj" />
+    <ProjectReference Include="..\Yuebon.EventBus\Yuebon.EventBus.csproj" />
     <ProjectReference Include="..\Yuebon.NetCore\Yuebon.Quartz.Jobs\Yuebon.Quartz.Jobs.csproj" />
   </ItemGroup>
 

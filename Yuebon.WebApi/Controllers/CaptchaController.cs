@@ -20,7 +20,7 @@ public class CaptchaController : ApiController
     public async Task<CommonResult<AuthGetVerifyCodeOutputDto>> CaptchaAsync()
     {
         Captcha captcha = new Captcha();
-        var code =await  captcha.GenerateRandomCaptchaAsync().ConfigureAwait(false);
+        var code =await  captcha.GenerateRandomCaptchaAsync();
         var result =await  captcha.GenerateCaptchaImageAsync(code);
         YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
         TimeSpan expiresSliding = DateTime.Now.AddMinutes(5) - DateTime.Now;

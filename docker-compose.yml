@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  yuebon.webapi:
+    image: ${DOCKER_REGISTRY-}yuebonwebapi
+    build:
+      context: .
+      dockerfile: Yuebon.WebApi/Dockerfile
+
+  yuebon.gateway:
+    image: ${DOCKER_REGISTRY-}yuebongateway
+    build:
+      context: .
+      dockerfile: Yuebon.Gateway/Dockerfile
+
+
+

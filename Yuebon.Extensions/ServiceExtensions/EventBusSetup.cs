@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Yuebon.Commons.Log;
 using Yuebon.Security.Services.IntegrationEvents.Events;
 
 namespace Yuebon.Extensions.ServiceExtensions;

@@ -18,11 +18,6 @@ builder.Host
     builder.AddFilter("Microsoft", LogLevel.Error);
     builder.SetMinimumLevel(LogLevel.Error);
     builder.AddLog4Net(Path.Combine(Directory.GetCurrentDirectory(), "log4net.config"));
-})
-.ConfigureAppConfiguration((hostingContext, config) =>
-{
-    config.Sources.Clear();
-    config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: false);
 });
 
 ILoggerRepository loggerRepository = LogManager.CreateRepository("NETCoreRepository");
@@ -142,7 +137,7 @@ app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
     options.DocumentTitle = Appsettings.Configuration.GetSection("SwaggerDoc:Title").Value;
-    typeof(ApiVersions).GetEnumNames().OrderByDescending(e => e).ToList().ForEach(version =>
+    typeof(ApiVersions).GetEnumNames().OrderBy(e => e).ToList().ForEach(version =>
     {
         options.SwaggerEndpoint($"/swagger/{version}/swagger.json", $"{Appsettings.Configuration.GetSection("SwaggerDoc:Title").Value + version.ToUpperInvariant()}");
         options.RoutePrefix = string.Empty;//这里主要是不需要再输入swagger这个默认前缀

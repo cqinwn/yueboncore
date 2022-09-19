@@ -18,11 +18,11 @@ public static class UiFilesZipSetup
     {
         if (services == null) throw new ArgumentNullException(nameof(services));
 
-        string wwwrootFolderPath = Path.Combine(_env.ContentRootPath, "wwwroot");
-        string zipUiItemFiles = Path.Combine(wwwrootFolderPath, "ui.zip");
-        if (!File.Exists(Path.Combine(wwwrootFolderPath, "ui", "index.html")))
-        {
-            ZipFile.ExtractToDirectory(zipUiItemFiles, wwwrootFolderPath);
-        }
+        //string wwwrootFolderPath = Path.Combine(_env.ContentRootPath, "wwwroot");
+        //string zipUiItemFiles = Path.Combine(wwwrootFolderPath, "ui.zip");
+        //if (!File.Exists(Path.Combine(wwwrootFolderPath, "ui", "index.html")))
+        //{
+        //    ZipFile.ExtractToDirectory(zipUiItemFiles, wwwrootFolderPath);
+        //}
     }
 }

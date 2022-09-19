@@ -51,8 +51,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.Security.Services", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.VisualDev", "Yuebon.VisualDev\Yuebon.VisualDev.csproj", "{7FE0B499-CAA9-4EC9-9605-F57852DDA99D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductServiceApi", "ProductServiceApi\ProductServiceApi.csproj", "{C01F8B89-81B3-460B-9CF6-2D623BAB4A41}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 核心", "01 核心", "{DCCDC288-E8B0-4841-8F48-1E9B3C701E67}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.EventBus", "Yuebon.EventBus\Yuebon.EventBus.csproj", "{67953E77-2C05-4D98-A75B-7BDAB24F5C31}"
@@ -169,10 +167,6 @@ Global
 		{7FE0B499-CAA9-4EC9-9605-F57852DDA99D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FE0B499-CAA9-4EC9-9605-F57852DDA99D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FE0B499-CAA9-4EC9-9605-F57852DDA99D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C01F8B89-81B3-460B-9CF6-2D623BAB4A41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C01F8B89-81B3-460B-9CF6-2D623BAB4A41}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C01F8B89-81B3-460B-9CF6-2D623BAB4A41}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C01F8B89-81B3-460B-9CF6-2D623BAB4A41}.Release|Any CPU.Build.0 = Release|Any CPU
 		{67953E77-2C05-4D98-A75B-7BDAB24F5C31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{67953E77-2C05-4D98-A75B-7BDAB24F5C31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67953E77-2C05-4D98-A75B-7BDAB24F5C31}.Release|Any CPU.ActiveCfg = Release|Any CPU

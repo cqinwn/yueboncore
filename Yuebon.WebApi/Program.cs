@@ -1,7 +1,5 @@
-﻿using Quartz;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Yuebon.Core.Module;
-using Yuebon.Extensions.Middlewares;
-using Yuebon.Quartz.Jobs;
 using static Yuebon.Extensions.ServiceExtensions.SwaggerVersions;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -82,7 +80,6 @@ builder.Services.AddEndpointsApiExplorer();
 
 #endregion
 
-
 #region automapper
 List<Assembly> myAssembly = RuntimeHelper.GetAllYuebonAssemblies().ToList();
 builder.Services.AddAutoMapper(myAssembly);
@@ -96,7 +93,7 @@ builder.Services.AddEventBusSetup();
 #endregion
 
 builder.Services.AddJobSetup();
-builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
 Appsettings.Services = builder.Services;
 //雪花算法配置
 YitIdHelper.SetIdGenerator(new IdGeneratorOptions()

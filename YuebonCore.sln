@@ -73,8 +73,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yuebon.Gateway", "Yuebon.Ga
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{7073B756-5EE6-45BD-91FF-043E75B3F75C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "..\WebApplication1\WebApplication1.csproj", "{E89179AF-9B32-4372-BEBD-18985850008B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -197,10 +195,6 @@ Global
 		{7073B756-5EE6-45BD-91FF-043E75B3F75C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7073B756-5EE6-45BD-91FF-043E75B3F75C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7073B756-5EE6-45BD-91FF-043E75B3F75C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E89179AF-9B32-4372-BEBD-18985850008B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E89179AF-9B32-4372-BEBD-18985850008B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E89179AF-9B32-4372-BEBD-18985850008B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E89179AF-9B32-4372-BEBD-18985850008B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

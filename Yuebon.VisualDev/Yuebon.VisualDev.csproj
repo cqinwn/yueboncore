@@ -4,6 +4,8 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Title></Title>
+    <Description>在线开发模块\代码生成模块</Description>
   </PropertyGroup>
 
 </Project>

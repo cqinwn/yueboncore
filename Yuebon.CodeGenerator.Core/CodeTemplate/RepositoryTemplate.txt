@@ -1,0 +1,15 @@
+﻿namespace {RepositoriesNamespace}
+{
+    /// <summary>
+    /// {TableNameDesc}仓储接口的实现
+    /// </summary>
+    public partial class {ModelTypeName}Repository : BaseRepository<{ModelTypeName}>, I{ModelTypeName}Repository
+    {
+
+        public {ModelTypeName}Repository(IUnitOfWork unitOfWork) : base(unitOfWork)
+        {
+
+        }
+
+    }
+}

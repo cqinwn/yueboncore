@@ -1,0 +1,10 @@
+﻿namespace {DtosNamespace}
+{
+    public class {ClassName}Profile : Profile
+    {
+        public {ClassName}Profile()
+        {
+{ProfileContent}
+        }
+    }
+}

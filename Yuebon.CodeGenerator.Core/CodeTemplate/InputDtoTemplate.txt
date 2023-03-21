@@ -1,0 +1,12 @@
+﻿namespace {DtosNamespace}
+{
+    /// <summary>
+    /// {TableNameDesc}输入对象模型
+    /// </summary>
+    [AutoMap(typeof({ModelTypeName}))]
+    [Serializable]
+    public partial class {ModelTypeName}InputDto: IInputDto
+    {
+{ModelContent}
+    }
+}

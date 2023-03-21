@@ -1,0 +1,11 @@
+﻿namespace {DtosNamespace}
+{
+    /// <summary>
+    /// {TableNameDesc}输出对象模型
+    /// </summary>
+    [Serializable]
+    public partial class {ModelTypeName}OutputDto
+    {
+{ModelContent}
+    }
+}

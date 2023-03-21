@@ -543,7 +543,7 @@ public class CodeGenerator
             servicesPath = parentPath + "\\" + _option.BaseNamespace + "\\Areas\\"+ fileClassName;
             Directory.CreateDirectory(servicesPath);
         }
-        var fullPath = servicesPath + "\\" + modelTypeName + "Controller.cs";
+        var fullPath = servicesPath + "\\Controllers\\" + modelTypeName + "Controller.cs";
         if (File.Exists(fullPath) && !ifExsitedCovered)
             return;
         var content = ReadTemplate("ControllersTemplate.txt");

@@ -1,8 +1,10 @@
-﻿using SqlSugar;
+﻿using Quartz.Impl.AdoJobStore.Common;
+using SqlSugar;
 using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using Yuebon.Commons;
+using Yuebon.Commons.Attributes;
 using Yuebon.Commons.Core.App;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
@@ -95,7 +97,7 @@ namespace Yuebon.Core.SeedInitData
                             var instance = Activator.CreateInstance(item);
 
                             var hasDataMethod = item.GetMethod("HasData");
-                            var seedData = ((IList)hasDataMethod?.Invoke(instance, null))?.Cast<object>();
+                            var seedData = ((IEnumerable)hasDataMethod?.Invoke(instance, null))?.Cast<object>();
                             if (seedData == null)
                             {
                                 Console.WriteLine($"Table:{item.Name} already exists...");
@@ -103,19 +105,21 @@ namespace Yuebon.Core.SeedInitData
                             else
                             {
                                 var list = seedData.ToList();
-                                var seedDataTable = list.ToDataTable();
-                                seedDataTable.TableName = list[0].GetType().GetCustomAttribute<SugarTable>()?.TableName;
-                                if (seedDataTable.Columns.Contains("Id"))
+                                var entityType = list[0].GetType();
+                                var entityInfo = Db.EntityMaintenance.GetEntityInfo(entityType);
+                                if (entityInfo.Columns.Any(u => u.IsPrimarykey))
                                 {
-                                    var storage = Db.Storageable(seedDataTable).WhereColumns("Id").ToStorage();
-                                    await storage.AsInsertable.ExecuteCommandAsync();
+                                    var storage = Db.StorageableByObject(list).ToStorage();
+                                    storage.AsInsertable.ExecuteCommand();
+                                    var ignoreUpdate = hasDataMethod.GetCustomAttribute<IgnoreUpdateAttribute>();
+                                    if (ignoreUpdate == null) storage.AsUpdateable.ExecuteCommand();
                                 }
                                 else //没有主键或者不是预定义的主键(没主键有重复的可能)
                                 {
-                                    var storage = Db.Storageable(seedDataTable).ToStorage();
-                                    await storage.AsInsertable.ExecuteCommandAsync();
+                                    if (!Db.Queryable(entityInfo.DbTableName, entityInfo.DbTableName).Any())
+                                        Db.StorageableByObject(list).ToStorage().ExecuteCommand();
                                 }
-                                Console.WriteLine($"Table:{seedDataTable.TableName} Data created success!");
+                                Console.WriteLine($"Table:{entityInfo.DbTableName} Data Init success!");
                             }
                         }
                         ConsoleHelper.WriteSuccessLine($"Done {itemDll} seeding database!");
@@ -167,7 +171,7 @@ namespace Yuebon.Core.SeedInitData
                         var instance = Activator.CreateInstance(item);
 
                         var hasDataMethod = item.GetMethod("HasData");
-                        var seedData = ((IList)hasDataMethod?.Invoke(instance, null))?.Cast<object>();
+                        var seedData = ((IEnumerable)hasDataMethod?.Invoke(instance, null))?.Cast<object>();
                         if (seedData == null)
                         {
                             Console.WriteLine($"Table:{item.Name} already exists...");
@@ -175,20 +179,21 @@ namespace Yuebon.Core.SeedInitData
                         else
                         {
                             var list = seedData.ToList();
-                            var seedDataTable = list.ToDataTable();
-                            seedDataTable.TableName = list[0].GetType().GetCustomAttribute<SugarTable>()?.TableName;
-                            if (seedDataTable.Columns.Contains("Id"))
+                            var entityType = list[0].GetType();
+                            var entityInfo = Db.EntityMaintenance.GetEntityInfo(entityType);
+                            if (entityInfo.Columns.Any(u => u.IsPrimarykey))
                             {
-                                var storage = Db.Storageable(seedDataTable).WhereColumns("Id").ToStorage();
-                                await storage.AsInsertable.ExecuteCommandAsync();
-                                await storage.AsUpdateable.ExecuteCommandAsync();
+                                var storage = Db.StorageableByObject(list).ToStorage();
+                                storage.AsInsertable.ExecuteCommand();
+                                var ignoreUpdate = hasDataMethod.GetCustomAttribute<IgnoreUpdateAttribute>();
+                                if (ignoreUpdate == null) storage.AsUpdateable.ExecuteCommand();
                             }
                             else //没有主键或者不是预定义的主键(没主键有重复的可能)
                             {
-                                var storage = Db.Storageable(seedDataTable).ToStorage();
-                                await storage.AsInsertable.ExecuteCommandAsync();
+                                if (!Db.Queryable(entityInfo.DbTableName, entityInfo.DbTableName).Any())
+                                    Db.StorageableByObject(list).ToStorage().ExecuteCommand();
                             }
-                            Console.WriteLine($"Table:{seedDataTable.TableName} Data created success!");
+                            Console.WriteLine($"Table:{entityInfo.DbTableName} Data created success!");
                         }
                     }
                     ConsoleHelper.WriteSuccessLine($"Done {itemDll} seeding database!");

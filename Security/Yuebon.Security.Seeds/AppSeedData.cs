@@ -1,4 +1,6 @@
-﻿namespace Yuebon.Security.SeedData;
+﻿using Yuebon.Commons.Attributes;
+
+namespace Yuebon.Security.SeedData;
 
 /// <summary>
 /// 应用种子数据
@@ -9,6 +11,7 @@ public class AppSeedData:SeedDataEntity
     /// 种子数据
     /// </summary>
     /// <returns></returns>
+    [IgnoreUpdate]
     public IEnumerable<APP> HasData()
     {
         return new[]

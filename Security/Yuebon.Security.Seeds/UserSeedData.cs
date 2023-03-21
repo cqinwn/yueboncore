@@ -1,11 +1,14 @@
-﻿namespace Yuebon.Security.SeedData;
+﻿using Yuebon.Commons.Attributes;
+
+namespace Yuebon.Security.SeedData;
 
 public class UserSeedData : SeedDataEntity
 {
-     /// <summary>
-     /// 种子数据
-     /// </summary>
-     /// <returns></returns>
+    /// <summary>
+    /// 种子数据
+    /// </summary>
+    /// <returns></returns>
+    [IgnoreUpdate]
     public IEnumerable<User> HasData()
     {
         return new[] { 

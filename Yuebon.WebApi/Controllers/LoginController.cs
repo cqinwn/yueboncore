@@ -392,7 +392,7 @@ public class LoginController : ApiController
     /// <param name="systemCode">系统编码</param>
     /// <returns>返回用户User对象</returns>
     [HttpGet("UserLogin")]
-    [NoPermissionRequired]
+    [AllowAnonymous]
     public async Task<IActionResult> UserLogin(string username, string password,  string appId, string systemCode)
     {
         CommonResult result = new CommonResult();

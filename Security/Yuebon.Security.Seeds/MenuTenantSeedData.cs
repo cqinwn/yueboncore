@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Yuebon.Commons.Attributes;
 using Yuebon.Security.Models;
 
 namespace Yuebon.Security.SeedData
@@ -10,6 +11,7 @@ namespace Yuebon.Security.SeedData
         /// 种子数据
         /// </summary>
         /// <returns></returns>
+        [IgnoreUpdate]
         public IEnumerable<Menu> HasData(){
             return new[] {
                 new Menu{

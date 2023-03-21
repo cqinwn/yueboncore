@@ -45,12 +45,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Analysis\Models\TotalWcsOutModel.cs" />
     <Compile Remove="Areas\CMS\Controllers\V1\ArticlenewsController.cs" />
     <Compile Remove="Areas\CMS\Controllers\V2\ArticlenewsController.cs" />
     <Compile Remove="Areas\Security\Controllers\FunctionController.cs" />
     <Compile Remove="Areas\Security\Controllers\TenantController.cs" />
     <Compile Remove="Controllers\InitSystem.cs" />
     <Compile Remove="Startup.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\Generatecode\Yuebon.SunTms20230226143124.zip" />
+    <Content Remove="wwwroot\Generatecode\Yuebon.TMS20230301233955.zip" />
+    <Content Remove="wwwroot\Generatecode\Yuebon.TMS20230301234442.zip" />
+    <Content Remove="wwwroot\Generatecode\Yuebon.TMS20230301234642.zip" />
   </ItemGroup>
 
   <ItemGroup>
@@ -62,6 +70,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\suntms\Yuebon.TMS.Services\Yuebon.TMS.Services.csproj" />
+    <ProjectReference Include="..\..\Yuebon.TMS.Dtos\Yuebon.TMS.Dtos.csproj" />
     <ProjectReference Include="..\CMS\Yuebon.CMS.Services\Yuebon.CMS.Services.csproj" />
     <ProjectReference Include="..\Security\Yuebon.Security.Dtos\Yuebon.Security.Dtos.csproj" />
     <ProjectReference Include="..\Yuebon.CodeGenerator.Core\Yuebon.CodeGenerator.Core.csproj" />
@@ -84,6 +94,8 @@
 
   <ItemGroup>
     <Folder Include="Areas\Analysis\Controllers\" />
+    <Folder Include="Areas\Analysis\Models\" />
+    <Folder Include="wwwroot\Generatecode\" />
   </ItemGroup>
 
   <ItemGroup>

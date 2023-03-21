@@ -4,6 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Description>架构日记类库</Description>
   </PropertyGroup>
 
   <ItemGroup>

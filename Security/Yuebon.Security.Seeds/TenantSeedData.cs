@@ -1,4 +1,5 @@
-﻿using Yuebon.Commons.Enums;
+﻿using Yuebon.Commons.Attributes;
+using Yuebon.Commons.Enums;
 
 namespace Yuebon.Security.SeedData;
 
@@ -7,6 +8,7 @@ public class TenantSeedData : SeedDataEntity
   /// 种子数据
   /// </summary>
   /// <returns></returns>
+    [IgnoreUpdate]
     public IEnumerable<Tenant> HasData()
     {
         return new[] {

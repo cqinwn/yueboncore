@@ -1236,11 +1236,11 @@ namespace Yuebon.Commons.Extensions
         /// <param name="entityType"></param>
         /// <param name="interfaceType"></param>
         /// <returns></returns>
-        //public static bool IsImplement(this Type entityType, Type interfaceType)
-        //{
-        //    return /*entityType.IsClass && !entityType.IsAbstract &&*/ entityType.GetTypeInfo().GetInterfaces().Any(t =>
-        //        t.GetTypeInfo().IsGenericType && t.GetGenericTypeDefinition() == interfaceType);
-        //}
+        public static bool IsImplement(this Type entityType, Type interfaceType)
+        {
+            return /*entityType.IsClass && !entityType.IsAbstract &&*/ entityType.GetTypeInfo().GetInterfaces().Any(t =>
+                t.GetTypeInfo().IsGenericType && t.GetGenericTypeDefinition() == interfaceType);
+        }
         /// <summary>
         /// 将对象转为DataTable
         /// </summary>
@@ -1262,8 +1262,6 @@ namespace Yuebon.Commons.Extensions
                     {
                         colType = colType.GetGenericArguments()[0];
                     }
-                    //if (IsIgnoreColumn(pi))
-                    //    continue;
                     dtReturn.Columns.Add(pi.Name, colType);
                 }
                 for (int i = 0; i < source.Count; i++)
@@ -1271,8 +1269,6 @@ namespace Yuebon.Commons.Extensions
                     ArrayList tempList = new();
                     foreach (PropertyInfo pi in propertys)
                     {
-                        //if (IsIgnoreColumn(pi))
-                        //    continue;
                         object obj = pi.GetValue(source[i], null);
                         tempList.Add(obj);
                     }
@@ -1283,16 +1279,7 @@ namespace Yuebon.Commons.Extensions
             return dtReturn;
         }
 
-        /// <summary>
-        /// 排除SqlSugar忽略的列
-        /// </summary>
-        /// <param name="pi"></param>
-        /// <returns></returns>
-        //private static bool IsIgnoreColumn(PropertyInfo pi)
-        //{
-        //    var sc = pi.GetCustomAttributes<SugarColumn>(false).FirstOrDefault(u => u.IsIgnore == true);
-        //    return sc != null;
-        //}
+        
     }
     /// <summary>
     /// 结果。

@@ -7,7 +7,63 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="CodeTemplate\ControllersTemplate.txt" />
+    <None Remove="CodeTemplate\InputDtoTemplate.txt" />
+    <None Remove="CodeTemplate\IRepositoryTemplate.txt" />
+    <None Remove="CodeTemplate\IServiceTemplate.txt" />
+    <None Remove="CodeTemplate\ModelsTemplate.txt" />
+    <None Remove="CodeTemplate\OuputDtoTemplate.txt" />
+    <None Remove="CodeTemplate\ProfileTemplate.txt" />
+    <None Remove="CodeTemplate\RepositoryTemplate.txt" />
+    <None Remove="CodeTemplate\ServiceTemplate.txt" />
+    <None Remove="CodeTemplate\VueJsTemplate.txt" />
+    <None Remove="CodeTemplate\VueTemplate.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="CodeTemplate\ControllersTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CodeTemplate\InputDtoTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CodeTemplate\IRepositoryTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CodeTemplate\IServiceTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CodeTemplate\ModelsTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CodeTemplate\OuputDtoTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CodeTemplate\ProfileTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CodeTemplate\RepositoryTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CodeTemplate\ServiceTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CodeTemplate\VueJsTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CodeTemplate\VueTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Yuebon.Core\Yuebon.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="CodeTemplate\ApplicationTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

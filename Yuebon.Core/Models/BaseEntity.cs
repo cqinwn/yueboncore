@@ -21,12 +21,10 @@ namespace Yuebon.Core.Models
         }
 
         /// <summary>
-        /// 获取或设置 编号
+        /// 获取或设置 Id，雪花Id 
         /// </summary>
-        [DisplayName("编号")]
-        [Key]
-        [Column("Id")]
-        [SugarColumn(IsPrimaryKey = true,ColumnDescription = "编号,主键")]
+        [DisplayName("Id")]
+        [SugarColumn(IsPrimaryKey = true,ColumnDescription = "编号,主键", IsIdentity = false)]
         public virtual long Id { get; set; }
 
 

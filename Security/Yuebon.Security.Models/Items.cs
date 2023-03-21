@@ -126,7 +126,7 @@ public class Items : BaseEntity, ICreationAudited, IModificationAudited, IDelete
     /// 子级
     /// </summary>
     [SugarColumn(IsIgnore = true)]
-    public List<Items> Children { get; set; }
+    public virtual List<Items> Children { get; set; }
     #endregion
 
 }

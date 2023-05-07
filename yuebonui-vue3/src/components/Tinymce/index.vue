@@ -69,14 +69,17 @@ const initOptions = ref({
     // 初始化完成
     init_instance_callback: (editor) => {
     },
-    //   图片上传
-    images_upload_handler: function (blobInfo, success) {
-            var reader = new FileReader();
-            reader.readAsDataURL(blobInfo.blob());
-            reader.onload = function () {
-            success(this.result);
-        };
-    }
+    //   图片上传,修正图片上传错误
+    images_upload_handler: blobInfo => new Promise((resolve, reject) => {
+        const formData = new FormData()
+        formData.append('file', blobInfo.blob())
+        //改成自己的图片上传api
+        uploadTalent(formData).then(res => {
+            resolve(baseUrl + res.ResData.FilePath)
+        }).catch(err => {
+            reject(res.ErrMsg)
+        })
+    }),
 })
 const emits = defineEmits(['input', 'onClick'])
 const onClick = (e) => {

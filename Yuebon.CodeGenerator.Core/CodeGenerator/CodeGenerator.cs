@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Options;
@@ -537,13 +537,13 @@ public class CodeGenerator
         var path = AppDomain.CurrentDomain.BaseDirectory;
         //path = path.Substring(0, path.IndexOf("\\bin"));
         var parentPath = path.Substring(0, path.LastIndexOf("\\"));
-        var servicesPath = parentPath + "\\" + _option.BaseNamespace + "\\" + servicesNamespace;
+        var servicesPath = parentPath + "\\" + _option.BaseNamespace + "\\" + servicesNamespace + "\\Controllers\\";
         if (!Directory.Exists(servicesPath))
         {
             servicesPath = parentPath + "\\" + _option.BaseNamespace + "\\Areas\\"+ fileClassName;
             Directory.CreateDirectory(servicesPath);
         }
-        var fullPath = servicesPath + "\\Controllers\\" + modelTypeName + "Controller.cs";
+        var fullPath = servicesPath + modelTypeName + "Controller.cs";
         if (File.Exists(fullPath) && !ifExsitedCovered)
             return;
         var content = ReadTemplate("ControllersTemplate.txt");

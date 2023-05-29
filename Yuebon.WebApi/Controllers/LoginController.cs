@@ -400,7 +400,7 @@ public class LoginController : ApiController
         string strIp = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
         YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
         bool isTenant = Appsettings.app(new string[] { "AppSetting", "IsTenant" }).ObjToBool();
-        UserInfo userInfo = null;
+        UserInfo userInfo = new UserInfo();
         if (isTenant)
         {
             List<Tenant> tenants = null;
@@ -413,17 +413,38 @@ public class LoginController : ApiController
             if (tenants != null)
             {
                 string strHost = Request.Host.ToString();
-                Tenant tenant = tenants.FindLast(o => o.HostDomain == strHost);
-                if (tenant == null)
+                Tenant tenant = tenants.FindLast(o => o.HostDomain == strHost|| o.HostDomain.Contains(strHost));
+                if (tenant == null && strHost != "default")
                 {
-                    result.ErrMsg = "非法访问";
-                    return ToJsonContent(result);
+                    if (tenant == null)
+                    {
+                        User tempUser = await _userService.GetByUserName(username);
+                        if (tempUser != null)
+                        {
+                            tenant = await _tenantService.GetAsync(tempUser.TenantId);
+                        }
+                        if (tenant == null)
+                        {
+                            result.ErrMsg = "非法访问";
+                            return ToJsonContent(result);
+                        }
+                    }
                 }
-                else
+                else if (tenant.TenantName == "default")
+                {
+                    User tempUser = await _userService.GetByUserName(username);
+                    if (tempUser != null)
+                    {
+                        tenant = await _tenantService.GetAsync(tempUser.TenantId);
+                    }
+
+                }
+                if (tenant != null)
                 {
                     userInfo.TenantId = tenant.Id;
                     userInfo.TenantSchema = tenant.Schema;
                     userInfo.TenantDataSource = tenant.DataSource;
+                    userInfo.TenantName = tenant.TenantName;
                 }
             }
         }

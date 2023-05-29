@@ -169,7 +169,7 @@ app.UseStatusCodePages();
 app.MapControllers();
 #endregion
 
-#region 初始化
+#region 初始化表和数据
 if (Appsettings.GetValue("AppSetting:SeedDBEnabled").ObjToBool() || Appsettings.GetValue("AppSetting:SeedDBDataEnabled").ObjToBool())
 {
    await DBSeedService.SeedAsync(new List<string> { "Yuebon.Security.Models.dll", "Yuebon.Security.SeedData.dll", "Yuebon.CMS.Models.dll", "Yuebon.CodeGenerator.Core.dll" });

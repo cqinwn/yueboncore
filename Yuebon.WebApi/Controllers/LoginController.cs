@@ -1,4 +1,5 @@
-﻿using Yuebon.Security.Services.CommandHandlers;
+﻿using MySqlX.XDevAPI;
+using Yuebon.Security.Services.CommandHandlers;
 
 namespace Yuebon.WebApi.Controllers;
 
@@ -395,60 +396,21 @@ public class LoginController : ApiController
     [AllowAnonymous]
     public async Task<IActionResult> UserLogin(string username, string password,  string appId, string systemCode)
     {
+
         CommonResult result = new CommonResult();
         RemoteIpParser remoteIpParser = new RemoteIpParser();
-        string strIp = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
+        string strIp = _httpContextAccessor.HttpContext.GetClientUserIp();
         YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-        bool isTenant = Appsettings.app(new string[] { "AppSetting", "IsTenant" }).ObjToBool();
-        UserInfo userInfo = new UserInfo();
-        if (isTenant)
+        if (string.IsNullOrEmpty(username))
         {
-            List<Tenant> tenants = null;
-            if (!yuebonCacheHelper.Exists("cacheTenants"))
-            {
-                IEnumerable<Tenant> templist = _tenantService.GetAllByIsEnabledMark();
-                yuebonCacheHelper.Add("cacheTenants", templist);
-            }
-            tenants = JsonHelper.ToObject<List<Tenant>>(yuebonCacheHelper.Get("cacheTenants").ToJson());
-            if (tenants != null)
-            {
-                string strHost = Request.Host.ToString();
-                Tenant tenant = tenants.FindLast(o => o.HostDomain == strHost|| o.HostDomain.Contains(strHost));
-                if (tenant == null && strHost != "default")
-                {
-                    if (tenant == null)
-                    {
-                        User tempUser = await _userService.GetByUserName(username);
-                        if (tempUser != null)
-                        {
-                            tenant = await _tenantService.GetAsync(tempUser.TenantId);
-                        }
-                        if (tenant == null)
-                        {
-                            result.ErrMsg = "非法访问";
-                            return ToJsonContent(result);
-                        }
-                    }
-                }
-                else if (tenant.TenantName == "default")
-                {
-                    User tempUser = await _userService.GetByUserName(username);
-                    if (tempUser != null)
-                    {
-                        tenant = await _tenantService.GetAsync(tempUser.TenantId);
-                    }
-
-                }
-                if (tenant != null)
-                {
-                    userInfo.TenantId = tenant.Id;
-                    userInfo.TenantSchema = tenant.Schema;
-                    userInfo.TenantDataSource = tenant.DataSource;
-                    userInfo.TenantName = tenant.TenantName;
-                }
-            }
+            result.ErrMsg = "用户名不能为空！";
         }
-        LoginLog logEntity = new LoginLog();
+        else if (string.IsNullOrEmpty(password))
+        {
+            result.ErrMsg = "密码不能为空！";
+        }
+        UserInfo userInfo = new UserInfo();
+
         bool blIp = _filterIPService.ValidateIP(strIp);
         if (blIp)
         {
@@ -456,23 +418,21 @@ public class LoginController : ApiController
         }
         else
         {
-            if (string.IsNullOrEmpty(username))
-            {
-                result.ErrMsg = "用户名不能为空！";
-            }
-            else if (string.IsNullOrEmpty(password))
-            {
-                result.ErrMsg = "密码不能为空！";
-            }
+
             if (string.IsNullOrEmpty(systemCode))
             {
-
                 result.ErrMsg = ErrCode.err403;
             }
             else
             {
-                string strHost = Request.Host.ToString();
-                APP app =await _appService.GetAPP(appId);
+                List<AllowCacheApp> list = yuebonCacheHelper.Get<object>("cacheAppList").ToJson().ToList<AllowCacheApp>();
+                if (list == null)
+                {
+                    IEnumerable<APP> appList = _appService.GetAllByIsNotDeleteAndEnabledMark();
+                    yuebonCacheHelper.Add("cacheAppList", appList);
+                }
+                string strHost = Request.Headers["Origin"].ToString();
+                APP app = await _appService.GetAPP(appId);
                 if (app == null)
                 {
                     result.ErrCode = "40001";
@@ -480,34 +440,90 @@ public class LoginController : ApiController
                 }
                 else
                 {
-                    if (!app.RequestUrl.Contains(strHost, StringComparison.Ordinal) && !strHost.Contains("localhost", StringComparison.Ordinal))
+                    if (!app.RequestUrl.Contains(strHost, StringComparison.Ordinal))
                     {
                         result.ErrCode = "40002";
                         result.ErrMsg = ErrCode.err40002 + "，你当前请求主机：" + strHost;
                     }
                     else
                     {
-                        SystemType systemType = _systemTypeService.GetByCode(systemCode);
+                        bool isTenant = Appsettings.app(new string[] { "AppSetting", "IsTenant" }).ObjToBool();
+                        if (isTenant)
+                        {
+                            List<Tenant> tenants = null;
+                            if (!yuebonCacheHelper.Exists("cacheTenants"))
+                            {
+                                IEnumerable<Tenant> templist = _tenantService.GetAllByIsEnabledMark();
+                                yuebonCacheHelper.Add("cacheTenants", templist);
+                            }
+                            tenants = JsonHelper.ToObject<List<Tenant>>(yuebonCacheHelper.Get("cacheTenants").ToJson());
+                            if (tenants != null)
+                            {
+                               string tenantName = strHost.Split(".")[0];;
+                                Tenant tenant = tenants.FindLast(o => o.TenantName == tenantName || tenantName.Contains(o.HostDomain));//通过租户名称或者通过客户绑定的独立域名
+                                if (tenant == null && tenantName != "default")
+                                {
+                                    if (tenant == null)
+                                    {
+                                        User tempUser = await _userService.GetByUserName(username);
+                                        if (tempUser != null)
+                                        {
+                                            tenant = await _tenantService.GetAsync(tempUser.TenantId);
+                                        }
+                                        if (tenant == null)
+                                        {
+                                            result.ErrMsg = "非法访问";
+                                            return ToJsonContent(result);
+                                        }
+                                    }
+                                }
+                                else if (tenant.TenantName == "default")
+                                {
+                                    User tempUser = await _userService.GetByUserName(username);
+                                    if (tempUser != null)
+                                    {
+                                        tenant = await _tenantService.GetAsync(tempUser.TenantId);
+                                    }
+
+                                }
+                                if (tenant != null)
+                                {
+                                    userInfo.TenantId = tenant.Id;
+                                    userInfo.TenantSchema = tenant.Schema;
+                                    userInfo.TenantDataSource = tenant.DataSource;
+                                    userInfo.TenantName = tenant.TenantName;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            userInfo.TenantId = 9242772129579077;
+                            userInfo.TenantName = "default";
+                        }
+                        Appsettings.User = userInfo;
+                        SystemType systemType = _systemTypeService.GetByCode(systemCode, userInfo.TenantId);
                         if (systemType == null)
                         {
                             result.ErrMsg = ErrCode.err403;
                         }
                         else
                         {
-                            Tuple<User,string> userLogin = await this._userService.Validate(username, password);
+                            Tuple<User, string> userLogin = await this._userService.Validate(username, password);
                             if (userLogin != null)
                             {
 
-                                string ipAddressName =await IpAddressUtil.GetCityByIp(strIp);
+                                var client = Parser.GetDefault().Parse(_httpContextAccessor.HttpContext.Request.Headers["User-Agent"]);
+                                string requestPath = _httpContextAccessor.HttpContext.Request.Path.ToString();
+                                string queryString = _httpContextAccessor.HttpContext.Request.QueryString.ToString();
+                                string requestUrl = requestPath + queryString;
                                 if (userLogin.Item1 != null)
                                 {
                                     result.Success = true;
-
                                     User user = userLogin.Item1;
-
                                     userInfo.UserId = user.Id;
                                     userInfo.UserName = user.Account;
                                     userInfo.Role = user.RoleId;
+
                                     JwtOption jwtModel = Appsettings.GetService<JwtOption>();
                                     TokenProvider tokenProvider = new TokenProvider(jwtModel);
                                     TokenResult tokenResult = tokenProvider.LoginToken(userInfo, appId);
@@ -516,41 +532,67 @@ public class LoginController : ApiController
                                         UserId = user.Id,
                                         RealName = user.RealName,
                                         AccessToken = tokenResult.AccessToken,
+                                        TokenExpiresIn = tokenResult.ExpiresIn,
                                         AppKey = appId,
                                         CreateTime = DateTime.Now,
                                         Role = _roleService.GetRoleEnCode(user.RoleId),
                                         ActiveSystemId = systemType.Id,
-                                        CurrentLoginIP = strIp,
-                                        IPAddressName = ipAddressName
-
+                                        CurrentLoginIP = strIp
                                     };
+                                    if (isTenant)
+                                    {
+                                        currentSession.TenantId = userInfo.TenantId;
+                                    }
+                                    SysSetting sysSetting = yuebonCacheHelper.Get("SysSetting").ToJson().ToObject<SysSetting>();
+                                    if (sysSetting != null)
+                                    {
+                                        if (sysSetting.Webstatus == "1" && !currentSession.Role.Contains("administrators"))
+                                        {
+                                            result.ErrCode = "40900";
+                                            result.ErrMsg = sysSetting.Webclosereason;
+                                            return ToJsonContent(result);
+                                        }
+                                    }
                                     TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
-                                    yuebonCacheHelper.Add("login_user_" + user.Id, currentSession, expiresSliding, true);
+                                    yuebonCacheHelper.Add("login_user_" + user.Id.ToString(), currentSession, expiresSliding, true);
+                                    yuebonCacheHelper.Add("login_userInfo_" + user.Id.ToString(), userInfo, expiresSliding, true);
+
                                     CurrentUser = currentSession;
                                     result.ResData = currentSession;
                                     result.ErrCode = ErrCode.successCode;
                                     result.Success = true;
 
+                                    LoginLog logEntity = new LoginLog();
+                                    logEntity.Id = IdGeneratorHelper.IdSnowflake();
                                     logEntity.Account = user.Account;
                                     logEntity.NickName = user.NickName;
                                     logEntity.Date = logEntity.CreatorTime = DateTime.Now;
-                                    logEntity.IPAddress = CurrentUser.CurrentLoginIP;
-                                    logEntity.IPAddressName = CurrentUser.IPAddressName;
+                                    logEntity.IPAddress = strIp;
+                                    logEntity.Browser = client.UA.Family + client.UA.Major;
+                                    logEntity.OS = client.OS.Family + client.OS.Major;
                                     logEntity.Result = true;
                                     logEntity.Description = "登录成功";
-                                    _loginLogService.Insert(logEntity);
+                                    LogInLogCommand logInLogCommand = new LogInLogCommand();
+                                    logInLogCommand.LoginLogInputDto = logEntity;
+                                    await _mediator.Send(logInLogCommand);
                                 }
                                 else
                                 {
                                     result.ErrCode = ErrCode.failCode;
                                     result.ErrMsg = userLogin.Item2;
+                                    LoginLog logEntity = new LoginLog();
+                                    logEntity.Id = IdGeneratorHelper.IdSnowflake();
                                     logEntity.Account = username;
+                                    logEntity.NickName = username;
                                     logEntity.Date = logEntity.CreatorTime = DateTime.Now;
                                     logEntity.IPAddress = strIp;
-                                    logEntity.IPAddressName = ipAddressName;
-                                    logEntity.Result = false;
+                                    logEntity.Browser = client.UA.Family + client.UA.Major;
+                                    logEntity.OS = client.OS.Family + client.OS.Major;
+                                    logEntity.Result = true;
                                     logEntity.Description = "登录失败，" + userLogin.Item2;
-                                    _loginLogService.Insert(logEntity);
+                                    LogInLogCommand logInLogCommand = new LogInLogCommand();
+                                    logInLogCommand.LoginLogInputDto = logEntity;
+                                    await _mediator.Send(logInLogCommand);
                                 }
                             }
                         }

@@ -150,7 +150,7 @@ namespace Yuebon.TMS.Models
         /// 设置或获取预计件数
         /// </summary>
         [SugarColumn(ColumnDescription = "预计件数")]
-        public int? TotalNumber { get; set; }
+        public decimal? TotalNumber { get; set; }
 
         /// <summary>
         /// 设置或获取总体积

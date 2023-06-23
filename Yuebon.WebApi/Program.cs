@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Yuebon.Core.Module;
+﻿using Yuebon.Core.Module;
 using static Yuebon.Extensions.ServiceExtensions.SwaggerVersions;
 var builder = WebApplication.CreateBuilder(args);
 

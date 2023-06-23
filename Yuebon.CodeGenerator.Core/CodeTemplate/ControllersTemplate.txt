@@ -1,4 +1,7 @@
-﻿namespace {ApiControllerNamespace}.Areas.{BaseNameSpaceEx}.Controllers
+﻿using {DtosNamespace};
+using {IServicsNamespace};
+using {ModelsNamespace};
+namespace {ApiControllerNamespace}.Areas.{BaseNameSpaceEx}.Controllers
 {
     /// <summary>
     /// {TableNameDesc}接口

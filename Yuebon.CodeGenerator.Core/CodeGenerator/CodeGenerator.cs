@@ -2,6 +2,7 @@ using System.Reflection;
 using Yuebon.Commons.Cache;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Options;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace Yuebon.Commons.CodeGenerator;
 
@@ -45,13 +46,13 @@ public class CodeGenerator
             DbType = (SqlSugar.DbType)dbTypeCache.ToInt(),
             IsAutoCloseConnection = true
         };
-       return new SqlSugarClient(config);
+        return new SqlSugarClient(config);
     }
 
     /// <summary>
     /// 代码生成器入口方法
     /// </summary>
-    /// <param name="baseNamespace"></param>
+    /// <param name="baseNamespace">项目命名空间</param>
     /// <param name="tableList">要生成代码的表</param>
     /// <param name="replaceTableNameStr">要删除表名称的字符</param>
     /// <param name="ifExsitedCovered">是否替换现有文件，为true时替换</param>

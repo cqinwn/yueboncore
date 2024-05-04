@@ -128,6 +128,7 @@ else
 //开启性能分析
 app.UseMiniProfiler();
 #region 启用swaggerUI
+app.UseSwaggerAuthorized();
 app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
@@ -170,7 +171,7 @@ app.MapControllers();
 #region 初始化表和数据
 if (Appsettings.GetValue("AppSetting:SeedDBEnabled").ObjToBool() || Appsettings.GetValue("AppSetting:SeedDBDataEnabled").ObjToBool())
 {
-   await DBSeedService.SeedAsync(new List<string> { "Yuebon.Security.Models.dll", "Yuebon.Security.SeedData.dll", "Yuebon.CMS.Models.dll", "Yuebon.CodeGenerator.Core.dll", "Yuebon.TMS.Models.dll" });
+   await DBSeedService.SeedAsync(new List<string> { "Yuebon.Security.Models.dll", "Yuebon.Security.SeedData.dll", "Yuebon.CMS.Models.dll", "Yuebon.CodeGenerator.Core.dll", "Yuebon.TMS.Models.dll", "Yuebon.TMS.SeedData.dll"});
 }
 
 app.ConfigureEventBus();

@@ -104,7 +104,7 @@
                 success: function (data) {
                     $("#pageTitle").text(data.ResData.SoftName)
                     $("#softName").text(data.ResData.SoftName)
-                    $("#companyLogo").text(data.ResData.SysLogo) 
+                    $("#companyLogo").attr("src", data.ResData.SysLogo) 
                     $("#companyName").text(data.ResData.CompanyName)
                     $("#copyright").html(data.ResData.CopyRight)
                 }

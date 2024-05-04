@@ -6,7 +6,7 @@ master 分支适合单体应用开发，架构较为简单，没有实现接口�
 
 ### 概述
 
-YuebonCore 是基于.Net7.0 开发的权限管理及快速开发框架，整合应用最新技术包括 Asp.NetCore MVC、SqlSugar ORM、WebAPI、Swagger、Vue3 等，核心模块包括：组织机构、角色用户、权限授权、多系统、多应用管理、定时任务、业务单据编码规则、代码生成器等。它的架构易于扩展，规范了一套业务实现的代码结构与操作流程，使 YuebonCore 框架更易于应用到实际项目开发中。
+YuebonCore 是基于.Net8.0 开发的权限管理及快速开发框架，整合应用最新技术包括 Asp.NetCore MVC、SqlSugar ORM、WebAPI、Swagger、Vue3 等，核心模块包括：组织机构、角色用户、权限授权、多系统、多应用管理、定时任务、业务单据编码规则、代码生成器等。它的架构易于扩展，规范了一套业务实现的代码结构与操作流程，使 YuebonCore 框架更易于应用到实际项目开发中。
 
 YuebonCore FW 其核心设计目标是开发迅速、代码量少、学习简单、功能强大、轻量级、易扩展，让 Web 开发更快速、简单，解决 70%重复工作。轻松开发，专注您的业务，从 YuebonCore FW 开始！
 
@@ -54,7 +54,7 @@ Vue 版前端技术栈 ：基于 vue3、Vite、vuex、vue-router 、vue-cli 、a
 
 #### 后端技术
 
-核心框架：.Net6.0 + Web API +SqlSugar + AutoMapper + swagger
+核心框架：.Net8.0 + Web API +SqlSugar + AutoMapper + swagger
 
 定时计划任务：Quartz.Net 组件
 
@@ -84,7 +84,7 @@ Vue 版前端技术栈 ：基于 vue3、Vite、vuex、vue-router 、vue-cli 、a
 
 6、功能模块：配置系统菜单，操作权限，按钮权限标识等。
 
-7、定时任务：在线（添加、修改、删除)任务调度包含执行结果日志。
+7、定时任务：在线（添加、修改、删除）任务调度包含执行结果日志。
 
 8、代码生成：前后端代码的生成（.cs、.vue、.js）代码。
 

@@ -155,13 +155,9 @@ const data=reactive({
 });
 const { loginForm, rules} = toRefs(data);
 function loadToken() {
-  // getToken().then(response => {
-  //   setToken(response.ResData.AccessToken)
-    
-  // })
   getSysSetting().then(res => {
       softName.value = res.ResData.SoftName
-      //companyLogo.value = res.ResData.SysLogo
+      companyLogo.value = res.ResData.SysLogo
       companyName.value = res.ResData.CompanyName
       copyRight.value = res.ResData.CopyRight
       if(res.ResData.Webstatus==='1'){closeWeb.value=true}
@@ -185,8 +181,14 @@ function handleLogin() {
       loading.value = true
       store.dispatch('Login', loginForm.value)
         .then(res => {
-          router.push({ path: redirect.value || "/" });
-          loading.value = false
+          if (res.Success) {
+            router.push({ path: redirect.value || "/" });
+            loading.value = false
+          } else {
+            proxy.$modal.msgError(res.ErrMsg)
+            loading.value = false
+            getLoginVerifyCode()
+          }
         })
         .catch(res => {
           loading.value = false

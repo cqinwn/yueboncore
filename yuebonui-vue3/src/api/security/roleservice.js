@@ -5,7 +5,7 @@ import defaultSettings from '@/settings'
    * 角色分页查询
    * @param {查询条件} data
    */
-export function getRoleListWithPager(data) {
+export function getRoleListWithPager (data) {
   return http.request({
     url: 'Role/FindWithPagerAsync',
     method: 'post',
@@ -15,7 +15,7 @@ export function getRoleListWithPager(data) {
 }/**
    * 获取所有可用的角色
    */
-export function getAllRoleList() {
+export function getAllRoleList () {
   return http.request({
     url: 'Role/GetAllEnable',
     method: 'get',
@@ -26,7 +26,7 @@ export function getAllRoleList() {
    * 新增或修改保存角色
    * @param data
    */
-export function saveRole(data, url) {
+export function saveRole (data, url) {
   return http.request({
     url: url,
     method: 'post',
@@ -38,7 +38,7 @@ export function saveRole(data, url) {
    * 获取角色详情
    * @param {Id} 角色Id
    */
-export function getRoleDetail(id) {
+export function getRoleDetail (id) {
   return http({
     url: 'Role/GetById',
     method: 'get',
@@ -50,7 +50,7 @@ export function getRoleDetail(id) {
    * 批量设置启用状态
    * @param {id集合} ids
    */
-export function setRoleEnable(data) {
+export function setRoleEnable (data) {
   return http({
     url: 'Role/SetEnabledMarktBatchAsync',
     method: 'post',
@@ -62,7 +62,7 @@ export function setRoleEnable(data) {
    * 批量软删除
    * @param {id集合} ids
    */
-export function deleteSoftRole(data) {
+export function deleteSoftRole (data) {
   return http({
     url: 'Role/DeleteSoftBatchAsync',
     method: 'post',
@@ -75,10 +75,10 @@ export function deleteSoftRole(data) {
    * 批量删除
    * @param {id集合} ids
    */
-export function deleteRole(data) {
+export function deleteRole (data) {
   return http({
     url: 'Role/DeleteBatchAsync',
-    method: 'delete',
+    method: 'post',
     data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
@@ -88,7 +88,7 @@ export function deleteRole(data) {
  *获取功能菜单树
  * @param {roleId:角色Id} data
  */
-export function getAllFunctionTree() {
+export function getAllFunctionTree () {
   return http({
     url: 'RoleAuthorize/GetAllFunctionTree',
     method: 'get',
@@ -99,7 +99,7 @@ export function getAllFunctionTree() {
  *获取功能菜单树
  * @param {roleId:角色Id} data
  */
-export function getRoleAuthorizeFunction(data) {
+export function getRoleAuthorizeFunction (data) {
   return http({
     url: 'RoleAuthorize/GetRoleAuthorizeFunction',
     method: 'get',
@@ -112,7 +112,7 @@ export function getRoleAuthorizeFunction(data) {
  *获取角色可以访问数据
  * @param {roleId:角色Id} data
  */
-export function getAllRoleDataByRoleId(data) {
+export function getAllRoleDataByRoleId (data) {
   return http({
     url: 'RoleData/GetAllRoleDataByRoleId',
     method: 'get',
@@ -124,7 +124,7 @@ export function getAllRoleDataByRoleId(data) {
  * 保存角色权限
  * @param {} data
  */
-export function saveRoleAuthorize(data) {
+export function saveRoleAuthorize (data) {
   return http.request({
     url: 'RoleAuthorize/SaveRoleAuthorize',
     method: 'post',

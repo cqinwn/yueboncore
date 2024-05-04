@@ -5,11 +5,11 @@ import defaultSettings from '@/settings'
    * 获取功能菜单
    * @param {查询条件} data
    */
-export function getAllMenuTreeTable(sysId) {
+export function getAllMenuTreeTable (sysId) {
   return http.request({
     url: 'Menu/GetAllMenuTreeTable',
     method: 'get',
-    params: {systemTypeId:sysId},
+    params: { systemTypeId: sysId },
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
@@ -17,7 +17,7 @@ export function getAllMenuTreeTable(sysId) {
    * 新增或修改保存
    * @param data
    */
-export function saveMenu(data, url) {
+export function saveMenu (data, url) {
   return http.request({
     url: url,
     method: 'post',
@@ -29,7 +29,7 @@ export function saveMenu(data, url) {
    * 获取详情
    * @param {Id} Id
    */
-export function getMenuDetail(id) {
+export function getMenuDetail (id) {
   return http({
     url: 'Menu/GetById',
     method: 'get',
@@ -41,7 +41,7 @@ export function getMenuDetail(id) {
    * 批量设置启用状态
    * @param {id集合} ids
    */
-export function setMenuEnable(data) {
+export function setMenuEnable (data) {
   return http({
     url: 'Menu/SetEnabledMarktBatchAsync',
     method: 'post',
@@ -53,7 +53,7 @@ export function setMenuEnable(data) {
    * 批量软删除
    * @param {id集合} ids
    */
-export function deleteSoftMenu(data) {
+export function deleteSoftMenu (data) {
   return http({
     url: 'Menu/DeleteSoftBatchAsync',
     method: 'post',
@@ -66,10 +66,10 @@ export function deleteSoftMenu(data) {
    * 批量删除
    * @param {id集合} ids
    */
-export function deleteMenu(data) {
+export function deleteMenu (data) {
   return http({
     url: 'Menu/DeleteBatchAsync',
-    method: 'delete',
+    method: 'post',
     data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
@@ -79,7 +79,7 @@ export function deleteMenu(data) {
    * 查询所有可用的
    * @param {查询条件} data
    */
-export function getMenuAllEnable() {
+export function getMenuAllEnable () {
   return http.request({
     url: 'Menu/GetAllEnable',
     method: 'get',
@@ -91,7 +91,7 @@ export function getMenuAllEnable() {
    * 获取功能菜单
    * @param {查询条件} data
    */
-export function getFunctionListWithPager(data) {
+export function getFunctionListWithPager (data) {
   return http.request({
     url: 'Function/FindWithPagerAsync',
     method: 'post',
@@ -103,7 +103,7 @@ export function getFunctionListWithPager(data) {
    * 新增或修改保存
    * @param data
    */
-export function saveFunction(data, url) {
+export function saveFunction (data, url) {
   return http.request({
     url: url,
     method: 'post',
@@ -115,7 +115,7 @@ export function saveFunction(data, url) {
    * 获取详情
    * @param {Id} Id
    */
-export function getFunctionDetail(id) {
+export function getFunctionDetail (id) {
   return http({
     url: 'Function/GetById',
     method: 'get',
@@ -127,7 +127,7 @@ export function getFunctionDetail(id) {
    * 批量设置启用状态
    * @param {id集合} ids
    */
-export function setFunctionEnable(data) {
+export function setFunctionEnable (data) {
   return http({
     url: 'Function/SetEnabledMarktBatchAsync',
     method: 'post',
@@ -139,7 +139,7 @@ export function setFunctionEnable(data) {
    * 批量软删除
    * @param {id集合} ids
    */
-export function deleteSoftFunction(data) {
+export function deleteSoftFunction (data) {
   return http({
     url: 'Function/DeleteSoftBatchAsync',
     method: 'post',
@@ -152,10 +152,10 @@ export function deleteSoftFunction(data) {
    * 批量删除
    * @param {id集合} ids
    */
-export function deleteFunction(data) {
+export function deleteFunction (data) {
   return http({
     url: 'Function/DeleteBatchAsync',
-    method: 'delete',
+    method: 'post',
     data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
@@ -165,7 +165,7 @@ export function deleteFunction(data) {
    * 查询所有可用的
    * @param {查询条件} data
    */
-export function getFunctionAllEnable() {
+export function getFunctionAllEnable () {
   return http.request({
     url: 'Function/GetAllEnable',
     method: 'get',
@@ -176,7 +176,7 @@ export function getFunctionAllEnable() {
  * 根据子系统查询所有功能
  * @param {} data
  */
-export function getAllFunctionTreeTable(data) {
+export function getAllFunctionTreeTable (data) {
   return http.request({
     url: 'Function/GetAllFunctionTreeTable',
     method: 'get',

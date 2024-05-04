@@ -1,111 +1,140 @@
 <template>
   <div class="app-container">
-    <el-form ref="searchformRef" v-show="showSearch" :inline="true" :model="queryParams" class="demo-form-inline">
-      <el-form-item label="角色名称：" prop="Keywords">
-        <el-input v-model="queryParams.Keywords" clearable placeholder="角色名称或编码" />
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="handleSearch">查询</el-button>
-        <el-button icon="Refresh" @click="resetQuery">重置</el-button>
-      </el-form-item>
-    </el-form>
-    <el-row :gutter="10" class="mb8">
-      <el-button-group>
-        <el-button
-          v-hasPermi="['Role/Add']"
-          type="primary"
-          icon="plus"
-          @click="ShowEditOrViewDialog()"
-        >新增</el-button>
-        <el-button
-          v-hasPermi="['Role/Edit']"
-          type="primary"
-          icon="edit"
-          class="el-button-modify"
-          :disabled="single"
-          @click="ShowEditOrViewDialog('edit')"
-        >修改</el-button>
-        <el-button
-          v-hasPermi="['Role/Enable']"
-          type="info"
-          icon="video-pause"
-          :disabled="multiple"
-          @click="setEnable('0')"
-        >禁用</el-button>
-        <el-button
-          v-hasPermi="['Role/Enable']"
-          type="success"
-          icon="video-play"
-          :disabled="multiple"
-          @click="setEnable('1')"
-        >启用</el-button>
-        <el-button
-          v-hasPermi="['Role/DeleteSoft']"
-          type="warning"
-          icon="delete"
-          :disabled="multiple"
-          @click="deleteSoft('0')"
-        >软删除</el-button>
-        <el-button
-          v-hasPermi="['Role/Delete']"
-          type="danger"
-          icon="delete"
-          :disabled="multiple"
-          @click="deletePhysics()"
-        >删除</el-button>
-        <el-button
-          v-hasPermi="['Role/SetAuthorize']"
-          type="default"
-          icon="coordinate"
-          :disabled="single"
-          @click="handleSetAuth"
-        >分配权限</el-button>
-      </el-button-group>
-      <right-toolbar v-model:showSearch="showSearch" @queryTable="loadTableData"></right-toolbar>
-    </el-row>
-    <el-table
-      ref="gridtable"
-      v-loading="tableloading"
-      :data="tableData"
-      stripe
-      highlight-current-row
-      style="width: 100%"
-      :default-sort="{ prop: 'SortCode', order: 'descending' }"
-      @selection-change="handleSelectChange"
-      @sort-change="handleSortChange"
-    >
-      <el-table-column type="selection" width="55" />
-      <el-table-column prop="FullName" label="角色名称" sortable="custom" width="180" />
-      <el-table-column prop="EnCode" label="角色编码" sortable="custom" width="180" />
-      <el-table-column prop="Type" label="类型" sortable="custom" width="90" align="center">
-        <template #default="scope">
-          <slot v-if="scope.row.Type === '1'">系统角色</slot>
-          <slot v-else-if="scope.row.Type === '2'">业务角色</slot>
-          <slot v-else-if="scope.row.Type === '3'">其他角色</slot>
-        </template>
-      </el-table-column>
-      <el-table-column prop="OrganizeName" label="所属组织" width="220"/>
-      <el-table-column label="是否启用" sortable="custom" width="120" prop="EnabledMark" align="center">
-        <template #default="scope">
-          <el-tag :type="scope.row.EnabledMark === true ? 'success' : 'info'" disable-transitions>{{ scope.row.EnabledMark === true ? "启用" : "禁用" }}</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column label="是否删除" sortable="custom" width="120" prop="DeleteMark" align="center">
-        <template #default="scope">
-          <el-tag :type="scope.row.DeleteMark === true ? 'danger' : 'success'" disable-transitions>{{ scope.row.DeleteMark === true ? "已删除" : "否" }}</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column prop="CreatorTime" label="创建时间" width="160" sortable />
-      <el-table-column prop="LastModifyTime" label="更新时间" width="160" sortable />
-    </el-table>
-    <Pagination
-      v-show="queryParams.pageTotal>0"
-      :total="queryParams.pageTotal" 
-      v-model:page="queryParams.CurrenetPageIndex"
-      v-model:limit="queryParams.PageSize"
-      @pagination="loadTableData"
-    />
-    <el-dialog ref="dialogEditForm" draggable :title="editFormTitle + '角色'" v-model="dialogEditFormVisible" width="20%">
+    <el-row :gutter="24">
+     <el-col :span="4">
+      <el-card>
+        <el-input v-model="filterOrg" placeholder="机构名称" suffix-icon="search"/>
+        <el-tree
+          ref="treeOrgRef"
+          class="filter-tree"
+          :data="treeOrganizeData"
+          empty-text="加载中，请稍后" 
+          :expand-on-click-node="false"
+          default-expand-all 
+          node-key="Id" 
+          :props="{ label: 'FullName', children: 'Child' }"
+          :filter-node-method="filterNodeOrg"
+          @node-click="treeOrgHandle"
+        />
+      </el-card>
+      </el-col>
+      <el-col :span="20">
+        <el-form ref="searchformRef" v-show="showSearch" :inline="true" :model="queryParams" class="demo-form-inline">
+          <el-form-item label="角色名称：" prop="Keywords">
+            <el-input v-model="queryParams.Keywords" clearable placeholder="角色名称或编码" />
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="handleSearch">查询</el-button>
+            <el-button icon="Refresh" @click="resetQuery">重置</el-button>
+          </el-form-item>
+        </el-form>
+        <el-row :gutter="10" class="mb8">
+          <el-button-group>
+            <el-button
+              v-hasPermi="['Role/Add']"
+              type="primary"
+              icon="plus"
+              @click="ShowEditOrViewDialog()"
+            >新增</el-button>
+            <el-button
+              v-hasPermi="['Role/Edit']"
+              type="primary"
+              icon="edit"
+              class="el-button-modify"
+              :disabled="single"
+              @click="ShowEditOrViewDialog('edit')"
+            >修改</el-button>
+            <el-button
+              v-hasPermi="['Role/Enable']"
+              type="info"
+              icon="video-pause"
+              :disabled="multiple"
+              @click="setEnable('0')"
+            >禁用</el-button>
+            <el-button
+              v-hasPermi="['Role/Enable']"
+              type="success"
+              icon="video-play"
+              :disabled="multiple"
+              @click="setEnable('1')"
+            >启用</el-button>
+            <el-button
+              v-hasPermi="['Role/DeleteSoft']"
+              type="warning"
+              icon="delete"
+              :disabled="multiple"
+              @click="deleteSoft('0')"
+            >软删除</el-button>
+            <el-button
+              v-hasPermi="['Role/Delete']"
+              type="danger"
+              icon="delete"
+              :disabled="multiple"
+              @click="deletePhysics()"
+            >删除</el-button>
+            <el-button
+              v-hasPermi="['Role/SetAuthorize']"
+              type="default"
+              icon="coordinate"
+              :disabled="single"
+              @click="handleSetAuth"
+            >分配权限</el-button>
+          </el-button-group>
+          <right-toolbar v-model:showSearch="showSearch" @queryTable="loadTableData"></right-toolbar>
+        </el-row>
+        <el-table
+          ref="gridtable"
+          v-loading="tableloading"
+          :data="tableData"
+          stripe
+          highlight-current-row
+          style="width: 100%"
+          :default-sort="{ prop: 'SortCode', order: 'descending' }"
+          @selection-change="handleSelectChange"
+          @sort-change="handleSortChange"
+        >
+          <el-table-column type="selection" width="40" />
+          <el-table-column prop="FullName" label="角色名称" sortable="custom" width="180" />
+          <el-table-column prop="EnCode" label="角色编码" sortable="custom" width="120" />
+          <el-table-column prop="Type" label="类型" sortable="custom" width="90" align="center">
+            <template #default="scope">
+              <slot v-if="scope.row.Type === '1'">系统角色</slot>
+              <slot v-else-if="scope.row.Type === '2'">业务角色</slot>
+              <slot v-else-if="scope.row.Type === '3'">其他角色</slot>
+            </template>
+          </el-table-column>
+          <el-table-column prop="DataScope" label="数据范围" sortable="custom" width="150" align="center">
+            <template #default="scope">
+              <el-tag effect="plain" v-if="scope.row.DataScope === 1">全部数据</el-tag>
+              <el-tag effect="plain" v-else-if="scope.row.DataScope === 2">本部门及以下数据</el-tag>
+              <el-tag effect="plain" v-else-if="scope.row.DataScope === 3">本部门数据</el-tag>
+              <el-tag effect="plain" v-else-if="scope.row.DataScope === 4">仅本人数据</el-tag>
+              <el-tag effect="plain" v-else-if="scope.row.DataScope === 5">自定义数据</el-tag>
+            </template>
+          </el-table-column>
+            <el-table-column prop="OrganizeName" label="所属组织"/>
+          <el-table-column label="是否启用" sortable="custom" width="120" prop="EnabledMark" align="center">
+            <template #default="scope">
+              <el-tag :type="scope.row.EnabledMark === true ? 'success' : 'info'" disable-transitions>{{ scope.row.EnabledMark === true ? "启用" : "禁用" }}</el-tag>
+            </template>
+          </el-table-column>
+          <el-table-column label="是否删除" sortable="custom" width="120" prop="DeleteMark" align="center">
+            <template #default="scope">
+              <el-tag :type="scope.row.DeleteMark === true ? 'danger' : 'success'" disable-transitions>{{ scope.row.DeleteMark === true ? "已删除" : "否" }}</el-tag>
+            </template>
+          </el-table-column>
+          <el-table-column prop="CreatorTime" label="创建时间" width="160" sortable />
+        </el-table>
+        <Pagination
+          v-show="queryParams.pageTotal>0"
+          :total="queryParams.pageTotal" 
+          v-model:page="queryParams.CurrenetPageIndex"
+          v-model:limit="queryParams.PageSize"
+          @pagination="loadTableData"
+        />
+      </el-col>
+      </el-row>
+    <el-dialog ref="dialogEditForm" draggable :title="editFormTitle + '角色'" v-model="dialogEditFormVisible" width="50%">
       <el-form ref="editFromRef" :inline="true" :model="editFrom" :rules="rules" class="demo-form-inline">
         <el-form-item label="角色名称" :label-width="formLabelWidth" prop="FullName">
           <el-input v-model="editFrom.FullName" placeholder="请输入角色名称" autocomplete="off" clearable />
@@ -127,7 +156,7 @@
             :props="{
               label: 'FullName',
               value: 'Id',
-              children: 'Children',
+              children: 'Child',
               emitPath: false,
               checkStrictly: true,
               expandTrigger: 'hover',
@@ -161,24 +190,33 @@
       <el-tabs v-model="ActionName" type="border-card">
         <el-tab-pane label="可用系统" name="treeSystem">
           <el-card class="box-card">
-            <el-tree ref="treeSystemRef" :data="treeSystemData" :check-strictly="true" empty-text="加载中，请稍后" show-checkbox default-expand-all node-key="Id" highlight-current :props="{ label: 'FullName', children: 'Children' }" />
+            <el-tree ref="treeSystemRef" :data="treeSystemData" empty-text="加载中，请稍后" show-checkbox default-expand-all node-key="Id" :props="{ label: 'FullName', children: 'Children' }" />
           </el-card>
         </el-tab-pane>
         <el-tab-pane label="功能菜单" name="treeFunction">
           <el-card class="box-card">
-            <el-tree ref="treeFunctionRef" :data="treeFuntionData" :check-strictly="true" empty-text="加载中，请稍后" show-checkbox default-expand-all node-key="Id" highlight-current :props="{ label: 'FullName', children: 'Children',disabled:'IsShow'}" />
+            <el-tree ref="treeFunctionRef" :data="treeFuntionData"  empty-text="加载中，请稍后" show-checkbox default-expand-all node-key="Id" :props="{ label: 'FullName', children: 'Children',disabled:'IsShow',
+            class:treeNodeClass}" >
+            </el-tree>
           </el-card>
         </el-tab-pane>
         <el-tab-pane label="数据权限" name="treeOrganize">
           <el-card class="box-card">
-            <el-tree ref="treeOrganizeRef" :data="treeOrganizeData" :check-strictly="true" empty-text="加载中，请稍后" show-checkbox default-expand-all node-key="Id" highlight-current :props="{ label: 'FullName', children: 'Children' }" />
+              <el-form-item label="数据范围：">
+                <el-select v-model="editFromRoleAuthorize.DataScope"  placeholder="数据范围" style="width: 100%">
+                  <el-option v-for="d in data.dataScopeType" :key="d.value" :label="d.label" :value="d.value" />
+                </el-select>
+              </el-form-item>
+              <el-form-item v-show="editFromRoleAuthorize.DataScope==5">
+                <el-tree ref="treeOrganizeRef" :data="treeOrganizeData" empty-text="加载中，请稍后" show-checkbox default-expand-all node-key="Id" :props="{ label: 'FullName', children: 'Child' }" />
+              </el-form-item>
           </el-card>
         </el-tab-pane>
       </el-tabs>
       <template #footer>
         <div class="dialog-footer">
           <el-button @click="dialogSetAuthFormVisible = false">取 消</el-button>
-          <el-button type="primary" @click="handleSaveRoleAuthorize()">保 存</el-button>
+          <el-button type="primary" @click="handleSaveRoleAuthorize()" v-loading.fullscreen.lock="fullscreenLoading">保 存</el-button>
         </div>
       </template>
     </el-dialog>
@@ -186,7 +224,7 @@
 </template>
 
 <script setup name="Role">
-
+import { ref, watch } from 'vue'
 import { getListItemDetailsByCode } from '@/api/basebasic'
 import {
   getRoleListWithPager, getRoleDetail, saveRole,
@@ -201,7 +239,8 @@ import { nextTick } from '@vue/runtime-core'
 const { proxy } = getCurrentInstance()
 
 const tableData=ref([])
-const tableloading=ref(true)
+const tableloading = ref(true)
+const fullscreenLoading =ref(false)
 const dialogEditFormVisible=ref(false)
 const editFormTitle=ref("")
 const showSearch = ref(true);
@@ -210,20 +249,16 @@ const multiple = ref(true);
       
 const formLabelWidth=ref("100px")
 const currentId=ref("")// 当前操作对象的ID值，主要用于修改
-const ids=ref([])
-
+const ids = ref([])
+const filterOrg = ref("")
 
 const selectRoleType=ref([])
 const selectedOrganizeOptions=ref("")
 const selectOrganize=ref([])
 
-const pageLoading=ref("")
 const dialogSetAuthFormVisible=ref(false) 
 const treeFuntionData=ref([])
-const default_select=ref([])
-const defaultOrganize_select=ref([])
 const treeOrganizeData=ref([])
-const defaultSystem_select=ref([])
 const treeSystemData=ref([])
 const cascaderKey=ref(0)
 const ActionName=ref("treeSystem")
@@ -231,11 +266,24 @@ const treeSystemRef=ref(null)
 const treeFunctionRef=ref(null)
 const treeOrganizeRef=ref(null)
 
+
+watch(filterOrg, (val) => {
+  proxy.$refs.treeOrgRef.filter(val)
+})
+
+const filterNodeOrg = (value, data) => {
+  if (data.FullName.includes(value)) {
+    return true
+  } else {
+    return false
+  }
+}
 const data = reactive({
   queryParams:{
     CurrenetPageIndex: 1,
     PageSize: 20,
     pageTotal: 0,
+    CreateOrgId:0,
     Order: 'desc',
     Sort: 'CreatorTime',
     Keywords: ''
@@ -256,10 +304,19 @@ const data = reactive({
     OrganizeId: [
       { required: true, message: '请选择所属部门', trigger: 'blur' }
     ]
-  }
+  },
+  editFromRoleAuthorize:{},
+  dataScopeType: [
+    { value: 1, label: '全部数据' },
+    { value: 2, label: '本部门及以下数据' },
+    { value: 3, label: '本部门数据' },
+    { value: 4, label: '仅本人数据' },
+    { value: 5, label: '自定义数据' },
+  ]
+
 })
 
-const { queryParams, editFrom, rules ,shortcuts} = toRefs(data);
+const { queryParams, editFrom, rules ,editFromRoleAuthorize} = toRefs(data);
 
 
 /**
@@ -290,7 +347,17 @@ function InitDictItem() {
  */
 function loadTableData() {
   tableloading.value = true
-  getRoleListWithPager(queryParams.value).then(res => {
+  var seachdata = {
+    CurrenetPageIndex: queryParams.value.CurrenetPageIndex,
+    PageSize: queryParams.value.PageSize,
+    Filter: {
+      OrganizeId: queryParams.value.CreateOrgId
+    },
+    Keywords: queryParams.value.Keywords,
+    Order: queryParams.value.Order,
+    Sort: queryParams.value.Sort
+  }
+  getRoleListWithPager(seachdata).then(res => {
     tableData.value = res.ResData.Items
     queryParams.value.pageTotal = res.ResData.TotalItems
     tableloading.value = false
@@ -310,6 +377,10 @@ function resetQuery() {
   handleSearch();
 }
 
+function treeOrgHandle (node) {
+  queryParams.value.CreateOrgId = node.Id
+  handleSearch()
+}
 /**
  *选择组织
   */
@@ -470,9 +541,11 @@ function handleSortChange(column) {
  */
 function handleSelectChange(selection) {
   ids.value = selection.map(item => item.Id);
+  if(selection.length>0)  editFromRoleAuthorize.value.DataScope = selection[0]?.DataScope
   single.value = selection.length != 1;
   multiple.value = !selection.length;
 }
+
 /**
  * 设置权限
  */
@@ -484,19 +557,21 @@ function handleSetAuth() {
     currentId.value = ids.value[0]
     dialogSetAuthFormVisible.value = true
     ActionName.value = 'treeSystem'
-    treeOrganizeRef.value.setCheckedKeys([]);
-    treeFunctionRef.value.setCheckedKeys([]);
-    treeSystemRef.value.setCheckedKeys([]);
+    treeOrganizeRef.value?.setCheckedKeys([],false);
+    treeFunctionRef.value?.setCheckedKeys([], false);
+    treeSystemRef.value?.setCheckedKeys([], false);
     const datar = {
       roleId: currentId.value
     }
     getAllRoleDataByRoleId(datar).then(res => {
       let checkedKeys=res.ResData
-      checkedKeys.forEach((v) => {
-        nextTick(() => {
-          treeOrganizeRef.value.setChecked(v, true, false);
+      if (checkedKeys.length > 0) {
+        checkedKeys.forEach((v) => {
+          nextTick(() => {
+            treeOrganizeRef.value.setChecked(v, true, false);
+          });
         });
-      });
+      }
     })
 
     const data = {
@@ -505,23 +580,27 @@ function handleSetAuth() {
     }
     getRoleAuthorizeFunction(data).then(res => {
       let checkedKeys=res.ResData
-      checkedKeys.forEach((v) => {
-        nextTick(() => {
-          treeFunctionRef.value.setChecked(v, true, false);
+      if (checkedKeys.length > 0) {
+        checkedKeys.forEach((v) => {
+          nextTick(() => {
+            treeFunctionRef.value.setChecked(v, true, false);
+          });
         });
-      });
+      }
     })
     const datas = {
       roleId: currentId.value,
       itemType: '0'
     }
     getRoleAuthorizeFunction(datas).then(res => {
-      let checkedKeys=res.ResData
-      checkedKeys.forEach((v) => {
-        nextTick(() => {
-          treeSystemRef.value.setChecked(v, true, false);
+      let checkedKeys = res.ResData
+      if (checkedKeys.length > 0) {
+        checkedKeys.forEach((v) => {
+          nextTick(() => {
+            treeSystemRef.value.setChecked(v, true, false);
+          });
         });
-      });
+      }
     })
   }
 }
@@ -529,7 +608,8 @@ function handleSetAuth() {
 /**
  * 保存权限
  */
-function handleSaveRoleAuthorize() {
+function handleSaveRoleAuthorize () {
+  fullscreenLoading.value = true
   // 目前被选中的菜单节点
   const checkedKeysTreeFunction = treeFunctionRef.value.getCheckedKeys()
   // 半选中的菜单节点
@@ -548,33 +628,63 @@ function handleSaveRoleAuthorize() {
     'RoleFunctios': checkedKeysTreeFunction,
     'RoleData': checkedKeysTreeOrganize,
     'RoleSystem': checkedKeysTreeSystem,
-    'RoleId': currentId.value
+    'RoleId': currentId.value,
+    'RoleDataScope': editFromRoleAuthorize.value.DataScope
   }
   saveRoleAuthorize(data).then(res => {
     if (res.Success) {
       proxy.$modal.msgSuccess('恭喜你，操作成功')
-      // default_select = []
-      // defaultOrganize_select = []
-      // defaultSystem_select = []
+      fullscreenLoading.value = false
       dialogSetAuthFormVisible.value = false
+      loadTableData()
     } else {
       proxy.$modal.msgError(res.ErrMsg)
+      fullscreenLoading.value = false
     }
-    //pageLoading.close()
   })
 }
 
 
-  InitDictItem()
-  loadTableData()
+
+InitDictItem()
+loadTableData()
+
+const treeNodeClass = (data,node) => {
+  let addClass = true; // 添加叶子节点同行显示样式
+  for (var key in data.Children) {
+    // 如果存在子节点非叶子节点，不添加样式
+    if ((data.Children[key].Children?.length ?? 0 > 0)) {      
+      addClass = false;
+      break;
+    }
+  }
+  return addClass ? 'is-penultimate' : '';
+}
+
 </script>
 
-<style>
+<style lang="scss" scoped>
 .el-cascader {
   width: 100%;
 }
 .box-card {
   max-height: 600px;
   overflow-y: scroll;
+}
+:deep(.is-penultimate) {
+	.el-tree-node__children {
+		padding-left: 40px;
+		white-space: pre-wrap;
+		line-height: 100%;
+
+		.el-tree-node {
+			display: inline-block;
+		}
+
+		.el-tree-node__content {
+			padding-left: 5px !important;
+			padding-right: 5px;
+		}
+	}
 }
 </style>

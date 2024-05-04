@@ -60,6 +60,16 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/403',
+    component: () => import('@/views/error/403'),
+    hidden: true
+  },
+  {
+    path: '/404',
+    component: () => import('@/views/error/404'),
+    hidden: true
+  },
+  {
     path: '',
     component: Layout,
     redirect: '/index',

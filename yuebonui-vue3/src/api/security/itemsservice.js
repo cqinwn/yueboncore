@@ -5,7 +5,7 @@ import defaultSettings from '@/settings'
    * 获取功能菜单
    * @param {查询条件} data
    */
-export function getAllItemsTreeTable() {
+export function getAllItemsTreeTable () {
   return http.request({
     url: 'Items/GetAllItemsTreeTable',
     method: 'get',
@@ -16,7 +16,7 @@ export function getAllItemsTreeTable() {
    * 新增或修改保存
    * @param data
    */
-export function saveItems(data, url) {
+export function saveItems (data, url) {
   return http.request({
     url: url,
     method: 'post',
@@ -28,7 +28,7 @@ export function saveItems(data, url) {
    * 获取详情
    * @param {Id} Id
    */
-export function getItemsDetail(id) {
+export function getItemsDetail (id) {
   return http({
     url: 'Items/GetById',
     method: 'get',
@@ -40,7 +40,7 @@ export function getItemsDetail(id) {
    * 批量设置启用状态
    * @param {id集合} ids
    */
-export function setItemsEnable(data) {
+export function setItemsEnable (data) {
   return http({
     url: 'Items/SetEnabledMarktBatchAsync',
     method: 'post',
@@ -52,7 +52,7 @@ export function setItemsEnable(data) {
    * 批量软删除
    * @param {id集合} ids
    */
-export function deleteSoftItems(data) {
+export function deleteSoftItems (data) {
   return http({
     url: 'Items/DeleteSoftBatchAsync',
     method: 'post',
@@ -65,10 +65,10 @@ export function deleteSoftItems(data) {
    * 批量删除
    * @param {id集合} ids
    */
-export function deleteItems(data) {
+export function deleteItems (data) {
   return http({
     url: 'Items/DeleteBatchAsync',
-    method: 'delete',
+    method: 'post',
     data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
@@ -78,7 +78,7 @@ export function deleteItems(data) {
    * 查询所有可用的
    * @param {查询条件} data
    */
-export function getItemsAllEnable() {
+export function getItemsAllEnable () {
   return http.request({
     url: 'Items/GetAllEnable',
     method: 'get',
@@ -90,7 +90,7 @@ export function getItemsAllEnable() {
    * 获取功能菜单
    * @param {查询条件} data
    */
-export function getItemsDetailListWithPager(data) {
+export function getItemsDetailListWithPager (data) {
   return http.request({
     url: 'ItemsDetail/GetAllItemsDetailTreeTable',
     method: 'get',
@@ -102,7 +102,7 @@ export function getItemsDetailListWithPager(data) {
    * 新增或修改保存
    * @param data
    */
-export function saveItemsDetail(data, url) {
+export function saveItemsDetail (data, url) {
   return http.request({
     url: url,
     method: 'post',
@@ -114,7 +114,7 @@ export function saveItemsDetail(data, url) {
    * 获取详情
    * @param {Id} Id
    */
-export function getItemsDetailDetail(id) {
+export function getItemsDetailDetail (id) {
   return http({
     url: 'ItemsDetail/GetById',
     method: 'get',
@@ -126,7 +126,7 @@ export function getItemsDetailDetail(id) {
    * 批量设置启用状态
    * @param {id集合} ids
    */
-export function setItemsDetailEnable(data) {
+export function setItemsDetailEnable (data) {
   return http({
     url: 'ItemsDetail/SetEnabledMarktBatchAsync',
     method: 'post',
@@ -138,7 +138,7 @@ export function setItemsDetailEnable(data) {
    * 批量软删除
    * @param {id集合} ids
    */
-export function deleteSoftItemsDetail(data) {
+export function deleteSoftItemsDetail (data) {
   return http({
     url: 'ItemsDetail/DeleteSoftBatchAsync',
     method: 'post',
@@ -151,10 +151,10 @@ export function deleteSoftItemsDetail(data) {
    * 批量删除
    * @param {id集合} ids
    */
-export function deleteItemsDetail(data) {
+export function deleteItemsDetail (data) {
   return http({
     url: 'ItemsDetail/DeleteBatchAsync',
-    method: 'delete',
+    method: 'post',
     data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
@@ -164,7 +164,7 @@ export function deleteItemsDetail(data) {
    * 查询所有可用的
    * @param {查询条件} data
    */
-export function getItemsDetailAllEnable() {
+export function getItemsDetailAllEnable () {
   return http.request({
     url: 'ItemsDetail/GetAllEnable',
     method: 'get',
@@ -175,7 +175,7 @@ export function getItemsDetailAllEnable() {
  * 根据子系统查询所有功能
  * @param {} data
  */
-export function getAllItemsDetailTreeTable(data) {
+export function getAllItemsDetailTreeTable (data) {
   return http.request({
     url: 'ItemsDetail/GetAllItemsDetailTreeTable',
     method: 'get',

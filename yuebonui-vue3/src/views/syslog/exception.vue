@@ -46,15 +46,15 @@
       @row-dblclick="showDetailDialog"
     >
       <el-table-column type="selection" width="40" />
-      <el-table-column prop="Date" label="操作时间" sortable="custom" width="180" />
-      <el-table-column prop="Account" label="操作账号" sortable="custom" width="120" />
-      <el-table-column prop="RealName" label="操作人" sortable="custom" width="120" />
+      <el-table-column prop="ExceptionType" label="异常类型" sortable="custom" width="180" />
+      <el-table-column prop="RequestUrl" label="请求地址" width="380"/>
+      <el-table-column prop="RequestMethod" label="请求方式" sortable="custom" width="120" />
       <el-table-column prop="IPAddress" label="IP地址" sortable="custom" width="150" />
       <el-table-column prop="OS" label="操作系统" sortable="custom" width="120" />
       <el-table-column prop="Browser" label="浏览器" sortable="custom" width="120" />
-      <el-table-column prop="ExceptionType" label="异常类型" sortable="custom" width="180" />
-      <el-table-column prop="RequestUrl" label="请求地址"/>
-      <el-table-column prop="RequestMethod" label="请求方式" sortable="custom" width="120" />
+      <el-table-column prop="Date" label="操作时间" sortable="custom" width="180" />
+      <el-table-column prop="Account" label="操作账号" sortable="custom" width="120" />
+      <el-table-column prop="RealName" label="操作人" sortable="custom" width="120" />
       <el-table-column fixed="right" label="操作" width="60">
         <template #default="scope">
           <el-button type="primary" link @click="showDetailDialog(scope.row)">详情</el-button>

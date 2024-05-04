@@ -185,4 +185,5 @@ function listToString(list, separator) {
 .ele-upload-list__item-content-action .el-link {
   margin-right: 10px;
 }
+
 </style>

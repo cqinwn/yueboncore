@@ -1,5 +1,24 @@
 <template>
   <div class="app-container">
+     <el-row :gutter="24">
+       <el-col :span="4">
+        <el-card>
+          <el-input v-model="filterOrg" placeholder="机构名称" suffix-icon="search"/>
+          <el-tree
+            ref="treeOrgRef"
+            class="filter-tree"
+            :data="selectOrganize"
+            empty-text="加载中，请稍后" 
+            :expand-on-click-node="false"
+            default-expand-all 
+            node-key="Id" 
+            :props="{ label: 'FullName', children: 'Child' }"
+            :filter-node-method="filterNodeOrg"
+            @node-click="treeOrgHandle"
+          />
+        </el-card>
+        </el-col>
+        <el-col :span="20">
     <el-form ref="searchformRef" v-show="showSearch" :inline="true" :model="queryParams" class="demo-form-inline">
       <el-form-item label="角色" prop="RoleId">
         <el-select v-model="queryParams.RoleId" clearable placeholder="请选择">
@@ -41,9 +60,24 @@
       @sort-change="handleSortChange"
     >
       <el-table-column type="selection" width="55" />
-      <el-table-column prop="Account" label="账号/用户名" sortable="custom" width="230" fixed />
+      <el-table-column prop="Account" label="账号/用户名" sortable="custom" width="180" fixed />
       <el-table-column prop="RealName" label="真实姓名" sortable="custom" width="180" fixed />
-      <el-table-column prop="NickName" label="昵称" sortable="custom" width="180" fixed />
+      <el-table-column prop="UserType" label="账号类型" sortable="custom" width="120" align="center" >
+        <template #default="scope">
+          <el-tag v-if="scope.row.UserType === 999">超级管理员</el-tag>
+          <el-tag v-else-if="scope.row.UserType === 888">系统管理员</el-tag>
+          <el-tag v-else-if="scope.row.UserType === 777">普通用户</el-tag>
+          <el-tag v-else-if="scope.row.UserType === 0">会员</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column prop="DepartmentName" label="所属组织" width="260" align="center"  >
+        <template #default="scope">
+          {{ scope.row.OrganizeName}}
+        </template>
+      </el-table-column>
+      <el-table-column prop="RoleName" label="岗位角色" sortable="custom" width="280" align="center" />
+      
+      <el-table-column prop="NickName" label="昵称" sortable="custom" width="180" />
       <el-table-column prop="Gender" label="性别" sortable="custom" width="90" align="center">
         <template #default="scope">
           {{ scope.row.Gender=== 1 ? '男' : '女' }}
@@ -55,12 +89,7 @@
         </template>
       </el-table-column>
       <el-table-column prop="MobilePhone" label="手机号码" sortable="custom" width="120" align="center" />
-      <el-table-column prop="DepartmentName" label="所属组织" width="260" align="center">
-        <template #default="scope">
-          {{ scope.row.OrganizeName+"/"+ scope.row.DepartmentName }}
-        </template>
-      </el-table-column>
-      <el-table-column prop="RoleName" label="岗位角色" sortable="custom" width="280" align="center" />
+      
       <el-table-column label="可用" sortable="custom" width="90" prop="EnabledMark" align="center">
         <template #default="scope">
           <el-tag :type="scope.row.EnabledMark === true ? 'success' : 'info'" disable-transitions>{{ scope.row.EnabledMark===true?'启用':'禁用' }}</el-tag>
@@ -85,6 +114,8 @@
       v-model:limit="queryParams.PageSize"
       @pagination="loadTableData"
     />
+    </el-col>
+    </el-row>
     <el-dialog ref="dialogEditFormRef" :title="editFormTitle+'用户'" v-model="dialogEditFormVisible" draggable>
       <el-form ref="editFromRef" :inline="true" :model="editFrom" :rules="rules" class="demo-form-inline">
         <el-form-item label="账号" :label-width="formLabelWidth" prop="Account">
@@ -92,6 +123,34 @@
         </el-form-item>
         <el-form-item label="姓名" :label-width="formLabelWidth" prop="RealName">
           <el-input v-model="editFrom.RealName" placeholder="请输入姓名" autocomplete="off" clearable />
+        </el-form-item>
+        
+        <el-form-item label="所属组织" :label-width="formLabelWidth" prop="CreateOrgId">
+          <el-cascader 
+          v-model="selectedOrganizeOptions" 
+          style="width:500px;" 
+          :options="selectOrganize" 
+          filterable 
+          :props="{
+            label:'FullName',
+            value:'Id',
+            children:'Child',
+            emitPath:false, 
+            checkStrictly: true,
+            expandTrigger: 'hover' 
+            }" 
+            clearable 
+            @change="handleSelectOrganizeChange" />
+        </el-form-item>
+        <el-form-item label="岗位角色" :label-width="formLabelWidth" prop="RoleId">
+          <el-select v-model="editFrom.RoleId"  multiple clearable placeholder="请选择">
+            <el-option v-for="item in selectRole" :key="item.Id" :label="item.FullName" :value="item.Id" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="账号类型" :label-width="formLabelWidth" prop="UserType">
+          <el-select v-model="editFrom.UserType"  clearable placeholder="请选择">
+            <el-option v-for="item in selectUserType" :key="item.Id" :label="item.FullName" :value="item.Id" />
+          </el-select>
         </el-form-item>
         <el-form-item label="昵称" :label-width="formLabelWidth" prop="NickName">
           <el-input v-model="editFrom.NickName" placeholder="请输入昵称" autocomplete="off" clearable />
@@ -116,15 +175,6 @@
         </el-form-item>
         <el-form-item label="选项" :label-width="formLabelWidth" prop="">
           <el-checkbox v-model="editFrom.EnabledMark">启用</el-checkbox>
-          <el-checkbox v-model="editFrom.IsAdministrator">管理员</el-checkbox>
-        </el-form-item>
-        <el-form-item label="所属组织" :label-width="formLabelWidth" prop="DepartmentId">
-          <el-cascader v-model="selectedOrganizeOptions" style="width:500px;" :options="selectOrganize" filterable :props="{label:'FullName',value:'Id',children:'Children',emitPath:false, checkStrictly: true,expandTrigger: 'hover' }" clearable @change="handleSelectOrganizeChange" />
-        </el-form-item>
-        <el-form-item label="岗位角色" :label-width="formLabelWidth" prop="RoleId">
-          <el-select v-model="editFrom.RoleId" style="width:500px" multiple clearable placeholder="请选择">
-            <el-option v-for="item in selectRole" :key="item.Id" :label="item.FullName" :value="item.Id" />
-          </el-select>
         </el-form-item>
         <el-form-item label="备注" :label-width="formLabelWidth" prop="Description">
           <el-input v-model="editFrom.Description" style="width:500px" placeholder="" autocomplete="off" clearable />
@@ -141,9 +191,10 @@
 </template>
 
 <script setup name="User">
+import { ref, watch } from 'vue'
 import {
   getUserListWithPager, getUserDetail, saveUser, setUserEnable,
-  deleteSoftUser, deleteUser, resetPassword
+  deleteSoftUser, deleteUser, resetPassword, getOwnRoleList
 } from '@/api/security/userservice'
 import { getAllRoleList } from '@/api/security/roleservice'
 import { getAllOrganizeTreeTable } from '@/api/security/organizeservice'
@@ -159,11 +210,26 @@ const multiple = ref(true);
 
 const formLabelWidth=ref("100px")
 const currentId=ref("")// 当前操作对象的ID值，主要用于修改
-const ids=ref([])
+const ids = ref([])
+const filterOrg=ref("")
 
 const selectRole=ref([])
+const selectUserType = ref([])
 const selectedOrganizeOptions=ref("")
 const selectOrganize=ref([])
+
+
+watch(filterOrg,(val) => { 
+   proxy.$refs.treeOrgRef.filter(val)
+})
+
+const filterNodeOrg = (value, data) => {
+  if (data.FullName.includes(value)) {
+    return true
+  } else {
+    return false
+  }
+}
 
 const data = reactive({
   queryParams:{
@@ -173,10 +239,10 @@ const data = reactive({
     Order: 'desc',
     Sort: 'CreatorTime',
     RoleId: '',
+    CreateOrgId: 0,
     Keywords: '',
     CreateTime: ''
-  },
-  
+  },  
   editFrom:{},
   rules: {
     Account: [
@@ -187,11 +253,14 @@ const data = reactive({
       { required: true, message: '请输入姓名', trigger: 'blur' },
       { min: 2, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur' }
     ],
-    DepartmentId: [
+    CreateOrgId: [
       { required: true, message: '请输选择所属组织', trigger: 'blur' }
     ],
     RoleId: [
       { required: true, message: '请输选择岗位角色', trigger: 'blur' }
+    ],
+    UserType: [
+      { required: true, message: '请输选择账号类型', trigger: 'blur' }
     ]
   },
   shortcuts:[{
@@ -264,6 +333,19 @@ function InitDictItem() {
   getAllOrganizeTreeTable().then(res => {
     selectOrganize.value = res.ResData
   })
+  selectUserType.value = [{
+    Id: 777,
+    FullName: "普通用户"
+  }, {
+    Id: 0,
+    FullName: "会员"
+  }, {
+    Id: 888,
+    FullName: "系统管理"
+  }, {
+    Id: 999,
+    FullName: "超级管理员"
+  }]
 }
 /**
  * 加载页面table数据
@@ -274,6 +356,7 @@ function loadTableData() {
     CurrenetPageIndex: queryParams.value.CurrenetPageIndex,
     PageSize: queryParams.value.PageSize,
     Keywords: queryParams.value.Keywords,
+    CreateOrgId: queryParams.value.CreateOrgId,
     Order: queryParams.value.Order,
     Sort: queryParams.value.Sort,
     CreatorTime1: queryParams.value.CreateTime !== '' ? searchform.value.CreateTime[0] : '',
@@ -293,7 +376,10 @@ function handleSearch() {
   queryParams.value.CurrenetPageIndex = 1
   loadTableData()
 }
-
+function treeOrgHandle (node) {
+  queryParams.value.CreateOrgId =node.Id
+  handleSearch()
+}
 /** 重置查询操作 */
 function resetQuery() {
   proxy.resetForm("searchformRef");
@@ -310,7 +396,8 @@ function reset() {
     MobilePhone: '',
     Email: '',
     WeChat: '',
-    DepartmentId: '',
+    UserType: 777,
+    CreateOrgId: '',
     RoleId: '',
     IsAdministrator: true,
     EnabledMark: true,
@@ -343,8 +430,11 @@ function ShowEditOrViewDialog(view) {
 function bindEditInfo() {
   getUserDetail(currentId.value).then(res => {
     editFrom.value = res.ResData
-    editFrom.value.RoleId = res.ResData.RoleId.split(',')
-    selectedOrganizeOptions.value = res.ResData.DepartmentId
+    selectedOrganizeOptions.value = res.ResData.CreateOrgId
+    editFrom.value.UserType= res.ResData.UserType
+  })
+  getOwnRoleList(currentId.value).then(res => {
+    editFrom.value.RoleId = res.ResData
   })
 }
 /**
@@ -353,7 +443,7 @@ function bindEditInfo() {
 function saveEditForm() {
   proxy.$refs['editFromRef'].validate((valid) => {
     if (valid) {
-      const data =editFrom.value
+      const data = editFrom.value
       data.RoleId=editFrom.value.RoleId.join(',')
       var url = 'User/Insert'
       if (currentId.value !== '') {
@@ -459,7 +549,7 @@ function handleSelectChange(selection) {
  *选择组织
   */
 function handleSelectOrganizeChange() {
-  editFrom.value.DepartmentId = selectedOrganizeOptions.value
+  editFrom.value.CreateOrgId = selectedOrganizeOptions.value
 }
 function handleResetPassword(val) {
   if (ids.value.length > 1 || ids.value.length === 0) {

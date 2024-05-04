@@ -5,7 +5,7 @@ import defaultSettings from '@/settings'
    * 分页查询
    * @param {查询条件} data
    */
-export function getSequenceRuleListWithPager(data) {
+export function getSequenceRuleListWithPager (data) {
   return http.request({
     url: 'SequenceRule/FindWithPagerAsync',
     method: 'post',
@@ -15,7 +15,7 @@ export function getSequenceRuleListWithPager(data) {
 }/**
    * 获取所有可用的
    */
-export function getAllSequenceRuleList() {
+export function getAllSequenceRuleList () {
   return http.request({
     url: 'SequenceRule/GetAllEnable',
     method: 'get',
@@ -26,7 +26,7 @@ export function getAllSequenceRuleList() {
    * 新增或修改保存
    * @param data
    */
-export function saveSequenceRule(data) {
+export function saveSequenceRule (data) {
   return http.request({
     url: 'SequenceRule/InsertOrUpdateAsync',
     method: 'post',
@@ -38,7 +38,7 @@ export function saveSequenceRule(data) {
    * 获取详情
    * @param {Id} Id
    */
-export function getSequenceRuleDetail(id) {
+export function getSequenceRuleDetail (id) {
   return http({
     url: 'SequenceRule/GetById',
     method: 'get',
@@ -50,7 +50,7 @@ export function getSequenceRuleDetail(id) {
    * 批量设置启用状态
    * @param {id集合} ids
    */
-export function setSequenceRuleEnable(data) {
+export function setSequenceRuleEnable (data) {
   return http({
     url: 'SequenceRule/SetEnabledMarktBatchAsync',
     method: 'post',
@@ -62,7 +62,7 @@ export function setSequenceRuleEnable(data) {
    * 批量软删除
    * @param {id集合} ids
    */
-export function deleteSoftSequenceRule(data) {
+export function deleteSoftSequenceRule (data) {
   return http({
     url: 'SequenceRule/DeleteSoftBatchAsync',
     method: 'post',
@@ -75,10 +75,10 @@ export function deleteSoftSequenceRule(data) {
    * 批量删除
    * @param {id集合} ids
    */
-export function deleteSequenceRule(data) {
+export function deleteSequenceRule (data) {
   return http({
     url: 'SequenceRule/DeleteBatchAsync',
-    method: 'delete',
+    method: 'post',
     data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })

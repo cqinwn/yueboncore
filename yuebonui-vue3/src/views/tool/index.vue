@@ -157,7 +157,10 @@ const data = reactive({
 
 const { searchDbform,searchform,codeform, rules, selectDbTypes,pagination,sortableData} = toRefs(data);
 
-function loadData() {
+/**
+ * 获取数据库
+ */
+function loadDbsData() {
   codeGetDBList().then(res => {
     selectedDataBase.value = res.ResData
   })
@@ -206,7 +209,7 @@ function handleDbConn() {
   createGetDBConn(dataInfo).then(res => {
     selectedDataBase.value = res.ResData
     searchform.value.DbName = searchDbform.DbName
-  pagination.value.currentPage = 1
+    pagination.value.currentPage = 1
   // loadData()
   // loadTableData()
   })
@@ -294,6 +297,6 @@ function handleCurrentChange(val) {
   loadTableData()
 }
 
-//loadData()
+loadDbsData()
 //loadTableData()
 </script>

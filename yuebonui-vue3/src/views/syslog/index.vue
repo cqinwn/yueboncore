@@ -29,7 +29,7 @@
     </el-form>
     <el-row :gutter="10" class="mb8">
       <el-button-group>
-        <el-button v-hasPermi="['Log/Delete']" type="danger" icon="delete" :disabled="multiple" @click="deletePhysics()">删除</el-button>
+        <el-button v-hasPermi="['VisitLog/Delete']" type="danger" icon="delete" :disabled="multiple" @click="deletePhysics()">删除</el-button>
       </el-button-group>
       <right-toolbar v-model:showSearch="showSearch" @queryTable="loadTableData"></right-toolbar>
     </el-row>
@@ -52,7 +52,7 @@
       <el-table-column prop="IPAddress" label="IP地址" sortable="custom" width="150" />
       <el-table-column prop="OS" label="操作系统" sortable="custom" width="120" />
       <el-table-column prop="Browser" label="浏览器" sortable="custom" width="120" />
-      <el-table-column prop="RequestUrl" label="请求地址" sortable="custom"/>
+      <el-table-column prop="RequestUrl" label="请求地址" sortable="custom" width="260"/>
       <el-table-column prop="RequestMethod" label="请求方式" sortable="custom" width="120" />
       <el-table-column prop="ElapsedTime" label="耗时(ms)" sortable="custom" width="120" />
       <el-table-column prop="Result" label="操作状态" sortable="custom" width="120" >
@@ -104,7 +104,16 @@
       </el-row>
       
       <el-row :gutter="20">
-        <el-col><div>请求参数：{{logDetail.RequestParameter}}</div></el-col>
+        <el-col>
+          <div>请求参数：
+           <el-input
+              v-model="logDetail.RequestParameter"
+              show-word-limit
+              :rows="10"
+              type="textarea"
+              />
+            </div>
+            </el-col>
       </el-row>
       <el-row :gutter="20">
         <el-col>
@@ -112,7 +121,7 @@
             <el-input
             v-model="logDetail.Description"
             show-word-limit
-            :rows="20"
+            :rows="10"
             type="textarea"
             />
           </div>

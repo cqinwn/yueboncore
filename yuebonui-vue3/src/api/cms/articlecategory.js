@@ -5,7 +5,7 @@ import defaultSettings from '@/settings'
    * 分页查询
    * @param {查询条件} data
    */
-export function GetAllCategoryTreeTable(data) {
+export function GetAllCategoryTreeTable (data) {
   return http.request({
     url: 'Articlecategory/GetAllCategoryTreeTable',
     method: 'get',
@@ -17,7 +17,7 @@ export function GetAllCategoryTreeTable(data) {
 /**
    * 获取所有可用的
    */
-export function getAllArticlecategoryList() {
+export function getAllArticlecategoryList () {
   return http.request({
     url: 'Articlecategory/GetAllEnable',
     method: 'get',
@@ -28,7 +28,7 @@ export function getAllArticlecategoryList() {
    * 新增或修改保存
    * @param data
    */
-export function saveArticlecategory(data, url) {
+export function saveArticlecategory (data, url) {
   return http.request({
     url: url,
     method: 'post',
@@ -40,7 +40,7 @@ export function saveArticlecategory(data, url) {
    * 获取详情
    * @param {Id} Id
    */
-export function getArticlecategoryDetail(id) {
+export function getArticlecategoryDetail (id) {
   return http({
     url: 'Articlecategory/GetById',
     method: 'get',
@@ -52,7 +52,7 @@ export function getArticlecategoryDetail(id) {
    * 批量设置启用状态
    * @param {id集合} ids
    */
-export function setArticlecategoryEnable(data) {
+export function setArticlecategoryEnable (data) {
   return http({
     url: 'Articlecategory/SetEnabledMarktBatchAsync',
     method: 'post',
@@ -64,7 +64,7 @@ export function setArticlecategoryEnable(data) {
    * 批量软删除
    * @param {id集合} ids
    */
-export function deleteSoftArticlecategory(data) {
+export function deleteSoftArticlecategory (data) {
   return http({
     url: 'Articlecategory/DeleteSoftBatchAsync',
     method: 'post',
@@ -77,10 +77,10 @@ export function deleteSoftArticlecategory(data) {
    * 批量删除
    * @param {id集合} ids
    */
-export function deleteArticlecategory(data) {
+export function deleteArticlecategory (data) {
   return http({
     url: 'Articlecategory/DeleteBatchAsync',
-    method: 'delete',
+    method: 'post',
     data: data,
     baseURL: defaultSettings.apiCMSUrl // 直接通过覆盖的方式
   })

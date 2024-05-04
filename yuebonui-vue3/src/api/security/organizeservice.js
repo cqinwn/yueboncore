@@ -4,7 +4,7 @@ import defaultSettings from '@/settings'
 /**
  * 获取树形组织机构
 */
-export function getAllOrganizeTreeTable() {
+export function getAllOrganizeTreeTable () {
   return http.request({
     url: 'Organize/GetAllOrganizeTreeTable',
     method: 'get',
@@ -15,7 +15,7 @@ export function getAllOrganizeTreeTable() {
    * 角色分页查询
    * @param {查询条件} data
    */
-export function getOrganizeListWithPager(data) {
+export function getOrganizeListWithPager (data) {
   return http.request({
     url: 'Organize/FindWithPagerAsync',
     method: 'post',
@@ -27,7 +27,7 @@ export function getOrganizeListWithPager(data) {
    * 新增或修改保存角色
    * @param data
    */
-export function saveOrganize(data, url) {
+export function saveOrganize (data, url) {
   return http.request({
     url: url,
     method: 'post',
@@ -39,7 +39,7 @@ export function saveOrganize(data, url) {
    * 获取角色详情
    * @param {Id} 角色Id
    */
-export function getOrganizeDetail(id) {
+export function getOrganizeDetail (id) {
   return http({
     url: 'Organize/GetById',
     method: 'get',
@@ -51,7 +51,7 @@ export function getOrganizeDetail(id) {
    * 批量设置启用状态
    * @param {id集合} ids
    */
-export function setOrganizeEnable(data) {
+export function setOrganizeEnable (data) {
   return http({
     url: 'Organize/SetEnabledMarktBatchAsync',
     method: 'post',
@@ -63,7 +63,7 @@ export function setOrganizeEnable(data) {
    * 批量软删除
    * @param {id集合} ids
    */
-export function deleteSoftOrganize(data) {
+export function deleteSoftOrganize (data) {
   return http({
     url: 'Organize/DeleteSoftBatchAsync',
     method: 'post',
@@ -76,12 +76,24 @@ export function deleteSoftOrganize(data) {
    * 批量删除
    * @param {id集合} ids
    */
-export function deleteOrganize(data) {
+export function deleteOrganize (data) {
   return http({
     url: 'Organize/DeleteBatchAsync',
-    method: 'delete',
+    method: 'post',
     data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
 }
-
+/**
+ * 根据组织类型获取公司级组织机构
+ * @param {组织类型} orgtype 
+ * @returns 
+ */
+export function getOrganizesByOrgType (orgtype) {
+  return http({
+    url: 'Organize/GetOrganizesByOrgType',
+    method: 'get',
+    params: { orgType: orgtype },
+    baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
+  })
+}

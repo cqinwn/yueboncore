@@ -44,7 +44,7 @@ const user = {
 
   actions: {
     // 登录
-    Login({ commit }, loginInfo) {
+    Login ({ commit }, loginInfo) {
       const username = loginInfo.username.trim()
       const password = loginInfo.password
       const vcode = loginInfo.vcode
@@ -66,7 +66,7 @@ const user = {
     },
 
     // 获取用户信息
-    GetInfo({ commit, state }) {
+    GetInfo ({ commit, state }) {
       return new Promise((resolve, reject) => {
         getUserInfo().then(res => {
           if (res.Success) {
@@ -90,7 +90,7 @@ const user = {
     },
 
     // 退出系统
-    LogOut({ commit, state }) {
+    LogOut ({ commit, state }) {
       return new Promise((resolve, reject) => {
         logout(state.token).then(() => {
           resolve()
@@ -106,7 +106,7 @@ const user = {
     },
 
     // 前端 退出系统
-    FedLogOut({ commit }) {
+    FedLogOut ({ commit }) {
       return new Promise(resolve => {
         commit('SET_TOKEN', '')
         commit('SET_ROLES', [])
@@ -116,7 +116,7 @@ const user = {
       })
     },
     // 刷新 token
-    ResetToken({ commit }) {
+    ResetToken ({ commit }) {
       const data = {
         'token': getToken()
       }
@@ -132,7 +132,7 @@ const user = {
         resolve()
       })
     },
-    userNowMeunsFun(encode) {
+    userNowMeunsFun (encode) {
       const code = encode
       return new Promise((resolve, reject) => {
         getListMeunFuntionBymeunCode({ enCode: code }).then(response => {
@@ -145,7 +145,7 @@ const user = {
       })
     },
     // 系统切换
-    sysConnetLogin({ commit }, userInfo) {
+    sysConnetLogin ({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
         sysConnect(userInfo).then(response => {
           const data = response.ResData

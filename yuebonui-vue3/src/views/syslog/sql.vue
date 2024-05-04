@@ -19,7 +19,7 @@
     </el-form>
     <el-row :gutter="10" class="mb8">
       <el-button-group>
-        <el-button v-hasPermi="['Log/Delete']" type="danger" icon="delete" :disabled="multiple"
+        <el-button v-hasPermi="['SqlLog/Delete']" type="danger" icon="delete" :disabled="multiple"
           @click="deletePhysics()">删除</el-button>
       </el-button-group>
       <right-toolbar v-model:showSearch="showSearch" @queryTable="loadTableData"></right-toolbar>

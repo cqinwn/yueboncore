@@ -61,8 +61,14 @@
     >
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column prop="FullName" label="组织名称" sortable="custom" width="380" />
-      <el-table-column prop="EnCode" label="编码" sortable="custom" width="180" />
-      <el-table-column prop="CategoryId" label="类型" sortable="custom" width="90" align="center">
+      <el-table-column prop="OrgType" label="组织类型" sortable="custom" width="120" align="center">
+          <template v-slot= "scope">
+            <slot v-if="scope.row.OrgType === 'BusinessOrg'">业务组织</slot>
+            <slot v-if="scope.row.OrgType === 'SysOrg'">系统组织</slot>
+            <slot v-if="scope.row.OrgType === 'ThreeOrg'">第三方组织</slot>
+          </template>
+        </el-table-column>
+      <el-table-column prop="CategoryId" label="组织分类" sortable="custom" width="120" align="center">
         <template v-slot= "scope">
           <slot v-if="scope.row.CategoryId === 'Group'">集团</slot>
           <slot v-if="scope.row.CategoryId === 'Area'">区域</slot>
@@ -112,12 +118,14 @@
         <el-form-item label="名称" :label-width="formLabelWidth" prop="FullName">
           <el-input v-model="editFrom.FullName" style="width: 500px" placeholder="请输入机构名称" autocomplete="off" clearable />
         </el-form-item>
-        <el-form-item label="编码" :label-width="formLabelWidth" prop="EnCode">
-          <el-input v-model="editFrom.EnCode" placeholder="请输入机构编码" autocomplete="off" clearable />
+        <el-form-item label="分类" :label-width="formLabelWidth" prop="OrgType">
+          <el-select v-model="editFrom.OrgType" clearable placeholder="请选类型">
+            <el-option v-for="item in selectOrganizeType" :key="item.Id" :label="item.ItemName" :value="item.ItemCode" />
+          </el-select>
         </el-form-item>
         <el-form-item label="类型" :label-width="formLabelWidth" prop="CategoryId">
-          <el-select v-model="editFrom.CategoryId" clearable placeholder="请选类型">
-            <el-option v-for="item in selectOrganizeType" :key="item.Id" :label="item.ItemName" :value="item.ItemCode" />
+          <el-select v-model="editFrom.CategoryId" clearable placeholder="请选分类">
+            <el-option v-for="item in selectOrganizeCategorize" :key="item.Id" :label="item.ItemName" :value="item.ItemCode" />
           </el-select>
         </el-form-item>
         <el-form-item label="简称" :label-width="formLabelWidth" prop="ShortName">
@@ -185,7 +193,9 @@ const ids=ref([])
 
 const selectedOrganizeOptions=ref('')
 let selectOrganize=ref([])
-const selectOrganizeType=ref([])
+const selectOrganizeType = ref([])
+const selectOrganizeCategorize = ref([])
+
 
 const data = reactive({
   editFrom: {
@@ -193,6 +203,7 @@ const data = reactive({
     EnCode: '',
     ParentId: '',
     ShortName: '',
+    OrgType:'',
     CategoryId: '',
     ManagerId: '',
     TelePhone: '',
@@ -213,8 +224,11 @@ const data = reactive({
       { required: true, message: '请输入名称', trigger: 'blur' },
       { min: 2, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur' }
     ],
-    CategoryId: [
+    OrgType: [
       { required: true, message: '请选择类型', trigger: 'blur' }
+    ],
+    CategoryId: [
+      { required: true, message: '请选择分类', trigger: 'blur' }
     ]
   }
 })
@@ -224,8 +238,11 @@ const { editFrom, rules} = toRefs(data);
  * 初始化数据
  */
 function InitDictItem() {
-  getListItemDetailsByCode('OrganizeCategory').then(res => {
+  getListItemDetailsByCode('OrgType').then(res => {
     selectOrganizeType.value = res.ResData
+  })
+  getListItemDetailsByCode('OrganizeCategory').then(res => {
+    selectOrganizeCategorize.value = res.ResData
   })
 }
 /**

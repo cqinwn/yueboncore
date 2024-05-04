@@ -11,12 +11,14 @@ const service = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_API,
   timeout: 10000 // request timeout
 })
-
+//service.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded';
 service.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8'
 // request拦截器
 service.interceptors.request.use(
   config => {
-    if (config.headers['Content-Type'] === undefined) { config.headers['Content-Type'] = 'application/json;charset=UTF-8' }
+    if (config.headers['Content-Type'] === undefined) {
+      config.headers['Content-Type'] = 'application/json;charset=UTF-8'
+    }
     const token = getToken()
     if (token) {
       config.headers['Authorization'] = 'Bearer ' + token
@@ -83,6 +85,8 @@ service.interceptors.response.use(
         }
         return Promise.reject('无效的会话，或者会话已过期，请重新登录。')
 
+      } else if (res.ErrCode === '200') {
+        return res
       } else {
         isRelogin.show = false;
         ElMessage({

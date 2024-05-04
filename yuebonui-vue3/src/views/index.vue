@@ -1,24 +1,7 @@
 <template>
   <div class="app-container home">
-    
-    <el-row :gutter="20" class="panel-group">
-      <el-col :xs="24" :sm="24" :lg="24">
-        <el-card>
-          <div class="clearfix">
-            <span class="iconfont icon-notice">系统公告</span>
-          </div>
-          <div class="systeminfo">
-            <div>烦请各位大神不要修改test用户密码</div>
-            <div>数据库数据每小时会重置一次</div>
-            <div>开源地址:<a href="https://gitee.com/yuebon/YuebonNetCore" target="_blank">https://gitee.com/yuebon/YuebonNetCore</a></div>
-            <div>如果觉得不错欢迎给个“star”</div>
-          </div>
-        </el-card>
-      </el-col>
-    </el-row>
-
-    <el-row :gutter="20" class="panel-group">
-      <el-col :span="12" class="card-box">
+    <el-row :gutter="24" class="panel-group">
+      <el-col :span="24" class="card-box">
         <el-card>
           <div>
             <span class="iconfont icon-about">系统信息</span>
@@ -55,29 +38,32 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="12" class="card-box">
+    </el-row>
+    
+    <el-row :gutter="24" class="panel-group">
+      <el-col :span="24" class="card-box">
         <el-card>
           <div>
-            <span>{{ $t('dashboard.serverInfo')}}</span>
+            <span>{{ $t('dashboard.serverInfo') }}</span>
           </div>
           <div class="el-table el-table--enable-row-hover el-table--medium">
             <table cellspacing="0" style="width: 100%;">
               <tbody>
                 <tr>
-                  <td><div class="cell">{{ $t('dashboard.serverName')}}</div></td>
+                  <td><div class="cell">{{ $t('dashboard.serverName') }}</div></td>
                   <td><div v-if="SysSetting.MachineName" class="cell">{{ SysSetting.MachineName }}</div></td>
-                  <td><div class="cell">{{ $t('dashboard.operatingSystem')}}</div></td>
+                  <td><div class="cell">{{ $t('dashboard.operatingSystem') }}</div></td>
                   <td><div v-if="SysSetting.OSDescription" class="cell">{{ SysSetting.OSDescription }}</div></td>
                 </tr>
                 <tr>
-                  <td><div class="cell">{{ $t('dashboard.serverIP')}}</div></td>
+                  <td><div class="cell">{{ $t('dashboard.serverIP') }}</div></td>
                   <td><div class="cell">{{ SysSetting.IPAdress }}</div></td>
-                  <td><div class="cell">{{ $t('dashboard.numberofCPUs')}}</div></td>
+                  <td><div class="cell">{{ $t('dashboard.numberofCPUs') }}</div></td>
                   <td><div class="cell">{{ SysSetting.ProcessorCount }}</div></td>
                 </tr>
                 <tr>
                   <td><div class="cell">内存页</div></td>
-                  <td><div class="cell">{{ SysSetting.SystemPageSize/1024 }}Kb</div></td>
+                  <td><div class="cell">{{ SysSetting.SystemPageSize / 1024 }}Kb</div></td>
                   <td><div class="cell">应用架构</div></td>
                   <td><div class="cell">{{ SysSetting.ProcessArchitecture }}</div></td>
                 </tr>
@@ -85,7 +71,7 @@
                   <td><div class="cell">运行时长</div></td>
                   <td><div class="cell">{{ SysSetting.RunTimeLength }}</div></td>
                   <td><div class="cell">使用内存</div></td>
-                  <td><div class="cell">{{ SysSetting.WorkingSet/1024 }}Kb</div></td>
+                  <td><div class="cell">{{ SysSetting.WorkingSet / 1024 }}Kb</div></td>
                 </tr>
               </tbody>
             </table>

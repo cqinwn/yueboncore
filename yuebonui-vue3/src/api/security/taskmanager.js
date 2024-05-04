@@ -5,7 +5,7 @@ import defaultSettings from '@/settings'
    * 分页查询
    * @param {查询条件} data
    */
-export function getTaskManagerListWithPager(data) {
+export function getTaskManagerListWithPager (data) {
   return http.request({
     url: 'TaskManager/FindWithPagerAsync',
     method: 'post',
@@ -15,7 +15,7 @@ export function getTaskManagerListWithPager(data) {
 }/**
    * 获取所有可用的
    */
-export function getAllTaskManagerList() {
+export function getAllTaskManagerList () {
   return http.request({
     url: 'TaskManager/GetAllEnable',
     method: 'get',
@@ -26,7 +26,7 @@ export function getAllTaskManagerList() {
    * 新增或修改保存
    * @param data
    */
-export function saveTaskManager(data, url) {
+export function saveTaskManager (data, url) {
   return http.request({
     url: url,
     method: 'post',
@@ -38,7 +38,7 @@ export function saveTaskManager(data, url) {
    * 获取详情
    * @param {Id} Id
    */
-export function getTaskManagerDetail(id) {
+export function getTaskManagerDetail (id) {
   return http({
     url: 'TaskManager/GetById',
     method: 'get',
@@ -50,7 +50,7 @@ export function getTaskManagerDetail(id) {
    * 批量设置启用状态
    * @param {id集合} ids
    */
-export function setTaskManagerEnable(data) {
+export function setTaskManagerEnable (data) {
   return http({
     url: 'TaskManager/SetEnabledMarktBatchAsync',
     method: 'post',
@@ -62,7 +62,7 @@ export function setTaskManagerEnable(data) {
    * 批量软删除
    * @param {id集合} ids
    */
-export function deleteSoftTaskManager(data) {
+export function deleteSoftTaskManager (data) {
   return http({
     url: 'TaskManager/DeleteSoftBatchAsync',
     method: 'post',
@@ -75,10 +75,10 @@ export function deleteSoftTaskManager(data) {
    * 批量删除
    * @param {id集合} ids
    */
-export function deleteTaskManager(data) {
+export function deleteTaskManager (data) {
   return http({
     url: 'TaskManager/DeleteBatchAsync',
-    method: 'delete',
+    method: 'post',
     data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })
@@ -88,7 +88,7 @@ export function deleteTaskManager(data) {
  * 启动/暂停
  * @param  data
  */
-export function changeStatus(data) {
+export function changeStatus (data) {
   return http({
     url: 'TaskManager/ChangeStatus',
     method: 'post',
@@ -100,7 +100,7 @@ export function changeStatus(data) {
 /**
    * 获取本地任务
    */
-export function getLocalTaskJobs() {
+export function getLocalTaskJobs () {
   return http({
     url: 'TaskManager/GetLocalHandlers',
     method: 'get',
@@ -112,7 +112,7 @@ export function getLocalTaskJobs() {
    * 分页查询
    * @param {查询条件} data
    */
-export function getTaskJobLogListWithPager(data) {
+export function getTaskJobLogListWithPager (data) {
   return http.request({
     url: 'TaskJobsLog/FindWithByTaskIdAsync',
     method: 'get',

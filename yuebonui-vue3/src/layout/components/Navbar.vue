@@ -6,10 +6,8 @@
 
     <div class="right-menu">
       <template v-if="getters.device !== 'mobile'">
+        <el-tooltip content="搜索菜单" effect="dark" placement="bottom">
         <header-search id="header-search" class="right-menu-item" />
-
-        <el-tooltip content="源码地址" effect="dark" placement="bottom">
-          <ruo-yi-git id="ruoyi-git" class="right-menu-item hover-effect" />
         </el-tooltip>
 
         <el-tooltip content="文档地址" effect="dark" placement="bottom">
@@ -38,8 +36,7 @@
       <div class="avatar-container">
         <el-dropdown @command="handleCommand" class="right-menu-item hover-effect" trigger="click">
           <div class="avatar-wrapper">
-            <img :src="getters.avatar" class="user-avatar" />
-            <el-icon><caret-bottom /></el-icon>
+            {{ userAccount }}<el-icon><caret-bottom /></el-icon>
           </div>
           <template #dropdown>
             <el-dropdown-menu>
@@ -68,14 +65,14 @@ import Hamburger from '@/components/Hamburger'
 import Screenfull from '@/components/Screenfull'
 import SizeSelect from '@/components/SizeSelect'
 import HeaderSearch from '@/components/HeaderSearch'
-import RuoYiGit from '@/components/Yuebon/Git'
 import RuoYiDoc from '@/components/Yuebon/Doc'
 import { yuebonConnecSys } from '@/api/basebasic'
 
 const store = useStore();
 
 const activeSystemName=store.getters.activeSystemName
-const subSystem=store.getters.subSystem
+const subSystem = store.getters.subSystem
+const userAccount =store.getters.name
 const getters = computed(() =>store.getters);
 
 function toggleSideBar() {
@@ -204,11 +201,13 @@ function handlerSysType(command) {
     }
 
     .avatar-container {
-      margin-right: 40px;
+      margin-right: 20px;
+      line-height: 46px;
 
       .avatar-wrapper {
         margin-top: 5px;
         position: relative;
+        line-height: 46px;
 
         .user-avatar {
           cursor: pointer;
@@ -221,7 +220,7 @@ function handlerSysType(command) {
           cursor: pointer;
           position: absolute;
           right: -20px;
-          top: 25px;
+          top: 16px;
           font-size: 12px;
         }
       }

@@ -5,7 +5,7 @@ import defaultSettings from '@/settings'
    * 系统分页查询
    * @param {查询条件} data
    */
-export function getFilterIPListWithPager(data) {
+export function getFilterIPListWithPager (data) {
   return http.request({
     url: 'FilterIP/FindWithPagerAsync',
     method: 'post',
@@ -15,7 +15,7 @@ export function getFilterIPListWithPager(data) {
 }/**
    * 获取所有可用的系统
    */
-export function getAllFilterIPList() {
+export function getAllFilterIPList () {
   return http.request({
     url: 'FilterIP/GetAllEnable',
     method: 'get',
@@ -26,7 +26,7 @@ export function getAllFilterIPList() {
    * 新增或修改保存系统
    * @param data
    */
-export function saveFilterIP(data, url) {
+export function saveFilterIP (data, url) {
   return http.request({
     url: url,
     method: 'post',
@@ -38,7 +38,7 @@ export function saveFilterIP(data, url) {
    * 获取系统详情
    * @param {Id} 系统Id
    */
-export function getFilterIPDetail(id) {
+export function getFilterIPDetail (id) {
   return http({
     url: 'FilterIP/GetById',
     method: 'get',
@@ -50,7 +50,7 @@ export function getFilterIPDetail(id) {
    * 批量设置启用状态
    * @param {id集合} ids
    */
-export function setFilterIPEnable(data) {
+export function setFilterIPEnable (data) {
   return http({
     url: 'FilterIP/SetEnabledMarktBatchAsync',
     method: 'post',
@@ -62,7 +62,7 @@ export function setFilterIPEnable(data) {
    * 批量软删除
    * @param {id集合} ids
    */
-export function deleteSoftFilterIP(data) {
+export function deleteSoftFilterIP (data) {
   return http({
     url: 'FilterIP/DeleteSoftBatchAsync',
     method: 'post',
@@ -75,10 +75,10 @@ export function deleteSoftFilterIP(data) {
    * 批量删除
    * @param {id集合} ids
    */
-export function deleteFilterIP(data) {
+export function deleteFilterIP (data) {
   return http({
     url: 'FilterIP/DeleteBatchAsync',
-    method: 'delete',
+    method: 'post',
     data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })

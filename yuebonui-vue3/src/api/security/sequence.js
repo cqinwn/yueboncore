@@ -5,7 +5,7 @@ import defaultSettings from '@/settings'
    * 分页查询
    * @param {查询条件} data
    */
-export function getSequenceListWithPager(data) {
+export function getSequenceListWithPager (data) {
   return http.request({
     url: 'Sequence/FindWithPagerAsync',
     method: 'post',
@@ -15,7 +15,7 @@ export function getSequenceListWithPager(data) {
 }/**
    * 获取所有可用的
    */
-export function getAllSequenceList() {
+export function getAllSequenceList () {
   return http.request({
     url: 'Sequence/GetAllEnable',
     method: 'get',
@@ -26,7 +26,7 @@ export function getAllSequenceList() {
    * 新增或修改保存
    * @param data
    */
-export function saveSequence(data, url) {
+export function saveSequence (data, url) {
   return http.request({
     url: url,
     method: 'post',
@@ -38,7 +38,7 @@ export function saveSequence(data, url) {
    * 获取详情
    * @param {Id} Id
    */
-export function getSequenceDetail(id) {
+export function getSequenceDetail (id) {
   return http({
     url: 'Sequence/GetById',
     method: 'get',
@@ -50,7 +50,7 @@ export function getSequenceDetail(id) {
    * 批量设置启用状态
    * @param {id集合} ids
    */
-export function setSequenceEnable(data) {
+export function setSequenceEnable (data) {
   return http({
     url: 'Sequence/SetEnabledMarktBatchAsync',
     method: 'post',
@@ -62,7 +62,7 @@ export function setSequenceEnable(data) {
    * 批量软删除
    * @param {id集合} ids
    */
-export function deleteSoftSequence(data) {
+export function deleteSoftSequence (data) {
   return http({
     url: 'Sequence/DeleteSoftBatchAsync',
     method: 'post',
@@ -75,10 +75,10 @@ export function deleteSoftSequence(data) {
    * 批量删除
    * @param {id集合} ids
    */
-export function deleteSequence(data) {
+export function deleteSequence (data) {
   return http({
     url: 'Sequence/DeleteBatchAsync',
-    method: 'delete',
+    method: 'post',
     data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })

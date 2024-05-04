@@ -1,7 +1,7 @@
+@import 'element-plus/dist/index.css';
 @import "./variables.module.scss";
 @import "./mixin.scss";
 @import "./transition.scss";
-@import "./element-ui.scss";
 @import "./sidebar.scss";
 @import "./btn.scss";
 @import "./yuebon.scss";
@@ -149,13 +149,11 @@ aside {
   text-align: right;
   padding-right: 20px;
   transition: 600ms ease position;
-  background: linear-gradient(
-    90deg,
-    rgba(32, 182, 249, 1) 0%,
-    rgba(32, 182, 249, 1) 0%,
-    rgba(33, 120, 241, 1) 100%,
-    rgba(33, 120, 241, 1) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(32, 182, 249, 1) 0%,
+      rgba(32, 182, 249, 1) 0%,
+      rgba(33, 120, 241, 1) 100%,
+      rgba(33, 120, 241, 1) 100%);
 
   .subtitle {
     font-size: 20px;
@@ -202,14 +200,17 @@ aside {
 
 // main-container global css
 .app-container {
-  padding: 20px;
+  padding: 10px;
+
   .yuebon-app-leftcontainer,
   .yuebon-app-rigthcontainer {
     width: 50%;
   }
+
   .yuebon-app-leftcontainer {
     float: left;
   }
+
   .yuebon-app-rightcontainer {
     float: left;
   }

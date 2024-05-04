@@ -45,8 +45,8 @@
             <el-input v-model="editFrom.ICPCode" placeholder="请输入ICP备案号" autocomplete="off" clearable />
             请到工业和信息化部http://beian.miit.gov.cn网站查询
           </el-form-item>
-          <el-form-item label="公安备案号" :label-width="formLabelWidth" prop="PublicSecurityCode">
-            <el-input v-model="editFrom.PublicSecurityCode" placeholder="请输入公安备案号" autocomplete="off" clearable />
+          <el-form-item label="网安备案号" :label-width="formLabelWidth" prop="PublicSecurityCode">
+            <el-input v-model="editFrom.PublicSecurityCode" placeholder="请输入网安备案号" autocomplete="off" clearable />
             请到全国互联网安全管理服务平台http://www.beian.gov.cn网站备案查询
           </el-form-item>
         </el-tab-pane>
@@ -136,6 +136,17 @@
             *高<el-input v-model="editFrom.Thumbnailheight" placeholder="缩略图高度" autocomplete="off" style="width:150px;" clearable />px
 
           </el-form-item>
+        </el-tab-pane>        
+        <el-tab-pane label="地理位置" name="six">          
+          <el-form-item label="百度地图应用AK" :label-width="formLabelWidth" prop="BaiduMapAk">
+            <el-input v-model="editFrom.BaiduMapAk" placeholder="百度地图应用AK" autocomplete="off" clearable />
+          </el-form-item>
+          <el-form-item label="高德地图应用Key" :label-width="formLabelWidth" prop="GaodeMapKey">
+            <el-input v-model="editFrom.GaodeMapKey" placeholder="高德地图应用Key" autocomplete="off" clearable />
+          </el-form-item>
+            <el-form-item label="腾讯地图应用Key" :label-width="formLabelWidth" prop="TencentMapKey">
+              <el-input v-model="editFrom.TencentMapKey" placeholder="腾讯地图应用Key" autocomplete="off" clearable />
+            </el-form-item>
         </el-tab-pane>
       </el-tabs>
       <el-form-item>

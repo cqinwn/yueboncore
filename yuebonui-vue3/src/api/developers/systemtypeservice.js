@@ -5,7 +5,7 @@ import defaultSettings from '@/settings'
    * 系统分页查询
    * @param {查询条件} data
    */
-export function getSystemTypeListWithPager(data) {
+export function getSystemTypeListWithPager (data) {
   return http.request({
     url: 'SystemType/FindWithPagerAsync',
     method: 'post',
@@ -15,7 +15,7 @@ export function getSystemTypeListWithPager(data) {
 }/**
    * 获取所有可用的系统
    */
-export function getAllSystemTypeList() {
+export function getAllSystemTypeList () {
   return http.request({
     url: 'SystemType/GetAllEnable',
     method: 'get',
@@ -26,7 +26,7 @@ export function getAllSystemTypeList() {
    * 新增或修改保存系统
    * @param data
    */
-export function saveSystemType(data, url) {
+export function saveSystemType (data, url) {
   return http.request({
     url: url,
     method: 'post',
@@ -38,7 +38,7 @@ export function saveSystemType(data, url) {
    * 获取系统详情
    * @param {Id} 系统Id
    */
-export function getSystemTypeDetail(id) {
+export function getSystemTypeDetail (id) {
   return http({
     url: 'SystemType/GetById',
     method: 'get',
@@ -50,7 +50,7 @@ export function getSystemTypeDetail(id) {
    * 批量设置启用状态
    * @param {id集合} ids
    */
-export function setSystemTypeEnable(data) {
+export function setSystemTypeEnable (data) {
   return http({
     url: 'SystemType/SetEnabledMarktBatchAsync',
     method: 'post',
@@ -62,7 +62,7 @@ export function setSystemTypeEnable(data) {
    * 批量软删除
    * @param {id集合} ids
    */
-export function deleteSoftSystemType(data) {
+export function deleteSoftSystemType (data) {
   return http({
     url: 'SystemType/DeleteSoftBatchAsync',
     method: 'post',
@@ -75,10 +75,10 @@ export function deleteSoftSystemType(data) {
    * 批量删除
    * @param {id集合} ids
    */
-export function deleteSystemType(data) {
+export function deleteSystemType (data) {
   return http({
     url: 'SystemType/DeleteBatchAsync',
-    method: 'delete',
+    method: 'post',
     data: data,
     baseURL: defaultSettings.apiSecurityUrl // 直接通过覆盖的方式
   })

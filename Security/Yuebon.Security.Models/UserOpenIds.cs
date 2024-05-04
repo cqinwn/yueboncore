@@ -3,7 +3,7 @@
 /// <summary>
 /// 第三方登录与用户绑定表，数据实体对象
 /// </summary>
-[SugarTable("Sys_UserOpenIds", "第三方登录与用户绑定表")]
+[SugarTable("Sys_User_OpenIds", "第三方登录与用户绑定表")]
 public class UserOpenIds: TenantEntity
 {
     #region Property Members
@@ -21,7 +21,7 @@ public class UserOpenIds: TenantEntity
     [MaxLength(200)]
     [SugarColumn(ColumnDescription= "第三方类型")]
     [Required]
-    public virtual string OpenIdType { get; set; }
+    public virtual string? OpenIdType { get; set; }
 
     /// <summary>
     /// OpenId
@@ -29,7 +29,7 @@ public class UserOpenIds: TenantEntity
     [MaxLength(100)]
     [SugarColumn(ColumnDescription= "OpenId")]
     [Required]
-    public virtual string OpenId { get; set; }
+    public virtual string? OpenId { get; set; }
 
     #endregion
 

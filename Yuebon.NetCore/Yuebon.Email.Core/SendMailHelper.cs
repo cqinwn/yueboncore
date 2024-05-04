@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.Const;
 using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Json;
@@ -34,7 +35,7 @@ namespace Yuebon.Email
 
             SendServerConfigurationEntity sendServerConfiguration = new SendServerConfigurationEntity();
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            AppSetting sysSetting = yuebonCacheHelper.Get<AppSetting>("SysSetting");
+            AppSetting sysSetting = yuebonCacheHelper.Get<AppSetting>(CacheConst.KeySysSetting);
             if (sysSetting != null)
             {
                 sendServerConfiguration.SmtpHost = DEncrypt.Decrypt(sysSetting.Emailsmtp);

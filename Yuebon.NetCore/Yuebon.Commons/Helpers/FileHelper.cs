@@ -1,5 +1,6 @@
 ﻿using ICSharpCode.SharpZipLib.Checksum;
 using ICSharpCode.SharpZipLib.Zip;
+using Microsoft.AspNetCore.Http;
 using System.IO;
 using System.Text;
 using Yuebon.Commons.Extend;
@@ -12,6 +13,7 @@ namespace Yuebon.Commons.Helpers
     /// </summary>
     public class FileHelper
     {
+        #region 制作压缩包
 
         /// <summary>
         /// 制作压缩包（多个文件压缩到一个压缩包，支持加密、注释）
@@ -136,6 +138,9 @@ namespace Yuebon.Commons.Helpers
                 }
             }
         }
+
+        #endregion
+
         #region 读取文件
         /// <summary>
         /// 读文件
@@ -187,6 +192,9 @@ namespace Yuebon.Commons.Helpers
             return s;
         }
         #endregion
+
+        #region 写文件
+
         /// <summary>
         /// 写文件
         /// </summary>
@@ -196,7 +204,7 @@ namespace Yuebon.Commons.Helpers
         /// <param name="appendToLast">是否追加到最后</param>
         public static void WriteFile(string path, string fileName, string content, bool appendToLast = false)
         {
-            if (!path.EndsWith("\\"))
+            if (!path.EndsWith("\\", StringComparison.CurrentCulture))
             {
                 path = path + "\\";
             }
@@ -219,6 +227,39 @@ namespace Yuebon.Commons.Helpers
                 stream.Write(by, 0, by.Length);
             }
         }
+
+        /// <summary>
+        /// 写文件,建议仅限小文件上传写入
+        /// </summary>
+        /// <param name="path">保存到服务器的文件路径</param>
+        /// <param name="fileName">文件名称</param>
+        /// <param name="file">上传的文件,IFormFile文件</param>
+        public static async void WriteFile(string path, string fileName, IFormFile file)
+        {
+            if (!path.EndsWith("\\",StringComparison.CurrentCulture))
+            {
+                path = path + "\\";
+            }
+            path = path.ToFilePath();
+            if (!Directory.Exists(path))//如果不存在就创建file文件夹
+            {
+                Directory.CreateDirectory(path);
+            }
+            string filePath = path + fileName;
+            //【0】判断路径
+            //if (!File.Exists(filePath))
+            //{
+            //    File.Create(filePath);//如果不存在就创建
+            //}
+            //【1】创建文件流
+            using (FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate,FileAccess.Write,FileShare.ReadWrite))
+            {
+                await file.OpenReadStream().CopyToAsync(fs);
+                fs.Close();
+                fs.Dispose();
+            }
+        }
+        #endregion
 
         #region 直接删除指定目录下的所有文件及文件夹(保留目录)
         /// <summary>
@@ -262,8 +303,6 @@ namespace Yuebon.Commons.Helpers
         }
 
         #endregion
-
-
 
         #region 获取文件的编码类型
 

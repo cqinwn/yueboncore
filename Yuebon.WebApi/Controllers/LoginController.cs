@@ -1,4 +1,4 @@
-﻿using MySqlX.XDevAPI;
+﻿using Yuebon.Commons.Enums;
 using Yuebon.Security.Services.CommandHandlers;
 
 namespace Yuebon.WebApi.Controllers;
@@ -76,9 +76,8 @@ public class LoginController : ApiController
         RemoteIpParser remoteIpParser = new RemoteIpParser();
         string strIp = _httpContextAccessor.HttpContext.GetClientUserIp();
         YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-        var vCode = yuebonCacheHelper.Get("ValidateCode" + input.Vkey);
-        string code = vCode != null ? vCode.ToString() : "11";
-        if (input.Vcode.ToUpper() != code)
+        string code = yuebonCacheHelper.Get(CacheConst.KeyVerCode + input.Vkey).ToString();
+        if (input.Vcode!= code)
         {
             result.ErrMsg = "验证码错误";
             return ToJsonContent(result);
@@ -107,11 +106,11 @@ public class LoginController : ApiController
             }
             else
             {
-                List<AllowCacheApp> list = yuebonCacheHelper.Get<object>("cacheAppList").ToJson().ToList<AllowCacheApp>();
+                List<AllowCacheApp> list = yuebonCacheHelper.Get<object>(CacheConst.KeyAppList).ToJson().ToList<AllowCacheApp>();
                 if (list == null)
                 {
                     IEnumerable<APP> appList = _appService.GetAllByIsNotDeleteAndEnabledMark();
-                    yuebonCacheHelper.Add("cacheAppList", appList);
+                    yuebonCacheHelper.Add(CacheConst.KeyAppList, appList);
                 }
                 string strHost = Request.Headers["Origin"].ToString();
                 APP app = await _appService.GetAPP(input.AppId);
@@ -122,7 +121,7 @@ public class LoginController : ApiController
                 }
                 else
                 {
-                    if (!app.RequestUrl.Contains(strHost, StringComparison.Ordinal))
+                    if (!app.RequestUrl.Contains(strHost, StringComparison.Ordinal)&&!strHost.Contains("localhost"))
                     {
                         result.ErrCode = "40002";
                         result.ErrMsg = ErrCode.err40002 + "，你当前请求主机：" + strHost;
@@ -133,16 +132,16 @@ public class LoginController : ApiController
                         if (isTenant)
                         {
                             List<Tenant> tenants = null;
-                            if (!yuebonCacheHelper.Exists("cacheTenants"))
+                            if (!yuebonCacheHelper.Exists(CacheConst.KeyTenants))
                             {
                                 IEnumerable<Tenant> templist = _tenantService.GetAllByIsEnabledMark();
-                                yuebonCacheHelper.Add("cacheTenants", templist);
+                                yuebonCacheHelper.Add(CacheConst.KeyTenants, templist);
                             }
-                            tenants = JsonHelper.ToObject<List<Tenant>>(yuebonCacheHelper.Get("cacheTenants").ToJson());
+                            tenants = JsonHelper.ToObject<List<Tenant>>(yuebonCacheHelper.Get(CacheConst.KeyTenants).ToJson());
                             if (tenants != null)
                             {
-                                string tenantName = input.Host.Split(".")[0];
-                                Tenant tenant = tenants.FindLast(o => o.TenantName == tenantName||input.Host.Contains(o.HostDomain));//通过租户名称或者通过客户绑定的独立域名
+                                string tenantName =input.Host.IsNullOrEmpty()?"": input.Host?.Split(".")[0];
+                                Tenant tenant = tenants.FindLast(o => o.TenantName == tenantName|| tenantName.Contains(o.HostDomain));//通过租户名称或者通过客户绑定的独立域名
                                 if (tenant == null && tenantName != "default")
                                 {
                                     if (tenant == null)
@@ -151,6 +150,8 @@ public class LoginController : ApiController
                                         if (tempUser != null)
                                         {
                                             tenant = await _tenantService.GetAsync(tempUser.TenantId);
+                                            userInfo.CreateOrgId =(long)tempUser.CreateOrgId;
+                                            userInfo.UserType= tempUser.UserType;
                                         }
                                         if (tenant == null)
                                         {
@@ -164,6 +165,7 @@ public class LoginController : ApiController
                                     if (tempUser != null)
                                     {
                                         tenant = await _tenantService.GetAsync(tempUser.TenantId);
+                                        userInfo.CreateOrgId = (long)tempUser.CreateOrgId;
                                     }
 
                                 }
@@ -203,7 +205,9 @@ public class LoginController : ApiController
                                     User user = userLogin.Item1;
                                     userInfo.UserId = user.Id;
                                     userInfo.UserName = user.Account;
-                                    userInfo.Role = user.RoleId;
+                                    userInfo.Role = await _roleService.GetRoleIdsByUserId(user.Id);
+                                    userInfo.UserType = user.UserType;
+                                    userInfo.CreateOrgId =(long)user.CreateOrgId;
 
                                     JwtOption jwtModel = Appsettings.GetService<JwtOption>();
                                     TokenProvider tokenProvider = new TokenProvider(jwtModel);
@@ -216,18 +220,20 @@ public class LoginController : ApiController
                                         TokenExpiresIn=tokenResult.ExpiresIn,
                                         AppKey = input.AppId,
                                         CreateTime = DateTime.Now,
-                                        Role = _roleService.GetRoleEnCode(user.RoleId),
+                                        Role = userInfo.Role,
                                         ActiveSystemId = systemType.Id,
-                                        CurrentLoginIP = strIp
+                                        CurrentLoginIP = strIp,
+                                        OrganizeId=user.CreateOrgId,
+                                        UserType = user.UserType
                                     };
                                     if (isTenant)
                                     {
                                         currentSession.TenantId = userInfo.TenantId;
                                     }
-                                    SysSetting sysSetting = yuebonCacheHelper.Get("SysSetting").ToJson().ToObject<SysSetting>();
+                                    SysSetting sysSetting = yuebonCacheHelper.Get(CacheConst.KeySysSetting).ToJson().ToObject<SysSetting>();
                                     if (sysSetting != null)
                                     {
-                                        if (sysSetting.Webstatus == "1" && !currentSession.Role.Contains("administrators"))
+                                        if (sysSetting.Webstatus == "1" && Appsettings.User.UserType!=UserTypeEnum.SuperAdmin)
                                         {
                                             result.ErrCode = "40900";
                                             result.ErrMsg = sysSetting.Webclosereason;
@@ -235,8 +241,8 @@ public class LoginController : ApiController
                                         }
                                     }
                                     TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
-                                    yuebonCacheHelper.Add("login_user_" + user.Id.ToString(), currentSession, expiresSliding, true);
-                                    yuebonCacheHelper.Add("login_userInfo_" + user.Id.ToString(), userInfo, expiresSliding, true);
+                                    yuebonCacheHelper.Add(CacheConst.KeyLoginUser + user.Id.ToString(), currentSession, expiresSliding, true);
+                                    yuebonCacheHelper.Add(CacheConst.KeyLoginUserInfo + user.Id.ToString(), userInfo, expiresSliding, true);
                                    
                                     CurrentUser = currentSession;
                                     result.ResData = currentSession;
@@ -282,7 +288,7 @@ public class LoginController : ApiController
                 }
             }
         }
-        yuebonCacheHelper.Remove("LoginValidateCode");
+        yuebonCacheHelper.Remove(CacheConst.KeyVerCode+ input.Vkey);
         return ToJsonContent(result, true);
     }
 
@@ -300,8 +306,8 @@ public class LoginController : ApiController
             return Logout();
         }
         User user = await _userService.GetAsync(CurrentUser.UserId);
-        YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
         SystemType systemType =await _systemTypeService.GetAsync(CurrentUser.ActiveSystemId);
+        Log4NetHelper.Info(CurrentUser.ToJson());
         YuebonCurrentUser currentSession = new YuebonCurrentUser
         {
             UserId = user.Id,
@@ -313,52 +319,24 @@ public class LoginController : ApiController
             CreateTime = DateTime.Now,
             HeadIcon = user.HeadIcon,
             Gender = user.Gender,
+            UserType =user.UserType,
             ReferralUserId = user.ReferralUserId,
             MemberGradeId = user.MemberGradeId,
-            Role = _roleService.GetRoleEnCode(user.RoleId),
+            Role =await _roleService.GetRoleIdsByUserId(user.Id),
             MobilePhone = user.MobilePhone,
-            OrganizeId = user.OrganizeId,
-            DeptId = user.DepartmentId,
+            OrganizeId = user.CreateOrgId,
             CurrentLoginIP = CurrentUser.CurrentLoginIP,
             IPAddressName = CurrentUser.IPAddressName,
             TenantId = null
         };
-			CurrentUser = currentSession;
+		CurrentUser = currentSession;
         CurrentUser.HeadIcon = user.HeadIcon;
 
         CurrentUser.ActiveSystemId = systemType.Id;
         CurrentUser.ActiveSystem = systemType.FullName;
         CurrentUser.ActiveSystemUrl = systemType.Url;
 
-        List<UserVisitMenus> listFunction = new List<UserVisitMenus>();
-        if (Permission.IsAdmin(CurrentUser))
-        {
-            CurrentUser.SubSystemList = _systemTypeService.GetAllByIsNotDeleteAndEnabledMark().MapTo<UserVisitSystemnTypes>();
-            //取得用户可使用的授权功能信息，并存储在缓存中
-            listFunction = _menuService.GetFunctionsBySystem(CurrentUser.ActiveSystemId);
-            CurrentUser.MenusRouter = _menuService.GetVueRouter("", systemType.EnCode);
-        }
-        else
-        {
-            CurrentUser.SubSystemList = _systemTypeService.GetSubSystemList(user.RoleId).MapTo<UserVisitSystemnTypes>();
-            //取得用户可使用的授权功能信息，并存储在缓存中
-            listFunction = _menuService.GetFunctionsByUser(user.Id, CurrentUser.ActiveSystemId);
-            CurrentUser.MenusRouter = _menuService.GetVueRouter(user.RoleId, systemType.EnCode);
-        }
-        UserLogOn userLogOn = _userLogOnService.GetByUserId(CurrentUser.UserId);
-        CurrentUser.UserTheme = userLogOn.Theme == null ? "default" : userLogOn.Theme;
-        TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
-        yuebonCacheHelper.Add("User_Function_" + user.Id, listFunction, expiresSliding, true);
-        List<string> listModules = new List<string>();
-        foreach (UserVisitMenus item in listFunction)
-        {
-            listModules.Add(item.EnCode);
-        }
-        CurrentUser.Modules = listModules;
-        yuebonCacheHelper.Add("login_user_" + user.Id, CurrentUser, expiresSliding, true);
-        //该用户的数据权限
-        List<String> roleDateList = _roleDataService.GetListDeptByRole(user.RoleId);
-        yuebonCacheHelper.Add("User_RoleData_" + user.Id, roleDateList, expiresSliding, true);
+        await GetUserPermision();
         result.ResData = CurrentUser;
         result.ErrCode = ErrCode.successCode;
         result.Success = true;
@@ -366,6 +344,40 @@ public class LoginController : ApiController
     }
 
 
+    private async Task  GetUserPermision()
+    {
+        YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+        SystemType systemType = await _systemTypeService.GetAsync(CurrentUser.ActiveSystemId);
+        List<UserVisitMenus> listFunction = new List<UserVisitMenus>();
+        if (Permission.IsAdmin(CurrentUser))
+        {
+            CurrentUser.SubSystemList = _systemTypeService.GetAllByIsNotDeleteAndEnabledMark().MapTo<UserVisitSystemnTypes>();
+            //取得用户可使用的授权功能信息，并存储在缓存中
+            listFunction = _menuService.GetFunctionsBySystem(CurrentUser.ActiveSystemId);
+            CurrentUser.MenusRouter = _menuService.GetVueRouter(null, systemType.EnCode);
+        }
+        else
+        {
+            CurrentUser.SubSystemList = await _systemTypeService.GetSubSystemList(CurrentUser.Role);
+            //取得用户可使用的授权功能信息，并存储在缓存中
+            listFunction = await _menuService.GetFunctionsByUser(CurrentUser.UserId, CurrentUser.ActiveSystemId);
+            CurrentUser.MenusRouter = _menuService.GetVueRouter(CurrentUser.Role, systemType.EnCode);
+        }
+        UserLogOn userLogOn = _userLogOnService.GetByUserId(CurrentUser.UserId);
+        CurrentUser.UserTheme = userLogOn.Theme == null ? "default" : userLogOn.Theme;
+        TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
+        yuebonCacheHelper.Add(CacheConst.KeyUserFunction + CurrentUser.UserId, listFunction, expiresSliding, true);
+        List<string> listModules = new List<string>();
+        foreach (UserVisitMenus item in listFunction)
+        {
+            listModules.Add(item.EnCode);
+        }
+        CurrentUser.Modules = listModules;
+        yuebonCacheHelper.Add(CacheConst.KeyLoginUser + CurrentUser.UserId, CurrentUser, expiresSliding, true);
+        //该用户的数据权限
+        List<long> roleDataList = await _roleDataService.GetListDeptByRole(CurrentUser.Role);
+        yuebonCacheHelper.Add(CacheConst.KeyUserOrg + CurrentUser.UserId, roleDataList, expiresSliding, true);
+    }
     /// <summary>
     /// 获取用户信息
     /// </summary>
@@ -425,11 +437,11 @@ public class LoginController : ApiController
             }
             else
             {
-                List<AllowCacheApp> list = yuebonCacheHelper.Get<object>("cacheAppList").ToJson().ToList<AllowCacheApp>();
+                List<AllowCacheApp> list = yuebonCacheHelper.Get<object>(CacheConst.KeyAppList).ToJson().ToList<AllowCacheApp>();
                 if (list == null)
                 {
                     IEnumerable<APP> appList = _appService.GetAllByIsNotDeleteAndEnabledMark();
-                    yuebonCacheHelper.Add("cacheAppList", appList);
+                    yuebonCacheHelper.Add(CacheConst.KeyAppList, appList);
                 }
                 string strHost = Request.Headers["Origin"].ToString();
                 APP app = await _appService.GetAPP(appId);
@@ -451,12 +463,12 @@ public class LoginController : ApiController
                         if (isTenant)
                         {
                             List<Tenant> tenants = null;
-                            if (!yuebonCacheHelper.Exists("cacheTenants"))
+                            if (!yuebonCacheHelper.Exists(CacheConst.KeyTenants))
                             {
                                 IEnumerable<Tenant> templist = _tenantService.GetAllByIsEnabledMark();
-                                yuebonCacheHelper.Add("cacheTenants", templist);
+                                yuebonCacheHelper.Add(CacheConst.KeyTenants, templist);
                             }
-                            tenants = JsonHelper.ToObject<List<Tenant>>(yuebonCacheHelper.Get("cacheTenants").ToJson());
+                            tenants = JsonHelper.ToObject<List<Tenant>>(yuebonCacheHelper.Get(CacheConst.KeyTenants).ToJson());
                             if (tenants != null)
                             {
                                string tenantName = strHost.Split(".")[0];;
@@ -522,7 +534,9 @@ public class LoginController : ApiController
                                     User user = userLogin.Item1;
                                     userInfo.UserId = user.Id;
                                     userInfo.UserName = user.Account;
-                                    userInfo.Role = user.RoleId;
+                                    userInfo.Role = await _roleService.GetRoleIdsByUserId(user.Id);
+                                    userInfo.UserType = user.UserType;
+                                    userInfo.CreateOrgId = user.CreateOrgId;
 
                                     JwtOption jwtModel = Appsettings.GetService<JwtOption>();
                                     TokenProvider tokenProvider = new TokenProvider(jwtModel);
@@ -535,18 +549,25 @@ public class LoginController : ApiController
                                         TokenExpiresIn = tokenResult.ExpiresIn,
                                         AppKey = appId,
                                         CreateTime = DateTime.Now,
-                                        Role = _roleService.GetRoleEnCode(user.RoleId),
+                                        Role = userInfo.Role,
+                                        UserType= userInfo.UserType,
                                         ActiveSystemId = systemType.Id,
                                         CurrentLoginIP = strIp
                                     };
+                                    CurrentUser = currentSession;
+                                    CurrentUser.HeadIcon = user.HeadIcon;
+
+                                    CurrentUser.ActiveSystemId = systemType.Id;
+                                    CurrentUser.ActiveSystem = systemType.FullName;
+                                    CurrentUser.ActiveSystemUrl = systemType.Url;
                                     if (isTenant)
                                     {
                                         currentSession.TenantId = userInfo.TenantId;
                                     }
-                                    SysSetting sysSetting = yuebonCacheHelper.Get("SysSetting").ToJson().ToObject<SysSetting>();
+                                    SysSetting sysSetting = yuebonCacheHelper.Get(CacheConst.KeySysSetting).ToJson().ToObject<SysSetting>();
                                     if (sysSetting != null)
                                     {
-                                        if (sysSetting.Webstatus == "1" && !currentSession.Role.Contains("administrators"))
+                                        if (sysSetting.Webstatus == "1" && userInfo.UserType!=UserTypeEnum.SuperAdmin)
                                         {
                                             result.ErrCode = "40900";
                                             result.ErrMsg = sysSetting.Webclosereason;
@@ -554,9 +575,9 @@ public class LoginController : ApiController
                                         }
                                     }
                                     TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
-                                    yuebonCacheHelper.Add("login_user_" + user.Id.ToString(), currentSession, expiresSliding, true);
-                                    yuebonCacheHelper.Add("login_userInfo_" + user.Id.ToString(), userInfo, expiresSliding, true);
-
+                                    yuebonCacheHelper.Add(CacheConst.KeyLoginUser + user.Id.ToString(), currentSession, expiresSliding, true);
+                                    yuebonCacheHelper.Add(CacheConst.KeyLoginUserInfo + user.Id.ToString(), userInfo, expiresSliding, true);
+                                    await GetUserPermision();
                                     CurrentUser = currentSession;
                                     result.ResData = currentSession;
                                     result.ErrCode = ErrCode.successCode;
@@ -572,6 +593,7 @@ public class LoginController : ApiController
                                     logEntity.OS = client.OS.Family + client.OS.Major;
                                     logEntity.Result = true;
                                     logEntity.Description = "登录成功";
+                                    logEntity.CreateOrgId = userInfo.CreateOrgId;
                                     LogInLogCommand logInLogCommand = new LogInLogCommand();
                                     logInLogCommand.LoginLogInputDto = logEntity;
                                     await _mediator.Send(logInLogCommand);
@@ -590,6 +612,7 @@ public class LoginController : ApiController
                                     logEntity.OS = client.OS.Family + client.OS.Major;
                                     logEntity.Result = true;
                                     logEntity.Description = "登录失败，" + userLogin.Item2;
+                                    logEntity.CreateOrgId=userInfo.CreateOrgId;
                                     LogInLogCommand logInLogCommand = new LogInLogCommand();
                                     logInLogCommand.LoginLogInputDto = logEntity;
                                     await _mediator.Send(logInLogCommand);
@@ -617,8 +640,8 @@ public class LoginController : ApiController
         if (CurrentUser != null)
         {
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            yuebonCacheHelper.Remove("login_user_" + CurrentUser.UserId);
-            yuebonCacheHelper.Remove("User_Function_" + CurrentUser.UserId);
+            yuebonCacheHelper.Remove(CacheConst.KeyLoginUser + CurrentUser.UserId);
+            yuebonCacheHelper.Remove(CacheConst.KeyUserFunction + CurrentUser.UserId);
             UserLogOn userLogOn = _userLogOnService.GetWhere("UserId='" + CurrentUser.UserId + "'");
             userLogOn.UserOnLine = false;
             _userLogOnService.Update(userLogOn);
@@ -655,12 +678,12 @@ public class LoginController : ApiController
         if (isTenant)
         {
             List<Tenant> tenants = null;
-            if (!yuebonCacheHelper.Exists("cacheTenants"))
+            if (!yuebonCacheHelper.Exists(CacheConst.KeyTenants))
             {
                 IEnumerable<Tenant> templist = _tenantService.GetAllByIsEnabledMark();
-                yuebonCacheHelper.Add("cacheTenants", templist);
+                yuebonCacheHelper.Add(CacheConst.KeyTenants, templist);
             }
-            tenants = JsonHelper.ToObject<List<Tenant>>(yuebonCacheHelper.Get("cacheTenants").ToJson());
+            tenants = JsonHelper.ToObject<List<Tenant>>(yuebonCacheHelper.Get(CacheConst.KeyTenants).ToJson());
             if (tenants != null)
             {
                 string strHost = Request.Host.ToString();
@@ -727,10 +750,10 @@ public class LoginController : ApiController
                                 User user = _userService.GetById(cacheOpenmf.ToInt());
                                 if (user != null)
                                 {
-
                                     userInfo.UserId = user.Id;
                                     userInfo.UserName = user.Account;
-                                    userInfo.Role = user.RoleId;
+                                    userInfo.Role = await _roleService.GetRoleIdsByUserId(user.Id);
+                                    userInfo.UserType = user.UserType;
                                     result.Success = true;
                                     JwtOption jwtModel = Appsettings.GetService<JwtOption>();
                                     TokenProvider tokenProvider = new TokenProvider(jwtModel);
@@ -742,7 +765,8 @@ public class LoginController : ApiController
                                         AccessToken = tokenResult.AccessToken,
                                         AppKey = appId,
                                         CreateTime = DateTime.Now,
-                                        Role = _roleService.GetRoleEnCode(user.RoleId),
+                                        Role = userInfo.Role,
+                                        UserType = userInfo.UserType,
                                         ActiveSystemId = systemType.Id,
                                         CurrentLoginIP = strIp,
                                         IPAddressName = ipAddressName,
@@ -750,7 +774,7 @@ public class LoginController : ApiController
 
                                     };
                                     TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
-                                    yuebonCacheHelper.Add("login_user_" + user.Id, currentSession, expiresSliding, true);
+                                    yuebonCacheHelper.Add(CacheConst.KeyLoginUser + user.Id, currentSession, expiresSliding, true);
                                     CurrentUser = currentSession;
                                     result.ResData = currentSession;
                                     result.ErrCode = ErrCode.successCode;

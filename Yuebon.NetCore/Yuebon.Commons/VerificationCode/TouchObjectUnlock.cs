@@ -1,16 +1,15 @@
 ﻿using SkiaSharp;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Yuebon.Commons.VerificationCode
 {
     internal class TouchObjectUnlock
     {
+        /// <summary>
+        /// 创建验证码
+        /// </summary>
+        /// <param name="imgBTList"></param>
+        /// <param name="imgNameList"></param>
+        /// <returns></returns>
         public static KeyValuePair<CaptchaImageModel, CaptchaStateModel> Create(List<byte[]> imgBTList, List<string> imgNameList)
         {
             /*
@@ -88,6 +87,12 @@ namespace Yuebon.Commons.VerificationCode
                 DataCode = codeData
             });
         }
+        /// <summary>
+        /// 验证码验证
+        /// </summary>
+        /// <param name="sItem"></param>
+        /// <param name="vItem"></param>
+        /// <returns></returns>
         public static MsgModel Verify(CaptchaStateModel sItem, CaptchaVerifyModel vItem)
         {
             var vcode = "";

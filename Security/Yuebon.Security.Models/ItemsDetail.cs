@@ -3,27 +3,17 @@
 /// <summary>
 /// 数据字典选项明细表，数据实体对象
 /// </summary>
-[SugarTable("Sys_ItemsDetail", "数据字典选项明细表")]
+[SugarTable("Sys_Items_Detail", "数据字典选项明细表")]
 [Serializable]
 public class ItemsDetail: BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited
 { 
-    /// <summary>
-    /// 默认构造函数（需要初始化属性的在此处理）
-    /// </summary>
-	    public ItemsDetail()
-		{
-
-		}
 
     #region Property Members
-
-
     /// <summary>
     /// 主表主键
     /// </summary>
     [MaxLength(50)]
     [SugarColumn(ColumnDescription= "主表主键")]
-    [Required]
     public virtual long ItemId { get; set; }
 
     /// <summary>
@@ -31,7 +21,6 @@ public class ItemsDetail: BaseEntity, ICreationAudited, IModificationAudited, ID
     /// </summary>
     [MaxLength(50)]
     [SugarColumn(ColumnDescription= "父级")]
-    [Required]
     public virtual long ParentId { get; set; }
 
     /// <summary>
@@ -39,23 +28,21 @@ public class ItemsDetail: BaseEntity, ICreationAudited, IModificationAudited, ID
     /// </summary>
     [MaxLength(50)]
     [SugarColumn(ColumnDescription= "编码")]
-    [Required]
-    public virtual string ItemCode { get; set; }
+    public virtual string? ItemCode { get; set; }
 
     /// <summary>
     /// 名称
     /// </summary>
     [MaxLength(50)]
     [SugarColumn(ColumnDescription= "名称")]
-    [Required]
-    public virtual string ItemName { get; set; }
+    public virtual string? ItemName { get; set; }
 
     /// <summary>
     /// 简拼
     /// </summary>
     [MaxLength(50)]
     [SugarColumn(ColumnDescription= "简拼")]
-    public virtual string SimpleSpelling { get; set; }
+    public virtual string? SimpleSpelling { get; set; }
 
     /// <summary>
     /// 默认
@@ -81,7 +68,7 @@ public class ItemsDetail: BaseEntity, ICreationAudited, IModificationAudited, ID
     /// </summary>
     [MaxLength(500)]
     [SugarColumn(ColumnDescription= "主表主键")]
-    public virtual string Description { get; set; }
+    public virtual string? Description { get; set; }
 
     /// <summary>
     /// 删除标志

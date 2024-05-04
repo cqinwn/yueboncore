@@ -4,7 +4,6 @@ using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using System.Data;
 using System.IO;
-using System.Text;
 
 namespace Yuebon.Commons.Helpers
 {
@@ -41,15 +40,15 @@ namespace Yuebon.Commons.Helpers
             IDataFormat format = workbook.CreateDataFormat();
             dateStyle.DataFormat = format.GetFormat("yyyy-mm-dd");
             int[] arrColWidth=new int[dtSource.Columns.Count];
-            foreach(DataColumn item in dtSource.Columns)
+            foreach (DataColumn item in dtSource.Columns)
             {
-                arrColWidth[item.Ordinal] = Encoding.GetEncoding("gb2312").GetBytes(item.ColumnName.ToString()).Length;
+                arrColWidth[item.Ordinal] = Encoding.UTF8.GetBytes(item.ColumnName.ToString()).Length;
             }
             for (int i = 0; i < dtSource.Rows.Count;i++ )
             {
                 for (int j = 0; j < dtSource.Columns.Count;j++ )
                 {
-                    int intTemp = Encoding.GetEncoding("gb2312").GetBytes(dtSource.Rows[i][j].ToString()).Length;
+                    int intTemp = Encoding.UTF8.GetBytes(dtSource.Rows[i][j].ToString()).Length;
                     if (intTemp > arrColWidth[j])
                     {
                         arrColWidth[j] = intTemp;
@@ -200,18 +199,22 @@ namespace Yuebon.Commons.Helpers
             if ("xlsx" == filetype)
             {
                 XSSFWorkbook xssfworkbook;
-                using (FileStream file = new FileStream(strFileName, FileMode.Open, FileAccess.Read))
+                using (FileStream file = new FileStream(strFileName, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
                 {
                     xssfworkbook = new XSSFWorkbook(file);
+                    file.Close();
+                    file.Dispose();
                 }
                 sheet = xssfworkbook.GetSheetAt(0);
             }
             else
             {
                 HSSFWorkbook hssfworkbook;
-                using (FileStream file = new FileStream(strFileName, FileMode.Open, FileAccess.Read))
+                using (FileStream file = new FileStream(strFileName, FileMode.Open, FileAccess.ReadWrite,FileShare.ReadWrite))
                 {
                     hssfworkbook = new HSSFWorkbook(file);
+                    file.Close();
+                    file.Dispose();
                 }
                 sheet = hssfworkbook.GetSheetAt(0);
             }

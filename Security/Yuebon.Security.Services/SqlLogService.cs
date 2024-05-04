@@ -1,3 +1,5 @@
+using SqlSugar;
+
 namespace Yuebon.Security.Services;
 
 /// <summary>
@@ -23,29 +25,17 @@ public class SqlLogService: BaseService<SqlLog, SqlLogOutputDto>, ISqlLogService
     public async Task<PageResult<SqlLogOutputDto>> FindWithPagerSearchAsync(SearchVisitLogModel search)
     {
         bool order = search.Order == "asc" ? false : true;
-        string where = GetDataPrivilege(false);
-        if (!string.IsNullOrEmpty(search.CreatorTime1))
-        {
-            where += " and CreatorTime >='" + search.CreatorTime1.ToDateTime() + "'";
-        }
-        if (!string.IsNullOrEmpty(search.CreatorTime2))
-        {
-            where += " and CreatorTime <='" + search.CreatorTime2.ToDateTime() + "'";
-        }
-        if (!string.IsNullOrEmpty(search.Filter.IPAddress))
-        {
-            where += string.Format(" and IPAddress = '{0}'", search.Filter.IPAddress);
-        };
-        if (!string.IsNullOrEmpty(search.Filter.Account))
-        {
-            where += string.Format(" and Account = '{0}'", search.Filter.Account);
-        };
+        var expressionWhere = Expressionable.Create<SqlLog>()
+           .AndIF(!string.IsNullOrEmpty(search.CreatorTime1.ToString()), it => it.CreatorTime >= search.CreatorTime1)
+           .AndIF(!string.IsNullOrEmpty(search.CreatorTime2.ToString()), it => it.CreatorTime <= search.CreatorTime2)
+           .AndIF(!string.IsNullOrEmpty(search.Filter.Account), it => it.Account.Contains(search.Filter.Account))
+           .ToExpression();
         PagerInfo pagerInfo = new PagerInfo
         {
             CurrenetPageIndex = search.CurrenetPageIndex,
             PageSize = search.PageSize
         };
-        List<SqlLog> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+        List<SqlLog> list = await repository.FindWithPagerAsync(expressionWhere, pagerInfo, search.Sort, order);
         PageResult<SqlLogOutputDto> pageResult = new PageResult<SqlLogOutputDto>
         {
             CurrentPage = pagerInfo.CurrenetPageIndex,

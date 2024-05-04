@@ -71,7 +71,7 @@
         public static string err40110 = "程序异常";
 
         /// <summary>
-        /// 更新数据失败
+        /// 新增数据失败
         /// </summary>
         public static string err43001 = "新增数据失败";
 

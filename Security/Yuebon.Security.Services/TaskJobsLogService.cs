@@ -1,3 +1,5 @@
+using SqlSugar;
+
 namespace Yuebon.Security.Services;
 
 /// <summary>
@@ -27,17 +29,15 @@ public class TaskJobsLogService: BaseService<TaskJobsLog,TaskJobsLogOutputDto>, 
     public override async Task<PageResult<TaskJobsLogOutputDto>> FindWithPagerAsync(SearchInputDto<TaskJobsLog> search)
     {
         bool order = search.Order == "asc" ? false : true;
-        string where = GetDataPrivilege(false);
-        if (!string.IsNullOrEmpty(search.Keywords))
-        {
-            where += string.Format(" and (TaskId like '%{0}%' or  TaskName like '%{0}%')", search.Keywords);
-        };
+        var expressionWhere = Expressionable.Create<TaskJobsLog>()
+           .AndIF(!string.IsNullOrEmpty(search.Keywords), it => it.TaskName.Contains(search.Keywords))
+           .ToExpression();
         PagerInfo pagerInfo = new PagerInfo
         {
             CurrenetPageIndex = search.CurrenetPageIndex,
             PageSize = search.PageSize
         };
-        List<TaskJobsLog> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+        List<TaskJobsLog> list = await repository.FindWithPagerAsync(expressionWhere, pagerInfo, search.Sort, order);
         PageResult<TaskJobsLogOutputDto> pageResult = new PageResult<TaskJobsLogOutputDto>
         {
             CurrentPage = pagerInfo.CurrenetPageIndex,

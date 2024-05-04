@@ -3,7 +3,7 @@ namespace Yuebon.Security.Models
     /// <summary>
     /// 租户用户登录信息，数据实体对象
     /// </summary>
-    [SugarTable("Sys_TenantLogon", "租户登录信息表")]
+    [SugarTable("Sys_Tenant_Logon", "租户登录信息表")]
     [Serializable]
     public class TenantLogon:BaseEntity
     {

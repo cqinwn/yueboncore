@@ -23,7 +23,6 @@ public class RequestActionFilter : IAsyncActionFilter
         _mediator = mediator;
     }
 
-
     /// <summary>
     /// 
     /// </summary>
@@ -40,12 +39,15 @@ public class RequestActionFilter : IAsyncActionFilter
         profiler.Stop();
         var httpContext = context.HttpContext;
         var httpRequest = httpContext.Request;
-
         var isRequestSucceed = actionContext.Exception == null; // 判断是否请求成功（没有异常就是成功）
         var headers = httpRequest.Headers;
         var clientInfo = headers.ContainsKey("User-Agent") ? Parser.GetDefault().Parse(headers["User-Agent"]) : null;
         var actionDescriptor = context.ActionDescriptor as ControllerActionDescriptor;
         var ip = httpContext.GetClientUserIp();
+        var option = new JsonSerializerOptions()
+        {
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+        };
         VisitLog visitLog= new VisitLog()
         {
             Date = DateTime.Now.AddMilliseconds(-sw.ElapsedMilliseconds),
@@ -59,8 +61,9 @@ public class RequestActionFilter : IAsyncActionFilter
             MethodName = actionDescriptor?.ActionName,
             RequestMethod = httpRequest.Method,
             ElapsedTime = sw.ElapsedMilliseconds,
-            RequestParameter = context.ActionArguments.Count < 1 ? string.Empty : JsonSerializer.Serialize(context.ActionArguments),
-            Result = isRequestSucceed,
+            RequestParameter = context.ActionArguments.Count < 1 ? string.Empty : JsonSerializer.Serialize(context.ActionArguments, option),
+            Result = isRequestSucceed,          
+            Description=  JsonSerializer.Serialize(actionContext.Result, option),
             Id = IdGeneratorHelper.IdSnowflake()
         };
         VisitLogCommand visitLogCommand = new VisitLogCommand()
@@ -68,6 +71,8 @@ public class RequestActionFilter : IAsyncActionFilter
             VisitLogInput = visitLog
         };
         await _mediator.Send(visitLogCommand);
+
+        #region 消息中间件
         //_eventBus.Publish(new VisitLogIntegrationEvent()
         //{
         //    Date = DateTime.Now.AddMilliseconds(-sw.ElapsedMilliseconds),
@@ -86,6 +91,9 @@ public class RequestActionFilter : IAsyncActionFilter
         //    Result = isRequestSucceed,
         //    PreId = IdGeneratorHelper.IdSnowflake()
         //});
+
+        #endregion
+
         WriteLog(profiler);
     }
 

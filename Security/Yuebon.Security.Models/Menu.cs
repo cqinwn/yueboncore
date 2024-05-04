@@ -22,7 +22,6 @@ public class Menu: TenantEntity, ICreationAudited, IModificationAudited, IDelete
     /// </summary>
     [MaxLength(50)]
     [SugarColumn(ColumnDescription= "所属系统主键")]
-    [Required]
     public virtual long SystemTypeId { get; set; }
 
     /// <summary>
@@ -43,57 +42,55 @@ public class Menu: TenantEntity, ICreationAudited, IModificationAudited, IDelete
     /// </summary>
     [MaxLength(50)]
     [SugarColumn(ColumnDescription= "编码")]
-    [Required]
-    public virtual string EnCode { get; set; }
+    public virtual string? EnCode { get; set; }
 
     /// <summary>
     /// 名称
     /// </summary>
     [MaxLength(50)]
     [SugarColumn(ColumnDescription= "名称")]
-    [Required]
-    public virtual string FullName { get; set; }
+    public virtual string? FullName { get; set; }
 
     /// <summary>
     /// 图标
     /// </summary>
     [MaxLength(50)]
     [SugarColumn(ColumnDescription= "图标")]
-    public virtual string Icon { get; set; }
+    public virtual string? Icon { get; set; }
 
     /// <summary>
     /// 路由
     /// </summary>
     [MaxLength(250)]
     [SugarColumn(ColumnDescription= "路由")]
-    public virtual string UrlAddress { get; set; }
+    public virtual string? UrlAddress { get; set; }
 
     /// <summary>
     /// 目标打开方式
     /// </summary>
     [MaxLength(50)]
     [SugarColumn(ColumnDescription= "目标打开方式")]
-    public virtual string Target { get; set; }
+    public virtual string? Target { get; set; }
 
     /// <summary>
     /// 菜单类型（C目录 M菜单 F按钮）
     /// </summary>
     [MaxLength(50)]
     [SugarColumn(ColumnDescription= "菜单类型（C目录 M菜单 F按钮）")]
-    public virtual string MenuType { get; set; }
+    public virtual string? MenuType { get; set; }
     /// <summary>
     /// 组件路径
     /// </summary>
     [MaxLength(254)]
     [SugarColumn(ColumnDescription= "组件路径")]
-    public virtual string Component { get; set; }
+    public virtual string? Component { get; set; }
     /// <summary>
     /// 设置当前选中菜单，用于新增、编辑、查看操作为单独的路由时指定选中菜单路由
     /// 同时设置为隐藏时才有效
     /// </summary>
     [MaxLength(200)]
     [SugarColumn(ColumnDescription= "设置当前选中菜单，用于新增、编辑、查看操作为单独的路由时指定选中菜单路由，同时设置为隐藏时才有效")]
-    public virtual string ActiveMenu { get; set; }
+    public virtual string? ActiveMenu { get; set; }
     /// <summary>
     /// 展开
     /// </summary>
@@ -144,7 +141,7 @@ public class Menu: TenantEntity, ICreationAudited, IModificationAudited, IDelete
     /// </summary>
     [MaxLength(500)]
     [SugarColumn(ColumnDescription= "描述")]
-    public virtual string Description { get; set; }
+    public virtual string? Description { get; set; }
 
 
     /// <summary>

@@ -11,7 +11,10 @@ public class GlobalExceptionsFilter : IExceptionFilter
 {
 
     private readonly ILogService _service;
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="service"></param>
     public GlobalExceptionsFilter(ILogService service)
     {
         _service = service;

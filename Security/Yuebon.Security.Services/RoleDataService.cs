@@ -13,8 +13,8 @@ public class RoleDataService : BaseService<RoleData, RoleDataOutputDto>, IRoleDa
     /// </summary>
     /// <param name="roleIds"></param>
     /// <returns></returns>
-    public List<string> GetListDeptByRole(string roleIds)
+    public async Task<List<long>> GetListDeptByRole(List<long> roleIds)
     {
-        return _repository.GetListDeptByRole(roleIds);
+        return await _repository.GetListDeptByRole(roleIds);
     }
 }

@@ -1,3 +1,5 @@
+using SqlSugar;
+
 namespace Yuebon.CMS.Services;
 
 /// <summary>
@@ -20,17 +22,15 @@ public class ArticlecategoryService: BaseService<Articlecategory,Articlecategory
     public override async Task<PageResult<ArticlecategoryOutputDto>> FindWithPagerAsync(SearchInputDto<Articlecategory> search)
     {
         bool order = search.Order == "asc" ? false : true;
-        string where = GetDataPrivilege();
-        if (search.Keywords is { Length: > 0 })
-        {
-            where += string.Format(" and  Title '%{0}%'", search.Keywords);
-        };
+        var expressionWhere = Expressionable.Create<Articlecategory>()
+           .AndIF(!string.IsNullOrEmpty(search.Keywords), it => it.Title.Contains(search.Keywords))
+           .ToExpression();
         PagerInfo pagerInfo = new PagerInfo
         {
             CurrenetPageIndex = search.CurrenetPageIndex,
             PageSize = search.PageSize
         };
-        List<Articlecategory> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+        List<Articlecategory> list = await repository.FindWithPagerAsync(expressionWhere, pagerInfo, search.Sort, order);
         PageResult<ArticlecategoryOutputDto> pageResult = new PageResult<ArticlecategoryOutputDto>
         {
             CurrentPage = pagerInfo.CurrenetPageIndex,

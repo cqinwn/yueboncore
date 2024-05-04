@@ -1,4 +1,6 @@
-﻿namespace Yuebon.Security.Services;
+﻿using SqlSugar;
+
+namespace Yuebon.Security.Services;
 
 /// <summary>
 /// 
@@ -32,17 +34,15 @@ public class UploadFileService : BaseService<UploadFile, UploadFileOutputDto>, I
     public override async Task<PageResult<UploadFileOutputDto>> FindWithPagerAsync(SearchInputDto<UploadFile> search)
     {
         bool order = search.Order == "asc" ? false : true;
-        string where = GetDataPrivilege(false);
-        if (!string.IsNullOrEmpty(search.Keywords))
-        {
-            where += string.Format(" and  FileName like '%{0}%' ", search.Keywords);
-        };
+        var expressionWhere = Expressionable.Create<UploadFile>()
+           .AndIF(!string.IsNullOrEmpty(search.Keywords), it => it.FileName.Contains(search.Keywords))
+           .ToExpression();
         PagerInfo pagerInfo = new PagerInfo
         {
             CurrenetPageIndex = search.CurrenetPageIndex,
             PageSize = search.PageSize
         };
-        List<UploadFile> list = await _uploadFileRepository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+        List<UploadFile> list = await _uploadFileRepository.FindWithPagerAsync(expressionWhere, pagerInfo, search.Sort, order);
         PageResult<UploadFileOutputDto> pageResult = new PageResult<UploadFileOutputDto>
         {
             CurrentPage = pagerInfo.CurrenetPageIndex,

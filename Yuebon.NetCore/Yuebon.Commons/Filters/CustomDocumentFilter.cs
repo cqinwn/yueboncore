@@ -47,7 +47,7 @@ namespace Yuebon.Commons.Filters
                 var index = Array.IndexOf(lsXG, controllerName);
                 string vc = lsXG.FirstOrDefault<string>(controllerName);
                 var lsXXG = lsXG[index].Split('_');
-                if (lsXXG.Count() == 4)
+                if (lsXXG.Length == 4)
                 {
                     match.Add(path.Key.Replace(lsXG[index], lsXXG[0]) + "?version=v" + lsXXG[1] + "." + lsXXG[2] + "." + lsXXG[3], path.Value);
                 }

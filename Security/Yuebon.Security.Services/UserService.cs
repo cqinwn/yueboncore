@@ -1,7 +1,12 @@
+using NPOI.SS.Formula.Functions;
+using SqlSugar;
+using StackExchange.Redis;
+using System.Linq.Expressions;
 using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Enums;
 using Yuebon.Commons.Extend;
 using Yuebon.Commons.Helpers;
+using Yuebon.Core.Repositories;
 using Yuebon.Core.UnitOfWork;
 
 namespace Yuebon.Security.Services;
@@ -15,23 +20,16 @@ public class UserService : BaseService<User, UserOutputDto>, IUserService
     private readonly IUserLogOnRepository _userSigninRepository;
     private readonly IRoleService _roleService;
     private IOrganizeService _organizeService;
-    private readonly IUnitOfWork _unitOfWork;
+    private IUserRoleService _userRoleService;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="repository"></param>
-    /// <param name="userLogOnRepository"></param>
-    /// <param name="roleService"></param>
-    /// <param name="organizeService"></param>
-    public UserService(IUnitOfWork unitOfWork,IUserRepository userRepository, IUserLogOnRepository userLogOnRepository, IRoleService roleService, IOrganizeService organizeService)
+    public UserService(IUserRepository userRepository, IUserLogOnRepository userLogOnRepository, IRoleService roleService, IOrganizeService organizeService, IUserRoleService userRoleService)
     {
-        _unitOfWork= unitOfWork;
         repository = userRepository;
         _userRepository = userRepository;
         _userSigninRepository = userLogOnRepository;
         _roleService = roleService;
         _organizeService = organizeService;
+        _userRoleService = userRoleService;
     }
 
 
@@ -99,7 +97,7 @@ public class UserService : BaseService<User, UserOutputDto>, IUserService
     /// <param name="password">密码（第一次md5加密后）</param>
     /// <param name="userType">用户类型</param>
     /// <returns>验证成功返回用户实体，验证失败返回null|提示消息</returns>
-    public async Task<Tuple<User, string>> Validate(string userName, string password, UserType userType)
+    public async Task<Tuple<User, string>> Validate(string userName, string password, UserTypeEnum userType)
     {
         var userEntity = await _userRepository.GetUserByLogin(userName);
 
@@ -181,7 +179,6 @@ public class UserService : BaseService<User, UserOutputDto>, IUserService
     /// </summary>
     /// <param name="entity"></param>
     /// <param name="userLogOnEntity"></param>
-    /// <param name="trans"></param>
     public bool Insert(User entity, UserLogOn userLogOnEntity)
     {
         return _userRepository.Insert(entity, userLogOnEntity);
@@ -192,9 +189,32 @@ public class UserService : BaseService<User, UserOutputDto>, IUserService
     /// </summary>
     /// <param name="entity"></param>
     /// <param name="userLogOnEntity"></param>
-    public async Task<bool> InsertAsync(User entity, UserLogOn userLogOnEntity)
+    public  async Task<bool> InsertAsync(User entity, UserLogOn userLogOnEntity)
     {
+        List<UserRole> userRoles = new List<UserRole>();
+        foreach (string item in entity.RoleId.Split(","))
+        {
+            UserRole userRole = new UserRole();
+            userRole.UserId = entity.Id;
+            userRole.RoleId = item.ToLong();
+            userRoles.Add(userRole);
+        }
+        await _userRoleService.InsertAsync(userRoles);
         return await _userRepository.InsertAsync(entity, userLogOnEntity);
+    }
+
+    public override async Task<bool> UpdateAsync(User entity)
+    {
+        List<UserRole> userRoles = new List<UserRole>();
+        foreach (string item in entity.RoleId.Split(","))
+        {
+            UserRole userRole = new UserRole();
+            userRole.UserId = entity.Id;
+            userRole.RoleId = item.ToLong();
+            userRoles.Add(userRole);
+        }
+        await _userRoleService.InsertAsync(userRoles);
+        return await _userRepository.UpdateAsync(entity);
     }
     /// <summary>
     /// 注册用户,第三方平台
@@ -264,10 +284,9 @@ public class UserService : BaseService<User, UserOutputDto>, IUserService
         user.CreatorUserId = user.Id;
         user.Account = "Wx" + GuidUtils.CreateNo();
         user.CreatorTime = userLogOnEntity.FirstVisitTime = DateTime.Now;
-        user.IsAdministrator = false;
+        user.UserType = UserTypeEnum.Member;
         user.EnabledMark = true;
         user.Description = "第三方注册";
-        user.IsMember = true;
         user.UnionId = userInPut.UnionId;
         user.ReferralUserId = userInPut.ReferralUserId;
         if (userInPut.NickName == "游客")
@@ -315,52 +334,33 @@ public class UserService : BaseService<User, UserOutputDto>, IUserService
     /// <returns>指定对象的集合</returns>
     public  async Task<PageResult<UserOutputDto>> FindWithPagerSearchAsync(SearchUserModel search)
     {
-        bool order = search.Order == "asc" ? false : true;
-        string where = GetDataPrivilege(false);
-
-        if (!string.IsNullOrEmpty(search.Keywords))
+        bool order = search.Order == "asc" ? false : true;       
+        List<long> orgIds=new List<long>();
+        if (search.CreateOrgId != 0)
         {
-            where += string.Format(" and (NickName like '%{0}%' or Account like '%{0}%' or RealName  like '%{0}%' or MobilePhone like '%{0}%')", search.Keywords);
+           orgIds =await _organizeService.GetChildIdListWithSelfById((long)search.CreateOrgId);
         }
-
-        if (!string.IsNullOrEmpty(search.RoleId))
-        {
-            where += string.Format(" and RoleId like '%{0}%'", search.RoleId);
-        }
-        if (!string.IsNullOrEmpty(search.CreatorTime1))
-        {
-            where += " and CreatorTime >='" + search.CreatorTime1 + " 00:00:00'";
-        }
-        if (!string.IsNullOrEmpty(search.CreatorTime2))
-        {
-            where += " and CreatorTime <='" + search.CreatorTime2 + " 23:59:59'";
-        }
+        var exp = Expressionable.Create<User>();
+        exp.AndIF(!string.IsNullOrEmpty(search.Keywords), it => it.Account.Contains(search.Keywords)|| it.MobilePhone.Contains(search.Keywords)||it.NickName.Contains(search.Keywords)||it.RealName.Contains(search.Keywords));
+        exp.AndIF(!string.IsNullOrEmpty(search.CreatorTime1), it => it.CreatorTime >= search.CreatorTime1.AsDateTime());
+        exp.AndIF(!string.IsNullOrEmpty(search.CreatorTime2), it => it.CreatorTime <= search.CreatorTime2.AsDateTime());
+        exp.AndIF(orgIds.Count!= 0, it =>orgIds.Contains((long)it.CreateOrgId));
+        Expression<Func<User, bool>> expressionWhere = exp.ToExpression();
         PagerInfo pagerInfo = new PagerInfo
         {
             CurrenetPageIndex = search.CurrenetPageIndex,
             PageSize = search.PageSize
         };
-        List<User> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+
+        List<User> list =  await repository.FindWithPagerAsync(expressionWhere, pagerInfo, search.Sort, order);
         List<UserOutputDto> resultList = list.MapTo<UserOutputDto>();
         List<UserOutputDto> listResult = new List<UserOutputDto>();
         foreach (UserOutputDto item in resultList)
         {
-            if (item.OrganizeId>0)
+            if (item.CreateOrgId >0)
             {
-                item.OrganizeName = _organizeService.GetById(item.OrganizeId).FullName;
+                item.OrganizeName = _organizeService.GetById(item.CreateOrgId).FullName;
             }
-            if (!string.IsNullOrEmpty(item.RoleId))
-            {
-                item.RoleName = _roleService.GetRoleNameStr(item.RoleId);
-            }
-            if (item.DepartmentId>0)
-            {
-                item.DepartmentName = _organizeService.GetById(item.DepartmentId).FullName;
-            }
-            //if (!string.IsNullOrEmpty(item.DutyId))
-            //{
-            //    item.DutyName = _roleService.Get(item.DutyId).FullName;
-            //}
             listResult.Add(item);
         }
         PageResult<UserOutputDto> pageResult = new PageResult<UserOutputDto>

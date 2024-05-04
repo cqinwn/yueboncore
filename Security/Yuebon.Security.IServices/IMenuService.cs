@@ -31,7 +31,7 @@ public interface IMenuService:IService<Menu, MenuOutputDto>
     /// <param name="typeID">系统类型ID</param>
     /// <param name="isMenu">是否是菜单</param>
     /// <returns></returns>
-    List<Menu> GetFunctions(string roleIds, long typeID,bool isMenu=false);
+    List<Menu> GetFunctions(List<long> roleIds, long typeID,bool isMenu=false);
 
     /// <summary>
     /// 根据系统类型ID，获取对应的操作功能列表
@@ -62,8 +62,13 @@ public interface IMenuService:IService<Menu, MenuOutputDto>
     /// <returns></returns>
     Task<CommonResult> DeleteBatchWhereAsync(DeletesInputDto ids);
 
-
-    List<UserVisitMenus> GetFunctionsByUser(long userID, long typeID);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="userID"></param>
+    /// <param name="typeID"></param>
+    /// <returns></returns>
+    Task<List<UserVisitMenus>> GetFunctionsByUser(long userID, long typeID);
 
     /// <summary>
     /// 根据用户角色IDs，获取对应的功能列表
@@ -72,5 +77,11 @@ public interface IMenuService:IService<Menu, MenuOutputDto>
     /// <returns></returns>
     List<UserVisitMenus> GetFunctionsBySystem(long systemId);
 
-    List<VueRouterModel> GetVueRouter(string roleIds, string systemCode);
+    List<VueRouterModel> GetVueRouter(List<long> roleIds, string systemCode);
+    /// <summary>
+    /// 根据功能菜单Id集合查询
+    /// </summary>
+    /// <param name="ids">Id集合</param>
+    /// <returns></returns>
+    Task<List<Menu>> GetMenusByIds(List<long> ids);
 }

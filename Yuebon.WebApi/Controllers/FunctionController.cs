@@ -25,7 +25,7 @@ public class FunctionController: AreaApiController<Menu, MenuOutputDto, MenuInpu
     /// <returns></returns>
     [HttpGet("GetListByParentEnCode")]
     [YuebonAuthorize("")]
-    public async Task<IActionResult> GetListByParentEnCode(string enCode)
+    public IActionResult GetListByParentEnCode(string enCode)
     {
         CommonResult result = new CommonResult();
         try
@@ -34,7 +34,7 @@ public class FunctionController: AreaApiController<Menu, MenuOutputDto, MenuInpu
             {
                 YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
                 List<MenuOutputDto> functions = new List<MenuOutputDto>();
-                functions = yuebonCacheHelper.Get("User_Function_" + CurrentUser.UserId).ToJson().ToObject<List<MenuOutputDto>>();
+                functions = yuebonCacheHelper.Get(CacheConst.KeyUserFunction + CurrentUser.UserId).ToJson().ToObject<List<MenuOutputDto>>();
                 MenuOutputDto functionOutputDto = functions.Find(s => s.EnCode == enCode);
                 List<MenuOutputDto> nowFunList = new List<MenuOutputDto>();
                 if (functionOutputDto != null)

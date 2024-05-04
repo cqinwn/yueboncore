@@ -36,7 +36,7 @@
                     if (string.IsNullOrEmpty(item.ToString())) continue;
                     UploadFile uploadFile = iService.GetById(item);
                     YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                    SysSetting sysSetting = yuebonCacheHelper.Get("SysSetting").ToJson().ToObject<SysSetting>();
+                    SysSetting sysSetting = yuebonCacheHelper.Get(CacheConst.KeySysSetting).ToJson().ToObject<SysSetting>();
                     if (uploadFile != null)
                     {
                         if (System.IO.File.Exists(sysSetting.LocalPath + "/" + uploadFile.FilePath))

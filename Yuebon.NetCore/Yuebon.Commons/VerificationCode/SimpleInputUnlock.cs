@@ -54,7 +54,7 @@ namespace Yuebon.Commons.VerificationCode
         /// <summary>
         /// 预定字符(数字+字母)
         /// </summary>
-        private static readonly char[] CharactersNumAndWord = new[] { 'a', 'b', '0', 'c', 'd', 'e', 'f', '2', 'g', 'h', '3', 'i', 'j', '4', 'k', '5', 'm', 'n', '6', 'o', 'p', '7', 'q', 'r', '8', 's', 't', '9', 'u', 'v', 'w', 'x', 'y', 'z' };
+        private static readonly char[] CharactersNumAndWord = new[] { 'a', 'b', '0', 'c', 'd', 'e', 'f', '2', 'g', 'h', '3', 'i', 'j', '4', 'k', '5', 'm', 'n', '6', 'o', 'p', '7', 'q', 'r', '8', 's', 't', '9', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
         /// <summary>
         /// 预设定颜色
         /// </summary>
@@ -117,8 +117,8 @@ namespace Yuebon.Commons.VerificationCode
         {
             var length = code.Length;       //字符长度
             var width = length * 30;        //图像的宽度
-            const int height = 50;          //图像的高度
-            var zaos = length * 50;        //噪点数
+            const int height = 30;          //图像的高度
+            var zaos = length * 30;        //噪点数
             var lines = length * 3;         //噪线数
             var wavy = length - 1;          //波浪线
 
@@ -209,8 +209,8 @@ namespace Yuebon.Commons.VerificationCode
                         paint.StrokeWidth = 1;
                         paint.Color = color;
                         paint.FakeBoldText = true;
-                        paint.TextSize = 40;
-                        paint.Shader = SKShader.CreateLinearGradient(new SKPoint(5.0f + i * 5, 0), new SKPoint(5.0f + i * 15, 40), new SKColor[] { color, color2 }, SKShaderTileMode.Clamp);
+                        paint.TextSize = 24;
+                        paint.Shader = SKShader.CreateLinearGradient(new SKPoint(6.0f + i *5, 0), new SKPoint(6.0f + i * 15, 30), new SKColor[] { color, color2 }, SKShaderTileMode.Clamp);
 
                         var drawX = drawWidth;
                         var charWidth = paint.MeasureText(charCode);
@@ -220,7 +220,7 @@ namespace Yuebon.Commons.VerificationCode
                         SKRect textBounds = new SKRect();
                         paint.MeasureText(charCode, ref textBounds);
                         Console.WriteLine($"字体：{font}---------字符宽度：{charWidth}---------画笔坐标：{drawX}");
-                        canvas.DrawText(charCode, new SKPoint(drawX, 36), paint);
+                        canvas.DrawText(charCode, new SKPoint(drawX, 20), paint);
                     }
                 }
                 else
@@ -235,7 +235,7 @@ namespace Yuebon.Commons.VerificationCode
                         paint.StrokeWidth = 1;
                         paint.Color = color;
                         paint.FakeBoldText = true;
-                        paint.TextSize = 40;
+                        paint.TextSize = 24;
 
                         var drawX = drawWidth;
                         var charWidth = paint.MeasureText(charCode);
@@ -245,7 +245,7 @@ namespace Yuebon.Commons.VerificationCode
                         SKRect textBounds = new SKRect();
                         paint.MeasureText(charCode, ref textBounds);
                         Console.WriteLine($"字体：{font}---------字符宽度：{charWidth}---------画笔坐标：{drawX}");
-                        canvas.DrawText(charCode, new SKPoint(drawX, 36), paint);
+                        canvas.DrawText(charCode, new SKPoint(drawX, 20), paint);
                     }
                 }
             }

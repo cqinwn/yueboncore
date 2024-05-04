@@ -28,6 +28,6 @@ namespace Yuebon.Security.IServices
         /// </summary>
         /// <param name="roleIds">角色Id，用','隔开</param>
         /// <returns></returns>
-        List<UserVisitSystemnTypes> GetSubSystemList(string roleIds);
+        Task<List<UserVisitSystemnTypes>> GetSubSystemList(List<long> roleIds);
     }
 }

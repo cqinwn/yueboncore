@@ -1,10 +1,14 @@
-﻿using SqlSugar;
+﻿using Google.Protobuf.WellKnownTypes;
+using SqlSugar;
 using StackExchange.Profiling;
 using System.Linq.Expressions;
 using Yuebon.Commons;
 using Yuebon.Commons.Encrypt;
+using Yuebon.Commons.Enums;
 using Yuebon.Core.DataManager;
 using Yuebon.Core.Models;
+using Yuebon.Extensions.Filters;
+using Yuebon.Security.Models;
 
 namespace Yuebon.Extensions.ServiceExtensions;
 
@@ -14,7 +18,7 @@ namespace Yuebon.Extensions.ServiceExtensions;
 public static class SqlSugarSetup
 {
     /// <summary>
-    /// 
+    /// SqlSugar 上下文初始化
     /// </summary>
     /// <param name="services"></param>
     /// <exception cref="ArgumentNullException"></exception>
@@ -60,12 +64,20 @@ public static class SqlSugarSetup
             {
                 connectionConfigs.ForEach(config =>
                 {
-                    var dbProvider = db.GetConnection((string)config.ConfigId);
+                    var dbProvider = db.GetConnectionScope((string)config.ConfigId);
 
                     dbProvider.Aop.OnError = (ex) =>
                     {
                         var pars = db.Utilities.SerializeObject(((SugarParameter[])ex.Parametres).ToDictionary(it => it.ParameterName, it => it.Value));
                         MiniProfiler.Current.CustomTiming("SqlSugar", $"{ex.Message}{Environment.NewLine}{ex.Sql}{pars}{Environment.NewLine}", "Error");
+                    };
+                    dbProvider.Aop.OnLogExecuted = (sql, p) =>
+                    {
+                        if (Appsettings.app(new string[] { "AppSetting", "SqlAOP", "Enabled" }).ObjToBool())
+                        {
+                            string logSql = $"{GetParas(p)}【SQL语句】:{GetWholeSql(p, sql)}【耗时】:{dbProvider.Ado.SqlExecutionTime.TotalMilliseconds}ms";
+                            MiniProfiler.Current.CustomTiming("SQL:", logSql);
+                        }
                     };
                     dbProvider.Aop.DataExecuting = (oldValue, entityInfo) =>
                     {
@@ -83,7 +95,17 @@ public static class SqlSugarSetup
                                         entityInfo.SetValue(Appsettings.User.TenantId);
                                 }
                                 if (entityInfo.PropertyName == "CreatorUserId")
-                                    entityInfo.SetValue(Appsettings.User?.UserId);
+                                {
+                                    var createUserId = ((dynamic)entityInfo.EntityValue).CreatorUserId;
+                                    if (createUserId == 0 || createUserId == null)
+                                        entityInfo.SetValue(Appsettings.User?.UserId);
+                                }
+                                if (entityInfo.PropertyName == "CreateOrgId")
+                                {
+                                    var createOrgId = ((dynamic)entityInfo.EntityValue).CreateOrgId;
+                                    if (createOrgId == 0 || createOrgId == null)
+                                        entityInfo.SetValue(Appsettings.User?.CreateOrgId);
+                                }
                             }
                         }
                         // 更新操作
@@ -95,18 +117,25 @@ public static class SqlSugarSetup
                                 entityInfo.SetValue(Appsettings.User?.UserId);
                         }
                     };
+                    // 超管排除其他过滤器
+                    if (Appsettings.User?.UserType == UserTypeEnum.SuperAdmin) return;
+                    // 配置假删除过滤器
+                    db.QueryFilter.AddTableFilter<IDeleteAudited>(u => u.DeleteMark == false);
+                    //配置租户过滤器
                     SetTenantEntityFilter(dbProvider);
-                    dbProvider.Aop.OnLogExecuted = (sql, p) =>
-                    {
-                        if (Appsettings.app(new string[] { "AppSetting", "SqlAOP", "Enabled" }).ObjToBool())
-                        {
-                            string logSql = $"{GetParas(p)}【SQL语句】:{GetWholeSql(p,sql)}【耗时】:{dbProvider.Ado.SqlExecutionTime.TotalMilliseconds}ms";
-                            MiniProfiler.Current.CustomTiming("SQL:", logSql);
-                        }
-                    };
+
+                    // 配置用户机构（数据范围）过滤器
+                    SqlSugarFilter.SetOrgEntityFilter(dbProvider);
+
+                    // 配置自定义过滤器
+                    SqlSugarFilter.SetCustomEntityFilter(dbProvider);
+
                 });
             });
         });
+
+
+        services.AddScoped(typeof(BaseRepository<>)); // 仓储注册
     }
 
 
@@ -137,7 +166,7 @@ public static class SqlSugarSetup
     /// <summary>
     /// 配置租户实体过滤器
     /// </summary>
-    public static void SetTenantEntityFilter(SqlSugarProvider db)
+    public static void SetTenantEntityFilter(SqlSugarScopeProvider db)
     {
         // 获取租户实体数据表集合
         var dataEntityTypes = Appsettings.EffectiveTypes.Where(u => !u.IsInterface && !u.IsAbstract && u.IsClass

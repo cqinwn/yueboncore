@@ -14,6 +14,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         private IRoleService roleService;
         private IUserLogOnService userLogOnService;
         private readonly ITenantService _tenantService;
+        private readonly IUserRoleService _userRoleService;
         /// <summary>
         /// 
         /// </summary>
@@ -21,13 +22,16 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <param name="_organizeService"></param>
         /// <param name="_roleService"></param>
         /// <param name="_userLogOnService"></param>
-        public UserController(IUserService _iService, IOrganizeService _organizeService, IRoleService _roleService, IUserLogOnService _userLogOnService, ITenantService tenantService) : base(_iService)
+        /// <param name="tenantService"></param>
+        /// <param name="userRoleService"></param>
+        public UserController(IUserService _iService, IOrganizeService _organizeService, IRoleService _roleService, IUserLogOnService _userLogOnService, ITenantService tenantService, IUserRoleService userRoleService) : base(_iService)
         {
             iService = _iService;
             organizeService = _organizeService;
             roleService = _roleService;
             userLogOnService = _userLogOnService;
-            _tenantService= tenantService;
+            _tenantService = tenantService;
+            _userRoleService = userRoleService;
         }
         /// <summary>
         /// 新增前处理数据
@@ -35,10 +39,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <param name="info"></param>
         protected override void OnBeforeInsert(User info)
         {
-            info.Id = IdGeneratorHelper.IdSnowflake();
-            info.CreatorTime = DateTime.Now;
-            info.CreatorUserId = CurrentUser.UserId;
-            info.OrganizeId = organizeService.GetRootOrganize(info.DepartmentId).Id;
+            info.Id=IdGeneratorHelper.IdSnowflake();
             info.DeleteMark = false;
             if (info.SortCode == null)
             {
@@ -53,9 +54,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <returns></returns>
         protected override void OnBeforeUpdate(User info)
         {
-            info.LastModifyUserId = CurrentUser.UserId;
-            info.LastModifyTime = DateTime.Now;
-            info.OrganizeId = organizeService.GetRootOrganize(info.DepartmentId).Id;
+            
         }
 
         /// <summary>
@@ -69,7 +68,21 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.DeleteTime = DateTime.Now;
             info.DeleteUserId = CurrentUser.UserId;
         }
+        /// <summary>
+        /// 根据用户Id获取角色集合
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetOwnRoleList")]
+        [YuebonAuthorize("")]
+        public async Task<IActionResult> GetOwnRoleList(long userId)
+        {
+            CommonResult result = new CommonResult();
+            result.ResData= await _userRoleService.GetUserRoleIdList(userId);
 
+            result.ErrCode = ErrCode.successCode;
+            result.ErrMsg = ErrCode.err0;
+            return ToJsonContent(result);
+        }
 
         /// <summary>
         /// 用户注册
@@ -82,7 +95,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         {
             CommonResult result = new CommonResult();
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            var vCode = yuebonCacheHelper.Get("ValidateCode" + tinfo.VerifyCodeKey);
+            var vCode = yuebonCacheHelper.Get(CacheConst.KeyVerCode + tinfo.VerifyCodeKey);
             string code = vCode != null ? vCode.ToString() : "";
             if (code!= tinfo.VerificationCode.ToUpper())
             {
@@ -115,10 +128,9 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.Email = tinfo.Email;
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = info.Id;
-            info.OrganizeId = 0;
+            info.CreateOrgId = 0;
             info.EnabledMark = true;
-            info.IsAdministrator = false;
-            info.IsMember = true;
+            info.UserType = Commons.Enums.UserTypeEnum.Member;
             info.RoleId =roleService.GetRole("usermember").Id.ToString();
             info.DeleteMark = false;
             info.SortCode = 99;
@@ -127,12 +139,12 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             if (isTenant)
             {
                 List<Tenant> tenants = null;
-                if (!yuebonCacheHelper.Exists("cacheTenants"))
+                if (!yuebonCacheHelper.Exists(CacheConst.KeyTenants))
                 {
                     IEnumerable<Tenant> templist = _tenantService.GetAllByIsEnabledMark();
-                    yuebonCacheHelper.Add("cacheTenants", templist);
+                    yuebonCacheHelper.Add(CacheConst.KeyTenants, templist);
                 }
-                tenants = JsonHelper.ToObject<List<Tenant>>(yuebonCacheHelper.Get("cacheTenants").ToJson());
+                tenants = JsonHelper.ToObject<List<Tenant>>(yuebonCacheHelper.Get(CacheConst.KeyTenants).ToJson());
                 if (tenants != null)
                 {
                     string tenantName = tinfo.Host.Split(".")[0];
@@ -162,7 +174,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             result.Success = await iService.InsertAsync(info, userLogOn);
             if (result.Success)
             {
-                yuebonCacheHelper.Remove("ValidateCode");
+                yuebonCacheHelper.Remove(CacheConst.KeyVerCode);
                 result.ErrCode = ErrCode.successCode;
                 result.ErrMsg = ErrCode.err0;
             }
@@ -200,6 +212,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 return ToJsonContent(result);
             }
             User info = tinfo.MapTo<User>();
+            info.CreateOrgId=tinfo.CreateOrgId;
             OnBeforeInsert(info);
             UserLogOn userLogOn = new UserLogOn();
             userLogOn.UserPassword = "12345678";
@@ -254,9 +267,9 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.Birthday = tinfo.Birthday;
             info.MobilePhone = tinfo.MobilePhone;
             info.WeChat = tinfo.WeChat;
-            info.DepartmentId = tinfo.DepartmentId;
+            info.CreateOrgId = tinfo.CreateOrgId;
             info.RoleId = tinfo.RoleId;
-            info.IsAdministrator = tinfo.IsAdministrator;
+            info.UserType = tinfo.UserType;
             info.Email = tinfo.Email;
             info.EnabledMark = tinfo.EnabledMark;
             info.Description = tinfo.Description;

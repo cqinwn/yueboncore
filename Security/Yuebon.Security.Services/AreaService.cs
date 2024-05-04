@@ -1,4 +1,6 @@
 using Newtonsoft.Json;
+using SqlSugar;
+using Yuebon.Security.Repositories;
 
 namespace Yuebon.Security.Services;
 
@@ -7,13 +9,21 @@ namespace Yuebon.Security.Services;
 /// </summary>
 public class AreaService: BaseService<Area, AreaOutputDto>, IAreaService
 {
-    private readonly IRepository<Area> _repository;
-    public AreaService(IRepository<Area> areaRepository)
+    private readonly IAreaRepository _repository;
+    public AreaService(IRepository<Area> areaRepository, IAreaRepository areaRepository1)
     {
         repository=areaRepository;
-        _repository = areaRepository;
+        _repository = areaRepository1;
     }
 
+    /// <summary>
+    /// 获取行政地区适用于Vue 树形列表
+    /// </summary>
+    /// <returns></returns>
+    public async Task<List<Area>> GetAllAreaTreeTable()
+    {
+        return await _repository.GetAllAreaTreeTable();
+    }
 
     #region 用于uniapp下拉选项
     /// <summary>
@@ -99,4 +109,33 @@ public class AreaService: BaseService<Area, AreaOutputDto>, IAreaService
         return listChildren;
     }
     #endregion
+
+
+    /// <summary>
+    /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
+    /// 查询条件变换时请重写该方法。
+    /// </summary>
+    /// <param name="search">查询的条件</param>
+    /// <returns>指定对象的集合</returns>
+    public virtual async Task<PageResult<AreaOutputDto>> FindWithPagerAsync(SearchInputDto<Area> search)
+    {
+        bool order = search.Order == "asc" ? false : true;
+        var expressionWhere = Expressionable.Create<Area>()
+           .AndIF(!string.IsNullOrEmpty(search.Keywords), it => it.FullName.Contains(search.Keywords) || it.EnCode.Contains(search.Keywords) || it.AreaCode.Contains(search.Keywords))
+           .ToExpression();
+        PagerInfo pagerInfo = new PagerInfo
+        {
+            CurrenetPageIndex = search.CurrenetPageIndex,
+            PageSize = search.PageSize
+        };
+        List<Area> list = await repository.FindWithPagerAsync(expressionWhere, pagerInfo, search.Sort, order);
+        PageResult<AreaOutputDto> pageResult = new PageResult<AreaOutputDto>
+        {
+            CurrentPage = pagerInfo.CurrenetPageIndex,
+            Items = list.MapTo<AreaOutputDto>(),
+            ItemsPerPage = pagerInfo.PageSize,
+            TotalItems = pagerInfo.RecordCount
+        };
+        return pageResult;
+    }
 }

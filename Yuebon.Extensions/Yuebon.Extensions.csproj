@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
@@ -16,14 +16,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Security\Yuebon.Security.Services\Yuebon.Security.Services.csproj" />
     <ProjectReference Include="..\Yuebon.EventBus.RabbitMQ\Yuebon.EventBus.RabbitMQ.csproj" />
     <ProjectReference Include="..\Yuebon.EventBus\Yuebon.EventBus.csproj" />
+    <ProjectReference Include="..\Yuebon.NetCore\Yuebon.AspNetCore\Yuebon.AspNetCore.csproj" />
     <ProjectReference Include="..\Yuebon.NetCore\Yuebon.Quartz.Jobs\Yuebon.Quartz.Jobs.csproj" />
   </ItemGroup>
 

@@ -26,7 +26,7 @@ namespace Yuebon.Commons.Helpers
             }
             catch (Exception ex)
             {
-                throw new Exception("",ex);
+                throw new Exception(ex.Message,ex);
             }
             finally
             {

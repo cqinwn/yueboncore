@@ -30,7 +30,6 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.Id = GuidUtils.IdGenerator();
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = CurrentUser.UserId;
-            info.DeleteMark = false;
         }
         
         /// <summary>
@@ -49,9 +48,6 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         /// <returns></returns>
         protected override void OnBeforeSoftDelete(Log info)
         {
-            info.DeleteMark = true;
-            info.DeleteTime = DateTime.Now;
-            info.DeleteUserId = CurrentUser.UserId;
         }
 
 

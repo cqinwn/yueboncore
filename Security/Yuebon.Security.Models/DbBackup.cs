@@ -4,7 +4,7 @@
 /// 数据库备份，数据实体对象
 /// </summary>
 
-[SugarTable("Sys_DbBackup","数据库备份记录")]
+[SugarTable("Sys_Db_Backup","数据库备份记录")]
 [Serializable]
 public class DbBackup : BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited
 {

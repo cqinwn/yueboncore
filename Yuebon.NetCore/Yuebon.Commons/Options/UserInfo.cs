@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Yuebon.Commons.Enums;
+﻿using Yuebon.Commons.Enums;
 
 namespace Yuebon.Commons.Options
 {
@@ -28,9 +23,9 @@ namespace Yuebon.Commons.Options
         public  string RealName { get; set; }
 
         /// <summary>
-        /// 是否超级管理
+        /// 账号类型
         /// </summary>
-        public  string SuperAdmin { get; set; }
+        public UserTypeEnum UserType { get; set; }
 
         /// <summary>
         /// 租户Id
@@ -40,7 +35,7 @@ namespace Yuebon.Commons.Options
         /// <summary>
         /// 组织机构Id
         /// </summary>
-        public  long OrgId { get; set; }
+        public virtual long? CreateOrgId { get; set; }
 
         /// <summary>
         /// 组织机构名称
@@ -55,7 +50,7 @@ namespace Yuebon.Commons.Options
         /// <summary>
         /// 角色
         /// </summary>
-        public  string Role { get; set; }
+        public  List<long> Role { get; set; }
 
         /// <summary>
         /// 租户数据架构

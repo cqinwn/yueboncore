@@ -1,3 +1,5 @@
+using SqlSugar;
+
 namespace Yuebon.Security.Services;
 
 /// <summary>
@@ -19,17 +21,15 @@ public class SequenceRuleService: BaseService<SequenceRule,SequenceRuleOutputDto
     public override async Task<PageResult<SequenceRuleOutputDto>> FindWithPagerAsync(SearchInputDto<SequenceRule> search)
     {
         bool order = search.Order == "asc" ? false : true;
-        string where = GetDataPrivilege(false);
-        if (!string.IsNullOrEmpty(search.Keywords))
-        {
-            where += string.Format(" and SequenceName like '%{0}%' ", search.Keywords);
-        };
+        var expressionWhere = Expressionable.Create<SequenceRule>()
+           .AndIF(!string.IsNullOrEmpty(search.Keywords), it => it.SequenceName.Contains(search.Keywords))
+           .ToExpression();
         PagerInfo pagerInfo = new PagerInfo
         {
             CurrenetPageIndex = search.CurrenetPageIndex,
             PageSize = search.PageSize
         };
-        List<SequenceRule> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+        List<SequenceRule> list = await repository.FindWithPagerAsync(expressionWhere, pagerInfo, search.Sort, order);
         PageResult<SequenceRuleOutputDto> pageResult = new PageResult<SequenceRuleOutputDto>
         {
             CurrentPage = pagerInfo.CurrenetPageIndex,

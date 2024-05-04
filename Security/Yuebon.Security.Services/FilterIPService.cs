@@ -1,3 +1,5 @@
+using SqlSugar;
+
 namespace Yuebon.Security.Services;
 
 public class FilterIPService: BaseService<FilterIP, FilterIPOutputDto>, IFilterIPService
@@ -26,17 +28,16 @@ public class FilterIPService: BaseService<FilterIP, FilterIPOutputDto>, IFilterI
     public override async Task<PageResult<FilterIPOutputDto>> FindWithPagerAsync(SearchInputDto<FilterIP> search)
     {
         bool order = search.Order == "asc" ? false : true;
-        string where = GetDataPrivilege(false);
-        if (!string.IsNullOrEmpty(search.Keywords))
-        {
-            where += string.Format(" and (StartIP like '%{0}%' or EndIP like '%{0}%')", search.Keywords);
-        };
+
+        var expressionWhere = Expressionable.Create<FilterIP>()
+           .AndIF(!string.IsNullOrEmpty(search.Keywords), it => it.StartIP.Contains(search.Keywords) || it.EndIP.Contains(search.Keywords))
+           .ToExpression();
         PagerInfo pagerInfo = new PagerInfo
         {
             CurrenetPageIndex = search.CurrenetPageIndex,
             PageSize = search.PageSize
         };
-        List<FilterIP> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+        List<FilterIP> list = await repository.FindWithPagerAsync(expressionWhere, pagerInfo, search.Sort, order);
         PageResult<FilterIPOutputDto> pageResult = new PageResult<FilterIPOutputDto>
         {
             CurrentPage = pagerInfo.CurrenetPageIndex,

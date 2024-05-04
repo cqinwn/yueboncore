@@ -1,6 +1,6 @@
 ﻿namespace Yuebon.Security.Models;
 
-[SugarTable("Sys_SqlLog", "SQL日志")]
+[SugarTable("Sys_Sql_Log", "SQL日志")]
 [Serializable]
 public class SqlLog : LongEntity, ICreationAudited
 {
@@ -39,7 +39,11 @@ public class SqlLog : LongEntity, ICreationAudited
     /// </summary>
     [SugarColumn(ColumnDescription = "创建日期")]
     public virtual DateTime? CreatorTime { get; set; }
-
+    /// <summary>
+    /// 设置或获取 创建者部门Id
+    /// </summary>
+    [SugarColumn(ColumnDescription = "创建者部门Id", IsOnlyIgnoreUpdate = true)]
+    public long? CreateOrgId { get; set; }
     /// <summary>
     /// 创建用户主键
     /// </summary>

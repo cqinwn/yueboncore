@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Identity;
+using Yuebon.Commons.Enums;
+
 namespace Yuebon.WebApi.Areas.Security.Controllers
 {
     /// <summary>
@@ -90,6 +93,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             info.FullName = tinfo.FullName;
             info.EnCode = tinfo.EnCode;
             info.ShortName = tinfo.ShortName;
+            info.OrgType = tinfo.OrgType;
             info.CategoryId = tinfo.CategoryId;
             info.ManagerId = tinfo.ManagerId;
             info.TelePhone = tinfo.TelePhone;
@@ -120,6 +124,32 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             }
             return ToJsonContent(result);
         }
+        ///// <summary>
+        ///// 根据用户Id获取机构Id集合
+        ///// </summary>
+        ///// <returns></returns>
+        //public async Task<List<long>> GetUserOrgIdList()
+        //{
+        //    if (CurrentUser.UserType==UserTypeEnum.SuperAdmin)
+        //        return new List<long>();
+        //    YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
+        //    var userId = CurrentUser.UserId;
+        //    var orgIdList = yuebonCacheHelper.Get<List<long>>($"{CacheConst.KeyUserOrg}{userId}"); // 取缓存
+        //    //if (orgIdList == null || orgIdList.Count < 1)
+        //    //{
+        //    //    // 扩展机构集合
+        //    //    //var orgList1 = await _sysUserExtOrgService.GetUserExtOrgList(userId);
+        //    //    // 角色机构集合
+        //    //    var orgList2 = await GetUserRoleOrgIdList(userId);
+        //    //    // 机构并集
+        //    //    orgIdList = orgList1.Select(u => u.OrgId).Union(orgList2).ToList();
+        //    //    // 当前所属机构
+        //    //    if (!orgIdList.Contains(CurrentUser.OrganizeId))
+        //    //        orgIdList.Add(CurrentUser.OrganizeId);
+        //    //    _sysCacheService.Set($"{CacheConst.KeyUserOrg}{userId}", orgIdList); // 存缓存
+        //    //}
+        //    return orgIdList;
+        //}
         /// <summary>
         /// 获取组织机构适用于Vue 树形列表
         /// </summary>
@@ -194,6 +224,26 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 {
                     result.ErrCode = "43003";
                 }
+            }
+            return ToJsonContent(result);
+        }
+
+        /// <summary>
+        /// 根据组织类型获取公司级组织机构
+        /// </summary>
+        /// <param name="orgType">组织类型</param>
+        /// <returns></returns>
+        [HttpGet("GetOrganizesByOrgType")]
+        [YuebonAuthorize("List")]
+        public async Task<IActionResult> GetOrganizesByOrgTypeAsync(string orgType)
+        {
+            CommonResult result = new CommonResult();
+            if (!string.IsNullOrEmpty(orgType))
+            {
+                result.ResData = await iService.GetOrganizesByOrgTypeAsync(orgType);
+                result.ErrCode = ErrCode.successCode;
+                result.ErrMsg = ErrCode.err0;
+
             }
             return ToJsonContent(result);
         }

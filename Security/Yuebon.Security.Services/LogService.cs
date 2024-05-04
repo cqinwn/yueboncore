@@ -1,4 +1,5 @@
 
+using SqlSugar;
 using System.Security.Claims;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Log;
@@ -31,29 +32,18 @@ public class LogService : BaseService<Log, LogOutputDto>, ILogService
     public async Task<PageResult<LogOutputDto>> FindWithPagerSearchAsync(SearchLogModel search)
     {
         bool order = search.Order == "asc" ? false : true;
-        string where = GetDataPrivilege(false);
-        if (!string.IsNullOrEmpty(search.CreatorTime1))
-        {
-            where += " and CreatorTime >='"+ search.CreatorTime1.ToDateTime()+ "'";
-        }
-        if (!string.IsNullOrEmpty(search.CreatorTime2))
-        {
-            where += " and CreatorTime <='" + search.CreatorTime2.ToDateTime() + "'";
-        }
-        if (!string.IsNullOrEmpty(search.Filter.IPAddress))
-        {
-            where += string.Format(" and IPAddress = '{0}'", search.Filter.IPAddress);
-        };
-        if (!string.IsNullOrEmpty(search.Filter.Account))
-        {
-            where += string.Format(" and Account = '{0}'", search.Filter.Account);
-        };
+        var expressionWhere = Expressionable.Create<Log>()
+           .AndIF(!string.IsNullOrEmpty(search.CreatorTime1.ToString()), it => it.CreatorTime >= search.CreatorTime1)
+           .AndIF(!string.IsNullOrEmpty(search.CreatorTime2.ToString()), it => it.CreatorTime <= search.CreatorTime2)
+           .AndIF(!string.IsNullOrEmpty(search.Filter.Account), it => it.Account.Contains(search.Filter.Account))
+           .AndIF(!string.IsNullOrEmpty(search.Filter.IPAddress), it => it.IPAddress.Contains(search.Filter.IPAddress))
+           .ToExpression();
         PagerInfo pagerInfo = new PagerInfo
         {
             CurrenetPageIndex = search.CurrenetPageIndex,
             PageSize = search.PageSize
         };
-        List<Log> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+        List<Log> list = await repository.FindWithPagerAsync(expressionWhere, pagerInfo, search.Sort, order);
         PageResult<LogOutputDto> pageResult = new PageResult<LogOutputDto>
         {
             CurrentPage = pagerInfo.CurrenetPageIndex,
@@ -87,7 +77,7 @@ public class LogService : BaseService<Log, LogOutputDto>, ILogService
             string userId = claimlist[0].Value;
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
             YuebonCurrentUser CurrentUser = new YuebonCurrentUser();
-            var user = yuebonCacheHelper.Get("login_user_" + userId).ToJson().ToObject<YuebonCurrentUser>();
+            var user = yuebonCacheHelper.Get(CacheConst.KeyLoginUser + userId).ToJson().ToObject<YuebonCurrentUser>();
             if (user != null)
             {
                 CurrentUser = user;

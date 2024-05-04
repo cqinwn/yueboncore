@@ -1,7 +1,8 @@
 ﻿using Yuebon.AspNetCore.ViewModel;
 using Yuebon.Commons.Mapping;
-using Yuebon.Core.Models;
 using Yuebon.Core.IServices;
+using Yuebon.Core.Models;
+
 namespace Yuebon.AspNetCore.Controllers;
 
 /// <summary>
@@ -30,7 +31,7 @@ public abstract class AreaApiController<T,TODto, TIDto, TService> : ApiControlle
     #endregion
 
 
-    
+
     #region 构造函数及常用
 
     /// <summary>
@@ -89,7 +90,7 @@ public abstract class AreaApiController<T,TODto, TIDto, TService> : ApiControlle
         CommonResult result = new CommonResult();
         T info = tinfo.MapTo<T>();
         OnBeforeInsert(info);
-        long ln = await iService.InsertAsync(info).ConfigureAwait(false);
+        long ln = await iService.InsertAsync(info);
         if (ln > 0)
         {
             result.ErrCode = ErrCode.successCode;
@@ -139,7 +140,7 @@ public abstract class AreaApiController<T,TODto, TIDto, TService> : ApiControlle
     /// 物理删除
     /// </summary>
     /// <param name="id">主键Id</param>
-    [HttpDelete("Delete")]
+    [HttpPost("Delete")]
     [YuebonAuthorize("Delete")]
     public virtual IActionResult Delete(long id)
     {
@@ -162,7 +163,7 @@ public abstract class AreaApiController<T,TODto, TIDto, TService> : ApiControlle
     /// 异步物理删除
     /// </summary>
     /// <param name="id">主键Id</param>
-    [HttpDelete("DeleteAsync")]
+    [HttpPost("DeleteAsync")]
     [YuebonAuthorize("Delete")]
     public virtual async Task<IActionResult> DeleteAsync(long id)
     {
@@ -184,7 +185,7 @@ public abstract class AreaApiController<T,TODto, TIDto, TService> : ApiControlle
     /// 异步批量物理删除
     /// </summary>
     /// <param name="info"></param>
-    [HttpDelete("DeleteBatchAsync")]
+    [HttpPost("DeleteBatchAsync")]
     [YuebonAuthorize("Delete")]
     public virtual async Task<IActionResult> DeleteBatchAsync(DeletesInputDto info)
     {
@@ -473,6 +474,8 @@ public abstract class AreaApiController<T,TODto, TIDto, TService> : ApiControlle
 
         return result;
     }
+
+    
     #endregion
 
 

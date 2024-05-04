@@ -1,3 +1,5 @@
+using SqlSugar;
+
 namespace Yuebon.Security.Services;
 
 /// <summary>
@@ -23,29 +25,19 @@ public class VisitlogService: BaseService<VisitLog,VisitlogOutputDto>, IVisitlog
     public async Task<PageResult<VisitlogOutputDto>> FindWithPagerSearchAsync(SearchVisitLogModel search)
     {
         bool order = search.Order == "asc" ? false : true;
-        string where = GetDataPrivilege(false);
-        if (!string.IsNullOrEmpty(search.CreatorTime1))
-        {
-            where += " and CreatorTime >='" + search.CreatorTime1.ToDateTime() + "'";
-        }
-        if (!string.IsNullOrEmpty(search.CreatorTime2))
-        {
-            where += " and CreatorTime <='" + search.CreatorTime2.ToDateTime() + "'";
-        }
-        if (!string.IsNullOrEmpty(search.Filter.IPAddress))
-        {
-            where += string.Format(" and IPAddress = '{0}'", search.Filter.IPAddress);
-        };
-        if (!string.IsNullOrEmpty(search.Filter.Account))
-        {
-            where += string.Format(" and Account = '{0}'", search.Filter.Account);
-        };
+
+        var expressionWhere = Expressionable.Create<VisitLog>()
+           .AndIF(!string.IsNullOrEmpty(search.CreatorTime1.ToString()), it => it.CreatorTime >= search.CreatorTime1)
+           .AndIF(!string.IsNullOrEmpty(search.CreatorTime2.ToString()), it => it.CreatorTime <= search.CreatorTime2)
+           .AndIF(!string.IsNullOrEmpty(search.Filter.Account), it => it.Account.Contains(search.Filter.Account))
+           .AndIF(!string.IsNullOrEmpty(search.Filter.IPAddress), it => it.IPAddress.Contains(search.Filter.IPAddress))
+           .ToExpression();
         PagerInfo pagerInfo = new PagerInfo
         {
             CurrenetPageIndex = search.CurrenetPageIndex,
             PageSize = search.PageSize
         };
-        List<VisitLog> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+        List<VisitLog> list = await repository.FindWithPagerAsync(expressionWhere, pagerInfo, search.Sort, order);
         PageResult<VisitlogOutputDto> pageResult = new PageResult<VisitlogOutputDto>
         {
             CurrentPage = pagerInfo.CurrenetPageIndex,

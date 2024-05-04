@@ -1,3 +1,6 @@
+using SqlSugar;
+using Yuebon.Commons.Const;
+
 namespace Yuebon.Security.Services;
 
 /// <summary>
@@ -74,17 +77,15 @@ public class APPService: BaseService<APP,AppOutputDto>, IAPPService
     public override async Task<PageResult<AppOutputDto>> FindWithPagerAsync(SearchInputDto<APP> search)
     {
         bool order = search.Order == "asc" ? false : true;
-        string where = GetDataPrivilege(false);
-        if (!string.IsNullOrEmpty(search.Keywords))
-        {
-            where += string.Format(" and (AppId like '%{0}%' or RequestUrl like '%{0}%')", search.Keywords);
-        };
+        var exp = Expressionable.Create<APP>()
+           .AndIF(!string.IsNullOrEmpty(search.Keywords), it => it.AppId.Contains(search.Keywords)|| it.RequestUrl.Contains(search.Keywords))
+           .ToExpression();
         PagerInfo pagerInfo = new PagerInfo
         {
             CurrenetPageIndex = search.CurrenetPageIndex,
             PageSize = search.PageSize
         };
-        List<APP> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+        List<APP> list = await repository.FindWithPagerAsync(exp, pagerInfo, search.Sort, order);
         PageResult<AppOutputDto> pageResult = new PageResult<AppOutputDto>
         {
             CurrentPage = pagerInfo.CurrenetPageIndex,
@@ -101,6 +102,6 @@ public class APPService: BaseService<APP,AppOutputDto>, IAPPService
     {
         IEnumerable<APP> appList = repository.GetAllByIsNotDeleteAndEnabledMark();
         YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-        yuebonCacheHelper.Add("cacheAppList", appList);
+        yuebonCacheHelper.Add(CacheConst.KeyAppList, appList);
     }
 }

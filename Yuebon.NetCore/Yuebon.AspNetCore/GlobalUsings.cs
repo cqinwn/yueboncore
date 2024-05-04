@@ -29,6 +29,7 @@ global using Yuebon.Commons.Pages;
 global using Yuebon.Core.Dtos;
 global using System.Threading.Tasks;
 global using System.Runtime.Serialization;
+global using Asp.Versioning;
 
 
 

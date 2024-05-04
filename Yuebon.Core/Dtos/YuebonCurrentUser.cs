@@ -1,5 +1,6 @@
 ﻿using Yuebon.Core.Dtos;
 using Yuebon.Commons.Tree;
+using Yuebon.Commons.Enums;
 
 namespace Yuebon.Core.Dtos;
 
@@ -51,6 +52,11 @@ public class YuebonCurrentUser
     public string MemberGradeId { get; set; }
 
     /// <summary>
+    /// 账号类型
+    /// </summary>
+    public UserTypeEnum UserType { get; set; }
+
+    /// <summary>
     /// 上级推广员
     /// </summary>
     public long? ReferralUserId { get; set; }
@@ -61,15 +67,11 @@ public class YuebonCurrentUser
     /// <summary>
     /// 组织主键
     /// </summary>
-    public virtual long OrganizeId { get; set; }
+    public virtual long? OrganizeId { get; set; }
     /// <summary>
-    /// 部门主键
+    /// 角色Id，多个角色Id
     /// </summary>
-    public virtual long? DeptId { get; set; }
-    /// <summary>
-    /// 角色编码，多个角色，使用“,”分格
-    /// </summary>
-    public string Role { get; set; }
+    public List<long> Role { get; set; }
 
 
     /// <summary>

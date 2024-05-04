@@ -1,4 +1,6 @@
-﻿using SqlSugar;
+﻿using NPOI.SS.Formula.Functions;
+using SqlSugar;
+using System.Linq.Expressions;
 using Yuebon.Commons.Pages;
 namespace Yuebon.Core.IRepositories
 {
@@ -438,6 +440,12 @@ namespace Yuebon.Core.IRepositories
         /// <returns>指定对象的集合</returns>
         List<TEntity> FindWithPager(string condition, PagerInfo info);
 
+        /// 根据条件查询数据库,并返回对象集合(用于分页数据显示)
+        /// </summary>
+        /// <param name="whereExpression">查询的条件</param>
+        /// <param name="info">分页实体</param>
+        /// <returns>指定对象的集合</returns>
+        Task<List<TEntity>> FindWithPagerAsync(Expression<Func<TEntity, bool>> whereExpression, PagerInfo info, string fieldToSort, bool desc);
 
         /// <summary>
         /// 根据条件统计数据

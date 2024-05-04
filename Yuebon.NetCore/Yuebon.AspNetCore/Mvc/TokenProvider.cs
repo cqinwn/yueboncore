@@ -79,7 +79,7 @@ public class TokenProvider
                     string appId = jwtToken.Claims.ToList()[0].Value;//Audience
                     string secret = _jwtModel.Secret;
                     YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                    List<APP> list = yuebonCacheHelper.Get<List<APP>>("cacheAppList");
+                    List<APP> list = yuebonCacheHelper.Get<List<APP>>(CacheConst.KeyAppList);
                     if (list==null||list.Count==0)
                     {
                         list = _appService.GetAll().ToList();
@@ -153,7 +153,7 @@ public class TokenProvider
     {
         string secret = _jwtModel.Secret;
         YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-        List<APP> list = yuebonCacheHelper.Get<List<APP>>("cacheAppList");
+        List<APP> list = yuebonCacheHelper.Get<List<APP>>(CacheConst.KeyAppList);
         if (list != null)
         {
             secret = list.Find(o => o.AppId == appid)?.AppSecret;
@@ -169,7 +169,7 @@ public class TokenProvider
                 new Claim(YuebonClaimConst.Issuer,_jwtModel.Issuer),
                 new Claim(YuebonClaimConst.UserName, userInfo.UserName),
                 new Claim(YuebonClaimConst.UserId, userInfo.UserId.ToString()),
-                new Claim(YuebonClaimConst.Role, _roleService.GetRoleEnCode(userInfo.Role)),
+                //new Claim(YuebonClaimConst.Role, _roleService.GetRoleIdsByUserId(userInfo.UserId)),
                 new Claim(YuebonClaimConst.TenantId, userInfo?.TenantId.ToString()),
                 new Claim(YuebonClaimConst.Subject, GrantType.Password)
             }),
@@ -198,7 +198,7 @@ public class TokenProvider
         var tokenHandler = new JwtSecurityTokenHandler();
         string secret = _jwtModel.Secret;
         YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-        List<APP> list = yuebonCacheHelper.Get<List<APP>>("cacheAppList");
+        List<APP> list = yuebonCacheHelper.Get<List<APP>>(CacheConst.KeyAppList);
         if (list != null)
         {
             secret = list.Find(o => o.AppId == appid)?.AppSecret;
@@ -213,7 +213,7 @@ public class TokenProvider
                 new Claim(YuebonClaimConst.Issuer,_jwtModel.Issuer),
                 new Claim(YuebonClaimConst.UserName, userInfo.UserName),
                 new Claim(YuebonClaimConst.UserId, userInfo.UserId.ToString()),
-                new Claim(YuebonClaimConst.Role, _roleService.GetRoleEnCode(userInfo.Role)),
+                //new Claim(YuebonClaimConst.Role, _roleService.GetRoleEnCode(userInfo.Role)),
                 new Claim(YuebonClaimConst.TenantId, userInfo?.TenantId.ToString()),
                 new Claim(YuebonClaimConst.Subject, GrantType.Password)
             }),

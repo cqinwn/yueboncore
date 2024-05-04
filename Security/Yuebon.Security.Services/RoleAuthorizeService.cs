@@ -1,3 +1,5 @@
+using Yuebon.Commons.Enums;
+
 namespace Yuebon.Security.Services;
 
 /// <summary>
@@ -30,9 +32,10 @@ public class RoleAuthorizeService: BaseService<RoleAuthorize, RoleAuthorizeOutpu
     /// <param name="roleIds">角色Id</param>
     /// <param name="itemType"></param>
     /// <returns></returns>
-    public IEnumerable<RoleAuthorize> GetListRoleAuthorizeByRoleId(string roleIds, string itemType)
+    public async Task<List<RoleAuthorize>> GetListRoleAuthorizeByRoleId(List<long> roleIds, List<int> itemTypes)
     {
-        IEnumerable<RoleAuthorize> list = _repository.GetListWhere(string.Format("ItemType in({0}) and ObjectId in ({1}) and ObjectType=1", itemType, roleIds));
+        List<RoleAuthorize> list= await _baseRepository.Db.Queryable<RoleAuthorize>().Where(it=>roleIds.Contains(it.ObjectId)&&it.ObjectType == 1).Where(it=>itemTypes.Contains(it.ItemType)).ToListAsync();
+        //IEnumerable<RoleAuthorize> list = _repository.GetListWhere(string.Format("ItemType in({0}) and ObjectId in ({1}) and ObjectType=1", itemType, roleIds));
         return list;
     }
 
@@ -84,11 +87,15 @@ public class RoleAuthorizeService: BaseService<RoleAuthorize, RoleAuthorizeOutpu
             menuTreeTableOutputDto.IsShow = false;
             if (entity.MenuType == "F")
             {
-                menuTreeTableOutputDto.FunctionTag = 2;
+                menuTreeTableOutputDto.FunctionTag = 3;
+            }
+            else if (entity.MenuType == "C")
+            {
+                menuTreeTableOutputDto.FunctionTag = 1;
             }
             else
             {
-                menuTreeTableOutputDto.FunctionTag = 1;
+                menuTreeTableOutputDto.FunctionTag = 2;
             }
                 menuTreeTableOutputDto.Children = GetSubMenus(data, entity.Id).MapTo<ModuleFunctionOutputDto>();
             list.Add(menuTreeTableOutputDto);
@@ -101,10 +108,10 @@ public class RoleAuthorizeService: BaseService<RoleAuthorize, RoleAuthorizeOutpu
     /// <param name="roleId">角色Id</param>
     /// <param name="roleAuthorizesList">角色功能模块</param>
     /// <param name="roleDataList">角色可访问数据</param>
-    /// <param name="trans"></param>
+    /// <param name="roleDataScope">角色可访问数据范围</param>
     /// <returns>执行成功返回<c>true</c>，否则为<c>false</c>。</returns>
-    public async Task<bool> SaveRoleAuthorize(long roleId,List<RoleAuthorize> roleAuthorizesList, List<RoleData> roleDataList)
+    public async Task<bool> SaveRoleAuthorize(long roleId,List<RoleAuthorize> roleAuthorizesList, List<RoleData> roleDataList, int roleDataScope)
     {
-       return await  _repository.SaveRoleAuthorize(roleId,roleAuthorizesList, roleDataList);
+       return await  _repository.SaveRoleAuthorize(roleId,roleAuthorizesList, roleDataList,  roleDataScope);
     }
 }

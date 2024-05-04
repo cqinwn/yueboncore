@@ -1,6 +1,4 @@
-﻿
-
-namespace Yuebon.WebApi.Controllers;
+﻿namespace Yuebon.WebApi.Controllers;
 
 /// <summary>
 /// 文件上传
@@ -99,7 +97,7 @@ public class FilesController : ApiController
             UploadFile uploadFile = _iService.GetById(id);
 
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            SysSetting sysSetting = yuebonCacheHelper.Get("SysSetting").ToJson().ToObject<SysSetting>();
+            SysSetting sysSetting = yuebonCacheHelper.Get(CacheConst.KeySysSetting).ToJson().ToObject<SysSetting>();
             string localpath = _hostingEnvironment.WebRootPath;
             if (uploadFile != null)
             {
@@ -168,7 +166,6 @@ public class FilesController : ApiController
                 
                 var data = binaryReader.ReadBytes((int)file.Length);
                 UploadFile(fileName, data);
-                ;
                 UploadFile filedb = new UploadFile
                 {
                     Id = IdGeneratorHelper.IdSnowflake(),
@@ -216,7 +213,7 @@ public class FilesController : ApiController
         }
 
         YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-        SysSetting sysSetting = yuebonCacheHelper.Get("SysSetting").ToJson().ToObject<SysSetting>();
+        SysSetting sysSetting = yuebonCacheHelper.Get(CacheConst.KeySysSetting).ToJson().ToObject<SysSetting>();
         string folder = DateTime.Now.ToString("yyyyMMdd");
         _filePath = _hostingEnvironment.WebRootPath;
         var _tempfilepath = sysSetting.Filepath;
@@ -256,12 +253,12 @@ public class FilesController : ApiController
             fs.Write(fileBuffers, 0, fileBuffers.Length);
             fs.Close();
             //生成缩略图
-            if (ext.Contains(".jpg") || ext.Contains(".jpeg") || ext.Contains(".png") || ext.Contains(".bmp") || ext.Contains(".gif"))
-            {
-                string thumbnailName = newName + "_" + sysSetting.Thumbnailwidth + "x" + sysSetting.Thumbnailheight + ext;
-                ImgHelper.MakeThumbnail(uploadPath + newfileName, uploadPath + thumbnailName, sysSetting.Thumbnailwidth.ToInt(), sysSetting.Thumbnailheight.ToInt());
-                _dbThumbnail = _tempfilepath +  thumbnailName;
-            }
+            //if (ext.Contains(".jpg") || ext.Contains(".jpeg") || ext.Contains(".png") || ext.Contains(".bmp") || ext.Contains(".gif"))
+            //{
+            //    string thumbnailName = newName + "_" + sysSetting.Thumbnailwidth + "x" + sysSetting.Thumbnailheight + ext;
+            //    ImgHelper.MakeThumbnail(uploadPath + newfileName, uploadPath + thumbnailName, sysSetting.Thumbnailwidth.ToInt(), sysSetting.Thumbnailheight.ToInt());
+            //    _dbThumbnail = _tempfilepath +  thumbnailName;
+            //}
             _dbFilePath = _tempfilepath + newfileName;
         }
     }

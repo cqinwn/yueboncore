@@ -1,6 +1,4 @@
-﻿using Yuebon.Commons.Attributes;
-
-namespace Yuebon.Security.SeedData;
+﻿namespace Yuebon.Security.SeedData;
 
 /// <summary>
 /// 应用种子数据
@@ -30,12 +28,12 @@ public class AppSeedData:SeedDataEntity
                 Description = "",
                 CreatorTime = DateTime.Now,
                 CreatorUserId = 9165855286886368,
-                CompanyId = 9165855286886469,
-                DeptId = 9165855286886470,
+                CreateOrgId = 9165855286886469,
                 LastModifyTime = null,
                 LastModifyUserId = null,
                 DeleteTime = null,
-                DeleteUserId = null
+                DeleteUserId = null,
+                TenantId=9242772129579077
             },
             new APP
             {
@@ -51,12 +49,12 @@ public class AppSeedData:SeedDataEntity
                 Description = "",
                 CreatorTime = DateTime.Now,
                 CreatorUserId = 9165855286886368,
-                CompanyId = 9165855286886469,
-                DeptId = 9165855286886470,
+                CreateOrgId = 9165855286886469,
                 LastModifyTime = null,
                 LastModifyUserId = null,
                 DeleteTime = null,
-                DeleteUserId = null
+                DeleteUserId = null,
+                TenantId=9242772129579077
             }
         };
     }

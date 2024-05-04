@@ -3,7 +3,7 @@
 /// <summary>
 /// 角色的数据权限，数据实体对象
 /// </summary>
-[SugarTable("Sys_RoleData", "角色的数据权限")]
+[SugarTable("Sys_Role_Data", "角色的数据权限")]
 public class RoleData: TenantEntity
 {
     /// <summary>

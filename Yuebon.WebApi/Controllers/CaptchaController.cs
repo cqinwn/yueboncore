@@ -17,7 +17,7 @@ public class CaptchaController : ApiController
     [HttpGet]
     [AllowAnonymous]
     [NoPermissionRequired]
-    public async Task<CommonResult<AuthGetVerifyCodeOutputDto>> CaptchaAsync()
+    public CommonResult<AuthGetVerifyCodeOutputDto> CaptchaAsync()
     {
         var kvItem = CaptchaHelper.SimpleInput(4, false, true, false, false, false);
         var imgBase64 = kvItem.Key.Image_Base64.Substring(kvItem.Key.Image_Base64.IndexOf(',') + 1);
@@ -25,12 +25,13 @@ public class CaptchaController : ApiController
         YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
         TimeSpan expiresSliding = DateTime.Now.AddMinutes(5) - DateTime.Now;
         long vcodeId = IdGeneratorHelper.IdSnowflake();
-        yuebonCacheHelper.Add("ValidateCode"+ vcodeId.ToString(), kvItem.Value.DataCode.ToUpper(), expiresSliding,false);
+        yuebonCacheHelper.Add(CacheConst.KeyVerCode+ vcodeId.ToString(), kvItem.Value.DataCode, expiresSliding,false);
         AuthGetVerifyCodeOutputDto authGetVerifyCodeOutputDto = new AuthGetVerifyCodeOutputDto();
         authGetVerifyCodeOutputDto.Img = imgBase64;
         authGetVerifyCodeOutputDto.Key = vcodeId.ToString();
         CommonResult<AuthGetVerifyCodeOutputDto> commonResult = new CommonResult<AuthGetVerifyCodeOutputDto>();
         commonResult.ErrCode= ErrCode.successCode;
+        commonResult.Success = true;
         commonResult.ResData = authGetVerifyCodeOutputDto;
         return commonResult;
     }

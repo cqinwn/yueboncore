@@ -22,7 +22,7 @@ public interface IUserService:IService<User, UserOutputDto>
     /// <param name="password">密码（第一次md5加密后）</param>
     /// <param name="userType">用户类型</param>
     /// <returns>验证成功返回用户实体，验证失败返回null|提示消息</returns>
-    Task<Tuple<User, string>> Validate(string userName, string password, UserType userType);
+    Task<Tuple<User, string>> Validate(string userName, string password, UserTypeEnum userType);
 
     /// <summary>
     /// 根据用户账号查询用户信息

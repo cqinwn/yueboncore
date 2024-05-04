@@ -12,6 +12,7 @@ public class SearchUserModel : SearchInputDto<User>
     {
         get; set;
     }
+    public long? CreateOrgId { get; set; }
     /// <summary>
     /// 注册或添加时间 开始
     /// </summary>

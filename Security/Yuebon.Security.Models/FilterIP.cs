@@ -4,19 +4,11 @@
 /// 过滤IP，数据实体对象
 /// </summary>
 
-[SugarTable("Sys_FilterIP","可访问系统IP地址黑白名单")]
+[SugarTable("Sys_Filter_IP","可访问系统IP地址黑白名单")]
 [Serializable]
-public class FilterIP : TenantEntity, ICreationAudited, IModificationAudited, IDeleteAudited
+public class FilterIP : TenantEntity
 {
-    /// <summary>
-    /// 默认构造函数（需要初始化属性的在此处理）
-    /// </summary>
-
-    public FilterIP()
-    {
-
-    }
-
+    
     #region Property Members
 
 
@@ -32,7 +24,7 @@ public class FilterIP : TenantEntity, ICreationAudited, IModificationAudited, ID
     [MaxLength(40)]
     [SugarColumn(ColumnDescription= "开始IP")]
     [Required]
-    public virtual string StartIP { get; set; }
+    public virtual string? StartIP { get; set; }
 
     /// <summary>
     /// 结束IP
@@ -40,7 +32,7 @@ public class FilterIP : TenantEntity, ICreationAudited, IModificationAudited, ID
     [MaxLength(40)]
     [SugarColumn(ColumnDescription= "结束IP")]
     [Required]
-    public virtual string EndIP { get; set; }
+    public virtual string? EndIP { get; set; }
 
     /// <summary>
     /// 排序码
@@ -54,7 +46,7 @@ public class FilterIP : TenantEntity, ICreationAudited, IModificationAudited, ID
     /// </summary>
     [MaxLength(500)]
     [SugarColumn(ColumnDescription= "描述")]
-    public virtual string Description { get; set; }
+    public virtual string? Description { get; set; }
 
     /// <summary>
     /// 删除标志
@@ -73,25 +65,29 @@ public class FilterIP : TenantEntity, ICreationAudited, IModificationAudited, ID
     /// </summary>
     [SugarColumn(ColumnDescription= "创建日期")]
     public virtual DateTime? CreatorTime { get; set; }
-
+    /// <summary>
+    /// 设置或获取 创建者部门Id
+    /// </summary>
+    [SugarColumn(ColumnDescription = "创建者部门Id", IsOnlyIgnoreUpdate = true)]
+    public long? CreateOrgId { get; set; }
     /// <summary>
     /// 创建用户主键
     /// </summary>
     [MaxLength(50)]
-    [SugarColumn(ColumnDescription= "创建用户主键")]
+    [SugarColumn(ColumnDescription= "创建用户主键",IsOnlyIgnoreUpdate =true)]
     public virtual long? CreatorUserId { get; set; }
 
     /// <summary>
     /// 最后修改时间
     /// </summary>
-    [SugarColumn(ColumnDescription= "最后修改时间")]
+    [SugarColumn(ColumnDescription= "最后修改时间",IsOnlyIgnoreInsert=true)]
     public virtual DateTime? LastModifyTime { get; set; }
 
     /// <summary>
     /// 最后修改用户
     /// </summary>
     [MaxLength(50)]
-    [SugarColumn(ColumnDescription= "最后修改用户")]
+    [SugarColumn(ColumnDescription= "最后修改用户",IsOnlyIgnoreInsert =true)]
     public virtual long? LastModifyUserId { get; set; }
 
     /// <summary>

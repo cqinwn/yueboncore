@@ -3,7 +3,7 @@
 /// <summary>
 /// 角色权限表，数据实体对象
 /// </summary>
-[SugarTable("Sys_RoleAuthorize", "角色权限表")]
+[SugarTable("Sys_Role_Authorize", "角色权限表")]
 [Serializable]
 public class RoleAuthorize: TenantEntity, ICreationAudited
 { 
@@ -23,7 +23,7 @@ public class RoleAuthorize: TenantEntity, ICreationAudited
     /// </summary>
     [SugarColumn(ColumnDescription= "项目类型功能标识 0-子系统 1-标识菜单/模块，2标识按钮功能")]
     [Required]
-    public virtual int? ItemType { get; set; }
+    public virtual int ItemType { get; set; }
 
     /// <summary>
     /// 项目主键

@@ -2,6 +2,8 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
+using Asp.Versioning;
+
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Yuebon.WebApi.Controllers;
@@ -147,10 +149,10 @@ public class TokenController : ControllerBase
                 {
                     var claimlist = jwtToken?.Payload.Claims as List<Claim>;
                     YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                    UserInfo userInfo = yuebonCacheHelper.Get<UserInfo>("login_userInfo_" + claimlist[3].Value);
+                    UserInfo userInfo = yuebonCacheHelper.Get<UserInfo>(CacheConst.KeyLoginUserInfo + claimlist[3].Value);
                     TokenResult tokenResult = tokenProvider.LoginToken(userInfo, claimlist[0].Value);
                     TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
-                    yuebonCacheHelper.Replace("login_userInfo_" + claimlist[3].Value, userInfo, expiresSliding,true);
+                    yuebonCacheHelper.Replace(CacheConst.KeyLoginUserInfo + claimlist[3].Value, userInfo, expiresSliding,true);
                     result.ResData = tokenResult;
                     result.ErrCode = "0";
                     result.Success = true;

@@ -1,4 +1,6 @@
-﻿namespace Yuebon.Security.Dtos;
+﻿using Yuebon.Commons.Enums;
+
+namespace Yuebon.Security.Dtos;
 
 /// <summary>
 /// 角色授权输入模型
@@ -24,4 +26,8 @@ public class RoleAuthorizeDataInputDto
     /// 设置角色Id
     /// </summary>
     public long RoleId { get; set; }
+    /// <summary>
+    /// 数据范围
+    /// </summary>
+    public int RoleDataScope {  get; set; }
 }

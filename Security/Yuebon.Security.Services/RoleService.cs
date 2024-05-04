@@ -1,3 +1,5 @@
+using SqlSugar;
+
 namespace Yuebon.Security.Services;
 
 /// <summary>
@@ -6,16 +8,23 @@ namespace Yuebon.Security.Services;
 public class RoleService: BaseService<Role, RoleOutputDto>, IRoleService
 {
     private IOrganizeService _organizeService;
+    private IUserRoleService _userRoleService;
+    private IRoleRepository  _roleRepository;
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="roleRepository"></param>
+    /// <param name="_repository"></param>
     /// <param name="organizeService"></param>
-    public RoleService(IRepository<Role> roleRepository, IOrganizeService organizeService)
+    /// <param name="userRoleService"></param>
+    /// <param name="roleRepository"></param>
+    public RoleService(IRepository<Role> _repository, IOrganizeService organizeService, IUserRoleService userRoleService,IRoleRepository roleRepository)
     {
-        repository=roleRepository;
+        repository = _repository;
+        _roleRepository = roleRepository;
         _organizeService = organizeService;
+        _userRoleService = userRoleService;
     }
+
 
     /// <summary>
     /// 根据角色编码获取角色
@@ -28,6 +37,15 @@ public class RoleService: BaseService<Role, RoleOutputDto>, IRoleService
         return repository.GetWhere(where);
     }
 
+    /// <summary>
+    /// 根据用户ID获取角色编码
+    /// </summary>
+    /// <param name="userId">用户ID</param>
+    /// <returns></returns>
+   public async Task<List<long>> GetRoleIdsByUserId(long userId)
+   {       
+        return  await _roleRepository.GetRoleIdsByUserId(userId);
+   }
 
     /// <summary>
     /// 根据用户角色ID获取角色编码
@@ -76,18 +94,23 @@ public class RoleService: BaseService<Role, RoleOutputDto>, IRoleService
     public override async Task<PageResult<RoleOutputDto>> FindWithPagerAsync(SearchInputDto<Role> search)
     {
         bool order = search.Order == "asc" ? false : true;
-        string where = GetDataPrivilege(false);
-        if (!string.IsNullOrEmpty(search.Keywords))
+        string where = string.Empty;
+        List<long> orgIds = new List<long>();
+        if (search.Filter?.OrganizeId != 0)
         {
-            where += string.Format(" and (FullName like '%{0}%' or EnCode like '%{0}%')", search.Keywords);
-        };
-        where += " and Category=1";
+            orgIds = await _organizeService.GetChildIdListWithSelfById((long)search.Filter.OrganizeId);
+        }
+        var exp= Expressionable.Create<Role>();
+        exp.AndIF(!string.IsNullOrEmpty(search.Keywords), it => it.FullName.Contains(search.Keywords) || it.EnCode.Contains(search.Keywords))
+            .AndIF(orgIds.Count != 0, it => orgIds.Contains((long)it.OrganizeId))
+            .And(it=>it.Category==1);
+
         PagerInfo pagerInfo = new PagerInfo
         {
             CurrenetPageIndex = search.CurrenetPageIndex,
             PageSize = search.PageSize
         };
-        List<Role> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+        List<Role> list = await repository.FindWithPagerAsync(exp.ToExpression(), pagerInfo, search.Sort, order);
         List<RoleOutputDto> resultList = list.MapTo<RoleOutputDto>();
         List<RoleOutputDto> listResult = new List<RoleOutputDto>();
         foreach (RoleOutputDto item in resultList)

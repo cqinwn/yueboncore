@@ -1,4 +1,5 @@
 using Quartz;
+using SqlSugar;
 using Yuebon.Commons.DependencyInjection;
 using Yuebon.Commons.Enums;
 using Yuebon.Commons.Helpers;
@@ -97,21 +98,16 @@ public class TaskManagerService : BaseService<TaskManager, TaskManagerOutputDto>
     public override async Task<PageResult<TaskManagerOutputDto>> FindWithPagerAsync(SearchInputDto<TaskManager> search)
     {
         bool order = search.Order == "asc" ? false : true;
-        string where = GetDataPrivilege();
-        if (!string.IsNullOrEmpty(search.Keywords))
-        {
-            where += string.Format(" and (TaskName like '%{0}%' or  GroupName like '%{0}%')", search.Keywords);
-        };
-        if (!string.IsNullOrEmpty(search.Filter?.Cron))
-        {
-            where += string.Format(" and Cron like '%{0}%' ", search.Filter.Cron);
-        };
+        var expressionWhere = Expressionable.Create<TaskManager>()
+           .AndIF(!string.IsNullOrEmpty(search.Keywords), it => it.TaskName.Contains(search.Keywords)||it.GroupName.Contains(search.Keywords))
+           .AndIF(!string.IsNullOrEmpty(search.Filter?.Cron), it => it.Cron.Contains(search.Filter.Cron))
+           .ToExpression();
         PagerInfo pagerInfo = new PagerInfo
         {
             CurrenetPageIndex = search.CurrenetPageIndex,
             PageSize = search.PageSize
         };
-        List<TaskManager> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+        List<TaskManager> list = await repository.FindWithPagerAsync(expressionWhere, pagerInfo, search.Sort, order);
         PageResult<TaskManagerOutputDto> pageResult = new PageResult<TaskManagerOutputDto>
         {
             CurrentPage = pagerInfo.CurrenetPageIndex,

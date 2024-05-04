@@ -1,5 +1,6 @@
 ﻿using Yuebon.CMS.IServices;
 using Yuebon.Commons.Attributes;
+using Asp.Versioning;
 
 namespace Yuebon.WebApi.Areas.CMS.Controllers.V1;
 
@@ -8,7 +9,7 @@ namespace Yuebon.WebApi.Areas.CMS.Controllers.V1;
 /// </summary>
 [ApiVersion("1.1")]
 [ApiController]
-[SwaggerControllerView("文章", "1.0.1")]
+[SwaggerControllerView("文章", "1.1")]
 public class Articlenews_1_1_Controller : ArticlenewsController
 {
     private IArticlecategoryService articlecategoryService;

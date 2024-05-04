@@ -1,3 +1,5 @@
+using Yuebon.Commons.Linq;
+
 namespace Yuebon.WebApi.Areas.Security.Controllers
 {
     /// <summary>
@@ -68,9 +70,10 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
         public async Task<IActionResult> GetRoleAuthorizeFunction(string roleId, string itemType)
         {
             CommonResult result = new CommonResult();
-            roleId = "'" + roleId + "'";
             List<long> resultlist = new List<long>();
-            IEnumerable<RoleAuthorize> list= iService.GetListRoleAuthorizeByRoleId(roleId, itemType);
+            List<long> roleIds= roleId.Split(',').AsToList().ConvertAll(s=>long.Parse(s));
+            List<int> itemTypes=itemType.Split(",").AsToList().ConvertAll(s=>int.Parse(s));
+            IEnumerable<RoleAuthorize> list=await iService.GetListRoleAuthorizeByRoleId(roleIds, itemTypes);
             foreach(RoleAuthorize info in list)
             {
                 resultlist.Add(info.ItemId);
@@ -93,10 +96,12 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
             CommonResult result = new CommonResult();
             try
             {                
+                //角色访问菜单和功能
                 List<RoleAuthorize> inList = new List<RoleAuthorize>();
-                foreach (long item in roleinfo.RoleFunctios)
+                List<Menu> menuList = await menuService.GetMenusByIds(roleinfo.RoleFunctios.AsToList());
+                foreach (var menu in menuList)
                 {
-                    Menu menu = menuService.GetById(item);
+                   // Menu menu = menuService.GetById(item);
                     if (menu != null)
                     {
                         RoleAuthorize info = new RoleAuthorize();
@@ -104,11 +109,12 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                         info.ItemType = (menu.MenuType == "C" || menu.MenuType == "M") ? 1 : 2;
                         info.ObjectType = 1;
                         info.ItemId = menu.Id;
+                        info.TenantId = Appsettings.User.TenantId;
                         OnBeforeInsert(info);
                         inList.Add(info);
                     }
                 }
-
+                //角色访问数据
                 List<RoleData> roleDataList = new List<RoleData>();
                 foreach (long item in roleinfo.RoleData)
                 {
@@ -116,8 +122,10 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                     info.RoleId = roleinfo.RoleId;
                     info.AuthorizeData = item;
                     info.DType = "dept";
+                    info.TenantId = Appsettings.User.TenantId;
                     roleDataList.Add(info);
                 }
+                //角色访问系统
                 foreach (long item in roleinfo.RoleSystem)
                 {
                     RoleAuthorize info = new RoleAuthorize();
@@ -125,10 +133,11 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                     info.ItemType = 0;
                     info.ObjectType = 1;
                     info.ItemId = item;
+                    info.TenantId = Appsettings.User.TenantId;
                     OnBeforeInsert(info);
                     inList.Add(info);
                 }
-                result.Success = await iService.SaveRoleAuthorize(roleinfo.RoleId,inList, roleDataList);
+                result.Success = await iService.SaveRoleAuthorize(roleinfo.RoleId,inList, roleDataList,roleinfo.RoleDataScope);
                 if (result.Success)
                 {
                     result.ErrCode = ErrCode.successCode;
@@ -180,31 +189,6 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 result.ErrMsg = ErrCode.err40110;
                 result.ErrCode = "40110";
             }
-            return ToJsonContent(result);
-        }
-        /// <summary>
-        /// 获取功能菜单适用于Vue 树形列表
-        /// </summary>
-        /// <param name="systemTypeId">子系统Id</param>
-        /// <returns></returns>
-        [HttpGet("GetAllFunctionTreeTable")]
-        [YuebonAuthorize("List")]
-        public async Task<IActionResult> GetAllFunctionTreeTable(long systemTypeId)
-        {
-            CommonResult result = new CommonResult();
-            //try
-            //{
-            //    List<FunctionTreeTableOutputDto> list = await menuService.GetAllFunctionTreeTable(systemTypeId);
-            //    result.Success = true;
-            //    result.ErrCode = ErrCode.successCode;
-            //    result.ResData = list;
-            //}
-            //catch (Exception ex)
-            //{
-            //    Log4NetHelper.Error("获取菜单异常", ex);
-            //    result.ErrMsg = ErrCode.err40110;
-            //    result.ErrCode = "40110";
-            //}
             return ToJsonContent(result);
         }
     }

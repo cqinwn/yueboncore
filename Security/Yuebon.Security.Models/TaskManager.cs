@@ -3,48 +3,41 @@ namespace Yuebon.Security.Models;
 /// <summary>
 /// 定时任务，数据实体对象
 /// </summary>
-[SugarTable("Sys_TaskManager", "定时任务")]
+[SugarTable("Sys_Task_Manager", "定时任务")]
 [Serializable]
-public class TaskManager: BaseEntity, ICreationAudited, IModificationAudited, IDeleteAudited
-{
-    /// <summary>
-    /// 构造函数
-    /// </summary>
-    public TaskManager()
-    {
-    }
-
+public class TaskManager: TenantEntity, ICreationAudited, IModificationAudited, IDeleteAudited, IOrgIdFilter
+{  
     /// <summary>
     /// 设置或获取任务编号
     /// </summary>
     [MaxLength(50)]
     [SugarColumn(ColumnDescription = "任务编号")]
-    public string TaskCode{ get; set; }
+    public string? TaskCode{ get; set; }
     /// <summary>
     /// 设置或获取任务名称
     /// </summary>
     [MaxLength(50)]
     [SugarColumn(ColumnDescription="任务名称")]
-    public string TaskName { get; set; }
+    public string? TaskName { get; set; }
 
     /// <summary>
     /// 设置或获取任务分组
     /// </summary>
     [MaxLength(50)]
     [SugarColumn(ColumnDescription="任务分组")]
-    public string GroupName { get; set; }
+    public string? GroupName { get; set; }
 
     /// <summary>
     /// 任务所在DLL对应的程序集名称
     /// </summary>
     [SugarColumn(Length = 200, IsNullable = true)]
-    public string AssemblyName { get; set; }
+    public string? AssemblyName { get; set; }
 
     /// <summary>
     /// 任务所在类
     /// </summary>
     [SugarColumn(Length = 200, IsNullable = true)]
-    public string ClassName { get; set; }
+    public string? ClassName { get; set; }
     /// <summary>
     /// 设置或获取结束时间
     /// </summary>
@@ -60,7 +53,7 @@ public class TaskManager: BaseEntity, ICreationAudited, IModificationAudited, ID
     /// </summary>
     [MaxLength(100)]
     [SugarColumn(ColumnDescription="CRON表达式")]
-    public string Cron { get; set; }
+    public string? Cron { get; set; }
 
     /// <summary>
     /// 设置或获取是否是本地任务1：本地任务；0：外部接口任务
@@ -73,14 +66,14 @@ public class TaskManager: BaseEntity, ICreationAudited, IModificationAudited, ID
     /// </summary>
     [MaxLength(250)]
     [SugarColumn(ColumnDescription="远程调用接口url")]
-    public string JobCallAddress { get; set; }
+    public string? JobCallAddress { get; set; }
 
     /// <summary>
     /// 设置或获取任务参数，JSON格式
     /// </summary>
     [MaxLength(2000)]
     [SugarColumn(ColumnDescription="任务参数，JSON格式")]
-    public string JobCallParams { get; set; }
+    public string? JobCallParams { get; set; }
 
     /// <summary>
     /// 设置或获取最后一次执行时间
@@ -133,34 +126,15 @@ public class TaskManager: BaseEntity, ICreationAudited, IModificationAudited, ID
     /// </summary>
     [MaxLength(200)]
     [SugarColumn(ColumnDescription="接受邮件地址")]
-    public string EmailAddress { get; set; }
+    public string? EmailAddress { get; set; }
 
     /// <summary>
     /// 设置或获取 描述
     /// </summary>
     [MaxLength(500)]
     [SugarColumn(ColumnDescription="描述",Length =2000)]
-    public virtual string Description { get; set; }
+    public virtual string? Description { get; set; }
 
-    /// <summary>
-    /// 设置或获取创建人组织
-    /// </summary>
-    [MaxLength(50)]
-    [SugarColumn(ColumnDescription="创建人公司ID")]
-    public long? CompanyId { get; set; }
-
-    /// <summary>
-    /// 设置或获取创建人部门ID
-    /// </summary>
-    [MaxLength(50)]
-    [SugarColumn(ColumnDescription="创建人部门ID")]
-    public long? DeptId { get; set; }
-
-    /// <summary>
-    /// 设置或获取删除标志
-    /// </summary>
-    [SugarColumn(ColumnDescription="删除标志")]
-    public virtual bool? DeleteMark { get; set; }
 
     /// <summary>
     /// 设置或获取有效标志
@@ -169,43 +143,48 @@ public class TaskManager: BaseEntity, ICreationAudited, IModificationAudited, ID
     public virtual bool? EnabledMark { get; set; }
 
     /// <summary>
-    /// 设置或获取创建日期
+    /// 创建日期
     /// </summary>
-    [SugarColumn(ColumnDescription="创建日期")]
+    [SugarColumn(ColumnDescription = "创建日期")]
     public virtual DateTime? CreatorTime { get; set; }
 
     /// <summary>
-    /// 设置或获取创建用户主键
+    /// 创建用户主键
     /// </summary>
-    [MaxLength(50)]
-    [SugarColumn(ColumnDescription="创建用户主键")]
+    [SugarColumn(ColumnDescription = "创建用户主键")]
     public virtual long? CreatorUserId { get; set; }
 
     /// <summary>
-    /// 设置或获取最后修改时间
+    /// 设置或获取 创建者部门Id
     /// </summary>
-    [SugarColumn(ColumnDescription="最后修改时间")]
+    [SugarColumn(ColumnDescription = "创建者部门Id", IsOnlyIgnoreUpdate = true)]
+    public virtual long? CreateOrgId { get; set; }
+    /// <summary>
+    /// 最后修改时间
+    /// </summary>
+    [SugarColumn(ColumnDescription = "最后修改时间")]
     public virtual DateTime? LastModifyTime { get; set; }
 
     /// <summary>
-    /// 设置或获取最后修改用户
+    /// 最后修改用户
     /// </summary>
-    [MaxLength(50)]
-    [SugarColumn(ColumnDescription="最后修改用户")]
+    [SugarColumn(ColumnDescription = "最后修改用户")]
     public virtual long? LastModifyUserId { get; set; }
 
     /// <summary>
-    ///设置或获取 删除时间
+    /// 删除标志
     /// </summary>
-    [SugarColumn(ColumnDescription="删除时间")]
+    [SugarColumn(ColumnDescription = "删除标志")]
+    public virtual bool? DeleteMark { get; set; }
+    /// <summary>
+    /// 删除时间
+    /// </summary>
+    [SugarColumn(ColumnDescription = "删除时间")]
     public virtual DateTime? DeleteTime { get; set; }
 
     /// <summary>
-    /// 设置或获取删除用户
+    /// 删除用户
     /// </summary>
-    [MaxLength(50)]
-    [SugarColumn(ColumnDescription="删除用户")]
+    [SugarColumn(ColumnDescription = "删除用户")]
     public virtual long? DeleteUserId { get; set; }
-
-
 }

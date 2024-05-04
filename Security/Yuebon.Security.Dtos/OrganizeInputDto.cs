@@ -38,7 +38,12 @@ public class OrganizeInputDto: IInputDto
     public string? ShortName { get; set; }
 
     /// <summary>
-    /// 设置或获取 
+    /// 组织类型
+    /// </summary>
+    public  string? OrgType { get; set; }
+
+    /// <summary>
+    /// 设置或获取 组织分类
     /// </summary>
     public string? CategoryId { get; set; }
 

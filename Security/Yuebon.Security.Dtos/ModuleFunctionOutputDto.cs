@@ -17,7 +17,7 @@ public class ModuleFunctionOutputDto
     public string FullName { get; set; }
 
     /// <summary>
-    /// 设置或获取  功能标识 0-子系统 1-标识菜单/模块，2标识按钮功能
+    /// 设置或获取  功能标识 0-子系统,1标识模块, 2-标识菜单，3标识按钮功能
     /// </summary>
     public int FunctionTag { get; set; }
     /// <summary>

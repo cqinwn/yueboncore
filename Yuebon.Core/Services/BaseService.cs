@@ -1,15 +1,12 @@
-﻿using System.Security.Claims;
-using System.Text.Json;
-using Yuebon.Commons.Cache;
-using Yuebon.Core.Dtos;
-using Yuebon.Commons.Extensions;
-using Yuebon.Commons.Helpers;
-using Yuebon.Core.IRepositories;
-using Yuebon.Core.IServices;
-using Yuebon.Commons.Json;
+﻿using SqlSugar;
+using System.Data;
+using System.Linq.Expressions;
 using Yuebon.Commons.Mapping;
 using Yuebon.Commons.Pages;
-using Yuebon.Commons;
+using Yuebon.Core.Dtos;
+using Yuebon.Core.IRepositories;
+using Yuebon.Core.IServices;
+using Yuebon.Core.Repositories;
 
 namespace Yuebon.Core.Services
 {
@@ -27,7 +24,7 @@ namespace Yuebon.Core.Services
         /// </summary>
         public IRepository<T> repository { get; set; }
 
-       
+        public BaseRepository<T> _baseRepository { get; set; }
         /// <summary>
         /// 同步物理删除实体。
         /// </summary>
@@ -638,12 +635,12 @@ namespace Yuebon.Core.Services
         public virtual PageResult<TODto> FindWithPager(SearchInputDto<T> search)
         {
             bool order = search.Order == "asc" ? false : true;
-            string where = GetDataPrivilege();
             PagerInfo pagerInfo = new PagerInfo
             {
                 CurrenetPageIndex = search.CurrenetPageIndex,
                 PageSize = search.PageSize
             };
+            string where = string.Empty;
             List<T> list = repository.FindWithPager(where, pagerInfo, search.Sort, order);
             PageResult<TODto> pageResult = new PageResult<TODto>
             {
@@ -665,12 +662,12 @@ namespace Yuebon.Core.Services
         public virtual async Task<PageResult<TODto>> FindWithPagerAsync(SearchInputDto<T> search)
         {
             bool order = search.Order == "asc" ? false : true;
-            string where = GetDataPrivilege();
             PagerInfo pagerInfo = new PagerInfo
             {
                 CurrenetPageIndex = search.CurrenetPageIndex,
                 PageSize = search.PageSize
             };
+            string where =string.Empty;
             List<T> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
             PageResult<TODto> pageResult = new PageResult<TODto>
             {
@@ -786,46 +783,9 @@ namespace Yuebon.Core.Services
         {
             return repository.ExecuteTransaction(trans, commandTimeout);
         }
-        /// <summary>
-        /// 获取当前登录用户的数据访问权限
-        /// </summary>
-        /// <param name="blDeptCondition">是否开启，默认开启</param>
-        /// <returns></returns>
-        protected virtual string GetDataPrivilege(bool blDeptCondition = true)
-        {
-            string where = "1=1";
-            //开权限数据过滤
-            if (blDeptCondition)
-            {
-                var identities = HttpContextHelper.HttpContext.User.Identities;
-                var claimsIdentity = identities.First<ClaimsIdentity>();
-                List<Claim> claimlist = claimsIdentity.Claims as List<Claim>;
-                YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                if (claimlist[1].Value != "admin")
-                {
-                    //如果公司过滤条件不为空，那么需要进行过滤
-                    List<String> list = JsonSerializer.Deserialize<List<String>>(yuebonCacheHelper.Get("User_RoleData_" + claimlist[0].Value).ToJson());
-                    if (list.Count > 0)
-                    {
-                        string DataFilterCondition = String.Join(",", list.ToArray());
-                        if (!string.IsNullOrEmpty(DataFilterCondition))
-                        {
-                            where += string.Format(" and (DeptId in ('{0}') or CreatorUserId='{1}')", DataFilterCondition.Replace(",", "','"), claimlist[0].Value);
-                        }
-                    }
-                    else
-                    {
-                        where += string.Format(" and CreatorUserId='{0}'",  claimlist[0].Value);
-                    }
-                    bool isMultiTenant = Configs.GetConfigurationValue("AppSetting", "IsMultiTenant").ToBool();
-                    if (isMultiTenant)
-                    {
-                        where += string.Format(" and TenantId='{0}'", claimlist[3].Value);
-                    }
-                }
-            }
-            return where;
-        }
+
+        
+
         #region IDisposable Support
         private bool disposedValue = false; // 要检测冗余调用
         /// <summary>

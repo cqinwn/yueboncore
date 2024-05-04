@@ -39,13 +39,17 @@ public class OrganizeOutputDto
     /// 设置或获取 
     /// </summary>
     [MaxLength(50)]
-    public string ShortName { get; set; }
+    public string? ShortName { get; set; }
+    /// <summary>
+    /// 组织类型
+    /// </summary>
+    public string? OrgType { get; set; }
 
     /// <summary>
     /// 设置或获取 
     /// </summary>
     [MaxLength(50)]
-    public string CategoryId { get; set; }
+    public string? CategoryId { get; set; }
 
     /// <summary>
     /// 设置或获取 

@@ -1,17 +1,6 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
-using System;
-using System.Threading.Tasks;
-using Yuebon.AspNetCore.Controllers;
-using Yuebon.AspNetCore.Models;
-using Yuebon.AspNetCore.Mvc;
 using Yuebon.CMS.Dtos;
 using Yuebon.CMS.IServices;
 using Yuebon.CMS.Models;
-using Yuebon.Commons.Attributes;
-using Yuebon.Commons.Helpers;
-using Yuebon.Commons.Models;
 
 namespace Yuebon.WebApi.Areas.CMS.Controllers.V2;
 
@@ -44,8 +33,6 @@ public class ArticlenewsController : AreaApiController<Articlenews, ArticlenewsO
         info.CategoryName = articlecategoryService.GetById(info.CategoryId).Title;
         info.CreatorTime = DateTime.Now;
         info.CreatorUserId = CurrentUser.UserId;
-        info.CompanyId = CurrentUser.OrganizeId;
-        info.DeptId = CurrentUser.DeptId;
         info.DeleteMark = false;
         if (info.SortCode == null)
         {

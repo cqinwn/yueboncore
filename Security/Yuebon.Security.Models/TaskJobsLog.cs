@@ -3,7 +3,7 @@ namespace Yuebon.Security.Models
     /// <summary>
     /// 定时任务执行日志，数据实体对象
     /// </summary>
-    [SugarTable("Sys_TaskJobsLog", "定时任务执行日志")]
+    [SugarTable("Sys_Task_Jobs_Log", "定时任务执行日志")]
     [Serializable]
     public class TaskJobsLog:BaseEntity
     {

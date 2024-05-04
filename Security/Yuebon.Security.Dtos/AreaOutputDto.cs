@@ -24,33 +24,78 @@ public class AreaOutputDto
     public int? Layers { get; set; }
 
     /// <summary>
-    /// 设置或获取 
+    /// 行政区划级别
+    /// country:国家
+    /// province:省份（直辖市会在province显示）
+    /// city:市（直辖市会在province显示）
+    /// district:区县
+    /// street:街道
+    /// </summary>
+    public virtual string Level { get; set; }
+    /// <summary>
+    /// 编码
     /// </summary>
     [MaxLength(50)]
-    public string EnCode { get; set; }
+    public virtual string EnCode { get; set; }
 
     /// <summary>
-    /// 设置或获取 
+    /// 名称
     /// </summary>
-    [MaxLength(400)]
-    public string FullName { get; set; }
-
+    [MaxLength(100)]
+    public virtual string FullName { get; set; }
     /// <summary>
-    /// 设置或获取 
+    /// 拼音
     /// </summary>
     [MaxLength(200)]
-    public string SimpleSpelling { get; set; }
+    public virtual string Pinyin { get; set; }
 
     /// <summary>
-    /// 设置或获取 
+    /// 简拼
+    /// </summary>
+    [MaxLength(200)]
+    public virtual string SimpleSpelling { get; set; }
+
+    /// <summary>
+    /// 父级路径
     /// </summary>
     [MaxLength(600)]
-    public string FullIdPath { get; set; }
+    public virtual string FullIdPath { get; set; }
 
     /// <summary>
-    /// 设置或获取 
+    /// 区号
     /// </summary>
-    public bool? IsLast { get; set; }
+    [MaxLength(50)]
+    public virtual string AreaCode { get; set; }
+
+    /// <summary>
+    /// 邮编
+    /// </summary>
+    [MaxLength(50)]
+    public virtual string ZipCode { get; set; }
+
+    /// <summary>
+    /// 省份
+    /// </summary>
+    [MaxLength(100)]
+    public virtual string Province { get; set; }
+
+    /// <summary>
+    /// 城市
+    /// </summary>
+    [MaxLength(100)]
+    public virtual string City { get; set; }
+
+    /// <summary>
+    /// 县区
+    /// </summary>
+    [MaxLength(100)]
+    public virtual string District { get; set; }
+
+    /// <summary>
+    /// 乡镇
+    /// </summary>
+    [MaxLength(100)]
+    public virtual string Town { get; set; }
 
     /// <summary>
     /// 设置或获取 
@@ -105,6 +150,9 @@ public class AreaOutputDto
     /// </summary>
     [MaxLength(50)]
     public long DeleteUserId { get; set; }
+
+
+    public List<Area> Child { get; set; }
 
 
 }

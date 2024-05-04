@@ -1,4 +1,6 @@
-﻿namespace Yuebon.Security.Services;
+﻿using SqlSugar;
+
+namespace Yuebon.Security.Services;
 
 public class LoginLogService : BaseService<LoginLog, LoginLogOutputDto>, ILoginLogService
 {
@@ -16,29 +18,19 @@ public class LoginLogService : BaseService<LoginLog, LoginLogOutputDto>, ILoginL
     public async Task<PageResult<LoginLogOutputDto>> FindWithPagerSearchAsync(SearchLoginLogModel search)
     {
         bool order = search.Order == "asc" ? false : true;
-        string where = GetDataPrivilege(false);
-        if (!string.IsNullOrEmpty(search.CreatorTime1))
-        {
-            where += " and CreatorTime >='" + search.CreatorTime1.ToDateTime() + "'";
-        }
-        if (!string.IsNullOrEmpty(search.CreatorTime2))
-        {
-            where += " and CreatorTime <='" + search.CreatorTime2.ToDateTime() + "'";
-        }
-        if (!string.IsNullOrEmpty(search.Filter.IPAddress))
-        {
-            where += string.Format(" and IPAddress = '{0}'", search.Filter.IPAddress);
-        };
-        if (!string.IsNullOrEmpty(search.Filter.Account))
-        {
-            where += string.Format(" and Account = '{0}'", search.Filter.Account);
-        };
+
+        var expressionWhere = Expressionable.Create<LoginLog>()
+           .AndIF(!string.IsNullOrEmpty(search.CreatorTime1.ToString()), it => it.CreatorTime>= search.CreatorTime1)
+           .AndIF(!string.IsNullOrEmpty(search.CreatorTime2.ToString()), it => it.CreatorTime <= search.CreatorTime2)
+           .AndIF(!string.IsNullOrEmpty(search.Filter.Account), it => it.Account.Contains(search.Filter.Account))
+           .AndIF(!string.IsNullOrEmpty(search.Filter.IPAddress), it => it.IPAddress.Contains(search.Filter.IPAddress))
+           .ToExpression();
         PagerInfo pagerInfo = new PagerInfo
         {
             CurrenetPageIndex = search.CurrenetPageIndex,
             PageSize = search.PageSize
         };
-        List<LoginLog> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+        List<LoginLog> list = await repository.FindWithPagerAsync(expressionWhere, pagerInfo, search.Sort, order);
         PageResult<LoginLogOutputDto> pageResult = new PageResult<LoginLogOutputDto>
         {
             CurrentPage = pagerInfo.CurrenetPageIndex,

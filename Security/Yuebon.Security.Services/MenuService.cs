@@ -14,24 +14,23 @@ public class MenuService: BaseService<Menu, MenuOutputDto>, IMenuService
     private readonly IUserRepository userRepository;
     private readonly ISystemTypeRepository systemTypeRepository;
     private readonly IRoleAuthorizeRepository roleAuthorizeRepository;
-    private readonly ILogService _logService;
-
+    private readonly IRoleRepository _roleRepository;
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="repository"></param>
+    /// <param name="menuRepository"></param>
     /// <param name="_userRepository"></param>
     /// <param name="_roleAuthorizeRepository"></param>
     /// <param name="_systemTypeRepository"></param>
-    /// <param name="logService"></param>
-    public MenuService(IMenuRepository menuRepository,IUserRepository _userRepository, IRoleAuthorizeRepository _roleAuthorizeRepository, ISystemTypeRepository _systemTypeRepository, ILogService logService)
+    /// <param name="roleRepository"></param>
+    public MenuService(IMenuRepository menuRepository,IUserRepository _userRepository, IRoleAuthorizeRepository _roleAuthorizeRepository, ISystemTypeRepository _systemTypeRepository, IRoleRepository roleRepository)
     {
         repository=menuRepository;
         _MenuRepository = menuRepository;
         userRepository = _userRepository;
         roleAuthorizeRepository = _roleAuthorizeRepository;
         systemTypeRepository = _systemTypeRepository;
-        _logService = logService;
+        _roleRepository= roleRepository;
     }
 
     /// <summary>
@@ -150,7 +149,7 @@ public class MenuService: BaseService<Menu, MenuOutputDto>, IMenuService
     /// <param name="typeID">系统类型ID</param>
     /// <param name="isMenu">是否是菜单</param>
     /// <returns></returns>
-    public List<Menu> GetFunctions(string roleIds, long typeID,bool isMenu=false)
+    public List<Menu> GetFunctions(List<long> roleIds, long typeID,bool isMenu=false)
     {
         return _MenuRepository.GetFunctions(roleIds, typeID, isMenu).ToList();
     }
@@ -265,15 +264,14 @@ public class MenuService: BaseService<Menu, MenuOutputDto>, IMenuService
     /// <param name="userID">用户ID</param>
     /// <param name="typeID">系统类别ID</param>
     /// <returns></returns>
-    public List<UserVisitMenus> GetFunctionsByUser(long userID, long typeID)
+    public async Task<List<UserVisitMenus>> GetFunctionsByUser(long userId, long typeID)
     {
-        string where = string.Format("");
-        string roleId = userRepository.GetById(userID).RoleId;
+       
+        List<long> roleIds =await _roleRepository.GetRoleIdsByUserId(userId);
         List<UserVisitMenus> functions = new List<UserVisitMenus>();
-        string roleIDsStr = string.Format("'{0}'", roleId.Replace(",", "','"));
-        if (roleIDsStr != "")
+        if (roleIds.Count != 0)
         {
-            functions = GetFunctions(roleIDsStr, typeID).ToList().MapTo<UserVisitMenus>();
+            functions = GetFunctions(roleIds, typeID).ToList().MapTo<UserVisitMenus>();
         }
         return functions;
     }
@@ -284,7 +282,7 @@ public class MenuService: BaseService<Menu, MenuOutputDto>, IMenuService
     /// <param name="roleIds">角色ID</param>
     /// <param name="systemCode">系统类型代码子系统代码</param>
     /// <returns></returns>
-    public List<VueRouterModel> GetVueRouter(string roleIds, string systemCode)
+    public List<VueRouterModel> GetVueRouter(List<long> roleIds, string systemCode)
     {
         List<VueRouterModel> list = new List<VueRouterModel>();
         try
@@ -472,19 +470,28 @@ public class MenuService: BaseService<Menu, MenuOutputDto>, IMenuService
     /// <param name="roleIds">用户角色ID</param>
     /// <param name="systemId">系统类型ID/子系统ID</param>
     /// <returns></returns>
-    private List<Menu> GetMenusByRole(string roleIds, long systemId)
+    private List<Menu> GetMenusByRole(List<long> roleIds, long systemId)
     {
         List<Menu> menuListResult = new List<Menu>();
-        if (roleIds == "")
+        if (roleIds == null)
         {
-            menuListResult = GetFunctions("", systemId, true);
+            menuListResult = GetFunctions(null, systemId, true);
         }
         else
         {
-            string roleIDsStr = string.Format("'{0}'", roleIds.Replace(",", "','"));
-            menuListResult = GetFunctions(roleIDsStr, systemId, true);
+            menuListResult = GetFunctions(roleIds, systemId, true);
         }
         return menuListResult;
     }
 
+
+    /// <summary>
+    /// 根据功能菜单Id集合查询
+    /// </summary>
+    /// <param name="ids">Id集合</param>
+    /// <returns></returns>
+    public async Task<List<Menu>> GetMenusByIds(List<long> ids)
+    {
+        return await _baseRepository.Db.Queryable<Menu>().Where(m => ids.Contains(m.Id)).ToListAsync();
+    }
 }

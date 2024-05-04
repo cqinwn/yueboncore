@@ -42,8 +42,6 @@ namespace Yuebon.SecurityApi.Areas.Tenants.Controllers
             info.Id = IdGeneratorHelper.IdSnowflake();
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = CurrentUser.UserId;
-            info.CompanyId = CurrentUser.OrganizeId;
-            info.DeptId = CurrentUser.DeptId;
             info.DeleteMark = false;
         }
         
@@ -122,7 +120,7 @@ namespace Yuebon.SecurityApi.Areas.Tenants.Controllers
         {
             CommonResult result = new CommonResult();
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            var vCode = yuebonCacheHelper.Get("ValidateCode" + tinfo.VerifyCodeKey);
+            var vCode = yuebonCacheHelper.Get(CacheConst.KeyVerCode + tinfo.VerifyCodeKey);
             string code = vCode != null ? vCode.ToString() : "";
             if (code != tinfo.VerificationCode.ToUpper())
             {
@@ -158,7 +156,7 @@ namespace Yuebon.SecurityApi.Areas.Tenants.Controllers
             result.Success = await iService.RegisterAsync(registerTenant);
             if (result.Success)
             {
-                yuebonCacheHelper.Remove("ValidateCode");
+                yuebonCacheHelper.Remove(CacheConst.KeyVerCode);
                 result.ErrCode = ErrCode.successCode;
                 result.ErrMsg = ErrCode.err0;
             }
@@ -252,14 +250,14 @@ namespace Yuebon.SecurityApi.Areas.Tenants.Controllers
         /// <returns>返回用户User对象</returns>
         [HttpGet("GetCheckUser")]
         [NoPermissionRequired]
-        public async Task<IActionResult> GetCheckUser(string username, string password, string vcode, string vkey, string appId, string systemCode)
+        public IActionResult GetCheckUser(string username, string password, string vcode, string vkey, string appId, string systemCode)
         {
 
             CommonResult result = new CommonResult();
             //RemoteIpParser remoteIpParser = new RemoteIpParser();
             //string strIp = remoteIpParser.GetClientIp(HttpContext).MapToIPv4().ToString();
             //YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            //var vCode = yuebonCacheHelper.Get("ValidateCode" + vkey);
+            //var vCode = yuebonCacheHelper.Get(CacheConst.KeyVerCode + vkey);
             //string code = vCode != null ? vCode.ToString() : "11";
             //if (vcode.ToUpper() != code)
             //{

@@ -70,7 +70,7 @@ public class SecurityProfile : Profile
             .ForMember(e => e.UserId, s => s.MapFrom(o => o.Id))
             .ForMember(e => e.UserName, s => s.MapFrom(o => o.Account))
             .ForMember(e => e.RealName, s => s.MapFrom(o => o.RealName))
-            .ForMember(e => e.OrgId, s => s.MapFrom(o => o.OrganizeId))
+            .ForMember(e => e.CreateOrgId, s => s.MapFrom(o => o.CreateOrgId))
             .ForMember(e => e.Role, s => s.MapFrom(o => o.RoleId));
         CreateMap<Log, LogOutputDto>();
         CreateMap<LoginLog, LoginLogOutputDto>();
@@ -111,6 +111,11 @@ public class SecurityProfile : Profile
             .ForMember(s => s.Color, s => s.MapFrom(o => (o.Status ? "#e4e7ed" : "#ff0000")));
 
 
+        CreateMap<ParameterConfigurations, ParameterConfigurationsOutputDto>();
+        CreateMap<ParameterConfigurationsInputDto, ParameterConfigurations>();
+
+        CreateMap<UserRole, UserRoleOutputDto>();
+        CreateMap<UserRoleInputDto, UserRole>();
 
     }
 }

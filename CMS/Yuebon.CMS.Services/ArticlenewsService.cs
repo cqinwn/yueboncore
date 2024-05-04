@@ -1,3 +1,5 @@
+using SqlSugar;
+
 namespace Yuebon.CMS.Services
 {
     /// <summary>
@@ -22,17 +24,15 @@ namespace Yuebon.CMS.Services
         public override async Task<PageResult<ArticlenewsOutputDto>> FindWithPagerAsync(SearchInputDto<Articlenews> search)
         {
             bool order = search.Order == "asc" ? false : true;
-            string where = GetDataPrivilege();
-            if (search.Keywords is { Length: > 0 })
-            {
-                where += string.Format(" and  Title like '%{0}%'", search.Keywords);
-            };
+            var expressionWhere = Expressionable.Create<Articlenews>()
+               .AndIF(!string.IsNullOrEmpty(search.Keywords), it => it.Title.Contains(search.Keywords))
+               .ToExpression();
             PagerInfo pagerInfo = new PagerInfo
             {
                 CurrenetPageIndex = search.CurrenetPageIndex,
                 PageSize = search.PageSize
             };
-            List<Articlenews> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+            List<Articlenews> list = await repository.FindWithPagerAsync(expressionWhere, pagerInfo, search.Sort, order);
             PageResult<ArticlenewsOutputDto> pageResult = new PageResult<ArticlenewsOutputDto>
             {
                 CurrentPage = pagerInfo.CurrenetPageIndex,

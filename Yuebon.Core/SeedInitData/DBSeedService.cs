@@ -117,7 +117,7 @@ namespace Yuebon.Core.SeedInitData
                                 else //没有主键或者不是预定义的主键(没主键有重复的可能)
                                 {
                                     if (!Db.Queryable(entityInfo.DbTableName, entityInfo.DbTableName).Any())
-                                        Db.StorageableByObject(list).ToStorage().ExecuteCommand();
+                                        Db.StorageableByObject(list).ExecuteCommand();
                                 }
                                 Console.WriteLine($"Table:{entityInfo.DbTableName} Data Init success!");
                             }

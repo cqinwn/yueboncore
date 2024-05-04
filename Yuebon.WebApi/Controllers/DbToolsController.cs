@@ -19,7 +19,7 @@ public class DbToolsController : ApiController
     /// <returns></returns>
     [HttpPost("ConnStrEncrypt")]
     [YuebonAuthorize("ConnStrEncrypt")]
-    public async Task<IActionResult> ConnStrEncrypt([FromQuery]DbConnInfo dbConnInfo)
+    public IActionResult ConnStrEncrypt([FromQuery]DbConnInfo dbConnInfo)
     {
         CommonResult result = new CommonResult();
         DBConnResult dBConnResult = new DBConnResult();

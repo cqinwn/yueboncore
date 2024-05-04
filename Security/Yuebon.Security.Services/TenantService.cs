@@ -81,7 +81,7 @@ public class TenantService: BaseService<Tenant,TenantOutputDto>, ITenantService
             await DBSeedService.SeedTenantAsync(new List<string> { "Yuebon.Security.Models.dll", "Yuebon.Security.SeedData.dll" }, config);
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
             IEnumerable<Tenant> templist = trepository.GetAllByIsEnabledMark();
-            yuebonCacheHelper.Add("cacheTenants", templist);
+            yuebonCacheHelper.Add(CacheConst.KeyTenants, templist);
         }
         else if(entity.Schema==Commons.Enums.TenantSchemaEnum.ShareSchema)
         {
@@ -123,10 +123,8 @@ public class TenantService: BaseService<Tenant,TenantOutputDto>, ITenantService
         usereInfo.Email = registerTenant.Email;
         usereInfo.CreatorTime = DateTime.Now;
         usereInfo.CreatorUserId = usereInfo.Id;
-        usereInfo.OrganizeId = 0;
         usereInfo.EnabledMark = true;
-        usereInfo.IsAdministrator = true;
-        usereInfo.IsMember = false;
+        usereInfo.UserType  = UserTypeEnum.SysManager;
         usereInfo.DeleteMark = false;
         usereInfo.SortCode = 99;
         usereInfo.TenantId = tenant.Id;
@@ -169,8 +167,7 @@ public class TenantService: BaseService<Tenant,TenantOutputDto>, ITenantService
             DeleteUserId = null,
             TenantId = tenant.Id
         };
-        usereInfo.OrganizeId = organize.Id;
-        usereInfo.DepartmentId = organize.Id;
+        usereInfo.CreateOrgId = organize.Id;
         Role role = new Role
         {
             Id = IdGeneratorHelper.IdSnowflake(),
@@ -340,17 +337,15 @@ public class TenantService: BaseService<Tenant,TenantOutputDto>, ITenantService
     public override async Task<PageResult<TenantOutputDto>> FindWithPagerAsync(SearchInputDto<Tenant> search)
     {
         bool order = search.Order == "asc" ? false : true;
-        string where = GetDataPrivilege(false);
-        if (!string.IsNullOrEmpty(search.Keywords))
-        {
-            where += " and (TenantName like '%" + search.Keywords + "%' or CompanyName like '%" + search.Keywords + "%')";
-        };
+        var expressionWhere = Expressionable.Create<Tenant>()
+           .AndIF(!string.IsNullOrEmpty(search.Keywords), it => it.TenantName.Contains(search.Keywords) || it.CompanyName.Contains(search.Keywords))
+           .ToExpression();
         PagerInfo pagerInfo = new PagerInfo
         {
             CurrenetPageIndex = search.CurrenetPageIndex,
             PageSize = search.PageSize
         };
-        List<Tenant> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+        List<Tenant> list = await repository.FindWithPagerAsync(expressionWhere, pagerInfo, search.Sort, order);
         PageResult<TenantOutputDto> pageResult = new PageResult<TenantOutputDto>
         {
             CurrentPage = pagerInfo.CurrenetPageIndex,

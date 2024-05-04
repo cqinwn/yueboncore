@@ -6,9 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Yuebon.TMS.IServices\Yuebon.TMS.IServices.csproj" />
-    <ProjectReference Include="..\Yuebon.TMS.Repositories\Yuebon.TMS.Repositories.csproj" />
-  </ItemGroup>
-
 </Project>

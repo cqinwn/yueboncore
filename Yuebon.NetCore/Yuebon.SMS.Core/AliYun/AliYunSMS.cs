@@ -5,6 +5,7 @@ using Aliyun.Acs.Core.Profile;
 using Newtonsoft.Json;
 using System;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.Const;
 using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Json;
 using Yuebon.Commons.Log;
@@ -25,7 +26,7 @@ namespace Yuebon.SMS.AliYun
         public AliYunSMS()
         {
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            AppSetting sysSetting = yuebonCacheHelper.Get<AppSetting>("SysSetting");
+            AppSetting sysSetting = yuebonCacheHelper.Get<AppSetting>(CacheConst.KeySysSetting);
             if (sysSetting != null)
             {
                 this.Appkey = DEncrypt.Decrypt(sysSetting.Smsusername);

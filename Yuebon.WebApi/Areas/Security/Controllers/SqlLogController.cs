@@ -5,13 +5,13 @@ namespace Yuebon.SecurityApi.Areas.Security.Controllers;
 /// </summary>
 [ApiController]
 [Route("api/Security/[controller]")]
-public class SqllogController : AreaApiController<SqlLog, SqlLogOutputDto,SqlLogInputDto,ISqlLogService>
+public class SqlLogController : AreaApiController<SqlLog, SqlLogOutputDto,SqlLogInputDto,ISqlLogService>
 {
     /// <summary>
     /// 构造函数
     /// </summary>
     /// <param name="_iService"></param>
-    public SqllogController(ISqlLogService _iService) : base(_iService)
+    public SqlLogController(ISqlLogService _iService) : base(_iService)
     {
         iService = _iService;
     }

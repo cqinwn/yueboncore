@@ -3,7 +3,7 @@
 /// <summary>
 /// 用户登录信息表，数据实体对象
 /// </summary>
-[SugarTable("Sys_UserLogOn", "用户登录信息表")]
+[SugarTable("Sys_User_LogOn", "用户登录信息表")]
 [Serializable]
 public class UserLogOn: TenantEntity
 {

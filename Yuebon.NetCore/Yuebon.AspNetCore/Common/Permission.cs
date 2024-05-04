@@ -1,4 +1,6 @@
-﻿namespace Yuebon.AspNetCore.Common
+﻿using Yuebon.Commons.Enums;
+
+namespace Yuebon.AspNetCore.Common
 {
     /// <summary>
     /// 权限控制
@@ -22,7 +24,7 @@
                 }
                 else
                 {
-                    List<UserVisitMenus> listFunction =new YuebonCacheHelper().Get("User_Function_" + userId).ToJson().ToList<UserVisitMenus>();
+                    List<UserVisitMenus> listFunction =new YuebonCacheHelper().Get(CacheConst.KeyUserFunction + userId).ToJson().ToList<UserVisitMenus>();
                     if (listFunction != null && listFunction.Count(t => t.EnCode == functionCode) > 0)
                     {
                         hasFunction = true;
@@ -42,7 +44,7 @@
             bool blnIsAdmin = false;
             if (currentUser != null)
             {
-                if(currentUser.Account == "admin"|| currentUser.Role.Contains("administrators",StringComparison.Ordinal))
+                if(currentUser.UserType==UserTypeEnum.SuperAdmin)
                 {
                     return true;
                 }

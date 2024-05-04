@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title id="pageTitle"></title>
+    <script src="/js/jquery-3.7.1.min.js"></script>
+    <script src="/js/js.cookie.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="login-container">
+            <div v-show="closeWeb" class="close-web">
+
+            </div>
+            <div class="login-form">
+                <div class="title-container">
+                    <h3 class="title" id="softName"></h3>
+                </div>
+                <div class="logo-container">
+                    <div class="img">
+                        <img id="companyLogo" width="220" height="40">
+                    </div>
+                </div>
+                <div class="form">
+                    <input id="name" placeholder="请输入用户名" type="text" maxlength="30" class="wd"/>
+                    <br />
+                    <input id="pwd" placeholder="请输入密码" type="password" maxlength="40" class="wd" />
+                    <br />
+                    <input id="vcode" placeholder="请输入验证码" type="text" maxlength="4" class="wdcode"/>
+                    <img src="" style="cursor: pointer;vertical-align: middle;" alt="看不清？点击更换" id="showCodeImg" onclick="getLoginVerifyCode()">
+                    <br />
+                    <input type="button" value="登录" class="btn" onclick="submit()">
+                    <input type="hidden" id="verifyCodeKey"/>
+                </div>
+                <div class="tips" />
+            </div>
+        </div>
+        <div id="footer" class="footer" role="contentinfo">
+            <div class="footerNodelf text-secondary">
+                本软件使用权属于： <span id="companyName"></span>
+            </div>
+            <div class="footerNode text-secondary">
+                <span id="copyright"></span>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        getSysSetting()
+        getLoginVerifyCode()
+
+        function submit() {
+            let postdata = {
+                "Username": $("#name").val(),
+                "Password": $("#pwd").val(),
+                "vcode": $("#vcode").val(),
+                "AppId": "system",
+                "SystemCode": "openauth",
+                "Vkey": $("#verifyCodeKey").val()
+
+            };
+            if (!(postdata.Username && postdata.Password)) {
+                alert('参数不正确');
+                return
+            }
+            $.ajax({
+                url: "/api/Login/GetCheckUser",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(postdata),
+                dataType: 'json',
+                success: function (data) {
+                    if (data?.Success) {
+                        Cookies.set('yuebon_soft_token', data.ResData.AccessToken)
+                        window.location.href = "/index.html";
+                    } else {
+                        alert(data.ErrMsg);
+                    }
+                }
+            });
+        }
+
+
+        function getLoginVerifyCode() {
+            $.ajax({
+                url: "/api/Captcha",
+                type: "get",
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                success: function (data) {
+                    $("#showCodeImg").attr("src", 'data:image/png;base64,' + data.ResData.Img)
+                    $("#verifyCodeKey").val(data.ResData.Key);
+                }
+            });
+        }
+
+        function getSysSetting() {
+            $.ajax({
+                url: "/api/Security/SysSetting/GetInfo",
+                type: "get",
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                success: function (data) {
+                    $("#pageTitle").text(data.ResData.SoftName)
+                    $("#softName").text(data.ResData.SoftName)
+                    $("#companyLogo").text(data.ResData.SysLogo) 
+                    $("#companyName").text(data.ResData.CompanyName)
+                    $("#copyright").html(data.ResData.CopyRight)
+                }
+            });
+        }
+
+
+    </script>
+
+    <style lang="scss">
+        body {
+            width: 100%;
+            min-width: 320px;
+            line-height: 24px;
+            font-size: 16px;
+            font-weight: 400;
+            background: url("/ui/img/loginbck.ed4cec20.png") repeat center center fixed;
+            background-size: cover;
+            padding: 0;
+            margin: 0px;
+        }
+
+        .login-container {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+
+            .close-web {
+                text-align: center;
+                margin: 20px auto;
+                font-size: 26px;
+                color: red;
+            }
+
+            .login-form {
+                position: relative;
+                width: 369px;
+                max-width: 100%;
+                margin: 10% auto;
+                overflow: hidden;
+                background: #fff;
+                border-radius: 10px;
+                padding: 0 20px;
+
+                .form {
+                    clear: both;
+                    input {
+                        height:30px;
+                        line-height:30px;
+                        margin-top:10px;
+                    }
+    .btn{
+    width:100%;
+    height:30px;
+    line-height:30px;
+    margin-bottom:20px;
+    }
+    .wdcode{
+        width:120px;
+    }
+    .wd{
+    width:90%;
+    }
+
+                }
+            }
+        }
+
+        .footer {
+            position:fixed;
+            bottom: 0;
+            width: 100%;
+            overflow: visible;
+            z-index: 99;
+            clear: both;
+            background-color: rgba(0, 0, 0, 0.8);
+            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#99000000',endColorstr='#99000000');
+        }
+
+        .footerNodelf {
+            float: left;
+            padding-left: 10px;
+        }
+
+        .footerNode {
+            margin: 0;
+            float: right;
+            padding-right: 10px;
+        }
+
+        .text-secondary, a {
+            color: #505050;
+            color: rgba(170, 170, 170, 0.6);
+            font-size: 13px;
+            line-height: 25px;
+        }
+    </style>
+</body>
+</html>

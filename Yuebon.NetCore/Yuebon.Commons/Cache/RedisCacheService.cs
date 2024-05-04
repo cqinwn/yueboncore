@@ -1,13 +1,7 @@
 ﻿
 using Microsoft.Extensions.Caching.StackExchangeRedis;
 using StackExchange.Redis;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
-using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Json;
 
 namespace Yuebon.Commons.Cache

@@ -13,7 +13,7 @@ namespace Yuebon.Security.Repositories
         /// <returns></returns>
         public UserLogOn GetByUserId(long userId)
         {
-            string sql = @"SELECT * FROM Sys_UserLogOn t WHERE t.UserId = @UserId";
+            string sql = @"SELECT * FROM Sys_User_LogOn t WHERE t.UserId = @UserId";
             return Db.Ado.SqlQuerySingle<UserLogOn>(sql, new { UserId = userId });
         }
     }

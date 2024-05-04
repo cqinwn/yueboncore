@@ -1,4 +1,7 @@
-﻿namespace Yuebon.AspNetCore.Controllers;
+﻿using Yuebon.Commons.Options;
+
+
+namespace Yuebon.AspNetCore.Controllers;
 
 /// <summary>
 /// WebApi控制器基类
@@ -57,7 +60,7 @@ public class ApiController : Controller
                     if (isSign == null && boolSign)
                     {
                         CommonResult resultSign = SignHelper.CheckSign(context.HttpContext);
-                         if (!resultSign.Success)
+                        if (!resultSign.Success)
                         {
                             context.Result = ToJsonContent(resultSign);
                             return;
@@ -77,16 +80,17 @@ public class ApiController : Controller
                         string userId = claimlist[3].Value;
 
                         YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-                        var user = yuebonCacheHelper.Get<YuebonCurrentUser>("login_user_" + userId);
+                        var user = yuebonCacheHelper.Get<YuebonCurrentUser>(CacheConst.KeyLoginUser + userId);
                         if (user != null)
                         {
                             CurrentUser = user;
+                            Appsettings.User= yuebonCacheHelper.Get<UserInfo>(CacheConst.KeyLoginUserInfo + userId);
                         }
 
                         var claims = new[] {
                            new Claim(YuebonClaimConst.UserId,userId),
                            new Claim(YuebonClaimConst.UserName,claimlist[2].Value),
-                           new Claim(YuebonClaimConst.Role,claimlist[4].Value),
+                           //new Claim(YuebonClaimConst.Role,claimlist[4].Value),
                            new Claim(YuebonClaimConst.TenantId,claimlist[5].Value),
                            new Claim(YuebonClaimConst.RealName,CurrentUser?.RealName)
                         };
@@ -131,7 +135,6 @@ public class ApiController : Controller
         catch (Exception ex)
         {
             Log4NetHelper.Error("", ex);
-            throw ex;
         }
     }
     #endregion

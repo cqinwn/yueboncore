@@ -7,7 +7,7 @@ namespace Yuebon.WebApi.Areas.CMS.Controllers.V2;
 /// 文章，通知公告接口
 /// </summary>
 [ApiVersion("2.1")]
-[SwaggerControllerView("文章", "2.0.1")]
+[SwaggerControllerView("文章", "2.1")]
 [ApiController]
 public class Articlenews_2_1_Controller : ArticlenewsController
 {

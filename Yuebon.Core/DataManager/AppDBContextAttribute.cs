@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Yuebon.Core.DataManager
+﻿namespace Yuebon.Core.DataManager
 {
     /// <summary>
     /// 数据库连接配置特性

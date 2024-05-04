@@ -7,5 +7,5 @@ public interface IRoleDataRepository:IRepository<RoleData>
     /// </summary>
     /// <param name="roleIds"></param>
     /// <returns></returns>
-   List<string> GetListDeptByRole(string roleIds);
+    Task<List<long>> GetListDeptByRole(List<long> roleIds);
 }

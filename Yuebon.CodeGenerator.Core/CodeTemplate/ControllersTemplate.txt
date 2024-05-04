@@ -28,10 +28,6 @@ namespace {ApiControllerNamespace}.Areas.{BaseNameSpaceEx}.Controllers
             info.CreatorTime = DateTime.Now;
             info.CreatorUserId = CurrentUser.UserId;
             info.DeleteMark = false;
-            if (info.SortCode == null)
-            {
-                info.SortCode = 99;
-            }
         }
         
         /// <summary>

@@ -1,6 +1,4 @@
-﻿using Yuebon.Commons.Attributes;
-
-namespace Yuebon.Security.SeedData;
+﻿namespace Yuebon.Security.SeedData;
 
 public class UserSeedData : SeedDataEntity
 {
@@ -31,12 +29,10 @@ public class UserSeedData : SeedDataEntity
                 ManagerId= 1,
                 SecurityLevel= 1,
                 Signature= null,
-                OrganizeId= 9165855286886469,
-                DepartmentId= 9165855286886470,
+                CreateOrgId= 9165855286886470,
                 RoleId= "9242772029964356",
                 DutyId= 0,
-                IsAdministrator= true,
-                IsMember= false,
+                UserType=Commons.Enums.UserTypeEnum.SuperAdmin,
                 MemberGradeId= null,
                 ReferralUserId= null,
                 SortCode= 1,

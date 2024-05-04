@@ -1,3 +1,5 @@
+using Yuebon.Commons.Enums;
+
 namespace Yuebon.Security.Dtos
 {
     /// <summary>
@@ -95,12 +97,7 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 设置或获取 
         /// </summary>
-        public long OrganizeId { get; set; }
-
-        /// <summary>
-        /// 设置或获取 
-        /// </summary>
-        public long DepartmentId { get; set; }
+        public long CreateOrgId { get; set; }
 
         /// <summary>
         /// 设置或获取 
@@ -111,16 +108,10 @@ namespace Yuebon.Security.Dtos
         /// 设置或获取 
         /// </summary>
         public long? DutyId { get; set; }
-
         /// <summary>
-        /// 设置或获取 
+        /// 账号类型
         /// </summary>
-        public bool? IsAdministrator { get; set; }
-
-        /// <summary>
-        /// 设置或获取 
-        /// </summary>
-        public bool? IsMember { get; set; }
+        public UserTypeEnum UserType { get; set; }
         /// <summary>
         /// 语言
         /// </summary>

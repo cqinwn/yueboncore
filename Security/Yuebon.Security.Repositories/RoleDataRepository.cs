@@ -12,16 +12,9 @@ namespace Yuebon.Security.Repositories
         /// </summary>
         /// <param name="roleIds"></param>
         /// <returns></returns>
-        public List<string> GetListDeptByRole(string roleIds)
+        public async Task<List<long>> GetListDeptByRole(List<long> roleIds)
         {
-            string roleIDsStr = string.Format("'{0}'", roleIds.Replace(",", "','"));
-            string where = " RoleId in(" + roleIDsStr + ") and DType='dept'";
-            string sql = $"select AuthorizeData from { tableName} ";
-            if (!string.IsNullOrWhiteSpace(where))
-            {
-                sql += " where " + where;
-            }
-            return Db.Ado.SqlQuery<string>(sql);
+            return await Db.Queryable<RoleData>().Where(it => roleIds.Any(s=>s==it.RoleId)).Select(it=>it.AuthorizeData).ToListAsync();
            
         }
 

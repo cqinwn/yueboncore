@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.Const;
 using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Helpers;
@@ -25,7 +26,7 @@ namespace Yuebon.SMS.Zutong
         public ZutongSMS()
         {
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            AppSetting sysSetting = yuebonCacheHelper.Get<AppSetting>("SysSetting");
+            AppSetting sysSetting = yuebonCacheHelper.Get<AppSetting>(CacheConst.KeySysSetting);
             if (sysSetting != null)
             {
                 this.Appkey = DEncrypt.Decrypt(sysSetting.Smsusername);

@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace Yuebon.Core.Models;
 
-namespace Yuebon.Core.Models
+/// <summary>
+/// 定义多租户实体信息
+/// </summary>
+public interface IMustHaveTenant
 {
     /// <summary>
-    /// 定义多租户实体信息
+    /// 租户Id
     /// </summary>
-    public interface IMustHaveTenant
-    {
-        /// <summary>
-        /// 租户Id
-        /// </summary>
-        long TenantId {
-            get;
-            set;
-        }
+    long TenantId {
+        get;
+        set;
     }
 }

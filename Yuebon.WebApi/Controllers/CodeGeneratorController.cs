@@ -23,6 +23,10 @@ public class CodeGeneratorController : ApiController
     {
         _hostingEnvironment = hostingEnvironment;
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    public SqlSugarClient sqlSugarClient = Commons.CodeGenerator.CodeGenerator.GetDB();
 
     /// <summary>
     /// 创建数据库连接
@@ -32,7 +36,7 @@ public class CodeGeneratorController : ApiController
     [HttpPost("CreateDBConn")]
     [YuebonAuthorize("CreateDBConn")]
     [NoPermissionRequired]
-    public async Task<IActionResult> CreateDBConn(DbConnInfo dbConnInfo)
+    public IActionResult CreateDBConn(DbConnInfo dbConnInfo)
     {
         CommonResult result = new CommonResult();
         string connstr = string.Empty;
@@ -46,7 +50,7 @@ public class CodeGeneratorController : ApiController
             TimeSpan expiresSliding = DateTime.Now.AddMinutes(30) - DateTime.Now;
             yuebonCacheHelper.Add("CodeGeneratorDbConn", dbConnInfo.DbAddress, expiresSliding, false);
             yuebonCacheHelper.Add("CodeGeneratorDbType", dbConnInfo.DbType, expiresSliding, false);
-            result.ResData=new Commons.CodeGenerator.CodeGenerator().GetDB().DbMaintenance.GetDataBaseList(new Yuebon.Commons.CodeGenerator.CodeGenerator().GetDB());
+            result.ResData= sqlSugarClient.DbMaintenance.GetDataBaseList(sqlSugarClient);
             result.Success = true;
             result.ErrCode = ErrCode.successCode;
            
@@ -61,13 +65,13 @@ public class CodeGeneratorController : ApiController
     [HttpGet("GetListDataBase")]
     [YuebonAuthorize("GetListDataBase")]
     [NoPermissionRequired]
-    public async Task<IActionResult> GetListDataBase()
+    public IActionResult GetListDataBase()
     {
         YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
         yuebonCacheHelper.Remove("CodeGeneratorDbConn");
         yuebonCacheHelper.Remove("CodeGeneratorDbName");
         CommonResult result = new CommonResult();
-        result.ResData = new Yuebon.Commons.CodeGenerator.CodeGenerator().GetDB().DbMaintenance.GetDataBaseList(new Yuebon.Commons.CodeGenerator.CodeGenerator().GetDB());
+        result.ResData = sqlSugarClient.DbMaintenance.GetDataBaseList(sqlSugarClient);
         result.ErrCode = ErrCode.successCode;
         return ToJsonContent(result);
     }
@@ -89,10 +93,9 @@ public class CodeGeneratorController : ApiController
             PageSize = search.PageSize,
             CurrenetPageIndex = search.CurrenetPageIndex
         };
-
         PageResult<DbTableInfo> pageResult = new PageResult<DbTableInfo>();
         pageResult.CurrentPage = pagerInfo.CurrenetPageIndex;
-        pageResult.Items = new Yuebon.Commons.CodeGenerator.CodeGenerator().GetDB().DbMaintenance.GetTableInfoList().FindAll(o=>o.Name.Contains(search.Keywords));
+        pageResult.Items = sqlSugarClient.DbMaintenance.GetTableInfoList().FindAll(o=>o.Name.Contains(search.Keywords));
         pageResult.ItemsPerPage = pagerInfo.PageSize;
         pageResult.TotalItems = pagerInfo.RecordCount;
         result.ResData = pageResult;
@@ -109,7 +112,7 @@ public class CodeGeneratorController : ApiController
     [HttpGet("Generate")]
     [YuebonAuthorize("GetGenerate")]
     [NoPermissionRequired]
-    public async Task<IActionResult> GetGenerate(string tables,string baseSpace,string replaceTableNameStr)
+    public IActionResult GetGenerate(string tables,string baseSpace,string replaceTableNameStr)
     {
         CommonResult result = new CommonResult();
         try

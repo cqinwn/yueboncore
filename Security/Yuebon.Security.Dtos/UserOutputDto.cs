@@ -1,3 +1,5 @@
+using Yuebon.Commons.Enums;
+
 namespace Yuebon.Security.Dtos
 {
     /// <summary>
@@ -112,23 +114,15 @@ namespace Yuebon.Security.Dtos
         /// <summary>
         /// 组织主键
         /// </summary>
-        public virtual long OrganizeId { get; set; }
+        public virtual long CreateOrgId { get; set; }
 
         /// <summary>
         /// 组织名称
         /// </summary>
         public virtual string OrganizeName { get; set; }
 
-        /// <summary>
-        /// 部门主键
-        /// </summary>
-        public virtual long DepartmentId { get; set; }
 
-        /// <summary>
-        /// 部门名称
-        /// </summary>
-        public virtual string DepartmentName { get; set; }
-
+        public virtual UserTypeEnum UserType { get; set; }
         /// <summary>
         /// 角色主键
         /// </summary>
@@ -149,10 +143,6 @@ namespace Yuebon.Security.Dtos
         /// </summary>
         public virtual string DutyName { get; set; }
 
-        /// <summary>
-        /// 是否管理员
-        /// </summary>
-        public virtual bool? IsAdministrator { get; set; }
 
         /// <summary>
         /// 排序码

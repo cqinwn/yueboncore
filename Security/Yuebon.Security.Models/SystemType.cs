@@ -3,7 +3,7 @@
 /// <summary>
 /// 子系统
 /// </summary>
-[SugarTable("Sys_SystemType", "子系统")]
+[SugarTable("Sys_System_Type", "子系统")]
 [Serializable]
 public class SystemType : TenantEntity, ICreationAudited, IModificationAudited, IDeleteAudited
 {

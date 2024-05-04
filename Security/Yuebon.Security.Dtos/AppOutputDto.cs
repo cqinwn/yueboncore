@@ -78,13 +78,8 @@ public class AppOutputDto: IOutputDto
     /// 设置或获取 
     /// </summary>
     [MaxLength(50)]
-    public string CompanyId { get; set; }
+    public long? CreateOrgId { get; set; }
 
-    /// <summary>
-    /// 设置或获取 
-    /// </summary>
-    [MaxLength(50)]
-    public string DeptId { get; set; }
 
     /// <summary>
     /// 设置或获取 

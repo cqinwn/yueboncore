@@ -1,20 +1,10 @@
 ﻿namespace Yuebon.Security.Models;
 
-[SugarTable("Sys_LoginLog", "登录日志")]
+[SugarTable("Sys_Login_Log", "登录日志")]
 [Serializable]
-public class LoginLog : TenantEntity, ICreationAudited, IDeleteAudited
+public class LoginLog : TenantEntity,ICreationAudited, IOrgIdFilter
 {
-    /// <summary>
-    /// 默认构造函数（需要初始化属性的在此处理）
-    /// </summary>
-    public LoginLog()
-    {
-    }
-
     #region Property Members
-
-
-
     /// <summary>
     /// 日期
     /// </summary>
@@ -83,18 +73,6 @@ public class LoginLog : TenantEntity, ICreationAudited, IDeleteAudited
 
 
     /// <summary>
-    /// 删除标志
-    /// </summary>
-    [SugarColumn(ColumnDescription = "删除标志")]
-    public virtual bool? DeleteMark { get; set; }
-
-    /// <summary>
-    /// 有效标志
-    /// </summary>
-    [SugarColumn(ColumnDescription = "有效标志")]
-    public virtual bool EnabledMark { get; set; }
-
-    /// <summary>
     /// 创建日期
     /// </summary>
     [SugarColumn(ColumnDescription = "创建日期")]
@@ -103,23 +81,15 @@ public class LoginLog : TenantEntity, ICreationAudited, IDeleteAudited
     /// <summary>
     /// 创建用户主键
     /// </summary>
-    [MaxLength(50)]
     [SugarColumn(ColumnDescription = "创建用户主键")]
     public virtual long? CreatorUserId { get; set; }
 
-
     /// <summary>
-    /// 删除时间
+    /// 设置或获取 创建者部门Id
     /// </summary>
-    [SugarColumn(ColumnDescription = "删除时间")]
-    public virtual DateTime? DeleteTime { get; set; }
-
-    /// <summary>
-    /// 删除用户
-    /// </summary>
-    [MaxLength(50)]
-    [SugarColumn(ColumnDescription = "删除用户")]
-    public virtual long? DeleteUserId { get; set; }
+    [SugarColumn(ColumnDescription = "创建者部门Id", IsOnlyIgnoreUpdate = true)]
+    public virtual long? CreateOrgId { get; set; }
+    
     #endregion
 
 

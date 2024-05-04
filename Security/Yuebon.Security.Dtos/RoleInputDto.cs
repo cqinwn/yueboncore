@@ -1,3 +1,5 @@
+using Yuebon.Commons.Enums;
+
 namespace Yuebon.Security.Dtos;
 
 /// <summary>
@@ -36,6 +38,11 @@ public class RoleInputDto: IInputDto
     /// 设置或获取 
     /// </summary>
     public string Type { get; set; }
+
+    /// <summary>
+    /// 数据范围（1全部数据 2本部门及以下数据 3本部门数据 4仅本人数据 5自定义数据）
+    /// </summary>
+    public RoleDataScopeEnum DataScope { get; set; }
 
     /// <summary>
     /// 设置或获取 

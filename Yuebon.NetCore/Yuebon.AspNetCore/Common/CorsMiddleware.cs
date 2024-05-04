@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using System.Threading.Tasks;
 
 namespace Yuebon.AspNetCore.Common
 {

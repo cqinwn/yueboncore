@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Hosting;
-using System.IO.Compression;
 
 namespace Yuebon.Extensions.ServiceExtensions;
 

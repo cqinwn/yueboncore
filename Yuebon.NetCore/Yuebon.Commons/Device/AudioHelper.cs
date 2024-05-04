@@ -1,9 +1,8 @@
-﻿using System;
-using System.ComponentModel;
-using System.IO;
+﻿using System.IO;
 using System.Media;
 using System.Security;
 using System.Security.Permissions;
+using System.Security.Policy;
 
 namespace Yuebon.Commons.Device
 {

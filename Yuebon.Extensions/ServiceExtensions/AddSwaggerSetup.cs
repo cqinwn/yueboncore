@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Versioning;
-using Microsoft.OpenApi.Models;
+﻿using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System.Runtime.InteropServices;
 using Yuebon.Commons.Filters;
 using Yuebon.Commons.Log;
 using static Yuebon.Extensions.ServiceExtensions.SwaggerVersions;
+using Asp.Versioning;
 
 namespace Yuebon.Extensions.ServiceExtensions;
 
@@ -31,7 +30,7 @@ public static class SwaggerSetup
             o.AssumeDefaultVersionWhenUnspecified = true;//请求没有指明版本的情况下是否使用默认的版本。
             o.DefaultApiVersion = new ApiVersion(1, 0);//默认的版本号。
             o.ApiVersionReader = ApiVersionReader.Combine(new HeaderApiVersionReader("api-version"));////版本信息放到header ,不写在不配置路由的情况下，版本信息放到response url 中
-        }).AddVersionedApiExplorer();
+        }).AddApiExplorer();
 
         services.AddSwaggerGen(options =>
         {
@@ -97,14 +96,22 @@ public static class SwaggerSetup
              );
 
             options.DocumentFilter<CustomDocumentFilter>();
-            options.OrderActionsBy((apidesc)=>apidesc.RelativePath);
+            options.OrderActionsBy((apidesc) => apidesc.RelativePath);
             options.OperationFilter<AddRequiredHeaderParameter>();
             //开启加权锁
             options.OperationFilter<AddResponseHeadersFilter>();
             options.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
             // 在header中添加token，传递到后台
             options.OperationFilter<SecurityRequirementsOperationFilter>();
-            options.OrderActionsBy((apiDesc) => $"{apiDesc.ActionDescriptor.RouteValues["controller"]}");
+            //options.OrderActionsBy((apiDesc) => $"{apiDesc.ActionDescriptor.RouteValues["controller"]}");
+            //options.g(apiDesc=> {
+            //    System.Diagnostics.Debug.WriteLine(apiDesc.ID);
+            //    var attribute = apiDesc.GetControllerAndActionAttributes<SwaggerControllerViewAttribute>();
+            //    if (attribute.Any())
+            //        return attribute.First().ControllerName + " " + attribute.First().Version;
+            //    else
+            //        return apiDesc.ActionDescriptor.ControllerDescriptor.ControllerName;
+            //});
         });
 
     }

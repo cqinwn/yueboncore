@@ -42,7 +42,7 @@ public class SysSettingController : ApiController
         {
             SysSetting sysSetting = XmlConverter.Deserialize<SysSetting>("xmlconfig/sys.config");
             YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-            yuebonCacheHelper.Add("SysSetting", sysSetting);
+            yuebonCacheHelper.Add(CacheConst.KeySysSetting, sysSetting);
             DashboardOutModel dashboardOutModel = new DashboardOutModel();
             dashboardOutModel.CertificatedCompany = sysSetting.CompanyName;
             dashboardOutModel.WebUrl = sysSetting.WebUrl;
@@ -95,7 +95,7 @@ public class SysSettingController : ApiController
     {
         CommonResult result = new CommonResult();
         YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-        SysSetting sysSetting = yuebonCacheHelper.Get("SysSetting").ToJson().ToObject<SysSetting>();
+        SysSetting sysSetting = yuebonCacheHelper.Get(CacheConst.KeySysSetting).ToJson().ToObject<SysSetting>();
         SysSettingOutputDto sysSettingOutputDto = new SysSettingOutputDto();
         if (sysSetting == null)
         {
@@ -136,7 +136,7 @@ public class SysSettingController : ApiController
     {
         CommonResult result = new CommonResult();
         YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-        SysSetting sysSetting = yuebonCacheHelper.Get("SysSetting").ToJson().ToObject<SysSetting>();
+        SysSetting sysSetting = yuebonCacheHelper.Get(CacheConst.KeySysSetting).ToJson().ToObject<SysSetting>();
         SysSettingOutputDto sysSettingOutputDto = new SysSettingOutputDto();
         if (sysSetting == null)
         {
@@ -199,14 +199,14 @@ public class SysSettingController : ApiController
             Directory.CreateDirectory(uploadPath);
         }
         YuebonCacheHelper yuebonCacheHelper = new YuebonCacheHelper();
-        if (yuebonCacheHelper.Exists("SysSetting"))
+        if (yuebonCacheHelper.Exists(CacheConst.KeySysSetting))
         {
-            yuebonCacheHelper.Replace("SysSetting", sysSetting);
+            yuebonCacheHelper.Replace(CacheConst.KeySysSetting, sysSetting);
         }
         else
         {
             //写入缓存
-            yuebonCacheHelper.Add("SysSetting", sysSetting);
+            yuebonCacheHelper.Add(CacheConst.KeySysSetting, sysSetting);
         }
         XmlConverter.Serialize<SysSetting>(sysSetting, "xmlconfig/sys.config");
         result.ErrCode = ErrCode.successCode;

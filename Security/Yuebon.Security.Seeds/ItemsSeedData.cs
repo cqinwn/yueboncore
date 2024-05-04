@@ -66,6 +66,24 @@ public class ItemsSeedData:SeedDataEntity
                 LastModifyUserId= null,
                 DeleteTime= null,
                 DeleteUserId= null
+            },
+            new Items{
+                Id= 14784931925590085,
+                ParentId= 9165806220476485,
+                EnCode= "OrgType",
+                FullName= "机构类型",
+                IsTree= false,
+                Layers= null,
+                SortCode= 99,
+                DeleteMark= false,
+                EnabledMark= true,
+                Description= null,
+                CreatorTime= DateTime.Now,
+                CreatorUserId = 9165855286886368,
+                LastModifyTime= null,
+                LastModifyUserId= null,
+                DeleteTime= null,
+                DeleteUserId= null
             }
         };
     }

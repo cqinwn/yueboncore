@@ -5,7 +5,7 @@ namespace Yuebon.Security.Models;
 /// <summary>
 /// 用户扩展信息表，数据实体对象
 /// </summary>
-[SugarTable("Sys_UserExtend", "用户扩展信息表")]
+[SugarTable("Sys_User_Extend", "用户扩展信息表")]
 [Serializable]
 public class UserExtend : TenantEntity, ICreationAudited, IModificationAudited, IDeleteAudited, IMustHaveTenant
 {

@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace Yuebon.Security.Repositories
 {
     public class MenuRepository : BaseRepository<Menu>, IMenuRepository
@@ -15,16 +17,22 @@ namespace Yuebon.Security.Repositories
         /// <param name="typeID">系统类型ID</param>
         /// <param name="isMenu">是否是菜单</param>
         /// <returns></returns>
-        public IEnumerable<Menu> GetFunctions(string roleIds, long typeID,bool isMenu = false)
+        public IEnumerable<Menu> GetFunctions(List<long> roleIds, long typeID,bool isMenu = false)
         {
-            string sql = $"SELECT DISTINCT b.* FROM sys_menu as b INNER JOIN Sys_RoleAuthorize as a On b.Id = a.ItemId  WHERE ObjectId IN (" + roleIds + ")";
-            if (roleIds == "")
+            string sql = string.Empty;
+            if (roleIds == null)
             {
-                sql = $"SELECT DISTINCT b.* FROM sys_menu as b where 1=1 ";
+                sql = $"SELECT DISTINCT b.* FROM sys_menu as b where 1=1";
+            }
+            else
+            {
+                sql = $"SELECT DISTINCT b.* FROM sys_menu as b INNER JOIN Sys_Role_Authorize as a On b.Id = a.ItemId  WHERE ObjectId IN (" +string.Join(",",roleIds) + ") ";
+
+               
             }
             if (isMenu)
             {
-                sql = sql + "and menutype in('M','C')";
+                sql = sql + " and menutype in('M','C') ";
             }
             if (!string.IsNullOrEmpty(typeID.ToString()))
             {

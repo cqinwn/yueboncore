@@ -127,7 +127,6 @@ else
 }
 //开启性能分析
 app.UseMiniProfiler();
-app.UseApiVersioning();
 #region 启用swaggerUI
 app.UseSwagger();
 app.UseSwaggerUI(options =>

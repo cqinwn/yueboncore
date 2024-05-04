@@ -1,7 +1,10 @@
+using NPOI.XWPF.UserModel;
 using System.Reflection;
 using Yuebon.Commons.Cache;
+using Yuebon.Commons.Encrypt;
 using Yuebon.Commons.Extensions;
 using Yuebon.Commons.Options;
+using Yuebon.Core.DataManager;
 using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace Yuebon.Commons.CodeGenerator;
@@ -34,19 +37,41 @@ public class CodeGenerator
     /// 
     /// </summary>
     /// <returns></returns>
-    public SqlSugarClient GetDB()
+    public static SqlSugarClient GetDB()
     {
         YuebonCacheHelper yuebonCacheHelper = new();
+
         object connCode = yuebonCacheHelper.Get("CodeGeneratorDbConn");
-        string dbTypeCache = yuebonCacheHelper.Get("CodeGeneratorDbType").ToString();
-        ConnectionConfig config = new()
+        ConnectionConfig config=new ConnectionConfig();
+        if (connCode != null)
         {
-            ConfigId = "codedb",
-            ConnectionString = connCode.ToString(),
-            DbType = (SqlSugar.DbType)dbTypeCache.ToInt(),
-            IsAutoCloseConnection = true
-        };
-        return new SqlSugarClient(config);
+            string dbTypeCache = yuebonCacheHelper.Get("CodeGeneratorDbType").ToString();
+            config = new()
+            {
+                ConfigId = "codedb",
+                ConnectionString = connCode.ToString(),
+                DbType = (SqlSugar.DbType)dbTypeCache.ToInt(),
+                IsAutoCloseConnection = true
+            };
+            return new SqlSugarClient(config);
+        }
+        else
+        {
+            List<DbConnections> allDbs = DBServerProvider.GetAllDbConnections();
+            bool conStringEncrypt = Configs.GetConfigurationValue("AppSetting", "ConStringEncrypt").ToBool();
+            allDbs.ForEach(m =>
+            {
+               config = new ConnectionConfig()
+                {
+                    ConfigId = m.ConnId.ToLower(),
+                    ConnectionString = conStringEncrypt ? DEncrypt.Decrypt(m.MasterDB.ConnectionString) : m.MasterDB.ConnectionString,
+                    DbType = (DbType)m.MasterDB.DatabaseType,
+                    IsAutoCloseConnection = true,
+                };
+            });
+
+            return new SqlSugarClient(config);
+        }
     }
 
     /// <summary>
@@ -70,12 +95,12 @@ public class CodeGenerator
         _option.BaseNamespace = baseNamespace;
 
 
-        List<DbTableInfo> listTable = new CodeGenerator().GetDB().DbMaintenance.GetTableInfoList().FindAll(o=> SqlFunc.ContainsArrayUseSqlParameters<string>(_option.TableList.Split(","),o.Name));// (_option.TableList);
+        List<DbTableInfo> listTable = GetDB().DbMaintenance.GetTableInfoList().FindAll(o=> SqlFunc.ContainsArrayUseSqlParameters<string>(_option.TableList.Split(","),o.Name));// (_option.TableList);
         string profileContent = string.Empty;
         foreach (DbTableInfo dbTableInfo in listTable)
         {
            
-            List<DbColumnInfo> listField = new CodeGenerator().GetDB().DbMaintenance.GetColumnInfosByTableName(dbTableInfo.Name);
+            List<DbColumnInfo> listField = GetDB().DbMaintenance.GetColumnInfosByTableName(dbTableInfo.Name);
             GenerateSingle(listField, dbTableInfo, ifExsitedCovered);
             string tableName = dbTableInfo.Name;
             if (!string.IsNullOrEmpty(_option.ReplaceTableNameStr))
@@ -89,9 +114,14 @@ public class CodeGenerator
                     }
                 }
             }
-            tableName = tableName.Substring(0, 1).ToUpper() + tableName.Substring(1);
-            profileContent += string.Format("           CreateMap<{0}, {0}OutputDto>();\n", tableName);
-            profileContent += string.Format("           CreateMap<{0}InputDto, {0}>();\n", tableName);
+            string[] tableNameTempArry = tableName.Split("_");
+            string tableNameClass = string.Empty;
+            foreach (string tableNameTemp in tableNameTempArry)
+            {
+                tableNameClass += tableNameTemp.Substring(0, 1).ToUpper() + tableNameTemp.Substring(1);
+            }
+            profileContent += string.Format("           CreateMap<{0}, {0}OutputDto>();\n", tableNameClass);
+            profileContent += string.Format("           CreateMap<{0}InputDto, {0}>();\n", tableNameClass);
         }            
        
         GenerateDtoProfile(_option.ModelsNamespace, profileContent, ifExsitedCovered);
@@ -106,7 +136,7 @@ public class CodeGenerator
     public static void GenerateSingle(List<DbColumnInfo> listField, DbTableInfo tableInfo,bool ifExsitedCovered = false)
     {
         var modelsNamespace =_option.ModelsNamespace;
-        var modelTypeName = tableInfo.Name;//表名
+        var tableName = tableInfo.Name;//表名
         var modelTypeDesc = tableInfo.Description;//表描述
         if (!string.IsNullOrEmpty(_option.ReplaceTableNameStr))
         {
@@ -115,11 +145,16 @@ public class CodeGenerator
             {
                 if (!string.IsNullOrEmpty(rel[i].ToString()))
                 {
-                    modelTypeName = modelTypeName.Replace(rel[i].ToString(),"");
+                    tableName = tableName.Replace(rel[i].ToString(),"");
                 }
             }
         }
-        modelTypeName = modelTypeName.Substring(0, 1).ToUpper() + modelTypeName.Substring(1);
+        string[] tableNameTempArry = tableName.Split("_");
+        string modleNameClass = string.Empty;
+        foreach (string tableNameTemp in tableNameTempArry)
+        {
+            modleNameClass += tableNameTemp.Substring(0, 1).ToUpper() + tableNameTemp.Substring(1);
+        }
         string keyTypeName = "string";//主键数据类型
         string modelcontent = "";//数据库模型字段
         string InputDtocontent = "";//输入模型
@@ -228,15 +263,15 @@ public class CodeGenerator
             }
             //
         }
-        GenerateModels(modelsNamespace, modelTypeName, tableInfo.Name, modelcontent, modelTypeDesc, keyTypeName, ifExsitedCovered);
-        GenerateIRepository(modelTypeName, modelTypeDesc, keyTypeName, ifExsitedCovered);
-        GenerateRepository(modelTypeName, modelTypeDesc, tableInfo.Name, keyTypeName, ifExsitedCovered);
-        GenerateIService(modelsNamespace, modelTypeName, modelTypeDesc, keyTypeName, ifExsitedCovered);
-        GenerateService(modelsNamespace, modelTypeName, modelTypeDesc, keyTypeName, ifExsitedCovered);
-        GenerateOutputDto(modelTypeName, modelTypeDesc, outputDtocontent, ifExsitedCovered);
-        GenerateInputDto(modelsNamespace, modelTypeName, modelTypeDesc, InputDtocontent, keyTypeName, ifExsitedCovered);
-        GenerateControllers(modelTypeName, modelTypeDesc, keyTypeName, ifExsitedCovered);
-        GenerateVueViews(modelTypeName,modelTypeDesc,vueViewListContent,vueViewFromContent,vueViewEditFromContent,vueViewEditFromBindContent,vueViewSaveBindContent,vueViewEditFromRuleContent,ifExsitedCovered);
+        GenerateModels(modelsNamespace, modleNameClass, tableInfo.Name, modelcontent, modelTypeDesc, keyTypeName, ifExsitedCovered);
+        GenerateIRepository(modleNameClass, modelTypeDesc, keyTypeName, ifExsitedCovered);
+        GenerateRepository(modleNameClass, modelTypeDesc, tableInfo.Name, keyTypeName, ifExsitedCovered);
+        GenerateIService(modelsNamespace, modleNameClass, modelTypeDesc, keyTypeName, ifExsitedCovered);
+        GenerateService(modelsNamespace, modleNameClass, modelTypeDesc, keyTypeName, ifExsitedCovered);
+        GenerateOutputDto(modleNameClass, modelTypeDesc, outputDtocontent, ifExsitedCovered);
+        GenerateInputDto(modelsNamespace, modleNameClass, modelTypeDesc, InputDtocontent, keyTypeName, ifExsitedCovered);
+        GenerateControllers(modleNameClass, modelTypeDesc, keyTypeName, ifExsitedCovered);
+        GenerateVueViews(modleNameClass, modelTypeDesc,vueViewListContent,vueViewFromContent,vueViewEditFromContent,vueViewEditFromBindContent,vueViewSaveBindContent,vueViewEditFromRuleContent,ifExsitedCovered);
     }
 
 
@@ -263,9 +298,9 @@ public class CodeGenerator
     /// <summary>
     /// 生成IRepository层代码文件
     /// </summary>
-    /// <param name="modelTypeName">实体类型</param>
-    /// <param name="modelTypeDesc"></param>
-    /// <param name="keyTypeName"></param>
+    /// <param name="modelTypeName">实体类名</param>
+    /// <param name="modelTypeDesc">实体描述</param>
+    /// <param name="keyTypeName">主键</param>
     /// <param name="ifExsitedCovered">如果目标文件存在，是否覆盖。默认为false</param>
     private static void GenerateIRepository(string modelTypeName, string modelTypeDesc, string keyTypeName, bool ifExsitedCovered = false)
     {

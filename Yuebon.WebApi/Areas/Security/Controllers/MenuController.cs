@@ -65,7 +65,7 @@ namespace Yuebon.WebApi.Areas.Security.Controllers
                 string strEnCode = info.EnCode;
                 Menu listInfo = new Menu();
                 listInfo = menu;
-                listInfo.FullName ="列表";
+                listInfo.FullName ="查询";
                 listInfo.EnCode = strEnCode + "/List";
                 listInfo.Icon = "list";
                 OnBeforeInsert(listInfo);

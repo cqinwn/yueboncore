@@ -32,8 +32,6 @@ public class ArticlenewsController : AreaApiController<Articlenews, ArticlenewsO
         info.CategoryName = articlecategoryService.GetById(info.CategoryId).Title;
         info.CreatorTime = DateTime.Now;
         info.CreatorUserId = CurrentUser.UserId;
-        info.CompanyId = CurrentUser.OrganizeId;
-        info.DeptId = CurrentUser.DeptId;
         info.DeleteMark = false;
         if (info.SortCode == null)
         {

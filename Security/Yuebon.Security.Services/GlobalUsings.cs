@@ -18,3 +18,5 @@ global using Yuebon.Security.Dtos;
 global using Yuebon.Security.IRepositories;
 global using Yuebon.Security.IServices;
 global using Yuebon.Security.Models;
+global using Yuebon.Commons.Const;
+global using Yuebon.Commons.Enums;

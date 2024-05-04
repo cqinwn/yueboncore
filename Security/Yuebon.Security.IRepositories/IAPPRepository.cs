@@ -21,4 +21,5 @@ public interface IAPPRepository:IRepository<APP>
     /// <param name="appid">”¶”√ID</param>
     /// <returns></returns>
     APP GetAPP(string appid);
+
 }

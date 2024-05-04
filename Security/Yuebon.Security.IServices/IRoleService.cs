@@ -12,6 +12,12 @@ public interface IRoleService:IService<Role, RoleOutputDto>
     /// <returns></returns>
     Role GetRole(string enCode);
 
+    /// <summary>
+    /// 根据用户ID获取角色编码
+    /// </summary>
+    /// <param name="userId">用户ID</param>
+    /// <returns></returns>
+    Task<List<long>> GetRoleIdsByUserId(long userId);
 
     /// <summary>
     /// 根据用户角色ID获取角色编码

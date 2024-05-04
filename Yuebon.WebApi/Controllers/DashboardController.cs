@@ -79,7 +79,7 @@ public class DashboardController :ApiController
                         UserInfo userInfo = null;
                         if (user != null)
                         {
-                            userInfo = yuebonCacheHelper.Get<UserInfo>("login_userInfo_" + user.Id);
+                            userInfo = yuebonCacheHelper.Get<UserInfo>(CacheConst.KeyLoginUserInfo + user.Id);
                             result.Success = true;
                             JwtOption jwtModel = Appsettings.GetService<JwtOption>();
                             TokenProvider tokenProvider = new TokenProvider(jwtModel);
@@ -97,19 +97,18 @@ public class DashboardController :ApiController
                                 Gender = user.Gender,
                                 ReferralUserId = user.ReferralUserId,
                                 MemberGradeId = user.MemberGradeId,
-                                Role = _roleService.GetRoleEnCode(user.RoleId),
+                                Role =await _roleService.GetRoleIdsByUserId(user.Id),
                                 MobilePhone = user.MobilePhone,
-                                OrganizeId = user.OrganizeId,
-                                DeptId = user.DepartmentId,
+                                OrganizeId = user.CreateOrgId,
                                 //CurrentLoginIP = strIp,
                                 //IPAddressName = ipAddressName,
                                 TenantId = null
                             };
-                            currentSession.SubSystemList = _systemTypeService.GetSubSystemList(user.RoleId);
+                            currentSession.SubSystemList =await _systemTypeService.GetSubSystemList(currentSession.Role);
                             currentSession.ActiveSystem = systemType.FullName;
                             currentSession.ActiveSystemUrl = systemType.Url;
                             TimeSpan expiresSliding = DateTime.Now.AddMinutes(120) - DateTime.Now;
-                            yuebonCacheHelper.Add("login_user_" + user.Id, currentSession, expiresSliding, true);
+                            yuebonCacheHelper.Add(CacheConst.KeyLoginUser + user.Id, currentSession, expiresSliding, true);
                             CurrentUser = currentSession;
                             result.ResData = currentSession;
                             result.ErrCode = ErrCode.successCode;

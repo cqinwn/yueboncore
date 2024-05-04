@@ -508,5 +508,7 @@ namespace Yuebon.Core.IServices
         /// <param name="commandTimeout">超时</param>
         /// <returns></returns>
         Tuple<bool, string> ExecuteTransaction(List<Tuple<string, object>> trans, int? commandTimeout = null);
+        
+        
     }
 }

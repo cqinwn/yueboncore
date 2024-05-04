@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Company>上海越邦网络科技有限公司</Company>
     <Authors>Yuebon</Authors>
     <Product>YuebonNetCore开发框架定时处理库</Product>
@@ -43,9 +43,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
-    <PackageReference Include="Quartz.AspNetCore" Version="3.6.2" />
-    <PackageReference Include="Quartz.Extensions.DependencyInjection" Version="3.6.2" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+    <PackageReference Include="Quartz.AspNetCore" Version="3.8.1" />
+    <PackageReference Include="Quartz.Extensions.DependencyInjection" Version="3.8.1" />
   </ItemGroup>
 
   <ItemGroup>

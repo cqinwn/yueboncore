@@ -36,8 +36,7 @@ public class APPController : AreaApiController<APP, AppOutputDto, APPInputDto, I
         }
         info.CreatorTime = DateTime.Now;
         info.CreatorUserId = CurrentUser.UserId;
-        info.CompanyId = CurrentUser.OrganizeId;
-        info.DeptId = CurrentUser.DeptId;
+        info.CreateOrgId = CurrentUser.OrganizeId;
         info.DeleteMark = false;
     }
     
@@ -88,12 +87,12 @@ public class APPController : AreaApiController<APP, AppOutputDto, APPInputDto, I
         info.Description = tinfo.Description;
 
         OnBeforeUpdate(info);
-        await _mediator.Send(info);
         bool bl = await iService.UpdateAsync(info);
         if (bl)
         {
             result.ErrCode = ErrCode.successCode;
             result.ErrMsg = ErrCode.err0;
+            await _mediator.Send(info);
         }
         else
         {

@@ -1,3 +1,5 @@
+using SqlSugar;
+
 namespace Yuebon.Security.Services;
 
 /// <summary>
@@ -45,19 +47,11 @@ public class SystemTypeService : BaseService<SystemType, SystemTypeOutputDto>, I
     /// </summary>
     /// <param name="roleIds">½ÇÉ«Id£¬ÓÃ','¸ô¿ª</param>
     /// <returns></returns>
-    public List<UserVisitSystemnTypes> GetSubSystemList(string roleIds)
-    {
-        string roleIDsStr = string.Empty;
-        if (roleIds.IndexOf(',')>0)
-        {
-            roleIDsStr=string.Format("'{0}'", roleIds.Replace(",", "','"));
-        }
-        else
-        {
-            roleIDsStr = string.Format("'{0}'", roleIds); 
-        }
-        
-        IEnumerable<RoleAuthorize> roleAuthorizes = roleAuthorizeService.GetListRoleAuthorizeByRoleId(roleIDsStr, "0");
+    public async Task<List<UserVisitSystemnTypes>> GetSubSystemList(List<long> roleIds)
+    {       
+        List<int> ints = new List<int>();
+        ints.Add(0);
+        IEnumerable<RoleAuthorize> roleAuthorizes = await roleAuthorizeService.GetListRoleAuthorizeByRoleId(roleIds, ints);
         string strWhere = string.Empty;
         if (roleAuthorizes.Count() > 0)
         {
@@ -82,17 +76,15 @@ public class SystemTypeService : BaseService<SystemType, SystemTypeOutputDto>, I
     public override async Task<PageResult<SystemTypeOutputDto>> FindWithPagerAsync(SearchInputDto<SystemType> search)
     {
         bool order = search.Order == "asc" ? false : true;
-        string where = GetDataPrivilege(false);
-        if (!string.IsNullOrEmpty(search.Keywords))
-        {
-            where += string.Format(" and (FullName like '%{0}%' or EnCode like '%{0}%')", search.Keywords);
-        };
+        var expressionWhere = Expressionable.Create<SystemType>()
+           .AndIF(!string.IsNullOrEmpty(search.Keywords), it => it.FullName.Contains(search.Keywords)|| it.EnCode.Contains(search.Keywords))
+           .ToExpression();
         PagerInfo pagerInfo = new PagerInfo
         {
             CurrenetPageIndex = search.CurrenetPageIndex,
             PageSize = search.PageSize
         };
-        List<SystemType> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+        List<SystemType> list = await repository.FindWithPagerAsync(expressionWhere, pagerInfo, search.Sort, order);
         PageResult<SystemTypeOutputDto> pageResult = new PageResult<SystemTypeOutputDto>
         {
             CurrentPage = pagerInfo.CurrenetPageIndex,

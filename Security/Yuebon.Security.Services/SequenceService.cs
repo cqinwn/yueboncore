@@ -1,3 +1,4 @@
+using SqlSugar;
 using Yuebon.Commons.Helpers;
 using Yuebon.Commons.Log;
 
@@ -127,7 +128,7 @@ public class SequenceService : BaseService<Sequence, SequenceOutputDto>, ISequen
         Sequence sequence = repository.GetWhere("SequenceName='" + sequenceName + "'");
         if (sequence != null)
         {
-            IEnumerable<SequenceRule> list = _repositoryRule.GetListWhere("SequenceName='" + sequenceName + "' order by RuleOrder asc");
+            IEnumerable<SequenceRule> list = _repositoryRule.GetListWhere("SequenceName='" + sequenceName + "'").OrderBy(o=>o.RuleOrder);
             if (list.Any())
             {
                 int delimiterNum = 0;
@@ -295,17 +296,15 @@ public class SequenceService : BaseService<Sequence, SequenceOutputDto>, ISequen
     public override async Task<PageResult<SequenceOutputDto>> FindWithPagerAsync(SearchInputDto<Sequence> search)
     {
         bool order = search.Order == "asc" ? false : true;
-        string where = GetDataPrivilege();
-        if (!string.IsNullOrEmpty(search.Keywords))
-        {
-            where += string.Format(" and SequenceName like '%{0}%' ", search.Keywords);
-        };
+        var expressionWhere = Expressionable.Create<Sequence>()
+           .AndIF(!string.IsNullOrEmpty(search.Keywords), it => it.SequenceName.Contains(search.Keywords))
+           .ToExpression();
         PagerInfo pagerInfo = new PagerInfo
         {
             CurrenetPageIndex = search.CurrenetPageIndex,
             PageSize = search.PageSize
         };
-        List<Sequence> list = await repository.FindWithPagerAsync(where, pagerInfo, search.Sort, order);
+        List<Sequence> list = await repository.FindWithPagerAsync(expressionWhere, pagerInfo, search.Sort, order);
         PageResult<SequenceOutputDto> pageResult = new PageResult<SequenceOutputDto>
         {
             CurrentPage = pagerInfo.CurrenetPageIndex,

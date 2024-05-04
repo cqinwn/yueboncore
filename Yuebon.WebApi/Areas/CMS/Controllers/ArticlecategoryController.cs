@@ -28,8 +28,6 @@ public class ArticlecategoryController : AreaApiController<Articlecategory, Arti
         info.Id = IdGeneratorHelper.IdSnowflake();
         info.CreatorTime = DateTime.Now;
         info.CreatorUserId = CurrentUser.UserId;
-        info.CompanyId = CurrentUser.OrganizeId;
-        info.DeptId = CurrentUser.DeptId;
         info.DeleteMark = false;
         if (info.SortCode == null)
         {

@@ -14,7 +14,8 @@ namespace Yuebon.Security.Repositories
         /// <returns></returns>
         public async Task<List<long>> GetListDeptByRole(List<long> roleIds)
         {
-            return await Db.Queryable<RoleData>().Where(it => roleIds.Any(s=>s==it.RoleId)).Select(it=>it.AuthorizeData).ToListAsync();
+            return await Db.Queryable<RoleData>().Where(it => roleIds.Any(s=>s==it.RoleId))
+                .Select<long>(it=>it.AuthorizeData).ToListAsync();
            
         }
 

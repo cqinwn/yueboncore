@@ -44,7 +44,7 @@ namespace Yuebon.Commons.Helpers
             var list = new List<Assembly>();
             var deps = DependencyContext.Default;
             //排除所有的系统程序集、Nuget下载包
-            var libs = deps.CompileLibraries.Where(lib => lib.Type == AssembleTypeConsts.Project||lib.Name.StartsWith("Yuebon"));//只获取本项目用到的包
+            var libs = deps.CompileLibraries.Where(lib => lib.Type == AssembleTypeConsts.Project);//只获取本项目用到的包
             foreach (var lib in libs)
             {
                 try

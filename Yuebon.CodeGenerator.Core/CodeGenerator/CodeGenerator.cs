@@ -21,17 +21,17 @@ public class CodeGenerator
     /// <summary>
     /// 代码生成器配置
     /// </summary>
-    private static readonly CodeGenerateOption _option=new CodeGenerateOption();
+    private static readonly CodeGenerateOption _option = new CodeGenerateOption();
     /// <summary>
     /// InputDto输入实体是不包含字段
     /// </summary>
-    private static string inputDtoNoField= "DeleteMark,CreatorTime,CreatorUserId,CompanyId,DeptId,LastModifyTime,LastModifyUserId,DeleteTime,DeleteUserId,";
+    private static string inputDtoNoField = "DeleteMark,CreatorTime,CreatorUserId,CompanyId,DeptId,LastModifyTime,LastModifyUserId,DeleteTime,DeleteUserId,";
     /// <summary>
     /// 静态构造函数：从IoC容器读取配置参数，如果读取失败则会抛出ArgumentNullException异常
     /// </summary>
     static CodeGenerator()
     {
-        
+
     }
     /// <summary>
     /// 
@@ -42,7 +42,7 @@ public class CodeGenerator
         YuebonCacheHelper yuebonCacheHelper = new();
 
         object connCode = yuebonCacheHelper.Get("CodeGeneratorDbConn");
-        ConnectionConfig config=new ConnectionConfig();
+        ConnectionConfig config = new ConnectionConfig();
         if (connCode != null)
         {
             string dbTypeCache = yuebonCacheHelper.Get("CodeGeneratorDbType").ToString();
@@ -50,7 +50,7 @@ public class CodeGenerator
             {
                 ConfigId = "codedb",
                 ConnectionString = connCode.ToString(),
-                DbType = (SqlSugar.DbType)dbTypeCache.ToInt(),
+                DbType = (DbType)dbTypeCache.ToInt(),
                 IsAutoCloseConnection = true
             };
             return new SqlSugarClient(config);
@@ -61,7 +61,7 @@ public class CodeGenerator
             bool conStringEncrypt = Configs.GetConfigurationValue("AppSetting", "ConStringEncrypt").ToBool();
             allDbs.ForEach(m =>
             {
-               config = new ConnectionConfig()
+                config = new ConnectionConfig()
                 {
                     ConfigId = m.ConnId.ToLower(),
                     ConnectionString = conStringEncrypt ? DEncrypt.Decrypt(m.MasterDB.ConnectionString) : m.MasterDB.ConnectionString,
@@ -81,7 +81,7 @@ public class CodeGenerator
     /// <param name="tableList">要生成代码的表</param>
     /// <param name="replaceTableNameStr">要删除表名称的字符</param>
     /// <param name="ifExsitedCovered">是否替换现有文件，为true时替换</param>
-    public static void Generate(string baseNamespace, string tableList, string replaceTableNameStr,bool ifExsitedCovered = false)
+    public static void Generate(string baseNamespace, string tableList, string replaceTableNameStr, bool ifExsitedCovered = false)
     {
         _option.DtosNamespace = baseNamespace + ".Dtos";
         _option.ModelsNamespace = baseNamespace + ".Models";
@@ -95,11 +95,10 @@ public class CodeGenerator
         _option.BaseNamespace = baseNamespace;
 
 
-        List<DbTableInfo> listTable = GetDB().DbMaintenance.GetTableInfoList().FindAll(o=> SqlFunc.ContainsArrayUseSqlParameters<string>(_option.TableList.Split(","),o.Name));// (_option.TableList);
+        List<DbTableInfo> listTable = GetDB().DbMaintenance.GetTableInfoList().FindAll(o => SqlFunc.ContainsArrayUseSqlParameters(_option.TableList.Split(","), o.Name));
         string profileContent = string.Empty;
         foreach (DbTableInfo dbTableInfo in listTable)
         {
-           
             List<DbColumnInfo> listField = GetDB().DbMaintenance.GetColumnInfosByTableName(dbTableInfo.Name);
             GenerateSingle(listField, dbTableInfo, ifExsitedCovered);
             string tableName = dbTableInfo.Name;
@@ -122,8 +121,8 @@ public class CodeGenerator
             }
             profileContent += string.Format("           CreateMap<{0}, {0}OutputDto>();\n", tableNameClass);
             profileContent += string.Format("           CreateMap<{0}InputDto, {0}>();\n", tableNameClass);
-        }            
-       
+        }
+
         GenerateDtoProfile(_option.ModelsNamespace, profileContent, ifExsitedCovered);
     }
 
@@ -133,9 +132,9 @@ public class CodeGenerator
     /// <param name="listField">表字段集合</param>
     /// <param name="tableInfo">表信息</param>
     /// <param name="ifExsitedCovered">如果目标文件存在，是否覆盖。默认为false</param>
-    public static void GenerateSingle(List<DbColumnInfo> listField, DbTableInfo tableInfo,bool ifExsitedCovered = false)
+    public static void GenerateSingle(List<DbColumnInfo> listField, DbTableInfo tableInfo, bool ifExsitedCovered = false)
     {
-        var modelsNamespace =_option.ModelsNamespace;
+        var modelsNamespace = _option.ModelsNamespace;
         var tableName = tableInfo.Name;//表名
         var modelTypeDesc = tableInfo.Description;//表描述
         if (!string.IsNullOrEmpty(_option.ReplaceTableNameStr))
@@ -145,7 +144,7 @@ public class CodeGenerator
             {
                 if (!string.IsNullOrEmpty(rel[i].ToString()))
                 {
-                    tableName = tableName.Replace(rel[i].ToString(),"");
+                    tableName = tableName.Replace(rel[i].ToString(), "");
                 }
             }
         }
@@ -169,7 +168,7 @@ public class CodeGenerator
         foreach (DbColumnInfo dbFieldInfo in listField)
         {
             string fieldName = dbFieldInfo.DbColumnName.Substring(0, 1).ToUpper() + dbFieldInfo.DbColumnName.Substring(1);
-            string strDataType = SqlType2CsharpTypeStr(dbFieldInfo.DataType,dbFieldInfo.IsNullable);
+            string strDataType = SqlType2CsharpTypeStr(dbFieldInfo.DataType, dbFieldInfo.IsNullable);
             //主键
             if (dbFieldInfo.IsPrimarykey)
             {
@@ -177,64 +176,98 @@ public class CodeGenerator
                 outputDtocontent += "        /// <summary>\n";
                 outputDtocontent += string.Format("        /// 设置或获取{0}\n", dbFieldInfo.ColumnDescription);
                 outputDtocontent += "        /// </summary>\n";
-                if (strDataType == "string")
+                if (strDataType.ToLower() == "string")
                 {
                     outputDtocontent += string.Format("        [MaxLength({0})]\n", dbFieldInfo.Length);
                 }
                 outputDtocontent += string.Format("        public {0} {1}", strDataType, fieldName);
                 outputDtocontent += " { get; set; }\n\r";
-            }else //非主键
+            }
+            else //非主键
             {
                 modelcontent += "        /// <summary>\n";
                 modelcontent += string.Format("        /// 设置或获取{0}\n", dbFieldInfo.ColumnDescription);
                 modelcontent += "        /// </summary>\n";
-                if (strDataType == "string")
+                if (strDataType.ToLower().Contains("string"))
                 {
                     modelcontent += string.Format("        [MaxLength({0})]\n", dbFieldInfo.Length);
                 }
                 modelcontent += string.Format("        [SugarColumn(ColumnDescription=\"{0}\")]\n", dbFieldInfo.ColumnDescription);
-                modelcontent += string.Format("        public {0}{1} {2}", strDataType, dbFieldInfo.IsNullable?"":"?",fieldName);
+                modelcontent += string.Format("        public {0}{1} {2}", strDataType, dbFieldInfo.IsNullable ? "" : "?", fieldName);
                 modelcontent += " { get; set; }\n\r";
 
 
                 outputDtocontent += "        /// <summary>\n";
                 outputDtocontent += string.Format("        /// 设置或获取{0}\n", dbFieldInfo.ColumnDescription);
                 outputDtocontent += "        /// </summary>\n";
-                if (strDataType == "string")
+                if (strDataType.ToLower().Contains("string"))
                 {
                     outputDtocontent += string.Format("        [MaxLength({0})]\n", dbFieldInfo.Length);
                 }
                 outputDtocontent += string.Format("        public {0}{1} {2}", strDataType, dbFieldInfo.IsNullable ? "" : "?", fieldName);
                 outputDtocontent += " { get; set; }\n\r";
-                if (strDataType == "bool"||strDataType== "tinyint")
+                if (strDataType.ToLower().Contains("bool") || strDataType.ToLower().Contains("tinyint"))
                 {
 
                     vueViewListContent += string.Format("        <el-table-column prop=\"{0}\" label=\"{1}\" sortable=\"custom\" width=\"120\" >\n", fieldName, dbFieldInfo.ColumnDescription);
-                    vueViewListContent += "          <template slot-scope=\"scope\">\n";
-                    vueViewListContent += string.Format("            <el-tag :type=\"scope.row.{0} === true ? 'success' : 'info'\"  disable-transitions >", fieldName);
+                    vueViewListContent += "          <template  #default=\"scope\">\n";
+                    if (fieldName == "DeleteMark")
+                    {
+                        vueViewListContent += string.Format("            <el-tag :type=\"scope.row.{0} === true ? 'danger' : 'info'\"  disable-transitions >", fieldName);
+                    }
+                    else
+                    {
+                        vueViewListContent += string.Format("            <el-tag :type=\"scope.row.{0} === true ? 'success' : 'info'\"  disable-transitions >", fieldName);
+                    }
                     vueViewListContent += "{{ ";
-                    vueViewListContent += string.Format("scope.row.{0}===true?'启用':'禁用' ", fieldName);
+                    vueViewListContent += string.Format("scope.row.{0}===true?'是':'否' ", fieldName);
                     vueViewListContent += "}}</el-tag>\n";
                     vueViewListContent += "          </template>\n";
                     vueViewListContent += "        </el-table-column>\n";
 
+                    vueViewFromContent += "        <el-col :span=\"12\">\n";
                     vueViewFromContent += string.Format("        <el-form-item label=\"{0}\" :label-width=\"formLabelWidth\" prop=\"{1}\">", dbFieldInfo.ColumnDescription, fieldName);
                     vueViewFromContent += string.Format("          <el-radio-group v-model=\"editFrom.{0}\">\n", fieldName);
-                    vueViewFromContent += "           <el-radio label=\"true\">是</el-radio>\n";
-                    vueViewFromContent += "           <el-radio label=\"false\">否</el-radio>\n";
+                    vueViewFromContent += "           <el-radio :value=\"true\">是</el-radio>\n";
+                    vueViewFromContent += "           <el-radio :value=\"false\">否</el-radio>\n";
                     vueViewFromContent += "          </el-radio-group>\n";
                     vueViewFromContent += "        </el-form-item>\n";
+                    vueViewFromContent += "        </el-col>\n";
 
-                    vueViewEditFromContent += string.Format("        {0}: 'true',\n", fieldName);
-                    vueViewEditFromBindContent+= string.Format("        this.editFrom.{0} = res.ResData.{0}+''\n", fieldName);
+                    vueViewEditFromContent += string.Format("        {0}: true,\n", fieldName);
+                    vueViewEditFromBindContent += string.Format("        this.editFrom.{0} = res.ResData.{0}+''\n", fieldName);
+                }
+                else if (strDataType.ToLower().Contains("datetime"))
+                {
+                    vueViewListContent += string.Format("        <el-table-column prop=\"{0}\" label=\"{1}\" sortable=\"custom\" width=\"120\" />\n", fieldName, dbFieldInfo.ColumnDescription);
+                    vueViewFromContent += "        <el-col :span=\"12\">\n";
+                    vueViewFromContent += string.Format("        <el-form-item label=\"{0}\" :label-width=\"formLabelWidth\" prop=\"{1}\">\n", dbFieldInfo.ColumnDescription, fieldName);
+                    vueViewFromContent += string.Format("          <el-date-picker v-model=\"editFrom.{0}\" placeholder=\"请选择{1}\" type=\"datetime\" clearable />\n", fieldName, dbFieldInfo.ColumnDescription);
+                    vueViewFromContent += "        </el-form-item>\n";
+                    vueViewFromContent += "        </el-col>\n";
+                    vueViewEditFromContent += string.Format("        {0}: '',\n", fieldName);
+                    vueViewEditFromBindContent += string.Format("        this.editFrom.{0} = res.ResData.{0}\n", fieldName);
+                }
+                else if (strDataType.ToLower().Contains("decimal"))
+                {
+                    vueViewListContent += string.Format("        <el-table-column prop=\"{0}\" label=\"{1}\" sortable=\"custom\" width=\"120\" />\n", fieldName, dbFieldInfo.ColumnDescription);
+                    vueViewFromContent += "        <el-col :span=\"12\">\n";
+                    vueViewFromContent += string.Format("        <el-form-item label=\"{0}\" :label-width=\"formLabelWidth\" prop=\"{1}\">\n", dbFieldInfo.ColumnDescription, fieldName);
+                    vueViewFromContent += string.Format("          <el-input-number v-model=\"editFrom.{0}\" autocomplete=\"off\" clearable />\n", fieldName);
+                    vueViewFromContent += "        </el-form-item>\n";
+                    vueViewFromContent += "        </el-col>\n";
+                    vueViewEditFromContent += string.Format("        {0}: '',\n", fieldName);
+                    vueViewEditFromBindContent += string.Format("        this.editFrom.{0} = res.ResData.{0}\n", fieldName);
                 }
                 else
                 {
                     vueViewListContent += string.Format("        <el-table-column prop=\"{0}\" label=\"{1}\" sortable=\"custom\" width=\"120\" />\n", fieldName, dbFieldInfo.ColumnDescription);
 
+                    vueViewFromContent += "        <el-col :span=\"12\">\n";
                     vueViewFromContent += string.Format("        <el-form-item label=\"{0}\" :label-width=\"formLabelWidth\" prop=\"{1}\">\n", dbFieldInfo.ColumnDescription, fieldName);
                     vueViewFromContent += string.Format("          <el-input v-model=\"editFrom.{0}\" placeholder=\"请输入{1}\" autocomplete=\"off\" clearable />\n", fieldName, dbFieldInfo.ColumnDescription);
                     vueViewFromContent += "        </el-form-item>\n";
+                    vueViewFromContent += "        </el-col>\n";
                     vueViewEditFromContent += string.Format("        {0}: '',\n", fieldName);
                     vueViewEditFromBindContent += string.Format("        this.editFrom.{0} = res.ResData.{0}\n", fieldName);
                 }
@@ -249,7 +282,7 @@ public class CodeGenerator
                 }
             }
 
-            if (!inputDtoNoField.Contains(dbFieldInfo.DbColumnName) ||dbFieldInfo.DbColumnName=="Id")
+            if (!inputDtoNoField.Contains(dbFieldInfo.DbColumnName) || dbFieldInfo.DbColumnName == "Id")
             {
                 InputDtocontent += "        /// <summary>\n";
                 InputDtocontent += string.Format("        /// 设置或获取{0}\n", dbFieldInfo.ColumnDescription);
@@ -271,7 +304,7 @@ public class CodeGenerator
         GenerateOutputDto(modleNameClass, modelTypeDesc, outputDtocontent, ifExsitedCovered);
         GenerateInputDto(modelsNamespace, modleNameClass, modelTypeDesc, InputDtocontent, keyTypeName, ifExsitedCovered);
         GenerateControllers(modleNameClass, modelTypeDesc, keyTypeName, ifExsitedCovered);
-        GenerateVueViews(modleNameClass, modelTypeDesc,vueViewListContent,vueViewFromContent,vueViewEditFromContent,vueViewEditFromBindContent,vueViewSaveBindContent,vueViewEditFromRuleContent,ifExsitedCovered);
+        GenerateVueViews(modleNameClass, modelTypeDesc, vueViewListContent, vueViewFromContent, vueViewEditFromContent, vueViewEditFromBindContent, vueViewSaveBindContent, vueViewEditFromRuleContent, ifExsitedCovered);
     }
 
 
@@ -306,14 +339,13 @@ public class CodeGenerator
     {
         var path = AppDomain.CurrentDomain.BaseDirectory;
         //path = path.Substring(0, path.IndexOf("\\bin"));
-        var parentPath = path.Substring(0, path.LastIndexOf("\\"));
-        var iRepositoryPath = parentPath + "\\" + _option.BaseNamespace + "\\" + _option.IRepositoriesNamespace;
+        var iRepositoryPath = Path.Combine(path, _option.BaseNamespace, _option.IRepositoriesNamespace);
         if (!Directory.Exists(iRepositoryPath))
         {
-            iRepositoryPath = parentPath + "\\" + _option.BaseNamespace + "\\IRepositories";
+            iRepositoryPath = Path.Combine(path, _option.BaseNamespace, "IRepositories");
             Directory.CreateDirectory(iRepositoryPath);
         }
-        var fullPath = iRepositoryPath + "\\I" + modelTypeName + "Repository.cs";
+        var fullPath = Path.Combine(iRepositoryPath, "I" + modelTypeName) + "Repository.cs";
         if (File.Exists(fullPath) && !ifExsitedCovered)
             return;
         var content = ReadTemplate("IRepositoryTemplate.txt");
@@ -332,18 +364,16 @@ public class CodeGenerator
     /// <param name="tableName">表名</param>
     /// <param name="keyTypeName"></param>
     /// <param name="ifExsitedCovered">如果目标文件存在，是否覆盖。默认为false</param>
-    private static void GenerateRepository(string modelTypeName, string modelTypeDesc, string tableName,string keyTypeName, bool ifExsitedCovered = false)
+    private static void GenerateRepository(string modelTypeName, string modelTypeDesc, string tableName, string keyTypeName, bool ifExsitedCovered = false)
     {
         var path = AppDomain.CurrentDomain.BaseDirectory;
-        //path = path.Substring(0, path.IndexOf("\\bin"));
-        var parentPath = path.Substring(0, path.LastIndexOf("\\"));
-        var repositoryPath = parentPath + "\\" + _option.BaseNamespace + "\\" + _option.RepositoriesNamespace;
+        var repositoryPath = Path.Combine(path, _option.BaseNamespace, _option.RepositoriesNamespace);
         if (!Directory.Exists(repositoryPath))
         {
-            repositoryPath = parentPath + "\\" + _option.BaseNamespace + "\\Repositories";
+            repositoryPath = Path.Combine(path, _option.BaseNamespace, "Repositories");
             Directory.CreateDirectory(repositoryPath);
         }
-        var fullPath = repositoryPath + "\\" + modelTypeName + "Repository.cs";
+        var fullPath = Path.Combine(repositoryPath, modelTypeName) + "Repository.cs";
         if (File.Exists(fullPath) && !ifExsitedCovered)
             return;
         var content = ReadTemplate("RepositoryTemplate.txt");
@@ -369,15 +399,13 @@ public class CodeGenerator
     {
         var iServicsNamespace = _option.IServicsNamespace;
         var path = AppDomain.CurrentDomain.BaseDirectory;
-        //path = path.Substring(0, path.IndexOf("\\bin"));
-        var parentPath = path.Substring(0, path.LastIndexOf("\\"));
-        var iServicesPath = parentPath + "\\" + _option.BaseNamespace + "\\" + iServicsNamespace;
+        var iServicesPath = Path.Combine(path, _option.BaseNamespace, _option.IServicsNamespace);
         if (!Directory.Exists(iServicesPath))
         {
-            iServicesPath = parentPath + "\\" + _option.BaseNamespace + "\\IServices";
+            iServicesPath = Path.Combine(path, _option.BaseNamespace, "IServices");
             Directory.CreateDirectory(iServicesPath);
         }
-        var fullPath = iServicesPath + "\\I" + modelTypeName + "Service.cs";
+        var fullPath = Path.Combine(iServicesPath, "I" + modelTypeName) + "Service.cs";
         if (File.Exists(fullPath) && !ifExsitedCovered)
             return;
         var content = ReadTemplate("IServiceTemplate.txt");
@@ -402,15 +430,13 @@ public class CodeGenerator
     {
         var servicesNamespace = _option.ServicesNamespace;
         var path = AppDomain.CurrentDomain.BaseDirectory;
-        //path = path.Substring(0, path.IndexOf("\\bin"));
-        var parentPath = path.Substring(0, path.LastIndexOf("\\"));
-        var servicesPath = parentPath + "\\" + _option.BaseNamespace + "\\" + servicesNamespace;
+        var servicesPath = Path.Combine(path, _option.BaseNamespace, servicesNamespace);
         if (!Directory.Exists(servicesPath))
         {
-            servicesPath = parentPath + "\\" + _option.BaseNamespace + "\\Services";
+            servicesPath = Path.Combine(path, _option.BaseNamespace, "Services");
             Directory.CreateDirectory(servicesPath);
         }
-        var fullPath = servicesPath + "\\" + modelTypeName + "Service.cs";
+        var fullPath = Path.Combine(servicesPath, modelTypeName) + "Service.cs";
         if (File.Exists(fullPath) && !ifExsitedCovered)
             return;
         var content = ReadTemplate("ServiceTemplate.txt");
@@ -433,19 +459,17 @@ public class CodeGenerator
     /// <param name="modelTypeDesc"></param>
     /// <param name="modelContent"></param>
     /// <param name="ifExsitedCovered"></param>
-    private static void GenerateOutputDto(string modelTypeName, string modelTypeDesc, string modelContent,  bool ifExsitedCovered = false)
+    private static void GenerateOutputDto(string modelTypeName, string modelTypeDesc, string modelContent, bool ifExsitedCovered = false)
     {
         var servicesNamespace = _option.ServicesNamespace;
         var path = AppDomain.CurrentDomain.BaseDirectory;
-        //path = path.Substring(0, path.IndexOf("\\bin"));
-        var parentPath = path.Substring(0, path.LastIndexOf("\\"));
-        var servicesPath = parentPath + "\\" + _option.BaseNamespace + "\\" + servicesNamespace;
+        var servicesPath = Path.Combine(path, _option.BaseNamespace, servicesNamespace);
         if (!Directory.Exists(servicesPath))
         {
-            servicesPath = parentPath + "\\" + _option.BaseNamespace + "\\Dtos";
+            servicesPath = Path.Combine(path, _option.BaseNamespace, "Dtos");
             Directory.CreateDirectory(servicesPath);
         }
-        var fullPath = servicesPath + "\\" + modelTypeName + "OutputDto.cs";
+        var fullPath = Path.Combine(servicesPath, modelTypeName) + "OutputDto.cs";
         if (File.Exists(fullPath) && !ifExsitedCovered)
             return;
         var content = ReadTemplate("OuputDtoTemplate.txt");
@@ -470,15 +494,13 @@ public class CodeGenerator
     {
         var servicesNamespace = _option.DtosNamespace;
         var path = AppDomain.CurrentDomain.BaseDirectory;
-        //path = path.Substring(0, path.IndexOf("\\bin"));
-        var parentPath = path.Substring(0, path.LastIndexOf("\\"));
-        var servicesPath = parentPath + "\\" + _option.BaseNamespace + "\\" + servicesNamespace;
+        var servicesPath = Path.Combine(path, _option.BaseNamespace, servicesNamespace);
         if (!Directory.Exists(servicesPath))
         {
-            servicesPath = parentPath + "\\" + _option.BaseNamespace + "\\Dtos";
+            servicesPath = Path.Combine(path, _option.BaseNamespace, "Dtos");
             Directory.CreateDirectory(servicesPath);
         }
-        var fullPath = servicesPath + "\\" + modelTypeName + "InputDto.cs";
+        var fullPath = Path.Combine(servicesPath, modelTypeName) + "InputDto.cs";
         if (File.Exists(fullPath) && !ifExsitedCovered)
             return;
         var content = ReadTemplate("InputDtoTemplate.txt");
@@ -498,20 +520,18 @@ public class CodeGenerator
     /// <param name="modelsNamespace"></param>
     /// <param name="profileContent"></param>
     /// <param name="ifExsitedCovered">如果目标文件存在，是否覆盖。默认为false</param>
-    private static void GenerateDtoProfile(string modelsNamespace, string profileContent,  bool ifExsitedCovered = false)
+    private static void GenerateDtoProfile(string modelsNamespace, string profileContent, bool ifExsitedCovered = false)
     {
         var servicesNamespace = _option.DtosNamespace;
         var path = AppDomain.CurrentDomain.BaseDirectory;
-        //path = path.Substring(0, path.IndexOf("\\bin"));
-        var parentPath = path.Substring(0, path.LastIndexOf("\\"));
-        var servicesPath = parentPath + "\\" + _option.BaseNamespace + "\\" + servicesNamespace;
+        var servicesPath = Path.Combine(path, _option.BaseNamespace, servicesNamespace);
         if (!Directory.Exists(servicesPath))
         {
-            servicesPath = parentPath + "\\" + _option.BaseNamespace + "\\Dtos";
+            servicesPath = Path.Combine(path, _option.BaseNamespace, "Dtos");
             Directory.CreateDirectory(servicesPath);
         }
-        var fileClassName = _option.BaseNamespace.Substring(_option.BaseNamespace.LastIndexOf('.')+1);
-        var fullPath = servicesPath + "\\" + fileClassName + "Profile.cs";
+        var fileClassName = _option.BaseNamespace.Substring(_option.BaseNamespace.LastIndexOf('.') + 1);
+        var fullPath = Path.Combine(servicesPath, fileClassName) + "Profile.cs";
         if (File.Exists(fullPath) && !ifExsitedCovered)
             return;
         var content = ReadTemplate("ProfileTemplate.txt");
@@ -533,18 +553,16 @@ public class CodeGenerator
     /// <param name="modelContent">数据库表实体内容</param>
     /// <param name="keyTypeName">主键数据类型</param>
     /// <param name="ifExsitedCovered">如果目标文件存在，是否覆盖。默认为false</param>
-    private static void GenerateModels(string modelsNamespace, string modelTypeName,string tableName,  string modelContent, string modelTypeDesc, string keyTypeName, bool ifExsitedCovered = false)
+    private static void GenerateModels(string modelsNamespace, string modelTypeName, string tableName, string modelContent, string modelTypeDesc, string keyTypeName, bool ifExsitedCovered = false)
     {
         var path = AppDomain.CurrentDomain.BaseDirectory;
-        //path = path.Substring(0, path.IndexOf("\\bin"));
-        var parentPath = path.Substring(0, path.LastIndexOf("\\"));
-        var servicesPath = parentPath + "\\" + _option.BaseNamespace + "\\" + modelsNamespace;
+        var servicesPath = Path.Combine(path, _option.BaseNamespace, modelsNamespace);
         if (!Directory.Exists(servicesPath))
         {
-            servicesPath = parentPath + "\\" + _option.BaseNamespace + "\\Models";
+            servicesPath = Path.Combine(path, _option.BaseNamespace, "Models");
             Directory.CreateDirectory(servicesPath);
         }
-        var fullPath = servicesPath + "\\" + modelTypeName + ".cs";
+        var fullPath = Path.Combine(servicesPath, modelTypeName) + ".cs";
         if (File.Exists(fullPath) && !ifExsitedCovered)
             return;
         var content = ReadTemplate("ModelsTemplate.txt");
@@ -566,20 +584,18 @@ public class CodeGenerator
     /// <param name="modelTypeDesc">实体描述</param>
     /// <param name="keyTypeName"></param>
     /// <param name="ifExsitedCovered">如果目标文件存在，是否覆盖。默认为false</param>
-    private static void GenerateControllers(string modelTypeName, string modelTypeDesc,string keyTypeName, bool ifExsitedCovered = false)
+    private static void GenerateControllers(string modelTypeName, string modelTypeDesc, string keyTypeName, bool ifExsitedCovered = false)
     {
         var servicesNamespace = _option.DtosNamespace;
         var fileClassName = _option.BaseNamespace.Substring(_option.BaseNamespace.IndexOf('.') + 1);
         var path = AppDomain.CurrentDomain.BaseDirectory;
-        //path = path.Substring(0, path.IndexOf("\\bin"));
-        var parentPath = path.Substring(0, path.LastIndexOf("\\"));
-        var servicesPath = parentPath + "\\" + _option.BaseNamespace + "\\" + servicesNamespace + "\\Controllers\\";
+        var servicesPath = Path.Combine(path, _option.BaseNamespace, servicesNamespace, "Controllers");
         if (!Directory.Exists(servicesPath))
         {
-            servicesPath = parentPath + "\\" + _option.BaseNamespace + "\\Areas\\"+ fileClassName;
+            servicesPath = Path.Combine(path, _option.BaseNamespace, "Areas", fileClassName);
             Directory.CreateDirectory(servicesPath);
         }
-        var fullPath = servicesPath + modelTypeName + "Controller.cs";
+        var fullPath = Path.Combine(servicesPath, modelTypeName) + "Controller.cs";
         if (File.Exists(fullPath) && !ifExsitedCovered)
             return;
         var content = ReadTemplate("ControllersTemplate.txt");
@@ -612,15 +628,13 @@ public class CodeGenerator
         var servicesNamespace = _option.DtosNamespace;
         var fileClassName = _option.BaseNamespace.Substring(_option.BaseNamespace.IndexOf('.') + 1);
         var path = AppDomain.CurrentDomain.BaseDirectory;
-        //path = path.Substring(0, path.IndexOf("\\bin"));
-        var parentPath = path.Substring(0, path.LastIndexOf("\\"));
-        var servicesPath = parentPath + "\\" + _option.BaseNamespace + "\\" + servicesNamespace;
+        var servicesPath = Path.Combine(path, _option.BaseNamespace, servicesNamespace);
         if (!Directory.Exists(servicesPath))
         {
-            servicesPath = parentPath + "\\" + _option.BaseNamespace + "\\vue\\" +modelTypeName.ToLower();
+            servicesPath = Path.Combine(path, _option.BaseNamespace, "vue", modelTypeName.ToLower());
             Directory.CreateDirectory(servicesPath);
         }
-        var fullPath = servicesPath + "\\" +"index.vue";
+        var fullPath = Path.Combine(servicesPath, "index") + ".vue";
         if (File.Exists(fullPath) && !ifExsitedCovered)
             return;
         var content = ReadTemplate("VueTemplate.txt");
@@ -638,7 +652,7 @@ public class CodeGenerator
             .Replace("{VueViewEditFromRuleContent}", vueViewEditFromRuleContent);
         WriteAndSave(fullPath, content);
 
-        fullPath = servicesPath + "\\" + modelTypeName.ToLower() + ".js";
+        fullPath = servicesPath + "\\" + modelTypeName.ToLower() + "service.js";
         if (File.Exists(fullPath) && !ifExsitedCovered)
             return;
         content = ReadTemplate("VueJsTemplate.txt");
